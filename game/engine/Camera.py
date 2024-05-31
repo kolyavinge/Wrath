@@ -1,7 +1,7 @@
-from game.calc.Vector3 import *
-from game.calc.TranfsormMatrix4 import *
-from game.calc.Geometry import *
-from game.anx.Constants import *
+from game.calc.Vector3 import Vector3
+from game.calc.TranfsormMatrix4 import TransformMatrix4
+from game.calc.Geometry import Geometry
+from game.anx.Constants import Constants
 
 
 class Camera:

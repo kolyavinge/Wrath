@@ -1,4 +1,4 @@
-from game.calc.Vector3 import *
+from game.calc.Vector3 import Vector3
 
 
 class Constants:

@@ -1,5 +1,5 @@
-from game.lib.Math import *
-from game.calc.Vector3 import *
+from game.lib.Math import Math
+from game.calc.Vector3 import Vector3
 
 # https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glTranslate.xml
 # https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glRotate.xml

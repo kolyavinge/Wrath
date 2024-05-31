@@ -1,4 +1,4 @@
-from game.lib.Math import *
+from game.lib.Math import Math
 
 
 class Vector3:
