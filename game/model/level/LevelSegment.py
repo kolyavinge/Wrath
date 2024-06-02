@@ -5,3 +5,4 @@ class LevelSegment:
         self.maxX = maxX
         self.minY = minY
         self.maxY = maxY
+        self.walls = []

@@ -16,13 +16,26 @@ class WallOrientation:
 class Wall:
 
     def __init__(self):
+        self.id = 0
         self.orientation = WallOrientation.horizontal
         self.startPosition = Vector3()
         self.endPosition = Vector3()
         self.frontNormal = Vector3()
 
+    def getMinX(self):
+        return min(self.startPosition.x, self.endPosition.x)
+
+    def getMaxX(self):
+        return max(self.startPosition.x, self.endPosition.x)
+
+    def getMinY(self):
+        return min(self.startPosition.y, self.endPosition.y)
+
+    def getMaxY(self):
+        return max(self.startPosition.y, self.endPosition.y)
+
     def validate(self):
-        if self.orientation != WallOrientation.horizontal or self.orientation != WallOrientation.vertical:
+        if self.orientation != WallOrientation.horizontal and self.orientation != WallOrientation.vertical:
             raise Exception()
 
         if self.startPosition == self.endPosition:
@@ -33,3 +46,6 @@ class Wall:
 
         if self.frontNormal.getLength() != 1:
             raise Exception()
+
+    def toString(self):
+        return f"{self.id} ({self.startPosition} - {self.endPosition})"

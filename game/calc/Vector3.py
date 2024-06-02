@@ -63,3 +63,6 @@ class Vector3:
         self.x = x
         self.y = y
         self.z = z
+
+    def toString(self):
+        return f"{self.x}:{self.y}:{self.z}"

@@ -1,59 +1,92 @@
-from game.calc.Vector3 import Vector3
 from game.model.level.Wall import WallOrientation
 from game.model.level.BSPTree import BSPNode
 from game.model.level.LevelSegment import LevelSegment
+
+
+class SplitBorder:
+
+    def __init__(self, minX, maxX, minY, maxY):
+        self.minX = minX
+        self.maxX = maxX
+        self.minY = minY
+        self.maxY = maxY
 
 
 class BSPTreeBuilder:
 
     def build(self, level):
         for floor in level.floors:
-            maxX = self.getMaxX(floor.walls)
-            maxY = self.getMaxY(floor.walls)
-            self.buildRec(floor.bspTree.root, WallOrientation.vertical, 0, maxX, 0, maxY, floor.walls)
+            maxX = max([w.getMaxX() for w in floor.walls])
+            maxY = max([w.getMaxY() for w in floor.walls])
+            splitBorder = SplitBorder(0, maxX, 0, maxY)
+            self.buildRec(floor.bspTree.root, WallOrientation.vertical, splitBorder, floor.walls)
 
-    def buildRec(self, parentNode, splitOrientation, minX, maxX, minY, maxY, walls):
-        if parentNode is None:
+    def buildRec(self, parentNode, splitOrientation, splitBorder, walls):
+        if not walls:
+            parentNode.levelSegment = LevelSegment(splitBorder.minX, splitBorder.maxX, splitBorder.minY, splitBorder.maxY)
             return
-
         splitWalls = [w for w in walls if w.orientation == splitOrientation]
-        if not splitWalls:
-            parentNode.levelSegment = LevelSegment(minX, maxX, minY, maxY)
-            return
-
         self.sortSplitWalls(splitWalls, splitOrientation)
         middleWall = splitWalls[int(len(splitWalls) / 2)]
+        print(middleWall.id)
         walls.remove(middleWall)
         parentNode.basePoint = middleWall.startPosition
-        parentNode.frontNormal = Vector3(1, 0, 0) if splitOrientation == WallOrientation.vertical else Vector3(0, 1, 0)
+        parentNode.frontNormal = middleWall.frontNormal
         backWalls, frontWalls = self.getBackAndFrontWalls(walls, parentNode.basePoint, parentNode.frontNormal)
-        parentNode.back = BSPNode()
-        parentNode.front = BSPNode()
         oppositeSplitOrientation = WallOrientation.getOpposite(splitOrientation)
-        if splitOrientation == WallOrientation.vertical:
-            self.buildRec(parentNode.back, oppositeSplitOrientation, minX, middleWall.startPosition.x, minY, maxY, backWalls)
-            self.buildRec(parentNode.front, oppositeSplitOrientation, middleWall.startPosition.x, maxX, minY, maxY, frontWalls)
+        parentNode.front = BSPNode()
+        splitBorder = self.getFrontSplitBorder(splitBorder, parentNode.basePoint, parentNode.frontNormal)
+        self.buildRec(parentNode.front, oppositeSplitOrientation, splitBorder, frontWalls)
+        if backWalls:
+            parentNode.back = BSPNode()
+            splitBorder = self.getBackSplitBorder(splitBorder, parentNode.basePoint, parentNode.frontNormal)
+            self.buildRec(parentNode.back, oppositeSplitOrientation, splitBorder, backWalls)
+
+    def getFrontSplitBorder(self, splitBorder, basePoint, frontNormal):
+        if frontNormal.y == 1:
+            return SplitBorder(splitBorder.minX, splitBorder.maxX, basePoint.y, splitBorder.maxY)
+        elif frontNormal.y == -1:
+            return SplitBorder(splitBorder.minX, splitBorder.maxX, splitBorder.minY, basePoint.y)
+        elif frontNormal.x == 1:
+            return SplitBorder(basePoint.x, splitBorder.maxX, splitBorder.minY, splitBorder.maxY)
+        elif frontNormal.x == -1:
+            return SplitBorder(splitBorder.minX, basePoint.x, splitBorder.minY, splitBorder.maxY)
         else:
-            self.buildRec(parentNode.back, oppositeSplitOrientation, minX, maxX, minY, middleWall.startPosition.y, backWalls)
-            self.buildRec(parentNode.front, oppositeSplitOrientation, minX, maxX, middleWall.startPosition.y, maxY, frontWalls)
+            raise Exception()
+
+    def getBackSplitBorder(self, splitBorder, basePoint, frontNormal):
+        if frontNormal.y == 1:
+            return SplitBorder(splitBorder.minX, splitBorder.maxX, splitBorder.minY, basePoint.y)
+        elif frontNormal.y == -1:
+            return SplitBorder(splitBorder.minX, splitBorder.maxX, basePoint.y, splitBorder.maxY)
+        elif frontNormal.x == 1:
+            return SplitBorder(splitBorder.minX, basePoint.x, splitBorder.minY, splitBorder.maxY)
+        elif frontNormal.x == -1:
+            return SplitBorder(basePoint.x, splitBorder.maxX, splitBorder.minY, splitBorder.maxY)
+        else:
+            raise Exception()
 
     def getBackAndFrontWalls(self, walls, basePoint, frontNormal):
         backWalls = []
         frontWalls = []
         for wall in walls:
-            wallDirection = wall.startPosition.getCopy()
-            wallDirection.sub(basePoint)
-            if wallDirection.dotProduct(frontNormal) > 0:
+            if self.isWallInFront(wall, basePoint, frontNormal):
                 frontWalls.append(wall)
             else:
-                wallDirection = wall.endPosition.getCopy()
-                wallDirection.sub(basePoint)
-                if wallDirection.dotProduct(frontNormal) > 0:
-                    frontWalls.append(wall)
-                else:
-                    backWalls.append(wall)
+                backWalls.append(wall)
 
         return (backWalls, frontWalls)
+
+    def isWallInFront(self, wall, basePoint, frontNormal):
+        wallDirection = wall.startPosition.getCopy()
+        wallDirection.sub(basePoint)
+        if wallDirection.dotProduct(frontNormal) > 0:
+            return True
+
+        wallDirection = wall.endPosition.getCopy()
+        wallDirection.sub(basePoint)
+        if wallDirection.dotProduct(frontNormal) > 0:
+            return True
 
     def sortSplitWalls(self, splitWalls, splitOrientation):
         if splitOrientation == WallOrientation.vertical:
@@ -61,8 +94,6 @@ class BSPTreeBuilder:
         else:
             splitWalls.sort(key=lambda w: w.startPosition.y)
 
-    def getMaxX(self, walls):
-        return max([w.startPosition.x for w in walls] + [w.endPosition.x for w in walls])
 
-    def getMaxY(self, walls):
-        return max([w.startPosition.y for w in walls] + [w.endPosition.y for w in walls])
+def makeBSPTreeBuilder(resolver):
+    return BSPTreeBuilder()
