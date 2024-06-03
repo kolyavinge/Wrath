@@ -1,5 +1,5 @@
-from game.engine.level.BSPTreeBuilder import BSPTreeBuilder, makeBSPTreeBuilder
-from game.engine.level.BSPTreeTraversal import BSPTreeTraversal, makeBSPTreeTraversal
+from game.engine.level.bsp.BSPTreeBuilder import BSPTreeBuilder, makeBSPTreeBuilder
+from game.engine.level.bsp.BSPTreeTraversal import BSPTreeTraversal, makeBSPTreeTraversal
 from game.engine.level.LevelLoader import LevelLoader, makeLevelLoader
 from game.engine.level.LevelSegmentAnalyzer import LevelSegmentAnalyzer, makeLevelSegmentAnalyzer
 from game.engine.Camera import Camera, makeCamera

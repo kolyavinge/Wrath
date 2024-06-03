@@ -1,4 +1,4 @@
-from game.engine.level.BSPTreeTraversal import BSPTreeTraversal
+from game.engine.level.bsp.BSPTreeTraversal import BSPTreeTraversal
 
 
 class LevelSegmentAnalyzer:

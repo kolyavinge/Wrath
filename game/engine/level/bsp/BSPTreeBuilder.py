@@ -1,15 +1,8 @@
 from game.model.level.Wall import WallOrientation
 from game.model.level.BSPTree import BSPNode
 from game.model.level.LevelSegment import LevelSegment
-
-
-class SplitBorder:
-
-    def __init__(self, minX, maxX, minY, maxY):
-        self.minX = minX
-        self.maxX = maxX
-        self.minY = minY
-        self.maxY = maxY
+from game.engine.level.bsp.SplitBorder import SplitBorder
+from game.engine.level.bsp.WallFrontBackPosition import WallFrontBackPosition
 
 
 class BSPTreeBuilder:
@@ -21,26 +14,25 @@ class BSPTreeBuilder:
             splitBorder = SplitBorder(0, maxX, 0, maxY)
             self.buildRec(floor.bspTree.root, WallOrientation.vertical, splitBorder, floor.walls)
 
-    def buildRec(self, parentNode, splitOrientation, splitBorder, walls):
-        if not walls:
-            parentNode.levelSegment = LevelSegment(splitBorder.minX, splitBorder.maxX, splitBorder.minY, splitBorder.maxY)
-            return
+    def buildRec(self, node, splitOrientation, splitBorder, walls):
         splitWalls = [w for w in walls if w.orientation == splitOrientation]
         self.sortSplitWalls(splitWalls, splitOrientation)
         middleWall = splitWalls[int(len(splitWalls) / 2)]
-        print(middleWall.id)
         walls.remove(middleWall)
-        parentNode.basePoint = middleWall.startPosition
-        parentNode.frontNormal = middleWall.frontNormal
-        backWalls, frontWalls = self.getBackAndFrontWalls(walls, parentNode.basePoint, parentNode.frontNormal)
+        node.basePoint = middleWall.startPosition
+        node.frontNormal = middleWall.frontNormal
+        frontWalls, backWalls = self.getFrontAndBackWalls(walls, node.basePoint, node.frontNormal)
         oppositeSplitOrientation = WallOrientation.getOpposite(splitOrientation)
-        parentNode.front = BSPNode()
-        splitBorder = self.getFrontSplitBorder(splitBorder, parentNode.basePoint, parentNode.frontNormal)
-        self.buildRec(parentNode.front, oppositeSplitOrientation, splitBorder, frontWalls)
+        node.front = BSPNode()
+        splitBorder = self.getFrontSplitBorder(splitBorder, node.basePoint, node.frontNormal)
+        if frontWalls:
+            self.buildRec(node.front, oppositeSplitOrientation, splitBorder, frontWalls)
+        else:
+            node.front.levelSegment = LevelSegment(splitBorder.minX, splitBorder.maxX, splitBorder.minY, splitBorder.maxY)
         if backWalls:
-            parentNode.back = BSPNode()
-            splitBorder = self.getBackSplitBorder(splitBorder, parentNode.basePoint, parentNode.frontNormal)
-            self.buildRec(parentNode.back, oppositeSplitOrientation, splitBorder, backWalls)
+            node.back = BSPNode()
+            splitBorder = self.getBackSplitBorder(splitBorder, node.basePoint, node.frontNormal)
+            self.buildRec(node.back, oppositeSplitOrientation, splitBorder, backWalls)
 
     def getFrontSplitBorder(self, splitBorder, basePoint, frontNormal):
         if frontNormal.y == 1:
@@ -66,27 +58,43 @@ class BSPTreeBuilder:
         else:
             raise Exception()
 
-    def getBackAndFrontWalls(self, walls, basePoint, frontNormal):
-        backWalls = []
+    def getFrontAndBackWalls(self, walls, basePoint, frontNormal):
         frontWalls = []
+        backWalls = []
         for wall in walls:
-            if self.isWallInFront(wall, basePoint, frontNormal):
+            position = self.getWallFrontBackPosition(wall, basePoint, frontNormal)
+            if position == WallFrontBackPosition.frontBack:
                 frontWalls.append(wall)
-            else:
                 backWalls.append(wall)
+            elif position == WallFrontBackPosition.front:
+                frontWalls.append(wall)
+            elif position == WallFrontBackPosition.back:
+                backWalls.append(wall)
+            else:  # WallFrontBackPosition.parallel
+                pass  # ignore this wall
 
-        return (backWalls, frontWalls)
+        return (frontWalls, backWalls)
 
-    def isWallInFront(self, wall, basePoint, frontNormal):
+    def getWallFrontBackPosition(self, wall, basePoint, frontNormal):
         wallDirection = wall.startPosition.getCopy()
         wallDirection.sub(basePoint)
-        if wallDirection.dotProduct(frontNormal) > 0:
-            return True
+        dotProductStart = wallDirection.dotProduct(frontNormal)
 
         wallDirection = wall.endPosition.getCopy()
         wallDirection.sub(basePoint)
-        if wallDirection.dotProduct(frontNormal) > 0:
-            return True
+        dotProductEnd = wallDirection.dotProduct(frontNormal)
+
+        front = dotProductStart > 0 or dotProductEnd > 0
+        back = dotProductStart < 0 or dotProductEnd < 0
+
+        if front and back:
+            return WallFrontBackPosition.frontBack
+        elif front:
+            return WallFrontBackPosition.front
+        elif back:
+            return WallFrontBackPosition.back
+        else:
+            return WallFrontBackPosition.parallel
 
     def sortSplitWalls(self, splitWalls, splitOrientation):
         if splitOrientation == WallOrientation.vertical:

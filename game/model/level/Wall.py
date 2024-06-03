@@ -16,7 +16,6 @@ class WallOrientation:
 class Wall:
 
     def __init__(self):
-        self.id = 0
         self.orientation = WallOrientation.horizontal
         self.startPosition = Vector3()
         self.endPosition = Vector3()
@@ -48,4 +47,4 @@ class Wall:
             raise Exception()
 
     def toString(self):
-        return f"{self.id} ({self.startPosition} - {self.endPosition})"
+        return f"({self.startPosition} - {self.endPosition})"

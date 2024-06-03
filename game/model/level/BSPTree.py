@@ -4,14 +4,14 @@ from game.calc.Vector3 import Vector3
 class BSPNode:
 
     def __init__(self):
-        self.back = None
         self.front = None
+        self.back = None
         self.basePoint = None
         self.frontNormal = None
         self.levelSegment = None
 
     def isLeaf(self):
-        return self.back is None and self.front is None
+        return self.front is None and self.back is None
 
 
 class BSPTree:
@@ -29,5 +29,6 @@ class BSPTree:
         if node.isLeaf():
             segments.append(node.levelSegment)
         else:
-            self.getAllLevelSegmentsRec(node.back, segments)
             self.getAllLevelSegmentsRec(node.front, segments)
+            if node.back is not None:
+                self.getAllLevelSegmentsRec(node.back, segments)

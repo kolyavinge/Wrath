@@ -1,4 +1,4 @@
-from game.engine.level.BSPTreeBuilder import BSPTreeBuilder
+from game.engine.level.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.level.LevelSegmentAnalyzer import LevelSegmentAnalyzer
 
 
