@@ -11,12 +11,9 @@ class LevelManager:
         self.levelSegmentAnalyzer = levelSegmentAnalyzer
 
     def load(self):
-        self.level = self.levelLoader.loadLevel()
-        self.bspTreeBuilder.build(self.level)
-        self.levelSegmentAnalyzer.analyze(self.level)
-
-    def getCurrentLevel(self):
-        return self.level
+        self.currentLevel = self.levelLoader.loadLevel()
+        self.bspTreeBuilder.build(self.currentLevel)
+        self.levelSegmentAnalyzer.analyze(self.currentLevel)
 
 
 def makeLevelManager(resolver):

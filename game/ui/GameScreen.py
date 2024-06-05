@@ -1,4 +1,4 @@
-from game.engine.LevelUpdater import LevelUpdater
+from game.engine.level.LevelUpdater import LevelUpdater
 from game.input.InputManager import InputManager
 
 
