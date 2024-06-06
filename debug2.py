@@ -1,8 +1,8 @@
 from game.model.level.Level import *
 from game.model.level.Floor import *
 from game.model.level.Wall import *
-from game.engine.level.bsp.BSPTreeBuilder import *
-from game.engine.level.bsp.BSPTreeTraversal import *
+from game.engine.bsp.BSPTreeBuilder import *
+from game.engine.bsp.BSPTreeTraversal import *
 
 wall1 = Wall()
 wall1.startPosition = Vector3(0, 10, 0)

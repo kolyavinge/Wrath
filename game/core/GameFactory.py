@@ -15,6 +15,6 @@ class GameFactory:
 
         game = container.resolve(Game)
 
-        # container.errorIfUnusedInstances()
+        container.errorIfUnusedInstances()
 
         return game

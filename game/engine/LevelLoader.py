@@ -5,7 +5,7 @@ from game.model.level.Level import *
 
 class LevelLoader:
 
-    def loadLevel(self):
+    def loadFromFile(self):
         wall1 = Wall()
         wall1.startPosition = Vector3(0, 0, 0)
         wall1.endPosition = Vector3(0, 10, 0)

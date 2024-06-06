@@ -1,8 +1,8 @@
 from game.model.level.Wall import WallOrientation
 from game.model.level.BSPTree import BSPNode
 from game.model.level.LevelSegment import LevelSegment
-from game.engine.level.bsp.SplitBorder import SplitBorder
-from game.engine.level.bsp.WallFrontBackPosition import WallFrontBackPosition
+from game.engine.bsp.SplitBorder import SplitBorder
+from game.engine.bsp.WallFrontBackPosition import WallFrontBackPosition
 
 
 class BSPTreeBuilder:

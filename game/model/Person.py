@@ -1,2 +1,4 @@
 class Person:
-    pass
+
+    def __init__(self):
+        self.hasMoved = False
