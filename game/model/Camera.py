@@ -10,7 +10,6 @@ class Camera:
         self.viewAngleRadians = Geometry.degreesToRadians(60)
         self.position = Vector3()
         self.lookDirection = Vector3()
-        self.lookPosition = Vector3()
         self.viewMatrix = TransformMatrix4()
         self.projectionMatrix = TransformMatrix4()
         self.projectionMatrix.perspective(self.viewAngleRadians, Constants.screenAspect, 0.1, Constants.maxDepth)

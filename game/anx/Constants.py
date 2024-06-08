@@ -6,3 +6,4 @@ class Constants:
     screenAspect = 16 / 9
     maxDepth = 1000
     upDirection = Vector3(0, 0, 1)
+    axisOrigin = Vector3(0, 0, 0)
