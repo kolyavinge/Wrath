@@ -26,3 +26,7 @@ class Math:
     @staticmethod
     def cotan(radians):
         return 1 / math.tan(radians)
+
+    @staticmethod
+    def ln(x):
+        return math.log(x)

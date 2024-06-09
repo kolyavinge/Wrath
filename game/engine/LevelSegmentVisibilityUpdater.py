@@ -14,13 +14,9 @@ class LevelSegmentVisibilityUpdater:
         self.gameData.visibleLevelSegments = [self.gameData.playerLevelSegment]
         self.checkDirection(self.gameData.camera.lookDirection)
         viewAngleRadiansHalf = self.gameData.camera.viewAngleRadians / 2.0
-        leftLookDirection = Geometry.rotatePoint(
-            self.gameData.camera.lookDirection, Constants.upDirection, Constants.axisOrigin, -viewAngleRadiansHalf
-        )
+        leftLookDirection = Geometry.rotatePoint(self.gameData.camera.lookDirection, Constants.zAxis, Constants.axisOrigin, -viewAngleRadiansHalf)
         self.checkDirection(leftLookDirection)
-        rightLookDirection = Geometry.rotatePoint(
-            self.gameData.camera.lookDirection, Constants.upDirection, Constants.axisOrigin, viewAngleRadiansHalf
-        )
+        rightLookDirection = Geometry.rotatePoint(self.gameData.camera.lookDirection, Constants.zAxis, Constants.axisOrigin, viewAngleRadiansHalf)
         self.checkDirection(rightLookDirection)
 
     def checkDirection(self, direction):

@@ -7,7 +7,7 @@ class CameraUpdater:
         self.gameData = gameData
 
     def update(self):
-        # self.gameData.camera.position = self.gameData.level.player.position
+        # self.gameData.camera.position = self.gameData.level.player.centerPoint
         self.gameData.camera.calculateViewMatrix()
 
 

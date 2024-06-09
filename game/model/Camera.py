@@ -15,4 +15,4 @@ class Camera:
         self.projectionMatrix.perspective(self.viewAngleRadians, Constants.screenAspect, 0.1, Constants.maxDepth)
 
     def calculateViewMatrix(self):
-        self.viewMatrix.lookAt(self.position, self.lookDirection, Constants.upDirection)
+        self.viewMatrix.lookAt(self.position, self.lookDirection, Constants.zAxis)

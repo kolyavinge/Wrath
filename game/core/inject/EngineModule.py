@@ -7,6 +7,7 @@ from game.engine.LevelLoader import LevelLoader, makeLevelLoader
 from game.engine.LevelManager import LevelManager, makeLevelManager
 from game.engine.LevelSegmentContentAnalyzer import LevelSegmentContentAnalyzer, makeLevelSegmentContentAnalyzer
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater
+from game.engine.PlayerController import PlayerController, makePlayerController
 from game.engine.PlayerPositionUpdater import PlayerPositionUpdater, makePlayerPositionUpdater
 from game.input.InputManager import InputManager, makeInputManager
 
@@ -23,5 +24,6 @@ class EngineModule:
         binder.bindSingleton(LevelManager, makeLevelManager)
         binder.bindSingleton(LevelSegmentContentAnalyzer, makeLevelSegmentContentAnalyzer)
         binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
+        binder.bindSingleton(PlayerController, makePlayerController)
         binder.bindSingleton(PlayerPositionUpdater, makePlayerPositionUpdater)
         binder.bindSingleton(InputManager, makeInputManager)

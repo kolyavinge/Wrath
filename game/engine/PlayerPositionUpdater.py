@@ -9,13 +9,14 @@ class PlayerPositionUpdater:
         self.traversal = traversal
 
     def update(self):
-        self.updateLevelSegment()
+        if self.gameData.player.hasMoved:
+            self.updateLevelSegment()
+            self.gameData.player.hasMoved = False
 
     def updateLevelSegment(self):
-        if self.gameData.player.hasMoved:
-            playerFloor = self.gameData.level.floors[self.gameData.player.floorIndex]
-            self.gameData.playerLevelSegment = self.traversal.findLevelSegmentOrNone(playerFloor.bspTree, self.gameData.player.position)
-            assert self.gameData.playerLevelSegment is not None
+        playerFloor = self.gameData.level.floors[self.gameData.player.floorIndex]
+        self.gameData.playerLevelSegment = self.traversal.findLevelSegmentOrNone(playerFloor.bspTree, self.gameData.player.centerPoint)
+        assert self.gameData.playerLevelSegment is not None
 
 
 def makePlayerPositionUpdater(resolver):
