@@ -8,6 +8,10 @@ class Math:
     piHalf = math.pi / 2
 
     @staticmethod
+    def abs(x):
+        return x if x >= 0 else -x
+
+    @staticmethod
     def sqrt(x):
         return math.sqrt(x)
 

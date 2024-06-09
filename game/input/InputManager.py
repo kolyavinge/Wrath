@@ -1,11 +1,11 @@
-from game.input.Cursor import Cursor
+from game.input.Mouse import Mouse
 from game.input.Keyboard import Keyboard
 
 
 class InputManager:
 
     def __init__(self):
-        self.cursor = Cursor()
+        self.mouse = Mouse()
         self.keyboard = Keyboard()
 
     def update(self):
