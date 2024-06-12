@@ -13,11 +13,8 @@ from game.calc.Vector3 import Vector3
 
 class TransformMatrix4:
 
-    def __init__(self, items=None):
-        if items is not None:
-            self.items = items
-        else:
-            self.setIdentity()
+    def __init__(self):
+        self.setIdentity()
 
     def setIdentity(self):
         self.items = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]

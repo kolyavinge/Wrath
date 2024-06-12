@@ -1,5 +1,4 @@
 from game.lib.Math import Math
-from game.calc.Vector3 import Vector3
 
 
 class Geometry:
@@ -11,6 +10,9 @@ class Geometry:
     def normalizeRadians(radians):
         while radians > Math.piDouble:
             radians -= Math.piDouble
+
+        while radians < -Math.piDouble:
+            radians += Math.piDouble
 
         return radians
 

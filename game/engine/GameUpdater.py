@@ -12,8 +12,8 @@ class GameUpdater:
 
     def update(self):
         self.playerPositionUpdater.update()
-        self.levelSegmentVisibilityUpdater.update()
         self.cameraUpdater.update()
+        self.levelSegmentVisibilityUpdater.update()
 
 
 def makeGameUpdater(resolver):

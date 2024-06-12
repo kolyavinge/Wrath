@@ -31,14 +31,14 @@ class PlayerInputManager:
         mouse = self.inputManager.mouse
 
         if mouse.dx < 0:
-            self.playerController.turnLeft(0.05 * Math.abs(mouse.dx))
+            self.playerController.turnLeft(0.01 * Math.abs(mouse.dx))
         elif mouse.dx > 0:
-            self.playerController.turnRight(0.05 * Math.abs(mouse.dx))
+            self.playerController.turnRight(0.01 * Math.abs(mouse.dx))
 
         if mouse.dy < 0:
-            self.playerController.lookUp(0.05 * Math.abs(mouse.dy))
+            self.playerController.lookUp(0.01 * Math.abs(mouse.dy))
         elif mouse.dy > 0:
-            self.playerController.lookDown(0.05 * Math.abs(mouse.dy))
+            self.playerController.lookDown(0.01 * Math.abs(mouse.dy))
 
 
 def makePlayerInputManager(resolver):

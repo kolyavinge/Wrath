@@ -18,41 +18,58 @@ class App:
         glViewport(0, 0, width, height)
 
     def render(self):
+        player = self.game.levelManager.gameData.player
+        camera = self.game.levelManager.gameData.camera
+
         glClear(GL_COLOR_BUFFER_BIT)
         glLoadIdentity()
         glMatrixMode(GL_PROJECTION)
         gluPerspective(60, 16 / 9, 0.1, 1000)
-        gluLookAt(1, -1, 1, 0, 0, 0, 0, 0, 1)
+        gluLookAt(
+            camera.position.x,
+            camera.position.y,
+            camera.position.z,
+            camera.position.x + camera.lookDirection.x,
+            camera.position.y + camera.lookDirection.y,
+            camera.position.z + camera.lookDirection.z,
+            0,
+            0,
+            1,
+        )
+
+        glColor3f(0.25, 0.25, 0.25)
+        x = 0
+        while x < 1000:
+            glBegin(GL_LINES)
+            glVertex3f(x, 0, 0)
+            glVertex3f(x, 100, 0)
+            glEnd()
+            x += 1
+
+        y = 0
+        while y < 1000:
+            glBegin(GL_LINES)
+            glVertex3f(0, y, 0)
+            glVertex3f(100, y, 0)
+            glEnd()
+            y += 1
 
         glColor3f(1, 0, 0)
         glBegin(GL_LINES)
         glVertex3f(0, 0, 0)
-        glVertex3f(1, 0, 0)
+        glVertex3f(100, 0, 0)
         glEnd()
 
         glColor3f(0, 1, 0)
         glBegin(GL_LINES)
         glVertex3f(0, 0, 0)
-        glVertex3f(0, 1, 0)
+        glVertex3f(0, 100, 0)
         glEnd()
 
         glColor3f(0, 0, 1)
         glBegin(GL_LINES)
         glVertex3f(0, 0, 0)
-        glVertex3f(0, 0, 1)
-        glEnd()
-
-        player = self.game.levelManager.gameData.player
-        glColor3f(1, 1, 0)
-        glBegin(GL_LINES)
-        glVertex3f(0, 0, 0)
-        glVertex3f(player.lookDirection.x, player.lookDirection.y, player.lookDirection.z)
-        glEnd()
-
-        glColor3f(0, 1, 1)
-        glBegin(GL_LINES)
-        glVertex3f(0, 0, 0)
-        glVertex3f(player.frontNormal.x, player.frontNormal.y, player.frontNormal.z)
+        glVertex3f(0, 0, 100)
         glEnd()
 
         glutSwapBuffers()
