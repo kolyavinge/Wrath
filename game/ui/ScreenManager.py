@@ -8,10 +8,11 @@ class ScreenManager:
         self.screens[GameScreen] = gameScreen
         for screen in self.screens.keys():
             screen.screenManager = self
-        self.currentScreen = gameScreen
+        self.changeScreen(GameScreen)
 
     def changeScreen(self, screenType):
         self.currentScreen = self.screens[screenType]
+        self.currentScreen.activate()
 
 
 def makeScreenManager(resolver):

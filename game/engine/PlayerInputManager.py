@@ -17,28 +17,28 @@ class PlayerInputManager:
     def processKeyboard(self):
         keyboard = self.inputManager.keyboard
 
-        if keyboard.isPressed(Keys.w):
+        if keyboard.isPressedOrHeld(Keys.w):
             self.playerController.goForward()
-        elif keyboard.isPressed(Keys.s):
+        elif keyboard.isPressedOrHeld(Keys.s):
             self.playerController.goBackward()
 
-        if keyboard.isPressed(Keys.a):
+        if keyboard.isPressedOrHeld(Keys.a):
             self.playerController.stepLeft()
-        elif keyboard.isPressed(Keys.d):
+        elif keyboard.isPressedOrHeld(Keys.d):
             self.playerController.stepRight()
 
     def processMouse(self):
         mouse = self.inputManager.mouse
 
         if mouse.dx < 0:
-            self.playerController.turnLeft(Math.abs(mouse.dx))
+            self.playerController.turnLeft(0.1 * Math.abs(mouse.dx))
         elif mouse.dx > 0:
-            self.playerController.turnRight(Math.abs(mouse.dx))
+            self.playerController.turnRight(0.1 * Math.abs(mouse.dx))
 
         if mouse.dy > 0:
-            self.playerController.lookUp(Math.abs(mouse.dy))
+            self.playerController.lookUp(0.1 * Math.abs(mouse.dy))
         elif mouse.dy < 0:
-            self.playerController.lookDown(Math.abs(mouse.dy))
+            self.playerController.lookDown(0.1 * Math.abs(mouse.dy))
 
 
 def makePlayerInputManager(resolver):

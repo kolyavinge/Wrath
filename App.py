@@ -4,6 +4,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from game.lib.Environment import Environment
+from game.lib.Screen import Screen
 from game.core.GameFactory import GameFactory
 
 
@@ -31,10 +32,13 @@ class App:
 
     def run(self):
         glutInit(sys.argv)
-        glutInitWindowSize(300, 300)
+        windowWidth = 800
+        windowHeight = 600
+        glutInitWindowSize(windowWidth, windowHeight)
+        screenWidth, screenHeight = Screen.getWidthAndHeight()
+        glutInitWindowPosition(int((screenWidth - windowWidth) / 2), int((screenHeight - windowHeight) / 2))
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE)
         glutCreateWindow(b"Wrath")
-        glutInitWindowPosition(50, 50)
         glutDisplayFunc(self.render)
         glutReshapeFunc(self.resize)
         gameFactory = GameFactory()
