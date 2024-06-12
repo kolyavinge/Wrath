@@ -9,3 +9,4 @@ class Constants:
     xAxis = Vector3(1, 0, 0)
     yAxis = Vector3(0, 1, 0)
     zAxis = Vector3(0, 0, 1)
+    mainTimerMsec = 20

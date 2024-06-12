@@ -9,7 +9,7 @@ class Camera:
     def __init__(self):
         self.viewAngleRadians = Geometry.degreesToRadians(60)
         self.position = Vector3()
-        self.lookDirection = Vector3()
+        self.lookDirection = Vector3(0, 1, 0)
         self.viewMatrix = TransformMatrix4()
         self.projectionMatrix = TransformMatrix4()
         self.projectionMatrix.perspective(self.viewAngleRadians, Constants.screenAspect, 0.1, Constants.maxDepth)

@@ -1,0 +1,8 @@
+1. opengl for python
+    pip install PyOpenGL PyOpenGL_accelerate
+    или из репы
+    https://github.com/mcfletch/pyopengl
+
+2. pip install keyboard
+
+3. pip install mouse

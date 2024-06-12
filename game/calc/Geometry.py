@@ -33,14 +33,14 @@ class Geometry:
         sin = Math.sin(radians)
         cos = Math.cos(radians)
 
-        a = point.copy()
+        a = point.getCopy()
         a.mul(cos)
 
-        b = pivotAxis.copy()
+        b = pivotAxis.getCopy()
         b.mul(pivotAxis.dotProduct(point))
         b.mul(1 - cos)
 
-        c = pivotAxis.copy()
+        c = pivotAxis.getCopy()
         c.vectorProduct(point)
         c.mul(sin)
 

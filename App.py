@@ -5,6 +5,7 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 from game.lib.Environment import Environment
 from game.lib.Screen import Screen
+from game.anx.Constants import Constants
 from game.core.GameFactory import GameFactory
 
 
@@ -43,7 +44,13 @@ class App:
         glutReshapeFunc(self.resize)
         gameFactory = GameFactory()
         self.game = gameFactory.makeGame()
+        glutTimerFunc(Constants.mainTimerMsec, self.timerCallback, 0)
         glutMainLoop()
+
+    def timerCallback(self, value):
+        self.game.updateCurrentScreen()
+        glutPostRedisplay()
+        glutTimerFunc(Constants.mainTimerMsec, self.timerCallback, 0)
 
 
 app = App()

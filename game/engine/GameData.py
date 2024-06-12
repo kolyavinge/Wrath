@@ -9,6 +9,7 @@ class GameData:
         self.visibleLevelSegments = []
         self.player = Person()
         self.camera = Camera()
+        self.playerLevelSegment = None
 
 
 def makeGameData(resolver):

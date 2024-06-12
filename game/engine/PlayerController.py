@@ -42,41 +42,45 @@ class PlayerController:
         player = self.gameData.player
         player.hasMoved = True
         player.lookDirection = Geometry.rotatePoint(player.lookDirection, Constants.zAxis, Constants.axisOrigin, radians)
-        player.lookDirection.normalized()
+        player.lookDirection.normalize()
         player.frontNormal = Geometry.rotatePoint(player.frontNormal, Constants.zAxis, Constants.axisOrigin, radians)
-        player.frontNormal.normalized()
+        player.frontNormal.normalize()
         player.rightNormal = player.frontNormal.getCopy()
         player.rightNormal.vectorProduct(Constants.zAxis)
+        print(player.lookDirection.toString())
 
     def turnRight(self, radians):
         player = self.gameData.player
         player.hasMoved = True
         player.lookDirection = Geometry.rotatePoint(player.lookDirection, Constants.zAxis, Constants.axisOrigin, -radians)
-        player.lookDirection.normalized()
+        player.lookDirection.normalize()
         player.frontNormal = Geometry.rotatePoint(player.frontNormal, Constants.zAxis, Constants.axisOrigin, -radians)
-        player.frontNormal.normalized()
+        player.frontNormal.normalize()
         player.rightNormal = player.frontNormal.getCopy()
         player.rightNormal.vectorProduct(Constants.zAxis)
+        print(player.lookDirection.toString())
 
     def lookUp(self, radians):
         player = self.gameData.player
         player.hasMoved = True
         player.lookDirection = Geometry.rotatePoint(player.lookDirection, Constants.xAxis, Constants.axisOrigin, radians)
-        player.lookDirection.normalized()
+        player.lookDirection.normalize()
         dotProduct = player.lookDirection.dotProduct(player.frontNormal)
         if dotProduct <= 0:
             player.lookDirection = Geometry.rotatePoint(player.frontNormal, Constants.xAxis, Constants.axisOrigin, Math.piHalf - 0.1)
-            player.lookDirection.normalized()
+            player.lookDirection.normalize()
+        print(player.lookDirection.toString())
 
     def lookDown(self, radians):
         player = self.gameData.player
         player.hasMoved = True
         player.lookDirection = Geometry.rotatePoint(player.lookDirection, Constants.xAxis, Constants.axisOrigin, -radians)
-        player.lookDirection.normalized()
+        player.lookDirection.normalize()
         dotProduct = player.lookDirection.dotProduct(player.frontNormal)
         if dotProduct <= 0:
             player.lookDirection = Geometry.rotatePoint(player.frontNormal, Constants.xAxis, Constants.axisOrigin, -(Math.piHalf - 0.1))
-            player.lookDirection.normalized()
+            player.lookDirection.normalize()
+        print(player.lookDirection.toString())
 
 
 def makePlayerController(resolver):

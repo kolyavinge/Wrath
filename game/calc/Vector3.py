@@ -65,4 +65,4 @@ class Vector3:
         self.z = z
 
     def toString(self):
-        return f"{self.x}:{self.y}:{self.z}"
+        return f"{self.x:f} : {self.y:f} : {self.z:f}"
