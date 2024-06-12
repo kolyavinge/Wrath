@@ -47,7 +47,6 @@ class PlayerController:
         player.frontNormal.normalize()
         player.rightNormal = player.frontNormal.getCopy()
         player.rightNormal.vectorProduct(Constants.zAxis)
-        print(player.lookDirection.toString())
 
     def turnRight(self, radians):
         player = self.gameData.player
@@ -58,7 +57,6 @@ class PlayerController:
         player.frontNormal.normalize()
         player.rightNormal = player.frontNormal.getCopy()
         player.rightNormal.vectorProduct(Constants.zAxis)
-        print(player.lookDirection.toString())
 
     def lookUp(self, radians):
         player = self.gameData.player
@@ -66,10 +64,9 @@ class PlayerController:
         player.lookDirection = Geometry.rotatePoint(player.lookDirection, Constants.xAxis, Constants.axisOrigin, radians)
         player.lookDirection.normalize()
         dotProduct = player.lookDirection.dotProduct(player.frontNormal)
-        if dotProduct <= 0:
-            player.lookDirection = Geometry.rotatePoint(player.frontNormal, Constants.xAxis, Constants.axisOrigin, Math.piHalf - 0.1)
+        if dotProduct < 0:
+            player.lookDirection = Geometry.rotatePoint(player.frontNormal, Constants.xAxis, Constants.axisOrigin, Math.piHalf)
             player.lookDirection.normalize()
-        print(player.lookDirection.toString())
 
     def lookDown(self, radians):
         player = self.gameData.player
@@ -77,10 +74,9 @@ class PlayerController:
         player.lookDirection = Geometry.rotatePoint(player.lookDirection, Constants.xAxis, Constants.axisOrigin, -radians)
         player.lookDirection.normalize()
         dotProduct = player.lookDirection.dotProduct(player.frontNormal)
-        if dotProduct <= 0:
-            player.lookDirection = Geometry.rotatePoint(player.frontNormal, Constants.xAxis, Constants.axisOrigin, -(Math.piHalf - 0.1))
+        if dotProduct < 0:
+            player.lookDirection = Geometry.rotatePoint(player.frontNormal, Constants.xAxis, Constants.axisOrigin, -Math.piHalf)
             player.lookDirection.normalize()
-        print(player.lookDirection.toString())
 
 
 def makePlayerController(resolver):

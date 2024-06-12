@@ -3,6 +3,7 @@ from game.calc.Vector3 import Vector3
 
 class Constants:
 
+    gameTitle = b"Wrath"
     screenAspect = 16 / 9
     maxDepth = 1000
     axisOrigin = Vector3(0, 0, 0)
