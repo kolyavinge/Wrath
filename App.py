@@ -18,6 +18,7 @@ class App:
         glViewport(0, 0, width, height)
 
     def render(self):
+        level = self.game.levelManager.gameData.level
         player = self.game.levelManager.gameData.player
         camera = self.game.levelManager.gameData.camera
 
@@ -53,6 +54,15 @@ class App:
             glVertex3f(100, y, 0)
             glEnd()
             y += 1
+
+        glColor3f(0.5, 0.5, 0.5)
+        for wall in level.floors[0].walls:
+            glBegin(GL_QUADS)
+            glVertex3f(wall.startPosition.x, wall.startPosition.y, wall.startPosition.z)
+            glVertex3f(wall.endPosition.x, wall.endPosition.y, wall.endPosition.z)
+            glVertex3f(wall.endPosition.x, wall.endPosition.y, wall.endPosition.z + 1)
+            glVertex3f(wall.startPosition.x, wall.startPosition.y, wall.startPosition.z + 1)
+            glEnd()
 
         glColor3f(1, 0, 0)
         glBegin(GL_LINES)
