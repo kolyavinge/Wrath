@@ -22,10 +22,10 @@ class App:
         player = self.game.levelManager.gameData.player
         camera = self.game.levelManager.gameData.camera
 
-        glClear(GL_COLOR_BUFFER_BIT)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
         glMatrixMode(GL_PROJECTION)
-        gluPerspective(60, 16 / 9, 0.1, 1000)
+        gluPerspective(camera.viewAngleDegrees, Constants.screenAspect, 0.1, Constants.maxDepth)
         gluLookAt(
             camera.position.x,
             camera.position.y,
@@ -37,6 +37,8 @@ class App:
             0,
             1,
         )
+
+        glEnable(GL_DEPTH_TEST)
 
         glColor3f(0.25, 0.25, 0.25)
         x = 0
@@ -81,6 +83,8 @@ class App:
         glVertex3f(0, 0, 0)
         glVertex3f(0, 0, 100)
         glEnd()
+
+        glDisable(GL_DEPTH_TEST)
 
         glutSwapBuffers()
 

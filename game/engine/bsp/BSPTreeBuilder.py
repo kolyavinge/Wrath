@@ -12,7 +12,7 @@ class BSPTreeBuilder:
             maxX = max([w.getMaxX() for w in floor.walls])
             maxY = max([w.getMaxY() for w in floor.walls])
             splitBorder = SplitBorder(0, maxX, 0, maxY)
-            self.buildRec(floor.bspTree.root, WallOrientation.vertical, splitBorder, floor.walls)
+            self.buildRec(floor.bspTree.root, WallOrientation.vertical, splitBorder, floor.walls.copy())
 
     def buildRec(self, node, splitOrientation, splitBorder, walls):
         splitWalls = [w for w in walls if w.orientation == splitOrientation]

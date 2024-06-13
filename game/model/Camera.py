@@ -7,7 +7,8 @@ from game.anx.Constants import Constants
 class Camera:
 
     def __init__(self):
-        self.viewAngleRadians = Geometry.degreesToRadians(60)
+        self.viewAngleDegrees = 60
+        self.viewAngleRadians = Geometry.degreesToRadians(self.viewAngleDegrees)
         self.viewAngleRadiansHalf = self.viewAngleRadians / 2
         self.position = Vector3()
         self.lookDirection = Vector3()
