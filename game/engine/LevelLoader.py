@@ -31,26 +31,26 @@ class LevelLoader:
         wall4.frontNormal = Vector3(0, -1, 0)
 
         wall5 = Wall()
-        wall5.startPosition = Vector3(30, 15, 0)
-        wall5.endPosition = Vector3(30, 5, 0)
+        wall5.startPosition = Vector3(30, 5, 0)
+        wall5.endPosition = Vector3(30, 15, 0)
         wall5.orientation = WallOrientation.vertical
         wall5.frontNormal = Vector3(-1, 0, 0)
 
         wall6 = Wall()
-        wall6.startPosition = Vector3(30, 5, 0)
-        wall6.endPosition = Vector3(10, 5, 0)
+        wall6.startPosition = Vector3(10, 5, 0)
+        wall6.endPosition = Vector3(30, 5, 0)
         wall6.orientation = WallOrientation.horizontal
         wall6.frontNormal = Vector3(0, 1, 0)
 
         wall7 = Wall()
-        wall7.startPosition = Vector3(10, 5, 0)
-        wall7.endPosition = Vector3(10, 0, 0)
+        wall7.startPosition = Vector3(10, 0, 0)
+        wall7.endPosition = Vector3(10, 5, 0)
         wall7.orientation = WallOrientation.vertical
         wall7.frontNormal = Vector3(-1, 0, 0)
 
         wall8 = Wall()
-        wall8.startPosition = Vector3(10, 0, 0)
-        wall8.endPosition = Vector3(0, 0, 0)
+        wall8.startPosition = Vector3(0, 0, 0)
+        wall8.endPosition = Vector3(10, 0, 0)
         wall8.orientation = WallOrientation.horizontal
         wall8.frontNormal = Vector3(0, 1, 0)
 

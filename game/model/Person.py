@@ -1,5 +1,6 @@
 from game.lib.Math import Math
 from game.calc.Vector3 import Vector3
+from game.calc.Rect3d import Rect3d
 from game.anx.Constants import Constants
 from game.model.VelocityFunc import VelocityFunc
 
@@ -10,6 +11,7 @@ class Person:
 
     def __init__(self):
         self.centerPoint = Vector3(2, 2, 0)
+        self.border = Rect3d()
         self.pitchRadians = 0
         self.yawRadians = 0
         self.lookDirection = Constants.yAxis

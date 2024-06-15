@@ -64,5 +64,8 @@ class Vector3:
         self.y = y
         self.z = z
 
+    def __eq__(self, vector):
+        return self.x == vector.x and self.y == vector.y and self.z == vector.z
+
     def toString(self):
         return f"{self.x:f} : {self.y:f} : {self.z:f}"

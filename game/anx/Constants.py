@@ -5,6 +5,7 @@ class Constants:
 
     gameTitle = b"Wrath"
     screenAspect = 16 / 9
+    minDepth = 0.1
     maxDepth = 1000
     axisOrigin = Vector3(0, 0, 0)
     xAxis = Vector3(1, 0, 0)

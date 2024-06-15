@@ -55,3 +55,13 @@ class Geometry:
         point.add(pivotPoint)
 
         return a
+
+    @staticmethod
+    def getLinesIntersectionPointOrNone(a1, b1, c1, a2, b2, c2):
+        den = a1 * b2 - a2 * b1
+        if den != 0:
+            x = (c2 * b1 - c1 * b2) / den
+            y = (a2 * c1 - a1 * c2) / den
+            return (x, y)
+        else:
+            return None

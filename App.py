@@ -25,7 +25,7 @@ class App:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glLoadIdentity()
         glMatrixMode(GL_PROJECTION)
-        gluPerspective(camera.viewAngleDegrees, Constants.screenAspect, 0.1, Constants.maxDepth)
+        gluPerspective(camera.viewAngleDegrees, Constants.screenAspect, Constants.minDepth, Constants.maxDepth)
         gluLookAt(
             camera.position.x,
             camera.position.y,
@@ -66,6 +66,8 @@ class App:
             glVertex3f(wall.startPosition.x, wall.startPosition.y, wall.startPosition.z + 1)
             glEnd()
 
+        glDisable(GL_DEPTH_TEST)
+
         glColor3f(1, 0, 0)
         glBegin(GL_LINES)
         glVertex3f(0, 0, 0)
@@ -83,8 +85,6 @@ class App:
         glVertex3f(0, 0, 0)
         glVertex3f(0, 0, 100)
         glEnd()
-
-        glDisable(GL_DEPTH_TEST)
 
         glutSwapBuffers()
 

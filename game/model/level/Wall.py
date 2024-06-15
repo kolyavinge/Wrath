@@ -34,16 +34,20 @@ class Wall:
         return max(self.startPosition.y, self.endPosition.y)
 
     def validate(self):
-        if self.orientation != WallOrientation.horizontal and self.orientation != WallOrientation.vertical:
-            raise Exception()
+        self.check(self.orientation == WallOrientation.horizontal or self.orientation == WallOrientation.vertical)
+        self.check(self.startPosition != self.endPosition)
+        self.check(self.frontNormal.getLength() == 1)
+        if self.orientation == WallOrientation.horizontal:
+            self.check(self.startPosition.y == self.endPosition.y)
+            self.check(self.startPosition.x < self.endPosition.x)
+            self.check(self.frontNormal == Vector3(0, 1, 0) or self.frontNormal == Vector3(0, -1, 0))
+        elif self.orientation == WallOrientation.vertical:
+            self.check(self.startPosition.x == self.endPosition.x)
+            self.check(self.startPosition.y < self.endPosition.y)
+            self.check(self.frontNormal == Vector3(1, 0, 0) or self.frontNormal == Vector3(-1, 0, 0))
 
-        if self.startPosition == self.endPosition:
-            raise Exception()
-
-        if self.frontNormal.isZero():
-            raise Exception()
-
-        if self.frontNormal.getLength() != 1:
+    def check(self, value):
+        if value == False:
             raise Exception()
 
     def toString(self):
