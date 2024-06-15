@@ -11,7 +11,7 @@ class LevelSegmentVisibilityUpdater:
         self.traversal = traversal
 
     def update(self):
-        self.gameData.visibleLevelSegments = [self.gameData.playerLevelSegment]
+        self.gameData.visibleLevelSegments = [self.gameData.player.levelSegment]
         camera = self.gameData.camera
         self.checkDirection(camera.lookDirection)
         leftLookDirection = Geometry.rotatePoint(camera.lookDirection, Constants.zAxis, Constants.axisOrigin, -camera.viewAngleRadiansHalf)
@@ -31,7 +31,7 @@ class LevelSegmentVisibilityUpdater:
         playerFloor = self.gameData.level.floors[self.gameData.player.floorIndex]
         segment = self.traversal.findLevelSegmentOrNone(playerFloor.bspTree, checkPoint)
         stepNumber = 1
-        while segment != self.gameData.playerLevelSegment and stepNumber < stepsCount:
+        while segment != self.gameData.player.levelSegment and stepNumber < stepsCount:
             self.addVisibleSegment(segment)
             checkPoint.sub(stepDirection)
             segment = self.traversal.findLevelSegmentOrNone(playerFloor.bspTree, checkPoint)

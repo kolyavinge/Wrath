@@ -10,8 +10,10 @@ class Person:
     maxPitchRadians = Math.piHalf - 0.1
 
     def __init__(self):
-        self.centerPoint = Vector3(2, 2, 0)
-        self.border = Rect3d()
+        self.currentCenterPoint = Vector3(2, 2, 0)
+        self.currentBorder = Rect3d()
+        self.nextCenterPoint = Vector3(2, 2, 0)
+        self.nextBorder = Rect3d()
         self.pitchRadians = 0
         self.yawRadians = 0
         self.lookDirection = Constants.yAxis
@@ -22,6 +24,15 @@ class Person:
         self.movingTimeDelta = 0.1
         self.velocityFunc = VelocityFunc()
         self.floorIndex = 0
+        self.levelSegment = None
 
     def getVelocity(self):
         return self.velocityFunc.getValue(self.movingTime)
+
+    def moveByVector(self, vector):
+        self.nextCenterPoint.add(vector)
+        self.nextBorder.moveByVector(vector)
+
+    def commitNextPosition(self):
+        self.currentCenterPoint = self.nextCenterPoint.getCopy()
+        self.currentBorder = self.nextBorder.getCopy()
