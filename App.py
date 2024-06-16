@@ -18,6 +18,7 @@ class App:
         glViewport(0, 0, width, height)
 
     def render(self):
+        gameData = self.game.levelManager.gameData
         level = self.game.levelManager.gameData.level
         player = self.game.levelManager.gameData.player
         camera = self.game.levelManager.gameData.camera
@@ -60,13 +61,32 @@ class App:
         glColor3f(0.5, 0.5, 0.5)
         for wall in level.floors[0].walls:
             glBegin(GL_QUADS)
-            glVertex3f(wall.startPosition.x, wall.startPosition.y, wall.startPosition.z)
-            glVertex3f(wall.endPosition.x, wall.endPosition.y, wall.endPosition.z)
-            glVertex3f(wall.endPosition.x, wall.endPosition.y, wall.endPosition.z + 1)
-            glVertex3f(wall.startPosition.x, wall.startPosition.y, wall.startPosition.z + 1)
+            glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
+            glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z)
+            glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z + 1)
+            glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z + 1)
             glEnd()
 
         glDisable(GL_DEPTH_TEST)
+
+        glEnable(GL_BLEND)
+        glColor4f(1, 0, 0, 0.2)
+
+        glBegin(GL_QUADS)
+        glVertex3f(player.levelSegment.minX, player.levelSegment.minY, 0)
+        glVertex3f(player.levelSegment.maxX, player.levelSegment.minY, 0)
+        glVertex3f(player.levelSegment.maxX, player.levelSegment.maxY, 0)
+        glVertex3f(player.levelSegment.minX, player.levelSegment.maxY, 0)
+        glEnd()
+
+        for wall in player.levelSegment.walls:
+            glBegin(GL_QUADS)
+            glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
+            glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z)
+            glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z + 1)
+            glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z + 1)
+            glEnd()
+        glDisable(GL_BLEND)
 
         glColor3f(1, 0, 0)
         glBegin(GL_LINES)
@@ -101,6 +121,7 @@ class App:
         glutReshapeFunc(self.resize)
         glutKeyboardUpFunc(self.keyup)
         glutSetCursor(GLUT_CURSOR_NONE)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         gameFactory = GameFactory()
         self.game = gameFactory.makeGame()
         glutTimerFunc(Constants.mainTimerMsec, self.timerCallback, 0)

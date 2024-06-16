@@ -19,7 +19,7 @@ class BSPTreeBuilder:
         self.sortSplitWalls(splitWalls, splitOrientation)
         middleWall = splitWalls[int(len(splitWalls) / 2)]
         walls.remove(middleWall)
-        node.basePoint = middleWall.startPosition
+        node.basePoint = middleWall.startPoint
         node.frontNormal = middleWall.frontNormal
         frontWalls, backWalls = self.getFrontAndBackWalls(walls, node.basePoint, node.frontNormal)
         oppositeSplitOrientation = WallOrientation.getOpposite(splitOrientation)
@@ -76,11 +76,11 @@ class BSPTreeBuilder:
         return (frontWalls, backWalls)
 
     def getWallFrontBackPosition(self, wall, basePoint, frontNormal):
-        wallDirection = wall.startPosition.getCopy()
+        wallDirection = wall.startPoint.getCopy()
         wallDirection.sub(basePoint)
         dotProductStart = wallDirection.dotProduct(frontNormal)
 
-        wallDirection = wall.endPosition.getCopy()
+        wallDirection = wall.endPoint.getCopy()
         wallDirection.sub(basePoint)
         dotProductEnd = wallDirection.dotProduct(frontNormal)
 
@@ -98,9 +98,9 @@ class BSPTreeBuilder:
 
     def sortSplitWalls(self, splitWalls, splitOrientation):
         if splitOrientation == WallOrientation.vertical:
-            splitWalls.sort(key=lambda w: w.startPosition.x)
+            splitWalls.sort(key=lambda w: w.startPoint.x)
         else:
-            splitWalls.sort(key=lambda w: w.startPosition.y)
+            splitWalls.sort(key=lambda w: w.startPoint.y)
 
 
 def makeBSPTreeBuilder(resolver):

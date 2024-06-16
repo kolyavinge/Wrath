@@ -3,6 +3,7 @@ from game.calc.Vector3 import Vector3
 from game.calc.Rect3d import Rect3d
 from game.anx.Constants import Constants
 from game.model.VelocityFunc import VelocityFunc
+from game.model.level.LevelSegment import LevelSegment
 
 
 class Person:
@@ -24,7 +25,7 @@ class Person:
         self.movingTimeDelta = 0.1
         self.velocityFunc = VelocityFunc()
         self.floorIndex = 0
-        self.levelSegment = None
+        self.levelSegment = LevelSegment(0, 0, 0, 0)
 
     def getVelocity(self):
         return self.velocityFunc.getValue(self.movingTime)
