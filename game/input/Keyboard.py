@@ -1,4 +1,5 @@
 import keyboard
+
 from game.input.Keys import Keys
 
 

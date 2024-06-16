@@ -1,7 +1,7 @@
-from game.lib.Math import Math
-from game.calc.Geometry import Geometry
 from game.anx.Constants import Constants
+from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
+from game.lib.Math import Math
 
 
 class PlayerController:

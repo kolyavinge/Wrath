@@ -1,5 +1,5 @@
-from game.model.Person import Person
 from game.model.Camera import Camera
+from game.model.Person import Person
 
 
 class GameData:

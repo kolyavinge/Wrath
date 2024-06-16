@@ -1,12 +1,14 @@
 import os
 import sys
+
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
-from game.lib.Environment import Environment
-from game.lib.Screen import Screen
+
 from game.anx.Constants import Constants
 from game.core.GameFactory import GameFactory
+from game.lib.Environment import Environment
+from game.lib.Screen import Screen
 
 
 class App:

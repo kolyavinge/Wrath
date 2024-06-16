@@ -1,7 +1,7 @@
-from game.lib.Math import Math
 from game.engine.PlayerController import PlayerController
-from game.input.Keys import Keys
 from game.input.InputManager import InputManager
+from game.input.Keys import Keys
+from game.lib.Math import Math
 
 
 class PlayerInputManager:

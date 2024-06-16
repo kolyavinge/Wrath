@@ -1,5 +1,5 @@
-from game.calc.Geometry import Geometry
 from game.anx.Constants import Constants
+from game.calc.Geometry import Geometry
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 

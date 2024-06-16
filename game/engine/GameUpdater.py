@@ -1,6 +1,6 @@
+from game.engine.CameraUpdater import CameraUpdater
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.PlayerPositionUpdater import PlayerPositionUpdater
-from game.engine.CameraUpdater import CameraUpdater
 
 
 class GameUpdater:

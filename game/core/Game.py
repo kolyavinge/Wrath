@@ -1,5 +1,5 @@
-from game.engine.LevelManager import LevelManager
 from game.engine.GameData import GameData
+from game.engine.LevelManager import LevelManager
 from game.input.InputManager import InputManager
 from game.ui.ScreenManager import ScreenManager
 

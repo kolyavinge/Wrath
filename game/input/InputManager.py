@@ -1,6 +1,6 @@
-from game.lib.Screen import Screen
-from game.input.Mouse import Mouse
 from game.input.Keyboard import Keyboard
+from game.input.Mouse import Mouse
+from game.lib.Screen import Screen
 
 
 class InputManager:

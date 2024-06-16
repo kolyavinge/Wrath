@@ -1,6 +1,3 @@
-from game.calc.Vector3 import Vector3
-
-
 class BSPNode:
 
     def __init__(self):

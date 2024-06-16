@@ -1,8 +1,8 @@
-from game.lib.DependencyContainer import DependencyContainer
+from game.core.Game import Game
 from game.core.inject.CoreModule import CoreModule
 from game.core.inject.EngineModule import EngineModule
 from game.core.inject.UIModule import UIModule
-from game.core.Game import Game
+from game.lib.DependencyContainer import DependencyContainer
 
 
 class GameFactory:

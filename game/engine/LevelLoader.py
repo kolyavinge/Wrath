@@ -1,6 +1,6 @@
-from game.model.level.Wall import *
 from game.model.level.Floor import *
 from game.model.level.Level import *
+from game.model.level.Wall import *
 
 
 class LevelLoader:

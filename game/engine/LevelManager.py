@@ -1,7 +1,7 @@
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
+from game.engine.GameData import GameData
 from game.engine.LevelLoader import LevelLoader
 from game.engine.LevelSegmentContentAnalyzer import LevelSegmentContentAnalyzer
-from game.engine.GameData import GameData
 
 
 class LevelManager:

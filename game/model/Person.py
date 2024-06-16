@@ -1,9 +1,9 @@
-from game.lib.Math import Math
-from game.calc.Vector3 import Vector3
-from game.calc.Rect3d import Rect3d
 from game.anx.Constants import Constants
-from game.model.VelocityFunc import VelocityFunc
+from game.calc.Rect3d import Rect3d
+from game.calc.Vector3 import Vector3
+from game.lib.Math import Math
 from game.model.level.LevelSegment import LevelSegment
+from game.model.VelocityFunc import VelocityFunc
 
 
 class Person:
