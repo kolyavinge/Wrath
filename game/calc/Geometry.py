@@ -57,11 +57,20 @@ class Geometry:
         return a
 
     @staticmethod
-    def getLinesIntersectionPointOrNone(a1, b1, c1, a2, b2, c2):
-        den = a1 * b2 - a2 * b1
-        if den != 0:
-            x = (c2 * b1 - c1 * b2) / den
-            y = (a2 * c1 - a1 * c2) / den
-            return (x, y)
-        else:
+    def getLinesIntersectionPointOrNone(from1X, from1Y, to1X, to1Y, from2X, from2Y, to2X, to2Y):
+        a1 = from1Y - to1Y
+        b1 = to1X - from1X
+        c1 = from1X * to1Y - to1X * from1Y
+
+        a2 = from2Y - to2Y
+        b2 = to2X - from2X
+        c2 = from2X * to2Y - to2X * from2Y
+
+        denominator = a1 * b2 - a2 * b1
+        if denominator == 0:
             return None
+
+        x = (b1 * c2 - b2 * c1) / denominator
+        y = (a2 * c1 - a1 * c2) / denominator
+
+        return (x, y)

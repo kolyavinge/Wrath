@@ -1,13 +1,13 @@
-from game.calc.Vector3 import Vector3
-from game.calc.TranfsormMatrix4 import TransformMatrix4
-from game.calc.Geometry import Geometry
 from game.anx.Constants import Constants
+from game.calc.Geometry import Geometry
+from game.calc.TranfsormMatrix4 import TransformMatrix4
+from game.calc.Vector3 import Vector3
 
 
 class Camera:
 
     def __init__(self):
-        self.viewAngleDegrees = 60
+        self.viewAngleDegrees = 90
         self.viewAngleRadians = Geometry.degreesToRadians(self.viewAngleDegrees)
         self.viewAngleRadiansHalf = self.viewAngleRadians / 2
         self.position = Vector3()

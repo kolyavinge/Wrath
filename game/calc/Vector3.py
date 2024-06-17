@@ -64,6 +64,10 @@ class Vector3:
         self.y = y
         self.z = z
 
+    def isParallel(self, vector, eps=0.001):
+        value = self.dotProduct(vector) / (self.getLength() * vector.getLength())
+        return Math.abs(value - 1) < eps
+
     def __eq__(self, vector):
         return self.x == vector.x and self.y == vector.y and self.z == vector.z
 

@@ -17,8 +17,21 @@ class PlayerPositionUpdater:
     def updateLevelSegment(self):
         player = self.gameData.player
         playerFloor = self.gameData.level.floors[player.floorIndex]
-        player.levelSegment = self.traversal.findLevelSegmentOrNone(playerFloor.bspTree, player.currentCenterPoint)
-        assert player.levelSegment is not None
+
+        player.levelSegments = []
+        levelSegment = self.traversal.findLevelSegmentOrNone(playerFloor.bspTree, player.currentBorder.bottom.downLeft)
+        self.appendLevelSegment(player, levelSegment)
+        levelSegment = self.traversal.findLevelSegmentOrNone(playerFloor.bspTree, player.currentBorder.bottom.downRight)
+        self.appendLevelSegment(player, levelSegment)
+        levelSegment = self.traversal.findLevelSegmentOrNone(playerFloor.bspTree, player.currentBorder.bottom.upLeft)
+        self.appendLevelSegment(player, levelSegment)
+        levelSegment = self.traversal.findLevelSegmentOrNone(playerFloor.bspTree, player.currentBorder.bottom.upRight)
+        self.appendLevelSegment(player, levelSegment)
+
+    def appendLevelSegment(self, player, levelSegment):
+        assert levelSegment is not None
+        if levelSegment not in player.levelSegments:
+            player.levelSegments.append(levelSegment)
 
 
 def makePlayerPositionUpdater(resolver):

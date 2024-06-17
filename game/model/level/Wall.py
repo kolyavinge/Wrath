@@ -1,3 +1,4 @@
+from game.calc.Line import Line
 from game.calc.Vector3 import Vector3
 
 
@@ -20,6 +21,7 @@ class Wall:
         self.startPoint = Vector3()
         self.endPoint = Vector3()
         self.frontNormal = Vector3()
+        self.crossLine = Line()
 
     def getMinX(self):
         return min(self.startPoint.x, self.endPoint.x)
@@ -36,6 +38,7 @@ class Wall:
     def validate(self):
         self.check(self.orientation == WallOrientation.horizontal or self.orientation == WallOrientation.vertical)
         self.check(self.startPoint != self.endPoint)
+        self.check(self.crossLine.startPoint != self.crossLine.endPoint)
         self.check(self.frontNormal.getLength() == 1)
         wallDirection = self.endPoint.getCopy()
         wallDirection.sub(self.startPoint)

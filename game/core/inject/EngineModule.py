@@ -1,16 +1,17 @@
-from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder, makeBSPTreeBuilder
-from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal, makeBSPTreeTraversal
-from game.engine.CameraUpdater import CameraUpdater, makeCameraUpdater
-from game.engine.GameData import GameData, makeGameData
-from game.engine.GameUpdater import GameUpdater, makeGameUpdater
-from game.engine.LevelLoader import LevelLoader, makeLevelLoader
-from game.engine.LevelManager import LevelManager, makeLevelManager
-from game.engine.LevelSegmentContentAnalyzer import LevelSegmentContentAnalyzer, makeLevelSegmentContentAnalyzer
-from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater
-from game.engine.PlayerController import PlayerController, makePlayerController
-from game.engine.PlayerInputManager import PlayerInputManager, makePlayerInputManager
-from game.engine.PlayerPositionUpdater import PlayerPositionUpdater, makePlayerPositionUpdater
-from game.input.InputManager import InputManager, makeInputManager
+from game.engine.bsp.BSPTreeBuilder import *
+from game.engine.bsp.BSPTreeTraversal import *
+from game.engine.CameraUpdater import *
+from game.engine.cm.PlayerWallCollisionProcessor import *
+from game.engine.GameData import *
+from game.engine.GameUpdater import *
+from game.engine.LevelLoader import *
+from game.engine.LevelManager import *
+from game.engine.LevelSegmentContentAnalyzer import *
+from game.engine.LevelSegmentVisibilityUpdater import *
+from game.engine.PlayerController import *
+from game.engine.PlayerInputManager import *
+from game.engine.PlayerPositionUpdater import *
+from game.input.InputManager import *
 
 
 class EngineModule:
@@ -29,3 +30,4 @@ class EngineModule:
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerPositionUpdater, makePlayerPositionUpdater)
         binder.bindSingleton(InputManager, makeInputManager)
+        binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)

@@ -74,21 +74,58 @@ class App:
         glEnable(GL_BLEND)
         glColor4f(1, 0, 0, 0.2)
 
+        for levelSegment in player.levelSegments:
+            glBegin(GL_QUADS)
+            glVertex3f(levelSegment.minX, levelSegment.minY, 0)
+            glVertex3f(levelSegment.maxX, levelSegment.minY, 0)
+            glVertex3f(levelSegment.maxX, levelSegment.maxY, 0)
+            glVertex3f(levelSegment.minX, levelSegment.maxY, 0)
+            glEnd()
+
+        for levelSegment in player.levelSegments:
+            for wall in levelSegment.walls:
+                glBegin(GL_QUADS)
+                glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
+                glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z)
+                glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z + 1)
+                glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z + 1)
+                glEnd()
+        glDisable(GL_BLEND)
+
+        glColor3f(1, 1, 0)
+        for levelSegment in player.levelSegments:
+            for wall in levelSegment.walls:
+                glBegin(GL_LINES)
+                glVertex3f(wall.crossLine.startPoint.x, wall.crossLine.startPoint.y, wall.startPoint.z)
+                glVertex3f(wall.crossLine.endPoint.x, wall.crossLine.endPoint.y, wall.endPoint.z)
+                glEnd()
+
+        glEnable(GL_BLEND)
+        glColor4f(0, 1, 0, 0.2)
+        border = player.currentBorder.bottom
         glBegin(GL_QUADS)
-        glVertex3f(player.levelSegment.minX, player.levelSegment.minY, 0)
-        glVertex3f(player.levelSegment.maxX, player.levelSegment.minY, 0)
-        glVertex3f(player.levelSegment.maxX, player.levelSegment.maxY, 0)
-        glVertex3f(player.levelSegment.minX, player.levelSegment.maxY, 0)
+        glVertex3f(border.downLeft.x, border.downLeft.y, border.downLeft.z)
+        glVertex3f(border.downRight.x, border.downRight.y, border.downRight.z)
+        glVertex3f(border.upRight.x, border.upRight.y, border.upRight.z)
+        glVertex3f(border.upLeft.x, border.upLeft.y, border.upLeft.z)
+        glEnd()
+        glDisable(GL_BLEND)
+
+        glColor3f(0, 1, 0)
+        glBegin(GL_LINES)
+        v = player.currentCenterPoint.getCopy()
+        v.add(player.frontNormal)
+        glVertex3f(player.currentCenterPoint.x, player.currentCenterPoint.y, player.currentCenterPoint.z)
+        glVertex3f(v.x, v.y, v.z)
         glEnd()
 
-        for wall in player.levelSegment.walls:
-            glBegin(GL_QUADS)
-            glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
-            glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z)
-            glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z + 1)
-            glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z + 1)
-            glEnd()
-        glDisable(GL_BLEND)
+        glColor3f(0, 1, 1)
+        glBegin(GL_LINES)
+        v = player.currentCenterPoint.getCopy()
+        v.add(player.rightNormal)
+        glVertex3f(player.currentCenterPoint.x, player.currentCenterPoint.y, player.currentCenterPoint.z)
+        glVertex3f(v.x, v.y, v.z)
+        glEnd()
 
         glColor3f(1, 0, 0)
         glBegin(GL_LINES)

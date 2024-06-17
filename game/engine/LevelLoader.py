@@ -1,11 +1,20 @@
-from game.model.level.Floor import *
-from game.model.level.Level import *
-from game.model.level.Wall import *
+from game.calc.Vector3 import Vector3
+from game.model.level.Floor import Floor
+from game.model.level.Level import Level
+from game.model.level.Wall import Wall, WallOrientation
+from game.model.PlayerMeasures import PlayerMeasures
 
 
 class LevelLoader:
 
     def loadFromFile(self):
+        level = self.getLevel()
+        self.calculateWallCrossLines(level)
+        level.validate()
+
+        return level
+
+    def getLevel(self):
         wall1 = Wall()
         wall1.startPoint = Vector3(0, 0, 0)
         wall1.endPoint = Vector3(0, 10, 0)
@@ -59,9 +68,23 @@ class LevelLoader:
 
         level = Level()
         level.floors = [floor]
-        level.validate()
 
         return level
+
+    def calculateWallCrossLines(self, level):
+        for floor in level.floors:
+            for wall in floor.walls:
+                crossDirection = wall.frontNormal.getCopy()
+                crossDirection.setLength(PlayerMeasures.widthAndLengthHalf)
+                wall.crossLine.startPoint = wall.startPoint.getCopy()
+                wall.crossLine.endPoint = wall.endPoint.getCopy()
+                wall.crossLine.startPoint.add(crossDirection)
+                wall.crossLine.endPoint.add(crossDirection)
+                wallDirection = wall.endPoint.getCopy()
+                wallDirection.sub(wall.startPoint)
+                wallDirection.setLength(PlayerMeasures.widthAndLengthHalf)
+                wall.crossLine.startPoint.sub(wallDirection)
+                wall.crossLine.endPoint.add(wallDirection)
 
 
 def makeLevelLoader(resolver):
