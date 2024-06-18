@@ -7,7 +7,7 @@ from game.model.PlayerMeasures import PlayerMeasures
 from game.model.VelocityFunc import VelocityFunc
 
 
-class Person:
+class Player:
 
     maxPitchRadians = Math.piHalf - 0.1
 
