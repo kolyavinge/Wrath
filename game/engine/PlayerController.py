@@ -14,7 +14,7 @@ class PlayerController:
         player.hasMoved = True
         velocityDirection = player.frontNormal.getCopy()
         velocityDirection.setLength(player.getVelocity())
-        player.moveByVector(velocityDirection)
+        player.moveNextPositionBy(velocityDirection)
         player.movingTime += player.movingTimeDelta
 
     def goBackward(self):
@@ -23,7 +23,7 @@ class PlayerController:
         delta = player.frontNormal.getCopy()
         delta.setLength(0.1)
         delta.mul(-1)
-        player.moveByVector(delta)
+        player.moveNextPositionBy(delta)
 
     def stepLeft(self):
         player = self.gameData.player
@@ -31,14 +31,14 @@ class PlayerController:
         delta = player.rightNormal.getCopy()
         delta.setLength(0.1)
         delta.mul(-1)
-        player.moveByVector(delta)
+        player.moveNextPositionBy(delta)
 
     def stepRight(self):
         player = self.gameData.player
         player.hasMoved = True
         delta = player.rightNormal.getCopy()
         delta.setLength(0.1)
-        player.moveByVector(delta)
+        player.moveNextPositionBy(delta)
 
     def turnLeft(self, radians):
         assert radians > 0

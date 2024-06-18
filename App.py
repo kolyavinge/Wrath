@@ -119,14 +119,6 @@ class App:
         glVertex3f(v.x, v.y, v.z)
         glEnd()
 
-        glColor3f(0, 1, 1)
-        glBegin(GL_LINES)
-        v = player.currentCenterPoint.getCopy()
-        v.add(player.rightNormal)
-        glVertex3f(player.currentCenterPoint.x, player.currentCenterPoint.y, player.currentCenterPoint.z)
-        glVertex3f(v.x, v.y, v.z)
-        glEnd()
-
         glColor3f(1, 0, 0)
         glBegin(GL_LINES)
         glVertex3f(0, 0, 0)

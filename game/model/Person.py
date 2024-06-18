@@ -1,5 +1,5 @@
 from game.anx.Constants import Constants
-from game.calc.Rect3d import Rect3d
+from game.calc.Box3d import Box3d
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.model.level.LevelSegment import LevelSegment
@@ -13,7 +13,7 @@ class Person:
 
     def __init__(self):
         self.currentCenterPoint = Vector3(1.5, 1.5, 0)
-        self.currentBorder = Rect3d()
+        self.currentBorder = Box3d(PlayerMeasures.xyLength, PlayerMeasures.xyLength, PlayerMeasures.zLength)
         self.currentBorder.bottom.downLeft = Vector3(1, 1, 0)
         self.currentBorder.bottom.downRight = Vector3(2, 1, 0)
         self.currentBorder.bottom.upLeft = Vector3(1, 2, 0)
@@ -35,17 +35,13 @@ class Person:
     def getVelocity(self):
         return self.velocityFunc.getValue(self.movingTime)
 
-    def moveByVector(self, vector):
+    def moveNextPositionBy(self, vector):
         self.nextCenterPoint.add(vector)
-        self.nextBorder.moveByVector(vector)
+        self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
 
-    def moveCenterPointTo(self, x, y):
-        self.nextCenterPoint.x = x
-        self.nextCenterPoint.y = y
-        self.nextBorder.bottom.downLeft = Vector3(x - PlayerMeasures.widthAndLengthHalf, y - PlayerMeasures.widthAndLengthHalf, 0)
-        self.nextBorder.bottom.downRight = Vector3(x + PlayerMeasures.widthAndLengthHalf, y - PlayerMeasures.widthAndLengthHalf, 0)
-        self.nextBorder.bottom.upLeft = Vector3(x - PlayerMeasures.widthAndLengthHalf, y + PlayerMeasures.widthAndLengthHalf, 0)
-        self.nextBorder.bottom.upRight = Vector3(x + PlayerMeasures.widthAndLengthHalf, y + PlayerMeasures.widthAndLengthHalf, 0)
+    def moveNextPositionTo(self, vector):
+        self.nextCenterPoint = vector
+        self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
 
     def commitNextPosition(self):
         self.currentCenterPoint = self.nextCenterPoint.getCopy()

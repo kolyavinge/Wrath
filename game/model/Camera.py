@@ -7,7 +7,7 @@ from game.calc.Vector3 import Vector3
 class Camera:
 
     def __init__(self):
-        self.viewAngleDegrees = 90
+        self.viewAngleDegrees = 45
         self.viewAngleRadians = Geometry.degreesToRadians(self.viewAngleDegrees)
         self.viewAngleRadiansHalf = self.viewAngleRadians / 2
         self.position = Vector3()

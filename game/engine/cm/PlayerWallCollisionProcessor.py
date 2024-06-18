@@ -10,37 +10,39 @@ class PlayerWallCollisionProcessor:
         self.gameData = gameData
 
     def processCollisions(self):
-        player = self.gameData.player
-        for levelSegment in player.levelSegments:
+        for levelSegment in self.gameData.player.levelSegments:
             for wall in levelSegment.walls:
-                point = player.nextCenterPoint.getCopy()
-                point.sub(wall.crossLine.startPoint)
-                dotProduct = point.dotProduct(wall.frontNormal)
-                if dotProduct < 0:
-                    intersectPoint = Geometry.getLinesIntersectionPointOrNone(
-                        wall.crossLine.startPoint.x,
-                        wall.crossLine.startPoint.y,
-                        wall.crossLine.endPoint.x,
-                        wall.crossLine.endPoint.y,
-                        player.currentCenterPoint.x,
-                        player.currentCenterPoint.y,
-                        player.nextCenterPoint.x,
-                        player.nextCenterPoint.y,
-                    )
-                    if intersectPoint is not None:
-                        if self.isPlayerLineContainsPoint(player, intersectPoint) and self.isCrossLineContainsPoint(wall, intersectPoint):
-                            x, y = self.getPointOnCrossLine(wall, player.nextCenterPoint)
-                            player.moveCenterPointTo(x, y)
+                self.processWall(wall)
 
-    def getPointOnCrossLine(self, wall, playerNextCenterPoint):
-        if wall.orientation == WallOrientation.horizontal:
-            return (playerNextCenterPoint.x, wall.crossLine.startPoint.y)
-        elif wall.orientation == WallOrientation.vertical:
-            return (wall.crossLine.startPoint.x, playerNextCenterPoint.y)
-        else:
-            raise Exception()
+    def processWall(self, wall):
+        player = self.gameData.player
+        if self.isPlayerBehindWall(player, wall):
+            intersectPoint = self.getCrossLineIntersectPointOrNone(player, wall)
+            if intersectPoint is not None:
+                if self.playerLineContainsPoint(player, intersectPoint) and self.crossLineContainsPoint(wall, intersectPoint):
+                    x, y = self.getPointOnCrossLine(wall, player.nextCenterPoint)
+                    player.moveNextPositionTo(Vector3(x, y, 0))
 
-    def isPlayerLineContainsPoint(self, player, point):
+    def isPlayerBehindWall(self, player, wall):
+        point = player.nextCenterPoint.getCopy()
+        point.sub(wall.crossLine.startPoint)
+        dotProduct = point.dotProduct(wall.frontNormal)
+
+        return dotProduct < 0
+
+    def getCrossLineIntersectPointOrNone(self, player, wall):
+        return Geometry.getLinesIntersectPointOrNone(
+            wall.crossLine.startPoint.x,
+            wall.crossLine.startPoint.y,
+            wall.crossLine.endPoint.x,
+            wall.crossLine.endPoint.y,
+            player.currentCenterPoint.x,
+            player.currentCenterPoint.y,
+            player.nextCenterPoint.x,
+            player.nextCenterPoint.y,
+        )
+
+    def playerLineContainsPoint(self, player, point):
         x, y = point
         intersectDirection = Vector3(x, y, 0)
         intersectDirection.sub(player.currentCenterPoint)
@@ -54,12 +56,20 @@ class PlayerWallCollisionProcessor:
 
         return playerDirection.isParallel(intersectDirection) and intersectDirection.getLength() <= playerDirection.getLength()
 
-    def isCrossLineContainsPoint(self, wall, point):
+    def crossLineContainsPoint(self, wall, point):
         x, y = point
         if wall.orientation == WallOrientation.horizontal:
             return wall.crossLine.startPoint.x <= x and x <= wall.crossLine.endPoint.x
         elif wall.orientation == WallOrientation.vertical:
             return wall.crossLine.startPoint.y <= y and y <= wall.crossLine.endPoint.y
+        else:
+            raise Exception()
+
+    def getPointOnCrossLine(self, wall, playerNextCenterPoint):
+        if wall.orientation == WallOrientation.horizontal:
+            return (playerNextCenterPoint.x, wall.crossLine.startPoint.y)
+        elif wall.orientation == WallOrientation.vertical:
+            return (wall.crossLine.startPoint.x, playerNextCenterPoint.y)
         else:
             raise Exception()
 

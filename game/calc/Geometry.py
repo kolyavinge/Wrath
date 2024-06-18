@@ -57,7 +57,7 @@ class Geometry:
         return a
 
     @staticmethod
-    def getLinesIntersectionPointOrNone(from1X, from1Y, to1X, to1Y, from2X, from2Y, to2X, to2Y):
+    def getLinesIntersectPointOrNone(from1X, from1Y, to1X, to1Y, from2X, from2Y, to2X, to2Y):
         a1 = from1Y - to1Y
         b1 = to1X - from1X
         c1 = from1X * to1Y - to1X * from1Y

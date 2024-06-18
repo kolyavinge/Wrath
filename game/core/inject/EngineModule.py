@@ -20,6 +20,7 @@ class EngineModule:
         binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
+        binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)
         binder.bindSingleton(GameData, makeGameData)
         binder.bindSingleton(GameUpdater, makeGameUpdater)
         binder.bindSingleton(LevelLoader, makeLevelLoader)
@@ -30,4 +31,3 @@ class EngineModule:
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerPositionUpdater, makePlayerPositionUpdater)
         binder.bindSingleton(InputManager, makeInputManager)
-        binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)

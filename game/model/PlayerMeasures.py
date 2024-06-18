@@ -1,5 +1,5 @@
 class PlayerMeasures:
 
-    widthAndLength = 1
-    widthAndLengthHalf = widthAndLength / 2
-    height = 2.5
+    xyLength = 1
+    xyLengthHalf = xyLength / 2
+    zLength = 2.5

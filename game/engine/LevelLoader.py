@@ -75,14 +75,14 @@ class LevelLoader:
         for floor in level.floors:
             for wall in floor.walls:
                 crossDirection = wall.frontNormal.getCopy()
-                crossDirection.setLength(PlayerMeasures.widthAndLengthHalf)
+                crossDirection.setLength(PlayerMeasures.xyLengthHalf)
                 wall.crossLine.startPoint = wall.startPoint.getCopy()
                 wall.crossLine.endPoint = wall.endPoint.getCopy()
                 wall.crossLine.startPoint.add(crossDirection)
                 wall.crossLine.endPoint.add(crossDirection)
                 wallDirection = wall.endPoint.getCopy()
                 wallDirection.sub(wall.startPoint)
-                wallDirection.setLength(PlayerMeasures.widthAndLengthHalf)
+                wallDirection.setLength(PlayerMeasures.xyLengthHalf)
                 wall.crossLine.startPoint.sub(wallDirection)
                 wall.crossLine.endPoint.add(wallDirection)
 
