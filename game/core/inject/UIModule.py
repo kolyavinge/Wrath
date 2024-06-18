@@ -1,5 +1,5 @@
-from game.ui.GameScreen import GameScreen, makeGameScreen
-from game.ui.ScreenManager import ScreenManager, makeScreenManager
+from game.ui.GameScreen import *
+from game.ui.ScreenManager import *
 
 
 class UIModule:

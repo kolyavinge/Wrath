@@ -1,4 +1,4 @@
-from game.core.Game import Game, makeGame
+from game.core.Game import *
 
 
 class CoreModule:
