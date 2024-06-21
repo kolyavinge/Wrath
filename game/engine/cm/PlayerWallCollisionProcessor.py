@@ -1,7 +1,7 @@
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
-from game.model.level.Wall import WallOrientation
+from game.model.level.Orientation import Orientation
 
 
 class PlayerWallCollisionProcessor:
@@ -58,17 +58,17 @@ class PlayerWallCollisionProcessor:
 
     def crossLineContainsPoint(self, wall, point):
         x, y = point
-        if wall.orientation == WallOrientation.horizontal:
+        if wall.orientation == Orientation.horizontal:
             return wall.crossLine.startPoint.x <= x and x <= wall.crossLine.endPoint.x
-        elif wall.orientation == WallOrientation.vertical:
+        elif wall.orientation == Orientation.vertical:
             return wall.crossLine.startPoint.y <= y and y <= wall.crossLine.endPoint.y
         else:
             raise Exception()
 
     def getPointOnCrossLine(self, wall, playerNextCenterPoint):
-        if wall.orientation == WallOrientation.horizontal:
+        if wall.orientation == Orientation.horizontal:
             return (playerNextCenterPoint.x, wall.crossLine.startPoint.y)
-        elif wall.orientation == WallOrientation.vertical:
+        elif wall.orientation == Orientation.vertical:
             return (wall.crossLine.startPoint.x, playerNextCenterPoint.y)
         else:
             raise Exception()

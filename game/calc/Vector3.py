@@ -1,4 +1,5 @@
 from game.lib.Math import Math
+from game.lib.Numeric import Numeric
 
 
 class Vector3:
@@ -66,10 +67,13 @@ class Vector3:
 
     def isParallel(self, vector, eps=0.001):
         value = self.dotProduct(vector) / (self.getLength() * vector.getLength())
-        return Math.abs(value - 1) < eps
+        return Numeric.floatEquals(value, 1, eps)
 
     def __eq__(self, vector):
         return self.x == vector.x and self.y == vector.y and self.z == vector.z
 
     def toString(self):
         return f"{self.x:f} : {self.y:f} : {self.z:f}"
+
+    def __str__(self):
+        return self.toString()

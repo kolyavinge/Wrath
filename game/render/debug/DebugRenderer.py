@@ -63,10 +63,10 @@ class DebugRenderer:
         glColor4f(1, 0, 0, 0.2)
         for levelSegment in player.levelSegments:
             glBegin(GL_QUADS)
-            glVertex3f(levelSegment.minX, levelSegment.minY, 0)
-            glVertex3f(levelSegment.maxX, levelSegment.minY, 0)
-            glVertex3f(levelSegment.maxX, levelSegment.maxY, 0)
-            glVertex3f(levelSegment.minX, levelSegment.maxY, 0)
+            glVertex3f(levelSegment.minX, levelSegment.minY, levelSegment.minZ)
+            glVertex3f(levelSegment.maxX, levelSegment.minY, levelSegment.minZ)
+            glVertex3f(levelSegment.maxX, levelSegment.maxY, levelSegment.minZ)
+            glVertex3f(levelSegment.minX, levelSegment.maxY, levelSegment.minZ)
             glEnd()
         glDisable(GL_BLEND)
 
