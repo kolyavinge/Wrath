@@ -1,4 +1,5 @@
 from game.engine.bsp.SplitBorder import SplitBorder
+from game.engine.bsp.SplitBorderBuilder import SplitBorderBuilder
 from game.engine.bsp.SplitLineBuilder import SplitLineBuilder
 from game.engine.bsp.SplitLineFrontBackPosition import SplitLineFrontBackPosition
 from game.model.level.BSPTree import BSPNode
@@ -8,8 +9,9 @@ from game.model.level.Orientation import Orientation
 
 class BSPTreeBuilder:
 
-    def __init__(self, splitLineBuilder):
+    def __init__(self, splitLineBuilder, splitBorderBuilder):
         self.splitLineBuilder = splitLineBuilder
+        self.splitBorderBuilder = splitBorderBuilder
 
     def build(self, level):
         for floor in level.floors:
@@ -22,7 +24,7 @@ class BSPTreeBuilder:
 
     def buildRec(self, node, splitOrientation, splitBorder, allSplitLines):
         splitLines = [s for s in allSplitLines if s.orientation == splitOrientation]
-        self.sortSplitLines(splitLines)
+        splitLines.sort(key=lambda s: (s.priority, s.sortOrder))
         middleSplitLine = self.getMiddleSplitLine(splitLines)
         allSplitLines.remove(middleSplitLine)
         node.basePoint = middleSplitLine.startPoint
@@ -30,7 +32,7 @@ class BSPTreeBuilder:
         frontSplitLines, backSplitLines = self.getFrontAndBackSplitLines(allSplitLines, node.basePoint, node.frontNormal)
         newSplitOrientation = self.getNewSplitOrientation(splitOrientation, middleSplitLine)
         node.front = BSPNode()
-        splitBorder = self.getFrontSplitBorder(splitBorder, node.basePoint, node.frontNormal)
+        splitBorder = self.splitBorderBuilder.getFrontSplitBorder(splitBorder, node.basePoint, node.frontNormal)
         if frontSplitLines:
             self.buildRec(node.front, newSplitOrientation, splitBorder, frontSplitLines)
         else:
@@ -39,40 +41,16 @@ class BSPTreeBuilder:
             )
         if backSplitLines:
             node.back = BSPNode()
-            splitBorder = self.getBackSplitBorder(splitBorder, node.basePoint, node.frontNormal)
+            splitBorder = self.splitBorderBuilder.getBackSplitBorder(splitBorder, node.basePoint, node.frontNormal)
             self.buildRec(node.back, newSplitOrientation, splitBorder, backSplitLines)
 
-    def getFrontSplitBorder(self, splitBorder, basePoint, frontNormal):
-        if frontNormal.z == 1:
-            return SplitBorder(splitBorder.minX, splitBorder.maxX, splitBorder.minY, splitBorder.maxY, basePoint.z, splitBorder.maxZ)
-        elif frontNormal.z == -1:
-            return SplitBorder(splitBorder.minX, splitBorder.maxX, splitBorder.minY, splitBorder.maxY, splitBorder.minZ, basePoint.z)
-        elif frontNormal.y == 1:
-            return SplitBorder(splitBorder.minX, splitBorder.maxX, basePoint.y, splitBorder.maxY, splitBorder.minZ, splitBorder.maxZ)
-        elif frontNormal.y == -1:
-            return SplitBorder(splitBorder.minX, splitBorder.maxX, splitBorder.minY, basePoint.y, splitBorder.minZ, splitBorder.maxZ)
-        elif frontNormal.x == 1:
-            return SplitBorder(basePoint.x, splitBorder.maxX, splitBorder.minY, splitBorder.maxY, splitBorder.minZ, splitBorder.maxZ)
-        elif frontNormal.x == -1:
-            return SplitBorder(splitBorder.minX, basePoint.x, splitBorder.minY, splitBorder.maxY, splitBorder.minZ, splitBorder.maxZ)
-        else:
-            raise Exception()
+    def getMiddleSplitLine(self, splitLines):
+        priority = splitLines[0].priority
+        n = 0
+        while n < len(splitLines) and splitLines[n].priority == priority:
+            n += 1
 
-    def getBackSplitBorder(self, splitBorder, basePoint, frontNormal):
-        if frontNormal.z == 1:
-            return SplitBorder(splitBorder.minX, splitBorder.maxX, splitBorder.minY, splitBorder.maxY, splitBorder.minZ, basePoint.z)
-        elif frontNormal.z == -1:
-            return SplitBorder(splitBorder.minX, splitBorder.maxX, splitBorder.minY, splitBorder.maxY, basePoint.z, splitBorder.maxZ)
-        elif frontNormal.y == 1:
-            return SplitBorder(splitBorder.minX, splitBorder.maxX, splitBorder.minY, basePoint.y, splitBorder.minZ, splitBorder.maxZ)
-        elif frontNormal.y == -1:
-            return SplitBorder(splitBorder.minX, splitBorder.maxX, basePoint.y, splitBorder.maxY, splitBorder.minZ, splitBorder.maxZ)
-        elif frontNormal.x == 1:
-            return SplitBorder(splitBorder.minX, basePoint.x, splitBorder.minY, splitBorder.maxY, splitBorder.minZ, splitBorder.maxZ)
-        elif frontNormal.x == -1:
-            return SplitBorder(basePoint.x, splitBorder.maxX, splitBorder.minY, splitBorder.maxY, splitBorder.minZ, splitBorder.maxZ)
-        else:
-            raise Exception()
+        return splitLines[int(n / 2)]
 
     def getFrontAndBackSplitLines(self, splitLines, basePoint, frontNormal):
         front = []
@@ -115,17 +93,6 @@ class BSPTreeBuilder:
         else:
             return splitOrientation
 
-    def getMiddleSplitLine(self, splitLines):
-        priority = splitLines[0].priority
-        n = 0
-        while n < len(splitLines) and splitLines[n].priority == priority:
-            n += 1
-
-        return splitLines[int(n / 2)]
-
-    def sortSplitLines(self, splitLines):
-        splitLines.sort(key=lambda s: (s.priority, s.sortOrder))
-
 
 def makeBSPTreeBuilder(resolver):
-    return BSPTreeBuilder(resolver.resolve(SplitLineBuilder))
+    return BSPTreeBuilder(resolver.resolve(SplitLineBuilder), resolver.resolve(SplitBorderBuilder))
