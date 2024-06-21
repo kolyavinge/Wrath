@@ -1,7 +1,7 @@
 from game.engine.bsp.SplitBorder import SplitBorder
 from game.engine.bsp.SplitBorderBuilder import SplitBorderBuilder
 from game.engine.bsp.SplitLineBuilder import SplitLineBuilder
-from game.engine.bsp.SplitLineFrontBackPosition import SplitLineFrontBackPosition
+from game.engine.bsp.SplitLinePosition import SplitLinePosition
 from game.model.level.BSPTree import BSPNode
 from game.model.level.LevelSegment import LevelSegment
 from game.model.level.Orientation import Orientation
@@ -36,9 +36,7 @@ class BSPTreeBuilder:
         if frontSplitLines:
             self.buildRec(node.front, newSplitOrientation, splitBorder, frontSplitLines)
         else:
-            node.front.levelSegment = LevelSegment(
-                splitBorder.minX, splitBorder.maxX, splitBorder.minY, splitBorder.maxY, splitBorder.minZ, splitBorder.maxZ
-            )
+            node.front.levelSegment = LevelSegment.makeFromSplitBorder(splitBorder)
         if backSplitLines:
             node.back = BSPNode()
             splitBorder = self.splitBorderBuilder.getBackSplitBorder(splitBorder, node.basePoint, node.frontNormal)
@@ -56,20 +54,20 @@ class BSPTreeBuilder:
         front = []
         back = []
         for splitLine in splitLines:
-            position = self.getFrontBackPosition(splitLine, basePoint, frontNormal)
-            if position == SplitLineFrontBackPosition.frontBack:
+            position = self.getSplitLinePosition(splitLine, basePoint, frontNormal)
+            if position == SplitLinePosition.frontBack:
                 front.append(splitLine)
                 back.append(splitLine)
-            elif position == SplitLineFrontBackPosition.front:
+            elif position == SplitLinePosition.front:
                 front.append(splitLine)
-            elif position == SplitLineFrontBackPosition.back:
+            elif position == SplitLinePosition.back:
                 back.append(splitLine)
             else:  # SplitLineFrontBackPosition.parallel
                 pass  # ignore this split line
 
         return (front, back)
 
-    def getFrontBackPosition(self, splitLine, basePoint, frontNormal):
+    def getSplitLinePosition(self, splitLine, basePoint, frontNormal):
         direction = splitLine.startPoint.getCopy()
         direction.sub(basePoint)
         dotProductStart = direction.dotProduct(frontNormal)
@@ -79,13 +77,20 @@ class BSPTreeBuilder:
         dotProductEnd = direction.dotProduct(frontNormal)
 
         if dotProductStart >= 0 and dotProductEnd >= 0:
-            return SplitLineFrontBackPosition.front
-        elif dotProductStart < 0 and dotProductEnd < 0:
-            return SplitLineFrontBackPosition.back
-        elif dotProductStart * dotProductEnd < 0:
-            return SplitLineFrontBackPosition.frontBack
-        else:
-            return SplitLineFrontBackPosition.back
+            return SplitLinePosition.front
+
+        if dotProductStart < 0 and dotProductEnd < 0:
+            return SplitLinePosition.back
+
+        if dotProductStart * dotProductEnd < 0:
+            return SplitLinePosition.frontBack
+
+        if dotProductStart == 0 and dotProductEnd == 0:
+            dotProductNormal = splitLine.frontNormal.dotProduct(frontNormal)
+            if dotProductNormal == 1 or dotProductNormal == -1:
+                return SplitLinePosition.parallel
+
+        return SplitLinePosition.back
 
     def getNewSplitOrientation(self, splitOrientation, middleSplitLine):
         if middleSplitLine.orientationCanChange:
