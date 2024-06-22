@@ -14,13 +14,19 @@ class BSPTreeBuilder:
         self.splitBorderBuilder = splitBorderBuilder
 
     def build(self, level):
+        splitBorder = self.getInitSplitBorder(level)
+        splitLines = self.splitLineBuilder.getSplitLines(level)
+        self.buildRec(level.bspTree.root, splitLines[0].orientation, splitBorder, splitLines)
+
+    def getInitSplitBorder(self, level):
+        maxX = 0
+        maxY = 0
+        maxZ = max([f.height for f in level.floors])
         for floor in level.floors:
-            maxX = max([w.getMaxX() for w in floor.walls])
-            maxY = max([w.getMaxY() for w in floor.walls])
-            maxZ = max([f.height for f in level.floors])
-            splitBorder = SplitBorder(0, maxX, 0, maxY, 0, maxZ)
-            splitLines = self.splitLineBuilder.getSplitLines(level)
-            self.buildRec(floor.bspTree.root, splitLines[0].orientation, splitBorder, splitLines)
+            maxX = max(maxX, max([w.getMaxX() for w in floor.walls]))
+            maxY = max(maxY, max([w.getMaxY() for w in floor.walls]))
+
+        return SplitBorder(0, maxX, 0, maxY, 0, maxZ)
 
     def buildRec(self, node, splitOrientation, splitBorder, allSplitLines):
         splitLines = [s for s in allSplitLines if s.orientation == splitOrientation]

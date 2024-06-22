@@ -29,7 +29,6 @@ class Player:
         self.movingTime = 1
         self.movingTimeDelta = 0.1
         self.velocityFunc = VelocityFunc()
-        self.floorIndex = 0
         self.levelSegments = [LevelSegment()]
 
     def getVelocity(self):

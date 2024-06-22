@@ -8,7 +8,7 @@ class LevelSegmentContentAnalyzer:
 
     def analyze(self, level):
         for floor in level.floors:
-            self.analyzeWalls(floor.bspTree, floor.walls)
+            self.analyzeWalls(level.bspTree, floor.walls)
 
     def analyzeWalls(self, bspTree, walls):
         for wall in walls:
