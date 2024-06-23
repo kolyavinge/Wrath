@@ -30,6 +30,8 @@ class BSPTreeBuilder:
 
     def buildRec(self, node, splitOrientation, splitBorder, allSplitLines):
         splitLines = [s for s in allSplitLines if s.orientation == splitOrientation]
+        if not splitLines:
+            splitLines = allSplitLines.copy()
         splitLines.sort(key=lambda s: (s.priority, s.sortOrder))
         middleSplitLine = self.getMiddleSplitLine(splitLines)
         allSplitLines.remove(middleSplitLine)
@@ -38,15 +40,17 @@ class BSPTreeBuilder:
         frontSplitLines, backSplitLines = self.getFrontAndBackSplitLines(allSplitLines, node.basePoint, node.frontNormal)
         newSplitOrientation = self.getNewSplitOrientation(splitOrientation, middleSplitLine)
         node.front = BSPNode()
-        splitBorder = self.splitBorderBuilder.getFrontSplitBorder(splitBorder, node.basePoint, node.frontNormal)
+        frontSplitBorder = self.splitBorderBuilder.getFrontSplitBorder(splitBorder, node.basePoint, node.frontNormal)
+        frontSplitBorder.validate()
         if frontSplitLines:
-            self.buildRec(node.front, newSplitOrientation, splitBorder, frontSplitLines)
+            self.buildRec(node.front, newSplitOrientation, frontSplitBorder, frontSplitLines)
         else:
-            node.front.levelSegment = LevelSegment.makeFromSplitBorder(splitBorder)
+            node.front.levelSegment = LevelSegment.makeFromSplitBorder(frontSplitBorder)
         if backSplitLines:
             node.back = BSPNode()
-            splitBorder = self.splitBorderBuilder.getBackSplitBorder(splitBorder, node.basePoint, node.frontNormal)
-            self.buildRec(node.back, newSplitOrientation, splitBorder, backSplitLines)
+            backSplitBorder = self.splitBorderBuilder.getBackSplitBorder(splitBorder, node.basePoint, node.frontNormal)
+            backSplitBorder.validate()
+            self.buildRec(node.back, newSplitOrientation, backSplitBorder, backSplitLines)
 
     def getMiddleSplitLine(self, splitLines):
         priority = splitLines[0].priority
@@ -82,6 +86,11 @@ class BSPTreeBuilder:
         direction.sub(basePoint)
         dotProductEnd = direction.dotProduct(frontNormal)
 
+        if dotProductStart == 0 and dotProductEnd == 0:
+            dotProductNormal = splitLine.frontNormal.dotProduct(frontNormal)
+            if dotProductNormal == 1 or dotProductNormal == -1:
+                return SplitLinePosition.parallel
+
         if dotProductStart >= 0 and dotProductEnd >= 0:
             return SplitLinePosition.front
 
@@ -90,11 +99,6 @@ class BSPTreeBuilder:
 
         if dotProductStart * dotProductEnd < 0:
             return SplitLinePosition.frontBack
-
-        if dotProductStart == 0 and dotProductEnd == 0:
-            dotProductNormal = splitLine.frontNormal.dotProduct(frontNormal)
-            if dotProductNormal == 1 or dotProductNormal == -1:
-                return SplitLinePosition.parallel
 
         return SplitLinePosition.back
 

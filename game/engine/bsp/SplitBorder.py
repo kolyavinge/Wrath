@@ -8,5 +8,15 @@ class SplitBorder:
         self.minZ = minZ
         self.maxZ = maxZ
 
+    def validate(self):
+        if self.minX == self.maxX:
+            raise Exception()
+
+        if self.minY == self.maxY:
+            raise Exception()
+
+        if self.minZ == self.maxZ:
+            raise Exception()
+
     def getCopy(self):
         return SplitBorder(self.minX, self.maxX, self.minY, self.maxY, self.minZ, self.maxZ)

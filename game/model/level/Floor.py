@@ -2,6 +2,7 @@ class Floor:
 
     def __init__(self):
         self.walls = []
+        self.grounds = []
         self.height = 5
 
     def validate(self):

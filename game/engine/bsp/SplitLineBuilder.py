@@ -10,6 +10,7 @@ class SplitLineBuilder:
         result = []
         self.makeFromFloors(level, result)
         self.makeFromWalls(level, result)
+        self.makeFromGrounds(level, result)
 
         return result
 
@@ -38,6 +39,49 @@ class SplitLineBuilder:
                 s.orientation = wall.orientation
                 s.orientationCanChange = True
                 s.sortOrder = wall.startPoint.x if wall.orientation == Orientation.vertical else wall.startPoint.y
+                result.append(s)
+
+    def makeFromGrounds(self, level, result):
+        for floor in level.floors:
+            for ground in floor.grounds:
+                s = SplitLine()
+                s.priority = 2
+                s.startPoint = ground.downLeft
+                s.endPoint = ground.downRight
+                s.frontNormal = ground.downFrontNormal
+                s.orientation = Orientation.horizontal
+                s.orientationCanChange = True
+                s.sortOrder = ground.downLeft.y
+                result.append(s)
+
+                s = SplitLine()
+                s.priority = 2
+                s.startPoint = ground.upLeft
+                s.endPoint = ground.upRight
+                s.frontNormal = ground.upFrontNormal
+                s.orientation = Orientation.horizontal
+                s.orientationCanChange = True
+                s.sortOrder = ground.upLeft.y
+                result.append(s)
+
+                s = SplitLine()
+                s.priority = 2
+                s.startPoint = ground.downLeft
+                s.endPoint = ground.upLeft
+                s.frontNormal = ground.leftFrontNormal
+                s.orientation = Orientation.vertical
+                s.orientationCanChange = True
+                s.sortOrder = ground.downLeft.x
+                result.append(s)
+
+                s = SplitLine()
+                s.priority = 2
+                s.startPoint = ground.downRight
+                s.endPoint = ground.upRight
+                s.frontNormal = ground.rightFrontNormal
+                s.orientation = Orientation.vertical
+                s.orientationCanChange = True
+                s.sortOrder = ground.downRight.x
                 result.append(s)
 
 
