@@ -14,7 +14,7 @@ class SplitLine:
         self.sortOrder = 0
 
     def toString(self):
-        return f"({self.startPoint}), ({self.endPoint}), ({self.frontNormal})"
+        return f"({self.priority}:{self.startPoint}),({self.endPoint})"
 
     def __str__(self):
         return self.toString()

@@ -8,6 +8,9 @@ class SplitBorder:
         self.minZ = minZ
         self.maxZ = maxZ
 
+    def isValid(self):
+        return (self.minX != self.maxX) and (self.minY != self.maxY) and (self.minZ != self.maxZ)
+
     def validate(self):
         if self.minX == self.maxX:
             raise Exception()

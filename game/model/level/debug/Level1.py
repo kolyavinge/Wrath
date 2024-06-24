@@ -83,17 +83,28 @@ class Level1(Level):
 
         ground3 = PlaneGround()
         ground3.downLeft = Vector3(10, 5, 0)
-        ground3.downRight = Vector3(20, 5, 0)
+        ground3.downRight = Vector3(15, 5, 0)
         ground3.upLeft = Vector3(10, 10, 0)
-        ground3.upRight = Vector3(20, 10, 0)
+        ground3.upRight = Vector3(15, 10, 0)
         ground3.leftFrontNormal = Vector3(1, 0, 0)
         ground3.rightFrontNormal = Vector3(-1, 0, 0)
         ground3.upFrontNormal = Vector3(0, -1, 0)
         ground3.downFrontNormal = Vector3(0, 1, 0)
         ground3.z = 0
 
+        ground4 = PlaneGround()
+        ground4.downLeft = Vector3(15, 5, 0)
+        ground4.downRight = Vector3(20, 5, 0)
+        ground4.upLeft = Vector3(15, 10, 0)
+        ground4.upRight = Vector3(20, 10, 0)
+        ground4.leftFrontNormal = Vector3(1, 0, 0)
+        ground4.rightFrontNormal = Vector3(-1, 0, 0)
+        ground4.upFrontNormal = Vector3(0, -1, 0)
+        ground4.downFrontNormal = Vector3(0, 1, 0)
+        ground4.z = 0
+
         floor = Floor()
         floor.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8]
-        floor.grounds = [ground1, ground2, ground3]
+        floor.grounds = [ground1, ground2, ground3, ground4]
 
         self.floors = [floor]
