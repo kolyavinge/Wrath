@@ -44,7 +44,7 @@ class App:
         glEnable(GL_DEPTH_TEST)
         level = self.game.levelManager.gameData.level
         glColor3f(0.5, 0.5, 0.5)
-        for wall in level.floors[0].walls:
+        for wall in level.walls:
             glBegin(GL_QUADS)
             glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
             glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z)

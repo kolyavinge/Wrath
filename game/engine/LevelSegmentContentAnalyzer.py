@@ -7,12 +7,8 @@ class LevelSegmentContentAnalyzer:
         self.traversal = traversal
 
     def analyze(self, level):
-        for floor in level.floors:
-            self.analyzeWalls(level.bspTree, floor.walls)
-
-    def analyzeWalls(self, bspTree, walls):
-        for wall in walls:
-            self.analyzeWall(bspTree, wall)
+        for wall in level.walls:
+            self.analyzeWall(level.bspTree, wall)
 
     def analyzeWall(self, bspTree, wall):
         wallStep = wall.endPoint.getCopy()

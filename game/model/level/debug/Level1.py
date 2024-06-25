@@ -1,5 +1,4 @@
 from game.calc.Vector3 import Vector3
-from game.model.level.Floor import Floor
 from game.model.level.Level import Level
 from game.model.level.Orientation import Orientation
 from game.model.level.PlaneGround import PlaneGround
@@ -103,8 +102,5 @@ class Level1(Level):
         ground4.downFrontNormal = Vector3(0, 1, 0)
         ground4.z = 0
 
-        floor = Floor()
-        floor.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8]
-        floor.grounds = [ground1, ground2, ground3, ground4]
-
-        self.floors = [floor]
+        self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8]
+        self.grounds = [ground1, ground2, ground3, ground4]

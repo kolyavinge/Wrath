@@ -19,12 +19,9 @@ class BSPTreeBuilder:
         self.buildRec(level.bspTree.root, splitLines[0].orientation, splitBorder, splitLines)
 
     def getInitSplitBorder(self, level):
-        maxX = 0
-        maxY = 0
-        maxZ = max([f.height for f in level.floors])
-        for floor in level.floors:
-            maxX = max(maxX, max([w.getMaxX() for w in floor.walls]))
-            maxY = max(maxY, max([w.getMaxY() for w in floor.walls]))
+        maxX = max([w.getMaxX() for w in level.walls])
+        maxY = max([w.getMaxY() for w in level.walls])
+        maxZ = 5
 
         return SplitBorder(0, maxX, 0, maxY, 0, maxZ)
 
