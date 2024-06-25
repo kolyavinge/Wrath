@@ -73,7 +73,7 @@ class Vector3:
         return self.x == vector.x and self.y == vector.y and self.z == vector.z
 
     def toString(self):
-        return f"{self.x:f} : {self.y:f} : {self.z:f}"
+        return f"{self.x:.2f} : {self.y:.2f} : {self.z:.2f}"
 
     def __str__(self):
         return self.toString()

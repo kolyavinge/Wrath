@@ -16,3 +16,6 @@ class PlaneFloor:
 
     def getZ(self, x, y):
         return self.z
+
+    def __str__(self):
+        return f"({self.downLeft}),({self.downRight}),({self.upLeft}),({self.upRight})"

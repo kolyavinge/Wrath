@@ -46,7 +46,7 @@ class Wall:
             raise Exception()
 
     def toString(self):
-        return f"({self.startPoint.toString()} - {self.endPoint.toString()})"
+        return f"({self.startPoint.toString()}-{self.endPoint.toString()})"
 
     def __str__(self):
         return self.toString()

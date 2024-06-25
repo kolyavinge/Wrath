@@ -1,44 +1,17 @@
-from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.engine.LevelSegmentItemFinder import LevelSegmentItemFinder
 
 
 class LevelSegmentWallAnalyzer:
 
-    def __init__(self, traversal):
-        self.traversal = traversal
+    def __init__(self, segmentItemFinder):
+        self.segmentItemFinder = segmentItemFinder
 
     def analyzeWalls(self, level):
         for wall in level.walls:
-            self.analyzeWall(level.bspTree, wall)
-
-    def analyzeWall(self, bspTree, wall):
-        wallStep = wall.endPoint.getCopy()
-        wallStep.sub(wall.startPoint)
-        wallStep.setLength(0.1)
-        startPoint = wall.startPoint.getCopy()
-        startPoint.add(wallStep)
-        endPoint = wall.endPoint.getCopy()
-        endPoint.sub(wallStep)
-        startSegment = self.traversal.findLevelSegmentOrNone(bspTree, startPoint)
-        endSegment = self.traversal.findLevelSegmentOrNone(bspTree, endPoint)
-        assert startSegment is not None
-        assert endSegment is not None
-        self.analyzeWallRec(bspTree, wall, startPoint, endPoint, startSegment, endSegment)
-
-    def analyzeWallRec(self, bspTree, wall, startPoint, endPoint, startSegment, endSegment):
-        if startSegment == endSegment:
-            if wall not in startSegment.walls:
-                startSegment.walls.append(wall)
-        else:
-            middlePoint = endPoint.getCopy()
-            middlePoint.sub(startPoint)
-            middlePoint.div(2)
-            if middlePoint.getLength() > 0.1:
-                middlePoint.add(startPoint)
-                middleSegment = self.traversal.findLevelSegmentOrNone(bspTree, middlePoint)
-                assert middleSegment is not None
-                self.analyzeWallRec(bspTree, wall, startPoint, middlePoint, startSegment, middleSegment)
-                self.analyzeWallRec(bspTree, wall, middlePoint, endPoint, middleSegment, endSegment)
+            levelSegments = self.segmentItemFinder.getItemLevelSegments(level.bspTree, wall.startPoint, wall.endPoint)
+            for levelSegment in levelSegments:
+                levelSegment.walls.append(wall)
 
 
 def makeLevelSegmentWallAnalyzer(resolver):
-    return LevelSegmentWallAnalyzer(resolver.resolve(BSPTreeTraversal))
+    return LevelSegmentWallAnalyzer(resolver.resolve(LevelSegmentItemFinder))
