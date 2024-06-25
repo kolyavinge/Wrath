@@ -1,7 +1,7 @@
 from game.calc.Vector3 import Vector3
 from game.model.level.Level import Level
 from game.model.level.Orientation import Orientation
-from game.model.level.PlaneGround import PlaneGround
+from game.model.level.PlaneFloor import PlaneFloor
 from game.model.level.Wall import Wall
 
 
@@ -58,49 +58,49 @@ class Level1(Level):
         wall8.orientation = Orientation.horizontal
         wall8.frontNormal = Vector3(0, 1, 0)
 
-        ground1 = PlaneGround()
-        ground1.downLeft = Vector3(0, 0, 0)
-        ground1.downRight = Vector3(10, 0, 0)
-        ground1.upLeft = Vector3(0, 10, 0)
-        ground1.upRight = Vector3(10, 10, 0)
-        ground1.leftFrontNormal = Vector3(1, 0, 0)
-        ground1.rightFrontNormal = Vector3(-1, 0, 0)
-        ground1.upFrontNormal = Vector3(0, -1, 0)
-        ground1.downFrontNormal = Vector3(0, 1, 0)
-        ground1.z = 0
+        floor1 = PlaneFloor()
+        floor1.downLeft = Vector3(0, 0, 0)
+        floor1.downRight = Vector3(10, 0, 0)
+        floor1.upLeft = Vector3(0, 10, 0)
+        floor1.upRight = Vector3(10, 10, 0)
+        floor1.leftFrontNormal = Vector3(1, 0, 0)
+        floor1.rightFrontNormal = Vector3(-1, 0, 0)
+        floor1.upFrontNormal = Vector3(0, -1, 0)
+        floor1.downFrontNormal = Vector3(0, 1, 0)
+        floor1.z = 0
 
-        ground2 = PlaneGround()
-        ground2.downLeft = Vector3(20, 5, 0)
-        ground2.downRight = Vector3(30, 5, 0)
-        ground2.upLeft = Vector3(20, 15, 0)
-        ground2.upRight = Vector3(30, 15, 0)
-        ground2.leftFrontNormal = Vector3(1, 0, 0)
-        ground2.rightFrontNormal = Vector3(-1, 0, 0)
-        ground2.upFrontNormal = Vector3(0, -1, 0)
-        ground2.downFrontNormal = Vector3(0, 1, 0)
-        ground2.z = 0
+        floor2 = PlaneFloor()
+        floor2.downLeft = Vector3(20, 5, 0)
+        floor2.downRight = Vector3(30, 5, 0)
+        floor2.upLeft = Vector3(20, 15, 0)
+        floor2.upRight = Vector3(30, 15, 0)
+        floor2.leftFrontNormal = Vector3(1, 0, 0)
+        floor2.rightFrontNormal = Vector3(-1, 0, 0)
+        floor2.upFrontNormal = Vector3(0, -1, 0)
+        floor2.downFrontNormal = Vector3(0, 1, 0)
+        floor2.z = 0
 
-        ground3 = PlaneGround()
-        ground3.downLeft = Vector3(10, 5, 0)
-        ground3.downRight = Vector3(15, 5, 0)
-        ground3.upLeft = Vector3(10, 10, 0)
-        ground3.upRight = Vector3(15, 10, 0)
-        ground3.leftFrontNormal = Vector3(1, 0, 0)
-        ground3.rightFrontNormal = Vector3(-1, 0, 0)
-        ground3.upFrontNormal = Vector3(0, -1, 0)
-        ground3.downFrontNormal = Vector3(0, 1, 0)
-        ground3.z = 0
+        floor3 = PlaneFloor()
+        floor3.downLeft = Vector3(10, 5, 0)
+        floor3.downRight = Vector3(15, 5, 0)
+        floor3.upLeft = Vector3(10, 10, 0)
+        floor3.upRight = Vector3(15, 10, 0)
+        floor3.leftFrontNormal = Vector3(1, 0, 0)
+        floor3.rightFrontNormal = Vector3(-1, 0, 0)
+        floor3.upFrontNormal = Vector3(0, -1, 0)
+        floor3.downFrontNormal = Vector3(0, 1, 0)
+        floor3.z = 0
 
-        ground4 = PlaneGround()
-        ground4.downLeft = Vector3(15, 5, 0)
-        ground4.downRight = Vector3(20, 5, 0)
-        ground4.upLeft = Vector3(15, 10, 0)
-        ground4.upRight = Vector3(20, 10, 0)
-        ground4.leftFrontNormal = Vector3(1, 0, 0)
-        ground4.rightFrontNormal = Vector3(-1, 0, 0)
-        ground4.upFrontNormal = Vector3(0, -1, 0)
-        ground4.downFrontNormal = Vector3(0, 1, 0)
-        ground4.z = 0
+        floor4 = PlaneFloor()
+        floor4.downLeft = Vector3(15, 5, 0)
+        floor4.downRight = Vector3(20, 5, 0)
+        floor4.upLeft = Vector3(15, 10, 0)
+        floor4.upRight = Vector3(20, 10, 0)
+        floor4.leftFrontNormal = Vector3(1, 0, 0)
+        floor4.rightFrontNormal = Vector3(-1, 0, 0)
+        floor4.upFrontNormal = Vector3(0, -1, 0)
+        floor4.downFrontNormal = Vector3(0, 1, 0)
+        floor4.z = 0
 
         self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8]
-        self.grounds = [ground1, ground2, ground3, ground4]
+        self.floors = [floor1, floor2, floor3, floor4]

@@ -6,7 +6,7 @@ class Level:
     def __init__(self):
         self.bspTree = BSPTree()
         self.walls = []
-        self.grounds = []
+        self.floors = []
 
     def validate(self):
         for w in self.walls:

@@ -9,7 +9,7 @@ class SplitLineBuilder:
     def getSplitLines(self, level):
         result = []
         self.makeFromWalls(level, result)
-        self.makeFromGrounds(level, result)
+        self.makeFromFloors(level, result)
 
         return result
 
@@ -25,46 +25,46 @@ class SplitLineBuilder:
             s.sortOrder = wall.startPoint.x if wall.orientation == Orientation.vertical else wall.startPoint.y
             result.append(s)
 
-    def makeFromGrounds(self, level, result):
-        for ground in level.grounds:
+    def makeFromFloors(self, level, result):
+        for floor in level.floors:
             s = SplitLine()
             s.priority = 2
-            s.startPoint = ground.downLeft
-            s.endPoint = ground.downRight
-            s.frontNormal = ground.downFrontNormal
+            s.startPoint = floor.downLeft
+            s.endPoint = floor.downRight
+            s.frontNormal = floor.downFrontNormal
             s.orientation = Orientation.horizontal
             s.orientationCanChange = True
-            s.sortOrder = ground.downLeft.y
+            s.sortOrder = floor.downLeft.y
             result.append(s)
 
             s = SplitLine()
             s.priority = 2
-            s.startPoint = ground.upLeft
-            s.endPoint = ground.upRight
-            s.frontNormal = ground.upFrontNormal
+            s.startPoint = floor.upLeft
+            s.endPoint = floor.upRight
+            s.frontNormal = floor.upFrontNormal
             s.orientation = Orientation.horizontal
             s.orientationCanChange = True
-            s.sortOrder = ground.upLeft.y
+            s.sortOrder = floor.upLeft.y
             result.append(s)
 
             s = SplitLine()
             s.priority = 2
-            s.startPoint = ground.downLeft
-            s.endPoint = ground.upLeft
-            s.frontNormal = ground.leftFrontNormal
+            s.startPoint = floor.downLeft
+            s.endPoint = floor.upLeft
+            s.frontNormal = floor.leftFrontNormal
             s.orientation = Orientation.vertical
             s.orientationCanChange = True
-            s.sortOrder = ground.downLeft.x
+            s.sortOrder = floor.downLeft.x
             result.append(s)
 
             s = SplitLine()
             s.priority = 2
-            s.startPoint = ground.downRight
-            s.endPoint = ground.upRight
-            s.frontNormal = ground.rightFrontNormal
+            s.startPoint = floor.downRight
+            s.endPoint = floor.upRight
+            s.frontNormal = floor.rightFrontNormal
             s.orientation = Orientation.vertical
             s.orientationCanChange = True
-            s.sortOrder = ground.downRight.x
+            s.sortOrder = floor.downRight.x
             result.append(s)
 
 

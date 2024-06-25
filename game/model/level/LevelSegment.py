@@ -20,4 +20,4 @@ class LevelSegment:
         self.minZ = 0
         self.maxZ = 0
         self.walls = []
-        self.ground = None
+        self.floor = None

@@ -1,7 +1,7 @@
 from game.calc.Vector3 import Vector3
 
 
-class PlaneGround:
+class PlaneFloor:
 
     def __init__(self):
         self.downLeft = Vector3()
