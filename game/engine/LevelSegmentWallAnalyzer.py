@@ -1,12 +1,12 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 
 
-class LevelSegmentContentAnalyzer:
+class LevelSegmentWallAnalyzer:
 
     def __init__(self, traversal):
         self.traversal = traversal
 
-    def analyze(self, level):
+    def analyzeWalls(self, level):
         for wall in level.walls:
             self.analyzeWall(level.bspTree, wall)
 
@@ -40,5 +40,5 @@ class LevelSegmentContentAnalyzer:
                 self.analyzeWallRec(bspTree, wall, middlePoint, endPoint, middleSegment, endSegment)
 
 
-def makeLevelSegmentContentAnalyzer(resolver):
-    return LevelSegmentContentAnalyzer(resolver.resolve(BSPTreeTraversal))
+def makeLevelSegmentWallAnalyzer(resolver):
+    return LevelSegmentWallAnalyzer(resolver.resolve(BSPTreeTraversal))
