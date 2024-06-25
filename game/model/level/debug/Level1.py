@@ -58,6 +58,31 @@ class Level1(Level):
         wall8.orientation = Orientation.horizontal
         wall8.frontNormal = Vector3(0, 1, 0)
 
+        # pole
+        wall9 = Wall()
+        wall9.startPoint = Vector3(2, 6, 0)
+        wall9.endPoint = Vector3(2, 7, 0)
+        wall9.orientation = Orientation.vertical
+        wall9.frontNormal = Vector3(-1, 0, 0)
+
+        wall10 = Wall()
+        wall10.startPoint = Vector3(2, 7, 0)
+        wall10.endPoint = Vector3(3, 7, 0)
+        wall10.orientation = Orientation.horizontal
+        wall10.frontNormal = Vector3(0, 1, 0)
+
+        wall11 = Wall()
+        wall11.startPoint = Vector3(3, 6, 0)
+        wall11.endPoint = Vector3(3, 7, 0)
+        wall11.orientation = Orientation.vertical
+        wall11.frontNormal = Vector3(1, 0, 0)
+
+        wall12 = Wall()
+        wall12.startPoint = Vector3(2, 6, 0)
+        wall12.endPoint = Vector3(3, 6, 0)
+        wall12.orientation = Orientation.horizontal
+        wall12.frontNormal = Vector3(0, -1, 0)
+
         floor1 = PlaneFloor()
         floor1.downLeft = Vector3(0, 0, 0)
         floor1.downRight = Vector3(10, 0, 0)
@@ -102,5 +127,5 @@ class Level1(Level):
         floor4.downFrontNormal = Vector3(0, 1, 0)
         floor4.z = 0
 
-        self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8]
+        self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12]
         self.floors = [floor1, floor2, floor3, floor4]
