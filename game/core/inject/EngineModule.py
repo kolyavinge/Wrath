@@ -14,6 +14,7 @@ from game.engine.LevelSegmentVisibilityUpdater import *
 from game.engine.LevelSegmentWallAnalyzer import *
 from game.engine.PlayerController import *
 from game.engine.PlayerInputManager import *
+from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerPositionUpdater import *
 from game.input.InputManager import *
 
@@ -37,5 +38,6 @@ class EngineModule:
         binder.bindSingleton(LevelSegmentWallAnalyzer, makeLevelSegmentWallAnalyzer)
         binder.bindSingleton(PlayerController, makePlayerController)
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
+        binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerPositionUpdater, makePlayerPositionUpdater)
         binder.bindSingleton(InputManager, makeInputManager)
