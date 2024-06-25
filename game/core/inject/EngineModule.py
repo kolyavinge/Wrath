@@ -16,6 +16,7 @@ from game.engine.PlayerController import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerPositionUpdater import *
+from game.engine.PlayerZUpdater import *
 from game.input.InputManager import *
 
 
@@ -40,4 +41,5 @@ class EngineModule:
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerPositionUpdater, makePlayerPositionUpdater)
+        binder.bindSingleton(PlayerZUpdater, makePlayerZUpdater)
         binder.bindSingleton(InputManager, makeInputManager)

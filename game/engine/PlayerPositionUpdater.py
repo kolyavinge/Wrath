@@ -7,9 +7,10 @@ class PlayerPositionUpdater:
         self.gameData = gameData
 
     def update(self):
-        if self.gameData.player.hasMoved:
-            self.gameData.player.hasMoved = False
-            self.gameData.player.commitNextPosition()
+        player = self.gameData.player
+        if player.hasMoved:
+            player.hasMoved = False
+            player.commitNextPosition()
 
 
 def makePlayerPositionUpdater(resolver):

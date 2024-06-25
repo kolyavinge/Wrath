@@ -8,8 +8,10 @@ class PlayerWallCollisionProcessor:
 
     def __init__(self, gameData):
         self.gameData = gameData
+        self.hasCollisions = False
 
     def processCollisions(self):
+        self.hasCollisions = False
         for levelSegment in self.gameData.player.levelSegments:
             for wall in levelSegment.walls:
                 self.processWall(wall)
@@ -22,6 +24,7 @@ class PlayerWallCollisionProcessor:
                 if self.playerLineContainsPoint(player, intersectPoint) and self.crossLineContainsPoint(wall, intersectPoint):
                     x, y = self.getPointOnCrossLine(wall, player.nextCenterPoint)
                     player.moveNextPositionTo(Vector3(x, y, 0))
+                    self.hasCollisions = True
 
     def isPlayerBehindWall(self, player, wall):
         point = player.nextCenterPoint.getCopy()

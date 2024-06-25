@@ -42,6 +42,10 @@ class Player:
         self.nextCenterPoint = vector
         self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
 
+    def setZ(self, z):
+        self.nextCenterPoint.z = z
+        self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
+
     def commitNextPosition(self):
         self.currentCenterPoint = self.nextCenterPoint.getCopy()
         self.currentBorder = self.nextBorder.getCopy()

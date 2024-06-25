@@ -95,37 +95,37 @@ class Level1(Level):
         floor1.z = 0
 
         floor2 = PlaneFloor()
-        floor2.downLeft = Vector3(20, 5, 0)
-        floor2.downRight = Vector3(30, 5, 0)
-        floor2.upLeft = Vector3(20, 15, 0)
-        floor2.upRight = Vector3(30, 15, 0)
+        floor2.downLeft = Vector3(10, 5, 0)
+        floor2.downRight = Vector3(15, 5, 0)
+        floor2.upLeft = Vector3(10, 10, 0)
+        floor2.upRight = Vector3(15, 10, 0)
         floor2.leftFrontNormal = Vector3(1, 0, 0)
         floor2.rightFrontNormal = Vector3(-1, 0, 0)
         floor2.upFrontNormal = Vector3(0, -1, 0)
         floor2.downFrontNormal = Vector3(0, 1, 0)
-        floor2.z = 0
+        floor2.z = 0.2
 
         floor3 = PlaneFloor()
-        floor3.downLeft = Vector3(10, 5, 0)
-        floor3.downRight = Vector3(15, 5, 0)
-        floor3.upLeft = Vector3(10, 10, 0)
-        floor3.upRight = Vector3(15, 10, 0)
+        floor3.downLeft = Vector3(15, 5, 0)
+        floor3.downRight = Vector3(20, 5, 0)
+        floor3.upLeft = Vector3(15, 10, 0)
+        floor3.upRight = Vector3(20, 10, 0)
         floor3.leftFrontNormal = Vector3(1, 0, 0)
         floor3.rightFrontNormal = Vector3(-1, 0, 0)
         floor3.upFrontNormal = Vector3(0, -1, 0)
         floor3.downFrontNormal = Vector3(0, 1, 0)
-        floor3.z = 0
+        floor3.z = 0.4
 
         floor4 = PlaneFloor()
-        floor4.downLeft = Vector3(15, 5, 0)
-        floor4.downRight = Vector3(20, 5, 0)
-        floor4.upLeft = Vector3(15, 10, 0)
-        floor4.upRight = Vector3(20, 10, 0)
+        floor4.downLeft = Vector3(20, 5, 0)
+        floor4.downRight = Vector3(30, 5, 0)
+        floor4.upLeft = Vector3(20, 15, 0)
+        floor4.upRight = Vector3(30, 15, 0)
         floor4.leftFrontNormal = Vector3(1, 0, 0)
         floor4.rightFrontNormal = Vector3(-1, 0, 0)
         floor4.upFrontNormal = Vector3(0, -1, 0)
         floor4.downFrontNormal = Vector3(0, 1, 0)
-        floor4.z = 0
+        floor4.z = 0.8
 
         self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12]
         self.floors = [floor1, floor2, floor3, floor4]
