@@ -24,6 +24,8 @@ class LevelLoader:
             wallDirection.setLength(PlayerMeasures.xyLengthHalf)
             wall.crossLine.startPoint.sub(wallDirection)
             wall.crossLine.endPoint.add(wallDirection)
+            wall.crossLineDirection = wall.crossLine.endPoint.getCopy()
+            wall.crossLineDirection.sub(wall.crossLine.startPoint)
 
 
 def makeLevelLoader(resolver):

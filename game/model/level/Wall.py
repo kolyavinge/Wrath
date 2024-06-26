@@ -12,6 +12,7 @@ class Wall:
         self.endPoint = Vector3()
         self.frontNormal = Vector3()
         self.crossLine = Line()
+        self.crossLineDirection = Vector3()
 
     def getMinX(self):
         return min(self.startPoint.x, self.endPoint.x)

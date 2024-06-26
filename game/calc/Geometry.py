@@ -85,3 +85,13 @@ class Geometry:
         line = Vector3(toX - fromX, toY - fromY, 0)
 
         return line.isParallel(intersect) and intersect.getLength() <= line.getLength()
+
+    @staticmethod
+    def getProjectedVector(vector, projectionAxis):
+        vectorLength = vector.getLength()
+        dotProduct = vector.dotProduct(projectionAxis) / (vectorLength * projectionAxis.getLength())
+        newLength = dotProduct * vectorLength
+        projected = projectionAxis.getCopy()
+        projected.setLength(newLength)
+
+        return projected
