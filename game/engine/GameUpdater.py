@@ -26,10 +26,11 @@ class GameUpdater:
 
     def update(self):
         self.playerZUpdater.update()
+        self.playerLevelSegmentsUpdater.update()
         self.playerWallCollisionProcessor.processCollisions()
         if self.playerWallCollisionProcessor.hasCollisions:
             self.playerZUpdater.update()
-        self.playerLevelSegmentsUpdater.update()
+            self.playerLevelSegmentsUpdater.update()
         self.playerPositionUpdater.update()
         self.cameraUpdater.update()
         self.levelSegmentVisibilityUpdater.update()

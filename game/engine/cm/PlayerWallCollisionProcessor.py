@@ -12,9 +12,10 @@ class PlayerWallCollisionProcessor:
 
     def processCollisions(self):
         self.hasCollisions = False
-        for levelSegment in self.gameData.player.levelSegments:
-            for wall in levelSegment.walls:
-                self.processWall(wall)
+        if self.gameData.player.hasMoved:
+            for levelSegment in self.gameData.player.levelSegments:
+                for wall in levelSegment.walls:
+                    self.processWall(wall)
 
     def processWall(self, wall):
         player = self.gameData.player

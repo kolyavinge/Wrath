@@ -23,3 +23,6 @@ class Box3d:
         copy.zLength = self.zLength
 
         return copy
+
+    def __str__(self):
+        return f"bottom:{self.bottom}, top:{self.top}"

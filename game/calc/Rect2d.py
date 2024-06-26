@@ -27,3 +27,6 @@ class Rect2d:
         copy.upRight = self.upRight.getCopy()
 
         return copy
+
+    def __str__(self):
+        return f"({self.downLeft}),({self.downRight}),({self.upLeft}),({self.upRight})"
