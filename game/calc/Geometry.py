@@ -1,3 +1,4 @@
+from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 
 
@@ -74,3 +75,13 @@ class Geometry:
         y = (a2 * c1 - a1 * c2) / denominator
 
         return (x, y)
+
+    @staticmethod
+    def lineContainsPoint(fromX, fromY, toX, toY, pointX, pointY):
+        intersect = Vector3(pointX - fromX, pointY - fromY, 0)
+        if intersect.getLength() < 0.01:
+            return True
+
+        line = Vector3(toX - fromX, toY - fromY, 0)
+
+        return line.isParallel(intersect) and intersect.getLength() <= line.getLength()

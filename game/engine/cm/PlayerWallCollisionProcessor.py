@@ -48,17 +48,9 @@ class PlayerWallCollisionProcessor:
 
     def playerLineContainsPoint(self, player, point):
         x, y = point
-        intersectDirection = Vector3(x, y, 0)
-        intersectDirection.sub(player.currentCenterPoint)
-        intersectDirection.z = 0
-        if intersectDirection.getLength() < 0.01:
-            return True
-
-        playerDirection = player.nextCenterPoint.getCopy()
-        playerDirection.sub(player.currentCenterPoint)
-        playerDirection.z = 0
-
-        return playerDirection.isParallel(intersectDirection) and intersectDirection.getLength() <= playerDirection.getLength()
+        return Geometry.lineContainsPoint(
+            player.currentCenterPoint.x, player.currentCenterPoint.y, player.nextCenterPoint.x, player.nextCenterPoint.y, x, y
+        )
 
     def crossLineContainsPoint(self, wall, point):
         x, y = point
