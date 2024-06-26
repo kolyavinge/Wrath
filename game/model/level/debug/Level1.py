@@ -87,6 +87,20 @@ class Level1(Level):
         wall12.orientation = Orientation.horizontal
         wall12.frontNormal = Vector3(0, -1, 0)
 
+        wall13 = Wall()
+        wall13.startPoint = Vector3(0, 7, 0)
+        wall13.endPoint = Vector3(3, 10, 0)
+        wall13.orientation = Orientation.diagonalDownLeftUpRight
+        wall13.frontNormal = Vector3(1, -1, 0)
+        wall13.frontNormal.normalize()
+
+        wall14 = Wall()
+        wall14.startPoint = Vector3(27, 5, 0)
+        wall14.endPoint = Vector3(30, 8, 0)
+        wall14.orientation = Orientation.diagonalDownLeftUpRight
+        wall14.frontNormal = Vector3(-1, 1, 0)
+        wall14.frontNormal.normalize()
+
         floor1 = FlatFloor()
         floor1.downLeft = Vector3(0, 0, 0)
         floor1.downRight = Vector3(10, 0, 0)
@@ -135,5 +149,5 @@ class Level1(Level):
         floor4.upNormal = Geometry.rotatePoint(rightDirection, Vector3(0, -1, 0), Constants.axisOrigin, Math.piHalf)
         floor4.commit()
 
-        self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12]
+        self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12, wall13, wall14]
         self.floors = [floor1, floor2, floor3, floor4]

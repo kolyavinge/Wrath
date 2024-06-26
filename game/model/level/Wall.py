@@ -1,5 +1,6 @@
 from game.calc.Line import Line
 from game.calc.Vector3 import Vector3
+from game.lib.Numeric import Numeric
 from game.model.level.Orientation import Orientation
 
 
@@ -25,13 +26,12 @@ class Wall:
         return max(self.startPoint.y, self.endPoint.y)
 
     def validate(self):
-        self.check(self.orientation == Orientation.horizontal or self.orientation == Orientation.vertical)
         self.check(self.startPoint != self.endPoint)
         self.check(self.crossLine.startPoint != self.crossLine.endPoint)
-        self.check(self.frontNormal.getLength() == 1)
+        self.check(Numeric.floatEquals(self.frontNormal.getLength(), 1))
         wallDirection = self.endPoint.getCopy()
         wallDirection.sub(self.startPoint)
-        self.check(wallDirection.getLength() == int(wallDirection.getLength()))
+        self.check(wallDirection.getLength() >= 1)
         if self.orientation == Orientation.horizontal:
             self.check(self.startPoint.y == self.endPoint.y)
             self.check(self.startPoint.x < self.endPoint.x)

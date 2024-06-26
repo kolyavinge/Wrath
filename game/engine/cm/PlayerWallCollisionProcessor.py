@@ -54,10 +54,13 @@ class PlayerWallCollisionProcessor:
 
     def crossLineContainsPoint(self, wall, point):
         x, y = point
+        crossLine = wall.crossLine
         if wall.orientation == Orientation.horizontal:
-            return wall.crossLine.startPoint.x <= x and x <= wall.crossLine.endPoint.x
+            return crossLine.startPoint.x <= x and x <= crossLine.endPoint.x
         elif wall.orientation == Orientation.vertical:
-            return wall.crossLine.startPoint.y <= y and y <= wall.crossLine.endPoint.y
+            return crossLine.startPoint.y <= y and y <= crossLine.endPoint.y
+        elif wall.orientation == Orientation.diagonalDownLeftUpRight or wall.orientation == Orientation.diagonalUpLeftDownRight:
+            return Geometry.lineContainsPoint(crossLine.startPoint.x, crossLine.startPoint.y, crossLine.endPoint.x, crossLine.endPoint.y, x, y)
         else:
             raise Exception()
 
@@ -66,6 +69,19 @@ class PlayerWallCollisionProcessor:
             return (playerNextCenterPoint.x, wall.crossLine.startPoint.y)
         elif wall.orientation == Orientation.vertical:
             return (wall.crossLine.startPoint.x, playerNextCenterPoint.y)
+        elif wall.orientation == Orientation.diagonalDownLeftUpRight or wall.orientation == Orientation.diagonalUpLeftDownRight:
+            crossLineDirection = wall.crossLine.endPoint.getCopy()
+            crossLineDirection.sub(wall.crossLine.startPoint)
+            playerDirection = playerNextCenterPoint.getCopy()
+            playerDirection.sub(wall.crossLine.startPoint)
+            dotProduct = crossLineDirection.dotProduct(playerDirection) / (crossLineDirection.getLength() * playerDirection.getLength())
+            print("------")
+            print(dotProduct)
+            playerDirection.mul(dotProduct)
+            playerDirection.add(wall.crossLine.startPoint)
+            print(playerDirection)
+
+            return (playerDirection.x, playerDirection.y)
         else:
             raise Exception()
 
