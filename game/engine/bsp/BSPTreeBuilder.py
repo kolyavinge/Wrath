@@ -3,6 +3,7 @@ from game.engine.bsp.SplitBorderBuilder import SplitBorderBuilder
 from game.engine.bsp.SplitLineBuilder import SplitLineBuilder
 from game.engine.bsp.SplitLinePosition import SplitLinePosition
 from game.model.level.BSPTree import BSPNode
+from game.model.level.FlatFloor import FlatFloor
 from game.model.level.LevelSegment import LevelSegment
 from game.model.level.Orientation import Orientation
 
@@ -21,7 +22,7 @@ class BSPTreeBuilder:
     def getInitSplitBorder(self, level):
         maxX = max([w.getMaxX() for w in level.walls])
         maxY = max([w.getMaxY() for w in level.walls])
-        maxZ = 5
+        maxZ = max([f.z if isinstance(f, FlatFloor) else 0 for f in level.floors])
 
         return SplitBorder(0, maxX, 0, maxY, 0, maxZ)
 

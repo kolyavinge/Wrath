@@ -1,6 +1,7 @@
 from game.anx.Constants import Constants
 from game.calc.Vector3 import Vector3
 from game.engine.bsp.SplitLine import SplitLine
+from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Orientation import Orientation
 
 
@@ -8,10 +9,34 @@ class SplitLineBuilder:
 
     def getSplitLines(self, level):
         result = []
+        self.makeFromFlatFloors(level, result)
         self.makeFromWalls(level, result)
         self.makeFromFloors(level, result)
 
         return result
+
+    def makeFromFlatFloors(self, level, result):
+        zlist = set([f.z if isinstance(f, FlatFloor) else 0 for f in level.floors])
+        for z in zlist:
+            s = SplitLine()
+            s.priority = 0
+            s.startPoint = Vector3(0, 0, z)
+            s.endPoint = Vector3(0, 0, z)
+            s.frontNormal = Constants.up
+            s.orientation = Orientation.horizontal
+            s.orientationCanChange = False
+            s.sortOrder = z
+            result.append(s)
+
+        s = SplitLine()
+        s.priority = 0
+        s.startPoint = Vector3(0, 0, Constants.maxLevelSize)
+        s.endPoint = Vector3(0, 0, Constants.maxLevelSize)
+        s.frontNormal = Constants.up
+        s.orientation = Orientation.horizontal
+        s.orientationCanChange = False
+        s.sortOrder = Constants.maxLevelSize
+        result.append(s)
 
     def makeFromWalls(self, level, result):
         for wall in level.walls:

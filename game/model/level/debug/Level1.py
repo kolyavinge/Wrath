@@ -1,7 +1,11 @@
+from game.anx.Constants import Constants
+from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
+from game.lib.Math import Math
 from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Level import Level
 from game.model.level.Orientation import Orientation
+from game.model.level.PlaneFloor import PlaneFloor
 from game.model.level.Wall import Wall
 
 
@@ -114,18 +118,22 @@ class Level1(Level):
         floor3.rightFrontNormal = Vector3(-1, 0, 0)
         floor3.upFrontNormal = Vector3(0, -1, 0)
         floor3.downFrontNormal = Vector3(0, 1, 0)
-        floor3.z = 0.2
+        floor3.z = 0
 
-        floor4 = FlatFloor()
+        floor4 = PlaneFloor()
         floor4.downLeft = Vector3(20, 5, 0)
-        floor4.downRight = Vector3(30, 5, 0)
+        floor4.downRight = Vector3(30, 5, 1)
         floor4.upLeft = Vector3(20, 15, 0)
-        floor4.upRight = Vector3(30, 15, 0)
+        floor4.upRight = Vector3(30, 15, 1)
         floor4.leftFrontNormal = Vector3(1, 0, 0)
         floor4.rightFrontNormal = Vector3(-1, 0, 0)
         floor4.upFrontNormal = Vector3(0, -1, 0)
         floor4.downFrontNormal = Vector3(0, 1, 0)
-        floor4.z = 0.4
+        rightDirection = floor4.downRight.getCopy()
+        rightDirection.sub(floor4.downLeft)
+        rightDirection.normalize()
+        floor4.upNormal = Geometry.rotatePoint(rightDirection, Vector3(0, -1, 0), Constants.axisOrigin, Math.piHalf)
+        floor4.commit()
 
         self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12]
         self.floors = [floor1, floor2, floor3, floor4]
