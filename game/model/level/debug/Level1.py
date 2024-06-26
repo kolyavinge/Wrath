@@ -1,7 +1,7 @@
 from game.calc.Vector3 import Vector3
+from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Level import Level
 from game.model.level.Orientation import Orientation
-from game.model.level.PlaneFloor import PlaneFloor
 from game.model.level.Wall import Wall
 
 
@@ -83,7 +83,7 @@ class Level1(Level):
         wall12.orientation = Orientation.horizontal
         wall12.frontNormal = Vector3(0, -1, 0)
 
-        floor1 = PlaneFloor()
+        floor1 = FlatFloor()
         floor1.downLeft = Vector3(0, 0, 0)
         floor1.downRight = Vector3(10, 0, 0)
         floor1.upLeft = Vector3(0, 10, 0)
@@ -94,7 +94,7 @@ class Level1(Level):
         floor1.downFrontNormal = Vector3(0, 1, 0)
         floor1.z = 0
 
-        floor2 = PlaneFloor()
+        floor2 = FlatFloor()
         floor2.downLeft = Vector3(10, 5, 0)
         floor2.downRight = Vector3(15, 5, 0)
         floor2.upLeft = Vector3(10, 10, 0)
@@ -105,7 +105,7 @@ class Level1(Level):
         floor2.downFrontNormal = Vector3(0, 1, 0)
         floor2.z = 0
 
-        floor3 = PlaneFloor()
+        floor3 = FlatFloor()
         floor3.downLeft = Vector3(15, 5, 0)
         floor3.downRight = Vector3(20, 5, 0)
         floor3.upLeft = Vector3(15, 10, 0)
@@ -116,7 +116,7 @@ class Level1(Level):
         floor3.downFrontNormal = Vector3(0, 1, 0)
         floor3.z = 0.2
 
-        floor4 = PlaneFloor()
+        floor4 = FlatFloor()
         floor4.downLeft = Vector3(20, 5, 0)
         floor4.downRight = Vector3(30, 5, 0)
         floor4.upLeft = Vector3(20, 15, 0)
