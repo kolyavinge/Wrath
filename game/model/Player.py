@@ -26,6 +26,7 @@ class Player:
         self.frontNormal = Constants.yAxis
         self.rightNormal = Constants.xAxis
         self.hasMoved = False
+        self.hasTurned = False
         self.movingTime = 1
         self.movingTimeDelta = 0.1
         self.velocityFunc = VelocityFunc()

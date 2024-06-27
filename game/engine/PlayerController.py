@@ -43,21 +43,21 @@ class PlayerController:
     def turnLeft(self, radians):
         assert radians > 0
         player = self.gameData.player
-        player.hasMoved = True
+        player.hasTurned = True
         player.yawRadians = Geometry.normalizeRadians(player.yawRadians + radians)
         self.calculateDirectionVectors()
 
     def turnRight(self, radians):
         assert radians > 0
         player = self.gameData.player
-        player.hasMoved = True
+        player.hasTurned = True
         player.yawRadians = Geometry.normalizeRadians(player.yawRadians - radians)
         self.calculateDirectionVectors()
 
     def lookUp(self, radians):
         assert radians > 0
         player = self.gameData.player
-        player.hasMoved = True
+        player.hasTurned = True
         player.pitchRadians = Geometry.normalizeRadians(player.pitchRadians + radians)
         if player.pitchRadians >= player.maxPitchRadians:
             player.pitchRadians = player.maxPitchRadians
@@ -66,7 +66,7 @@ class PlayerController:
     def lookDown(self, radians):
         assert radians > 0
         player = self.gameData.player
-        player.hasMoved = True
+        player.hasTurned = True
         player.pitchRadians = Geometry.normalizeRadians(player.pitchRadians - radians)
         if player.pitchRadians <= -player.maxPitchRadians:
             player.pitchRadians = -player.maxPitchRadians

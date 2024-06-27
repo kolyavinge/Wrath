@@ -1,9 +1,9 @@
+from game.anx.Constants import Constants
 from game.engine.bsp.SplitBorder import SplitBorder
 from game.engine.bsp.SplitBorderBuilder import SplitBorderBuilder
 from game.engine.bsp.SplitLineBuilder import SplitLineBuilder
 from game.engine.bsp.SplitLinePosition import SplitLinePosition
 from game.model.level.BSPTree import BSPNode
-from game.model.level.FlatFloor import FlatFloor
 from game.model.level.LevelSegment import LevelSegment
 from game.model.level.Orientation import Orientation
 
@@ -15,16 +15,9 @@ class BSPTreeBuilder:
         self.splitBorderBuilder = splitBorderBuilder
 
     def build(self, level):
-        splitBorder = self.getInitSplitBorder(level)
         splitLines = self.splitLineBuilder.getSplitLines(level)
+        splitBorder = SplitBorder(0, Constants.maxLevelSize, 0, Constants.maxLevelSize, 0, Constants.maxLevelSize)
         self.buildRec(level.bspTree.root, splitLines[0].orientation, splitBorder, splitLines)
-
-    def getInitSplitBorder(self, level):
-        maxX = max([w.getMaxX() for w in level.walls])
-        maxY = max([w.getMaxY() for w in level.walls])
-        maxZ = max([f.z if isinstance(f, FlatFloor) else 0 for f in level.floors])
-
-        return SplitBorder(0, maxX, 0, maxY, 0, maxZ)
 
     def buildRec(self, node, splitOrientation, splitBorder, allSplitLines):
         splitLines = [s for s in allSplitLines if s.orientation == splitOrientation]

@@ -32,7 +32,7 @@ class SplitLineBuilder:
         s.priority = 0
         s.startPoint = Vector3(0, 0, Constants.maxLevelSize)
         s.endPoint = Vector3(0, 0, Constants.maxLevelSize)
-        s.frontNormal = Constants.up
+        s.frontNormal = Constants.down
         s.orientation = Orientation.horizontal
         s.orientationCanChange = False
         s.sortOrder = Constants.maxLevelSize

@@ -8,6 +8,7 @@ class PlayerPositionUpdater:
 
     def update(self):
         player = self.gameData.player
+        player.hasTurned = False
         if player.hasMoved:
             player.hasMoved = False
             player.commitNextPosition()

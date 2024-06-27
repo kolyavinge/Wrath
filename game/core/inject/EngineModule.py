@@ -4,6 +4,7 @@ from game.engine.bsp.SplitBorderBuilder import *
 from game.engine.bsp.SplitLineBuilder import *
 from game.engine.CameraUpdater import *
 from game.engine.cm.PlayerWallCollisionProcessor import *
+from game.engine.EmptyLevelSegmentCleaner import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
 from game.engine.LevelLoader import *
@@ -30,6 +31,7 @@ class EngineModule:
         binder.bindSingleton(SplitLineBuilder, makeSplitLineBuilder)
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
         binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)
+        binder.bindSingleton(EmptyLevelSegmentCleaner, makeEmptyLevelSegmentCleaner)
         binder.bindSingleton(GameData, makeGameData)
         binder.bindSingleton(GameUpdater, makeGameUpdater)
         binder.bindSingleton(LevelLoader, makeLevelLoader)

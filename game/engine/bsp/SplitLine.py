@@ -13,6 +13,18 @@ class SplitLine:
         self.orientationCanChange = True
         self.sortOrder = 0
 
+    def getMinX(self):
+        return min(self.startPoint.x, self.endPoint.x)
+
+    def getMaxX(self):
+        return max(self.startPoint.x, self.endPoint.x)
+
+    def getMinY(self):
+        return min(self.startPoint.y, self.endPoint.y)
+
+    def getMaxY(self):
+        return max(self.startPoint.y, self.endPoint.y)
+
     def toString(self):
         return f"({self.priority}:{self.startPoint}),({self.endPoint})"
 

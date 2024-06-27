@@ -14,18 +14,6 @@ class Wall:
         self.crossLine = Line()
         self.crossLineDirection = Vector3()
 
-    def getMinX(self):
-        return min(self.startPoint.x, self.endPoint.x)
-
-    def getMaxX(self):
-        return max(self.startPoint.x, self.endPoint.x)
-
-    def getMinY(self):
-        return min(self.startPoint.y, self.endPoint.y)
-
-    def getMaxY(self):
-        return max(self.startPoint.y, self.endPoint.y)
-
     def validate(self):
         self.check(self.startPoint != self.endPoint)
         self.check(self.crossLine.startPoint != self.crossLine.endPoint)

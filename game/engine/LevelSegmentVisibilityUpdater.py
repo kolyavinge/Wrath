@@ -11,13 +11,15 @@ class LevelSegmentVisibilityUpdater:
         self.traversal = traversal
 
     def update(self):
-        self.gameData.visibleLevelSegments = self.gameData.player.levelSegments.copy()
-        camera = self.gameData.camera
-        self.checkDirection(camera.lookDirection)
-        leftLookDirection = Geometry.rotatePoint(camera.lookDirection, Constants.zAxis, Constants.axisOrigin, -camera.viewAngleRadiansHalf)
-        self.checkDirection(leftLookDirection)
-        rightLookDirection = Geometry.rotatePoint(camera.lookDirection, Constants.zAxis, Constants.axisOrigin, camera.viewAngleRadiansHalf)
-        self.checkDirection(rightLookDirection)
+        player = self.gameData.player
+        if player.hasMoved or player.hasTurned:
+            self.gameData.visibleLevelSegments = player.levelSegments.copy()
+            camera = self.gameData.camera
+            self.checkDirection(camera.lookDirection)
+            leftLookDirection = Geometry.rotatePoint(camera.lookDirection, Constants.zAxis, Constants.axisOrigin, -camera.viewAngleRadiansHalf)
+            self.checkDirection(leftLookDirection)
+            rightLookDirection = Geometry.rotatePoint(camera.lookDirection, Constants.zAxis, Constants.axisOrigin, camera.viewAngleRadiansHalf)
+            self.checkDirection(rightLookDirection)
 
     def checkDirection(self, direction):
         depthLength = 5.0
