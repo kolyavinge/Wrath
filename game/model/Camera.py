@@ -10,6 +10,7 @@ class Camera:
         self.viewAngleDegrees = 45
         self.viewAngleRadians = Geometry.degreesToRadians(self.viewAngleDegrees)
         self.viewAngleRadiansHalf = self.viewAngleRadians / 2
+        self.viewAngleRadiansQuarter = self.viewAngleRadians / 4
         self.position = Vector3()
         self.lookDirection = Vector3()
         self.viewMatrix = TransformMatrix4()

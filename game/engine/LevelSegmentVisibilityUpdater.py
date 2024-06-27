@@ -1,47 +1,42 @@
 from game.anx.Constants import Constants
 from game.calc.Geometry import Geometry
-from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
+from game.engine.LevelSegmentItemFinder import LevelSegmentItemFinder
 
 
 class LevelSegmentVisibilityUpdater:
 
-    def __init__(self, gameData, traversal):
+    def __init__(self, gameData, segmentItemFinder):
         self.gameData = gameData
-        self.traversal = traversal
+        self.segmentItemFinder = segmentItemFinder
 
     def update(self):
         player = self.gameData.player
         if player.hasMoved or player.hasTurned:
             self.gameData.visibleLevelSegments = player.levelSegments.copy()
             camera = self.gameData.camera
-            self.checkDirection(camera.lookDirection)
-            leftLookDirection = Geometry.rotatePoint(camera.lookDirection, Constants.zAxis, Constants.axisOrigin, -camera.viewAngleRadiansHalf)
+            straightLookDirection = camera.lookDirection.getCopy()
+            straightLookDirection.z = 0
+            straightLookDirection.setLength(20)
+            leftLookDirection = Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, -(camera.viewAngleRadiansHalf + 2))
+            rightLookDirection = Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, (camera.viewAngleRadiansHalf + 2))
+            leftLookDirectionQ = Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, -camera.viewAngleRadiansQuarter)
+            rightLookDirectionQ = Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, camera.viewAngleRadiansQuarter)
+            self.checkDirection(straightLookDirection)
             self.checkDirection(leftLookDirection)
-            rightLookDirection = Geometry.rotatePoint(camera.lookDirection, Constants.zAxis, Constants.axisOrigin, camera.viewAngleRadiansHalf)
             self.checkDirection(rightLookDirection)
+            self.checkDirection(leftLookDirectionQ)
+            self.checkDirection(rightLookDirectionQ)
 
     def checkDirection(self, direction):
-        depthLength = 5.0
-        stepLength = 0.5
-        stepsCount = depthLength / stepLength
-        checkPoint = direction.getCopy()
-        checkPoint.setLength(depthLength)
-        checkPoint.add(self.gameData.camera.position)
-        stepDirection = direction.getCopy()
-        stepDirection.setLength(stepLength)
-        segment = self.traversal.findLevelSegmentOrNone(self.gameData.level.bspTree, checkPoint)
-        stepNumber = 1
-        while segment not in self.gameData.player.levelSegments and stepNumber < stepsCount:
-            self.addVisibleSegment(segment)
-            checkPoint.sub(stepDirection)
-            segment = self.traversal.findLevelSegmentOrNone(self.gameData.level.bspTree, checkPoint)
-            stepNumber += 1
-
-    def addVisibleSegment(self, segment):
-        if segment is not None and segment != self.gameData.visibleLevelSegments[-1]:
-            self.gameData.visibleLevelSegments.append(segment)
+        camera = self.gameData.camera
+        startPoint = camera.position
+        endPoint = startPoint.getCopy()
+        endPoint.add(direction)
+        levelSegments = self.segmentItemFinder.getItemLevelSegments(self.gameData.level.bspTree, startPoint, endPoint)
+        for levelSegment in levelSegments:
+            self.gameData.visibleLevelSegments.append(levelSegment)
 
 
 def makeLevelSegmentVisibilityUpdater(resolver):
-    return LevelSegmentVisibilityUpdater(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal))
+    return LevelSegmentVisibilityUpdater(resolver.resolve(GameData), resolver.resolve(LevelSegmentItemFinder))

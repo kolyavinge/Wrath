@@ -14,9 +14,9 @@ class DebugRenderer:
     def render(self):
         self.initCamera()
         self.renderFloorGrid()
-        self.renderLevelSegmentFloors()
         self.renderWalls()
         self.renderWallCrossLines()
+        self.renderLevelSegmentFloors()
         self.renderLevelSegmentWalls()
         self.renderPlayerBorder()
         self.renderAxis()
@@ -58,6 +58,30 @@ class DebugRenderer:
             y += 1
         glDisable(GL_DEPTH_TEST)
 
+    def renderWalls(self):
+        glEnable(GL_DEPTH_TEST)
+        glColor3f(0.5, 0.5, 0.5)
+        for levelSegment in self.gameData.visibleLevelSegments:
+            for wall in levelSegment.walls:
+                glBegin(GL_QUADS)
+                glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
+                glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z)
+                glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z + 1)
+                glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z + 1)
+                glEnd()
+        glDisable(GL_DEPTH_TEST)
+
+    def renderWallCrossLines(self):
+        glEnable(GL_DEPTH_TEST)
+        glColor3f(1, 1, 0)
+        for levelSegment in self.gameData.visibleLevelSegments:
+            for wall in levelSegment.walls:
+                glBegin(GL_LINES)
+                glVertex3f(wall.crossLine.startPoint.x, wall.crossLine.startPoint.y, wall.startPoint.z)
+                glVertex3f(wall.crossLine.endPoint.x, wall.crossLine.endPoint.y, wall.endPoint.z)
+                glEnd()
+        glDisable(GL_DEPTH_TEST)
+
     def renderLevelSegmentFloors(self):
         player = self.gameData.player
         glEnable(GL_BLEND)
@@ -70,30 +94,6 @@ class DebugRenderer:
             glVertex3f(levelSegment.minX, levelSegment.maxY, levelSegment.minZ)
             glEnd()
         glDisable(GL_BLEND)
-
-    def renderWalls(self):
-        glEnable(GL_DEPTH_TEST)
-        glColor3f(0.5, 0.5, 0.5)
-        for wall in self.gameData.level.walls:
-            glBegin(GL_QUADS)
-            glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
-            glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z)
-            glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z + 1)
-            glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z + 1)
-            glEnd()
-        glDisable(GL_DEPTH_TEST)
-
-    def renderWallCrossLines(self):
-        player = self.gameData.player
-        glEnable(GL_DEPTH_TEST)
-        glColor3f(1, 1, 0)
-        for levelSegment in player.levelSegments:
-            for wall in levelSegment.walls:
-                glBegin(GL_LINES)
-                glVertex3f(wall.crossLine.startPoint.x, wall.crossLine.startPoint.y, wall.startPoint.z)
-                glVertex3f(wall.crossLine.endPoint.x, wall.crossLine.endPoint.y, wall.endPoint.z)
-                glEnd()
-        glDisable(GL_DEPTH_TEST)
 
     def renderLevelSegmentWalls(self):
         player = self.gameData.player
