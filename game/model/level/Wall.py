@@ -15,27 +15,20 @@ class Wall:
         self.crossLineDirection = Vector3()
 
     def validate(self):
-        self.check(self.startPoint != self.endPoint)
-        self.check(self.crossLine.startPoint != self.crossLine.endPoint)
-        self.check(Numeric.floatEquals(self.frontNormal.getLength(), 1))
+        assert self.startPoint != self.endPoint
+        assert self.crossLine.startPoint != self.crossLine.endPoint
+        assert Numeric.floatEquals(self.frontNormal.getLength(), 1)
         wallDirection = self.endPoint.getCopy()
         wallDirection.sub(self.startPoint)
-        self.check(wallDirection.getLength() >= 1)
+        assert wallDirection.getLength() >= 1
         if self.orientation == Orientation.horizontal:
-            self.check(self.startPoint.y == self.endPoint.y)
-            self.check(self.startPoint.x < self.endPoint.x)
-            self.check(self.frontNormal == Vector3(0, 1, 0) or self.frontNormal == Vector3(0, -1, 0))
+            assert self.startPoint.y == self.endPoint.y
+            assert self.startPoint.x < self.endPoint.x
+            assert self.frontNormal == Vector3(0, 1, 0) or self.frontNormal == Vector3(0, -1, 0)
         elif self.orientation == Orientation.vertical:
-            self.check(self.startPoint.x == self.endPoint.x)
-            self.check(self.startPoint.y < self.endPoint.y)
-            self.check(self.frontNormal == Vector3(1, 0, 0) or self.frontNormal == Vector3(-1, 0, 0))
-
-    def check(self, value):
-        if value == False:
-            raise Exception()
-
-    def toString(self):
-        return f"({self.startPoint}-{self.endPoint})"
+            assert self.startPoint.x == self.endPoint.x
+            assert self.startPoint.y < self.endPoint.y
+            assert self.frontNormal == Vector3(1, 0, 0) or self.frontNormal == Vector3(-1, 0, 0)
 
     def __str__(self):
-        return self.toString()
+        return f"({self.startPoint}-{self.endPoint})"

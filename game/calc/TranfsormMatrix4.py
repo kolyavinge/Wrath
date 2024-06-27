@@ -199,7 +199,7 @@ class TransformMatrix4:
             self.items[10],
         ]
 
-    def toString(self):
+    def __str__(self):
         result = ""
         row = 0
         while row < 4:

@@ -72,8 +72,5 @@ class Vector3:
     def __eq__(self, vector):
         return self.x == vector.x and self.y == vector.y and self.z == vector.z
 
-    def toString(self):
-        return f"{self.x:.2f} : {self.y:.2f} : {self.z:.2f}"
-
     def __str__(self):
-        return self.toString()
+        return f"{self.x:.2f} : {self.y:.2f} : {self.z:.2f}"

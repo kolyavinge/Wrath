@@ -25,8 +25,5 @@ class SplitLine:
     def getMaxY(self):
         return max(self.startPoint.y, self.endPoint.y)
 
-    def toString(self):
-        return f"({self.priority}:{self.startPoint}),({self.endPoint})"
-
     def __str__(self):
-        return self.toString()
+        return f"({self.priority}:{self.startPoint}),({self.endPoint})"

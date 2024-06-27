@@ -20,41 +20,8 @@ class App:
         glViewport(0, 0, width, height)
 
     def render(self):
-        gameData = self.game.levelManager.gameData
-        level = gameData.level
-        player = gameData.player
-        camera = gameData.camera
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-        glLoadIdentity()
-        glMatrixMode(GL_PROJECTION)
-        gluPerspective(camera.viewAngleDegrees, Constants.screenAspect, Constants.minDepth, Constants.maxDepth)
-        gluLookAt(
-            camera.position.x,
-            camera.position.y,
-            camera.position.z,
-            camera.position.x + camera.lookDirection.x,
-            camera.position.y + camera.lookDirection.y,
-            camera.position.z + camera.lookDirection.z,
-            0,
-            0,
-            1,
-        )
-
-        glEnable(GL_DEPTH_TEST)
-        level = self.game.levelManager.gameData.level
-        glColor3f(0.5, 0.5, 0.5)
-        for wall in level.walls:
-            glBegin(GL_QUADS)
-            glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
-            glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z)
-            glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z + 1)
-            glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z + 1)
-            glEnd()
-        glDisable(GL_DEPTH_TEST)
-
         self.game.renderCurrentScreen()
-
         glutSwapBuffers()
 
     def run(self):

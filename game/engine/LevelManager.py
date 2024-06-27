@@ -3,20 +3,20 @@ from game.engine.EmptyLevelSegmentCleaner import EmptyLevelSegmentCleaner
 from game.engine.GameData import GameData
 from game.engine.LevelLoader import LevelLoader
 from game.engine.LevelSegmentFloorAnalyzer import LevelSegmentFloorAnalyzer
-from game.engine.LevelSegmentValidator import LevelSegmentValidator
 from game.engine.LevelSegmentWallAnalyzer import LevelSegmentWallAnalyzer
+from game.engine.LevelValidator import LevelValidator
 
 
 class LevelManager:
 
-    def __init__(self, gameData, levelLoader, bspTreeBuilder, segmentWallAnalyzer, segmentFloorAnalyzer, segmentCleaner, segmentValidator):
+    def __init__(self, gameData, levelLoader, bspTreeBuilder, segmentWallAnalyzer, segmentFloorAnalyzer, segmentCleaner, levelValidator):
         self.gameData = gameData
         self.levelLoader = levelLoader
         self.bspTreeBuilder = bspTreeBuilder
         self.segmentWallAnalyzer = segmentWallAnalyzer
         self.segmentFloorAnalyzer = segmentFloorAnalyzer
         self.segmentCleaner = segmentCleaner
-        self.segmentValidator = segmentValidator
+        self.levelValidator = levelValidator
 
     def loadFirstLevel(self):
         level = self.levelLoader.loadFromFile()
@@ -25,7 +25,7 @@ class LevelManager:
         self.segmentWallAnalyzer.analyzeWalls(level)
         self.segmentFloorAnalyzer.analyzeFloors(level)
         self.segmentCleaner.clean(level.bspTree)
-        self.segmentValidator.validate(level)
+        self.levelValidator.validate(level)
 
 
 def makeLevelManager(resolver):
@@ -36,5 +36,5 @@ def makeLevelManager(resolver):
         resolver.resolve(LevelSegmentWallAnalyzer),
         resolver.resolve(LevelSegmentFloorAnalyzer),
         resolver.resolve(EmptyLevelSegmentCleaner),
-        resolver.resolve(LevelSegmentValidator),
+        resolver.resolve(LevelValidator),
     )
