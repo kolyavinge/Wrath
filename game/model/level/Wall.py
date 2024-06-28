@@ -32,4 +32,4 @@ class Wall:
             assert self.frontNormal == Vector3(1, 0, 0) or self.frontNormal == Vector3(-1, 0, 0)
 
     def __str__(self):
-        return f"({self.startPoint}-{self.endPoint})"
+        return f"({self.startPoint} - {self.endPoint})"

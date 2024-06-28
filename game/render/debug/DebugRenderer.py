@@ -162,7 +162,7 @@ class DebugRenderer:
         downDirection.sub(downLeft)
         upDirection = upRight.getCopy()
         upDirection.sub(upLeft)
-        x = 0
+        x = 1
         width = min(downDirection.getLength(), upDirection.getLength())
         downDirection.setLength(1)
         upDirection.setLength(1)
@@ -183,7 +183,7 @@ class DebugRenderer:
         leftDirection.sub(downLeft)
         rightDirection = upRight.getCopy()
         rightDirection.sub(downRight)
-        y = 0
+        y = 1
         height = min(leftDirection.getLength(), rightDirection.getLength())
         leftDirection.setLength(1)
         rightDirection.setLength(1)
@@ -199,26 +199,6 @@ class DebugRenderer:
             leftDirection.setLength(leftDirection.getLength() + 1)
             rightDirection.setLength(rightDirection.getLength() + 1)
             y += 1
-
-        glBegin(GL_LINES)
-        glVertex3f(downLeft.x, downLeft.y, downLeft.z)
-        glVertex3f(downRight.x, downRight.y, downRight.z)
-        glEnd()
-
-        glBegin(GL_LINES)
-        glVertex3f(upLeft.x, upLeft.y, upLeft.z)
-        glVertex3f(upRight.x, upRight.y, upRight.z)
-        glEnd()
-
-        glBegin(GL_LINES)
-        glVertex3f(downLeft.x, downLeft.y, downLeft.z)
-        glVertex3f(upLeft.x, upLeft.y, upLeft.z)
-        glEnd()
-
-        glBegin(GL_LINES)
-        glVertex3f(downRight.x, downRight.y, downRight.z)
-        glVertex3f(upRight.x, upRight.y, upRight.z)
-        glEnd()
 
 
 def makeDebugRenderer(resolver):

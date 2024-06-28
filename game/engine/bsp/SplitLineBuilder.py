@@ -23,26 +23,26 @@ class SplitLineBuilder:
         return result
 
     def makeFromFlatFloors(self, level, result):
-        zlist = set([f.z if isinstance(f, FlatFloor) else 0 for f in level.floors])
+        zlist = list(set([f.z if isinstance(f, FlatFloor) else 0 for f in level.floors]))
         for z in zlist:
             s = SplitLine()
             s.priority = 0
-            s.startPoint = Vector3(0, 0, z)
-            s.endPoint = Vector3(0, 0, z)
+            s.startPoint = Vector3(0, 0, z - 0.1)
+            s.endPoint = s.startPoint
             s.frontNormal = Constants.up
             s.orientation = Orientation.horizontal
             s.orientationCanChange = False
-            s.sortOrder = z
+            s.sortOrder = s.startPoint.z
             result.append(s)
 
         s = SplitLine()
         s.priority = 0
         s.startPoint = Vector3(0, 0, Constants.maxLevelSize)
-        s.endPoint = Vector3(0, 0, Constants.maxLevelSize)
+        s.endPoint = s.startPoint
         s.frontNormal = Constants.down
         s.orientation = Orientation.horizontal
         s.orientationCanChange = False
-        s.sortOrder = Constants.maxLevelSize
+        s.sortOrder = s.startPoint.z
         result.append(s)
 
     def makeFromWalls(self, level, result):

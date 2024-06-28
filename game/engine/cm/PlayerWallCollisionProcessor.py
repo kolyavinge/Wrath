@@ -24,7 +24,7 @@ class PlayerWallCollisionProcessor:
             if intersectPoint is not None:
                 if self.playerLineContainsPoint(player, intersectPoint) and self.crossLineContainsPoint(wall, intersectPoint):
                     x, y = self.getPointOnCrossLine(wall, player.nextCenterPoint)
-                    player.moveNextPositionTo(Vector3(x, y, 0))
+                    player.moveNextPositionTo(Vector3(x, y, player.getZ()))
                     self.hasCollisions = True
 
     def isPlayerBehindWall(self, player, wall):

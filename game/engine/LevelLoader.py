@@ -1,11 +1,12 @@
 from game.model.level.debug.Level1 import Level1
+from game.model.level.debug.LevelLoop import LevelLoop
 from game.model.PlayerMeasures import PlayerMeasures
 
 
 class LevelLoader:
 
     def loadFromFile(self):
-        level = Level1()
+        level = LevelLoop()
         self.calculateWallCrossLines(level)
         level.validate()
 
