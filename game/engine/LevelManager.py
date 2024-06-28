@@ -27,9 +27,12 @@ class LevelManager:
         self.gameData.level = level
         self.bspTreeBuilder.build(level.collisionTree, self.splitLineBuilder.getForCollisions(level))
         self.bspTreeBuilder.build(level.visibilityTree, self.splitLineBuilder.getForVisibility(level))
-        self.segmentWallAnalyzer.analyzeWalls(level)
-        self.segmentFloorAnalyzer.analyzeFloors(level)
+        self.segmentWallAnalyzer.analyzeWalls(level, level.collisionTree)
+        self.segmentFloorAnalyzer.analyzeFloors(level, level.collisionTree)
+        self.segmentWallAnalyzer.analyzeWalls(level, level.visibilityTree)
+        self.segmentFloorAnalyzer.analyzeFloors(level, level.visibilityTree)
         self.segmentCleaner.clean(level.collisionTree)
+        self.segmentCleaner.clean(level.visibilityTree)
         self.levelValidator.validate(level)
 
 

@@ -18,7 +18,7 @@ class SplitLineBuilder:
     def getForVisibility(self, level):
         result = []
         self.makeFromFlatFloors(level, result)
-        self.makeFromWalls(level, result)
+        self.makeFromPrimaryWalls(level, result)
 
         return result
 
@@ -48,6 +48,19 @@ class SplitLineBuilder:
     def makeFromWalls(self, level, result):
         for wall in level.walls:
             if wall.orientation == Orientation.horizontal or wall.orientation == Orientation.vertical:
+                s = SplitLine()
+                s.priority = 1
+                s.startPoint = wall.startPoint
+                s.endPoint = wall.endPoint
+                s.frontNormal = wall.frontNormal
+                s.orientation = wall.orientation
+                s.orientationCanChange = True
+                s.sortOrder = wall.startPoint.x if wall.orientation == Orientation.vertical else wall.startPoint.y
+                result.append(s)
+
+    def makeFromPrimaryWalls(self, level, result):
+        for wall in level.walls:
+            if wall.isPrimary and (wall.orientation == Orientation.horizontal or wall.orientation == Orientation.vertical):
                 s = SplitLine()
                 s.priority = 1
                 s.startPoint = wall.startPoint

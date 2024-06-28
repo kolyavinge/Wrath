@@ -43,6 +43,9 @@ class Player:
         self.nextCenterPoint = vector
         self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
 
+    def getZ(self):
+        return self.nextCenterPoint.z
+
     def setZ(self, z):
         self.nextCenterPoint.z = z
         self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)

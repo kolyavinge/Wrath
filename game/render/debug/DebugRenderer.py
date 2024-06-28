@@ -13,13 +13,14 @@ class DebugRenderer:
 
     def render(self):
         self.initCamera()
-        self.renderFloorGrid()
+        # self.renderFloorGrid()
         self.renderWalls()
         self.renderWallCrossLines()
+        self.renderFloors()
         self.renderLevelSegmentFloors()
         self.renderLevelSegmentWalls()
         self.renderPlayerBorder()
-        self.renderAxis()
+        # self.renderAxis()
 
     def initCamera(self):
         camera = self.gameData.camera
@@ -45,7 +46,7 @@ class DebugRenderer:
         while x < 1000:
             glBegin(GL_LINES)
             glVertex3f(x, 0, 0)
-            glVertex3f(x, 100, 0)
+            glVertex3f(x, 1000, 0)
             glEnd()
             x += 1
 
@@ -53,22 +54,21 @@ class DebugRenderer:
         while y < 1000:
             glBegin(GL_LINES)
             glVertex3f(0, y, 0)
-            glVertex3f(100, y, 0)
+            glVertex3f(1000, y, 0)
             glEnd()
             y += 1
         glDisable(GL_DEPTH_TEST)
 
     def renderWalls(self):
         glEnable(GL_DEPTH_TEST)
-        glColor3f(0.5, 0.5, 0.5)
+        glColor3f(0.4, 0.4, 0.4)
         for levelSegment in self.gameData.visibleLevelSegments:
             for wall in levelSegment.walls:
-                glBegin(GL_QUADS)
-                glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
-                glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z)
-                glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z + 1)
-                glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z + 1)
-                glEnd()
+                startPointUp = wall.startPoint.getCopy()
+                endPointUp = wall.endPoint.getCopy()
+                startPointUp.z += 1
+                endPointUp.z += 1
+                self.renderGridQuad(wall.startPoint, wall.endPoint, startPointUp, endPointUp)
         glDisable(GL_DEPTH_TEST)
 
     def renderWallCrossLines(self):
@@ -80,6 +80,13 @@ class DebugRenderer:
                 glVertex3f(wall.crossLine.startPoint.x, wall.crossLine.startPoint.y, wall.startPoint.z)
                 glVertex3f(wall.crossLine.endPoint.x, wall.crossLine.endPoint.y, wall.endPoint.z)
                 glEnd()
+        glDisable(GL_DEPTH_TEST)
+
+    def renderFloors(self):
+        glEnable(GL_DEPTH_TEST)
+        for levelSegment in self.gameData.visibleLevelSegments:
+            for floor in levelSegment.floors:
+                self.renderGridQuad(floor.downLeft, floor.downRight, floor.upLeft, floor.upRight)
         glDisable(GL_DEPTH_TEST)
 
     def renderLevelSegmentFloors(self):
@@ -138,6 +145,79 @@ class DebugRenderer:
         glBegin(GL_LINES)
         glVertex3f(0, 0, 0)
         glVertex3f(0, 0, 100)
+        glEnd()
+
+    def renderGridQuad(self, downLeft, downRight, upLeft, upRight):
+        glColor3f(0.4, 0.4, 0.4)
+        glBegin(GL_QUADS)
+        glVertex3f(downLeft.x, downLeft.y, downLeft.z)
+        glVertex3f(downRight.x, downRight.y, downRight.z)
+        glVertex3f(upRight.x, upRight.y, upRight.z)
+        glVertex3f(upLeft.x, upLeft.y, upLeft.z)
+        glEnd()
+
+        glColor3f(0.1, 0.1, 0.1)
+
+        downDirection = downRight.getCopy()
+        downDirection.sub(downLeft)
+        upDirection = upRight.getCopy()
+        upDirection.sub(upLeft)
+        x = 0
+        width = min(downDirection.getLength(), upDirection.getLength())
+        downDirection.setLength(1)
+        upDirection.setLength(1)
+        while x < width:
+            left = downLeft.getCopy()
+            left.add(downDirection)
+            right = upLeft.getCopy()
+            right.add(upDirection)
+            glBegin(GL_LINES)
+            glVertex3f(left.x, left.y, left.z)
+            glVertex3f(right.x, right.y, right.z)
+            glEnd()
+            downDirection.setLength(downDirection.getLength() + 1)
+            upDirection.setLength(upDirection.getLength() + 1)
+            x += 1
+
+        leftDirection = upLeft.getCopy()
+        leftDirection.sub(downLeft)
+        rightDirection = upRight.getCopy()
+        rightDirection.sub(downRight)
+        y = 0
+        height = min(leftDirection.getLength(), rightDirection.getLength())
+        leftDirection.setLength(1)
+        rightDirection.setLength(1)
+        while y < height:
+            left = downLeft.getCopy()
+            left.add(leftDirection)
+            right = downRight.getCopy()
+            right.add(rightDirection)
+            glBegin(GL_LINES)
+            glVertex3f(left.x, left.y, left.z)
+            glVertex3f(right.x, right.y, right.z)
+            glEnd()
+            leftDirection.setLength(leftDirection.getLength() + 1)
+            rightDirection.setLength(rightDirection.getLength() + 1)
+            y += 1
+
+        glBegin(GL_LINES)
+        glVertex3f(downLeft.x, downLeft.y, downLeft.z)
+        glVertex3f(downRight.x, downRight.y, downRight.z)
+        glEnd()
+
+        glBegin(GL_LINES)
+        glVertex3f(upLeft.x, upLeft.y, upLeft.z)
+        glVertex3f(upRight.x, upRight.y, upRight.z)
+        glEnd()
+
+        glBegin(GL_LINES)
+        glVertex3f(downLeft.x, downLeft.y, downLeft.z)
+        glVertex3f(upLeft.x, upLeft.y, upLeft.z)
+        glEnd()
+
+        glBegin(GL_LINES)
+        glVertex3f(downRight.x, downRight.y, downRight.z)
+        glVertex3f(upRight.x, upRight.y, upRight.z)
         glEnd()
 
 

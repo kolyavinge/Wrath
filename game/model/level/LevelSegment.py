@@ -23,16 +23,16 @@ class LevelSegment:
         self.minZ = 0
         self.maxZ = 0
         self.walls = []
-        self.floor = None
+        self.floors = []
 
     def getCenterPoint(self):
         return Vector3(self.minX + (self.maxX - self.minX) / 2, self.minY + (self.maxY - self.minY) / 2, self.minZ + (self.maxZ - self.minZ) / 2)
 
     def isEmpty(self):
-        return not self.walls and self.floor is None
+        return not self.walls and not self.floors
 
     def validate(self):
-        assert self.floor is not None
+        pass
 
     def __str__(self):
         return f"({self.minX},{self.minY}),({self.maxX},{self.maxY}),({self.minZ},{self.maxZ})"

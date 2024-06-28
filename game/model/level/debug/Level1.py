@@ -68,24 +68,28 @@ class Level1(Level):
         wall9.endPoint = Vector3(2, 7, 0)
         wall9.orientation = Orientation.vertical
         wall9.frontNormal = Vector3(-1, 0, 0)
+        wall9.isPrimary = False
 
         wall10 = Wall()
         wall10.startPoint = Vector3(2, 7, 0)
         wall10.endPoint = Vector3(3, 7, 0)
         wall10.orientation = Orientation.horizontal
         wall10.frontNormal = Vector3(0, 1, 0)
+        wall10.isPrimary = False
 
         wall11 = Wall()
         wall11.startPoint = Vector3(3, 6, 0)
         wall11.endPoint = Vector3(3, 7, 0)
         wall11.orientation = Orientation.vertical
         wall11.frontNormal = Vector3(1, 0, 0)
+        wall11.isPrimary = False
 
         wall12 = Wall()
         wall12.startPoint = Vector3(2, 6, 0)
         wall12.endPoint = Vector3(3, 6, 0)
         wall12.orientation = Orientation.horizontal
         wall12.frontNormal = Vector3(0, -1, 0)
+        wall12.isPrimary = False
         # pole
 
         wall13 = Wall()
@@ -150,6 +154,5 @@ class Level1(Level):
         floor4.upNormal = Geometry.rotatePoint(rightDirection, Vector3(0, -1, 0), Constants.axisOrigin, Math.piHalf)
         floor4.commit()
 
-        # self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12, wall13, wall14]
-        self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall13, wall14]
+        self.walls = [wall1, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10, wall11, wall12, wall13, wall14]
         self.floors = [floor1, floor2, floor3, floor4]
