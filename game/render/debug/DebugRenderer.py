@@ -66,15 +66,16 @@ class DebugRenderer:
             for wall in levelSegment.walls:
                 startPointUp = wall.startPoint.getCopy()
                 endPointUp = wall.endPoint.getCopy()
-                startPointUp.z += 1
-                endPointUp.z += 1
+                startPointUp.z += wall.height
+                endPointUp.z += wall.height
                 self.renderGridQuad(wall.startPoint, wall.endPoint, startPointUp, endPointUp)
         glDisable(GL_DEPTH_TEST)
 
     def renderWallCrossLines(self):
+        player = self.gameData.player
         glEnable(GL_DEPTH_TEST)
         glColor3f(1, 1, 0)
-        for levelSegment in self.gameData.visibleLevelSegments:
+        for levelSegment in player.levelSegments:
             for wall in levelSegment.walls:
                 glBegin(GL_LINES)
                 glVertex3f(wall.crossLine.startPoint.x, wall.crossLine.startPoint.y, wall.startPoint.z)
@@ -111,8 +112,8 @@ class DebugRenderer:
                 glBegin(GL_QUADS)
                 glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
                 glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z)
-                glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z + 1)
-                glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z + 1)
+                glVertex3f(wall.endPoint.x, wall.endPoint.y, wall.endPoint.z + wall.height)
+                glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z + wall.height)
                 glEnd()
         glDisable(GL_BLEND)
 
