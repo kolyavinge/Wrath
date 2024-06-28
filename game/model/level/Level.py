@@ -4,7 +4,8 @@ from game.model.level.BSPTree import BSPTree
 class Level:
 
     def __init__(self):
-        self.bspTree = BSPTree()
+        self.collisionTree = BSPTree()
+        self.visibilityTree = BSPTree()
         self.walls = []
         self.floors = []
 

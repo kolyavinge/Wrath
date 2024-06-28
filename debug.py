@@ -59,7 +59,7 @@ level.validate()
 
 bspTreeBuilder = BSPTreeBuilder()
 bspTreeBuilder.build(level)
-bspTree = level.bspTree
+bspTree = level.collisionTree
 root = bspTree.root
 
 allSegments = bspTree.getAllLevelSegments()

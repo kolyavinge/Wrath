@@ -14,10 +14,9 @@ class BSPTreeBuilder:
         self.splitLineBuilder = splitLineBuilder
         self.splitBorderBuilder = splitBorderBuilder
 
-    def build(self, level):
-        splitLines = self.splitLineBuilder.getSplitLines(level)
+    def build(self, bspTree, splitLines):
         splitBorder = SplitBorder(0, Constants.maxLevelSize, 0, Constants.maxLevelSize, 0, Constants.maxLevelSize)
-        self.buildRec(level.bspTree.root, splitLines[0].orientation, splitBorder, splitLines)
+        self.buildRec(bspTree.root, splitLines[0].orientation, splitBorder, splitLines)
 
     def buildRec(self, node, splitOrientation, splitBorder, allSplitLines):
         splitLines = [s for s in allSplitLines if s.orientation == splitOrientation]

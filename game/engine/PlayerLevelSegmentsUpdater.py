@@ -11,7 +11,7 @@ class PlayerLevelSegmentsUpdater:
     def update(self):
         player = self.gameData.player
         if player.hasMoved:
-            bspTree = self.gameData.level.bspTree
+            bspTree = self.gameData.level.collisionTree
             player.levelSegments = []
             border = player.nextBorder
             levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.downLeft)

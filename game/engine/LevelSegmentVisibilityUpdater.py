@@ -18,22 +18,22 @@ class LevelSegmentVisibilityUpdater:
             straightLookDirection = camera.lookDirection.getCopy()
             straightLookDirection.z = 0
             straightLookDirection.setLength(20)
-            leftLookDirection = Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, -(camera.viewAngleRadiansHalf + 2))
-            rightLookDirection = Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, (camera.viewAngleRadiansHalf + 2))
+            leftLookDirection = Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, -camera.viewAngleRadiansHalf)
+            rightLookDirection = Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, camera.viewAngleRadiansHalf)
             leftLookDirectionQ = Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, -camera.viewAngleRadiansQuarter)
             rightLookDirectionQ = Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, camera.viewAngleRadiansQuarter)
             self.checkDirection(straightLookDirection)
             self.checkDirection(leftLookDirection)
             self.checkDirection(rightLookDirection)
-            self.checkDirection(leftLookDirectionQ)
-            self.checkDirection(rightLookDirectionQ)
+            # self.checkDirection(leftLookDirectionQ)
+            # self.checkDirection(rightLookDirectionQ)
 
     def checkDirection(self, direction):
         camera = self.gameData.camera
         startPoint = camera.position
         endPoint = startPoint.getCopy()
         endPoint.add(direction)
-        levelSegments = self.segmentItemFinder.getItemLevelSegments(self.gameData.level.bspTree, startPoint, endPoint)
+        levelSegments = self.segmentItemFinder.getItemLevelSegments(self.gameData.level.visibilityTree, startPoint, endPoint)
         for levelSegment in levelSegments:
             self.gameData.visibleLevelSegments.append(levelSegment)
 

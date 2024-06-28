@@ -3,7 +3,7 @@ class LevelValidator:
     def validate(self, level):
         level.validate()
 
-        levelSegments = level.bspTree.getAllLevelSegments()
+        levelSegments = level.collisionTree.getAllLevelSegments()
         for levelSegment in levelSegments:
             levelSegment.validate()
 

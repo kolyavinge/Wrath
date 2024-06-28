@@ -8,7 +8,7 @@ class LevelSegmentWallAnalyzer:
 
     def analyzeWalls(self, level):
         for wall in level.walls:
-            levelSegments = self.segmentItemFinder.getItemLevelSegments(level.bspTree, wall.startPoint, wall.endPoint)
+            levelSegments = self.segmentItemFinder.getItemLevelSegments(level.collisionTree, wall.startPoint, wall.endPoint)
             for levelSegment in levelSegments:
                 levelSegment.walls.append(wall)
 

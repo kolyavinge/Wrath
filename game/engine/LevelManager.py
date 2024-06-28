@@ -1,4 +1,5 @@
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
+from game.engine.bsp.SplitLineBuilder import SplitLineBuilder
 from game.engine.EmptyLevelSegmentCleaner import EmptyLevelSegmentCleaner
 from game.engine.GameData import GameData
 from game.engine.LevelLoader import LevelLoader
@@ -9,10 +10,13 @@ from game.engine.LevelValidator import LevelValidator
 
 class LevelManager:
 
-    def __init__(self, gameData, levelLoader, bspTreeBuilder, segmentWallAnalyzer, segmentFloorAnalyzer, segmentCleaner, levelValidator):
+    def __init__(
+        self, gameData, levelLoader, bspTreeBuilder, splitLineBuilder, segmentWallAnalyzer, segmentFloorAnalyzer, segmentCleaner, levelValidator
+    ):
         self.gameData = gameData
         self.levelLoader = levelLoader
         self.bspTreeBuilder = bspTreeBuilder
+        self.splitLineBuilder = splitLineBuilder
         self.segmentWallAnalyzer = segmentWallAnalyzer
         self.segmentFloorAnalyzer = segmentFloorAnalyzer
         self.segmentCleaner = segmentCleaner
@@ -21,10 +25,11 @@ class LevelManager:
     def loadFirstLevel(self):
         level = self.levelLoader.loadFromFile()
         self.gameData.level = level
-        self.bspTreeBuilder.build(level)
+        self.bspTreeBuilder.build(level.collisionTree, self.splitLineBuilder.getForCollisions(level))
+        self.bspTreeBuilder.build(level.visibilityTree, self.splitLineBuilder.getForVisibility(level))
         self.segmentWallAnalyzer.analyzeWalls(level)
         self.segmentFloorAnalyzer.analyzeFloors(level)
-        self.segmentCleaner.clean(level.bspTree)
+        self.segmentCleaner.clean(level.collisionTree)
         self.levelValidator.validate(level)
 
 
@@ -33,6 +38,7 @@ def makeLevelManager(resolver):
         resolver.resolve(GameData),
         resolver.resolve(LevelLoader),
         resolver.resolve(BSPTreeBuilder),
+        resolver.resolve(SplitLineBuilder),
         resolver.resolve(LevelSegmentWallAnalyzer),
         resolver.resolve(LevelSegmentFloorAnalyzer),
         resolver.resolve(EmptyLevelSegmentCleaner),

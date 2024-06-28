@@ -7,11 +7,18 @@ from game.model.level.Orientation import Orientation
 
 class SplitLineBuilder:
 
-    def getSplitLines(self, level):
+    def getForCollisions(self, level):
         result = []
         self.makeFromFlatFloors(level, result)
         self.makeFromWalls(level, result)
         self.makeFromFloors(level, result)
+
+        return result
+
+    def getForVisibility(self, level):
+        result = []
+        self.makeFromFlatFloors(level, result)
+        self.makeFromWalls(level, result)
 
         return result
 
