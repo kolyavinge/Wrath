@@ -25,12 +25,9 @@ class GameUpdater:
         self.cameraUpdater = cameraUpdater
 
     def update(self):
+        self.playerWallCollisionProcessor.processCollisions()
         self.playerZUpdater.update()
         self.playerLevelSegmentsUpdater.update()
-        self.playerWallCollisionProcessor.processCollisions()
-        if self.playerWallCollisionProcessor.hasCollisions:
-            self.playerZUpdater.update()
-            self.playerLevelSegmentsUpdater.update()
         self.cameraUpdater.update()
         self.levelSegmentVisibilityUpdater.update()
         self.playerPositionUpdater.update()
