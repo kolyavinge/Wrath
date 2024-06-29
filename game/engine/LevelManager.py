@@ -34,6 +34,8 @@ class LevelManager:
         self.segmentCleaner.clean(level.collisionTree)
         self.segmentCleaner.clean(level.visibilityTree)
         self.levelValidator.validate(level)
+        self.gameData.player.moveNextPositionTo(level.playerPosition)
+        self.gameData.player.commitNextPosition()
 
 
 def makeLevelManager(resolver):

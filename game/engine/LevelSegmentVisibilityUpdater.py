@@ -24,6 +24,8 @@ class LevelSegmentVisibilityUpdater:
             while radians <= camera.viewAngleRadians:
                 self.checkDirection(Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, -radians))
                 self.checkDirection(Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, radians))
+                self.checkDirection(Geometry.rotatePoint(straightLookDirection, Constants.xAxis, Constants.axisOrigin, -radians))
+                self.checkDirection(Geometry.rotatePoint(straightLookDirection, Constants.xAxis, Constants.axisOrigin, radians))
                 radians += radiansStep
 
     def checkDirection(self, direction):

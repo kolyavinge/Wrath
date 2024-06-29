@@ -14,7 +14,7 @@ class Wall:
         self.crossLine = Line()
         self.crossLineDirection = Vector3()
         self.isPrimary = True
-        self.height = 2
+        self.height = 3
 
     def validate(self):
         assert self.startPoint != self.endPoint

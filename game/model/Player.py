@@ -14,10 +14,6 @@ class Player:
     def __init__(self):
         self.currentCenterPoint = Vector3(25.5, 25.5, 0)
         self.currentBorder = Box3d(PlayerMeasures.xyLength, PlayerMeasures.xyLength, PlayerMeasures.zLength)
-        self.currentBorder.bottom.downLeft = Vector3(25, 25, 0)
-        self.currentBorder.bottom.downRight = Vector3(26, 25, 0)
-        self.currentBorder.bottom.upLeft = Vector3(25, 26, 0)
-        self.currentBorder.bottom.upRight = Vector3(27, 27, 0)
         self.nextCenterPoint = self.currentCenterPoint.getCopy()
         self.nextBorder = self.currentBorder.getCopy()
         self.pitchRadians = 0

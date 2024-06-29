@@ -43,7 +43,7 @@ class LevelLoop(Level):
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(50, 40, 2)
+        wall.startPoint = Vector3(50, 40, 3.1)
         wall.endPoint = Vector3(60, 40, 0)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
@@ -57,29 +57,29 @@ class LevelLoop(Level):
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(50, 50, 2)
+        wall.startPoint = Vector3(50, 50, 3.1)
         wall.endPoint = Vector3(60, 50, 0)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(40, 50, 2)
-        wall.endPoint = Vector3(50, 50, 2)
+        wall.startPoint = Vector3(40, 50, 3.1)
+        wall.endPoint = Vector3(50, 50, 3.1)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(40, 15, 2)
-        wall.endPoint = Vector3(40, 50, 2)
+        wall.startPoint = Vector3(40, 15, 3.1)
+        wall.endPoint = Vector3(40, 50, 3.1)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(50, 5, 2)
-        wall.endPoint = Vector3(50, 40, 2)
+        wall.startPoint = Vector3(50, 5, 3.1)
+        wall.endPoint = Vector3(50, 40, 3.1)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
         self.addWall(wall)
@@ -93,21 +93,21 @@ class LevelLoop(Level):
 
         wall = Wall()
         wall.startPoint = Vector3(20, 5, 0)
-        wall.endPoint = Vector3(40, 5, 2)
+        wall.endPoint = Vector3(40, 5, 3.1)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(40, 5, 2)
-        wall.endPoint = Vector3(50, 5, 2)
+        wall.startPoint = Vector3(40, 5, 3.1)
+        wall.endPoint = Vector3(50, 5, 3.1)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
         self.addWall(wall)
 
         wall = Wall()
         wall.startPoint = Vector3(20, 15, 0)
-        wall.endPoint = Vector3(40, 15, 2)
+        wall.endPoint = Vector3(40, 15, 3.1)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
         self.addWall(wall)
@@ -151,9 +151,9 @@ class LevelLoop(Level):
         self.addFloor(floor)
 
         floor = PlaneFloor()
-        floor.downLeft = Vector3(50, 40, 2)
+        floor.downLeft = Vector3(50, 40, 3.1)
         floor.downRight = Vector3(60, 40, 0)
-        floor.upLeft = Vector3(50, 50, 2)
+        floor.upLeft = Vector3(50, 50, 3.1)
         floor.upRight = Vector3(60, 50, 0)
         floor.leftFrontNormal = Vector3(1, 0, 0)
         floor.rightFrontNormal = Vector3(-1, 0, 0)
@@ -167,22 +167,22 @@ class LevelLoop(Level):
         self.addFloor(floor)
 
         floor = FlatFloor()
-        floor.downLeft = Vector3(40, 5, 2)
-        floor.downRight = Vector3(50, 5, 2)
-        floor.upLeft = Vector3(40, 50, 2)
-        floor.upRight = Vector3(50, 50, 2)
+        floor.downLeft = Vector3(40, 5, 3.1)
+        floor.downRight = Vector3(50, 5, 3.1)
+        floor.upLeft = Vector3(40, 50, 3.1)
+        floor.upRight = Vector3(50, 50, 3.1)
         floor.leftFrontNormal = Vector3(1, 0, 0)
         floor.rightFrontNormal = Vector3(-1, 0, 0)
         floor.upFrontNormal = Vector3(0, -1, 0)
         floor.downFrontNormal = Vector3(0, 1, 0)
-        floor.z = 2
+        floor.z = 3.1
         self.addFloor(floor)
 
         floor = PlaneFloor()
         floor.downLeft = Vector3(20, 5, 0)
-        floor.downRight = Vector3(40, 5, 2)
+        floor.downRight = Vector3(40, 5, 3.1)
         floor.upLeft = Vector3(20, 15, 0)
-        floor.upRight = Vector3(40, 15, 2)
+        floor.upRight = Vector3(40, 15, 3.1)
         floor.leftFrontNormal = Vector3(1, 0, 0)
         floor.rightFrontNormal = Vector3(-1, 0, 0)
         floor.upFrontNormal = Vector3(0, -1, 0)
@@ -205,6 +205,8 @@ class LevelLoop(Level):
         floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = 0
         self.addFloor(floor)
+
+        self.playerPosition = Vector3(25, 25, 0)
 
     def addWall(self, wall):
         self.walls.append(wall)
