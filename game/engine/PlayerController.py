@@ -72,6 +72,16 @@ class PlayerController:
             player.pitchRadians = -player.maxPitchRadians
         self.calculateDirectionVectors()
 
+    def orientByFrontNormal(self, frontNormal):
+        player = self.gameData.player
+        radians = Math.arccos(player.frontNormal.dotProduct(frontNormal))
+        vectorProduct = player.frontNormal.getCopy()
+        vectorProduct.vectorProduct(frontNormal)
+        if vectorProduct.z < 0:
+            radians *= -1
+        player.yawRadians = radians
+        self.calculateDirectionVectors()
+
     def calculateDirectionVectors(self):
         player = self.gameData.player
         player.frontNormal = Geometry.rotatePoint(Constants.yAxis, Constants.zAxis, Constants.axisOrigin, player.yawRadians)

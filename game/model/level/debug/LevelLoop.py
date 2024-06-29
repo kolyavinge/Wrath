@@ -207,6 +207,7 @@ class LevelLoop(Level):
         self.addFloor(floor)
 
         self.playerPosition = Vector3(25, 25, 0)
+        self.playerFrontNormal = Vector3(1, 0, 0)
 
     def addWall(self, wall):
         self.walls.append(wall)

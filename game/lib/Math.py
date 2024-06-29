@@ -34,3 +34,7 @@ class Math:
     @staticmethod
     def ln(x):
         return math.log(x)
+
+    @staticmethod
+    def arccos(v):
+        return math.acos(v)

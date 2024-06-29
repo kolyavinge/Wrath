@@ -12,7 +12,7 @@ class Player:
     maxPitchRadians = Math.piHalf - 0.1
 
     def __init__(self):
-        self.currentCenterPoint = Vector3(25.5, 25.5, 0)
+        self.currentCenterPoint = Vector3()
         self.currentBorder = Box3d(PlayerMeasures.xyLength, PlayerMeasures.xyLength, PlayerMeasures.zLength)
         self.nextCenterPoint = self.currentCenterPoint.getCopy()
         self.nextBorder = self.currentBorder.getCopy()

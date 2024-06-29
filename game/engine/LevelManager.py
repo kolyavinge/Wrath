@@ -6,12 +6,22 @@ from game.engine.LevelLoader import LevelLoader
 from game.engine.LevelSegmentFloorAnalyzer import LevelSegmentFloorAnalyzer
 from game.engine.LevelSegmentWallAnalyzer import LevelSegmentWallAnalyzer
 from game.engine.LevelValidator import LevelValidator
+from game.engine.PlayerController import PlayerController
 
 
 class LevelManager:
 
     def __init__(
-        self, gameData, levelLoader, bspTreeBuilder, splitLineBuilder, segmentWallAnalyzer, segmentFloorAnalyzer, segmentCleaner, levelValidator
+        self,
+        gameData,
+        levelLoader,
+        bspTreeBuilder,
+        splitLineBuilder,
+        segmentWallAnalyzer,
+        segmentFloorAnalyzer,
+        segmentCleaner,
+        levelValidator,
+        playerController,
     ):
         self.gameData = gameData
         self.levelLoader = levelLoader
@@ -21,6 +31,7 @@ class LevelManager:
         self.segmentFloorAnalyzer = segmentFloorAnalyzer
         self.segmentCleaner = segmentCleaner
         self.levelValidator = levelValidator
+        self.playerController = playerController
 
     def loadFirstLevel(self):
         level = self.levelLoader.loadFromFile()
@@ -34,6 +45,7 @@ class LevelManager:
         self.segmentCleaner.clean(level.collisionTree)
         self.segmentCleaner.clean(level.visibilityTree)
         self.levelValidator.validate(level)
+        self.playerController.orientByFrontNormal(level.playerFrontNormal)
         self.gameData.player.moveNextPositionTo(level.playerPosition)
         self.gameData.player.commitNextPosition()
 
@@ -48,4 +60,5 @@ def makeLevelManager(resolver):
         resolver.resolve(LevelSegmentFloorAnalyzer),
         resolver.resolve(EmptyLevelSegmentCleaner),
         resolver.resolve(LevelValidator),
+        resolver.resolve(PlayerController),
     )
