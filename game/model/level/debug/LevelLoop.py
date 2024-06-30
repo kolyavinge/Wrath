@@ -16,9 +16,19 @@ class LevelLoop(Level):
 
         wall = Wall()
         wall.startPoint = Vector3(20, 20, 0)
-        wall.endPoint = Vector3(70, 20, 0)
+        wall.endPoint = Vector3(65, 20, 0)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(65, 20, 0)
+        wall.endPoint = Vector3(70, 25, 0)
+        wall.orientation = Orientation.diagonal
+        wall.frontNormal = wall.startPoint.getCopy()
+        wall.frontNormal.sub(wall.endPoint)
+        wall.frontNormal = Geometry.rotatePoint(wall.frontNormal, Constants.zAxis, Constants.axisOrigin, -Math.piHalf)
+        wall.frontNormal.normalize()
         self.addWall(wall)
 
         wall = Wall()
@@ -36,7 +46,7 @@ class LevelLoop(Level):
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(70, 20, 0)
+        wall.startPoint = Vector3(70, 25, 0)
         wall.endPoint = Vector3(70, 50, 0)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)

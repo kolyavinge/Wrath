@@ -59,7 +59,7 @@ class PlayerWallCollisionProcessor:
             return crossLine.startPoint.x <= x and x <= crossLine.endPoint.x
         elif wall.orientation == Orientation.vertical:
             return crossLine.startPoint.y <= y and y <= crossLine.endPoint.y
-        elif wall.orientation == Orientation.diagonalDownLeftUpRight or wall.orientation == Orientation.diagonalUpLeftDownRight:
+        elif wall.orientation == Orientation.diagonal:
             return Geometry.lineContainsPoint(crossLine.startPoint.x, crossLine.startPoint.y, crossLine.endPoint.x, crossLine.endPoint.y, x, y)
         else:
             raise Exception()
@@ -69,7 +69,7 @@ class PlayerWallCollisionProcessor:
             return (playerNextCenterPoint.x, wall.crossLine.startPoint.y)
         elif wall.orientation == Orientation.vertical:
             return (wall.crossLine.startPoint.x, playerNextCenterPoint.y)
-        elif wall.orientation == Orientation.diagonalDownLeftUpRight or wall.orientation == Orientation.diagonalUpLeftDownRight:
+        elif wall.orientation == Orientation.diagonal:
             playerDirection = playerNextCenterPoint.getCopy()
             playerDirection.sub(wall.crossLine.startPoint)
             projected = Geometry.getProjectedVector(playerDirection, wall.crossLineDirection)

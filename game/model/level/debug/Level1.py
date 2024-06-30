@@ -95,14 +95,14 @@ class Level1(Level):
         wall13 = Wall()
         wall13.startPoint = Vector3(0, 7, 0)
         wall13.endPoint = Vector3(3, 10, 0)
-        wall13.orientation = Orientation.diagonalDownLeftUpRight
+        wall13.orientation = Orientation.diagonal
         wall13.frontNormal = Vector3(1, -1, 0)
         wall13.frontNormal.normalize()
 
         wall14 = Wall()
         wall14.startPoint = Vector3(27, 5, 0)
         wall14.endPoint = Vector3(30, 8, 0)
-        wall14.orientation = Orientation.diagonalDownLeftUpRight
+        wall14.orientation = Orientation.diagonal
         wall14.frontNormal = Vector3(-1, 1, 0)
         wall14.frontNormal.normalize()
 

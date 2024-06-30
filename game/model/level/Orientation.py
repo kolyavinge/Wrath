@@ -1,8 +1,7 @@
 class Orientation:
     horizontal = 1
     vertical = 2
-    diagonalDownLeftUpRight = 3
-    diagonalUpLeftDownRight = 4
+    diagonal = 3
 
     @staticmethod
     def getOpposite(x):
@@ -12,10 +11,7 @@ class Orientation:
         if x == Orientation.vertical:
             return Orientation.horizontal
 
-        if x == Orientation.diagonalDownLeftUpRight:
-            return Orientation.diagonalUpLeftDownRight
-
-        if x == Orientation.diagonalUpLeftDownRight:
-            return Orientation.diagonalDownLeftUpRight
+        if x == Orientation.diagonal:
+            return Orientation.diagonal
 
         raise Exception()
