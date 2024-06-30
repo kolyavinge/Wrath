@@ -1,5 +1,5 @@
-from game.model.level.debug.Level1 import Level1
-from game.model.level.debug.LevelLoop import LevelLoop
+from game.levels.Level1 import Level1
+from game.levels.LevelLoop import LevelLoop
 from game.model.PlayerMeasures import PlayerMeasures
 
 
