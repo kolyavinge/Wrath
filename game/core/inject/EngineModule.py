@@ -14,10 +14,11 @@ from game.engine.LevelSegmentItemFinder import *
 from game.engine.LevelSegmentVisibilityUpdater import *
 from game.engine.LevelSegmentWallAnalyzer import *
 from game.engine.LevelValidator import *
-from game.engine.PlayerController import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
+from game.engine.PlayerMoveLogic import *
 from game.engine.PlayerPositionUpdater import *
+from game.engine.PlayerTurnLogic import *
 from game.engine.PlayerZUpdater import *
 from game.input.InputManager import *
 
@@ -41,9 +42,10 @@ class EngineModule:
         binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
         binder.bindSingleton(LevelSegmentWallAnalyzer, makeLevelSegmentWallAnalyzer)
         binder.bindSingleton(LevelValidator, makeLevelValidator)
-        binder.bindSingleton(PlayerController, makePlayerController)
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
+        binder.bindSingleton(PlayerMoveLogic, makePlayerMoveLogic)
         binder.bindSingleton(PlayerPositionUpdater, makePlayerPositionUpdater)
+        binder.bindSingleton(PlayerTurnLogic, makePlayerTurnLogic)
         binder.bindSingleton(PlayerZUpdater, makePlayerZUpdater)
         binder.bindSingleton(InputManager, makeInputManager)

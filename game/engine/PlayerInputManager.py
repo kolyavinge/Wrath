@@ -1,4 +1,5 @@
-from game.engine.PlayerController import PlayerController
+from game.engine.PlayerMoveLogic import PlayerMoveLogic
+from game.engine.PlayerTurnLogic import PlayerTurnLogic
 from game.input.InputManager import InputManager
 from game.input.Keys import Keys
 from game.lib.Math import Math
@@ -6,8 +7,9 @@ from game.lib.Math import Math
 
 class PlayerInputManager:
 
-    def __init__(self, playerController, inputManager):
-        self.playerController = playerController
+    def __init__(self, playerMoveLogic, playerTurnLogic, inputManager):
+        self.playerMoveLogic = playerMoveLogic
+        self.playerTurnLogic = playerTurnLogic
         self.inputManager = inputManager
 
     def processInput(self):
@@ -18,28 +20,28 @@ class PlayerInputManager:
         keyboard = self.inputManager.keyboard
 
         if keyboard.isPressedOrHeld(Keys.w):
-            self.playerController.goForward()
+            self.playerMoveLogic.goForward()
         elif keyboard.isPressedOrHeld(Keys.s):
-            self.playerController.goBackward()
+            self.playerMoveLogic.goBackward()
 
         if keyboard.isPressedOrHeld(Keys.a):
-            self.playerController.stepLeft()
+            self.playerMoveLogic.stepLeft()
         elif keyboard.isPressedOrHeld(Keys.d):
-            self.playerController.stepRight()
+            self.playerMoveLogic.stepRight()
 
     def processMouse(self):
         mouse = self.inputManager.mouse
 
         if mouse.dx < 0:
-            self.playerController.turnLeft(0.005 * Math.abs(mouse.dx))
+            self.playerTurnLogic.turnLeft(0.005 * Math.abs(mouse.dx))
         elif mouse.dx > 0:
-            self.playerController.turnRight(0.005 * Math.abs(mouse.dx))
+            self.playerTurnLogic.turnRight(0.005 * Math.abs(mouse.dx))
 
         if mouse.dy < 0:
-            self.playerController.lookUp(0.005 * Math.abs(mouse.dy))
+            self.playerTurnLogic.lookUp(0.005 * Math.abs(mouse.dy))
         elif mouse.dy > 0:
-            self.playerController.lookDown(0.005 * Math.abs(mouse.dy))
+            self.playerTurnLogic.lookDown(0.005 * Math.abs(mouse.dy))
 
 
 def makePlayerInputManager(resolver):
-    return PlayerInputManager(resolver.resolve(PlayerController), resolver.resolve(InputManager))
+    return PlayerInputManager(resolver.resolve(PlayerMoveLogic), resolver.resolve(PlayerTurnLogic), resolver.resolve(InputManager))

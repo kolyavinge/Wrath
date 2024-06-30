@@ -4,41 +4,10 @@ from game.engine.GameData import GameData
 from game.lib.Math import Math
 
 
-class PlayerController:
+class PlayerTurnLogic:
 
     def __init__(self, gameData):
         self.gameData = gameData
-
-    def goForward(self):
-        player = self.gameData.player
-        player.hasMoved = True
-        velocityDirection = player.frontNormal.getCopy()
-        velocityDirection.setLength(player.getVelocity())
-        player.moveNextPositionBy(velocityDirection)
-        player.movingTime += player.movingTimeDelta
-
-    def goBackward(self):
-        player = self.gameData.player
-        player.hasMoved = True
-        delta = player.frontNormal.getCopy()
-        delta.setLength(0.1)
-        delta.mul(-1)
-        player.moveNextPositionBy(delta)
-
-    def stepLeft(self):
-        player = self.gameData.player
-        player.hasMoved = True
-        delta = player.rightNormal.getCopy()
-        delta.setLength(0.1)
-        delta.mul(-1)
-        player.moveNextPositionBy(delta)
-
-    def stepRight(self):
-        player = self.gameData.player
-        player.hasMoved = True
-        delta = player.rightNormal.getCopy()
-        delta.setLength(0.1)
-        player.moveNextPositionBy(delta)
 
     def turnLeft(self, radians):
         assert radians > 0
@@ -89,5 +58,5 @@ class PlayerController:
         player.lookDirection = Geometry.rotatePoint(player.frontNormal, player.rightNormal, Constants.axisOrigin, player.pitchRadians)
 
 
-def makePlayerController(resolver):
-    return PlayerController(resolver.resolve(GameData))
+def makePlayerTurnLogic(resolver):
+    return PlayerTurnLogic(resolver.resolve(GameData))
