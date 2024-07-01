@@ -9,6 +9,19 @@ class PlayerTurnLogic:
     def __init__(self, gameData):
         self.gameData = gameData
 
+    def process(self):
+        inputData = self.gameData.playerInputData
+
+        if inputData.turnLeftRadians > 0:
+            self.turnLeft(inputData.turnLeftRadians)
+        elif inputData.turnRightRadians > 0:
+            self.turnRight(inputData.turnRightRadians)
+
+        if inputData.lookUpRadians > 0:
+            self.lookUp(inputData.lookUpRadians)
+        elif inputData.lookDownRadians > 0:
+            self.lookDown(inputData.lookDownRadians)
+
     def turnLeft(self, radians):
         assert radians > 0
         player = self.gameData.player

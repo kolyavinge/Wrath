@@ -1,5 +1,6 @@
 from game.model.Camera import Camera
 from game.model.Player import Player
+from game.model.PlayerInputData import PlayerInputData
 
 
 class GameData:
@@ -8,6 +9,7 @@ class GameData:
         self.level = None
         self.visibleLevelSegments = []
         self.player = Player()
+        self.playerInputData = PlayerInputData()
         self.camera = Camera()
 
 

@@ -6,6 +6,19 @@ class PlayerMoveLogic:
     def __init__(self, gameData):
         self.gameData = gameData
 
+    def process(self):
+        inputData = self.gameData.playerInputData
+
+        if inputData.goForward:
+            self.goForward()
+        elif inputData.goBackward:
+            self.goBackward()
+
+        if inputData.stepLeft:
+            self.stepLeft()
+        elif inputData.stepRight:
+            self.stepRight()
+
     def goForward(self):
         player = self.gameData.player
         player.hasMoved = True

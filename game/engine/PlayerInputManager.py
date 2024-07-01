@@ -1,5 +1,4 @@
-from game.engine.PlayerMoveLogic import PlayerMoveLogic
-from game.engine.PlayerTurnLogic import PlayerTurnLogic
+from game.engine.GameData import GameData
 from game.input.InputManager import InputManager
 from game.input.Keys import Keys
 from game.lib.Math import Math
@@ -7,41 +6,43 @@ from game.lib.Math import Math
 
 class PlayerInputManager:
 
-    def __init__(self, playerMoveLogic, playerTurnLogic, inputManager):
-        self.playerMoveLogic = playerMoveLogic
-        self.playerTurnLogic = playerTurnLogic
+    def __init__(self, gameData, inputManager):
+        self.gameData = gameData
         self.inputManager = inputManager
 
     def processInput(self):
+        self.gameData.playerInputData.clear()
         self.processKeyboard()
         self.processMouse()
 
     def processKeyboard(self):
+        inputData = self.gameData.playerInputData
         keyboard = self.inputManager.keyboard
 
         if keyboard.isPressedOrHeld(Keys.w):
-            self.playerMoveLogic.goForward()
+            inputData.goForward = True
         elif keyboard.isPressedOrHeld(Keys.s):
-            self.playerMoveLogic.goBackward()
+            inputData.goBackward = True
 
         if keyboard.isPressedOrHeld(Keys.a):
-            self.playerMoveLogic.stepLeft()
+            inputData.stepLeft = True
         elif keyboard.isPressedOrHeld(Keys.d):
-            self.playerMoveLogic.stepRight()
+            inputData.stepRight = True
 
     def processMouse(self):
+        inputData = self.gameData.playerInputData
         mouse = self.inputManager.mouse
 
         if mouse.dx < 0:
-            self.playerTurnLogic.turnLeft(0.005 * Math.abs(mouse.dx))
+            inputData.turnLeftRadians = 0.005 * Math.abs(mouse.dx)
         elif mouse.dx > 0:
-            self.playerTurnLogic.turnRight(0.005 * Math.abs(mouse.dx))
+            inputData.turnRightRadians = 0.005 * Math.abs(mouse.dx)
 
         if mouse.dy < 0:
-            self.playerTurnLogic.lookUp(0.005 * Math.abs(mouse.dy))
+            inputData.lookUpRadians = 0.005 * Math.abs(mouse.dy)
         elif mouse.dy > 0:
-            self.playerTurnLogic.lookDown(0.005 * Math.abs(mouse.dy))
+            inputData.lookDownRadians = 0.005 * Math.abs(mouse.dy)
 
 
 def makePlayerInputManager(resolver):
-    return PlayerInputManager(resolver.resolve(PlayerMoveLogic), resolver.resolve(PlayerTurnLogic), resolver.resolve(InputManager))
+    return PlayerInputManager(resolver.resolve(GameData), resolver.resolve(InputManager))
