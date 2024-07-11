@@ -28,7 +28,6 @@ class EngineModule:
     def init(self, binder):
         binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)
-        binder.bindSingleton(SplitBorderBuilder, makeSplitBorderBuilder)
         binder.bindSingleton(SplitLineBuilder, makeSplitLineBuilder)
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
         binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)

@@ -6,7 +6,7 @@ from game.model.PlayerMeasures import PlayerMeasures
 class LevelLoader:
 
     def loadFromFile(self):
-        level = LevelLoop()
+        level = Level1()
         self.calculateWallCrossLines(level)
         level.validate()
 
