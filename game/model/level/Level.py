@@ -8,6 +8,7 @@ class Level:
         self.visibilityTree = BSPTree()
         self.walls = []
         self.floors = []
+        self.ceilings = []
 
     def validate(self):
         for w in self.walls:

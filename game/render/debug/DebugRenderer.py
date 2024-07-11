@@ -16,9 +16,11 @@ class DebugRenderer:
         # self.renderFloorGrid()
         self.renderVisibleWalls()
         self.renderVisibleFloors()
+        self.renderVisibleCeilings()
         self.renderPlayerSegmentWalls()
         self.renderPlayerSegmentWallCrossLines()
         self.renderPlayerSegmentFloors()
+        self.renderPlayerSegmentCeilings()
         self.renderPlayerBorder()
         # self.renderAxis()
 
@@ -79,6 +81,14 @@ class DebugRenderer:
                 self.renderGridQuad(floor.downLeft, floor.downRight, floor.upLeft, floor.upRight)
         glDisable(GL_DEPTH_TEST)
 
+    def renderVisibleCeilings(self):
+        glEnable(GL_DEPTH_TEST)
+        glColor3f(0.4, 0.4, 0.4)
+        for levelSegment in self.gameData.visibleLevelSegments:
+            for ceiling in levelSegment.ceilings:
+                self.renderGridQuad(ceiling.downLeft, ceiling.downRight, ceiling.upLeft, ceiling.upRight)
+        glDisable(GL_DEPTH_TEST)
+
     def renderPlayerSegmentWalls(self):
         glEnable(GL_BLEND)
         glColor4f(1, 0, 0, 0.2)
@@ -114,6 +124,21 @@ class DebugRenderer:
                 glVertex3f(floor.downRight.x, floor.downRight.y, floor.downRight.z + 0.01)
                 glVertex3f(floor.upRight.x, floor.upRight.y, floor.upRight.z + 0.01)
                 glVertex3f(floor.upLeft.x, floor.upLeft.y, floor.upLeft.z + 0.01)
+                glEnd()
+        glDisable(GL_DEPTH_TEST)
+        glDisable(GL_BLEND)
+
+    def renderPlayerSegmentCeilings(self):
+        glEnable(GL_BLEND)
+        glEnable(GL_DEPTH_TEST)
+        glColor4f(1, 0, 0, 0.2)
+        for levelSegment in self.gameData.player.levelSegments:
+            for ceiling in levelSegment.ceilings:
+                glBegin(GL_QUADS)
+                glVertex3f(ceiling.downLeft.x, ceiling.downLeft.y, ceiling.downLeft.z - 0.01)
+                glVertex3f(ceiling.downRight.x, ceiling.downRight.y, ceiling.downRight.z - 0.01)
+                glVertex3f(ceiling.upRight.x, ceiling.upRight.y, ceiling.upRight.z - 0.01)
+                glVertex3f(ceiling.upLeft.x, ceiling.upLeft.y, ceiling.upLeft.z - 0.01)
                 glEnd()
         glDisable(GL_DEPTH_TEST)
         glDisable(GL_BLEND)

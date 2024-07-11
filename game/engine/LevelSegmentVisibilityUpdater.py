@@ -19,7 +19,7 @@ class LevelSegmentVisibilityUpdater:
             straightLookDirection.z = 0
             straightLookDirection.setLength(camera.viewDepth)
             self.checkDirection(straightLookDirection)
-            radiansStep = camera.viewAngleRadians / 4
+            radiansStep = camera.viewAngleRadians / 2
             radians = radiansStep
             while radians <= camera.viewAngleRadians:
                 self.checkDirection(Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, -radians))

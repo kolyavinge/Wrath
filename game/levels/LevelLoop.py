@@ -2,6 +2,7 @@ from game.anx.Constants import Constants
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
+from game.model.level.Ceiling import Ceiling
 from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Level import Level
 from game.model.level.Orientation import Orientation
@@ -216,6 +217,54 @@ class LevelLoop(Level):
         floor.z = 0
         self.addFloor(floor)
 
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(10, 20, 3)
+        ceiling.downRight = Vector3(70, 20, 3)
+        ceiling.upLeft = Vector3(10, 30, 3)
+        ceiling.upRight = Vector3(70, 30, 3)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(60, 30, 3)
+        ceiling.downRight = Vector3(70, 30, 3)
+        ceiling.upLeft = Vector3(60, 50, 3)
+        ceiling.upRight = Vector3(70, 50, 3)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(50, 40, 6.1)
+        ceiling.downRight = Vector3(60, 40, 3)
+        ceiling.upLeft = Vector3(50, 50, 6.1)
+        ceiling.upRight = Vector3(60, 50, 3)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(40, 5, 6.1)
+        ceiling.downRight = Vector3(50, 5, 6.1)
+        ceiling.upLeft = Vector3(40, 50, 6.1)
+        ceiling.upRight = Vector3(50, 50, 6.1)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(20, 5, 3)
+        ceiling.downRight = Vector3(40, 5, 6.1)
+        ceiling.upLeft = Vector3(20, 15, 3)
+        ceiling.upRight = Vector3(40, 15, 6.1)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(10, 5, 3)
+        ceiling.downRight = Vector3(20, 5, 3)
+        ceiling.upLeft = Vector3(10, 20, 3)
+        ceiling.upRight = Vector3(20, 20, 3)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        self.addCeiling(ceiling)
+
         self.playerPosition = Vector3(25, 25, 0)
         self.playerFrontNormal = Vector3(1, 0, 0)
 
@@ -224,3 +273,6 @@ class LevelLoop(Level):
 
     def addFloor(self, floor):
         self.floors.append(floor)
+
+    def addCeiling(self, ceiling):
+        self.ceilings.append(ceiling)

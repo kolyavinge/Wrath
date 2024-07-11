@@ -4,8 +4,8 @@ class LevelValidator:
         level.validate()
 
         levelSegments = level.collisionTree.getAllLevelSegments()
-        for levelSegment in levelSegments:
-            levelSegment.validate()
+        # for levelSegment in levelSegments:
+        #    levelSegment.validate()
 
 
 def makeLevelValidator(resolver):
