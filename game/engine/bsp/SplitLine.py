@@ -10,7 +10,6 @@ class SplitLine:
         self.endPoint = Vector3()
         self.frontNormal = Vector3()
         self.orientation = Orientation.horizontal
-        self.orientationCanChange = True
         self.sortOrder = 0
 
     def getMinX(self):

@@ -5,7 +5,6 @@ from game.engine.bsp.SplitLineBuilder import SplitLineBuilder
 from game.engine.bsp.SplitLinePosition import SplitLinePosition
 from game.model.level.BSPTree import BSPNode
 from game.model.level.LevelSegment import LevelSegment
-from game.model.level.Orientation import Orientation
 
 
 class BSPTreeBuilder:
@@ -16,31 +15,27 @@ class BSPTreeBuilder:
 
     def build(self, bspTree, splitLines):
         splitBorder = SplitBorder(0, Constants.maxLevelSize, 0, Constants.maxLevelSize, 0, Constants.maxLevelSize)
-        self.buildRec(bspTree.root, splitLines[0].orientation, splitBorder, splitLines)
-
-    def buildRec(self, node, splitOrientation, splitBorder, allSplitLines):
-        splitLines = [s for s in allSplitLines if s.orientation == splitOrientation]
-        if not splitLines:
-            splitLines = allSplitLines.copy()
         splitLines.sort(key=lambda s: (s.priority, s.sortOrder))
+        self.buildRec(bspTree.root, splitBorder, splitLines)
+
+    def buildRec(self, node, splitBorder, splitLines):
         middleSplitLine = self.getMiddleSplitLine(splitLines)
-        allSplitLines.remove(middleSplitLine)
+        splitLines.remove(middleSplitLine)
         node.basePoint = middleSplitLine.startPoint
         node.frontNormal = middleSplitLine.frontNormal
-        frontSplitLines, backSplitLines = self.getFrontAndBackSplitLines(allSplitLines, node.basePoint, node.frontNormal)
-        newSplitOrientation = self.getNewSplitOrientation(splitOrientation, middleSplitLine)
+        frontSplitLines, backSplitLines = self.getFrontAndBackSplitLines(splitLines, node.basePoint, node.frontNormal)
         frontSplitBorder = self.splitBorderBuilder.getFrontSplitBorder(splitBorder, node.basePoint, node.frontNormal)
         if frontSplitBorder.isValid():
             node.front = BSPNode()
             if frontSplitLines:
-                self.buildRec(node.front, newSplitOrientation, frontSplitBorder, frontSplitLines)
+                self.buildRec(node.front, frontSplitBorder, frontSplitLines)
             else:
                 node.front.levelSegment = LevelSegment.makeFromSplitBorder(frontSplitBorder)
         backSplitBorder = self.splitBorderBuilder.getBackSplitBorder(splitBorder, node.basePoint, node.frontNormal)
         if backSplitBorder.isValid():
             node.back = BSPNode()
             if backSplitLines:
-                self.buildRec(node.back, newSplitOrientation, backSplitBorder, backSplitLines)
+                self.buildRec(node.back, backSplitBorder, backSplitLines)
             else:
                 node.back.levelSegment = LevelSegment.makeFromSplitBorder(backSplitBorder)
 
@@ -93,12 +88,6 @@ class BSPTreeBuilder:
             return SplitLinePosition.frontBack
 
         return SplitLinePosition.back
-
-    def getNewSplitOrientation(self, splitOrientation, middleSplitLine):
-        if middleSplitLine.orientationCanChange:
-            return Orientation.getOpposite(splitOrientation)
-        else:
-            return splitOrientation
 
 
 def makeBSPTreeBuilder(resolver):

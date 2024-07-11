@@ -7,19 +7,19 @@ class BSPTreeTraversal:
 
         return self.findedLevelSegment
 
-    def findLevelSegmentRec(self, parentNode):
-        if parentNode is None:
+    def findLevelSegmentRec(self, node):
+        if node is None:
             self.findedLevelSegment = None
-        elif parentNode.isLeaf():
-            self.findedLevelSegment = parentNode.levelSegment
+        elif node.isLeaf():
+            self.findedLevelSegment = node.levelSegment
         else:
             pointDirection = self.point.getCopy()
-            pointDirection.sub(parentNode.basePoint)
-            dotProduct = parentNode.frontNormal.dotProduct(pointDirection)
+            pointDirection.sub(node.basePoint)
+            dotProduct = node.frontNormal.dotProduct(pointDirection)
             if dotProduct >= 0:
-                self.findLevelSegmentRec(parentNode.front)
+                self.findLevelSegmentRec(node.front)
             else:
-                self.findLevelSegmentRec(parentNode.back)
+                self.findLevelSegmentRec(node.back)
 
 
 def makeBSPTreeTraversal(resolver):
