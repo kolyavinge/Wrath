@@ -1,4 +1,4 @@
-from game.anx.Constants import Constants
+from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
 from game.engine.LevelSegmentItemFinder import LevelSegmentItemFinder
@@ -22,10 +22,10 @@ class LevelSegmentVisibilityUpdater:
             radiansStep = camera.viewAngleRadians / 2
             radians = radiansStep
             while radians <= camera.viewAngleRadians:
-                self.checkDirection(Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, -radians))
-                self.checkDirection(Geometry.rotatePoint(straightLookDirection, Constants.zAxis, Constants.axisOrigin, radians))
-                self.checkDirection(Geometry.rotatePoint(straightLookDirection, Constants.xAxis, Constants.axisOrigin, -radians))
-                self.checkDirection(Geometry.rotatePoint(straightLookDirection, Constants.xAxis, Constants.axisOrigin, radians))
+                self.checkDirection(Geometry.rotatePoint(straightLookDirection, CommonConstants.zAxis, CommonConstants.axisOrigin, -radians))
+                self.checkDirection(Geometry.rotatePoint(straightLookDirection, CommonConstants.zAxis, CommonConstants.axisOrigin, radians))
+                self.checkDirection(Geometry.rotatePoint(straightLookDirection, CommonConstants.xAxis, CommonConstants.axisOrigin, -radians))
+                self.checkDirection(Geometry.rotatePoint(straightLookDirection, CommonConstants.xAxis, CommonConstants.axisOrigin, radians))
                 radians += radiansStep
 
     def checkDirection(self, direction):

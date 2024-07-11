@@ -1,4 +1,4 @@
-from game.anx.Constants import Constants
+from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
 from game.lib.Math import Math
@@ -66,9 +66,9 @@ class PlayerTurnLogic:
 
     def calculateDirectionVectors(self):
         player = self.gameData.player
-        player.frontNormal = Geometry.rotatePoint(Constants.yAxis, Constants.zAxis, Constants.axisOrigin, player.yawRadians)
-        player.rightNormal = Geometry.rotatePoint(player.frontNormal, Constants.zAxis, Constants.axisOrigin, -Math.piHalf)
-        player.lookDirection = Geometry.rotatePoint(player.frontNormal, player.rightNormal, Constants.axisOrigin, player.pitchRadians)
+        player.frontNormal = Geometry.rotatePoint(CommonConstants.yAxis, CommonConstants.zAxis, CommonConstants.axisOrigin, player.yawRadians)
+        player.rightNormal = Geometry.rotatePoint(player.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, -Math.piHalf)
+        player.lookDirection = Geometry.rotatePoint(player.frontNormal, player.rightNormal, CommonConstants.axisOrigin, player.pitchRadians)
 
 
 def makePlayerTurnLogic(resolver):

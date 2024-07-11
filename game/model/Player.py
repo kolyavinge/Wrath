@@ -1,9 +1,9 @@
-from game.anx.Constants import Constants
+from game.anx.CommonConstants import CommonConstants
+from game.anx.PlayerConstants import PlayerConstants
 from game.calc.Box3d import Box3d
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.model.level.LevelSegment import LevelSegment
-from game.model.PlayerMeasures import PlayerMeasures
 from game.model.VelocityFunc import VelocityFunc
 
 
@@ -13,14 +13,14 @@ class Player:
 
     def __init__(self):
         self.currentCenterPoint = Vector3()
-        self.currentBorder = Box3d(PlayerMeasures.xyLength, PlayerMeasures.xyLength, PlayerMeasures.zLength)
+        self.currentBorder = Box3d(PlayerConstants.xyLength, PlayerConstants.xyLength, PlayerConstants.zLength)
         self.nextCenterPoint = self.currentCenterPoint.getCopy()
         self.nextBorder = self.currentBorder.getCopy()
         self.pitchRadians = 0
         self.yawRadians = 0
-        self.lookDirection = Constants.yAxis
-        self.frontNormal = Constants.yAxis
-        self.rightNormal = Constants.xAxis
+        self.lookDirection = CommonConstants.yAxis
+        self.frontNormal = CommonConstants.yAxis
+        self.rightNormal = CommonConstants.xAxis
         self.hasMoved = False
         self.hasTurned = False
         self.movingTime = 1

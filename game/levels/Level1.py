@@ -1,4 +1,4 @@
-from game.anx.Constants import Constants
+from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
@@ -151,7 +151,7 @@ class Level1(Level):
         rightDirection = floor4.downRight.getCopy()
         rightDirection.sub(floor4.downLeft)
         rightDirection.normalize()
-        floor4.upNormal = Geometry.rotatePoint(rightDirection, Vector3(0, -1, 0), Constants.axisOrigin, Math.piHalf)
+        floor4.upNormal = Geometry.rotatePoint(rightDirection, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor4.commit()
 
         self.playerPosition = Vector3(2, 2, 0)

@@ -1,4 +1,4 @@
-from game.anx.Constants import Constants
+from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
@@ -28,7 +28,7 @@ class LevelLoop(Level):
         wall.orientation = Orientation.diagonal
         wall.frontNormal = wall.startPoint.getCopy()
         wall.frontNormal.sub(wall.endPoint)
-        wall.frontNormal = Geometry.rotatePoint(wall.frontNormal, Constants.zAxis, Constants.axisOrigin, -Math.piHalf)
+        wall.frontNormal = Geometry.rotatePoint(wall.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, -Math.piHalf)
         wall.frontNormal.normalize()
         self.addWall(wall)
 
@@ -173,7 +173,7 @@ class LevelLoop(Level):
         leftDirection = floor.downLeft.getCopy()
         leftDirection.sub(floor.downRight)
         leftDirection.normalize()
-        floor.upNormal = Geometry.rotatePoint(leftDirection, Vector3(0, 1, 0), Constants.axisOrigin, Math.piHalf)
+        floor.upNormal = Geometry.rotatePoint(leftDirection, Vector3(0, 1, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor.commit()
         self.addFloor(floor)
 
@@ -201,7 +201,7 @@ class LevelLoop(Level):
         rightDirection = floor.downRight.getCopy()
         rightDirection.sub(floor.downLeft)
         rightDirection.normalize()
-        floor.upNormal = Geometry.rotatePoint(rightDirection, Vector3(0, -1, 0), Constants.axisOrigin, Math.piHalf)
+        floor.upNormal = Geometry.rotatePoint(rightDirection, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor.commit()
         self.addFloor(floor)
 

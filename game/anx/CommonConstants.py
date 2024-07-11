@@ -1,7 +1,7 @@
 from game.calc.Vector3 import Vector3
 
 
-class Constants:
+class CommonConstants:
 
     gameTitle = b"Wrath"
     screenAspect = 16 / 9

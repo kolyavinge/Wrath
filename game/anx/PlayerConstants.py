@@ -1,4 +1,4 @@
-class PlayerMeasures:
+class PlayerConstants:
 
     xyLength = 0.7
     xyLengthHalf = xyLength / 2

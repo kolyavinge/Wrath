@@ -1,4 +1,4 @@
-from game.anx.Constants import Constants
+from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.TranfsormMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
@@ -16,7 +16,7 @@ class Camera:
         self.lookDirection = Vector3()
         self.viewMatrix = TransformMatrix4()
         self.projectionMatrix = TransformMatrix4()
-        self.projectionMatrix.perspective(self.viewAngleRadians, Constants.screenAspect, Constants.minDepth, Constants.maxDepth)
+        self.projectionMatrix.perspective(self.viewAngleRadians, CommonConstants.screenAspect, CommonConstants.minDepth, CommonConstants.maxDepth)
 
     def calculateViewMatrix(self):
-        self.viewMatrix.lookAt(self.position, self.lookDirection, Constants.zAxis)
+        self.viewMatrix.lookAt(self.position, self.lookDirection, CommonConstants.zAxis)

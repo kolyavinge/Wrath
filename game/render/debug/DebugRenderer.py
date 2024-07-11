@@ -2,7 +2,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-from game.anx.Constants import Constants
+from game.anx.CommonConstants import CommonConstants
 from game.engine.GameData import GameData
 
 
@@ -28,7 +28,7 @@ class DebugRenderer:
         camera = self.gameData.camera
         glLoadIdentity()
         glMatrixMode(GL_PROJECTION)
-        gluPerspective(camera.viewAngleDegrees, Constants.screenAspect, Constants.minDepth, Constants.maxDepth)
+        gluPerspective(camera.viewAngleDegrees, CommonConstants.screenAspect, CommonConstants.minDepth, CommonConstants.maxDepth)
         gluLookAt(
             camera.position.x,
             camera.position.y,

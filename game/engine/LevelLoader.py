@@ -1,6 +1,6 @@
+from game.anx.PlayerConstants import PlayerConstants
 from game.levels.Level1 import Level1
 from game.levels.LevelLoop import LevelLoop
-from game.model.PlayerMeasures import PlayerMeasures
 
 
 class LevelLoader:
@@ -15,14 +15,14 @@ class LevelLoader:
     def calculateWallCrossLines(self, level):
         for wall in level.walls:
             crossDirection = wall.frontNormal.getCopy()
-            crossDirection.setLength(PlayerMeasures.xyLengthHalf)
+            crossDirection.setLength(PlayerConstants.xyLengthHalf)
             wall.crossLine.startPoint = wall.startPoint.getCopy()
             wall.crossLine.endPoint = wall.endPoint.getCopy()
             wall.crossLine.startPoint.add(crossDirection)
             wall.crossLine.endPoint.add(crossDirection)
             wallDirection = wall.endPoint.getCopy()
             wallDirection.sub(wall.startPoint)
-            wallDirection.setLength(PlayerMeasures.xyLengthHalf)
+            wallDirection.setLength(PlayerConstants.xyLengthHalf)
             wall.crossLine.startPoint.sub(wallDirection)
             wall.crossLine.endPoint.add(wallDirection)
             wall.crossLineDirection = wall.crossLine.endPoint.getCopy()

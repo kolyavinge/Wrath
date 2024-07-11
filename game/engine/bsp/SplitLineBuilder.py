@@ -1,4 +1,4 @@
-from game.anx.Constants import Constants
+from game.anx.CommonConstants import CommonConstants
 from game.calc.Vector3 import Vector3
 from game.engine.bsp.SplitLine import SplitLine
 from game.model.level.FlatFloor import FlatFloor
@@ -29,16 +29,16 @@ class SplitLineBuilder:
             s.priority = 0
             s.startPoint = Vector3(0, 0, z)
             s.endPoint = s.startPoint
-            s.frontNormal = Constants.up
+            s.frontNormal = CommonConstants.up
             s.orientation = Orientation.horizontal
             s.sortOrder = s.startPoint.z
             result.append(s)
 
         s = SplitLine()
         s.priority = 0
-        s.startPoint = Vector3(0, 0, Constants.maxLevelSize)
+        s.startPoint = Vector3(0, 0, CommonConstants.maxLevelSize)
         s.endPoint = s.startPoint
-        s.frontNormal = Constants.down
+        s.frontNormal = CommonConstants.down
         s.orientation = Orientation.horizontal
         s.sortOrder = s.startPoint.z
         result.append(s)

@@ -5,7 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-from game.anx.Constants import Constants
+from game.anx.CommonConstants import CommonConstants
 from game.core.GameFactory import GameFactory
 from game.lib.Environment import Environment
 from game.lib.Screen import Screen
@@ -27,12 +27,12 @@ class App:
     def run(self):
         glutInit(sys.argv)
         windowWidth = 1200
-        windowHeight = (int)(windowWidth / Constants.screenAspect)
+        windowHeight = (int)(windowWidth / CommonConstants.screenAspect)
         glutInitWindowSize(windowWidth, windowHeight)
         screenWidth, screenHeight = Screen.getWidthAndHeight()
         glutInitWindowPosition(int((screenWidth - windowWidth) / 2), int((screenHeight - windowHeight) / 2))
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE)
-        glutCreateWindow(Constants.gameTitle)
+        glutCreateWindow(CommonConstants.gameTitle)
         glutDisplayFunc(self.render)
         glutReshapeFunc(self.resize)
         glutKeyboardUpFunc(self.keyup)
@@ -40,13 +40,13 @@ class App:
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         gameFactory = GameFactory()
         self.game = gameFactory.makeGame()
-        glutTimerFunc(Constants.mainTimerMsec, self.timerCallback, 0)
+        glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
         glutMainLoop()
 
     def timerCallback(self, value):
         self.game.updateCurrentScreen()
         glutPostRedisplay()
-        glutTimerFunc(Constants.mainTimerMsec, self.timerCallback, 0)
+        glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
 
     def keyup(self, key, a, b):
         if key == b"\x1b":  # Esc
