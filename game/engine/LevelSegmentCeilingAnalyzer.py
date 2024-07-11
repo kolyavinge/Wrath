@@ -8,11 +8,7 @@ class LevelSegmentCeilingAnalyzer:
 
     def analyzeCeilings(self, level, bspTree):
         for ceiling in level.ceilings:
-            downLeft = ceiling.downLeft.getCopy()
-            downLeft.add(ceiling.frontNormal)
-            upRight = ceiling.upRight.getCopy()
-            upRight.add(ceiling.frontNormal)
-            self.analyzeDirection(bspTree, ceiling, downLeft, upRight)
+            self.analyzeDirection(bspTree, ceiling, ceiling.downLeft, ceiling.upRight)
 
     def analyzeDirection(self, bspTree, ceiling, startPoint, endPoint):
         levelSegments = self.segmentItemFinder.getItemLevelSegments(bspTree, startPoint, endPoint)

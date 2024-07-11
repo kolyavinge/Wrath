@@ -14,9 +14,13 @@ class PlayerZUpdater:
             bspTree = self.gameData.level.collisionTree
             levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, player.nextCenterPoint)
             assert levelSegment is not None
-            assert len(levelSegment.floors) == 1
-            z = levelSegment.floors[0].getZ(player.nextCenterPoint.x, player.nextCenterPoint.y)
-            player.setZ(z)
+            if len(levelSegment.floors) == 1:
+                z = levelSegment.floors[0].getZ(player.nextCenterPoint.x, player.nextCenterPoint.y)
+                player.setZ(z)
+            elif len(levelSegment.floors) == 0:
+                player.setZ(player.getZ() - 0.1)
+            else:
+                raise Exception()
 
 
 def makePlayerZUpdater(resolver):

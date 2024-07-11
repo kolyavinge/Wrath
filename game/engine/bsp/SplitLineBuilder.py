@@ -27,7 +27,7 @@ class SplitLineBuilder:
         for z in zlist:
             s = SplitLine()
             s.priority = 0
-            s.startPoint = Vector3(0, 0, z - 0.1)
+            s.startPoint = Vector3(0, 0, z)
             s.endPoint = s.startPoint
             s.frontNormal = Constants.up
             s.orientation = Orientation.horizontal
