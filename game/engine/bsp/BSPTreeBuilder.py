@@ -19,11 +19,13 @@ class BSPTreeBuilder:
         if frontSplitLines:
             self.buildRec(node.front, frontSplitLines)
         else:
+            node.front.isLeaf = True
             node.front.levelSegment = LevelSegment()
         node.back = BSPNode()
         if backSplitLines:
             self.buildRec(node.back, backSplitLines)
         else:
+            node.back.isLeaf = True
             node.back.levelSegment = LevelSegment()
 
     def getMiddleSplitLine(self, splitLines):

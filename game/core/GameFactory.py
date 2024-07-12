@@ -8,7 +8,8 @@ from game.lib.DependencyContainer import DependencyContainer
 
 class GameFactory:
 
-    def makeGame(self):
+    @staticmethod
+    def makeGame():
         container = DependencyContainer()
         container.initFromModule(CoreModule())
         container.initFromModule(EngineModule())

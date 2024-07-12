@@ -6,9 +6,7 @@ class BSPNode:
         self.basePoint = None
         self.frontNormal = None
         self.levelSegment = None
-
-    def isLeaf(self):
-        return self.front is None and self.back is None
+        self.isLeaf = False
 
 
 class BSPTree:
@@ -23,7 +21,7 @@ class BSPTree:
         return segments
 
     def getAllLevelSegmentsRec(self, node, segments):
-        if node.isLeaf():
+        if node.isLeaf:
             segments.append(node.levelSegment)
         else:
             self.getAllLevelSegmentsRec(node.front, segments)

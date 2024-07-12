@@ -32,14 +32,14 @@ class App:
         screenWidth, screenHeight = Screen.getWidthAndHeight()
         glutInitWindowPosition(int((screenWidth - windowWidth) / 2), int((screenHeight - windowHeight) / 2))
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE)
+        glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION)
         glutCreateWindow(CommonConstants.gameTitle)
         glutDisplayFunc(self.render)
         glutReshapeFunc(self.resize)
         glutKeyboardUpFunc(self.keyup)
         glutSetCursor(GLUT_CURSOR_NONE)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        gameFactory = GameFactory()
-        self.game = gameFactory.makeGame()
+        self.game = GameFactory.makeGame()
         glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
         glutMainLoop()
 
@@ -50,7 +50,7 @@ class App:
 
     def keyup(self, key, a, b):
         if key == b"\x1b":  # Esc
-            Environment.shutdown()
+            glutLeaveMainLoop()
 
 
 app = App()

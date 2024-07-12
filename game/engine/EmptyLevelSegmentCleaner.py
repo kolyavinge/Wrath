@@ -7,7 +7,7 @@ class EmptyLevelSegmentCleaner:
         if node is None:
             return
 
-        if node.isLeaf():
+        if node.isLeaf:
             assert node.levelSegment is not None
             if node.levelSegment.isEmpty():
                 if node == parentNode.front:
