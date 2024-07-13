@@ -47,7 +47,6 @@ class LevelManager:
         self.segmentWallAnalyzer.analyzeWalls(level, level.collisionTree)
         self.segmentFloorAnalyzer.analyzeFloors(level, level.collisionTree)
         self.segmentCeilingAnalyzer.analyzeCeilings(level, level.collisionTree)
-        self.joinLineCeilingAnalyzer.analyzeJoinLines(level, level.collisionTree)
         self.segmentWallAnalyzer.analyzeWalls(level, level.visibilityTree)
         self.segmentFloorAnalyzer.analyzeFloors(level, level.visibilityTree)
         self.segmentCeilingAnalyzer.analyzeCeilings(level, level.visibilityTree)

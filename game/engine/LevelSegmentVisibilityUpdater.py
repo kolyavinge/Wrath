@@ -13,7 +13,7 @@ class LevelSegmentVisibilityUpdater:
         if player.hasMoved or player.hasTurned:
             self.gameData.visibleLevelSegments = set()
             camera = self.gameData.camera
-            for levelSegment in player.levelSegments:
+            for levelSegment in player.visibilityLevelSegments:
                 for joinLine in levelSegment.joinLines:
                     point = joinLine.middlePoint.getCopy()
                     point.sub(camera.position)

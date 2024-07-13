@@ -107,7 +107,7 @@ class DebugRenderer:
     def renderPlayerSegmentWalls(self):
         glEnable(GL_BLEND)
         glColor4f(1, 0, 0, 0.2)
-        for levelSegment in self.gameData.player.levelSegments:
+        for levelSegment in self.gameData.player.collisionLevelSegments:
             for wall in levelSegment.walls:
                 glBegin(GL_QUADS)
                 glVertex3f(wall.startPoint.x, wall.startPoint.y, wall.startPoint.z)
@@ -120,7 +120,7 @@ class DebugRenderer:
     def renderPlayerSegmentWallCrossLines(self):
         glEnable(GL_DEPTH_TEST)
         glColor3f(1, 1, 0)
-        for levelSegment in self.gameData.player.levelSegments:
+        for levelSegment in self.gameData.player.collisionLevelSegments:
             for wall in levelSegment.walls:
                 glBegin(GL_LINES)
                 glVertex3f(wall.crossLine.startPoint.x, wall.crossLine.startPoint.y, wall.startPoint.z)
@@ -132,7 +132,7 @@ class DebugRenderer:
         glEnable(GL_BLEND)
         glEnable(GL_DEPTH_TEST)
         glColor4f(1, 0, 0, 0.2)
-        for levelSegment in self.gameData.player.levelSegments:
+        for levelSegment in self.gameData.player.collisionLevelSegments:
             for floor in levelSegment.floors:
                 glBegin(GL_QUADS)
                 glVertex3f(floor.downLeft.x, floor.downLeft.y, floor.downLeft.z + 0.01)
@@ -147,7 +147,7 @@ class DebugRenderer:
         glEnable(GL_BLEND)
         glEnable(GL_DEPTH_TEST)
         glColor4f(1, 0, 0, 0.2)
-        for levelSegment in self.gameData.player.levelSegments:
+        for levelSegment in self.gameData.player.collisionLevelSegments:
             for ceiling in levelSegment.ceilings:
                 glBegin(GL_QUADS)
                 glVertex3f(ceiling.downLeft.x, ceiling.downLeft.y, ceiling.downLeft.z - 0.01)

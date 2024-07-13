@@ -11,21 +11,26 @@ class PlayerLevelSegmentsUpdater:
     def update(self):
         player = self.gameData.player
         if player.hasMoved:
-            bspTree = self.gameData.level.collisionTree
-            player.levelSegments = set()
-            border = player.nextBorder
-            levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.downLeft)
-            self.appendLevelSegment(player, levelSegment)
-            levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.downRight)
-            self.appendLevelSegment(player, levelSegment)
-            levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.upLeft)
-            self.appendLevelSegment(player, levelSegment)
-            levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.upRight)
-            self.appendLevelSegment(player, levelSegment)
+            player.collisionLevelSegments = set()
+            player.visibilityLevelSegments = set()
+            self.updateLevelSegments(self.gameData.level.collisionTree, player.collisionLevelSegments)
+            self.updateLevelSegments(self.gameData.level.visibilityTree, player.visibilityLevelSegments)
 
-    def appendLevelSegment(self, player, levelSegment):
-        assert levelSegment is not None
-        player.levelSegments.add(levelSegment)
+    def updateLevelSegments(self, bspTree, playerLevelSegments):
+        player = self.gameData.player
+        border = player.nextBorder
+
+        levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.downLeft)
+        playerLevelSegments.add(levelSegment)
+
+        levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.downRight)
+        playerLevelSegments.add(levelSegment)
+
+        levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.upLeft)
+        playerLevelSegments.add(levelSegment)
+
+        levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.upRight)
+        playerLevelSegments.add(levelSegment)
 
 
 def makePlayerLevelSegmentsUpdater(resolver):

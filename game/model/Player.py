@@ -3,7 +3,6 @@ from game.anx.PlayerConstants import PlayerConstants
 from game.calc.Box3d import Box3d
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
-from game.model.level.LevelSegment import LevelSegment
 from game.model.VelocityFunc import VelocityFunc
 
 
@@ -26,7 +25,8 @@ class Player:
         self.movingTime = 1
         self.movingTimeDelta = 0.1
         self.velocityFunc = VelocityFunc()
-        self.levelSegments = set()
+        self.collisionLevelSegments = set()
+        self.visibilityLevelSegments = set()
 
     def getVelocity(self):
         return self.velocityFunc.getValue(self.movingTime)
