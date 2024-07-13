@@ -9,6 +9,7 @@ class Level:
         self.walls = []
         self.floors = []
         self.ceilings = []
+        self.joinLines = []
 
     def validate(self):
         for w in self.walls:

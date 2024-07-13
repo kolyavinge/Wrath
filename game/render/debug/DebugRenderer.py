@@ -17,6 +17,7 @@ class DebugRenderer:
         self.renderVisibleWalls()
         self.renderVisibleFloors()
         self.renderVisibleCeilings()
+        self.renderVisibleSegmentJoinLines()
         self.renderPlayerSegmentWalls()
         self.renderPlayerSegmentWallCrossLines()
         self.renderPlayerSegmentFloors()
@@ -87,6 +88,20 @@ class DebugRenderer:
         for levelSegment in self.gameData.visibleLevelSegments:
             for ceiling in levelSegment.ceilings:
                 self.renderGridQuad(ceiling.downLeft, ceiling.downRight, ceiling.upLeft, ceiling.upRight)
+        glDisable(GL_DEPTH_TEST)
+
+    def renderVisibleSegmentJoinLines(self):
+        glEnable(GL_DEPTH_TEST)
+        glColor3f(1, 0, 1)
+        for levelSegment in self.gameData.visibleLevelSegments:
+            for joinLine in levelSegment.joinLines:
+                glBegin(GL_LINES)
+                glVertex3f(joinLine.startPoint.x, joinLine.startPoint.y, joinLine.startPoint.z + 0.01)
+                glVertex3f(joinLine.endPoint.x, joinLine.endPoint.y, joinLine.endPoint.z + 0.01)
+                glEnd()
+                glBegin(GL_POINTS)
+                glVertex3f(joinLine.middlePoint.x, joinLine.middlePoint.y, joinLine.middlePoint.z + 0.1)
+                glEnd()
         glDisable(GL_DEPTH_TEST)
 
     def renderPlayerSegmentWalls(self):

@@ -5,6 +5,7 @@ from game.lib.Math import Math
 from game.model.level.Ceiling import Ceiling
 from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Level import Level
+from game.model.level.LevelSegmentJoinLine import LevelSegmentJoinLine
 from game.model.level.Orientation import Orientation
 from game.model.level.PlaneFloor import PlaneFloor
 from game.model.level.Wall import Wall
@@ -265,6 +266,54 @@ class LevelLoop(Level):
         ceiling.frontNormal = Vector3(0, 0, -1)
         self.addCeiling(ceiling)
 
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(60, 30, 1.5)
+        joinLine.endPoint = Vector3(70, 30, 1.5)
+        joinLine.frontNormal = Vector3(0, 1, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(60, 40, 1.5)
+        joinLine.endPoint = Vector3(70, 40, 1.5)
+        joinLine.frontNormal = Vector3(0, 1, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(60, 40, 1.5)
+        joinLine.endPoint = Vector3(60, 50, 1.5)
+        joinLine.frontNormal = Vector3(1, 0, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(50, 40, 4.6)
+        joinLine.endPoint = Vector3(50, 50, 4.6)
+        joinLine.frontNormal = Vector3(1, 0, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(40, 5, 4.6)
+        joinLine.endPoint = Vector3(40, 15, 4.6)
+        joinLine.frontNormal = Vector3(1, 0, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(20, 5, 1.5)
+        joinLine.endPoint = Vector3(20, 15, 1.5)
+        joinLine.frontNormal = Vector3(1, 0, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(20, 20, 1.5)
+        joinLine.endPoint = Vector3(20, 30, 1.5)
+        joinLine.frontNormal = Vector3(1, 0, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(10, 20, 1.5)
+        joinLine.endPoint = Vector3(20, 20, 1.5)
+        joinLine.frontNormal = Vector3(0, 1, 0)
+        self.addJoinLine(joinLine)
+
         self.playerPosition = Vector3(25, 25, 0)
         self.playerFrontNormal = Vector3(1, 0, 0)
 
@@ -276,3 +325,7 @@ class LevelLoop(Level):
 
     def addCeiling(self, ceiling):
         self.ceilings.append(ceiling)
+
+    def addJoinLine(self, joinLine):
+        joinLine.commit()
+        self.joinLines.append(joinLine)

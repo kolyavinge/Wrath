@@ -5,6 +5,7 @@ from game.engine.GameData import GameData
 from game.engine.LevelLoader import LevelLoader
 from game.engine.LevelSegmentCeilingAnalyzer import LevelSegmentCeilingAnalyzer
 from game.engine.LevelSegmentFloorAnalyzer import LevelSegmentFloorAnalyzer
+from game.engine.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyzer
 from game.engine.LevelSegmentWallAnalyzer import LevelSegmentWallAnalyzer
 from game.engine.LevelValidator import LevelValidator
 from game.engine.PlayerTurnLogic import PlayerTurnLogic
@@ -21,6 +22,7 @@ class LevelManager:
         segmentWallAnalyzer,
         segmentFloorAnalyzer,
         segmentCeilingAnalyzer,
+        joinLineCeilingAnalyzer,
         segmentCleaner,
         levelValidator,
         playerTurnLogic,
@@ -32,6 +34,7 @@ class LevelManager:
         self.segmentWallAnalyzer = segmentWallAnalyzer
         self.segmentFloorAnalyzer = segmentFloorAnalyzer
         self.segmentCeilingAnalyzer = segmentCeilingAnalyzer
+        self.joinLineCeilingAnalyzer = joinLineCeilingAnalyzer
         self.segmentCleaner = segmentCleaner
         self.levelValidator = levelValidator
         self.playerTurnLogic = playerTurnLogic
@@ -44,9 +47,11 @@ class LevelManager:
         self.segmentWallAnalyzer.analyzeWalls(level, level.collisionTree)
         self.segmentFloorAnalyzer.analyzeFloors(level, level.collisionTree)
         self.segmentCeilingAnalyzer.analyzeCeilings(level, level.collisionTree)
+        self.joinLineCeilingAnalyzer.analyzeJoinLines(level, level.collisionTree)
         self.segmentWallAnalyzer.analyzeWalls(level, level.visibilityTree)
         self.segmentFloorAnalyzer.analyzeFloors(level, level.visibilityTree)
         self.segmentCeilingAnalyzer.analyzeCeilings(level, level.visibilityTree)
+        self.joinLineCeilingAnalyzer.analyzeJoinLines(level, level.visibilityTree)
         self.segmentCleaner.clean(level.collisionTree)
         self.segmentCleaner.clean(level.visibilityTree)
         self.levelValidator.validate(level)
@@ -64,6 +69,7 @@ def makeLevelManager(resolver):
         resolver.resolve(LevelSegmentWallAnalyzer),
         resolver.resolve(LevelSegmentFloorAnalyzer),
         resolver.resolve(LevelSegmentCeilingAnalyzer),
+        resolver.resolve(LevelSegmentJoinLineAnalyzer),
         resolver.resolve(EmptyLevelSegmentCleaner),
         resolver.resolve(LevelValidator),
         resolver.resolve(PlayerTurnLogic),
