@@ -1,5 +1,3 @@
-from game.anx.CommonConstants import CommonConstants
-from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
 from game.engine.LevelSegmentItemFinder import LevelSegmentItemFinder
 
@@ -15,18 +13,12 @@ class LevelSegmentVisibilityUpdater:
         if player.hasMoved or player.hasTurned:
             self.gameData.visibleLevelSegments = set()
             camera = self.gameData.camera
-            straightLookDirection = camera.lookDirection.getCopy()
-            straightLookDirection.z = 0
-            straightLookDirection.setLength(camera.viewDepth)
-            self.checkDirection(straightLookDirection)
-            radiansStep = camera.viewAngleRadians / 2
-            radians = radiansStep
-            while radians <= camera.viewAngleRadians:
-                self.checkDirection(Geometry.rotatePoint(straightLookDirection, CommonConstants.zAxis, CommonConstants.axisOrigin, -radians))
-                self.checkDirection(Geometry.rotatePoint(straightLookDirection, CommonConstants.zAxis, CommonConstants.axisOrigin, radians))
-                self.checkDirection(Geometry.rotatePoint(straightLookDirection, CommonConstants.xAxis, CommonConstants.axisOrigin, -radians))
-                self.checkDirection(Geometry.rotatePoint(straightLookDirection, CommonConstants.xAxis, CommonConstants.axisOrigin, radians))
-                radians += radiansStep
+            for levelSegment in player.levelSegments:
+                for joinLine in levelSegment.joinLines:
+                    point = joinLine.middlePoint.getCopy()
+                    point.sub(camera.position)
+                    point.mul(2)
+                    self.checkDirection(point)
 
     def checkDirection(self, direction):
         startPoint = self.gameData.camera.position
