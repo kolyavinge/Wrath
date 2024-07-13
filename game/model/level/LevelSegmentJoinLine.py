@@ -6,6 +6,8 @@ class LevelSegmentJoinLine:
         self.startPoint = Vector3()
         self.endPoint = Vector3()
         self.frontNormal = Vector3()
+        self.frontLevelSegment = None
+        self.backLevelSegment = None
 
     def commit(self):
         self.middlePoint = self.endPoint.getCopy()
