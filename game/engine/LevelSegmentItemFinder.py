@@ -16,7 +16,7 @@ class LevelSegmentItemFinder:
         endPoint.sub(step)
         startSegment = self.traversal.findLevelSegmentOrNone(bspTree, startPoint)
         endSegment = self.traversal.findLevelSegmentOrNone(bspTree, endPoint)
-        itemLevelSegments = []
+        itemLevelSegments = set()
         self.findRec(bspTree, startPoint, endPoint, startSegment, endSegment, itemLevelSegments)
 
         return itemLevelSegments
@@ -25,8 +25,7 @@ class LevelSegmentItemFinder:
         if startSegment is None and endSegment is None:
             return
         elif startSegment == endSegment:
-            if startSegment not in itemLevelSegments:
-                itemLevelSegments.append(startSegment)
+            itemLevelSegments.add(startSegment)
         else:
             middlePoint = endPoint.getCopy()
             middlePoint.sub(startPoint)

@@ -12,7 +12,7 @@ class PlayerLevelSegmentsUpdater:
         player = self.gameData.player
         if player.hasMoved:
             bspTree = self.gameData.level.collisionTree
-            player.levelSegments = []
+            player.levelSegments = set()
             border = player.nextBorder
             levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.downLeft)
             self.appendLevelSegment(player, levelSegment)
@@ -24,9 +24,8 @@ class PlayerLevelSegmentsUpdater:
             self.appendLevelSegment(player, levelSegment)
 
     def appendLevelSegment(self, player, levelSegment):
-        if levelSegment is not None:
-            if levelSegment not in player.levelSegments:
-                player.levelSegments.append(levelSegment)
+        assert levelSegment is not None
+        player.levelSegments.add(levelSegment)
 
 
 def makePlayerLevelSegmentsUpdater(resolver):

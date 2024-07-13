@@ -5,6 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
+from BenchmarkRunner import BenchmarkRunner
 from game.anx.CommonConstants import CommonConstants
 from game.core.GameFactory import GameFactory
 from game.lib.Environment import Environment
@@ -55,3 +56,6 @@ class App:
 
 app = App()
 app.run()
+
+# benchmarkRunner = BenchmarkRunner()
+# benchmarkRunner.run(app)

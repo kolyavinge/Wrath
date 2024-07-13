@@ -7,7 +7,7 @@ class GameData:
 
     def __init__(self):
         self.level = None
-        self.visibleLevelSegments = []
+        self.visibleLevelSegments = set()
         self.player = Player()
         self.playerInputData = PlayerInputData()
         self.camera = Camera()

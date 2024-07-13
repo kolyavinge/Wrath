@@ -13,7 +13,7 @@ class LevelSegmentVisibilityUpdater:
     def update(self):
         player = self.gameData.player
         if player.hasMoved or player.hasTurned:
-            self.gameData.visibleLevelSegments = []
+            self.gameData.visibleLevelSegments = set()
             camera = self.gameData.camera
             straightLookDirection = camera.lookDirection.getCopy()
             straightLookDirection.z = 0
@@ -34,8 +34,7 @@ class LevelSegmentVisibilityUpdater:
         endPoint.add(direction)
         levelSegments = self.segmentItemFinder.getItemLevelSegments(self.gameData.level.visibilityTree, startPoint, endPoint)
         for levelSegment in levelSegments:
-            if levelSegment not in self.gameData.visibleLevelSegments:
-                self.gameData.visibleLevelSegments.append(levelSegment)
+            self.gameData.visibleLevelSegments.add(levelSegment)
 
 
 def makeLevelSegmentVisibilityUpdater(resolver):
