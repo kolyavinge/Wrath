@@ -8,13 +8,14 @@ class LevelSegmentVisibilityUpdater:
     def __init__(self, gameData, traversal):
         self.gameData = gameData
         self.traversal = traversal
-        self.maxCosLookDirection = Math.cos(2 * self.gameData.camera.viewAngleRadians)
+        self.maxCosLookDirection = Math.cos(1.2 * self.gameData.camera.viewAngleRadians)
 
     def update(self):
         player = self.gameData.player
         if player.hasMoved or player.hasTurned:
             self.gameData.visibleLevelSegments = set()
             checkedJoinLines = set()
+            self.cameraLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, self.gameData.camera.position)
             for levelSegment in player.visibilityLevelSegments:
                 self.checkLevelSegment(levelSegment, checkedJoinLines)
 
@@ -30,23 +31,25 @@ class LevelSegmentVisibilityUpdater:
     def isJoinLineVisible(self, joinLine):
         return self.isPointVisible(joinLine.middlePoint) or self.isPointVisible(joinLine.startPoint) or self.isPointVisible(joinLine.endPoint)
 
-    def isPointVisible(self, endPoint):
-        stepDirection = endPoint.getCopy()
-        stepDirection.sub(self.gameData.camera.position)
-        dotProduct = self.gameData.camera.lookDirection.dotProduct(stepDirection) / stepDirection.getLength()
+    def isPointVisible(self, point):
+        startPoint = self.gameData.camera.position
+        endPoint = point
+        direction = endPoint.getCopy()
+        direction.sub(startPoint)
+        dotProduct = self.gameData.camera.lookDirection.dotProduct(direction) / direction.getLength()
         if dotProduct < self.maxCosLookDirection:
             return False
-        stepLength = 0.5
-        stepsCount = stepDirection.getLength() / stepLength
-        stepDirection.setLength(stepLength)
-        stepNumber = 0
-        point = self.gameData.camera.position.getCopy()
-        while stepNumber < stepsCount:
-            levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, point)
-            if levelSegment is None:
+        while direction.getLength() > 1:
+            direction.div(2)
+            middlePoint = startPoint.getCopy()
+            middlePoint.add(direction)
+            middleLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, middlePoint)
+            if middleLevelSegment is None:
                 return False
-            point.add(stepDirection)
-            stepNumber += 1
+            elif self.cameraLevelSegment == middleLevelSegment:
+                startPoint = middlePoint
+            else:
+                endPoint = middlePoint
 
         return True
 

@@ -18,11 +18,11 @@ class DebugRenderer:
         self.renderVisibleFloors()
         self.renderVisibleCeilings()
         self.renderVisibleSegmentJoinLines()
-        self.renderPlayerSegmentWalls()
-        self.renderPlayerSegmentWallCrossLines()
-        self.renderPlayerSegmentFloors()
-        self.renderPlayerSegmentCeilings()
-        self.renderPlayerBorder()
+        # self.renderPlayerSegmentWalls()
+        # self.renderPlayerSegmentWallCrossLines()
+        # self.renderPlayerSegmentFloors()
+        # self.renderPlayerSegmentCeilings()
+        # self.renderPlayerBorder()
         # self.renderAxis()
 
     def initCamera(self):
@@ -63,30 +63,32 @@ class DebugRenderer:
         glDisable(GL_DEPTH_TEST)
 
     def renderVisibleWalls(self):
+        glEnable(GL_BLEND)
         glEnable(GL_DEPTH_TEST)
-        glColor3f(0.4, 0.4, 0.4)
         for levelSegment in self.gameData.visibleLevelSegments:
             for wall in levelSegment.walls:
                 startPointUp = wall.startPoint.getCopy()
                 endPointUp = wall.endPoint.getCopy()
                 startPointUp.z += wall.height
                 endPointUp.z += wall.height
+                glColor4f(1, 1, 1, 0.2)
                 self.renderGridQuad(wall.startPoint, wall.endPoint, startPointUp, endPointUp)
         glDisable(GL_DEPTH_TEST)
+        glDisable(GL_BLEND)
 
     def renderVisibleFloors(self):
         glEnable(GL_DEPTH_TEST)
-        glColor3f(0.4, 0.4, 0.4)
         for levelSegment in self.gameData.visibleLevelSegments:
             for floor in levelSegment.floors:
+                glColor3f(0.4, 0.4, 0.4)
                 self.renderGridQuad(floor.downLeft, floor.downRight, floor.upLeft, floor.upRight)
         glDisable(GL_DEPTH_TEST)
 
     def renderVisibleCeilings(self):
         glEnable(GL_DEPTH_TEST)
-        glColor3f(0.4, 0.4, 0.4)
         for levelSegment in self.gameData.visibleLevelSegments:
             for ceiling in levelSegment.ceilings:
+                glColor3f(0.4, 0.4, 0.4)
                 self.renderGridQuad(ceiling.downLeft, ceiling.downRight, ceiling.upLeft, ceiling.upRight)
         glDisable(GL_DEPTH_TEST)
 
@@ -190,7 +192,6 @@ class DebugRenderer:
         glEnd()
 
     def renderGridQuad(self, downLeft, downRight, upLeft, upRight):
-        glColor3f(0.4, 0.4, 0.4)
         glBegin(GL_QUADS)
         glVertex3f(downLeft.x, downLeft.y, downLeft.z)
         glVertex3f(downRight.x, downRight.y, downRight.z)
