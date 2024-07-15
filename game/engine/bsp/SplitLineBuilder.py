@@ -30,7 +30,6 @@ class SplitLineBuilder:
             s.startPoint = Vector3(0, 0, z)
             s.endPoint = s.startPoint
             s.frontNormal = CommonConstants.up
-            s.orientation = Orientation.horizontal
             s.sortOrder = s.startPoint.z
             result.append(s)
 
@@ -39,7 +38,6 @@ class SplitLineBuilder:
         s.startPoint = Vector3(0, 0, CommonConstants.maxLevelSize)
         s.endPoint = s.startPoint
         s.frontNormal = CommonConstants.down
-        s.orientation = Orientation.horizontal
         s.sortOrder = s.startPoint.z
         result.append(s)
 
@@ -50,7 +48,6 @@ class SplitLineBuilder:
             s.startPoint = wall.startPoint
             s.endPoint = wall.endPoint
             s.frontNormal = wall.frontNormal
-            s.orientation = wall.orientation
             s.sortOrder = wall.startPoint.x if wall.orientation == Orientation.vertical else wall.startPoint.y
             result.append(s)
 
@@ -62,7 +59,6 @@ class SplitLineBuilder:
                 s.startPoint = wall.startPoint
                 s.endPoint = wall.endPoint
                 s.frontNormal = wall.frontNormal
-                s.orientation = wall.orientation
                 s.sortOrder = wall.startPoint.x if wall.orientation == Orientation.vertical else wall.startPoint.y
                 result.append(s)
 
@@ -73,7 +69,6 @@ class SplitLineBuilder:
             s.startPoint = floor.downLeft
             s.endPoint = floor.downRight
             s.frontNormal = floor.downFrontNormal
-            s.orientation = Orientation.horizontal
             s.sortOrder = floor.downLeft.y
             result.append(s)
 
@@ -82,7 +77,6 @@ class SplitLineBuilder:
             s.startPoint = floor.upLeft
             s.endPoint = floor.upRight
             s.frontNormal = floor.upFrontNormal
-            s.orientation = Orientation.horizontal
             s.sortOrder = floor.upLeft.y
             result.append(s)
 
@@ -91,7 +85,6 @@ class SplitLineBuilder:
             s.startPoint = floor.downLeft
             s.endPoint = floor.upLeft
             s.frontNormal = floor.leftFrontNormal
-            s.orientation = Orientation.vertical
             s.sortOrder = floor.downLeft.x
             result.append(s)
 
@@ -100,7 +93,6 @@ class SplitLineBuilder:
             s.startPoint = floor.downRight
             s.endPoint = floor.upRight
             s.frontNormal = floor.rightFrontNormal
-            s.orientation = Orientation.vertical
             s.sortOrder = floor.downRight.x
             result.append(s)
 
