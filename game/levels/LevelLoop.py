@@ -303,6 +303,12 @@ class LevelLoop(Level):
         self.addJoinLine(joinLine)
 
         joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(40, 5, 3.1)
+        joinLine.endPoint = Vector3(40, 15, 3.1)
+        joinLine.frontNormal = Vector3(0, 0, -1)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
         joinLine.startPoint = Vector3(20, 20, 1.5)
         joinLine.endPoint = Vector3(20, 30, 1.5)
         joinLine.frontNormal = Vector3(1, 0, 0)
@@ -312,6 +318,12 @@ class LevelLoop(Level):
         joinLine.startPoint = Vector3(10, 20, 1.5)
         joinLine.endPoint = Vector3(20, 20, 1.5)
         joinLine.frontNormal = Vector3(0, 1, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(50, 40, 3.1)
+        joinLine.endPoint = Vector3(50, 50, 3.1)
+        joinLine.frontNormal = Vector3(0, 0, -1)
         self.addJoinLine(joinLine)
 
         self.playerPosition = Vector3(25, 25, 0)
