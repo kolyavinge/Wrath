@@ -8,6 +8,7 @@ from game.model.level.Level import Level
 from game.model.level.LevelSegmentJoinLine import LevelSegmentJoinLine
 from game.model.level.Orientation import Orientation
 from game.model.level.PlaneFloor import PlaneFloor
+from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
 
 
@@ -162,7 +163,7 @@ class LevelLoop(Level):
         floor.z = 0
         self.addFloor(floor)
 
-        floor = PlaneFloor()
+        floor = Stair()
         floor.downLeft = Vector3(50, 40, 3.1)
         floor.downRight = Vector3(60, 40, 0)
         floor.upLeft = Vector3(50, 50, 3.1)
@@ -171,10 +172,9 @@ class LevelLoop(Level):
         floor.rightFrontNormal = Vector3(-1, 0, 0)
         floor.upFrontNormal = Vector3(0, -1, 0)
         floor.downFrontNormal = Vector3(0, 1, 0)
-        leftDirection = floor.downLeft.getCopy()
-        leftDirection.sub(floor.downRight)
-        leftDirection.normalize()
-        floor.upNormal = Geometry.rotatePoint(leftDirection, Vector3(0, 1, 0), CommonConstants.axisOrigin, Math.piHalf)
+        floor.startBasePoint = Vector3(60, 40, 0)
+        floor.endBasePoint = Vector3(50, 40, 3.1)
+        floor.stepsCount = 6
         floor.commit()
         self.addFloor(floor)
 

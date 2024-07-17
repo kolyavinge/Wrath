@@ -88,9 +88,7 @@ class Geometry:
 
     @staticmethod
     def getProjectedVector(vector, projectionAxis):
-        vectorLength = vector.getLength()
-        dotProduct = vector.dotProduct(projectionAxis) / (vectorLength * projectionAxis.getLength())
-        newLength = dotProduct * vectorLength
+        newLength = vector.dotProduct(projectionAxis) / projectionAxis.getLength()
         projected = projectionAxis.getCopy()
         projected.setLength(newLength)
 

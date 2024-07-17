@@ -1,18 +1,12 @@
 from game.calc.Plane import Plane
 from game.calc.Vector3 import Vector3
+from game.model.level.Floor import Floor
 
 
-class PlaneFloor:
+class PlaneFloor(Floor):
 
     def __init__(self):
-        self.downLeft = Vector3()
-        self.downRight = Vector3()
-        self.upLeft = Vector3()
-        self.upRight = Vector3()
-        self.leftFrontNormal = Vector3()
-        self.rightFrontNormal = Vector3()
-        self.upFrontNormal = Vector3()
-        self.downFrontNormal = Vector3()
+        super().__init__()
         self.upNormal = Vector3()
 
     def commit(self):

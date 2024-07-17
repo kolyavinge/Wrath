@@ -8,6 +8,14 @@ class Math:
     piHalf = math.pi / 2
 
     @staticmethod
+    def min(x, y):
+        return x if x < y else y
+
+    @staticmethod
+    def max(x, y):
+        return x if x > y else y
+
+    @staticmethod
     def abs(x):
         return x if x >= 0 else -x
 
