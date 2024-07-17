@@ -21,15 +21,19 @@ class PlayerLevelSegmentsUpdater:
         border = player.nextBorder
 
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.downLeft)
+        assert levelSegment is not None
         playerLevelSegments.add(levelSegment)
 
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.downRight)
+        assert levelSegment is not None
         playerLevelSegments.add(levelSegment)
 
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.upLeft)
+        assert levelSegment is not None
         playerLevelSegments.add(levelSegment)
 
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.upRight)
+        assert levelSegment is not None
         playerLevelSegments.add(levelSegment)
 
 
