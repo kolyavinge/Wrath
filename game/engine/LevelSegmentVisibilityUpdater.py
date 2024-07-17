@@ -8,7 +8,7 @@ class LevelSegmentVisibilityUpdater:
     def __init__(self, gameData, traversal):
         self.gameData = gameData
         self.traversal = traversal
-        self.maxCosLookDirection = Math.cos(1.2 * self.gameData.camera.viewAngleRadians)
+        self.maxCosLookDirection = Math.cos(self.gameData.camera.viewAngleRadians)
 
     def update(self):
         player = self.gameData.player
@@ -29,16 +29,30 @@ class LevelSegmentVisibilityUpdater:
                     self.checkLevelSegment(joinedLevelSegment, checkedJoinLines)
 
     def isJoinLineVisible(self, joinLine):
-        return self.isPointVisible(joinLine.middlePoint) or self.isPointVisible(joinLine.startPoint) or self.isPointVisible(joinLine.endPoint)
+        for point in joinLine.points:
+            if self.isPointVisible(point):
+                return True
+
+        return False
 
     def isPointVisible(self, point):
         startPoint = self.gameData.camera.position
         endPoint = point
         direction = endPoint.getCopy()
         direction.sub(startPoint)
-        dotProduct = self.gameData.camera.lookDirection.dotProduct(direction) / direction.getLength()
+
+        direction2d = direction.getCopy()
+        direction2d.z = 0
+        direction2d.normalize()
+
+        look2d = self.gameData.camera.lookDirection.getCopy()
+        look2d.z = 0
+        look2d.normalize()
+
+        dotProduct = look2d.dotProduct(direction2d)
         if dotProduct < self.maxCosLookDirection:
             return False
+
         while direction.getLength() > 1:
             direction.div(2)
             middlePoint = startPoint.getCopy()

@@ -102,9 +102,9 @@ class DebugRenderer:
                 glVertex3f(joinLine.startPoint.x, joinLine.startPoint.y, joinLine.startPoint.z + 0.01)
                 glVertex3f(joinLine.endPoint.x, joinLine.endPoint.y, joinLine.endPoint.z + 0.01)
                 glEnd()
-                glBegin(GL_POINTS)
-                glVertex3f(joinLine.middlePoint.x, joinLine.middlePoint.y, joinLine.middlePoint.z + 0.1)
-                glEnd()
+                # glBegin(GL_POINTS)
+                # glVertex3f(joinLine.middlePoint.x, joinLine.middlePoint.y, joinLine.middlePoint.z + 0.1)
+                # glEnd()
         glDisable(GL_DEPTH_TEST)
 
     def renderVisibleSegmentSplitLines(self):
