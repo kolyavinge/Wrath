@@ -18,7 +18,6 @@ class VectorItemPointsSource:
         return self.endPoint
 
     def getMiddlePointOrNone(self, startPoint, endPoint):
-        # TODO оптимизация направление start-end достаточно вычислить один раз
         middlePoint = endPoint.getDirectionTo(startPoint)
         middlePoint.div(2)
         if middlePoint.getLength() > 0.1:

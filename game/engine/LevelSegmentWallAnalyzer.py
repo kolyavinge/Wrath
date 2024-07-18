@@ -11,9 +11,15 @@ class LevelSegmentWallAnalyzer:
 
     def analyzeWalls(self, level, bspTree):
         for wall in level.walls:
-            levelSegments = self.segmentItemFinder.getItemLevelSegments(bspTree, VectorItemPointsSource(wall.startPoint, wall.endPoint))
-            for levelSegment in levelSegments:
-                levelSegment.walls.append(wall)
+            self.analyzeDirection(bspTree, wall, wall.startPoint, wall.endPoint)
+            self.analyzeDirection(bspTree, wall, wall.upStartPoint, wall.endPoint)
+            self.analyzeDirection(bspTree, wall, wall.startPoint, wall.upEndPoint)
+            self.analyzeDirection(bspTree, wall, wall.upStartPoint, wall.upEndPoint)
+
+    def analyzeDirection(self, bspTree, wall, startPoint, endPoint):
+        levelSegments = self.segmentItemFinder.getItemLevelSegments(bspTree, VectorItemPointsSource(startPoint, endPoint))
+        for levelSegment in levelSegments:
+            levelSegment.walls.append(wall)
 
 
 def makeLevelSegmentWallAnalyzer(resolver):

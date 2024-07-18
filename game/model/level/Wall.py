@@ -16,6 +16,12 @@ class Wall:
         self.isPrimary = True
         self.height = 3
 
+    def commit(self):
+        self.upStartPoint = self.startPoint.getCopy()
+        self.upStartPoint.z += self.height
+        self.upEndPoint = self.endPoint.getCopy()
+        self.upEndPoint.z += self.height
+
     def validate(self):
         assert self.startPoint != self.endPoint
         assert self.crossLine.startPoint != self.crossLine.endPoint

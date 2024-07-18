@@ -328,6 +328,7 @@ class LevelLoop(Level):
         self.playerFrontNormal = Vector3(1, 0, 0)
 
     def addWall(self, wall):
+        wall.commit()
         self.walls.append(wall)
 
     def addFloor(self, floor):

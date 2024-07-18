@@ -19,48 +19,56 @@ class Level1(Level):
         wall1.endPoint = Vector3(0, 10, 0)
         wall1.orientation = Orientation.vertical
         wall1.frontNormal = Vector3(1, 0, 0)
+        wall1.commit()
 
         wall2 = Wall()
         wall2.startPoint = Vector3(0, 10, 0)
         wall2.endPoint = Vector3(20, 10, 0)
         wall2.orientation = Orientation.horizontal
         wall2.frontNormal = Vector3(0, -1, 0)
+        wall2.commit()
 
         wall3 = Wall()
         wall3.startPoint = Vector3(20, 10, 0)
         wall3.endPoint = Vector3(20, 15, 0)
         wall3.orientation = Orientation.vertical
         wall3.frontNormal = Vector3(1, 0, 0)
+        wall3.commit()
 
         wall4 = Wall()
         wall4.startPoint = Vector3(20, 15, 0)
         wall4.endPoint = Vector3(30, 15, 0)
         wall4.orientation = Orientation.horizontal
         wall4.frontNormal = Vector3(0, -1, 0)
+        wall4.commit()
 
         wall5 = Wall()
         wall5.startPoint = Vector3(30, 5, 0)
         wall5.endPoint = Vector3(30, 15, 0)
         wall5.orientation = Orientation.vertical
         wall5.frontNormal = Vector3(-1, 0, 0)
+        wall5.commit()
 
         wall6 = Wall()
         wall6.startPoint = Vector3(10, 5, 0)
         wall6.endPoint = Vector3(30, 5, 0)
         wall6.orientation = Orientation.horizontal
         wall6.frontNormal = Vector3(0, 1, 0)
+        wall6.commit()
 
         wall7 = Wall()
         wall7.startPoint = Vector3(10, 0, 0)
         wall7.endPoint = Vector3(10, 5, 0)
         wall7.orientation = Orientation.vertical
         wall7.frontNormal = Vector3(-1, 0, 0)
+        wall7.commit()
 
         wall8 = Wall()
         wall8.startPoint = Vector3(0, 0, 0)
         wall8.endPoint = Vector3(10, 0, 0)
         wall8.orientation = Orientation.horizontal
         wall8.frontNormal = Vector3(0, 1, 0)
+        wall8.commit()
 
         # pole
         wall9 = Wall()
@@ -69,6 +77,7 @@ class Level1(Level):
         wall9.orientation = Orientation.vertical
         wall9.frontNormal = Vector3(-1, 0, 0)
         wall9.isPrimary = False
+        wall9.commit()
 
         wall10 = Wall()
         wall10.startPoint = Vector3(2, 7, 0)
@@ -76,6 +85,7 @@ class Level1(Level):
         wall10.orientation = Orientation.horizontal
         wall10.frontNormal = Vector3(0, 1, 0)
         wall10.isPrimary = False
+        wall10.commit()
 
         wall11 = Wall()
         wall11.startPoint = Vector3(3, 6, 0)
@@ -83,6 +93,7 @@ class Level1(Level):
         wall11.orientation = Orientation.vertical
         wall11.frontNormal = Vector3(1, 0, 0)
         wall11.isPrimary = False
+        wall11.commit()
 
         wall12 = Wall()
         wall12.startPoint = Vector3(2, 6, 0)
@@ -90,6 +101,7 @@ class Level1(Level):
         wall12.orientation = Orientation.horizontal
         wall12.frontNormal = Vector3(0, -1, 0)
         wall12.isPrimary = False
+        wall12.commit()
         # pole
 
         wall13 = Wall()
@@ -98,6 +110,7 @@ class Level1(Level):
         wall13.orientation = Orientation.diagonal
         wall13.frontNormal = Vector3(1, -1, 0)
         wall13.frontNormal.normalize()
+        wall13.commit()
 
         wall14 = Wall()
         wall14.startPoint = Vector3(27, 5, 0)
@@ -105,6 +118,7 @@ class Level1(Level):
         wall14.orientation = Orientation.diagonal
         wall14.frontNormal = Vector3(-1, 1, 0)
         wall14.frontNormal.normalize()
+        wall14.commit()
 
         floor1 = FlatFloor()
         floor1.downLeft = Vector3(0, 0, 0)
