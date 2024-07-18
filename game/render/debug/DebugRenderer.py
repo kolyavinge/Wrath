@@ -21,7 +21,7 @@ class DebugRenderer:
         # self.renderVisibleSegmentSplitLines()
         # self.renderPlayerSegmentWalls()
         # self.renderPlayerSegmentWallCrossLines()
-        # self.renderPlayerSegmentFloors()
+        self.renderPlayerSegmentFloors()
         # self.renderPlayerSegmentCeilings()
         # self.renderPlayerBorder()
         # self.renderAxis()

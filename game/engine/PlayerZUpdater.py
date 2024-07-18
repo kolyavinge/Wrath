@@ -19,7 +19,7 @@ class PlayerZUpdater:
                 player.setZ(z)
                 print(z)
             elif len(levelSegment.floors) == 0:
-                player.setZ(player.getZ() - 0.01)
+                player.setZ(player.getZ() - 0.1)
             else:
                 raise Exception()
 
