@@ -1,6 +1,5 @@
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
-from game.engine.bsp.SplitBorderBuilder import *
 from game.engine.bsp.SplitLineBuilder import *
 from game.engine.CameraUpdater import *
 from game.engine.cm.PlayerWallCollisionProcessor import *
