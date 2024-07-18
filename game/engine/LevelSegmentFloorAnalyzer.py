@@ -1,11 +1,41 @@
-from game.calc.Vector3Utils import Vector3Utils
-from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.engine.LevelSegmentItemFinder import LevelSegmentItemFinder
+
+
+class FloorPointsSource:
+
+    def __init__(self, floor, startPoint, endPoint):
+        self.floor = floor
+        self.startPoint = startPoint.getCopy()
+        self.endPoint = endPoint.getCopy()
+        step = self.endPoint.getDirectionTo(self.startPoint)
+        step.setLength(0.1)
+        self.startPoint.add(step)
+        self.endPoint.sub(step)
+        self.startPoint.z = self.floor.getZ(self.startPoint.x, self.startPoint.y)
+        self.endPoint.z = self.floor.getZ(self.endPoint.x, self.endPoint.y)
+
+    def getStartPoint(self):
+        return self.startPoint
+
+    def getEndPoint(self):
+        return self.endPoint
+
+    def getMiddlePointOrNone(self, startPoint, endPoint):
+        # TODO оптимизация направление start-end достаточно вычислить один раз
+        middlePoint = endPoint.getDirectionTo(startPoint)
+        middlePoint.div(2)
+        if middlePoint.getLength() > 0.5:
+            middlePoint.add(startPoint)
+            middlePoint.z = self.floor.getZ(middlePoint.x, middlePoint.y)
+            return middlePoint
+        else:
+            return None
 
 
 class LevelSegmentFloorAnalyzer:
 
-    def __init__(self, traversal):
-        self.traversal = traversal
+    def __init__(self, segmentItemFinder):
+        self.segmentItemFinder = segmentItemFinder
 
     def analyzeFloors(self, level, bspTree):
         for floor in level.floors:
@@ -26,21 +56,11 @@ class LevelSegmentFloorAnalyzer:
             self.analyzeDirection(bspTree, floor, from1, floor.downRight)
 
     def analyzeDirection(self, bspTree, floor, startPoint, endPoint):
-        direction = endPoint.getDirectionTo(startPoint)
-        direction.setLength(0.1)
-        startPoint = startPoint.getCopy()
-        endPoint = endPoint.getCopy()
-        startPoint.add(direction)
-        endPoint.sub(direction)
-
-        def checkPoint(point):
-            point.z = floor.getZ(point.x, point.y)
-            levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, point)
+        levelSegments = self.segmentItemFinder.getItemLevelSegments(bspTree, FloorPointsSource(floor, startPoint, endPoint))
+        for levelSegment in levelSegments:
             if floor not in levelSegment.floors:
                 levelSegment.floors.append(floor)
 
-        Vector3Utils.fromStartToEnd(startPoint, endPoint, 0.1, checkPoint)
-
 
 def makeLevelSegmentFloorAnalyzer(resolver):
-    return LevelSegmentFloorAnalyzer(resolver.resolve(BSPTreeTraversal))
+    return LevelSegmentFloorAnalyzer(resolver.resolve(LevelSegmentItemFinder))

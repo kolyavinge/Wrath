@@ -17,7 +17,6 @@ class PlayerZUpdater:
             if len(levelSegment.floors) == 1:
                 z = levelSegment.floors[0].getZ(player.nextCenterPoint.x, player.nextCenterPoint.y)
                 player.setZ(z)
-                print(z)
             elif len(levelSegment.floors) == 0:
                 player.setZ(player.getZ() - 0.1)
             else:
