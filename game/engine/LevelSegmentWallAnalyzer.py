@@ -1,4 +1,7 @@
-from game.engine.LevelSegmentItemFinder import LevelSegmentItemFinder
+from game.engine.LevelSegmentItemFinder import (
+    LevelSegmentItemFinder,
+    VectorItemPointsSource,
+)
 
 
 class LevelSegmentWallAnalyzer:
@@ -8,7 +11,7 @@ class LevelSegmentWallAnalyzer:
 
     def analyzeWalls(self, level, bspTree):
         for wall in level.walls:
-            levelSegments = self.segmentItemFinder.getItemLevelSegments(bspTree, wall.startPoint, wall.endPoint)
+            levelSegments = self.segmentItemFinder.getItemLevelSegments(bspTree, VectorItemPointsSource(wall.startPoint, wall.endPoint))
             for levelSegment in levelSegments:
                 levelSegment.walls.append(wall)
 

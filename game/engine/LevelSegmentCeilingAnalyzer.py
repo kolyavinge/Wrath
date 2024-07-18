@@ -1,4 +1,7 @@
-from game.engine.LevelSegmentItemFinder import LevelSegmentItemFinder
+from game.engine.LevelSegmentItemFinder import (
+    LevelSegmentItemFinder,
+    VectorItemPointsSource,
+)
 
 
 class LevelSegmentCeilingAnalyzer:
@@ -11,7 +14,7 @@ class LevelSegmentCeilingAnalyzer:
             self.analyzeDirection(bspTree, ceiling, ceiling.downLeft, ceiling.upRight)
 
     def analyzeDirection(self, bspTree, ceiling, startPoint, endPoint):
-        levelSegments = self.segmentItemFinder.getItemLevelSegments(bspTree, startPoint, endPoint)
+        levelSegments = self.segmentItemFinder.getItemLevelSegments(bspTree, VectorItemPointsSource(startPoint, endPoint))
         for levelSegment in levelSegments:
             if ceiling not in levelSegment.ceilings:
                 levelSegment.ceilings.append(ceiling)
