@@ -69,6 +69,12 @@ class Vector3:
         value = self.dotProduct(vector) / (self.getLength() * vector.getLength())
         return Numeric.floatEquals(value, 1, eps)
 
+    def getDirectionTo(self, vector):
+        direction = self.getCopy()
+        direction.sub(vector)
+
+        return direction
+
     def __eq__(self, vector):
         return self.x == vector.x and self.y == vector.y and self.z == vector.z
 

@@ -12,8 +12,7 @@ class LevelSegmentFloorAnalyzer:
             self.analyzeDirection(bspTree, floor, floor.downLeft, floor.upRight)
             self.analyzeDirection(bspTree, floor, floor.upLeft, floor.downRight)
 
-            direction = floor.upRight.getCopy()
-            direction.sub(floor.downLeft)
+            direction = floor.upRight.getDirectionTo(floor.downLeft)
             direction.setLength(0.1)
 
             from1 = floor.downLeft.getCopy()
@@ -27,8 +26,7 @@ class LevelSegmentFloorAnalyzer:
             self.analyzeDirection(bspTree, floor, from1, floor.downRight)
 
     def analyzeDirection(self, bspTree, floor, startPoint, endPoint):
-        direction = endPoint.getCopy()
-        direction.sub(startPoint)
+        direction = endPoint.getDirectionTo(startPoint)
         direction.setLength(0.1)
         startPoint = startPoint.getCopy()
         endPoint = endPoint.getCopy()

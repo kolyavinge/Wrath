@@ -54,12 +54,10 @@ class BSPTreeBuilder:
         return (front, back)
 
     def getSplitLinePosition(self, splitLine, basePoint, frontNormal):
-        direction = splitLine.startPoint.getCopy()
-        direction.sub(basePoint)
+        direction = splitLine.startPoint.getDirectionTo(basePoint)
         dotProductStart = direction.dotProduct(frontNormal)
 
-        direction = splitLine.endPoint.getCopy()
-        direction.sub(basePoint)
+        direction = splitLine.endPoint.getDirectionTo(basePoint)
         dotProductEnd = direction.dotProduct(frontNormal)
 
         if dotProductStart == 0 and dotProductEnd == 0:

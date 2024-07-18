@@ -7,8 +7,7 @@ class LevelSegmentItemFinder:
         self.traversal = traversal
 
     def getItemLevelSegments(self, bspTree, itemStartPoint, itemEndPoint):
-        step = itemEndPoint.getCopy()
-        step.sub(itemStartPoint)
+        step = itemEndPoint.getDirectionTo(itemStartPoint)
         step.setLength(0.1)
         startPoint = itemStartPoint.getCopy()
         startPoint.add(step)
@@ -27,8 +26,8 @@ class LevelSegmentItemFinder:
         elif startSegment == endSegment:
             itemLevelSegments.add(startSegment)
         else:
-            middlePoint = endPoint.getCopy()
-            middlePoint.sub(startPoint)
+            # TODO оптимизация направление start-end достаточно вычислить один раз
+            middlePoint = endPoint.getDirectionTo(startPoint)
             middlePoint.div(2)
             if middlePoint.getLength() > 0.1:
                 middlePoint.add(startPoint)

@@ -38,8 +38,7 @@ class LevelSegmentVisibilityUpdater:
     def isPointVisible(self, point):
         startPoint = self.gameData.camera.position
         endPoint = point
-        direction = endPoint.getCopy()
-        direction.sub(startPoint)
+        direction = endPoint.getDirectionTo(startPoint)
 
         direction2d = direction.getCopy()
         direction2d.z = 0

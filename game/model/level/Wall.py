@@ -20,8 +20,7 @@ class Wall:
         assert self.startPoint != self.endPoint
         assert self.crossLine.startPoint != self.crossLine.endPoint
         assert Numeric.floatEquals(self.frontNormal.getLength(), 1)
-        wallDirection = self.endPoint.getCopy()
-        wallDirection.sub(self.startPoint)
+        wallDirection = self.endPoint.getDirectionTo(self.startPoint)
         assert wallDirection.getLength() >= 1
         if self.orientation == Orientation.horizontal:
             assert self.startPoint.y == self.endPoint.y
