@@ -106,10 +106,10 @@ class TransformMatrix4:
         self.items = [x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1]
 
     def lookAt(self, eyePosition, lookDirection, upDirection):
-        s = lookDirection.getCopy()
+        s = lookDirection.copy()
         s.vectorProduct(upDirection)
         s.normalize()
-        u = s.getCopy()
+        u = s.copy()
         u.vectorProduct(lookDirection)
         self.items = [
             # col 1

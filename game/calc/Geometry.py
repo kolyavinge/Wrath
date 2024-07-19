@@ -36,14 +36,14 @@ class Geometry:
         sin = Math.sin(radians)
         cos = Math.cos(radians)
 
-        a = point.getCopy()
+        a = point.copy()
         a.mul(cos)
 
-        b = pivotAxis.getCopy()
+        b = pivotAxis.copy()
         b.mul(pivotAxis.dotProduct(point))
         b.mul(1 - cos)
 
-        c = pivotAxis.getCopy()
+        c = pivotAxis.copy()
         c.vectorProduct(point)
         c.mul(sin)
 
@@ -89,7 +89,7 @@ class Geometry:
     @staticmethod
     def getProjectedVector(vector, projectionAxis):
         newLength = vector.dotProduct(projectionAxis) / projectionAxis.getLength()
-        projected = projectionAxis.getCopy()
+        projected = projectionAxis.copy()
         projected.setLength(newLength)
 
         return projected

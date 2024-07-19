@@ -22,7 +22,7 @@ class PlayerMoveLogic:
     def goForward(self):
         player = self.gameData.player
         player.hasMoved = True
-        velocityDirection = player.frontNormal.getCopy()
+        velocityDirection = player.frontNormal.copy()
         velocityDirection.setLength(player.getVelocity())
         player.moveNextPositionBy(velocityDirection)
         player.movingTime += player.movingTimeDelta
@@ -30,7 +30,7 @@ class PlayerMoveLogic:
     def goBackward(self):
         player = self.gameData.player
         player.hasMoved = True
-        delta = player.frontNormal.getCopy()
+        delta = player.frontNormal.copy()
         delta.setLength(0.1)
         delta.mul(-1)
         player.moveNextPositionBy(delta)
@@ -38,7 +38,7 @@ class PlayerMoveLogic:
     def stepLeft(self):
         player = self.gameData.player
         player.hasMoved = True
-        delta = player.rightNormal.getCopy()
+        delta = player.rightNormal.copy()
         delta.setLength(0.1)
         delta.mul(-1)
         player.moveNextPositionBy(delta)
@@ -46,7 +46,7 @@ class PlayerMoveLogic:
     def stepRight(self):
         player = self.gameData.player
         player.hasMoved = True
-        delta = player.rightNormal.getCopy()
+        delta = player.rightNormal.copy()
         delta.setLength(0.1)
         player.moveNextPositionBy(delta)
 

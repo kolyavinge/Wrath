@@ -4,8 +4,8 @@ from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 class VectorItemPointsSource:
 
     def __init__(self, startPoint, endPoint):
-        self.startPoint = startPoint.getCopy()
-        self.endPoint = endPoint.getCopy()
+        self.startPoint = startPoint.copy()
+        self.endPoint = endPoint.copy()
         step = self.endPoint.getDirectionTo(self.startPoint)
         step.setLength(0.1)
         self.startPoint.add(step)

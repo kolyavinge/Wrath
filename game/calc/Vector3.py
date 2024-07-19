@@ -12,12 +12,7 @@ class Vector3:
         self.y = y
         self.z = z
 
-    def setCopy(self, vector):
-        self.x = vector.x
-        self.y = vector.y
-        self.z = vector.z
-
-    def getCopy(self):
+    def copy(self):
         return Vector3(self.x, self.y, self.z)
 
     def getLength(self):
@@ -70,7 +65,7 @@ class Vector3:
         return Numeric.floatEquals(value, 1, eps)
 
     def getDirectionTo(self, vector):
-        direction = self.getCopy()
+        direction = self.copy()
         direction.sub(vector)
 
         return direction

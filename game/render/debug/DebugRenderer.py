@@ -68,8 +68,8 @@ class DebugRenderer:
         glEnable(GL_DEPTH_TEST)
         for levelSegment in self.gameData.visibleLevelSegments:
             for wall in levelSegment.walls:
-                startPointUp = wall.startPoint.getCopy()
-                endPointUp = wall.endPoint.getCopy()
+                startPointUp = wall.startPoint.copy()
+                endPointUp = wall.endPoint.copy()
                 startPointUp.z += wall.height
                 endPointUp.z += wall.height
                 glColor4f(1, 1, 1, 0.2)
@@ -219,18 +219,18 @@ class DebugRenderer:
 
         glColor3f(0.1, 0.1, 0.1)
 
-        downDirection = downRight.getCopy()
+        downDirection = downRight.copy()
         downDirection.sub(downLeft)
-        upDirection = upRight.getCopy()
+        upDirection = upRight.copy()
         upDirection.sub(upLeft)
         x = 1
         width = min(downDirection.getLength(), upDirection.getLength())
         downDirection.setLength(1)
         upDirection.setLength(1)
         while x < width:
-            left = downLeft.getCopy()
+            left = downLeft.copy()
             left.add(downDirection)
-            right = upLeft.getCopy()
+            right = upLeft.copy()
             right.add(upDirection)
             glBegin(GL_LINES)
             glVertex3f(left.x, left.y, left.z)
@@ -240,18 +240,18 @@ class DebugRenderer:
             upDirection.setLength(upDirection.getLength() + 1)
             x += 1
 
-        leftDirection = upLeft.getCopy()
+        leftDirection = upLeft.copy()
         leftDirection.sub(downLeft)
-        rightDirection = upRight.getCopy()
+        rightDirection = upRight.copy()
         rightDirection.sub(downRight)
         y = 1
         height = min(leftDirection.getLength(), rightDirection.getLength())
         leftDirection.setLength(1)
         rightDirection.setLength(1)
         while y < height:
-            left = downLeft.getCopy()
+            left = downLeft.copy()
             left.add(leftDirection)
-            right = downRight.getCopy()
+            right = downRight.copy()
             right.add(rightDirection)
             glBegin(GL_LINES)
             glVertex3f(left.x, left.y, left.z)

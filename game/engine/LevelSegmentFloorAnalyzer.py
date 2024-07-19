@@ -5,8 +5,8 @@ class FloorPointsSource:
 
     def __init__(self, floor, startPoint, endPoint):
         self.floor = floor
-        self.startPoint = startPoint.getCopy()
-        self.endPoint = endPoint.getCopy()
+        self.startPoint = startPoint.copy()
+        self.endPoint = endPoint.copy()
         step = self.endPoint.getDirectionTo(self.startPoint)
         step.setLength(0.1)
         self.startPoint.add(step)
@@ -44,12 +44,12 @@ class LevelSegmentFloorAnalyzer:
             direction = floor.upRight.getDirectionTo(floor.downLeft)
             direction.setLength(0.1)
 
-            from1 = floor.downLeft.getCopy()
+            from1 = floor.downLeft.copy()
             from1.add(direction)
             self.analyzeDirection(bspTree, floor, from1, floor.upLeft)
             self.analyzeDirection(bspTree, floor, from1, floor.downRight)
 
-            from1 = floor.upRight.getCopy()
+            from1 = floor.upRight.copy()
             from1.sub(direction)
             self.analyzeDirection(bspTree, floor, from1, floor.upLeft)
             self.analyzeDirection(bspTree, floor, from1, floor.downRight)

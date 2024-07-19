@@ -17,9 +17,9 @@ class Wall:
         self.height = 3
 
     def commit(self):
-        self.upStartPoint = self.startPoint.getCopy()
+        self.upStartPoint = self.startPoint.copy()
         self.upStartPoint.z += self.height
-        self.upEndPoint = self.endPoint.getCopy()
+        self.upEndPoint = self.endPoint.copy()
         self.upEndPoint.z += self.height
 
     def validate(self):

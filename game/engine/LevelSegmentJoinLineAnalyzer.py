@@ -12,7 +12,7 @@ class LevelSegmentJoinLineAnalyzer:
 
     def findFrontBackLevelSegments(self, level, bspTree):
         for joinLine in level.joinLines:
-            point = joinLine.middlePoint.getCopy()
+            point = joinLine.middlePoint.copy()
 
             point.add(joinLine.frontNormal)
             frontLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, point)

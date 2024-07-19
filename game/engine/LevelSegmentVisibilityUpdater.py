@@ -40,11 +40,11 @@ class LevelSegmentVisibilityUpdater:
         endPoint = point
         direction = endPoint.getDirectionTo(startPoint)
 
-        direction2d = direction.getCopy()
+        direction2d = direction.copy()
         direction2d.z = 0
         direction2d.normalize()
 
-        look2d = self.gameData.camera.lookDirection.getCopy()
+        look2d = self.gameData.camera.lookDirection.copy()
         look2d.z = 0
         look2d.normalize()
 
@@ -54,7 +54,7 @@ class LevelSegmentVisibilityUpdater:
 
         while direction.getLength() > 1:
             direction.div(2)
-            middlePoint = startPoint.getCopy()
+            middlePoint = startPoint.copy()
             middlePoint.add(direction)
             middleLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, middlePoint)
             if middleLevelSegment is None:

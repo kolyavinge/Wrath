@@ -14,10 +14,10 @@ class LevelLoader:
 
     def calculateWallCrossLines(self, level):
         for wall in level.walls:
-            crossDirection = wall.frontNormal.getCopy()
+            crossDirection = wall.frontNormal.copy()
             crossDirection.setLength(PlayerConstants.xyLengthHalf)
-            wall.crossLine.startPoint = wall.startPoint.getCopy()
-            wall.crossLine.endPoint = wall.endPoint.getCopy()
+            wall.crossLine.startPoint = wall.startPoint.copy()
+            wall.crossLine.endPoint = wall.endPoint.copy()
             wall.crossLine.startPoint.add(crossDirection)
             wall.crossLine.endPoint.add(crossDirection)
             wallDirection = wall.endPoint.getDirectionTo(wall.startPoint)

@@ -10,16 +10,16 @@ class Box3d:
 
     def calculatePointsByCenter(self, center):
         self.bottom.calculatePointsByCenter(center)
-        self.top = self.bottom.getCopy()
+        self.top = self.bottom.copy()
         self.top.downLeft.z += self.zLength
         self.top.downRight.z += self.zLength
         self.top.upLeft.z += self.zLength
         self.top.upRight.z += self.zLength
 
-    def getCopy(self):
+    def copy(self):
         copy = Box3d(self.bottom.xLength, self.bottom.yLength, self.zLength)
-        copy.bottom = self.bottom.getCopy()
-        copy.top = self.top.getCopy()
+        copy.bottom = self.bottom.copy()
+        copy.top = self.top.copy()
         copy.zLength = self.zLength
 
         return copy

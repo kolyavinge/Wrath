@@ -19,12 +19,12 @@ class Rect2d:
         self.upLeft.set(center.x - self.xLengthHalf, center.y + self.yLengthHalf, center.z)
         self.upRight.set(center.x + self.xLengthHalf, center.y + self.yLengthHalf, center.z)
 
-    def getCopy(self):
+    def copy(self):
         copy = Rect2d(self.xLength, self.yLength)
-        copy.downLeft = self.downLeft.getCopy()
-        copy.downRight = self.downRight.getCopy()
-        copy.upLeft = self.upLeft.getCopy()
-        copy.upRight = self.upRight.getCopy()
+        copy.downLeft = self.downLeft.copy()
+        copy.downRight = self.downRight.copy()
+        copy.upLeft = self.upLeft.copy()
+        copy.upRight = self.upRight.copy()
 
         return copy
 

@@ -57,7 +57,7 @@ class PlayerTurnLogic:
     def orientByFrontNormal(self, frontNormal):
         player = self.gameData.player
         radians = Math.arccos(player.frontNormal.dotProduct(frontNormal))
-        vectorProduct = player.frontNormal.getCopy()
+        vectorProduct = player.frontNormal.copy()
         vectorProduct.vectorProduct(frontNormal)
         if vectorProduct.z < 0:
             radians *= -1
