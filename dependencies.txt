@@ -6,3 +6,5 @@
 2. pip install keyboard
 
 3. pip install mouse
+
+4. pip install line_profiler
