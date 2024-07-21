@@ -1,3 +1,4 @@
+from game.calc.Geometry import Geometry
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.lib.Math import Math
@@ -52,17 +53,16 @@ class LevelSegmentVisibilityUpdater:
         if dotProduct < self.maxCosLookDirection:
             return False
 
-        while direction.getLength() > 1:
-            direction.div(2)
-            middlePoint = startPoint.copy()
-            middlePoint.add(direction)
-            middleLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, middlePoint)
-            if middleLevelSegment is None:
-                return False
-            elif self.cameraLevelSegment == middleLevelSegment:
-                startPoint = middlePoint
-            else:
-                endPoint = middlePoint
+        for wall in self.cameraLevelSegment.walls:
+            intersectPoint = Geometry.getLinesIntersectPointOrNone(
+                wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, startPoint.x, startPoint.y, endPoint.x, endPoint.y
+            )
+            if intersectPoint is not None:
+                x, y = intersectPoint
+                if Geometry.lineContainsPoint(
+                    wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, x, y
+                ) and Geometry.lineContainsPoint(startPoint.x, startPoint.y, endPoint.x, endPoint.y, x, y):
+                    return False
 
         return True
 
