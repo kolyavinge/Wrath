@@ -1,3 +1,4 @@
+from game.anx.PlayerConstants import PlayerConstants
 from game.calc.Line import Line
 from game.calc.Vector3 import Vector3
 from game.lib.Numeric import Numeric
@@ -21,6 +22,20 @@ class Wall:
         self.upStartPoint.z += self.height
         self.upEndPoint = self.endPoint.copy()
         self.upEndPoint.z += self.height
+        self.calculateWallCrossLines()
+
+    def calculateWallCrossLines(self):
+        crossDirection = self.frontNormal.copy()
+        crossDirection.setLength(PlayerConstants.xyLengthHalf)
+        self.crossLine.startPoint = self.startPoint.copy()
+        self.crossLine.endPoint = self.endPoint.copy()
+        self.crossLine.startPoint.add(crossDirection)
+        self.crossLine.endPoint.add(crossDirection)
+        wallDirection = self.endPoint.getDirectionTo(self.startPoint)
+        wallDirection.setLength(PlayerConstants.xyLengthHalf)
+        self.crossLine.startPoint.sub(wallDirection)
+        self.crossLine.endPoint.add(wallDirection)
+        self.crossLineDirection = self.crossLine.endPoint.getDirectionTo(self.crossLine.startPoint)
 
     def validate(self):
         assert self.startPoint != self.endPoint
