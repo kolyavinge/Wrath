@@ -338,17 +338,3 @@ class LevelLoop(Level):
 
         self.playerPosition = Vector3(25, 25, 0)
         self.playerFrontNormal = Vector3(1, 0, 0)
-
-    def addWall(self, wall):
-        wall.commit()
-        self.walls.append(wall)
-
-    def addFloor(self, floor):
-        self.floors.append(floor)
-
-    def addCeiling(self, ceiling):
-        self.ceilings.append(ceiling)
-
-    def addJoinLine(self, joinLine):
-        joinLine.commit()
-        self.joinLines.append(joinLine)

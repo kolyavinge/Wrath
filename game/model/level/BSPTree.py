@@ -24,7 +24,8 @@ class BSPTree:
         if node.isLeaf:
             segments.append(node.levelSegment)
         else:
-            self.getAllLevelSegmentsRec(node.front, segments)
+            if node.front is not None:
+                self.getAllLevelSegmentsRec(node.front, segments)
             if node.back is not None:
                 self.getAllLevelSegmentsRec(node.back, segments)
 

@@ -51,6 +51,8 @@ class Wall:
             assert self.startPoint.x == self.endPoint.x
             assert self.startPoint.y < self.endPoint.y
             assert self.frontNormal == Vector3(1, 0, 0) or self.frontNormal == Vector3(-1, 0, 0)
+        else:
+            assert self.startPoint.x < self.endPoint.x
 
     def __str__(self):
         return f"({self.startPoint} - {self.endPoint})"
