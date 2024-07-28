@@ -20,10 +20,10 @@ class DebugRenderer:
         self.renderVisibleSegmentJoinLines()
         # self.renderVisibleSegmentSplitLines()
         # self.renderPlayerSegmentWalls()
-        # self.renderPlayerSegmentWallCrossLines()
+        self.renderPlayerSegmentWallCrossLines()
         self.renderPlayerSegmentFloors()
         # self.renderPlayerSegmentCeilings()
-        # self.renderPlayerBorder()
+        self.renderPlayerBorder()
         # self.renderAxis()
 
     def initCamera(self):
@@ -219,47 +219,15 @@ class DebugRenderer:
 
         glColor3f(0.1, 0.1, 0.1)
 
-        downDirection = downRight.copy()
-        downDirection.sub(downLeft)
-        upDirection = upRight.copy()
-        upDirection.sub(upLeft)
-        x = 1
-        width = min(downDirection.getLength(), upDirection.getLength())
-        downDirection.setLength(1)
-        upDirection.setLength(1)
-        while x < width:
-            left = downLeft.copy()
-            left.add(downDirection)
-            right = upLeft.copy()
-            right.add(upDirection)
-            glBegin(GL_LINES)
-            glVertex3f(left.x, left.y, left.z)
-            glVertex3f(right.x, right.y, right.z)
-            glEnd()
-            downDirection.setLength(downDirection.getLength() + 1)
-            upDirection.setLength(upDirection.getLength() + 1)
-            x += 1
+        glBegin(GL_LINES)
+        glVertex3f(downLeft.x, downLeft.y, downLeft.z)
+        glVertex3f(upRight.x, upRight.y, upRight.z)
+        glEnd()
 
-        leftDirection = upLeft.copy()
-        leftDirection.sub(downLeft)
-        rightDirection = upRight.copy()
-        rightDirection.sub(downRight)
-        y = 1
-        height = min(leftDirection.getLength(), rightDirection.getLength())
-        leftDirection.setLength(1)
-        rightDirection.setLength(1)
-        while y < height:
-            left = downLeft.copy()
-            left.add(leftDirection)
-            right = downRight.copy()
-            right.add(rightDirection)
-            glBegin(GL_LINES)
-            glVertex3f(left.x, left.y, left.z)
-            glVertex3f(right.x, right.y, right.z)
-            glEnd()
-            leftDirection.setLength(leftDirection.getLength() + 1)
-            rightDirection.setLength(rightDirection.getLength() + 1)
-            y += 1
+        glBegin(GL_LINES)
+        glVertex3f(downRight.x, downRight.y, downRight.z)
+        glVertex3f(upLeft.x, upLeft.y, upLeft.z)
+        glEnd()
 
 
 def makeDebugRenderer(resolver):

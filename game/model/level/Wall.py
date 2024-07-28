@@ -1,6 +1,7 @@
 from game.anx.PlayerConstants import PlayerConstants
 from game.calc.Line import Line
 from game.calc.Vector3 import Vector3
+from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 from game.model.level.Orientation import Orientation
 
@@ -26,16 +27,22 @@ class Wall:
 
     def calculateWallCrossLines(self):
         crossDirection = self.frontNormal.copy()
-        crossDirection.setLength(PlayerConstants.xyLengthHalf)
+        crossDirection.setLength(self.getCrossLineLength())
         self.crossLine.startPoint = self.startPoint.copy()
         self.crossLine.endPoint = self.endPoint.copy()
         self.crossLine.startPoint.add(crossDirection)
         self.crossLine.endPoint.add(crossDirection)
         wallDirection = self.endPoint.getDirectionTo(self.startPoint)
-        wallDirection.setLength(PlayerConstants.xyLengthHalf)
+        wallDirection.setLength(self.getCrossLineLength())
         self.crossLine.startPoint.sub(wallDirection)
         self.crossLine.endPoint.add(wallDirection)
         self.crossLineDirection = self.crossLine.endPoint.getDirectionTo(self.crossLine.startPoint)
+
+    def getCrossLineLength(self):
+        if self.orientation == Orientation.diagonal:
+            return PlayerConstants.xyLengthHalf * Math.sqrt(2)
+        else:
+            return PlayerConstants.xyLengthHalf
 
     def validate(self):
         assert self.startPoint != self.endPoint
