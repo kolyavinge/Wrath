@@ -20,6 +20,8 @@ class LevelAurora(Level):
         self.makeRoom2()
         self.makeRoom3()
         self.makePass1()
+        self.makePass2()
+        self.makePass3()
         self.makePass4()
         self.makePass5()
         self.setPlayerPosition()
@@ -486,6 +488,12 @@ class LevelAurora(Level):
         joinLine.frontNormal = Vector3(-1, 0, 0)
         joinLine.commit()
         self.addJoinLine(joinLine)
+
+    def makePass2(self):
+        pass
+
+    def makePass3(self):
+        pass
 
     def makePass4(self):
         wall = Wall()

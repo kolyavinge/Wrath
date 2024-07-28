@@ -14,6 +14,8 @@ class LevelSegmentVisibilityUpdater:
     def update(self):
         player = self.gameData.player
         if player.hasMoved or player.hasTurned:
+            self.gameData.visibleLevelSegments = self.gameData.level.visibilityTree.getAllLevelSegments()
+            return
             self.gameData.visibleLevelSegments = set()
             checkedJoinLines = set()
             self.cameraLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, self.gameData.camera.position)

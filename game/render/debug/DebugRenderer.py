@@ -64,7 +64,7 @@ class DebugRenderer:
         glDisable(GL_DEPTH_TEST)
 
     def renderVisibleWalls(self):
-        glEnable(GL_BLEND)
+        # glEnable(GL_BLEND)
         glEnable(GL_DEPTH_TEST)
         for levelSegment in self.gameData.visibleLevelSegments:
             for wall in levelSegment.walls:
@@ -72,10 +72,11 @@ class DebugRenderer:
                 endPointUp = wall.endPoint.copy()
                 startPointUp.z += wall.height
                 endPointUp.z += wall.height
-                glColor4f(1, 1, 1, 0.2)
+                glColor3f(0.5, 0.5, 0.5)
+                # glColor4f(1, 1, 1, 0.2)
                 self.renderGridQuad(wall.startPoint, wall.endPoint, startPointUp, endPointUp)
         glDisable(GL_DEPTH_TEST)
-        glDisable(GL_BLEND)
+        # glDisable(GL_BLEND)
 
     def renderVisibleFloors(self):
         glEnable(GL_DEPTH_TEST)
