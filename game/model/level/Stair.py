@@ -24,7 +24,7 @@ class Stair(Floor):
         position.sub(self.startBasePoint)
         position.z = 0
         projectedLength = position.dotProduct(self.stepDirection2d)
-        z = (int(projectedLength / self.stepLength) + 1) * self.stepHeight
+        z = (int(projectedLength / self.stepLength) + 1) * self.stepHeight + self.startBasePoint.z
         z = Math.min(z, self.maxZ)
 
         return z

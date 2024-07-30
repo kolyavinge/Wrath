@@ -138,7 +138,6 @@ class LevelAurora(Level):
         joinLine.startPoint = Vector3(70, 60, 2)
         joinLine.endPoint = Vector3(150, 60, 2)
         joinLine.frontNormal = Vector3(0, 1, 0)
-        joinLine.commit()
         self.addJoinLine(joinLine)
 
     def makeRoom2(self):
@@ -479,18 +478,112 @@ class LevelAurora(Level):
         joinLine.startPoint = Vector3(150, 50, 2)
         joinLine.endPoint = Vector3(150, 60, 2)
         joinLine.frontNormal = Vector3(-1, 0, 0)
-        joinLine.commit()
         self.addJoinLine(joinLine)
 
         joinLine = LevelSegmentJoinLine()
         joinLine.startPoint = Vector3(180, 50, 3)
         joinLine.endPoint = Vector3(180, 60, 3)
         joinLine.frontNormal = Vector3(-1, 0, 0)
-        joinLine.commit()
         self.addJoinLine(joinLine)
 
     def makePass2(self):
-        pass
+        wall = Wall()
+        wall.startPoint = Vector3(40, 120, 4)
+        wall.endPoint = Vector3(50, 120, 4)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(50, 120, 4)
+        wall.endPoint = Vector3(70, 120, 0)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(40, 50, 4)
+        wall.endPoint = Vector3(40, 120, 4)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(40, 50, 4)
+        wall.endPoint = Vector3(50, 50, 4)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(50, 50, 4)
+        wall.endPoint = Vector3(70, 50, 8)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(50, 110, 4)
+        wall.endPoint = Vector3(70, 110, 0)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(50, 60, 4)
+        wall.endPoint = Vector3(50, 110, 4)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(50, 60, 4)
+        wall.endPoint = Vector3(70, 60, 8)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        self.addWall(wall)
+
+        stair = Stair()
+        stair.downLeft = Vector3(50, 110, 4)
+        stair.downRight = Vector3(70, 110, 0)
+        stair.upLeft = Vector3(50, 120, 4)
+        stair.upRight = Vector3(70, 120, 0)
+        stair.leftFrontNormal = Vector3(1, 0, 0)
+        stair.rightFrontNormal = Vector3(-1, 0, 0)
+        stair.upFrontNormal = Vector3(0, -1, 0)
+        stair.downFrontNormal = Vector3(0, 1, 0)
+        stair.startBasePoint = Vector3(70, 110, 0)
+        stair.endBasePoint = Vector3(50, 110, 4)
+        stair.stepsCount = 8
+        stair.commit()
+        self.addFloor(stair)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(40, 120, 4)
+        floor.downRight = Vector3(50, 120, 4)
+        floor.upLeft = Vector3(40, 50, 4)
+        floor.upRight = Vector3(50, 50, 4)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = 4
+        self.addFloor(floor)
+
+        stair = Stair()
+        stair.downLeft = Vector3(50, 50, 4)
+        stair.downRight = Vector3(70, 50, 8)
+        stair.upLeft = Vector3(50, 60, 4)
+        stair.upRight = Vector3(70, 60, 8)
+        stair.leftFrontNormal = Vector3(1, 0, 0)
+        stair.rightFrontNormal = Vector3(-1, 0, 0)
+        stair.upFrontNormal = Vector3(0, -1, 0)
+        stair.downFrontNormal = Vector3(0, 1, 0)
+        stair.startBasePoint = Vector3(50, 50, 4)
+        stair.endBasePoint = Vector3(70, 50, 8)
+        stair.stepsCount = 8
+        stair.commit()
+        self.addFloor(stair)
 
     def makePass3(self):
         pass
