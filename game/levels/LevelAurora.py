@@ -586,7 +586,115 @@ class LevelAurora(Level):
         self.addFloor(stair)
 
     def makePass3(self):
-        pass
+        wall = Wall()
+        wall.startPoint = Vector3(130, 160, 0)
+        wall.endPoint = Vector3(130, 170, 1)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(130, 170, 1)
+        wall.endPoint = Vector3(130, 180, 1)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(130, 180, 1)
+        wall.endPoint = Vector3(140, 180, 1)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(140, 180, 1)
+        wall.endPoint = Vector3(240, 180, 12)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(240, 160, 12)
+        wall.endPoint = Vector3(240, 180, 12)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(140, 160, 0)
+        wall.endPoint = Vector3(140, 170, 1)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(140, 170, 1)
+        wall.endPoint = Vector3(230, 170, 12)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(230, 160, 12)
+        wall.endPoint = Vector3(230, 170, 12)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        self.addWall(wall)
+
+        floor = PlaneFloor()
+        floor.downLeft = Vector3(130, 160, 0)
+        floor.downRight = Vector3(140, 160, 0)
+        floor.upLeft = Vector3(130, 170, 1)
+        floor.upRight = Vector3(140, 170, 1)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        v = floor.upRight.getDirectionTo(floor.downRight)
+        floor.upNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
+        floor.upNormal.normalize()
+        floor.commit()
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(130, 170, 1)
+        floor.downRight = Vector3(140, 170, 1)
+        floor.upLeft = Vector3(130, 180, 1)
+        floor.upRight = Vector3(140, 180, 1)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = 1
+        self.addFloor(floor)
+
+        floor = PlaneFloor()
+        floor.downLeft = Vector3(140, 170, 1)
+        floor.downRight = Vector3(230, 170, 12)
+        floor.upLeft = Vector3(140, 180, 1)
+        floor.upRight = Vector3(230, 180, 12)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        v = floor.upRight.getDirectionTo(floor.upLeft)
+        floor.upNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
+        floor.upNormal.normalize()
+        floor.commit()
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(230, 160, 12)
+        floor.downRight = Vector3(240, 160, 12)
+        floor.upLeft = Vector3(230, 180, 12)
+        floor.upRight = Vector3(240, 180, 12)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = 12
+        self.addFloor(floor)
 
     def makePass4(self):
         wall = Wall()
