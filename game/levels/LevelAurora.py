@@ -1,6 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
+from game.engine.bsp.SplitLine import SplitLine
 from game.lib.Math import Math
 from game.model.level.Ceiling import Ceiling
 from game.model.level.FlatFloor import FlatFloor
@@ -24,6 +25,7 @@ class LevelAurora(Level):
         self.makePass3()
         self.makePass4()
         self.makePass5()
+        self.makeJoinLines()
         self.setPlayerPosition()
 
     def makeRoom1(self):
@@ -158,12 +160,6 @@ class LevelAurora(Level):
         floor.z = 0
         self.addFloor(floor)
 
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(70, 60, 2)
-        joinLine.endPoint = Vector3(150, 60, 2)
-        joinLine.frontNormal = Vector3(0, 1, 0)
-        self.addJoinLine(joinLine)
-
     def makeRoom2(self):
         wallHeight = 12
         z = 3
@@ -186,24 +182,24 @@ class LevelAurora(Level):
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(190, 90, z)
-        wall.endPoint = Vector3(210, 90, z)
+        wall.startPoint = Vector3(190, 90 + 0.01, z)
+        wall.endPoint = Vector3(210, 90 + 0.01, z)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
         wall.height = wallHeight
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(210, 90, 6)
-        wall.endPoint = Vector3(220, 90, 6)
+        wall.startPoint = Vector3(210, 90 + 0.01, 6)
+        wall.endPoint = Vector3(220, 90 + 0.01, 6)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
         wall.height = wallHeight - 3
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(220, 90, z)
-        wall.endPoint = Vector3(250, 90, z)
+        wall.startPoint = Vector3(220, 90 + 0.01, z)
+        wall.endPoint = Vector3(250, 90 + 0.01, z)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
         wall.height = wallHeight
@@ -506,18 +502,6 @@ class LevelAurora(Level):
         floor.commit()
         self.addFloor(floor)
 
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(150, 50, 2)
-        joinLine.endPoint = Vector3(150, 60, 2)
-        joinLine.frontNormal = Vector3(-1, 0, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(180, 50, 3)
-        joinLine.endPoint = Vector3(180, 60, 3)
-        joinLine.frontNormal = Vector3(-1, 0, 0)
-        self.addJoinLine(joinLine)
-
     def makePass2(self):
         wall = Wall()
         wall.startPoint = Vector3(40, 120, 4)
@@ -784,6 +768,119 @@ class LevelAurora(Level):
         floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = 0
         self.addFloor(floor)
+
+    def getSplitLines(self):
+        result = []
+
+        s = SplitLine()
+        s.startPoint = Vector3(0, 90, 0)
+        s.endPoint = Vector3(300, 90, 0)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitLine()
+        s.startPoint = Vector3(150, 0, 0)
+        s.endPoint = Vector3(150, 90, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitLine()
+        s.startPoint = Vector3(70, 0, 0)
+        s.endPoint = Vector3(70, 90, 0)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitLine()
+        s.startPoint = Vector3(0, 160, 0)
+        s.endPoint = Vector3(300, 160, 0)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitLine()
+        s.startPoint = Vector3(170, 90, 0)
+        s.endPoint = Vector3(170, 160, 0)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitLine()
+        s.startPoint = Vector3(70, 90, 0)
+        s.endPoint = Vector3(70, 160, 0)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitLine()
+        s.startPoint = Vector3(140, 90, 0)
+        s.endPoint = Vector3(140, 160, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        i = 0
+        while i < len(result):
+            result[i].priority = i
+            i += 1
+
+        return result
+
+    def makeJoinLines(self):
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(100, 90, 1)
+        joinLine.endPoint = Vector3(110, 90, 1)
+        joinLine.frontNormal = Vector3(0, -1, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(210, 90 + 0.01, 4)
+        joinLine.endPoint = Vector3(220, 90 + 0.01, 4)
+        joinLine.frontNormal = Vector3(0, -1, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(40, 90, 5)
+        joinLine.endPoint = Vector3(50, 90, 5)
+        joinLine.frontNormal = Vector3(0, -1, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(150, 50, 2)
+        joinLine.endPoint = Vector3(150, 60, 2)
+        joinLine.frontNormal = Vector3(-1, 0, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(70, 50, 10)
+        joinLine.endPoint = Vector3(70, 60, 10)
+        joinLine.frontNormal = Vector3(1, 0, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(130, 160, 2)
+        joinLine.endPoint = Vector3(140, 160, 2)
+        joinLine.frontNormal = Vector3(0, -1, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(230, 160, 13)
+        joinLine.endPoint = Vector3(240, 160, 13)
+        joinLine.frontNormal = Vector3(0, -1, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(170, 120, 4)
+        joinLine.endPoint = Vector3(170, 130, 4)
+        joinLine.frontNormal = Vector3(1, 0, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(70, 110, 2)
+        joinLine.endPoint = Vector3(70, 120, 2)
+        joinLine.frontNormal = Vector3(1, 0, 0)
+        self.addJoinLine(joinLine)
+
+        joinLine = LevelSegmentJoinLine()
+        joinLine.startPoint = Vector3(140, 120, 2)
+        joinLine.endPoint = Vector3(140, 130, 2)
+        joinLine.frontNormal = Vector3(-1, 0, 0)
+        self.addJoinLine(joinLine)
 
     def setPlayerPosition(self):
         self.playerPosition = Vector3(105, 75, 0)

@@ -40,10 +40,10 @@ class LevelManager:
         self.playerTurnLogic = playerTurnLogic
 
     def loadFirstLevel(self):
-        level = self.levelLoader.loadFromFile()
+        level = self.levelLoader.load()
         self.gameData.level = level
         self.bspTreeBuilder.build(level.collisionTree, self.splitLineBuilder.getForCollisions(level))
-        self.bspTreeBuilder.build(level.visibilityTree, self.splitLineBuilder.getForVisibility(level))
+        self.bspTreeBuilder.build(level.visibilityTree, level.getSplitLines())
         self.segmentWallAnalyzer.analyzeWalls(level, level.collisionTree)
         self.segmentFloorAnalyzer.analyzeFloors(level, level.collisionTree)
         self.segmentCeilingAnalyzer.analyzeCeilings(level, level.collisionTree)

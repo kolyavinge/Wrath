@@ -5,7 +5,7 @@ from game.levels.LevelLoop import LevelLoop
 
 class LevelLoader:
 
-    def loadFromFile(self):
+    def load(self):
         level = LevelAurora()
         level.validate()
 
