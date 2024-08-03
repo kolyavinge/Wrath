@@ -163,6 +163,114 @@ class LevelAurora(Level):
         floor.z = 0
         self.addFloor(floor)
 
+        # second floor
+
+        z = 8
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(70, 30, z)
+        floor.downRight = Vector3(80, 30, z)
+        floor.upLeft = Vector3(70, 60, z)
+        floor.upRight = Vector3(80, 60, z)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = z
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(90, 10, z)
+        floor.downRight = Vector3(90, 20, z)
+        floor.upLeft = Vector3(70, 30, z)
+        floor.upRight = Vector3(80, 30, z)
+        floor.leftFrontNormal = Vector3(1, 1, 0)
+        floor.leftFrontNormal.normalize()
+        floor.rightFrontNormal = Vector3(-1, -1, 0)
+        floor.rightFrontNormal.normalize()
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = z
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(90, 10, z)
+        floor.downRight = Vector3(130, 10, z)
+        floor.upLeft = Vector3(90, 20, z)
+        floor.upRight = Vector3(130, 20, z)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = z
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(130, 10, z)
+        floor.downRight = Vector3(150, 30, z)
+        floor.upLeft = Vector3(130, 20, z)
+        floor.upRight = Vector3(140, 30, z)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(-1, 1, 0)
+        floor.upFrontNormal.normalize()
+        floor.downFrontNormal = Vector3(-1, -1, 0)
+        floor.downFrontNormal.normalize()
+        floor.z = z
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(140, 30, z)
+        floor.downRight = Vector3(150, 30, z)
+        floor.upLeft = Vector3(140, 60, z)
+        floor.upRight = Vector3(150, 60, z)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = z
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(140, 60, z)
+        floor.downRight = Vector3(150, 60, z)
+        floor.upLeft = Vector3(130, 70, z)
+        floor.upRight = Vector3(130, 80, z)
+        floor.leftFrontNormal = Vector3(-1, -1, 0)
+        floor.leftFrontNormal.normalize()
+        floor.rightFrontNormal = Vector3(1, 1, 0)
+        floor.rightFrontNormal.normalize()
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = z
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(90, 70, z)
+        floor.downRight = Vector3(130, 70, z)
+        floor.upLeft = Vector3(90, 80, z)
+        floor.upRight = Vector3(130, 80, z)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = z
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(70, 60, z)
+        floor.downRight = Vector3(80, 60, z)
+        floor.upLeft = Vector3(90, 80, z)
+        floor.upRight = Vector3(90, 70, z)
+        floor.leftFrontNormal = Vector3(1, -1, 0)
+        floor.leftFrontNormal.normalize()
+        floor.rightFrontNormal = Vector3(-1, -1, 0)
+        floor.rightFrontNormal.normalize()
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = z
+        self.addFloor(floor)
+
     def makeRoom2(self):
         wallHeight = 12
         z = 3
@@ -291,6 +399,46 @@ class LevelAurora(Level):
         floor.downRight = Vector3(270, 90, z)
         floor.upLeft = Vector3(170, 160, z)
         floor.upRight = Vector3(270, 160, z)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = z
+        self.addFloor(floor)
+
+        # second floor
+
+        z = 12
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(230, 90, z)
+        floor.downRight = Vector3(240, 90, z)
+        floor.upLeft = Vector3(230, 160, z)
+        floor.upRight = Vector3(240, 160, z)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = z
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(200, 90, z)
+        floor.downRight = Vector3(210, 90, z)
+        floor.upLeft = Vector3(200, 160, z)
+        floor.upRight = Vector3(210, 160, z)
+        floor.leftFrontNormal = Vector3(1, 0, 0)
+        floor.rightFrontNormal = Vector3(-1, 0, 0)
+        floor.upFrontNormal = Vector3(0, -1, 0)
+        floor.downFrontNormal = Vector3(0, 1, 0)
+        floor.z = z
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(210, 120, z)
+        floor.downRight = Vector3(230, 120, z)
+        floor.upLeft = Vector3(210, 130, z)
+        floor.upRight = Vector3(230, 130, z)
         floor.leftFrontNormal = Vector3(1, 0, 0)
         floor.rightFrontNormal = Vector3(-1, 0, 0)
         floor.upFrontNormal = Vector3(0, -1, 0)
@@ -913,5 +1061,5 @@ class LevelAurora(Level):
         self.addJoinLine(joinLine)
 
     def setPlayerPosition(self):
-        self.playerPosition = Vector3(105, 75, 0)
-        self.playerFrontNormal = Vector3(0, 1, 0)
+        self.playerPosition = Vector3(190, 130, 2)
+        self.playerFrontNormal = Vector3(1, 0, 0)

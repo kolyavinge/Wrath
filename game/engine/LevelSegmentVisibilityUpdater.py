@@ -19,7 +19,6 @@ class LevelSegmentVisibilityUpdater:
             self.cameraLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, self.gameData.camera.position)
             for levelSegment in player.visibilityLevelSegments:
                 self.checkLevelSegment(levelSegment, checkedJoinLines)
-            print(len(self.gameData.visibleLevelSegments))
 
     def checkLevelSegment(self, levelSegment, checkedJoinLines):
         self.gameData.visibleLevelSegments.add(levelSegment)
