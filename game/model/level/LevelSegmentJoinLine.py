@@ -16,3 +16,6 @@ class LevelSegmentJoinLine:
         self.middlePoint.add(self.startPoint)
         self.points = []
         Vector3Utils.fromStartToEnd(self.startPoint, self.endPoint, 1.0, lambda point: self.points.append(point))
+
+    def __str__(self):
+        return f"{self.startPoint} : {self.endPoint}"

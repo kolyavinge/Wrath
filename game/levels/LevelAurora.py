@@ -80,6 +80,7 @@ class LevelAurora(Level):
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
         wall.height = wallHeight - 3
+        wall.checkSegmentVisibility = False
         self.addWall(wall)
 
         wall = Wall()
@@ -113,6 +114,7 @@ class LevelAurora(Level):
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
         wall.height = wallHeight - 3
+        wall.checkSegmentVisibility = False
         self.addWall(wall)
 
         wall = Wall()
@@ -138,6 +140,7 @@ class LevelAurora(Level):
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
         wall.height = 8
+        wall.checkSegmentVisibility = False
         self.addWall(wall)
 
         wall = Wall()
@@ -195,6 +198,7 @@ class LevelAurora(Level):
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
         wall.height = wallHeight - 3
+        wall.checkSegmentVisibility = False
         self.addWall(wall)
 
         wall = Wall()
@@ -245,6 +249,7 @@ class LevelAurora(Level):
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
         wall.height = 9
+        wall.checkSegmentVisibility = False
         self.addWall(wall)
 
         wall = Wall()
@@ -278,6 +283,7 @@ class LevelAurora(Level):
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
         wall.height = wallHeight - 3
+        wall.checkSegmentVisibility = False
         self.addWall(wall)
 
         floor = FlatFloor()
@@ -829,8 +835,8 @@ class LevelAurora(Level):
 
     def makeJoinLines(self):
         joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(100, 80, 1)
-        joinLine.endPoint = Vector3(110, 80, 1)
+        joinLine.startPoint = Vector3(100, 80, 2)
+        joinLine.endPoint = Vector3(110, 80, 2)
         joinLine.frontNormal = Vector3(0, -1, 0)
         self.addJoinLine(joinLine)
 

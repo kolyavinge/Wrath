@@ -20,6 +20,8 @@ class LevelSegmentWallAnalyzer:
         levelSegments = self.segmentItemFinder.getItemLevelSegments(bspTree, VectorItemPointsSource(startPoint, endPoint))
         for levelSegment in levelSegments:
             levelSegment.walls.append(wall)
+            if wall.checkSegmentVisibility:
+                levelSegment.checkSegmentVisibilityWalls.append(wall)
 
 
 def makeLevelSegmentWallAnalyzer(resolver):

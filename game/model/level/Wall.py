@@ -16,6 +16,7 @@ class Wall:
         self.crossLine = Line()
         self.crossLineDirection = Vector3()
         self.isPrimary = True
+        self.checkSegmentVisibility = True
         self.height = 3
 
     def commit(self):
