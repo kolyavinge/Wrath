@@ -821,7 +821,7 @@ class LevelAurora(Level):
         floor.rightFrontNormal = Vector3(-1, 0, 0)
         floor.upFrontNormal = Vector3(0, -1, 0)
         floor.downFrontNormal = Vector3(0, 1, 0)
-        v = floor.upRight.getDirectionTo(floor.downRight)
+        v = floor.downRight.getDirectionTo(floor.upRight)
         floor.upNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor.upNormal.normalize()
         floor.commit()
@@ -848,7 +848,7 @@ class LevelAurora(Level):
         floor.rightFrontNormal = Vector3(-1, 0, 0)
         floor.upFrontNormal = Vector3(0, -1, 0)
         floor.downFrontNormal = Vector3(0, 1, 0)
-        v = floor.upRight.getDirectionTo(floor.upLeft)
+        v = floor.upLeft.getDirectionTo(floor.upRight)
         floor.upNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor.upNormal.normalize()
         floor.commit()
@@ -890,7 +890,7 @@ class LevelAurora(Level):
         floor.rightFrontNormal = Vector3(-1, 0, 0)
         floor.upFrontNormal = Vector3(0, -1, 0)
         floor.downFrontNormal = Vector3(0, 1, 0)
-        v = floor.upRight.getDirectionTo(floor.upLeft)
+        v = floor.upLeft.getDirectionTo(floor.upRight)
         floor.upNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor.upNormal.normalize()
         floor.commit()
@@ -1061,5 +1061,5 @@ class LevelAurora(Level):
         self.addJoinLine(joinLine)
 
     def setPlayerPosition(self):
-        self.playerPosition = Vector3(190, 130, 2)
+        self.playerPosition = Vector3(140, 65, 8)
         self.playerFrontNormal = Vector3(1, 0, 0)

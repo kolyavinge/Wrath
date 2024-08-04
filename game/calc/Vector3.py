@@ -65,8 +65,8 @@ class Vector3:
         return Numeric.floatEquals(value, 1, eps)
 
     def getDirectionTo(self, vector):
-        direction = self.copy()
-        direction.sub(vector)
+        direction = vector.copy()
+        direction.sub(self)
 
         return direction
 

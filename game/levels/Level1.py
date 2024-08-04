@@ -162,7 +162,7 @@ class Level1(Level):
         floor4.rightFrontNormal = Vector3(-1, 0, 0)
         floor4.upFrontNormal = Vector3(0, -1, 0)
         floor4.downFrontNormal = Vector3(0, 1, 0)
-        rightDirection = floor4.downRight.getDirectionTo(floor4.downLeft)
+        rightDirection = floor4.downLeft.getDirectionTo(floor4.downRight)
         rightDirection.normalize()
         floor4.upNormal = Geometry.rotatePoint(rightDirection, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor4.commit()

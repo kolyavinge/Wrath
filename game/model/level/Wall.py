@@ -33,11 +33,11 @@ class Wall:
         self.crossLine.endPoint = self.endPoint.copy()
         self.crossLine.startPoint.add(crossDirection)
         self.crossLine.endPoint.add(crossDirection)
-        wallDirection = self.endPoint.getDirectionTo(self.startPoint)
+        wallDirection = self.startPoint.getDirectionTo(self.endPoint)
         wallDirection.setLength(self.getCrossLineLength())
         self.crossLine.startPoint.sub(wallDirection)
         self.crossLine.endPoint.add(wallDirection)
-        self.crossLineDirection = self.crossLine.endPoint.getDirectionTo(self.crossLine.startPoint)
+        self.crossLineDirection = self.crossLine.startPoint.getDirectionTo(self.crossLine.endPoint)
 
     def getCrossLineLength(self):
         if self.orientation == Orientation.diagonal:
@@ -49,7 +49,7 @@ class Wall:
         assert self.startPoint != self.endPoint
         assert self.crossLine.startPoint != self.crossLine.endPoint
         assert Numeric.floatEquals(self.frontNormal.getLength(), 1)
-        wallDirection = self.endPoint.getDirectionTo(self.startPoint)
+        wallDirection = self.startPoint.getDirectionTo(self.endPoint)
         assert wallDirection.getLength() >= 1
         if self.orientation == Orientation.horizontal:
             assert self.startPoint.y == self.endPoint.y

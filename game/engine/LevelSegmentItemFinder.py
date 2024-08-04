@@ -6,7 +6,7 @@ class VectorItemPointsSource:
     def __init__(self, startPoint, endPoint):
         self.startPoint = startPoint.copy()
         self.endPoint = endPoint.copy()
-        step = self.endPoint.getDirectionTo(self.startPoint)
+        step = self.startPoint.getDirectionTo(self.endPoint)
         step.setLength(0.1)
         self.startPoint.add(step)
         self.endPoint.sub(step)
@@ -18,7 +18,7 @@ class VectorItemPointsSource:
         return self.endPoint
 
     def getMiddlePointOrNone(self, startPoint, endPoint):
-        middlePoint = endPoint.getDirectionTo(startPoint)
+        middlePoint = startPoint.getDirectionTo(endPoint)
         middlePoint.div(2)
         if middlePoint.getLength() > 0.1:
             middlePoint.add(startPoint)

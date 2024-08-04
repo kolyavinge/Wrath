@@ -2,7 +2,7 @@ class Vector3Utils:
 
     @staticmethod
     def fromStartToEnd(startPoint, endPoint, stepLength, action):
-        stepDirection = endPoint.getDirectionTo(startPoint)
+        stepDirection = startPoint.getDirectionTo(endPoint)
         stepsCount = stepDirection.getLength() / stepLength
         stepDirection.setLength(stepLength)
         point = startPoint.copy()

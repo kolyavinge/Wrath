@@ -28,7 +28,7 @@ class PlayerWallCollisionProcessor:
                     self.hasCollisions = True
 
     def isPlayerBehindWall(self, player, wall):
-        behindDirection = player.nextCenterPoint.getDirectionTo(wall.crossLine.startPoint)
+        behindDirection = wall.crossLine.startPoint.getDirectionTo(player.nextCenterPoint)
         dotProduct = behindDirection.dotProduct(wall.frontNormal)
 
         return dotProduct < 0
@@ -69,7 +69,7 @@ class PlayerWallCollisionProcessor:
         elif wall.orientation == Orientation.vertical:
             return (wall.crossLine.startPoint.x, playerNextCenterPoint.y)
         elif wall.orientation == Orientation.diagonal:
-            playerDirection = playerNextCenterPoint.getDirectionTo(wall.crossLine.startPoint)
+            playerDirection = wall.crossLine.startPoint.getDirectionTo(playerNextCenterPoint)
             projected = Geometry.getProjectedVector(playerDirection, wall.crossLineDirection)
             projected.add(wall.crossLine.startPoint)
 

@@ -11,7 +11,7 @@ class LevelSegmentJoinLine:
         self.backLevelSegment = None
 
     def commit(self):
-        self.middlePoint = self.endPoint.getDirectionTo(self.startPoint)
+        self.middlePoint = self.startPoint.getDirectionTo(self.endPoint)
         self.middlePoint.div(2)
         self.middlePoint.add(self.startPoint)
         self.points = []
