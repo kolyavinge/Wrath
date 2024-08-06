@@ -34,10 +34,10 @@ class GameUpdater:
         self.playerMoveLogic.process()
         self.playerTurnLogic.process()
         self.playerWallCollisionProcessor.processCollisions()
-        self.playerZUpdater.update()
-        self.playerLevelSegmentsUpdater.update()
+        self.playerZUpdater.updateIfPlayerMoved()
+        self.playerLevelSegmentsUpdater.updateIfPlayerMoved()
         self.cameraUpdater.update()
-        self.levelSegmentVisibilityUpdater.update()
+        self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
         self.playerPositionUpdater.update()
 
 

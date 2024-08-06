@@ -8,13 +8,16 @@ class PlayerLevelSegmentsUpdater:
         self.gameData = gameData
         self.traversal = traversal
 
+    def updateIfPlayerMoved(self):
+        if self.gameData.player.hasMoved:
+            self.update()
+
     def update(self):
         player = self.gameData.player
-        if player.hasMoved:
-            player.collisionLevelSegments = set()
-            player.visibilityLevelSegments = set()
-            self.updateLevelSegments(self.gameData.level.collisionTree, player.collisionLevelSegments)
-            self.updateLevelSegments(self.gameData.level.visibilityTree, player.visibilityLevelSegments)
+        player.collisionLevelSegments = set()
+        player.visibilityLevelSegments = set()
+        self.updateLevelSegments(self.gameData.level.collisionTree, player.collisionLevelSegments)
+        self.updateLevelSegments(self.gameData.level.visibilityTree, player.visibilityLevelSegments)
 
     def updateLevelSegments(self, bspTree, playerLevelSegments):
         player = self.gameData.player

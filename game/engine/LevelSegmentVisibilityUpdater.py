@@ -11,14 +11,18 @@ class LevelSegmentVisibilityUpdater:
         self.traversal = traversal
         self.maxCosLookDirection = Math.cos(self.gameData.camera.viewAngleRadians)
 
-    def update(self):
+    def updateIfPlayerMovedOrTurned(self):
         player = self.gameData.player
         if player.hasMoved or player.hasTurned:
-            self.gameData.visibleLevelSegments = set()
-            checkedJoinLines = set()
-            self.cameraLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, self.gameData.camera.position)
-            for levelSegment in player.visibilityLevelSegments:
-                self.checkLevelSegment(levelSegment, checkedJoinLines)
+            self.update()
+
+    def update(self):
+        player = self.gameData.player
+        self.gameData.visibleLevelSegments = set()
+        checkedJoinLines = set()
+        self.cameraLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, self.gameData.camera.position)
+        for levelSegment in player.visibilityLevelSegments:
+            self.checkLevelSegment(levelSegment, checkedJoinLines)
 
     def checkLevelSegment(self, levelSegment, checkedJoinLines):
         self.gameData.visibleLevelSegments.add(levelSegment)

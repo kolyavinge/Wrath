@@ -222,6 +222,26 @@ class DebugRenderer:
 
         glBegin(GL_LINES)
         glVertex3f(downLeft.x, downLeft.y, downLeft.z)
+        glVertex3f(upLeft.x, upLeft.y, upLeft.z)
+        glEnd()
+
+        glBegin(GL_LINES)
+        glVertex3f(downRight.x, downRight.y, downRight.z)
+        glVertex3f(upRight.x, upRight.y, upRight.z)
+        glEnd()
+
+        glBegin(GL_LINES)
+        glVertex3f(downLeft.x, downLeft.y, downLeft.z)
+        glVertex3f(downRight.x, downRight.y, downRight.z)
+        glEnd()
+
+        glBegin(GL_LINES)
+        glVertex3f(upLeft.x, upLeft.y, upLeft.z)
+        glVertex3f(upRight.x, upRight.y, upRight.z)
+        glEnd()
+
+        glBegin(GL_LINES)
+        glVertex3f(downLeft.x, downLeft.y, downLeft.z)
         glVertex3f(upRight.x, upRight.y, upRight.z)
         glEnd()
 
