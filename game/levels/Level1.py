@@ -76,7 +76,6 @@ class Level1(Level):
         wall9.endPoint = Vector3(2, 7, 0)
         wall9.orientation = Orientation.vertical
         wall9.frontNormal = Vector3(-1, 0, 0)
-        wall9.isPrimary = False
         wall9.commit()
 
         wall10 = Wall()
@@ -84,7 +83,6 @@ class Level1(Level):
         wall10.endPoint = Vector3(3, 7, 0)
         wall10.orientation = Orientation.horizontal
         wall10.frontNormal = Vector3(0, 1, 0)
-        wall10.isPrimary = False
         wall10.commit()
 
         wall11 = Wall()
@@ -92,7 +90,6 @@ class Level1(Level):
         wall11.endPoint = Vector3(3, 7, 0)
         wall11.orientation = Orientation.vertical
         wall11.frontNormal = Vector3(1, 0, 0)
-        wall11.isPrimary = False
         wall11.commit()
 
         wall12 = Wall()
@@ -100,7 +97,6 @@ class Level1(Level):
         wall12.endPoint = Vector3(3, 6, 0)
         wall12.orientation = Orientation.horizontal
         wall12.frontNormal = Vector3(0, -1, 0)
-        wall12.isPrimary = False
         wall12.commit()
         # pole
 

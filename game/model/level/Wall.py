@@ -15,7 +15,6 @@ class Wall:
         self.frontNormal = Vector3()
         self.crossLine = Line()
         self.crossLineDirection = Vector3()
-        self.isPrimary = True
         self.checkSegmentVisibility = True
         self.height = 3
 

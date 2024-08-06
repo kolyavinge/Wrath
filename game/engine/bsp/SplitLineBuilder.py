@@ -15,13 +15,6 @@ class SplitLineBuilder:
 
         return result
 
-    def getForVisibility(self, level):
-        result = []
-        self.makeFromFlatFloors(level, result)
-        self.makeFromPrimaryWalls(level, result)
-
-        return result
-
     def makeFromFlatFloors(self, level, result):
         zlist = list(set([f.z if isinstance(f, FlatFloor) else 0 for f in level.floors]))
         for z in zlist:
@@ -50,17 +43,6 @@ class SplitLineBuilder:
             s.frontNormal = wall.frontNormal
             s.sortOrder = wall.startPoint.x if wall.orientation == Orientation.vertical else wall.startPoint.y
             result.append(s)
-
-    def makeFromPrimaryWalls(self, level, result):
-        for wall in level.walls:
-            if wall.isPrimary:
-                s = SplitLine()
-                s.priority = 1
-                s.startPoint = wall.startPoint
-                s.endPoint = wall.endPoint
-                s.frontNormal = wall.frontNormal
-                s.sortOrder = wall.startPoint.x if wall.orientation == Orientation.vertical else wall.startPoint.y
-                result.append(s)
 
     def makeFromFloors(self, level, result):
         for floor in level.floors:
