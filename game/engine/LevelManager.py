@@ -1,7 +1,6 @@
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.bsp.SplitLineBuilder import SplitLineBuilder
 from game.engine.CameraUpdater import CameraUpdater
-from game.engine.EmptyLevelSegmentCleaner import EmptyLevelSegmentCleaner
 from game.engine.GameData import GameData
 from game.engine.LevelLoader import LevelLoader
 from game.engine.LevelSegmentCeilingAnalyzer import LevelSegmentCeilingAnalyzer
@@ -26,7 +25,6 @@ class LevelManager:
         segmentFloorAnalyzer,
         segmentCeilingAnalyzer,
         joinLineCeilingAnalyzer,
-        segmentCleaner,
         levelValidator,
         playerTurnLogic,
         playerLevelSegmentsUpdater,
@@ -41,7 +39,6 @@ class LevelManager:
         self.segmentFloorAnalyzer = segmentFloorAnalyzer
         self.segmentCeilingAnalyzer = segmentCeilingAnalyzer
         self.joinLineCeilingAnalyzer = joinLineCeilingAnalyzer
-        self.segmentCleaner = segmentCleaner
         self.levelValidator = levelValidator
         self.playerTurnLogic = playerTurnLogic
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
@@ -60,8 +57,6 @@ class LevelManager:
         self.segmentFloorAnalyzer.analyzeFloors(level, level.visibilityTree)
         self.segmentCeilingAnalyzer.analyzeCeilings(level, level.visibilityTree)
         self.joinLineCeilingAnalyzer.analyzeJoinLines(level, level.visibilityTree)
-        self.segmentCleaner.clean(level.collisionTree)
-        self.segmentCleaner.clean(level.visibilityTree)
         self.levelValidator.validate(level)
         self.playerTurnLogic.orientByFrontNormal(level.playerFrontNormal)
         self.gameData.player.moveNextPositionTo(level.playerPosition)
@@ -81,7 +76,6 @@ def makeLevelManager(resolver):
         resolver.resolve(LevelSegmentFloorAnalyzer),
         resolver.resolve(LevelSegmentCeilingAnalyzer),
         resolver.resolve(LevelSegmentJoinLineAnalyzer),
-        resolver.resolve(EmptyLevelSegmentCleaner),
         resolver.resolve(LevelValidator),
         resolver.resolve(PlayerTurnLogic),
         resolver.resolve(PlayerLevelSegmentsUpdater),

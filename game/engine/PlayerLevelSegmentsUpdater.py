@@ -20,8 +20,7 @@ class PlayerLevelSegmentsUpdater:
         self.updateLevelSegments(self.gameData.level.visibilityTree, player.visibilityLevelSegments)
 
     def updateLevelSegments(self, bspTree, playerLevelSegments):
-        player = self.gameData.player
-        border = player.nextBorder
+        border = self.gameData.player.nextBorder
 
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.bottom.downLeft)
         assert levelSegment is not None
