@@ -17,6 +17,7 @@ class Wall:
         self.crossLineDirection = Vector3()
         self.checkSegmentVisibility = True
         self.height = 3
+        self.info = ""
 
     def commit(self):
         self.upStartPoint = self.startPoint.copy()
