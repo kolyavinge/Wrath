@@ -1,4 +1,4 @@
-from game.model.level.BSPTree import BSPTree
+from game.engine.bsp.BSPTree import BSPTree
 
 
 class Level:

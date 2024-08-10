@@ -12,3 +12,6 @@ class Floor:
         self.rightFrontNormal = Vector3()
         self.upFrontNormal = Vector3()
         self.downFrontNormal = Vector3()
+
+    def getBorderPoints(self):
+        return [self.downLeft, self.downRight, self.upLeft, self.upRight]

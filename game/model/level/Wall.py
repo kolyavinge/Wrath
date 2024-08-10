@@ -45,6 +45,9 @@ class Wall:
         else:
             return PlayerConstants.xyLengthHalf
 
+    def getBorderPoints(self):
+        return [self.startPoint, self.endPoint, self.upStartPoint, self.upEndPoint]
+
     def validate(self):
         assert self.startPoint != self.endPoint
         assert self.crossLine.startPoint != self.crossLine.endPoint

@@ -9,3 +9,6 @@ class Ceiling:
         self.upLeft = Vector3()
         self.upRight = Vector3()
         self.frontNormal = Vector3()
+
+    def getBorderPoints(self):
+        return [self.downLeft, self.downRight, self.upLeft, self.upRight]
