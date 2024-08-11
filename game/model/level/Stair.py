@@ -28,15 +28,3 @@ class Stair(Floor):
         z = Math.min(z, self.maxZ)
 
         return z
-
-    def getBorderPoints(self):
-        return [
-            self.downLeft,
-            self.downRight,
-            self.upLeft,
-            self.upRight,
-            Vector3(self.downLeft.x, self.downLeft.y, self.getZ(self.downLeft.x, self.downLeft.y)),
-            Vector3(self.downRight.x, self.downRight.y, self.getZ(self.downRight.x, self.downRight.y)),
-            Vector3(self.upLeft.x, self.upLeft.y, self.getZ(self.upLeft.x, self.upLeft.y)),
-            Vector3(self.upRight.x, self.upRight.y, self.getZ(self.upRight.x, self.upRight.y)),
-        ]

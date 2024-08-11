@@ -2,6 +2,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.engine.bsp.SplitLine import SplitLine
+from game.engine.bsp.SplitPlane import SplitPlane
 from game.lib.Math import Math
 from game.model.level.Ceiling import Ceiling
 from game.model.level.FlatFloor import FlatFloor
@@ -1043,6 +1044,51 @@ class LevelAurora(Level):
         while i < len(result):
             result[i].priority = i
             i += 1
+
+        return result
+
+    def getSplitPlanes(self):
+        result = []
+
+        s = SplitPlane()
+        s.basePoint = Vector3(0, 80, 0)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(0, 90, 0)
+        s.frontNormal = Vector3(0, 1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(150, 0, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(70, 0, 0)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(0, 160, 0)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(170, 90, 0)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(70, 90, 0)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(140, 90, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
 
         return result
 
