@@ -1,7 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
-from game.engine.bsp.SplitLine import SplitLine
 from game.engine.bsp.SplitPlane import SplitPlane
 from game.lib.Math import Math
 from game.model.level.Ceiling import Ceiling
@@ -171,10 +170,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(150, 10, z)
         floor.upLeft = Vector3(70, 80, z)
         floor.upRight = Vector3(150, 80, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = 0
         self.addFloor(floor)
 
@@ -187,10 +182,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(80, 30, z)
         floor.upLeft = Vector3(70, 60, z)
         floor.upRight = Vector3(80, 60, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -199,12 +190,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(90, 20, z)
         floor.upLeft = Vector3(70, 30, z)
         floor.upRight = Vector3(80, 30, z)
-        floor.leftFrontNormal = Vector3(1, 1, 0)
-        floor.leftFrontNormal.normalize()
-        floor.rightFrontNormal = Vector3(-1, -1, 0)
-        floor.rightFrontNormal.normalize()
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -213,10 +198,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(130, 10, z)
         floor.upLeft = Vector3(90, 20, z)
         floor.upRight = Vector3(130, 20, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -225,12 +206,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(150, 30, z)
         floor.upLeft = Vector3(130, 20, z)
         floor.upRight = Vector3(140, 30, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(-1, 1, 0)
-        floor.upFrontNormal.normalize()
-        floor.downFrontNormal = Vector3(-1, -1, 0)
-        floor.downFrontNormal.normalize()
         floor.z = z
         self.addFloor(floor)
 
@@ -239,10 +214,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(150, 30, z)
         floor.upLeft = Vector3(140, 60, z)
         floor.upRight = Vector3(150, 60, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -251,12 +222,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(150, 60, z)
         floor.upLeft = Vector3(130, 70, z)
         floor.upRight = Vector3(130, 80, z)
-        floor.leftFrontNormal = Vector3(-1, -1, 0)
-        floor.leftFrontNormal.normalize()
-        floor.rightFrontNormal = Vector3(1, 1, 0)
-        floor.rightFrontNormal.normalize()
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -265,10 +230,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(130, 70, z)
         floor.upLeft = Vector3(90, 80, z)
         floor.upRight = Vector3(130, 80, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -277,12 +238,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(80, 60, z)
         floor.upLeft = Vector3(90, 80, z)
         floor.upRight = Vector3(90, 70, z)
-        floor.leftFrontNormal = Vector3(1, -1, 0)
-        floor.leftFrontNormal.normalize()
-        floor.rightFrontNormal = Vector3(-1, -1, 0)
-        floor.rightFrontNormal.normalize()
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -428,10 +383,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(270, 90, z)
         floor.upLeft = Vector3(170, 160, z)
         floor.upRight = Vector3(270, 160, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -444,10 +395,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(240, 90, z)
         floor.upLeft = Vector3(230, 160, z)
         floor.upRight = Vector3(240, 160, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -456,10 +403,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(210, 90, z)
         floor.upLeft = Vector3(200, 160, z)
         floor.upRight = Vector3(210, 160, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -468,10 +411,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(230, 120, z)
         floor.upLeft = Vector3(210, 130, z)
         floor.upRight = Vector3(230, 130, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -575,10 +514,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(110, 100, z)
         floor.upLeft = Vector3(70, 130, z)
         floor.upRight = Vector3(110, 130, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -587,10 +522,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(140, 130, z)
         floor.upLeft = Vector3(90, 160, z)
         floor.upRight = Vector3(140, 160, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -599,10 +530,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(140, 120, z)
         floor.upLeft = Vector3(110, 130, z)
         floor.upRight = Vector3(140, 130, z)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = z
         self.addFloor(floor)
 
@@ -662,10 +589,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(190, 40, 2)
         floor.upLeft = Vector3(150, 50, 0)
         floor.upRight = Vector3(190, 50, 2)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         v = floor.upRight.copy()
         v.sub(floor.upLeft)
         floor.upNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
@@ -678,10 +601,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(220, 40, 2)
         floor.upLeft = Vector3(190, 70, 2)
         floor.upRight = Vector3(220, 70, 2)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = 2
         self.addFloor(floor)
 
@@ -690,10 +609,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(220, 70, 2)
         floor.upLeft = Vector3(210, 90, 3)
         floor.upRight = Vector3(220, 90, 3)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         v = floor.upRight.copy()
         v.sub(floor.downRight)
         floor.upNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
@@ -771,10 +686,6 @@ class LevelAurora(Level):
         stair.downRight = Vector3(70, 110, 0)
         stair.upLeft = Vector3(50, 120, 4)
         stair.upRight = Vector3(70, 120, 0)
-        stair.leftFrontNormal = Vector3(1, 0, 0)
-        stair.rightFrontNormal = Vector3(-1, 0, 0)
-        stair.upFrontNormal = Vector3(0, -1, 0)
-        stair.downFrontNormal = Vector3(0, 1, 0)
         stair.startBasePoint = Vector3(70, 110, 0)
         stair.endBasePoint = Vector3(50, 110, 4)
         stair.stepsCount = 8
@@ -786,10 +697,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(50, 40, 4)
         floor.upLeft = Vector3(40, 120, 4)
         floor.upRight = Vector3(50, 120, 4)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = 4
         self.addFloor(floor)
 
@@ -798,10 +705,6 @@ class LevelAurora(Level):
         stair.downRight = Vector3(70, 40, 8)
         stair.upLeft = Vector3(50, 50, 4)
         stair.upRight = Vector3(70, 50, 8)
-        stair.leftFrontNormal = Vector3(1, 0, 0)
-        stair.rightFrontNormal = Vector3(-1, 0, 0)
-        stair.upFrontNormal = Vector3(0, -1, 0)
-        stair.downFrontNormal = Vector3(0, 1, 0)
         stair.startBasePoint = Vector3(50, 50, 4)
         stair.endBasePoint = Vector3(70, 50, 8)
         stair.stepsCount = 8
@@ -879,10 +782,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(140, 160, 0)
         floor.upLeft = Vector3(130, 170, 1)
         floor.upRight = Vector3(140, 170, 1)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         v = floor.downRight.getDirectionTo(floor.upRight)
         floor.upNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor.upNormal.normalize()
@@ -894,10 +793,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(140, 170, 1)
         floor.upLeft = Vector3(130, 180, 1)
         floor.upRight = Vector3(140, 180, 1)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = 1
         self.addFloor(floor)
 
@@ -906,10 +801,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(230, 170, 12)
         floor.upLeft = Vector3(140, 180, 1)
         floor.upRight = Vector3(230, 180, 12)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         v = floor.upLeft.getDirectionTo(floor.upRight)
         floor.upNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor.upNormal.normalize()
@@ -921,10 +812,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(240, 160, 12)
         floor.upLeft = Vector3(230, 180, 12)
         floor.upRight = Vector3(240, 180, 12)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = 12
         self.addFloor(floor)
 
@@ -950,10 +837,6 @@ class LevelAurora(Level):
         floor.downRight = Vector3(170, 120, 3)
         floor.upLeft = Vector3(140, 130, 0)
         floor.upRight = Vector3(170, 130, 3)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         v = floor.upLeft.getDirectionTo(floor.upRight)
         floor.upNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor.upNormal.normalize()
@@ -982,70 +865,8 @@ class LevelAurora(Level):
         floor.downRight = Vector3(110, 80, 0)
         floor.upLeft = Vector3(100, 100, 0)
         floor.upRight = Vector3(110, 100, 0)
-        floor.leftFrontNormal = Vector3(1, 0, 0)
-        floor.rightFrontNormal = Vector3(-1, 0, 0)
-        floor.upFrontNormal = Vector3(0, -1, 0)
-        floor.downFrontNormal = Vector3(0, 1, 0)
         floor.z = 0
         self.addFloor(floor)
-
-    def getSplitLines(self):
-        result = []
-
-        s = SplitLine()
-        s.startPoint = Vector3(0, 80, 0)
-        s.endPoint = Vector3(300, 80, 0)
-        s.frontNormal = Vector3(0, -1, 0)
-        result.append(s)
-
-        s = SplitLine()
-        s.startPoint = Vector3(0, 90, 0)
-        s.endPoint = Vector3(300, 90, 0)
-        s.frontNormal = Vector3(0, 1, 0)
-        result.append(s)
-
-        s = SplitLine()
-        s.startPoint = Vector3(150, 0, 0)
-        s.endPoint = Vector3(150, 80, 0)
-        s.frontNormal = Vector3(-1, 0, 0)
-        result.append(s)
-
-        s = SplitLine()
-        s.startPoint = Vector3(70, 0, 0)
-        s.endPoint = Vector3(70, 80, 0)
-        s.frontNormal = Vector3(1, 0, 0)
-        result.append(s)
-
-        s = SplitLine()
-        s.startPoint = Vector3(0, 160, 0)
-        s.endPoint = Vector3(300, 160, 0)
-        s.frontNormal = Vector3(0, -1, 0)
-        result.append(s)
-
-        s = SplitLine()
-        s.startPoint = Vector3(170, 90, 0)
-        s.endPoint = Vector3(170, 160, 0)
-        s.frontNormal = Vector3(1, 0, 0)
-        result.append(s)
-
-        s = SplitLine()
-        s.startPoint = Vector3(70, 90, 0)
-        s.endPoint = Vector3(70, 160, 0)
-        s.frontNormal = Vector3(1, 0, 0)
-        result.append(s)
-
-        s = SplitLine()
-        s.startPoint = Vector3(140, 90, 0)
-        s.endPoint = Vector3(140, 160, 0)
-        s.frontNormal = Vector3(-1, 0, 0)
-        result.append(s)
-
-        i = 0
-        while i < len(result):
-            result[i].priority = i
-            i += 1
-
-        return result
 
     def getCollisionSplitPlanes(self):
         result = []
@@ -1179,6 +1000,11 @@ class LevelAurora(Level):
         # room 2
         s = SplitPlane()
         s.basePoint = Vector3(210, 120, 6)
+        s.frontNormal = Vector3(0, 0, 1)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(235, 155, 12)
         s.frontNormal = Vector3(0, 0, 1)
         result.append(s)
 

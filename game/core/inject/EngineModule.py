@@ -1,7 +1,5 @@
-from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeBuilder2 import *
 from game.engine.bsp.BSPTreeTraversal import *
-from game.engine.bsp.SplitLineBuilder import *
 from game.engine.CameraUpdater import *
 from game.engine.cm.PlayerWallCollisionProcessor import *
 from game.engine.GameData import *
@@ -27,10 +25,8 @@ from game.input.InputManager import *
 class EngineModule:
 
     def init(self, binder):
-        binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
         binder.bindSingleton(BSPTreeBuilder2, makeBSPTreeBuilder2)
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)
-        binder.bindSingleton(SplitLineBuilder, makeSplitLineBuilder)
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
         binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)
         binder.bindSingleton(GameData, makeGameData)

@@ -1,5 +1,5 @@
 from game.engine.bsp.BSPTree import BSPNode
-from game.engine.bsp.SplitPlanePosition import SplitPlanePosition
+from game.engine.bsp.SplitPlane import SplitPlanePosition
 from game.model.level.LevelSegment import LevelSegment
 
 

@@ -1,6 +1,4 @@
-from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.bsp.BSPTreeBuilder2 import BSPTreeBuilder2
-from game.engine.bsp.SplitLineBuilder import SplitLineBuilder
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.GameData import GameData
 from game.engine.LevelLoader import LevelLoader
@@ -20,9 +18,7 @@ class LevelManager:
         self,
         gameData,
         levelLoader,
-        bspTreeBuilder,
         bspTreeBuilder2,
-        splitLineBuilder,
         segmentWallAnalyzer,
         segmentFloorAnalyzer,
         segmentCeilingAnalyzer,
@@ -35,9 +31,7 @@ class LevelManager:
     ):
         self.gameData = gameData
         self.levelLoader = levelLoader
-        self.bspTreeBuilder = bspTreeBuilder
         self.bspTreeBuilder2 = bspTreeBuilder2
-        self.splitLineBuilder = splitLineBuilder
         self.segmentWallAnalyzer = segmentWallAnalyzer
         self.segmentFloorAnalyzer = segmentFloorAnalyzer
         self.segmentCeilingAnalyzer = segmentCeilingAnalyzer
@@ -53,12 +47,6 @@ class LevelManager:
         self.gameData.level = level
         self.bspTreeBuilder2.build(level.collisionTree, level, level.getCollisionSplitPlanes())
         self.bspTreeBuilder2.build(level.visibilityTree, level, level.getVisibilitySplitPlanes())
-        # self.segmentWallAnalyzer.analyzeWalls(level, level.collisionTree)
-        # self.segmentFloorAnalyzer.analyzeFloors(level, level.collisionTree)
-        # self.segmentCeilingAnalyzer.analyzeCeilings(level, level.collisionTree)
-        # self.segmentWallAnalyzer.analyzeWalls(level, level.visibilityTree)
-        # self.segmentFloorAnalyzer.analyzeFloors(level, level.visibilityTree)
-        # self.segmentCeilingAnalyzer.analyzeCeilings(level, level.visibilityTree)
         self.joinLineCeilingAnalyzer.analyzeJoinLines(level, level.visibilityTree)
         self.levelValidator.validate(level)
         self.playerTurnLogic.orientByFrontNormal(level.playerFrontNormal)
@@ -73,9 +61,7 @@ def makeLevelManager(resolver):
     return LevelManager(
         resolver.resolve(GameData),
         resolver.resolve(LevelLoader),
-        resolver.resolve(BSPTreeBuilder),
         resolver.resolve(BSPTreeBuilder2),
-        resolver.resolve(SplitLineBuilder),
         resolver.resolve(LevelSegmentWallAnalyzer),
         resolver.resolve(LevelSegmentFloorAnalyzer),
         resolver.resolve(LevelSegmentCeilingAnalyzer),
