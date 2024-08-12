@@ -1,4 +1,4 @@
-from game.engine.bsp.BSPTreeBuilder2 import BSPTreeBuilder2
+from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.GameData import GameData
 from game.engine.LevelLoader import LevelLoader
@@ -61,7 +61,7 @@ def makeLevelManager(resolver):
     return LevelManager(
         resolver.resolve(GameData),
         resolver.resolve(LevelLoader),
-        resolver.resolve(BSPTreeBuilder2),
+        resolver.resolve(BSPTreeBuilder),
         resolver.resolve(LevelSegmentWallAnalyzer),
         resolver.resolve(LevelSegmentFloorAnalyzer),
         resolver.resolve(LevelSegmentCeilingAnalyzer),

@@ -3,7 +3,7 @@ from game.engine.bsp.SplitPlane import SplitPlanePosition
 from game.model.level.LevelSegment import LevelSegment
 
 
-class BSPTreeBuilder2:
+class BSPTreeBuilder:
 
     def build(self, bspTree, level, splitPlanes):
         bspTree.root.levelSegment = LevelSegment()
@@ -97,5 +97,5 @@ class BSPTreeBuilder2:
             return SplitPlanePosition.on
 
 
-def makeBSPTreeBuilder2(resolver):
-    return BSPTreeBuilder2()
+def makeBSPTreeBuilder(resolver):
+    return BSPTreeBuilder()
