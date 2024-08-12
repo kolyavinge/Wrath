@@ -708,7 +708,6 @@ class LevelAurora(Level):
         stair.startBasePoint = Vector3(50, 50, 4)
         stair.endBasePoint = Vector3(70, 50, 8)
         stair.stepsCount = 8
-        stair.debug = True
         stair.commit()
         self.addFloor(stair)
 

@@ -6,12 +6,9 @@ from game.engine.GameData import *
 from game.engine.GameUpdater import *
 from game.engine.LevelLoader import *
 from game.engine.LevelManager import *
-from game.engine.LevelSegmentCeilingAnalyzer import *
-from game.engine.LevelSegmentFloorAnalyzer import *
 from game.engine.LevelSegmentItemFinder import *
 from game.engine.LevelSegmentJoinLineAnalyzer import *
 from game.engine.LevelSegmentVisibilityUpdater import *
-from game.engine.LevelSegmentWallAnalyzer import *
 from game.engine.LevelValidator import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
@@ -33,12 +30,9 @@ class EngineModule:
         binder.bindSingleton(GameUpdater, makeGameUpdater)
         binder.bindSingleton(LevelLoader, makeLevelLoader)
         binder.bindSingleton(LevelManager, makeLevelManager)
-        binder.bindSingleton(LevelSegmentCeilingAnalyzer, makeLevelSegmentCeilingAnalyzer)
-        binder.bindSingleton(LevelSegmentFloorAnalyzer, makeLevelSegmentFloorAnalyzer)
-        binder.bindSingleton(LevelSegmentItemFinder, makeLevelSegmentItemFinder)
+        # binder.bindSingleton(LevelSegmentItemFinder, makeLevelSegmentItemFinder)
         binder.bindSingleton(LevelSegmentJoinLineAnalyzer, makeLevelSegmentJoinLineAnalyzer)
         binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
-        binder.bindSingleton(LevelSegmentWallAnalyzer, makeLevelSegmentWallAnalyzer)
         binder.bindSingleton(LevelValidator, makeLevelValidator)
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)

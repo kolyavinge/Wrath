@@ -2,11 +2,8 @@ from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.GameData import GameData
 from game.engine.LevelLoader import LevelLoader
-from game.engine.LevelSegmentCeilingAnalyzer import LevelSegmentCeilingAnalyzer
-from game.engine.LevelSegmentFloorAnalyzer import LevelSegmentFloorAnalyzer
 from game.engine.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyzer
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
-from game.engine.LevelSegmentWallAnalyzer import LevelSegmentWallAnalyzer
 from game.engine.LevelValidator import LevelValidator
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerTurnLogic import PlayerTurnLogic
@@ -18,10 +15,7 @@ class LevelManager:
         self,
         gameData,
         levelLoader,
-        bspTreeBuilder2,
-        segmentWallAnalyzer,
-        segmentFloorAnalyzer,
-        segmentCeilingAnalyzer,
+        bspTreeBuilder,
         joinLineCeilingAnalyzer,
         levelValidator,
         playerTurnLogic,
@@ -31,10 +25,7 @@ class LevelManager:
     ):
         self.gameData = gameData
         self.levelLoader = levelLoader
-        self.bspTreeBuilder2 = bspTreeBuilder2
-        self.segmentWallAnalyzer = segmentWallAnalyzer
-        self.segmentFloorAnalyzer = segmentFloorAnalyzer
-        self.segmentCeilingAnalyzer = segmentCeilingAnalyzer
+        self.bspTreeBuilder = bspTreeBuilder
         self.joinLineCeilingAnalyzer = joinLineCeilingAnalyzer
         self.levelValidator = levelValidator
         self.playerTurnLogic = playerTurnLogic
@@ -45,8 +36,8 @@ class LevelManager:
     def loadFirstLevel(self):
         level = self.levelLoader.load()
         self.gameData.level = level
-        self.bspTreeBuilder2.build(level.collisionTree, level, level.getCollisionSplitPlanes())
-        self.bspTreeBuilder2.build(level.visibilityTree, level, level.getVisibilitySplitPlanes())
+        self.bspTreeBuilder.build(level.collisionTree, level, level.getCollisionSplitPlanes())
+        self.bspTreeBuilder.build(level.visibilityTree, level, level.getVisibilitySplitPlanes())
         self.joinLineCeilingAnalyzer.analyzeJoinLines(level, level.visibilityTree)
         self.levelValidator.validate(level)
         self.playerTurnLogic.orientByFrontNormal(level.playerFrontNormal)
@@ -62,9 +53,6 @@ def makeLevelManager(resolver):
         resolver.resolve(GameData),
         resolver.resolve(LevelLoader),
         resolver.resolve(BSPTreeBuilder),
-        resolver.resolve(LevelSegmentWallAnalyzer),
-        resolver.resolve(LevelSegmentFloorAnalyzer),
-        resolver.resolve(LevelSegmentCeilingAnalyzer),
         resolver.resolve(LevelSegmentJoinLineAnalyzer),
         resolver.resolve(LevelValidator),
         resolver.resolve(PlayerTurnLogic),
