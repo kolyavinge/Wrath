@@ -1047,7 +1047,218 @@ class LevelAurora(Level):
 
         return result
 
-    def getSplitPlanes(self):
+    def getCollisionSplitPlanes(self):
+        result = []
+
+        result.extend(self.getVisibilitySplitPlanes())
+
+        # room 1
+        s = SplitPlane()
+        s.basePoint = Vector3(110, 50, 3)
+        s.frontNormal = Vector3(0, 0, 1)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(75, 45, 8)
+        s.frontNormal = Vector3(0, 0, 1)
+        result.append(s)
+
+        # floor
+        s = SplitPlane()
+        s.basePoint = Vector3(90, 45, 8)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(80, 45, 8)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(80, 30, 8)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(80, 60, 8)
+        s.frontNormal = Vector3(0, 1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(85, 25, 8)
+        s.frontNormal = Vector3(-1, -1, 0)
+        s.frontNormal.normalize()
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(85, 65, 8)
+        s.frontNormal = Vector3(-1, 1, 0)
+        s.frontNormal.normalize()
+        result.append(s)
+
+        # floor
+        s = SplitPlane()
+        s.basePoint = Vector3(130, 45, 8)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(140, 45, 8)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(140, 30, 8)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(140, 60, 8)
+        s.frontNormal = Vector3(0, 1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(135, 25, 8)
+        s.frontNormal = Vector3(1, -1, 0)
+        s.frontNormal.normalize()
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(135, 65, 8)
+        s.frontNormal = Vector3(1, 1, 0)
+        s.frontNormal.normalize()
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(110, 20, 8)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(110, 70, 8)
+        s.frontNormal = Vector3(0, 1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(75, 40, 8)
+        s.frontNormal = Vector3(0, 1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(75, 50, 8)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        # pass 5
+        s = SplitPlane()
+        s.basePoint = Vector3(100, 85, 0)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(110, 85, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(105, 100, 0)
+        s.frontNormal = Vector3(0, 1, 0)
+        result.append(s)
+
+        # pass 1
+        s = SplitPlane()
+        s.basePoint = Vector3(190, 45, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(215, 70, 0)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        # room 2
+        s = SplitPlane()
+        s.basePoint = Vector3(210, 120, 6)
+        s.frontNormal = Vector3(0, 0, 1)
+        result.append(s)
+
+        # floor
+        s = SplitPlane()
+        s.basePoint = Vector3(200, 125, 12)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(210, 125, 12)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(230, 125, 12)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(240, 125, 12)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(220, 130, 12)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(220, 120, 12)
+        s.frontNormal = Vector3(0, 1, 0)
+        result.append(s)
+
+        # room 3
+        s = SplitPlane()
+        s.basePoint = Vector3(110, 130, 0)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(110, 125, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        # pass 2
+        s = SplitPlane()
+        s.basePoint = Vector3(50, 115, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(50, 45, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        # pass 3
+        s = SplitPlane()
+        s.basePoint = Vector3(180, 170, 0)
+        s.frontNormal = Vector3(0, 1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(140, 165, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(140, 175, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(230, 175, 0)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        return result
+
+    def getVisibilitySplitPlanes(self):
         result = []
 
         s = SplitPlane()
@@ -1172,5 +1383,5 @@ class LevelAurora(Level):
         self.addJoinLine(joinLine)
 
     def setPlayerPosition(self):
-        self.playerPosition = Vector3(140, 65, 8)
+        self.playerPosition = Vector3(75, 45, 0)
         self.playerFrontNormal = Vector3(1, 0, 0)

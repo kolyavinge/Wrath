@@ -5,12 +5,11 @@ from game.model.level.LevelSegment import LevelSegment
 
 class BSPTreeBuilder2:
 
-    def build(self, bspTree, level):
+    def build(self, bspTree, level, splitPlanes):
         bspTree.root.levelSegment = LevelSegment()
         bspTree.root.levelSegment.walls = level.walls.copy()
         bspTree.root.levelSegment.floors = level.floors.copy()
         bspTree.root.levelSegment.ceilings = level.ceilings.copy()
-        splitPlanes = level.getSplitPlanes().copy()
         self.buildRec(bspTree.root, splitPlanes)
 
     def buildRec(self, node, splitPlanes):
@@ -65,12 +64,10 @@ class BSPTreeBuilder2:
         backSplitPlanes = []
         for splitPlane in splitPlanes:
             position = self.getPointPosition(node, splitPlane.basePoint)
-            if position == SplitPlanePosition.front:
+            if position == SplitPlanePosition.front or position == SplitPlanePosition.on:
                 frontSplitPlanes.append(splitPlane)
             elif position == SplitPlanePosition.back:
                 backSplitPlanes.append(splitPlane)
-            else:
-                raise Exception()
 
         return (frontSegment, backSegment, frontSplitPlanes, backSplitPlanes)
 
