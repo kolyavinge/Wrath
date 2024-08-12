@@ -1,4 +1,5 @@
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
+from game.engine.bsp.BSPTreeBuilder2 import BSPTreeBuilder2
 from game.engine.bsp.SplitLineBuilder import SplitLineBuilder
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.GameData import GameData
@@ -20,6 +21,7 @@ class LevelManager:
         gameData,
         levelLoader,
         bspTreeBuilder,
+        bspTreeBuilder2,
         splitLineBuilder,
         segmentWallAnalyzer,
         segmentFloorAnalyzer,
@@ -34,6 +36,7 @@ class LevelManager:
         self.gameData = gameData
         self.levelLoader = levelLoader
         self.bspTreeBuilder = bspTreeBuilder
+        self.bspTreeBuilder2 = bspTreeBuilder2
         self.splitLineBuilder = splitLineBuilder
         self.segmentWallAnalyzer = segmentWallAnalyzer
         self.segmentFloorAnalyzer = segmentFloorAnalyzer
@@ -49,7 +52,7 @@ class LevelManager:
         level = self.levelLoader.load()
         self.gameData.level = level
         self.bspTreeBuilder.build(level.collisionTree, self.splitLineBuilder.getForCollisions(level))
-        self.bspTreeBuilder.build(level.visibilityTree, level.getSplitLines())
+        self.bspTreeBuilder2.build(level.visibilityTree, level)
         self.segmentWallAnalyzer.analyzeWalls(level, level.collisionTree)
         self.segmentFloorAnalyzer.analyzeFloors(level, level.collisionTree)
         self.segmentCeilingAnalyzer.analyzeCeilings(level, level.collisionTree)
@@ -71,6 +74,7 @@ def makeLevelManager(resolver):
         resolver.resolve(GameData),
         resolver.resolve(LevelLoader),
         resolver.resolve(BSPTreeBuilder),
+        resolver.resolve(BSPTreeBuilder2),
         resolver.resolve(SplitLineBuilder),
         resolver.resolve(LevelSegmentWallAnalyzer),
         resolver.resolve(LevelSegmentFloorAnalyzer),

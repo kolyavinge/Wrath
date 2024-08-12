@@ -5,7 +5,12 @@ from game.model.level.LevelSegment import LevelSegment
 
 class BSPTreeBuilder2:
 
-    def build(self, bspTree, splitPlanes):
+    def build(self, bspTree, level):
+        bspTree.root.levelSegment = LevelSegment()
+        bspTree.root.levelSegment.walls = level.walls.copy()
+        bspTree.root.levelSegment.floors = level.floors.copy()
+        bspTree.root.levelSegment.ceilings = level.ceilings.copy()
+        splitPlanes = level.getSplitPlanes().copy()
         self.buildRec(bspTree.root, splitPlanes)
 
     def buildRec(self, node, splitPlanes):
@@ -32,7 +37,7 @@ class BSPTreeBuilder2:
         backSegment = LevelSegment()
 
         for wall in node.levelSegment.walls:
-            positionSet = self.getSplitPlanePositionSet(node, wall)
+            positionSet = self.getLevelItemPosition(node, wall)
             if SplitPlanePosition.front in positionSet:
                 frontSegment.walls.append(wall)
                 if wall.checkSegmentVisibility:
@@ -43,14 +48,14 @@ class BSPTreeBuilder2:
                     backSegment.checkSegmentVisibilityWalls.append(wall)
 
         for floor in node.levelSegment.floors:
-            positionSet = self.getSplitPlanePositionSet(node, floor)
+            positionSet = self.getLevelItemPosition(node, floor)
             if SplitPlanePosition.front in positionSet:
                 frontSegment.floors.append(floor)
             if SplitPlanePosition.back in positionSet:
                 backSegment.floors.append(floor)
 
         for ceiling in node.levelSegment.ceilings:
-            positionSet = self.getSplitPlanePositionSet(node, ceiling)
+            positionSet = self.getLevelItemPosition(node, ceiling)
             if SplitPlanePosition.front in positionSet:
                 frontSegment.ceilings.append(ceiling)
             if SplitPlanePosition.back in positionSet:
@@ -59,26 +64,40 @@ class BSPTreeBuilder2:
         frontSplitPlanes = []
         backSplitPlanes = []
         for splitPlane in splitPlanes:
-            if self.toFront(node, splitPlane.basePoint):
+            position = self.getPointPosition(node, splitPlane.basePoint)
+            if position == SplitPlanePosition.front:
                 frontSplitPlanes.append(splitPlane)
-            else:
+            elif position == SplitPlanePosition.back:
                 backSplitPlanes.append(splitPlane)
+            else:
+                raise Exception()
 
         return (frontSegment, backSegment, frontSplitPlanes, backSplitPlanes)
 
-    def getSplitPlanePositionSet(self, node, levelItem):
+    def getLevelItemPosition(self, node, levelItem):
         positionSet = set()
         for borderPoint in levelItem.getBorderPoints():
-            if self.toFront(node, borderPoint):
+            position = self.getPointPosition(node, borderPoint)
+            if position == SplitPlanePosition.front:
                 positionSet.add(SplitPlanePosition.front)
-            else:
+            elif position == SplitPlanePosition.back:
                 positionSet.add(SplitPlanePosition.back)
+            # ignore SplitPlanePosition.on
 
-    def toFront(self, node, point):
+        if len(positionSet) == 0:
+            positionSet.add(SplitPlanePosition.front)
+
+        return positionSet
+
+    def getPointPosition(self, node, point):
         direction = node.basePoint.getDirectionTo(point)
         dotProduct = direction.dotProduct(node.frontNormal)
-
-        return dotProduct >= 0
+        if dotProduct > 0:
+            return SplitPlanePosition.front
+        elif dotProduct < 0:
+            return SplitPlanePosition.back
+        else:
+            return SplitPlanePosition.on
 
 
 def makeBSPTreeBuilder2(resolver):

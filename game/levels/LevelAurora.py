@@ -1051,42 +1051,42 @@ class LevelAurora(Level):
         result = []
 
         s = SplitPlane()
-        s.basePoint = Vector3(0, 80, 0)
+        s.basePoint = Vector3(150, 80, 0)
         s.frontNormal = Vector3(0, -1, 0)
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(0, 90, 0)
+        s.basePoint = Vector3(150, 90, 0)
         s.frontNormal = Vector3(0, 1, 0)
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(150, 0, 0)
+        s.basePoint = Vector3(150, 50, 0)
         s.frontNormal = Vector3(-1, 0, 0)
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(70, 0, 0)
+        s.basePoint = Vector3(70, 50, 0)
         s.frontNormal = Vector3(1, 0, 0)
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(0, 160, 0)
+        s.basePoint = Vector3(150, 160, 0)
         s.frontNormal = Vector3(0, -1, 0)
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(170, 90, 0)
+        s.basePoint = Vector3(170, 120, 0)
         s.frontNormal = Vector3(1, 0, 0)
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(70, 90, 0)
+        s.basePoint = Vector3(70, 120, 0)
         s.frontNormal = Vector3(1, 0, 0)
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(140, 90, 0)
+        s.basePoint = Vector3(140, 120, 0)
         s.frontNormal = Vector3(-1, 0, 0)
         result.append(s)
 
