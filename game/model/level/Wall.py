@@ -20,6 +20,7 @@ class Wall:
         self.info = ""
 
     def commit(self):
+        self.direction = self.startPoint.getDirectionTo(self.endPoint)
         self.upStartPoint = self.startPoint.copy()
         self.upStartPoint.z += self.height
         self.upEndPoint = self.endPoint.copy()
@@ -33,7 +34,7 @@ class Wall:
         self.crossLine.endPoint = self.endPoint.copy()
         self.crossLine.startPoint.add(crossDirection)
         self.crossLine.endPoint.add(crossDirection)
-        wallDirection = self.startPoint.getDirectionTo(self.endPoint)
+        wallDirection = self.direction.copy()
         wallDirection.setLength(self.getCrossLineLength())
         self.crossLine.startPoint.sub(wallDirection)
         self.crossLine.endPoint.add(wallDirection)
