@@ -13,6 +13,7 @@ class Wall:
         self.startPoint = Vector3()
         self.endPoint = Vector3()
         self.frontNormal = Vector3()
+        self.direction = Vector3()
         self.crossLine = Line()
         self.crossLineDirection = Vector3()
         self.checkSegmentVisibility = True
@@ -25,22 +26,18 @@ class Wall:
         self.upStartPoint.z += self.height
         self.upEndPoint = self.endPoint.copy()
         self.upEndPoint.z += self.height
-        self.calculateWallCrossLines()
+        self.calculateWallCrossLine()
 
-    def calculateWallCrossLines(self):
+    def calculateWallCrossLine(self):
         crossDirection = self.frontNormal.copy()
-        crossDirection.setLength(self.getCrossLineLength())
+        crossDirection.setLength(self.getCrossLineWallOffset())
         self.crossLine.startPoint = self.startPoint.copy()
         self.crossLine.endPoint = self.endPoint.copy()
         self.crossLine.startPoint.add(crossDirection)
         self.crossLine.endPoint.add(crossDirection)
-        wallDirection = self.direction.copy()
-        wallDirection.setLength(self.getCrossLineLength())
-        self.crossLine.startPoint.sub(wallDirection)
-        self.crossLine.endPoint.add(wallDirection)
         self.crossLineDirection = self.crossLine.startPoint.getDirectionTo(self.crossLine.endPoint)
 
-    def getCrossLineLength(self):
+    def getCrossLineWallOffset(self):
         if self.orientation == Orientation.diagonal:
             return PlayerConstants.xyLengthHalf * Math.sqrt(2)
         else:

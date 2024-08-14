@@ -18,48 +18,53 @@ class PlayerWallCollisionProcessor:
                     self.processWall(wall)
 
     def processWall(self, wall):
-        player = self.gameData.player
-        if self.isPlayerBehindWall(player, wall):
-            intersectPoint = self.getCrossLineIntersectPointOrNone(player, wall)
+        currentBorder = self.gameData.player.currentBorder.bottom
+        nextBorder = self.gameData.player.nextBorder.bottom
+        self.processPlayerLine(currentBorder.downLeft, nextBorder.downLeft, wall)
+        self.processPlayerLine(currentBorder.downRight, nextBorder.downRight, wall)
+        self.processPlayerLine(currentBorder.upLeft, nextBorder.upLeft, wall)
+        self.processPlayerLine(currentBorder.upRight, nextBorder.upRight, wall)
+
+    def processPlayerLine(self, playerPointFrom, playerPointTo, wall):
+        if self.isPlayerPointBehindWall(playerPointTo, wall):
+            intersectPoint = self.getWallIntersectPointOrNone(playerPointFrom, playerPointTo, wall)
             if intersectPoint is not None:
-                if self.playerLineContainsPoint(player, intersectPoint) and self.crossLineContainsPoint(wall, intersectPoint):
+                if self.playerLineContainsPoint(playerPointFrom, playerPointTo, intersectPoint) and self.wallContainsPoint(wall, intersectPoint):
+                    player = self.gameData.player
                     x, y = self.getPointOnCrossLine(wall, player.nextCenterPoint)
                     player.moveNextPositionTo(Vector3(x, y, player.getZ()))
                     self.hasCollisions = True
 
-    def isPlayerBehindWall(self, player, wall):
-        behindDirection = wall.crossLine.startPoint.getDirectionTo(player.nextCenterPoint)
+    def isPlayerPointBehindWall(self, playerPoint, wall):
+        behindDirection = wall.startPoint.getDirectionTo(playerPoint)
         dotProduct = behindDirection.dotProduct(wall.frontNormal)
 
         return dotProduct < 0
 
-    def getCrossLineIntersectPointOrNone(self, player, wall):
+    def getWallIntersectPointOrNone(self, playerPointFrom, playerPointTo, wall):
         return Geometry.getLinesIntersectPointOrNone(
-            wall.crossLine.startPoint.x,
-            wall.crossLine.startPoint.y,
-            wall.crossLine.endPoint.x,
-            wall.crossLine.endPoint.y,
-            player.currentCenterPoint.x,
-            player.currentCenterPoint.y,
-            player.nextCenterPoint.x,
-            player.nextCenterPoint.y,
+            wall.startPoint.x,
+            wall.startPoint.y,
+            wall.endPoint.x,
+            wall.endPoint.y,
+            playerPointFrom.x,
+            playerPointFrom.y,
+            playerPointTo.x,
+            playerPointTo.y,
         )
 
-    def playerLineContainsPoint(self, player, point):
+    def playerLineContainsPoint(self, playerPointFrom, playerPointTo, point):
         x, y = point
-        return Geometry.lineContainsPoint(
-            player.currentCenterPoint.x, player.currentCenterPoint.y, player.nextCenterPoint.x, player.nextCenterPoint.y, x, y
-        )
+        return Geometry.lineContainsPoint(playerPointFrom.x, playerPointFrom.y, playerPointTo.x, playerPointTo.y, x, y)
 
-    def crossLineContainsPoint(self, wall, point):
+    def wallContainsPoint(self, wall, point):
         x, y = point
-        crossLine = wall.crossLine
         if wall.orientation == Orientation.horizontal:
-            return crossLine.startPoint.x <= x and x <= crossLine.endPoint.x
+            return wall.startPoint.x <= x and x <= wall.endPoint.x
         elif wall.orientation == Orientation.vertical:
-            return crossLine.startPoint.y <= y and y <= crossLine.endPoint.y
+            return wall.startPoint.y <= y and y <= wall.endPoint.y
         elif wall.orientation == Orientation.diagonal:
-            return Geometry.lineContainsPoint(crossLine.startPoint.x, crossLine.startPoint.y, crossLine.endPoint.x, crossLine.endPoint.y, x, y)
+            return Geometry.lineContainsPoint(wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, x, y)
         else:
             raise Exception()
 
