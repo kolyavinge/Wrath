@@ -4,6 +4,7 @@ from game.calc.Vector3 import Vector3
 class CommonConstants:
 
     gameTitle = b"Wrath"
+    gameTitleU = "Wrath"
     screenAspect = 16 / 9
     minDepth = 0.1
     maxDepth = 1000

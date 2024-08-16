@@ -12,8 +12,9 @@ class InputManager:
         self.keyboard = Keyboard()
 
     def update(self):
-        self.mouse.update()
-        self.keyboard.update()
+        if Screen.isFocused():
+            self.mouse.update()
+            self.keyboard.update()
 
 
 def makeInputManager(resolver):
