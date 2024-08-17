@@ -80,11 +80,11 @@ class LevelAurora(Level):
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(150, 40, 3)
-        wall.endPoint = Vector3(150, 50, 3)
+        wall.startPoint = Vector3(150, 40, 4)
+        wall.endPoint = Vector3(150, 50, 4)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
-        wall.height = wallHeight - 3
+        wall.height = wallHeight - 4
         wall.checkSegmentVisibility = False
         wall.info = "room 1"
         self.addWall(wall)
@@ -118,11 +118,11 @@ class LevelAurora(Level):
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(100, 80, 3)
-        wall.endPoint = Vector3(110, 80, 3)
+        wall.startPoint = Vector3(100, 80, 4)
+        wall.endPoint = Vector3(110, 80, 4)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
-        wall.height = wallHeight - 3
+        wall.height = wallHeight - 4
         wall.checkSegmentVisibility = False
         wall.info = "room 1"
         self.addWall(wall)
@@ -242,7 +242,7 @@ class LevelAurora(Level):
         self.addFloor(floor)
 
     def makeRoom2(self):
-        wallHeight = 12
+        wallHeight = 13
         z = 3
 
         wall = Wall()
@@ -274,11 +274,11 @@ class LevelAurora(Level):
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(210, 90, 6)
-        wall.endPoint = Vector3(220, 90, 6)
+        wall.startPoint = Vector3(210, 90, 7)
+        wall.endPoint = Vector3(220, 90, 7)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
-        wall.height = wallHeight - 3
+        wall.height = wallHeight - 4
         wall.checkSegmentVisibility = False
         wall.info = "room 2"
         self.addWall(wall)
@@ -369,11 +369,11 @@ class LevelAurora(Level):
         self.addWall(wall)
 
         wall = Wall()
-        wall.startPoint = Vector3(170, 120, 6)
-        wall.endPoint = Vector3(170, 130, 6)
+        wall.startPoint = Vector3(170, 120, 7)
+        wall.endPoint = Vector3(170, 130, 7)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
-        wall.height = wallHeight - 3
+        wall.height = wallHeight - 4
         wall.checkSegmentVisibility = False
         wall.info = "room 2"
         self.addWall(wall)
@@ -534,11 +534,14 @@ class LevelAurora(Level):
         self.addFloor(floor)
 
     def makePass1(self):
+        wallHeight = 4
+
         wall = Wall()
         wall.startPoint = Vector3(150, 40, 0)
         wall.endPoint = Vector3(190, 40, 2)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = wallHeight
         wall.info = "pass 1"
         self.addWall(wall)
 
@@ -548,6 +551,7 @@ class LevelAurora(Level):
         wall.orientation = Orientation.diagonal
         wall.frontNormal = Vector3(-1, 1, 0)
         wall.frontNormal.normalize()
+        wall.height = wallHeight
         wall.info = "pass 1"
         self.addWall(wall)
 
@@ -556,6 +560,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(220, 90, 3)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 1"
         self.addWall(wall)
 
@@ -564,6 +569,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(190, 50, 2)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = wallHeight
         wall.info = "pass 1"
         self.addWall(wall)
 
@@ -573,6 +579,7 @@ class LevelAurora(Level):
         wall.orientation = Orientation.diagonal
         wall.frontNormal = Vector3(1, -1, 0)
         wall.frontNormal.normalize()
+        wall.height = wallHeight
         wall.info = "pass 1"
         self.addWall(wall)
 
@@ -581,6 +588,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(210, 90, 3)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 1"
         self.addWall(wall)
 
@@ -617,11 +625,14 @@ class LevelAurora(Level):
         self.addFloor(floor)
 
     def makePass2(self):
+        wallHeight = 4
+
         wall = Wall()
         wall.startPoint = Vector3(40, 120, 4)
         wall.endPoint = Vector3(50, 120, 4)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = wallHeight
         wall.info = "pass 2"
         self.addWall(wall)
 
@@ -630,6 +641,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(70, 120, 0)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = wallHeight
         wall.info = "pass 2"
         self.addWall(wall)
 
@@ -638,6 +650,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(40, 120, 4)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 2"
         self.addWall(wall)
 
@@ -646,6 +659,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(50, 40, 4)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = wallHeight
         wall.info = "pass 2"
         self.addWall(wall)
 
@@ -654,6 +668,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(70, 40, 8)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = wallHeight
         wall.info = "pass 2"
         self.addWall(wall)
 
@@ -661,6 +676,7 @@ class LevelAurora(Level):
         wall.startPoint = Vector3(50, 110, 4)
         wall.endPoint = Vector3(70, 110, 0)
         wall.orientation = Orientation.horizontal
+        wall.height = wallHeight
         wall.frontNormal = Vector3(0, 1, 0)
         wall.info = "pass 2"
         self.addWall(wall)
@@ -670,6 +686,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(50, 110, 4)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 2"
         self.addWall(wall)
 
@@ -678,6 +695,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(70, 50, 8)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = wallHeight
         wall.info = "pass 2"
         self.addWall(wall)
 
@@ -688,7 +706,7 @@ class LevelAurora(Level):
         stair.upRight = Vector3(70, 120, 0)
         stair.startBasePoint = Vector3(70, 110, 0)
         stair.endBasePoint = Vector3(50, 110, 4)
-        stair.stepsCount = 8
+        stair.stepsCount = 10
         stair.commit()
         self.addFloor(stair)
 
@@ -707,16 +725,19 @@ class LevelAurora(Level):
         stair.upRight = Vector3(70, 50, 8)
         stair.startBasePoint = Vector3(50, 50, 4)
         stair.endBasePoint = Vector3(70, 50, 8)
-        stair.stepsCount = 8
+        stair.stepsCount = 10
         stair.commit()
         self.addFloor(stair)
 
     def makePass3(self):
+        wallHeight = 4
+
         wall = Wall()
         wall.startPoint = Vector3(130, 160, 0)
         wall.endPoint = Vector3(130, 170, 1)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 3"
         self.addWall(wall)
 
@@ -725,6 +746,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(130, 180, 1)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 3"
         self.addWall(wall)
 
@@ -733,6 +755,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(140, 180, 1)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = wallHeight
         wall.info = "pass 3"
         self.addWall(wall)
 
@@ -741,6 +764,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(240, 180, 12)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = wallHeight
         wall.info = "pass 3"
         self.addWall(wall)
 
@@ -749,6 +773,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(240, 180, 12)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 3"
         self.addWall(wall)
 
@@ -757,6 +782,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(140, 170, 1)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 3"
         self.addWall(wall)
 
@@ -765,6 +791,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(230, 170, 12)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = wallHeight
         wall.info = "pass 3"
         self.addWall(wall)
 
@@ -773,6 +800,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(230, 170, 12)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 3"
         self.addWall(wall)
 
@@ -815,11 +843,14 @@ class LevelAurora(Level):
         self.addFloor(floor)
 
     def makePass4(self):
+        wallHeight = 4
+
         wall = Wall()
         wall.startPoint = Vector3(140, 130, 0)
         wall.endPoint = Vector3(170, 130, 3)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = wallHeight
         wall.info = "pass 4"
         self.addWall(wall)
 
@@ -828,6 +859,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(170, 120, 3)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = wallHeight
         wall.info = "pass 4"
         self.addWall(wall)
 
@@ -843,11 +875,14 @@ class LevelAurora(Level):
         self.addFloor(floor)
 
     def makePass5(self):
+        wallHeight = 4
+
         wall = Wall()
         wall.startPoint = Vector3(100, 80, 0)
         wall.endPoint = Vector3(100, 100, 0)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 5"
         self.addWall(wall)
 
@@ -856,6 +891,7 @@ class LevelAurora(Level):
         wall.endPoint = Vector3(110, 100, 0)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = wallHeight
         wall.info = "pass 5"
         self.addWall(wall)
 
@@ -881,6 +917,36 @@ class LevelAurora(Level):
         s = SplitPlane()
         s.basePoint = Vector3(75, 45, 8)
         s.frontNormal = Vector3(0, 0, 1)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(90, 45, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(130, 45, 0)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(80, 40, 0)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(130, 40, 0)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(80, 50, 0)
+        s.frontNormal = Vector3(0, 1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(130, 50, 0)
+        s.frontNormal = Vector3(0, 1, 0)
         result.append(s)
 
         # floor
@@ -1005,6 +1071,36 @@ class LevelAurora(Level):
         s = SplitPlane()
         s.basePoint = Vector3(235, 155, 12)
         s.frontNormal = Vector3(0, 0, 1)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(190, 125, 2)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(250, 125, 2)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(180, 120, 2)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(180, 130, 2)
+        s.frontNormal = Vector3(0, 1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(240, 120, 2)
+        s.frontNormal = Vector3(0, -1, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(240, 130, 2)
+        s.frontNormal = Vector3(0, 1, 0)
         result.append(s)
 
         # floor
