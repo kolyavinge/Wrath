@@ -5,6 +5,7 @@ from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerMoveLogic import PlayerMoveLogic
 from game.engine.PlayerPositionUpdater import PlayerPositionUpdater
 from game.engine.PlayerTurnLogic import PlayerTurnLogic
+from game.engine.PlayerVelocityCalculator import PlayerVelocityCalculator
 from game.engine.PlayerZUpdater import PlayerZUpdater
 
 
@@ -12,6 +13,7 @@ class GameUpdater:
 
     def __init__(
         self,
+        playerVelocityCalculator,
         playerMoveLogic,
         playerTurnLogic,
         playerZUpdater,
@@ -21,6 +23,7 @@ class GameUpdater:
         levelSegmentVisibilityUpdater,
         cameraUpdater,
     ):
+        self.playerVelocityCalculator = playerVelocityCalculator
         self.playerMoveLogic = playerMoveLogic
         self.playerTurnLogic = playerTurnLogic
         self.playerZUpdater = playerZUpdater
@@ -31,6 +34,7 @@ class GameUpdater:
         self.cameraUpdater = cameraUpdater
 
     def update(self):
+        self.playerVelocityCalculator.calculate()
         self.playerMoveLogic.process()
         self.playerTurnLogic.process()
         self.playerWallCollisionProcessor.processCollisions()
@@ -43,6 +47,7 @@ class GameUpdater:
 
 def makeGameUpdater(resolver):
     return GameUpdater(
+        resolver.resolve(PlayerVelocityCalculator),
         resolver.resolve(PlayerMoveLogic),
         resolver.resolve(PlayerTurnLogic),
         resolver.resolve(PlayerZUpdater),

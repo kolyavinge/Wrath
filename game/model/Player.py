@@ -22,14 +22,14 @@ class Player:
         self.rightNormal = CommonConstants.xAxis
         self.hasMoved = False
         self.hasTurned = False
-        self.movingTime = 1
+        self.forwardMovingTime = 0
+        self.backwardMovingTime = 0
         self.movingTimeDelta = 0.1
+        self.velocityValue = 0
+        self.velocityVector = Vector3()
         self.velocityFunc = VelocityFunc()
         self.collisionLevelSegments = set()
         self.visibilityLevelSegments = set()
-
-    def getVelocity(self):
-        return self.velocityFunc.getValue(self.movingTime)
 
     def moveNextPositionBy(self, vector):
         self.nextCenterPoint.add(vector)

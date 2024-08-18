@@ -15,6 +15,7 @@ from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerMoveLogic import *
 from game.engine.PlayerPositionUpdater import *
 from game.engine.PlayerTurnLogic import *
+from game.engine.PlayerVelocityCalculator import *
 from game.engine.PlayerZUpdater import *
 from game.input.InputManager import *
 
@@ -31,6 +32,7 @@ class EngineModule:
         binder.bindSingleton(LevelLoader, makeLevelLoader)
         binder.bindSingleton(LevelManager, makeLevelManager)
         # binder.bindSingleton(LevelSegmentItemFinder, makeLevelSegmentItemFinder)
+        binder.bindSingleton(PlayerVelocityCalculator, makePlayerVelocityCalculator)
         binder.bindSingleton(LevelSegmentJoinLineAnalyzer, makeLevelSegmentJoinLineAnalyzer)
         binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
         binder.bindSingleton(LevelValidator, makeLevelValidator)
