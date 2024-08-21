@@ -10,53 +10,73 @@ class PlayerVelocityCalculator:
         self.gameData = gameData
 
     def calculate(self):
+        totalMovingTime = self.calculateMovingTime()
+        if totalMovingTime != 0:
+            self.processForwardBackward(totalMovingTime)
+        else:
+            self.processLeftRightStep()
+
+    def calculateMovingTime(self):
         inputData = self.gameData.playerInputData
         player = self.gameData.player
 
         if inputData.goForward:
-            player.forwardMovingTime += player.movingTimeDelta
-            if player.forwardMovingTime > player.velocityFunc.forwardMaxTime:
-                player.forwardMovingTime = player.velocityFunc.forwardMaxTime
+            player.forwardMovingTime = self.limitTo(player.forwardMovingTime + player.movingTimeDelta, 1.5)
         elif inputData.goBackward:
-            player.backwardMovingTime += player.movingTimeDelta
-            if player.backwardMovingTime > player.velocityFunc.backwardMaxTime:
-                player.backwardMovingTime = player.velocityFunc.backwardMaxTime
+            player.backwardMovingTime = self.limitTo(player.backwardMovingTime + player.movingTimeDelta, 0.5)
         else:
-            player.forwardMovingTime *= 0.8
-            if player.forwardMovingTime < 0.1:
-                player.forwardMovingTime = 0
-            player.backwardMovingTime *= 0.8
-            if player.backwardMovingTime < 0.1:
-                player.backwardMovingTime = 0
+            player.forwardMovingTime = self.limitBy(player.forwardMovingTime * 0.8, 0.1, 0)
+            player.backwardMovingTime = self.limitBy(player.backwardMovingTime * 0.8, 0.1, 0)
 
         totalMovingTime = player.forwardMovingTime - player.backwardMovingTime
         player.velocityValue = player.velocityFunc.getValue(Math.abs(totalMovingTime))
 
-        if totalMovingTime != 0:
-            player.velocityVector = player.frontNormal.copy()
+        return totalMovingTime
+
+    def processForwardBackward(self, totalMovingTime):
+        inputData = self.gameData.playerInputData
+        player = self.gameData.player
+
+        player.velocityVector = player.frontNormal.copy()
+        player.velocityVector.setLength(player.velocityValue)
+        if totalMovingTime < 0:
+            player.velocityVector.mul(-1)
+
+        radians = 0
+        if totalMovingTime > 0 and inputData.stepLeft:
+            radians = 0.5
+        elif totalMovingTime > 0 and inputData.stepRight:
+            radians = -0.5
+        elif totalMovingTime < 0 and inputData.stepLeft:
+            radians = -0.5
+        elif totalMovingTime < 0 and inputData.stepRight:
+            radians = 0.5
+
+        if radians != 0:
+            player.velocityVector = Geometry.rotatePoint(player.velocityVector, CommonConstants.zAxis, CommonConstants.axisOrigin, radians)
+
+    def processLeftRightStep(self):
+        inputData = self.gameData.playerInputData
+        player = self.gameData.player
+
+        if inputData.stepLeft or inputData.stepRight:
+            player.velocityValue = player.velocityFunc.getValue(0.4)
+            player.velocityVector = player.rightNormal.copy()
             player.velocityVector.setLength(player.velocityValue)
-            if totalMovingTime < 0:
+            if inputData.stepLeft:
                 player.velocityVector.mul(-1)
 
-            radians = 0
-            if totalMovingTime > 0 and inputData.stepLeft:
-                radians = 0.5
-            elif totalMovingTime > 0 and inputData.stepRight:
-                radians = -0.5
-            elif totalMovingTime < 0 and inputData.stepLeft:
-                radians = -0.5
-            elif totalMovingTime < 0 and inputData.stepRight:
-                radians = 0.5
-
-            if radians != 0:
-                player.velocityVector = Geometry.rotatePoint(player.velocityVector, CommonConstants.zAxis, CommonConstants.axisOrigin, radians)
+    def limitTo(self, value, maxValue):
+        if value > maxValue:
+            return maxValue
         else:
-            if inputData.stepLeft or inputData.stepRight:
-                player.velocityValue = player.velocityFunc.getValue(0.4)
-                player.velocityVector = player.rightNormal.copy()
-                player.velocityVector.setLength(player.velocityValue)
-                if inputData.stepLeft:
-                    player.velocityVector.mul(-1)
+            return value
+
+    def limitBy(self, value, limit, limitedValue):
+        if value < limit:
+            return limitedValue
+        else:
+            return value
 
 
 def makePlayerVelocityCalculator(resolver):
