@@ -3,6 +3,7 @@ from game.engine.cm.PlayerWallCollisionProcessor import PlayerWallCollisionProce
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerMoveLogic import PlayerMoveLogic
+from game.engine.PlayerMovingTimeCalculator import PlayerMovingTimeCalculator
 from game.engine.PlayerPositionUpdater import PlayerPositionUpdater
 from game.engine.PlayerTurnLogic import PlayerTurnLogic
 from game.engine.PlayerVelocityCalculator import PlayerVelocityCalculator
@@ -13,6 +14,7 @@ class GameUpdater:
 
     def __init__(
         self,
+        playerMovingTimeCalculator,
         playerVelocityCalculator,
         playerMoveLogic,
         playerTurnLogic,
@@ -23,6 +25,7 @@ class GameUpdater:
         levelSegmentVisibilityUpdater,
         cameraUpdater,
     ):
+        self.playerMovingTimeCalculator = playerMovingTimeCalculator
         self.playerVelocityCalculator = playerVelocityCalculator
         self.playerMoveLogic = playerMoveLogic
         self.playerTurnLogic = playerTurnLogic
@@ -34,6 +37,7 @@ class GameUpdater:
         self.cameraUpdater = cameraUpdater
 
     def update(self):
+        self.playerMovingTimeCalculator.calculate()
         self.playerVelocityCalculator.calculate()
         self.playerMoveLogic.process()
         self.playerTurnLogic.process()
@@ -47,6 +51,7 @@ class GameUpdater:
 
 def makeGameUpdater(resolver):
     return GameUpdater(
+        resolver.resolve(PlayerMovingTimeCalculator),
         resolver.resolve(PlayerVelocityCalculator),
         resolver.resolve(PlayerMoveLogic),
         resolver.resolve(PlayerTurnLogic),

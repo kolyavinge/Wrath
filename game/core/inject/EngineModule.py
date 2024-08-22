@@ -13,6 +13,7 @@ from game.engine.LevelValidator import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerMoveLogic import *
+from game.engine.PlayerMovingTimeCalculator import *
 from game.engine.PlayerPositionUpdater import *
 from game.engine.PlayerTurnLogic import *
 from game.engine.PlayerVelocityCalculator import *
@@ -43,3 +44,4 @@ class EngineModule:
         binder.bindSingleton(PlayerTurnLogic, makePlayerTurnLogic)
         binder.bindSingleton(PlayerZUpdater, makePlayerZUpdater)
         binder.bindSingleton(InputManager, makeInputManager)
+        binder.bindSingleton(PlayerMovingTimeCalculator, makePlayerMovingTimeCalculator)
