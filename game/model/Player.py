@@ -24,6 +24,8 @@ class Player:
         self.hasTurned = False
         self.forwardMovingTime = 0
         self.backwardMovingTime = 0
+        self.leftStepMovingTime = 0
+        self.rightStepMovingTime = 0
         self.movingTimeDelta = 0.1
         self.velocityValue = 0
         self.velocityVector = Vector3()
