@@ -11,7 +11,7 @@ class PlayerMovingTimeCalculator:
         player = self.gameData.player
 
         if inputData.goForward:
-            player.forwardMovingTime = self.limitTo(player.forwardMovingTime + player.movingTimeDelta, 1.5)
+            player.forwardMovingTime = self.limitTo(player.forwardMovingTime + player.movingTimeDelta, 1.25)
         else:
             player.forwardMovingTime = self.limitBy(player.forwardMovingTime * 0.8, 0.1, 0)
 

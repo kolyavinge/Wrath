@@ -17,39 +17,40 @@ class PlayerVelocityCalculator:
             self.processLeftRightStep()
         else:
             player.velocityValue = 0
+            player.velocityVector.set(0, 0, 0)
 
     def processForwardBackward(self):
         player = self.gameData.player
 
-        totalMovingTime = player.forwardMovingTime - player.backwardMovingTime
-        player.velocityValue = player.velocityFunc.getValue(Math.abs(totalMovingTime))
+        movingTime = player.forwardMovingTime - player.backwardMovingTime
+        player.velocityValue = player.velocityFunc.getValue(Math.abs(movingTime))
         player.velocityVector = player.frontNormal.copy()
         player.velocityVector.setLength(player.velocityValue)
-        if totalMovingTime < 0:
+        if movingTime < 0:
             player.velocityVector.mul(-1)
 
         leftStep = player.leftStepMovingTime > player.rightStepMovingTime
         rightStep = player.leftStepMovingTime < player.rightStepMovingTime
         radians = 0
-        if totalMovingTime > 0 and leftStep:
-            radians = 0.5
-        elif totalMovingTime > 0 and rightStep:
-            radians = -0.5
-        elif totalMovingTime < 0 and leftStep:
-            radians = -0.5
-        elif totalMovingTime < 0 and rightStep:
-            radians = 0.5
+        if movingTime > 0 and leftStep:
+            radians = player.leftStepMovingTime
+        elif movingTime > 0 and rightStep:
+            radians = -player.rightStepMovingTime
+        elif movingTime < 0 and leftStep:
+            radians = -player.leftStepMovingTime
+        elif movingTime < 0 and rightStep:
+            radians = player.rightStepMovingTime
 
         if radians != 0:
             player.velocityVector = Geometry.rotatePoint(player.velocityVector, CommonConstants.zAxis, CommonConstants.axisOrigin, radians)
 
     def processLeftRightStep(self):
         player = self.gameData.player
-        totalMovingTime = player.rightStepMovingTime - player.leftStepMovingTime
-        player.velocityValue = player.velocityFunc.getValue(Math.abs(totalMovingTime))
+        movingTime = player.rightStepMovingTime - player.leftStepMovingTime
+        player.velocityValue = player.velocityFunc.getValue(Math.abs(movingTime))
         player.velocityVector = player.rightNormal.copy()
         player.velocityVector.setLength(player.velocityValue)
-        if totalMovingTime < 0:
+        if movingTime < 0:
             player.velocityVector.mul(-1)
 
 
