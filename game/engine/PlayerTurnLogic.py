@@ -69,6 +69,7 @@ class PlayerTurnLogic:
         player.frontNormal = Geometry.rotatePoint(CommonConstants.yAxis, CommonConstants.zAxis, CommonConstants.axisOrigin, player.yawRadians)
         player.rightNormal = Geometry.rotatePoint(player.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, -Math.piHalf)
         player.lookDirection = Geometry.rotatePoint(player.frontNormal, player.rightNormal, CommonConstants.axisOrigin, player.pitchRadians)
+        player.lookDirectionNormal = Geometry.rotatePoint(player.lookDirection, player.rightNormal, CommonConstants.axisOrigin, Math.piHalf)
 
 
 def makePlayerTurnLogic(resolver):

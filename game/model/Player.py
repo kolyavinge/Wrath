@@ -18,6 +18,7 @@ class Player:
         self.pitchRadians = 0
         self.yawRadians = 0
         self.lookDirection = CommonConstants.yAxis
+        self.lookDirectionNormal = CommonConstants.zAxis
         self.frontNormal = CommonConstants.yAxis
         self.rightNormal = CommonConstants.xAxis
         self.hasMoved = False
