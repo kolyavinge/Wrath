@@ -3,6 +3,7 @@ from game.anx.PlayerConstants import PlayerConstants
 from game.calc.Box3d import Box3d
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
+from game.model.FallingFunc import FallingFunc
 from game.model.PlayerState import PlayerState
 from game.model.VelocityFunc import VelocityFunc
 
@@ -32,7 +33,9 @@ class Player:
         self.movingTimeDelta = 0.1
         self.velocityValue = 0
         self.velocityVector = Vector3()
+        self.fallingTime = 0
         self.velocityFunc = VelocityFunc()
+        self.fallingFunc = FallingFunc()
         self.collisionLevelSegments = set()
         self.visibilityLevelSegments = set()
 

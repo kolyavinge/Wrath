@@ -22,6 +22,11 @@ class PlayerZUpdater:
             z = levelSegment.floors[0].getZ(player.nextCenterPoint.x, player.nextCenterPoint.y)
             if player.getZ() - z < 0.2:
                 player.setZ(z)
+                player.fallingTime = 0
+                if player.state == PlayerState.fall:
+                    player.state = PlayerState.land
+                else:
+                    player.state = PlayerState.stand
             else:
                 player.state = PlayerState.fall
                 self.processPlayerFall()
@@ -33,7 +38,8 @@ class PlayerZUpdater:
 
     def processPlayerFall(self):
         player = self.gameData.player
-        player.setZ(player.getZ() - 0.5)
+        player.fallingTime += 0.1
+        player.setZ(player.getZ() - player.fallingFunc.getValue(player.fallingTime))
 
 
 def makePlayerZUpdater(resolver):
