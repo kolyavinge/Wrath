@@ -13,7 +13,7 @@ class Player:
     maxPitchRadians = Math.piHalf - 0.1
 
     def __init__(self):
-        self.state = PlayerState.stand
+        self.state = PlayerState.standing
         self.currentCenterPoint = Vector3()
         self.currentBorder = Box3d(PlayerConstants.xyLength, PlayerConstants.xyLength, PlayerConstants.zLength)
         self.nextCenterPoint = self.currentCenterPoint.copy()
@@ -34,6 +34,7 @@ class Player:
         self.velocityValue = 0
         self.velocityVector = Vector3()
         self.fallingTime = 0
+        self.landingTime = 0
         self.velocityFunc = VelocityFunc()
         self.fallingFunc = FallingFunc()
         self.collisionLevelSegments = set()

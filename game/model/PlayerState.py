@@ -1,4 +1,4 @@
 class PlayerState:
-    stand = 1
-    fall = 2
-    land = 3
+    standing = 1
+    falling = 2
+    landing = 3

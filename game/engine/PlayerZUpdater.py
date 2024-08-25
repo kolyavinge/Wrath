@@ -19,22 +19,38 @@ class PlayerZUpdater:
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, player.nextCenterPoint)
         assert levelSegment is not None
         if len(levelSegment.floors) == 1:
-            z = levelSegment.floors[0].getZ(player.nextCenterPoint.x, player.nextCenterPoint.y)
-            if player.getZ() - z < 0.2:
-                player.setZ(z)
-                player.fallingTime = 0
-                if player.state == PlayerState.fall:
-                    player.state = PlayerState.land
-                else:
-                    player.state = PlayerState.stand
-            else:
-                player.state = PlayerState.fall
-                self.processPlayerFall()
+            self.processFloor(levelSegment)
         elif len(levelSegment.floors) == 0:
-            player.state = PlayerState.fall
-            self.processPlayerFall()
+            self.processHole()
         else:
             raise Exception()
+
+    def processFloor(self, levelSegment):
+        player = self.gameData.player
+        z = levelSegment.floors[0].getZ(player.nextCenterPoint.x, player.nextCenterPoint.y)
+        playerOnFloor = player.getZ() - z < 1 or player.getZ() < z
+        if playerOnFloor:
+            if player.state == PlayerState.standing:
+                player.setZ(z)
+            elif player.state == PlayerState.falling:
+                player.setZ(z)
+                player.fallingTime = 0
+                player.state = PlayerState.landing
+                player.landingTime = 10 * 0.1
+            elif player.state == PlayerState.landing:
+                player.landingTime -= 0.1
+                if player.landingTime <= 0:
+                    player.state = PlayerState.standing
+                    player.landingTime = 0
+            else:
+                raise Exception()
+        else:
+            player.state = PlayerState.falling
+            self.processPlayerFall()
+
+    def processHole(self):
+        self.gameData.player.state = PlayerState.falling
+        self.processPlayerFall()
 
     def processPlayerFall(self):
         player = self.gameData.player

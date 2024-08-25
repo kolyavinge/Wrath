@@ -12,7 +12,7 @@ class PlayerPositionUpdater:
         player.hasTurned = False
         if player.hasMoved:
             player.commitNextPosition()
-            if player.state == PlayerState.stand:
+            if player.state == PlayerState.standing:
                 player.hasMoved = False
 
 

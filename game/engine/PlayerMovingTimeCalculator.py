@@ -10,7 +10,7 @@ class PlayerMovingTimeCalculator:
     def calculate(self):
         inputData = self.gameData.playerInputData
         player = self.gameData.player
-        playerStand = player.state == PlayerState.stand
+        playerStand = player.state == PlayerState.standing
 
         if inputData.goForward and playerStand:
             player.forwardMovingTime = self.limitTo(player.forwardMovingTime + player.movingTimeDelta, 1.25)

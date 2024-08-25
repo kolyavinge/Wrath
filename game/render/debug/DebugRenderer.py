@@ -17,13 +17,13 @@ class DebugRenderer:
         self.renderVisibleWalls()
         self.renderVisibleFloors()
         self.renderVisibleCeilings()
-        self.renderVisibleSegmentJoinLines()
+        # self.renderVisibleSegmentJoinLines()
         # self.renderVisibleSegmentSplitLines()
-        self.renderPlayerSegmentWalls()
-        self.renderPlayerSegmentWallCrossLines()
-        self.renderPlayerSegmentFloors()
+        # self.renderPlayerSegmentWalls()
+        # self.renderPlayerSegmentWallCrossLines()
+        # self.renderPlayerSegmentFloors()
         # self.renderPlayerSegmentCeilings()
-        self.renderPlayerBorder()
+        # self.renderPlayerBorder()
         # self.renderAxis()
 
     def initCamera(self):
