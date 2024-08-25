@@ -3,6 +3,7 @@ from game.anx.PlayerConstants import PlayerConstants
 from game.calc.Box3d import Box3d
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
+from game.model.PlayerState import PlayerState
 from game.model.VelocityFunc import VelocityFunc
 
 
@@ -11,6 +12,7 @@ class Player:
     maxPitchRadians = Math.piHalf - 0.1
 
     def __init__(self):
+        self.state = PlayerState.stand
         self.currentCenterPoint = Vector3()
         self.currentBorder = Box3d(PlayerConstants.xyLength, PlayerConstants.xyLength, PlayerConstants.zLength)
         self.nextCenterPoint = self.currentCenterPoint.copy()

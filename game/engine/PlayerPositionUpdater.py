@@ -1,4 +1,5 @@
 from game.engine.GameData import GameData
+from game.model.PlayerState import PlayerState
 
 
 class PlayerPositionUpdater:
@@ -10,8 +11,9 @@ class PlayerPositionUpdater:
         player = self.gameData.player
         player.hasTurned = False
         if player.hasMoved:
-            player.hasMoved = False
             player.commitNextPosition()
+            if player.state == PlayerState.stand:
+                player.hasMoved = False
 
 
 def makePlayerPositionUpdater(resolver):
