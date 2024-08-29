@@ -1,4 +1,5 @@
 from game.calc.Vector3 import Vector3
+from game.lib.Numeric import Numeric
 
 
 class Rect2d:
@@ -18,6 +19,9 @@ class Rect2d:
         self.downRight.set(center.x + self.xLengthHalf, center.y - self.yLengthHalf, center.z)
         self.upLeft.set(center.x - self.xLengthHalf, center.y + self.yLengthHalf, center.z)
         self.upRight.set(center.x + self.xLengthHalf, center.y + self.yLengthHalf, center.z)
+
+    def containsPoint(self, point):
+        return Numeric.between(point.x, self.downLeft.x, self.downRight.x) and Numeric.between(point.y, self.downLeft.y, self.upLeft.y)
 
     def copy(self):
         copy = Rect2d(self.xLength, self.yLength)

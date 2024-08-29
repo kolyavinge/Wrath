@@ -75,3 +75,10 @@ class Vector3:
 
     def __str__(self):
         return f"{self.x:.2f} : {self.y:.2f} : {self.z:.2f}"
+
+    @staticmethod
+    def getLengthBetweenPoints(point1, point2):
+        dx = point1.x - point2.x
+        dy = point1.y - point2.y
+        dz = point1.z - point2.z
+        return Math.sqrt(dx * dx + dy * dy + dz * dz)
