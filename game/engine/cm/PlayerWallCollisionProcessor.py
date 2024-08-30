@@ -40,7 +40,7 @@ class PlayerWallCollisionProcessor:
             if intersectPoint is not None:
                 if self.playerLineContainsPoint(playerPointFrom, playerPointTo, intersectPoint) and self.wallContainsPoint(wall, intersectPoint):
                     player = self.gameData.player
-                    x, y = self.getPointOnCrossLine(wall, player.nextCenterPoint)
+                    x, y = self.getPointOnLimitLine(wall, player.nextCenterPoint)
                     player.moveNextPositionTo(Vector3(x, y, player.getZ()))
                     player.forwardMovingTime /= 2
                     player.backwardMovingTime /= 2
@@ -81,15 +81,15 @@ class PlayerWallCollisionProcessor:
         else:
             raise Exception()
 
-    def getPointOnCrossLine(self, wall, playerNextCenterPoint):
+    def getPointOnLimitLine(self, wall, playerNextCenterPoint):
         if wall.orientation == Orientation.horizontal:
-            return (playerNextCenterPoint.x, wall.crossLine.startPoint.y)
+            return (playerNextCenterPoint.x, wall.limitLine.startPoint.y)
         elif wall.orientation == Orientation.vertical:
-            return (wall.crossLine.startPoint.x, playerNextCenterPoint.y)
+            return (wall.limitLine.startPoint.x, playerNextCenterPoint.y)
         elif wall.orientation == Orientation.diagonal:
-            playerDirection = wall.crossLine.startPoint.getDirectionTo(playerNextCenterPoint)
-            projected = Geometry.getProjectedVector(playerDirection, wall.crossLineDirection)
-            projected.add(wall.crossLine.startPoint)
+            playerDirection = wall.limitLine.startPoint.getDirectionTo(playerNextCenterPoint)
+            projected = Geometry.getProjectedVector(playerDirection, wall.limitLineDirection)
+            projected.add(wall.limitLine.startPoint)
 
             return (projected.x, projected.y)
         else:

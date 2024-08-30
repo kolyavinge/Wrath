@@ -14,8 +14,8 @@ class Wall:
         self.endPoint = Vector3()
         self.frontNormal = Vector3()
         self.direction = Vector3()
-        self.crossLine = Line()
-        self.crossLineDirection = Vector3()
+        self.limitLine = Line()
+        self.limitLineDirection = Vector3()
         self.checkSegmentVisibility = True
         self.height = 3
         self.info = ""
@@ -26,18 +26,18 @@ class Wall:
         self.upStartPoint.z += self.height
         self.upEndPoint = self.endPoint.copy()
         self.upEndPoint.z += self.height
-        self.calculateWallCrossLine()
+        self.calculateWallLimitLine()
 
-    def calculateWallCrossLine(self):
-        crossDirection = self.frontNormal.copy()
-        crossDirection.setLength(self.getCrossLineWallOffset())
-        self.crossLine.startPoint = self.startPoint.copy()
-        self.crossLine.endPoint = self.endPoint.copy()
-        self.crossLine.startPoint.add(crossDirection)
-        self.crossLine.endPoint.add(crossDirection)
-        self.crossLineDirection = self.crossLine.startPoint.getDirectionTo(self.crossLine.endPoint)
+    def calculateWallLimitLine(self):
+        limitLineDirection = self.frontNormal.copy()
+        limitLineDirection.setLength(self.getLimitLineOffset())
+        self.limitLine.startPoint = self.startPoint.copy()
+        self.limitLine.endPoint = self.endPoint.copy()
+        self.limitLine.startPoint.add(limitLineDirection)
+        self.limitLine.endPoint.add(limitLineDirection)
+        self.limitLineDirection = self.limitLine.startPoint.getDirectionTo(self.limitLine.endPoint)
 
-    def getCrossLineWallOffset(self):
+    def getLimitLineOffset(self):
         if self.orientation == Orientation.diagonal:
             return PlayerConstants.xyLengthHalf * Math.sqrt(2)
         else:
@@ -48,7 +48,7 @@ class Wall:
 
     def validate(self):
         assert self.startPoint != self.endPoint
-        assert self.crossLine.startPoint != self.crossLine.endPoint
+        assert self.limitLine.startPoint != self.limitLine.endPoint
         assert Numeric.floatEquals(self.frontNormal.getLength(), 1)
         wallDirection = self.startPoint.getDirectionTo(self.endPoint)
         assert wallDirection.getLength() >= 1

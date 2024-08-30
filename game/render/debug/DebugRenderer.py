@@ -19,11 +19,11 @@ class DebugRenderer:
         self.renderVisibleCeilings()
         # self.renderVisibleSegmentJoinLines()
         # self.renderVisibleSegmentSplitLines()
-        # self.renderPlayerSegmentWalls()
-        # self.renderPlayerSegmentWallCrossLines()
+        self.renderPlayerSegmentWalls()
+        self.renderPlayerSegmentWallLimitLines()
         # self.renderPlayerSegmentFloors()
         # self.renderPlayerSegmentCeilings()
-        # self.renderPlayerBorder()
+        self.renderPlayerBorder()
         # self.renderAxis()
 
     def initCamera(self):
@@ -138,14 +138,14 @@ class DebugRenderer:
                 glEnd()
         glDisable(GL_BLEND)
 
-    def renderPlayerSegmentWallCrossLines(self):
+    def renderPlayerSegmentWallLimitLines(self):
         glEnable(GL_DEPTH_TEST)
         glColor3f(1, 1, 0)
         for levelSegment in self.gameData.player.collisionLevelSegments:
             for wall in levelSegment.walls:
                 glBegin(GL_LINES)
-                glVertex3f(wall.crossLine.startPoint.x, wall.crossLine.startPoint.y, wall.startPoint.z)
-                glVertex3f(wall.crossLine.endPoint.x, wall.crossLine.endPoint.y, wall.endPoint.z)
+                glVertex3f(wall.limitLine.startPoint.x, wall.limitLine.startPoint.y, wall.startPoint.z)
+                glVertex3f(wall.limitLine.endPoint.x, wall.limitLine.endPoint.y, wall.endPoint.z)
                 glEnd()
         glDisable(GL_DEPTH_TEST)
 
