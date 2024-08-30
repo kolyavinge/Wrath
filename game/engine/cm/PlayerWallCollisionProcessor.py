@@ -12,9 +12,18 @@ class PlayerWallCollisionProcessor:
 
     def processCollisions(self):
         self.hasCollisions = False
-        if self.gameData.player.hasMoved:
-            for levelSegment in self.gameData.player.collisionLevelSegments:
-                for wall in levelSegment.walls:
+        player = self.gameData.player
+        if not player.hasMoved:
+            return
+
+        for levelSegment in player.collisionLevelSegments:
+            for wall in levelSegment.walls:
+                if wall.orientation == Orientation.horizontal or wall.orientation == Orientation.vertical:
+                    self.processWall(wall)
+
+        for levelSegment in player.collisionLevelSegments:
+            for wall in levelSegment.walls:
+                if wall.orientation == Orientation.diagonal:
                     self.processWall(wall)
 
     def processWall(self, wall):
@@ -33,6 +42,10 @@ class PlayerWallCollisionProcessor:
                     player = self.gameData.player
                     x, y = self.getPointOnCrossLine(wall, player.nextCenterPoint)
                     player.moveNextPositionTo(Vector3(x, y, player.getZ()))
+                    player.forwardMovingTime /= 2
+                    player.backwardMovingTime /= 2
+                    player.leftStepMovingTime /= 2
+                    player.rightStepMovingTime /= 2
                     self.hasCollisions = True
 
     def isPlayerPointBehindWall(self, playerPoint, wall):
