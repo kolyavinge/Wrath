@@ -5,11 +5,11 @@ class LevelSegment:
 
     def __init__(self):
         self.walls = []
-        self.checkSegmentVisibilityWalls = []
         self.floors = []
         self.ceilings = []
         self.joinLines = []
 
     def commit(self):
+        self.checkSegmentVisibilityWalls = [w for w in self.walls if w.checkSegmentVisibility]
         self.horizontalVerticalWalls = [w for w in self.walls if w.orientation == Orientation.horizontal or w.orientation == Orientation.vertical]
         self.diagonalWalls = [w for w in self.walls if w.orientation == Orientation.diagonal]

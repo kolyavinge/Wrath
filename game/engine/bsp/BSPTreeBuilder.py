@@ -39,12 +39,8 @@ class BSPTreeBuilder:
             positionSet = self.getLevelItemPosition(node, wall)
             if SplitPlanePosition.front in positionSet:
                 frontSegment.walls.append(wall)
-                if wall.checkSegmentVisibility:
-                    frontSegment.checkSegmentVisibilityWalls.append(wall)
             if SplitPlanePosition.back in positionSet:
                 backSegment.walls.append(wall)
-                if wall.checkSegmentVisibility:
-                    backSegment.checkSegmentVisibilityWalls.append(wall)
 
         for floor in node.levelSegment.floors:
             positionSet = self.getLevelItemPosition(node, floor)
