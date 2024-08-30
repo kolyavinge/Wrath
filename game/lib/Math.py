@@ -46,3 +46,7 @@ class Math:
     @staticmethod
     def arccos(v):
         return math.acos(v)
+
+    @staticmethod
+    def round(x, digits):
+        return round(x, digits)

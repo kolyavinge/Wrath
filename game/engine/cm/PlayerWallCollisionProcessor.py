@@ -1,6 +1,7 @@
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
+from game.lib.Math import Math
 from game.model.level.Orientation import Orientation
 
 
@@ -39,7 +40,7 @@ class PlayerWallCollisionProcessor:
                 if self.playerLineContainsPoint(playerPointFrom, playerPointTo, intersectPoint) and self.wallContainsPoint(wall, intersectPoint):
                     player = self.gameData.player
                     x, y = self.getPointOnLimitLine(wall, player.nextCenterPoint)
-                    newNextPosition = Vector3(round(x, 2), round(y, 2), player.getZ())
+                    newNextPosition = Vector3(Math.round(x, 2), Math.round(y, 2), player.getZ())
                     player.moveNextPositionTo(newNextPosition)
                     player.forwardMovingTime /= 2
                     player.backwardMovingTime /= 2
