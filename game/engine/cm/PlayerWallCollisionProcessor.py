@@ -27,12 +27,12 @@ class PlayerWallCollisionProcessor:
                     self.processWall(wall)
 
     def processWall(self, wall):
-        currentBorder = self.gameData.player.currentBorder.bottom
+        currentCenterPoint = self.gameData.player.currentCenterPoint
         nextBorder = self.gameData.player.nextBorder.bottom
-        self.processPlayerLine(currentBorder.downLeft, nextBorder.downLeft, wall)
-        self.processPlayerLine(currentBorder.downRight, nextBorder.downRight, wall)
-        self.processPlayerLine(currentBorder.upLeft, nextBorder.upLeft, wall)
-        self.processPlayerLine(currentBorder.upRight, nextBorder.upRight, wall)
+        self.processPlayerLine(currentCenterPoint, nextBorder.downLeft, wall)
+        self.processPlayerLine(currentCenterPoint, nextBorder.downRight, wall)
+        self.processPlayerLine(currentCenterPoint, nextBorder.upLeft, wall)
+        self.processPlayerLine(currentCenterPoint, nextBorder.upRight, wall)
 
     def processPlayerLine(self, playerPointFrom, playerPointTo, wall):
         if self.isPlayerPointBehindWall(playerPointTo, wall):
@@ -41,7 +41,8 @@ class PlayerWallCollisionProcessor:
                 if self.playerLineContainsPoint(playerPointFrom, playerPointTo, intersectPoint) and self.wallContainsPoint(wall, intersectPoint):
                     player = self.gameData.player
                     x, y = self.getPointOnLimitLine(wall, player.nextCenterPoint)
-                    player.moveNextPositionTo(Vector3(x, y, player.getZ()))
+                    newNextPosition = Vector3(round(x, 2), round(y, 2), player.getZ())
+                    player.moveNextPositionTo(newNextPosition)
                     player.forwardMovingTime /= 2
                     player.backwardMovingTime /= 2
                     player.leftStepMovingTime /= 2

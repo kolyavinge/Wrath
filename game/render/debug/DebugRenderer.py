@@ -18,7 +18,6 @@ class DebugRenderer:
         self.renderVisibleFloors()
         self.renderVisibleCeilings()
         # self.renderVisibleSegmentJoinLines()
-        # self.renderVisibleSegmentSplitLines()
         self.renderPlayerSegmentWalls()
         self.renderPlayerSegmentWallLimitLines()
         # self.renderPlayerSegmentFloors()
@@ -107,23 +106,6 @@ class DebugRenderer:
                 # glVertex3f(joinLine.middlePoint.x, joinLine.middlePoint.y, joinLine.middlePoint.z + 0.1)
                 # glEnd()
         glDisable(GL_DEPTH_TEST)
-
-    def renderVisibleSegmentSplitLines(self):
-        glEnable(GL_DEPTH_TEST)
-        glEnable(GL_BLEND)
-        glColor4f(1, 1, 0, 0.2)
-        for levelSegment in self.gameData.visibleLevelSegments:
-            nodes = self.gameData.level.visibilityTree.getNodesForLevelSegment(levelSegment)
-            for node in nodes:
-                if node.basePoint.x == 0 and node.basePoint.y == 0 and node.frontNormal == CommonConstants.up:
-                    glBegin(GL_QUADS)
-                    glVertex3f(-100, -100, node.basePoint.z + 0.01)
-                    glVertex3f(-100, 100, node.basePoint.z + 0.01)
-                    glVertex3f(100, 100, node.basePoint.z + 0.01)
-                    glVertex3f(100, -100, node.basePoint.z + 0.01)
-                    glEnd()
-        glDisable(GL_DEPTH_TEST)
-        glDisable(GL_BLEND)
 
     def renderPlayerSegmentWalls(self):
         glEnable(GL_BLEND)
