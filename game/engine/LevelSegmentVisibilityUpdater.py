@@ -17,21 +17,22 @@ class LevelSegmentVisibilityUpdater:
             self.update()
 
     def update(self):
-        player = self.gameData.player
         self.gameData.visibleLevelSegments = set()
-        checkedJoinLines = set()
-        self.cameraLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, self.gameData.camera.position)
-        for levelSegment in player.visibilityLevelSegments:
-            self.checkLevelSegment(levelSegment, checkedJoinLines)
+        self.checkedJoinLines = set()
+        self.visibleWalls = []
+        for levelSegment in self.gameData.player.visibilityLevelSegments:
+            self.checkLevelSegment(levelSegment)
+        print(len(self.gameData.visibleLevelSegments))
 
-    def checkLevelSegment(self, levelSegment, checkedJoinLines):
+    def checkLevelSegment(self, levelSegment):
         self.gameData.visibleLevelSegments.add(levelSegment)
+        self.visibleWalls.extend(levelSegment.checkSegmentVisibilityWalls)
         for joinLine in levelSegment.joinLines:
-            if joinLine not in checkedJoinLines:
-                checkedJoinLines.add(joinLine)
+            if joinLine not in self.checkedJoinLines:
+                self.checkedJoinLines.add(joinLine)
                 if self.isJoinLineVisible(joinLine):
                     joinedLevelSegment = joinLine.backLevelSegment if joinLine.frontLevelSegment == levelSegment else joinLine.frontLevelSegment
-                    self.checkLevelSegment(joinedLevelSegment, checkedJoinLines)
+                    self.checkLevelSegment(joinedLevelSegment)
 
     def isJoinLineVisible(self, joinLine):
         for point in joinLine.points:
@@ -57,7 +58,7 @@ class LevelSegmentVisibilityUpdater:
         if dotProduct < self.maxCosLookDirection:
             return False
 
-        for wall in self.cameraLevelSegment.checkSegmentVisibilityWalls:
+        for wall in self.visibleWalls:
             intersectPoint = Geometry.getLinesIntersectPointOrNone(
                 wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, startPoint.x, startPoint.y, endPoint.x, endPoint.y
             )

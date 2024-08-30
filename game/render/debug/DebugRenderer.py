@@ -17,12 +17,12 @@ class DebugRenderer:
         self.renderVisibleWalls()
         self.renderVisibleFloors()
         self.renderVisibleCeilings()
-        # self.renderVisibleSegmentJoinLines()
-        self.renderPlayerSegmentWalls()
-        self.renderPlayerSegmentWallLimitLines()
+        self.renderVisibleSegmentJoinLines()
+        # self.renderPlayerSegmentWalls()
+        # self.renderPlayerSegmentWallLimitLines()
         # self.renderPlayerSegmentFloors()
         # self.renderPlayerSegmentCeilings()
-        self.renderPlayerBorder()
+        # self.renderPlayerBorder()
         # self.renderAxis()
 
     def initCamera(self):
@@ -63,7 +63,7 @@ class DebugRenderer:
         glDisable(GL_DEPTH_TEST)
 
     def renderVisibleWalls(self):
-        # glEnable(GL_BLEND)
+        glEnable(GL_BLEND)
         glEnable(GL_DEPTH_TEST)
         for levelSegment in self.gameData.visibleLevelSegments:
             for wall in levelSegment.walls:
@@ -71,19 +71,22 @@ class DebugRenderer:
                 endPointUp = wall.endPoint.copy()
                 startPointUp.z += wall.height
                 endPointUp.z += wall.height
-                glColor3f(0.5, 0.5, 0.5)
-                # glColor4f(1, 1, 1, 0.2)
+                # glColor3f(0.5, 0.5, 0.5)
+                glColor4f(1, 1, 1, 0.3)
                 self.renderGridQuad(wall.startPoint, wall.endPoint, startPointUp, endPointUp)
         glDisable(GL_DEPTH_TEST)
-        # glDisable(GL_BLEND)
+        glDisable(GL_BLEND)
 
     def renderVisibleFloors(self):
+        glEnable(GL_BLEND)
         glEnable(GL_DEPTH_TEST)
         for levelSegment in self.gameData.visibleLevelSegments:
             for floor in levelSegment.floors:
-                glColor3f(0.4, 0.4, 0.4)
+                # glColor3f(0.4, 0.4, 0.4)
+                glColor4f(1, 1, 1, 0.1)
                 self.renderGridQuad(floor.downLeft, floor.downRight, floor.upLeft, floor.upRight)
         glDisable(GL_DEPTH_TEST)
+        glDisable(GL_BLEND)
 
     def renderVisibleCeilings(self):
         glEnable(GL_DEPTH_TEST)
@@ -102,9 +105,6 @@ class DebugRenderer:
                 glVertex3f(joinLine.startPoint.x, joinLine.startPoint.y, joinLine.startPoint.z + 0.01)
                 glVertex3f(joinLine.endPoint.x, joinLine.endPoint.y, joinLine.endPoint.z + 0.01)
                 glEnd()
-                # glBegin(GL_POINTS)
-                # glVertex3f(joinLine.middlePoint.x, joinLine.middlePoint.y, joinLine.middlePoint.z + 0.1)
-                # glEnd()
         glDisable(GL_DEPTH_TEST)
 
     def renderPlayerSegmentWalls(self):
@@ -199,6 +199,7 @@ class DebugRenderer:
         glVertex3f(upRight.x, upRight.y, upRight.z)
         glVertex3f(upLeft.x, upLeft.y, upLeft.z)
         glEnd()
+        return
 
         glColor3f(0.1, 0.1, 0.1)
 
