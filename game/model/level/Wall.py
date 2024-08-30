@@ -16,8 +16,6 @@ class Wall:
         self.direction = Vector3()
         self.crossLine = Line()
         self.crossLineDirection = Vector3()
-        self.collisionLine = Line()
-        self.collisionLineDirection = Vector3()
         self.checkSegmentVisibility = True
         self.height = 3
         self.info = ""
@@ -29,7 +27,6 @@ class Wall:
         self.upEndPoint = self.endPoint.copy()
         self.upEndPoint.z += self.height
         self.calculateWallCrossLine()
-        self.calculateCollisionLine()
 
     def calculateWallCrossLine(self):
         crossDirection = self.frontNormal.copy()
@@ -39,15 +36,6 @@ class Wall:
         self.crossLine.startPoint.add(crossDirection)
         self.crossLine.endPoint.add(crossDirection)
         self.crossLineDirection = self.crossLine.startPoint.getDirectionTo(self.crossLine.endPoint)
-
-    def calculateCollisionLine(self):
-        self.collisionLine.startPoint = self.startPoint.copy()
-        self.collisionLine.endPoint = self.endPoint.copy()
-        delta = self.direction.copy()
-        delta.setLength(0.1)
-        self.collisionLine.startPoint.sub(delta)
-        self.collisionLine.endPoint.add(delta)
-        self.collisionLineDirection = self.collisionLine.startPoint.getDirectionTo(self.collisionLine.endPoint)
 
     def getCrossLineWallOffset(self):
         if self.orientation == Orientation.diagonal:

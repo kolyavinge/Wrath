@@ -49,17 +49,17 @@ class PlayerWallCollisionProcessor:
                     self.hasCollisions = True
 
     def isPlayerPointBehindWall(self, playerPoint, wall):
-        behindDirection = wall.collisionLine.startPoint.getDirectionTo(playerPoint)
+        behindDirection = wall.startPoint.getDirectionTo(playerPoint)
         dotProduct = behindDirection.dotProduct(wall.frontNormal)
 
         return dotProduct < 0
 
     def getWallIntersectPointOrNone(self, playerPointFrom, playerPointTo, wall):
         return Geometry.getLinesIntersectPointOrNone(
-            wall.collisionLine.startPoint.x,
-            wall.collisionLine.startPoint.y,
-            wall.collisionLine.endPoint.x,
-            wall.collisionLine.endPoint.y,
+            wall.startPoint.x,
+            wall.startPoint.y,
+            wall.endPoint.x,
+            wall.endPoint.y,
             playerPointFrom.x,
             playerPointFrom.y,
             playerPointTo.x,
@@ -72,15 +72,12 @@ class PlayerWallCollisionProcessor:
 
     def wallContainsPoint(self, wall, point):
         x, y = point
-        collisionLine = wall.collisionLine
         if wall.orientation == Orientation.horizontal:
-            return collisionLine.startPoint.x <= x and x <= collisionLine.endPoint.x
+            return wall.startPoint.x <= x and x <= wall.endPoint.x
         elif wall.orientation == Orientation.vertical:
-            return collisionLine.startPoint.y <= y and y <= collisionLine.endPoint.y
+            return wall.startPoint.y <= y and y <= wall.endPoint.y
         elif wall.orientation == Orientation.diagonal:
-            return Geometry.lineContainsPoint(
-                collisionLine.startPoint.x, collisionLine.startPoint.y, collisionLine.endPoint.x, collisionLine.endPoint.y, x, y
-            )
+            return Geometry.lineContainsPoint(wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, x, y)
         else:
             raise Exception()
 
