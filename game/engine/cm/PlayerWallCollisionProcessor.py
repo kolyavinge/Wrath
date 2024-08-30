@@ -17,14 +17,12 @@ class PlayerWallCollisionProcessor:
             return
 
         for levelSegment in player.collisionLevelSegments:
-            for wall in levelSegment.walls:
-                if wall.orientation == Orientation.horizontal or wall.orientation == Orientation.vertical:
-                    self.processWall(wall)
+            for wall in levelSegment.horizontalVerticalWalls:
+                self.processWall(wall)
 
         for levelSegment in player.collisionLevelSegments:
-            for wall in levelSegment.walls:
-                if wall.orientation == Orientation.diagonal:
-                    self.processWall(wall)
+            for wall in levelSegment.diagonalWalls:
+                self.processWall(wall)
 
     def processWall(self, wall):
         currentCenterPoint = self.gameData.player.currentCenterPoint

@@ -69,6 +69,9 @@ class BSPTreeBuilder:
             elif position == SplitPlanePosition.back:
                 backSplitPlanes.append(splitPlane)
 
+        frontSegment.commit()
+        backSegment.commit()
+
         return (frontSegment, backSegment, frontSplitPlanes, backSplitPlanes)
 
     def getLevelItemPosition(self, node, levelItem):

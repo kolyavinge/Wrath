@@ -1,3 +1,6 @@
+from game.model.level.Orientation import Orientation
+
+
 class LevelSegment:
 
     def __init__(self):
@@ -6,3 +9,7 @@ class LevelSegment:
         self.floors = []
         self.ceilings = []
         self.joinLines = []
+
+    def commit(self):
+        self.horizontalVerticalWalls = [w for w in self.walls if w.orientation == Orientation.horizontal or w.orientation == Orientation.vertical]
+        self.diagonalWalls = [w for w in self.walls if w.orientation == Orientation.diagonal]
