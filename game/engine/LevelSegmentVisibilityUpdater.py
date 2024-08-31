@@ -22,7 +22,6 @@ class LevelSegmentVisibilityUpdater:
         self.visibleWalls = []
         for levelSegment in self.gameData.player.visibilityLevelSegments:
             self.checkLevelSegment(levelSegment)
-        print(len(self.gameData.visibleLevelSegments))
 
     def checkLevelSegment(self, levelSegment):
         self.gameData.visibleLevelSegments.add(levelSegment)

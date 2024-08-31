@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.core.GameInitializer import GameInitializer
 from game.engine.LevelManager import LevelManager
 from game.input.InputManager import InputManager
 from game.render.debug.DebugRenderer import DebugRenderer
@@ -7,7 +7,8 @@ from game.ui.ScreenManager import ScreenManager
 
 class Game:
 
-    def __init__(self, levelManager, inputManager, screenManager, debugRenderer):
+    def __init__(self, gameInitializer, levelManager, inputManager, screenManager, debugRenderer):
+        gameInitializer.init()
         self.levelManager = levelManager
         self.inputManager = inputManager
         self.screenManager = screenManager
@@ -27,4 +28,10 @@ class Game:
 
 
 def makeGame(resolver):
-    return Game(resolver.resolve(LevelManager), resolver.resolve(InputManager), resolver.resolve(ScreenManager), resolver.resolve(DebugRenderer))
+    return Game(
+        resolver.resolve(GameInitializer),
+        resolver.resolve(LevelManager),
+        resolver.resolve(InputManager),
+        resolver.resolve(ScreenManager),
+        resolver.resolve(DebugRenderer),
+    )

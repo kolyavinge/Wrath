@@ -15,7 +15,7 @@ from game.lib.Screen import Screen
 class App:
 
     def __init__(self):
-        Environment.programRootPath = os.path.dirname(__file__)
+        Environment.programRootPath = os.getcwd()
 
     def resize(self, width, height):
         glViewport(0, 0, width, height)
