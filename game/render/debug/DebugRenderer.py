@@ -17,7 +17,7 @@ class DebugRenderer:
         self.renderVisibleWalls()
         self.renderVisibleFloors()
         self.renderVisibleCeilings()
-        self.renderVisibleSegmentJoinLines()
+        # self.renderVisibleSegmentJoinLines()
         # self.renderPlayerSegmentWalls()
         # self.renderPlayerSegmentWallLimitLines()
         # self.renderPlayerSegmentFloors()
@@ -71,8 +71,8 @@ class DebugRenderer:
                 endPointUp = wall.endPoint.copy()
                 startPointUp.z += wall.height
                 endPointUp.z += wall.height
-                # glColor3f(0.5, 0.5, 0.5)
-                glColor4f(1, 1, 1, 0.3)
+                glColor3f(0.5, 0.5, 0.5)
+                # glColor4f(1, 1, 1, 0.3)
                 self.renderGridQuad(wall.startPoint, wall.endPoint, startPointUp, endPointUp)
         glDisable(GL_DEPTH_TEST)
         glDisable(GL_BLEND)
@@ -82,8 +82,8 @@ class DebugRenderer:
         glEnable(GL_DEPTH_TEST)
         for levelSegment in self.gameData.visibleLevelSegments:
             for floor in levelSegment.floors:
-                # glColor3f(0.4, 0.4, 0.4)
-                glColor4f(1, 1, 1, 0.1)
+                glColor3f(0.4, 0.4, 0.4)
+                # glColor4f(1, 1, 1, 0.1)
                 self.renderGridQuad(floor.downLeft, floor.downRight, floor.upLeft, floor.upRight)
         glDisable(GL_DEPTH_TEST)
         glDisable(GL_BLEND)
@@ -199,7 +199,6 @@ class DebugRenderer:
         glVertex3f(upRight.x, upRight.y, upRight.z)
         glVertex3f(upLeft.x, upLeft.y, upLeft.z)
         glEnd()
-        return
 
         glColor3f(0.1, 0.1, 0.1)
 

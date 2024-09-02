@@ -1,6 +1,6 @@
-from game.render.ShaderCollection import ShaderCollection
-from game.render.ShaderProgramCollection import ShaderProgramCollection
-from game.render.TextureCollection import TextureCollection
+from game.render.common.ShaderCollection import ShaderCollection
+from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.common.TextureCollection import TextureCollection
 
 
 class GameInitializer:

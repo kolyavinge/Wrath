@@ -1,8 +1,9 @@
 class ShaderType:
     # GL constants
     vertex = 0x8B31
-    tessellationControl = 0x8E88
-    tessellationEvaluation = 0x8E87
+    tessControl = 0x8E88
+    tessEvaluation = 0x8E87
+    geometry = 0x8DD9
     fragment = 0x8B30
 
 

@@ -1,5 +1,5 @@
 from game.gl.ShaderProgram import ShaderProgram
-from game.render.ShaderCollection import ShaderCollection
+from game.render.common.ShaderCollection import ShaderCollection
 
 
 class ShaderProgramCollection:

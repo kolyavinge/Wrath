@@ -1,8 +1,8 @@
 from game.core.GameInitializer import GameInitializer
+from game.core.ScreenManager import ScreenManager
 from game.engine.LevelManager import LevelManager
 from game.input.InputManager import InputManager
 from game.render.debug.DebugRenderer import DebugRenderer
-from game.ui.ScreenManager import ScreenManager
 
 
 class Game:
@@ -14,6 +14,7 @@ class Game:
         self.screenManager = screenManager
         self.debugRenderer = debugRenderer
         self.levelManager.loadFirstLevel()  # TODO: временно
+        self.screenManager.currentScreenRenderer.init()
 
     def updateCurrentScreen(self):
         self.inputManager.update()
@@ -22,6 +23,7 @@ class Game:
 
     def renderCurrentScreen(self):
         self.debugRenderer.render()
+        self.screenManager.currentScreenRenderer.render()
 
     def voxCurrentScreen(self):
         pass
