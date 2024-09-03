@@ -1,5 +1,5 @@
 1. opengl for python
-    pip install PyOpenGL PyOpenGL_accelerate
+    pip install PyOpenGL
     или из репы
     https://github.com/mcfletch/pyopengl
 
@@ -8,3 +8,5 @@
 3. pip install mouse
 
 4. pip install line_profiler
+
+5. pip install numpy

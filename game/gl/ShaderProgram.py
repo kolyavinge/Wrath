@@ -14,3 +14,7 @@ class ShaderProgram:
 
     def unuse(self):
         glUseProgram(0)
+
+    def setUniform(self, name, value):
+        location = glGetUniformLocation(self.id, name)
+        glUniformMatrix4fv(location, 1, GL_FALSE, value)

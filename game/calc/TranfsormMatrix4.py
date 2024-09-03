@@ -1,3 +1,5 @@
+import numpy
+
 from game.lib.Math import Math
 
 # https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glTranslate.xml
@@ -182,6 +184,15 @@ class TransformMatrix4:
             (2 * zFar * zNear) / (zNear - zFar),
             0,
         ]
+
+    def copy(self):
+        result = TransformMatrix4()
+        result.items = self.items.copy()
+
+        return result
+
+    def toFloat32Array(self):
+        return numpy.array(self.items, dtype=numpy.float32)
 
     def toMatrix3(self):
         return [

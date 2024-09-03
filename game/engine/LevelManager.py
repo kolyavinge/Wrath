@@ -44,7 +44,8 @@ class LevelManager:
         self.gameData.player.moveNextPositionTo(level.playerPosition)
         self.gameData.player.commitNextPosition()
         self.playerLevelSegmentsUpdater.update()
-        self.cameraUpdater.update()
+        self.cameraUpdater.updatePosition()
+        self.cameraUpdater.calculateViewMatrix()
         self.levelSegmentVisibilityUpdater.update()
 
 

@@ -5,16 +5,20 @@ class LevelSegmentVBOCollection:
 
     def __init__(self, levelSegmentVBOBuilder):
         self.levelSegmentVBOBuilder = levelSegmentVBOBuilder
+        self.levelSegmentVBO = {}
 
-    def init(self, visibilityTreeLevelSegments):
-        self.levelSegmentDictionary = {}
-        # release current vbo-s
-        for levelSegment in visibilityTreeLevelSegments:
+    def init(self, allVisibilityLevelSegments):
+        for vbo in self.levelSegmentVBO.values():
+            vbo.release()
+
+        self.levelSegmentVBO.clear()
+
+        for levelSegment in allVisibilityLevelSegments:
             vbo = self.levelSegmentVBOBuilder.build(levelSegment)
-            self.levelSegmentDictionary[levelSegment] = vbo
+            self.levelSegmentVBO[levelSegment] = vbo
 
     def getLevelSegmentVBO(self, levelSegment):
-        return self.levelSegmentDictionary[levelSegment]
+        return self.levelSegmentVBO[levelSegment]
 
 
 def makeLevelSegmentVBOCollection(resolver):

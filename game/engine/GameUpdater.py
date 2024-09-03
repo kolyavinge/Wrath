@@ -47,8 +47,9 @@ class GameUpdater:
         self.playerWallCollisionProcessor.processCollisions()
         self.playerZUpdater.updateIfPlayerMoved()
         self.playerLevelSegmentsUpdater.updateIfPlayerMoved()
-        self.cameraUpdater.update()
+        self.cameraUpdater.updatePositionIfPlayerMoved()
         self.cameraSwingLogic.updateSwing()
+        self.cameraUpdater.calculateViewMatrixIfPlayerMoved()
         self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
         self.playerPositionUpdater.update()
 
