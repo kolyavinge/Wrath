@@ -1,8 +1,16 @@
+from game.gl.TextureLoader import TextureLoader
+from game.lib.Environment import Environment
+
+
 class TextureCollection:
 
+    def __init__(self, textureLoader):
+        self.textureLoader = textureLoader
+
     def init(self):
-        pass
+        path = Environment.programRootPath + "\\res\\textures\\"
+        self.blank = self.textureLoader.load(path + "blank.png")
 
 
 def makeTextureCollection(resolver):
-    return TextureCollection()
+    return TextureCollection(resolver.resolve(TextureLoader))

@@ -10,3 +10,5 @@
 4. pip install line_profiler
 
 5. pip install numpy
+
+6. pip install Pillow

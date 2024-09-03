@@ -1,4 +1,5 @@
 from game.gl.ShaderCompiler import *
+from game.gl.TextureLoader import *
 from game.gl.VBOBuilderFactory import *
 from game.gl.VBORenderer import *
 from game.render.common.ShaderCollection import *
@@ -19,6 +20,7 @@ class RenderModule:
 
     def init(self, binder):
         binder.bindSingleton(ShaderCompiler, makeShaderCompiler)
+        binder.bindSingleton(TextureLoader, makeTextureLoader)
         binder.bindSingleton(VBOBuilderFactory, makeVBOBuilderFactory)
         binder.bindSingleton(VBORenderer, makeVBORenderer)
         binder.bindSingleton(ShaderCollection, makeShaderCollection)

@@ -2,5 +2,5 @@ class File:
 
     @staticmethod
     def readAllFile(filePath):
-        f = open(filePath, "r")
-        return f.read()
+        with open(filePath, "r") as f:
+            return f.read()
