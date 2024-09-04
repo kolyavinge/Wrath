@@ -1,3 +1,4 @@
+from game.anx.CommonConstants import CommonConstants
 from game.model.level.Floor import Floor
 
 
@@ -5,6 +6,7 @@ class FlatFloor(Floor):
 
     def __init__(self):
         super().__init__()
+        self.upNormal = CommonConstants.up
         self.z = 0
 
     def getZ(self, x, y):
