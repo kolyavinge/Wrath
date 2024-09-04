@@ -4,6 +4,7 @@ from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 from game.model.level.Orientation import Orientation
+from game.model.Material import Material
 
 
 class Wall:
@@ -19,6 +20,7 @@ class Wall:
         self.checkSegmentVisibility = True
         self.height = 3
         self.info = ""
+        self.material = Material.blank
 
     def commit(self):
         self.direction = self.startPoint.getDirectionTo(self.endPoint)

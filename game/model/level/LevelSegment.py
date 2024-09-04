@@ -9,6 +9,9 @@ class LevelSegment:
         self.ceilings = []
         self.joinLines = []
 
+    def getAllItems(self):
+        return self.walls + self.floors + self.ceilings
+
     def commit(self):
         self.checkSegmentVisibilityWalls = [w for w in self.walls if w.checkSegmentVisibility]
         self.horizontalVerticalWalls = [w for w in self.walls if w.orientation == Orientation.horizontal or w.orientation == Orientation.vertical]

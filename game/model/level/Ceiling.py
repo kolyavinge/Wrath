@@ -1,4 +1,5 @@
 from game.calc.Vector3 import Vector3
+from game.model.Material import Material
 
 
 class Ceiling:
@@ -9,6 +10,7 @@ class Ceiling:
         self.upLeft = Vector3()
         self.upRight = Vector3()
         self.frontNormal = Vector3()
+        self.material = Material.blank
 
     def getBorderPoints(self):
         return [self.downLeft, self.downRight, self.upLeft, self.upRight]

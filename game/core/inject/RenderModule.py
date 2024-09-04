@@ -8,9 +8,9 @@ from game.render.common.TextureCollection import *
 from game.render.debug.DebugRenderer import *
 from game.render.level.CeilingVBOBuilder import *
 from game.render.level.FloorVBOBuilder import *
+from game.render.level.LevelItemGroupBuilder import *
+from game.render.level.LevelItemGroupCollection import *
 from game.render.level.LevelRenderer import *
-from game.render.level.LevelSegmentVBOBuilder import *
-from game.render.level.LevelSegmentVBOCollection import *
 from game.render.level.StairVBOBuilder import *
 from game.render.level.WallVBOBuilder import *
 from game.render.ui.GameScreenRenderer import *
@@ -30,8 +30,8 @@ class RenderModule:
         binder.bindSingleton(CeilingVBOBuilder, makeCeilingVBOBuilder)
         binder.bindSingleton(FloorVBOBuilder, makeFloorVBOBuilder)
         binder.bindSingleton(LevelRenderer, makeLevelRenderer)
-        binder.bindSingleton(LevelSegmentVBOBuilder, makeLevelSegmentVBOBuilder)
-        binder.bindSingleton(LevelSegmentVBOCollection, makeLevelSegmentVBOCollection)
+        binder.bindSingleton(LevelItemGroupBuilder, makeLevelItemGroupBuilder)
+        binder.bindSingleton(LevelItemGroupCollection, makeLevelItemGroupCollection)
         binder.bindSingleton(StairVBOBuilder, makeStairVBOBuilder)
         binder.bindSingleton(WallVBOBuilder, makeWallVBOBuilder)
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)

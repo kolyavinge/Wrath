@@ -4,32 +4,28 @@ from game.calc.TranfsormMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
 from game.gl.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
-from game.render.common.TextureCollection import TextureCollection
-from game.render.level.LevelSegmentVBOCollection import LevelSegmentVBOCollection
+from game.render.level.LevelItemGroupCollection import LevelItemGroupCollection
 
 
 class LevelRenderer:
 
-    def __init__(self, gameData, levelSegmentVBOCollection, vboRenderer, shaderProgramCollection, textureCollection):
+    def __init__(self, gameData, levelItemGroupCollection, vboRenderer, shaderProgramCollection):
         self.gameData = gameData
-        self.levelSegmentVBOCollection = levelSegmentVBOCollection
+        self.levelItemGroupCollection = levelItemGroupCollection
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
-        self.textureCollection = textureCollection
         self.modelMatrixFloat32Array = TransformMatrix4().toFloat32Array()
 
     def init(self):
-        self.levelSegmentVBOCollection.init(self.gameData.level.visibilityTree.getAllLevelSegments())
+        self.levelItemGroupCollection.init(self.gameData.level.visibilityTree.getAllLevelSegments())
 
     def render(self):
         glEnable(GL_DEPTH_TEST)
         glEnable(GL_TEXTURE_2D)
-        self.textureCollection.blank.bind(GL_TEXTURE0)
         self.shaderProgramCollection.mainScene.use()
         self.setUniforms()
         self.renderLevelSegments()
         self.shaderProgramCollection.mainScene.unuse()
-        self.textureCollection.blank.unbind()
         glDisable(GL_TEXTURE_2D)
         glDisable(GL_DEPTH_TEST)
 
@@ -44,15 +40,17 @@ class LevelRenderer:
 
     def renderLevelSegments(self):
         for levelSegment in self.gameData.visibleLevelSegments:
-            vbo = self.levelSegmentVBOCollection.getLevelSegmentVBO(levelSegment)
-            self.vboRenderer.render(vbo)
+            items = self.levelItemGroupCollection.getLevelItemGroups(levelSegment)
+            for item in items:
+                item.texture.bind(GL_TEXTURE0)
+                self.vboRenderer.render(item.vbo)
+                item.texture.unbind()
 
 
 def makeLevelRenderer(resolver):
     return LevelRenderer(
         resolver.resolve(GameData),
-        resolver.resolve(LevelSegmentVBOCollection),
+        resolver.resolve(LevelItemGroupCollection),
         resolver.resolve(VBORenderer),
         resolver.resolve(ShaderProgramCollection),
-        resolver.resolve(TextureCollection),
     )
