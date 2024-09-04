@@ -2,6 +2,7 @@ from game.gl.ShaderCompiler import *
 from game.gl.TextureLoader import *
 from game.gl.VBOBuilderFactory import *
 from game.gl.VBORenderer import *
+from game.render.common.MaterialTextureCollection import *
 from game.render.common.ShaderCollection import *
 from game.render.common.ShaderProgramCollection import *
 from game.render.common.TextureCollection import *
@@ -23,6 +24,7 @@ class RenderModule:
         binder.bindSingleton(TextureLoader, makeTextureLoader)
         binder.bindSingleton(VBOBuilderFactory, makeVBOBuilderFactory)
         binder.bindSingleton(VBORenderer, makeVBORenderer)
+        binder.bindSingleton(MaterialTextureCollection, makeMaterialTextureCollection)
         binder.bindSingleton(ShaderCollection, makeShaderCollection)
         binder.bindSingleton(ShaderProgramCollection, makeShaderProgramCollection)
         binder.bindSingleton(TextureCollection, makeTextureCollection)

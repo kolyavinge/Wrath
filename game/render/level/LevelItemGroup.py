@@ -9,5 +9,4 @@ class LevelItemGroup:
         self.vbo = None
 
     def release(self):
-        for vbo in self.vboList:
-            vbo.release()
+        self.vbo.release()

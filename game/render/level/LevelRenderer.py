@@ -40,8 +40,8 @@ class LevelRenderer:
 
     def renderLevelSegments(self):
         for levelSegment in self.gameData.visibleLevelSegments:
-            items = self.levelItemGroupCollection.getLevelItemGroups(levelSegment)
-            for item in items:
+            levelItemGroups = self.levelItemGroupCollection.getLevelItemGroups(levelSegment)
+            for item in levelItemGroups:
                 item.texture.bind(GL_TEXTURE0)
                 self.vboRenderer.render(item.vbo)
                 item.texture.unbind()
