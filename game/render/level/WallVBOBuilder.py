@@ -1,15 +1,30 @@
-from game.calc.Vector3 import Vector3
+from game.calc.Vector3Utils import Vector3Utils
+from game.lib.Math import Math
+from game.model.level.Orientation import Orientation
 
 
 class WallVBOBuilder:
 
     def build(self, wall, vboBuilder):
+        stepLength = 10
+        if wall.orientation == Orientation.diagonal:
+            stepLength /= Math.sqrt(2)
+        points = Vector3Utils.splitFromStartToEnd(wall.startPoint, wall.endPoint, stepLength)
+        for i in range(1, len(points)):
+            self.addVertices(vboBuilder, wall, points[i - 1], points[i])
+
+    def addVertices(self, vboBuilder, wall, prevPoint, currentPoint):
         vertexCount = vboBuilder.getVertexCount()
 
-        vboBuilder.addVertex(wall.startPoint)
-        vboBuilder.addVertex(wall.upStartPoint)
-        vboBuilder.addVertex(wall.upEndPoint)
-        vboBuilder.addVertex(wall.endPoint)
+        prevUpPoint = prevPoint.copy()
+        prevUpPoint.z += wall.height
+        currentUpPoint = currentPoint.copy()
+        currentUpPoint.z += wall.height
+
+        vboBuilder.addVertex(prevPoint)
+        vboBuilder.addVertex(prevUpPoint)
+        vboBuilder.addVertex(currentUpPoint)
+        vboBuilder.addVertex(currentPoint)
 
         vboBuilder.addNormal(wall.frontNormal)
         vboBuilder.addNormal(wall.frontNormal)
