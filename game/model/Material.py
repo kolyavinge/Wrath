@@ -5,4 +5,5 @@ class Material:
 
 
 Material.blank = Material()
-Material.metal1 = Material()
+Material.wallMetal1 = Material()
+Material.floorMetal1 = Material()

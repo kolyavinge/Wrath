@@ -1,3 +1,5 @@
+import time
+
 from game.engine.CameraSwingLogic import CameraSwingLogic
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.PlayerWallCollisionProcessor import PlayerWallCollisionProcessor
@@ -40,6 +42,8 @@ class GameUpdater:
         self.cameraSwingLogic = cameraSwingLogic
 
     def update(self):
+        start = time.time()
+
         self.playerMovingTimeCalculator.calculate()
         self.playerVelocityCalculator.calculate()
         self.playerMoveLogic.process()
@@ -52,6 +56,9 @@ class GameUpdater:
         self.cameraUpdater.calculateViewMatrixIfPlayerMoved()
         self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
         self.playerPositionUpdater.update()
+
+        end = time.time()
+        # print(f"Game updated {end-start:.8f}")
 
 
 def makeGameUpdater(resolver):

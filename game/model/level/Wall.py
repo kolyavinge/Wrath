@@ -19,8 +19,8 @@ class Wall:
         self.limitLineDirection = Vector3()
         self.checkSegmentVisibility = True
         self.height = 3
-        self.info = ""
         self.material = Material.blank
+        self.info = ""
 
     def commit(self):
         self.direction = self.startPoint.getDirectionTo(self.endPoint)

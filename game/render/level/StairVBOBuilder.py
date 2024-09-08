@@ -8,8 +8,8 @@ class StairVBOBuilder:
 
         vboBuilder.addVertex(stair.downLeft)
         vboBuilder.addVertex(stair.upLeft)
-        vboBuilder.addVertex(stair.upRight)
         vboBuilder.addVertex(stair.downRight)
+        vboBuilder.addVertex(stair.upRight)
 
         vboBuilder.addNormal(CommonConstants.up)
         vboBuilder.addNormal(CommonConstants.up)
@@ -18,10 +18,10 @@ class StairVBOBuilder:
 
         vboBuilder.addTexCoord(0, 0)
         vboBuilder.addTexCoord(0, 1)
-        vboBuilder.addTexCoord(1, 1)
         vboBuilder.addTexCoord(1, 0)
+        vboBuilder.addTexCoord(1, 1)
 
-        vboBuilder.addFace(vertexCount, vertexCount + 1, vertexCount + 2)
+        vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 1)
         vboBuilder.addFace(vertexCount, vertexCount + 2, vertexCount + 3)
 
 

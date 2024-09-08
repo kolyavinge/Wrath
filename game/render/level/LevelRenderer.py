@@ -22,10 +22,13 @@ class LevelRenderer:
     def render(self):
         glEnable(GL_DEPTH_TEST)
         glEnable(GL_TEXTURE_2D)
+        glEnable(GL_CULL_FACE)
+        glCullFace(GL_BACK)
         self.shaderProgramCollection.mainScene.use()
         self.setUniforms()
         self.renderLevelSegments()
         self.shaderProgramCollection.mainScene.unuse()
+        glDisable(GL_CULL_FACE)
         glDisable(GL_TEXTURE_2D)
         glDisable(GL_DEPTH_TEST)
 

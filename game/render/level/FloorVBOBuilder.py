@@ -34,8 +34,8 @@ class FloorVBOBuilder:
 
         vboBuilder.addVertex(downLeft)
         vboBuilder.addVertex(upLeft)
-        vboBuilder.addVertex(upRight)
         vboBuilder.addVertex(downRight)
+        vboBuilder.addVertex(upRight)
 
         vboBuilder.addNormal(floor.upNormal)
         vboBuilder.addNormal(floor.upNormal)
@@ -44,10 +44,10 @@ class FloorVBOBuilder:
 
         vboBuilder.addTexCoord(0, 0)
         vboBuilder.addTexCoord(0, 1)
-        vboBuilder.addTexCoord(1, 1)
         vboBuilder.addTexCoord(1, 0)
+        vboBuilder.addTexCoord(1, 1)
 
-        vboBuilder.addFace(vertexCount, vertexCount + 1, vertexCount + 2)
+        vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 1)
         vboBuilder.addFace(vertexCount, vertexCount + 2, vertexCount + 3)
 
 

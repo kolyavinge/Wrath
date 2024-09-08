@@ -10,7 +10,8 @@ class MaterialTextureCollection:
     def init(self):
         self.materials = {}
         self.materials[Material.blank] = self.textureCollection.blank
-        self.materials[Material.metal1] = self.textureCollection.blank
+        self.materials[Material.wallMetal1] = self.textureCollection.wallMetal1
+        self.materials[Material.floorMetal1] = self.textureCollection.floorMetal1
 
     def getTextureForMaterial(self, matrial):
         return self.materials[matrial]
