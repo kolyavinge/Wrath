@@ -22,7 +22,8 @@ class DebugRenderer:
         # self.renderPlayerSegmentWallLimitLines()
         # self.renderPlayerSegmentFloors()
         # self.renderPlayerSegmentCeilings()
-        # self.renderPlayerBorder()
+        self.renderPlayerBorder()
+        self.renderPlayerFrontNormal()
         # self.renderAxis()
 
     def initCamera(self):
@@ -172,6 +173,16 @@ class DebugRenderer:
         glVertex3f(border.upLeft.x, border.upLeft.y, border.upLeft.z)
         glEnd()
         glDisable(GL_BLEND)
+
+    def renderPlayerFrontNormal(self):
+        glColor3f(0, 1, 0)
+        glBegin(GL_LINES)
+        posFrom = self.gameData.player.currentCenterPoint
+        posTo = self.gameData.player.frontNormal.copy()
+        posTo.add(posFrom)
+        glVertex3f(posFrom.x, posFrom.y, posFrom.z)
+        glVertex3f(posTo.x, posTo.y, posTo.z)
+        glEnd()
 
     def renderAxis(self):
         glColor3f(1, 0, 0)
