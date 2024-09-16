@@ -1,11 +1,12 @@
+from game.calc.Vector3 import Vector3
 from game.calc.Vector3Utils import Vector3Utils
 
 
 class FloorVBOBuilder:
 
     def build(self, floor, vboBuilder):
-        leftDirectionLength = floor.downLeft.getDirectionTo(floor.upLeft).getLength()
-        rightDirectionLength = floor.downRight.getDirectionTo(floor.upRight).getLength()
+        leftDirectionLength = Vector3.getLengthBetweenPoints(floor.downLeft, floor.upLeft)
+        rightDirectionLength = Vector3.getLengthBetweenPoints(floor.downRight, floor.upRight)
         stepLength = 10
         if leftDirectionLength > rightDirectionLength:
             leftStepLength = stepLength
@@ -23,7 +24,7 @@ class FloorVBOBuilder:
 
         for i in range(1, len(leftPoints)):
             downPoints = Vector3Utils.splitFromStartToEnd(leftPoints[i - 1], rightPoints[i - 1], stepLength)
-            stepLength = leftPoints[i].getDirectionTo(rightPoints[i]).getLength() / (len(downPoints) - 1)
+            stepLength = Vector3.getLengthBetweenPoints(leftPoints[i], rightPoints[i]) / (len(downPoints) - 1)
             upPoints = Vector3Utils.splitFromStartToEnd(leftPoints[i], rightPoints[i], stepLength)
             assert len(downPoints) == len(upPoints)
             for j in range(1, len(downPoints)):
