@@ -1,5 +1,5 @@
 from game.gl.VBOBuilderFactory import VBOBuilderFactory
-from game.lib.array import groupby
+from game.lib.List import List
 from game.model.level.Ceiling import Ceiling
 from game.model.level.Floor import Floor
 from game.model.level.Stair import Stair
@@ -50,7 +50,7 @@ class LevelItemGroupBuilder:
 
     def getLevelItemsGroupedByMaterial(self, levelSegment):
         allLevelItems = levelSegment.getAllItems()
-        result = groupby(allLevelItems, lambda item: item.material)
+        result = List.groupby(allLevelItems, lambda item: item.material)
 
         return result
 
