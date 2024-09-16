@@ -17,10 +17,10 @@ class GameUpdater:
 
     def __init__(
         self,
+        playerTurnLogic,
         playerMovingTimeCalculator,
         playerVelocityCalculator,
         playerMoveLogic,
-        playerTurnLogic,
         playerZUpdater,
         playerWallCollisionProcessor,
         playerLevelSegmentsUpdater,
@@ -29,10 +29,10 @@ class GameUpdater:
         cameraUpdater,
         cameraSwingLogic,
     ):
+        self.playerTurnLogic = playerTurnLogic
         self.playerMovingTimeCalculator = playerMovingTimeCalculator
         self.playerVelocityCalculator = playerVelocityCalculator
         self.playerMoveLogic = playerMoveLogic
-        self.playerTurnLogic = playerTurnLogic
         self.playerZUpdater = playerZUpdater
         self.playerWallCollisionProcessor = playerWallCollisionProcessor
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
@@ -44,10 +44,10 @@ class GameUpdater:
     def update(self):
         start = time.time()
 
+        self.playerTurnLogic.process()
         self.playerMovingTimeCalculator.calculate()
         self.playerVelocityCalculator.calculate()
         self.playerMoveLogic.process()
-        self.playerTurnLogic.process()
         self.playerWallCollisionProcessor.processCollisions()
         self.playerZUpdater.updateIfPlayerMoved()
         self.playerLevelSegmentsUpdater.updateIfPlayerMoved()
@@ -63,10 +63,10 @@ class GameUpdater:
 
 def makeGameUpdater(resolver):
     return GameUpdater(
+        resolver.resolve(PlayerTurnLogic),
         resolver.resolve(PlayerMovingTimeCalculator),
         resolver.resolve(PlayerVelocityCalculator),
         resolver.resolve(PlayerMoveLogic),
-        resolver.resolve(PlayerTurnLogic),
         resolver.resolve(PlayerZUpdater),
         resolver.resolve(PlayerWallCollisionProcessor),
         resolver.resolve(PlayerLevelSegmentsUpdater),
