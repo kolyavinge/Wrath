@@ -19,11 +19,12 @@ class DebugRenderer:
         self.renderVisibleCeilings()
         # self.renderVisibleSegmentJoinLines()
         # self.renderPlayerSegmentWalls()
-        # self.renderPlayerSegmentWallLimitLines()
+        self.renderPlayerSegmentWallLimitLines()
         # self.renderPlayerSegmentFloors()
         # self.renderPlayerSegmentCeilings()
         self.renderPlayerBorder()
         self.renderPlayerFrontNormal()
+        self.renderPlayerVelocityVector()
         # self.renderAxis()
 
     def initCamera(self):
@@ -179,6 +180,16 @@ class DebugRenderer:
         glBegin(GL_LINES)
         posFrom = self.gameData.player.currentCenterPoint
         posTo = self.gameData.player.frontNormal.copy()
+        posTo.add(posFrom)
+        glVertex3f(posFrom.x, posFrom.y, posFrom.z)
+        glVertex3f(posTo.x, posTo.y, posTo.z)
+        glEnd()
+
+    def renderPlayerVelocityVector(self):
+        glColor3f(1, 0, 0)
+        glBegin(GL_LINES)
+        posFrom = self.gameData.player.currentCenterPoint
+        posTo = self.gameData.player.velocityVector.copy()
         posTo.add(posFrom)
         glVertex3f(posFrom.x, posFrom.y, posFrom.z)
         glVertex3f(posTo.x, posTo.y, posTo.z)
