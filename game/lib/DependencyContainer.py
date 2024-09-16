@@ -28,4 +28,4 @@ class DependencyContainer:
     def errorIfUnusedInstances(self):
         for type, holder in self.instanceHolders.items():
             if holder.instance is None:
-                raise Exception(f"Unused instance for {type}")
+                raise Exception(f"Unused instance for {type}.")

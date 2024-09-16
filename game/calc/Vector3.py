@@ -19,6 +19,9 @@ class Vector3:
         return Math.sqrt(self.x * self.x + self.y * self.y + self.z * self.z)
 
     def setLength(self, newLength):
+        if newLength < 0:
+            raise Exception("Length cannot be negative.")
+
         length = self.getLength()
         self.mul(newLength / length)
 

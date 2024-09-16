@@ -90,6 +90,9 @@ class Geometry:
     @staticmethod
     def getProjectedVector(vector, projectionAxis):
         newLength = vector.dotProduct(projectionAxis) / projectionAxis.getLength()
+        if newLength < 0:
+            raise ("Angle between vectors must be from 0 to pi/2.")
+
         projected = projectionAxis.copy()
         projected.setLength(newLength)
 
