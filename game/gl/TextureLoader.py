@@ -3,6 +3,7 @@ from PIL import Image
 
 from game.gl.Texture import Texture
 from game.lib.Numeric import Numeric
+from game.lib.sys import warn
 
 
 class TextureLoader:
@@ -11,7 +12,7 @@ class TextureLoader:
         with Image.open(fullFilePath) as image:
             image = image.transpose(Image.FLIP_TOP_BOTTOM)
             if not Numeric.isPowerOf2(image.width) or not Numeric.isPowerOf2(image.height):
-                print("Warning: texture size isn't power of two.")
+                warn("Texture size isn't power of two.")
             imageData = image.convert("RGBA").tobytes()
             textureId = glGenTextures(1)
             glBindTexture(GL_TEXTURE_2D, textureId)
