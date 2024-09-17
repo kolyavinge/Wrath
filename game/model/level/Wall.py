@@ -37,6 +37,10 @@ class Wall:
         self.limitLine.endPoint = self.endPoint.copy()
         self.limitLine.startPoint.add(limitLineOffset)
         self.limitLine.endPoint.add(limitLineOffset)
+        limitLineTail = self.limitLine.startPoint.getDirectionTo(self.limitLine.endPoint)
+        limitLineTail.setLength(2)
+        self.limitLine.startPoint.sub(limitLineTail)
+        self.limitLine.endPoint.add(limitLineTail)
         self.limitLineDirection = self.limitLine.startPoint.getDirectionTo(self.limitLine.endPoint)
 
     def getLimitLineOffset(self):
