@@ -3,6 +3,7 @@ from game.engine.bsp.BSPTreeTraversal import *
 from game.engine.CameraSwingLogic import *
 from game.engine.CameraUpdater import *
 from game.engine.cm.PlayerWallCollisionDetector import *
+from game.engine.cm.PlayerWallCollisionDetector2 import *
 from game.engine.cm.PlayerWallCollisionProcessor import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
@@ -31,6 +32,7 @@ class EngineModule:
         binder.bindSingleton(CameraSwingLogic, makeCameraSwingLogic)
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
         binder.bindSingleton(PlayerWallCollisionDetector, makePlayerWallCollisionDetector)
+        # binder.bindSingleton(PlayerWallCollisionDetector2, makePlayerWallCollisionDetector2)
         binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)
         binder.bindSingleton(GameData, makeGameData)
         binder.bindSingleton(GameUpdater, makeGameUpdater)
