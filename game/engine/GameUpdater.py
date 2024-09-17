@@ -2,6 +2,7 @@ import time
 
 from game.engine.CameraSwingLogic import CameraSwingLogic
 from game.engine.CameraUpdater import CameraUpdater
+from game.engine.cm.PlayerWallCollisionDetector import PlayerWallCollisionDetector
 from game.engine.cm.PlayerWallCollisionProcessor import PlayerWallCollisionProcessor
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
@@ -22,6 +23,7 @@ class GameUpdater:
         playerVelocityCalculator,
         playerMoveLogic,
         playerZUpdater,
+        playerWallCollisionDetector,
         playerWallCollisionProcessor,
         playerLevelSegmentsUpdater,
         playerPositionUpdater,
@@ -34,6 +36,7 @@ class GameUpdater:
         self.playerVelocityCalculator = playerVelocityCalculator
         self.playerMoveLogic = playerMoveLogic
         self.playerZUpdater = playerZUpdater
+        self.playerWallCollisionDetector = playerWallCollisionDetector
         self.playerWallCollisionProcessor = playerWallCollisionProcessor
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.playerPositionUpdater = playerPositionUpdater
@@ -48,6 +51,7 @@ class GameUpdater:
         self.playerMovingTimeCalculator.calculate()
         self.playerVelocityCalculator.calculate()
         self.playerMoveLogic.process()
+        self.playerWallCollisionDetector.detectCollisions()
         self.playerWallCollisionProcessor.processCollisions()
         self.playerZUpdater.updateIfPlayerMoved()
         self.playerLevelSegmentsUpdater.updateIfPlayerMoved()
@@ -68,6 +72,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PlayerVelocityCalculator),
         resolver.resolve(PlayerMoveLogic),
         resolver.resolve(PlayerZUpdater),
+        resolver.resolve(PlayerWallCollisionDetector),
         resolver.resolve(PlayerWallCollisionProcessor),
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(PlayerPositionUpdater),

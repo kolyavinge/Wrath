@@ -10,6 +10,7 @@ class GameData:
         self.visibleLevelSegments = set()
         self.player = Player()
         self.playerInputData = PlayerInputData()
+        self.playerCollidedWalls = []
         self.camera = Camera()
 
 

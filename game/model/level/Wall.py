@@ -31,12 +31,12 @@ class Wall:
         self.calculateWallLimitLine()
 
     def calculateWallLimitLine(self):
-        limitLineDirection = self.frontNormal.copy()
-        limitLineDirection.setLength(self.getLimitLineOffset())
+        limitLineOffset = self.frontNormal.copy()
+        limitLineOffset.setLength(self.getLimitLineOffset())
         self.limitLine.startPoint = self.startPoint.copy()
         self.limitLine.endPoint = self.endPoint.copy()
-        self.limitLine.startPoint.add(limitLineDirection)
-        self.limitLine.endPoint.add(limitLineDirection)
+        self.limitLine.startPoint.add(limitLineOffset)
+        self.limitLine.endPoint.add(limitLineOffset)
         self.limitLineDirection = self.limitLine.startPoint.getDirectionTo(self.limitLine.endPoint)
 
     def getLimitLineOffset(self):
