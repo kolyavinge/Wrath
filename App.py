@@ -2,7 +2,6 @@ import os
 import sys
 
 from OpenGL.GL import *
-from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 from BenchmarkRunner import BenchmarkRunner

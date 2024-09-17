@@ -1,31 +1,28 @@
-from game.calc.Geometry import Geometry
-from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.anx.CommonConstants import CommonConstants
 from game.engine.GameData import GameData
 from game.lib.Math import Math
 
 
 class LevelSegmentVisibilityUpdater:
 
-    def __init__(self, gameData, traversal):
+    def __init__(self, gameData):
         self.gameData = gameData
-        self.traversal = traversal
         self.maxCosLookDirection = Math.cos(self.gameData.camera.viewAngleRadians)
 
     def updateIfPlayerMovedOrTurned(self):
         player = self.gameData.player
         if player.hasMoved or player.hasTurned:
             self.update()
+            # print(len(self.gameData.visibleLevelSegments))
 
     def update(self):
         self.gameData.visibleLevelSegments = set()
         self.checkedJoinLines = set()
-        self.visibleWalls = []
         for levelSegment in self.gameData.player.visibilityLevelSegments:
             self.checkLevelSegment(levelSegment)
 
     def checkLevelSegment(self, levelSegment):
         self.gameData.visibleLevelSegments.add(levelSegment)
-        self.visibleWalls.extend(levelSegment.checkSegmentVisibilityWalls)
         for joinLine in levelSegment.joinLines:
             if joinLine not in self.checkedJoinLines:
                 self.checkedJoinLines.add(joinLine)
@@ -44,6 +41,11 @@ class LevelSegmentVisibilityUpdater:
         startPoint = self.gameData.camera.position
         endPoint = point
         direction = startPoint.getDirectionTo(endPoint)
+        directionLength = direction.getLength()
+        if directionLength > CommonConstants.maxViewDepth:
+            return False
+        if directionLength < 1:
+            return True
 
         direction2d = direction.copy()
         direction2d.z = 0
@@ -54,22 +56,8 @@ class LevelSegmentVisibilityUpdater:
         look2d.normalize()
 
         dotProduct = look2d.dotProduct(direction2d)
-        if dotProduct < self.maxCosLookDirection:
-            return False
-
-        for wall in self.visibleWalls:
-            intersectPoint = Geometry.getLinesIntersectPointOrNone(
-                wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, startPoint.x, startPoint.y, endPoint.x, endPoint.y
-            )
-            if intersectPoint is not None:
-                x, y = intersectPoint
-                if Geometry.lineContainsPoint(
-                    wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, x, y
-                ) and Geometry.lineContainsPoint(startPoint.x, startPoint.y, endPoint.x, endPoint.y, x, y):
-                    return False
-
-        return True
+        return dotProduct > self.maxCosLookDirection
 
 
 def makeLevelSegmentVisibilityUpdater(resolver):
-    return LevelSegmentVisibilityUpdater(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal))
+    return LevelSegmentVisibilityUpdater(resolver.resolve(GameData))
