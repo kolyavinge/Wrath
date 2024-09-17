@@ -38,6 +38,7 @@ class App:
         glutReshapeFunc(self.resize)
         glutKeyboardUpFunc(self.keyup)
         glutSetCursor(GLUT_CURSOR_NONE)
+        # glutFullScreen()
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         self.game = GameFactory.makeGame()
         glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
