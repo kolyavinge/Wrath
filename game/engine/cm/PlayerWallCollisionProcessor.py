@@ -26,12 +26,12 @@ class PlayerWallCollisionProcessor:
                 self.processWall(wall)
 
     def processWall(self, wall):
-        currentCenterPoint = self.gameData.player.currentCenterPoint
+        currentBorder = self.gameData.player.currentBorder.bottom
         nextBorder = self.gameData.player.nextBorder.bottom
-        self.processPlayerLine(currentCenterPoint, nextBorder.downLeft, wall)
-        self.processPlayerLine(currentCenterPoint, nextBorder.downRight, wall)
-        self.processPlayerLine(currentCenterPoint, nextBorder.upLeft, wall)
-        self.processPlayerLine(currentCenterPoint, nextBorder.upRight, wall)
+        self.processPlayerLine(currentBorder.downLeft, nextBorder.downLeft, wall)
+        self.processPlayerLine(currentBorder.downRight, nextBorder.downRight, wall)
+        self.processPlayerLine(currentBorder.upLeft, nextBorder.upLeft, wall)
+        self.processPlayerLine(currentBorder.upRight, nextBorder.upRight, wall)
 
     def processPlayerLine(self, playerPointFrom, playerPointTo, wall):
         if self.isPlayerPointBehindWall(playerPointTo, wall):

@@ -78,9 +78,14 @@ class Geometry:
 
     @staticmethod
     def lineContainsPoint(fromX, fromY, toX, toY, pointX, pointY):
+        intersect = Vector3(pointX - toX, pointY - toY, 0)
+        intersectLength = intersect.getLength()
+        if intersectLength < 0.1:
+            return True
+
         intersect = Vector3(pointX - fromX, pointY - fromY, 0)
         intersectLength = intersect.getLength()
-        if intersectLength < 0.01:
+        if intersectLength < 0.1:
             return True
 
         line = Vector3(toX - fromX, toY - fromY, 0)
