@@ -1,3 +1,5 @@
+import numpy
+
 from game.calc.Vector3 import Vector3
 
 
@@ -10,6 +12,7 @@ class CommonConstants:
     maxDepth = 1000
     maxLevelSize = 10000
     maxViewDepth = 50
+    maxViewDepthFloat32 = numpy.float32(maxViewDepth)
     axisOrigin = Vector3(0, 0, 0)
     xAxis = Vector3(1, 0, 0)
     yAxis = Vector3(0, 1, 0)

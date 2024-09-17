@@ -1,5 +1,6 @@
 from OpenGL.GL import *
 
+from game.anx.CommonConstants import CommonConstants
 from game.calc.TranfsormMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
 from game.gl.VBORenderer import VBORenderer
@@ -36,10 +37,13 @@ class LevelRenderer:
         camera = self.gameData.camera
         mvpMatrix = camera.projectionMatrix.copy()
         mvpMatrix.mul(camera.viewMatrix)
-        self.shaderProgramCollection.mainScene.setUniform("modelMatrix", self.modelMatrixFloat32Array)
-        self.shaderProgramCollection.mainScene.setUniform("viewMatrix", camera.viewMatrix.toFloat32Array())
-        self.shaderProgramCollection.mainScene.setUniform("projectionMatrix", camera.projectionMatrix.toFloat32Array())
-        self.shaderProgramCollection.mainScene.setUniform("mvpMatrix", mvpMatrix.toFloat32Array())
+        mainScene = self.shaderProgramCollection.mainScene
+        mainScene.setUniform("modelMatrix", self.modelMatrixFloat32Array)
+        mainScene.setUniform("viewMatrix", camera.viewMatrix.toFloat32Array())
+        mainScene.setUniform("projectionMatrix", camera.projectionMatrix.toFloat32Array())
+        mainScene.setUniform("mvpMatrix", mvpMatrix.toFloat32Array())
+        mainScene.setUniform("cameraPosition", camera.position.toFloat32Array())
+        mainScene.setUniform("maxViewDepth", CommonConstants.maxViewDepthFloat32)
 
     def renderLevelSegments(self):
         for levelSegment in self.gameData.visibleLevelSegments:
