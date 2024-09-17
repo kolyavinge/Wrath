@@ -1,4 +1,5 @@
 from game.calc.Vector3 import Vector3
+from game.calc.Vector3Utils import Vector3Utils
 
 
 class LevelSegmentJoinLine:
@@ -13,7 +14,8 @@ class LevelSegmentJoinLine:
         self.middlePoint = self.startPoint.getDirectionTo(self.endPoint)
         self.middlePoint.div(2)
         self.middlePoint.add(self.startPoint)
-        self.points = [self.middlePoint, self.startPoint, self.endPoint]
+        self.points = []
+        Vector3Utils.fromStartToEnd(self.startPoint, self.endPoint, 2.0, lambda point: self.points.append(point))
 
     def __str__(self):
         return f"{self.startPoint} : {self.endPoint}"
