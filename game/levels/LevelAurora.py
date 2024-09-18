@@ -265,6 +265,15 @@ class LevelAurora(Level):
         floor.material = Material.floorMetal1
         self.addFloor(floor)
 
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(70, 10, wallHeight)
+        ceiling.downRight = Vector3(150, 10, wallHeight)
+        ceiling.upLeft = Vector3(70, 80, wallHeight)
+        ceiling.upRight = Vector3(150, 80, wallHeight)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
     def makeRoom2(self):
         wallHeight = 13
         z = 3
@@ -428,6 +437,7 @@ class LevelAurora(Level):
         # second floor
 
         z = 12
+        wallHeight = 3
 
         floor = FlatFloor()
         floor.downLeft = Vector3(230, 90, z)
@@ -455,6 +465,15 @@ class LevelAurora(Level):
         floor.z = z
         floor.material = Material.floorMetal1
         self.addFloor(floor)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(170, 90, z + wallHeight)
+        ceiling.downRight = Vector3(270, 90, z + wallHeight)
+        ceiling.upLeft = Vector3(170, 160, z + wallHeight)
+        ceiling.upRight = Vector3(270, 160, z + wallHeight)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
 
     def makeRoom3(self):
         wallHeight = 4
@@ -588,6 +607,15 @@ class LevelAurora(Level):
         floor.material = Material.floorMetal1
         self.addFloor(floor)
 
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(70, 100, wallHeight + z)
+        ceiling.downRight = Vector3(140, 100, wallHeight + z)
+        ceiling.upLeft = Vector3(70, 160, wallHeight + z)
+        ceiling.upRight = Vector3(140, 160, wallHeight + z)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
     def makePass1(self):
         wallHeight = 4
 
@@ -687,6 +715,39 @@ class LevelAurora(Level):
         floor.material = Material.floorMetal1
         floor.commit()
         self.addFloor(floor)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(150, 40, wallHeight)
+        ceiling.downRight = Vector3(190, 40, wallHeight + 2)
+        ceiling.upLeft = Vector3(150, 50, wallHeight)
+        ceiling.upRight = Vector3(190, 50, wallHeight + 2)
+        v = ceiling.upRight.copy()
+        v.sub(ceiling.upLeft)
+        ceiling.upNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        ceiling.upNormal.normalize()
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(190, 40, wallHeight + 2)
+        ceiling.downRight = Vector3(220, 40, wallHeight + 2)
+        ceiling.upLeft = Vector3(190, 70, wallHeight + 2)
+        ceiling.upRight = Vector3(220, 70, wallHeight + 2)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(210, 70, wallHeight + 2)
+        ceiling.downRight = Vector3(220, 70, wallHeight + 2)
+        ceiling.upLeft = Vector3(210, 90, wallHeight + 3)
+        ceiling.upRight = Vector3(220, 90, wallHeight + 3)
+        v = ceiling.upRight.copy()
+        v.sub(ceiling.downRight)
+        ceiling.upNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        ceiling.upNormal.normalize()
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
 
     def makePass2(self):
         wallHeight = 4
@@ -802,6 +863,39 @@ class LevelAurora(Level):
         stair.commit()
         self.addFloor(stair)
 
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(50, 110, wallHeight + 4)
+        ceiling.downRight = Vector3(70, 110, wallHeight)
+        ceiling.upLeft = Vector3(50, 120, wallHeight + 4)
+        ceiling.upRight = Vector3(70, 120, wallHeight)
+        v = ceiling.upLeft.getDirectionTo(ceiling.upRight)
+        v = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        v.normalize()
+        ceiling.frontNormal = v
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(40, 40, wallHeight + 4)
+        ceiling.downRight = Vector3(50, 40, wallHeight + 4)
+        ceiling.upLeft = Vector3(40, 120, wallHeight + 4)
+        ceiling.upRight = Vector3(50, 120, wallHeight + 4)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(50, 40, wallHeight + 4)
+        ceiling.downRight = Vector3(70, 40, wallHeight + 8)
+        ceiling.upLeft = Vector3(50, 50, wallHeight + 4)
+        ceiling.upRight = Vector3(70, 50, wallHeight + 8)
+        v = ceiling.upLeft.getDirectionTo(ceiling.upRight)
+        v = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        v.normalize()
+        ceiling.frontNormal = v
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
     def makePass3(self):
         wallHeight = 4
 
@@ -837,6 +931,16 @@ class LevelAurora(Level):
 
         wall = Wall()
         wall.startPoint = Vector3(140, 180, 1)
+        wall.endPoint = Vector3(230, 180, 12)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = wallHeight
+        wall.material = Material.wallMetal1
+        wall.info = "pass 3"
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(230, 180, 12)
         wall.endPoint = Vector3(240, 180, 12)
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
@@ -927,6 +1031,46 @@ class LevelAurora(Level):
         floor.material = Material.floorMetal1
         self.addFloor(floor)
 
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(130, 160, wallHeight)
+        ceiling.downRight = Vector3(140, 160, wallHeight)
+        ceiling.upLeft = Vector3(130, 170, wallHeight + 1)
+        ceiling.upRight = Vector3(140, 170, wallHeight + 1)
+        v = ceiling.downRight.getDirectionTo(ceiling.upRight)
+        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
+        ceiling.frontNormal.normalize()
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(130, 170, wallHeight + 1)
+        ceiling.downRight = Vector3(140, 170, wallHeight + 1)
+        ceiling.upLeft = Vector3(130, 180, wallHeight + 1)
+        ceiling.upRight = Vector3(140, 180, wallHeight + 1)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(140, 170, wallHeight + 1)
+        ceiling.downRight = Vector3(230, 170, wallHeight + 12)
+        ceiling.upLeft = Vector3(140, 180, wallHeight + 1)
+        ceiling.upRight = Vector3(230, 180, wallHeight + 12)
+        v = ceiling.upLeft.getDirectionTo(ceiling.upRight)
+        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
+        ceiling.frontNormal.normalize()
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(230, 160, wallHeight + 12)
+        ceiling.downRight = Vector3(240, 160, wallHeight + 12)
+        ceiling.upLeft = Vector3(230, 180, wallHeight + 12)
+        ceiling.upRight = Vector3(240, 180, wallHeight + 12)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
     def makePass4(self):
         wallHeight = 4
 
@@ -962,6 +1106,17 @@ class LevelAurora(Level):
         floor.commit()
         self.addFloor(floor)
 
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(140, 120, wallHeight)
+        ceiling.downRight = Vector3(170, 120, wallHeight + 3)
+        ceiling.upLeft = Vector3(140, 130, wallHeight)
+        ceiling.upRight = Vector3(170, 130, wallHeight + 3)
+        v = ceiling.upLeft.getDirectionTo(ceiling.upRight)
+        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        ceiling.frontNormal.normalize()
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
     def makePass5(self):
         wallHeight = 4
 
@@ -993,6 +1148,15 @@ class LevelAurora(Level):
         floor.z = 0
         floor.material = Material.floorMetal1
         self.addFloor(floor)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(100, 80, wallHeight)
+        ceiling.downRight = Vector3(110, 80, wallHeight)
+        ceiling.upLeft = Vector3(100, 100, wallHeight)
+        ceiling.upRight = Vector3(110, 100, wallHeight)
+        ceiling.frontNormal = Vector3(0, 0, -1)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
 
     def getCollisionSplitPlanes(self):
         result = []
