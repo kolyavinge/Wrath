@@ -2,6 +2,7 @@ from OpenGL.GL import *
 
 from game.gl.Shader import Shader
 from game.lib.File import File
+from game.lib.sys import warn
 
 
 class ShaderCompiler:
@@ -13,6 +14,9 @@ class ShaderCompiler:
         glCompileShader(shaderId)
         isCompiled = glGetShaderiv(shaderId, GL_COMPILE_STATUS)
         if isCompiled == GL_TRUE:
+            log = glGetShaderInfoLog(shaderId)
+            if len(log) > 0:
+                warn(log)
             shader = Shader(shaderId, shaderType)
             return shader
         else:
