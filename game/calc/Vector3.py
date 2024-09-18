@@ -85,8 +85,26 @@ class Vector3:
         return f"{self.x:.2f} : {self.y:.2f} : {self.z:.2f}"
 
     @staticmethod
-    def getLengthBetweenPoints(point1, point2):
+    def getLengthBetween(point1, point2):
         dx = point1.x - point2.x
         dy = point1.y - point2.y
         dz = point1.z - point2.z
         return Math.sqrt(dx * dx + dy * dy + dz * dz)
+
+    @staticmethod
+    def fromStartToEnd(startPoint, endPoint, stepLength, action):
+        stepDirection = startPoint.getDirectionTo(endPoint)
+        stepsCount = int(stepDirection.getLength() / stepLength)
+        stepDirection.setLength(stepLength)
+        point = startPoint.copy()
+        for _ in range(stepsCount):
+            action(point.copy())
+            point.add(stepDirection)
+        action(endPoint.copy())
+
+    @staticmethod
+    def splitFromStartToEnd(startPoint, endPoint, stepLength):
+        result = []
+        Vector3.fromStartToEnd(startPoint, endPoint, stepLength, lambda point: result.append(point))
+
+        return result

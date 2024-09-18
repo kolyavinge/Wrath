@@ -1,4 +1,4 @@
-from game.calc.Vector3Utils import Vector3Utils
+from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.model.level.Orientation import Orientation
 
@@ -9,7 +9,7 @@ class WallVBOBuilder:
         stepLength = 10
         if wall.orientation == Orientation.diagonal:
             stepLength /= Math.sqrt(2)
-        points = Vector3Utils.splitFromStartToEnd(wall.startPoint, wall.endPoint, stepLength)
+        points = Vector3.splitFromStartToEnd(wall.startPoint, wall.endPoint, stepLength)
         isCounterclockwise = self.isCounterclockwise(wall)
         for i in range(1, len(points)):
             self.addVertices(vboBuilder, wall, points[i - 1], points[i], isCounterclockwise)
