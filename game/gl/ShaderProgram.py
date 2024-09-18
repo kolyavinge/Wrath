@@ -1,6 +1,10 @@
 import numpy
 from OpenGL.GL import *
 
+from game.calc.Matrix3 import Matrix3
+from game.calc.TranfsormMatrix4 import TransformMatrix4
+from game.calc.Vector3 import Vector3
+
 
 class ShaderProgram:
 
@@ -19,13 +23,15 @@ class ShaderProgram:
     def setUniform(self, name, value):
         location = glGetUniformLocation(self.id, name)
 
-        if isinstance(value, numpy.float32):
-            glUniform1f(location, value)
-        elif isinstance(value, numpy.ndarray) and len(value) == 3:
-            glUniform3fv(location, 1, value)
-        elif isinstance(value, numpy.ndarray) and len(value) == 9:
-            glUniformMatrix3fv(location, 1, GL_FALSE, value)
-        elif isinstance(value, numpy.ndarray) and len(value) == 16:
-            glUniformMatrix4fv(location, 1, GL_FALSE, value)
+        if isinstance(value, int):
+            glUniform1i(location, numpy.int32(value))
+        elif isinstance(value, float):
+            glUniform1f(location, numpy.float32(value))
+        elif isinstance(value, Vector3):
+            glUniform3fv(location, 1, numpy.array([value.x, value.y, value.z], dtype=numpy.float32))
+        elif isinstance(value, Matrix3):
+            glUniformMatrix3fv(location, 1, GL_FALSE, numpy.array(value.items, dtype=numpy.float32))
+        elif isinstance(value, TransformMatrix4):
+            glUniformMatrix4fv(location, 1, GL_FALSE, numpy.array(value.items, dtype=numpy.float32))
         else:
             raise Exception()

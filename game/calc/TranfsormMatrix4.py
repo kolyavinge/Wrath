@@ -1,5 +1,3 @@
-import numpy
-
 from game.calc.Matrix3 import Matrix3
 from game.lib.Math import Math
 
@@ -191,9 +189,6 @@ class TransformMatrix4:
         result.items = self.items.copy()
 
         return result
-
-    def toFloat32Array(self):
-        return numpy.array(self.items, dtype=numpy.float32)
 
     def toMatrix3(self):
         return Matrix3(

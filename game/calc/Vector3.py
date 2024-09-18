@@ -1,5 +1,3 @@
-import numpy
-
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 
@@ -74,9 +72,6 @@ class Vector3:
         direction.sub(self)
 
         return direction
-
-    def toFloat32Array(self):
-        return numpy.array([self.x, self.y, self.z], dtype=numpy.float32)
 
     def __eq__(self, vector):
         return self.x == vector.x and self.y == vector.y and self.z == vector.z

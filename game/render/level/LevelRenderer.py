@@ -1,4 +1,3 @@
-import numpy
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
@@ -16,7 +15,7 @@ class LevelRenderer:
         self.levelItemGroupCollection = levelItemGroupCollection
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
-        self.modelMatrixFloat32Array = TransformMatrix4().toFloat32Array()
+        self.modelMatrix = TransformMatrix4()
 
     def init(self):
         self.levelItemGroupCollection.init(self.gameData.level.visibilityTree.getAllLevelSegments())
@@ -39,12 +38,12 @@ class LevelRenderer:
         mvpMatrix = camera.projectionMatrix.copy()
         mvpMatrix.mul(camera.viewMatrix)
         mainScene = self.shaderProgramCollection.mainScene
-        mainScene.setUniform("modelMatrix", self.modelMatrixFloat32Array)
-        mainScene.setUniform("modelViewMatrix", camera.viewMatrix.toFloat32Array())
-        mainScene.setUniform("modelViewProjectionMatrix", mvpMatrix.toFloat32Array())
-        mainScene.setUniform("normalMatrix", camera.viewMatrix.toMatrix3().toFloat32Array())
-        mainScene.setUniform("cameraPosition", camera.position.toFloat32Array())
-        mainScene.setUniform("maxViewDepth", CommonConstants.maxViewDepthFloat32)
+        mainScene.setUniform("modelMatrix", self.modelMatrix)
+        mainScene.setUniform("modelViewMatrix", camera.viewMatrix)
+        mainScene.setUniform("modelViewProjectionMatrix", mvpMatrix)
+        mainScene.setUniform("normalMatrix", camera.viewMatrix.toMatrix3())
+        mainScene.setUniform("cameraPosition", camera.position)
+        mainScene.setUniform("maxViewDepth", CommonConstants.maxViewDepth)
 
     def renderLevelSegments(self):
         for levelSegment in self.gameData.visibleLevelSegments:
@@ -57,10 +56,10 @@ class LevelRenderer:
 
     def setMaterialUniforms(self, material):
         mainScene = self.shaderProgramCollection.mainScene
-        mainScene.setUniform("material.ambient", numpy.float32(material.ambient))
-        mainScene.setUniform("material.diffuse", numpy.float32(material.diffuse))
-        mainScene.setUniform("material.specular", numpy.float32(material.specular))
-        mainScene.setUniform("material.shininess", numpy.float32(material.shininess))
+        mainScene.setUniform("material.ambient", material.ambient)
+        mainScene.setUniform("material.diffuse", material.diffuse)
+        mainScene.setUniform("material.specular", material.specular)
+        mainScene.setUniform("material.shininess", material.shininess)
 
 
 def makeLevelRenderer(resolver):
