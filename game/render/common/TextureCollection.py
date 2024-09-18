@@ -12,6 +12,7 @@ class TextureCollection:
         self.blank = self.textureLoader.load(path + "blank.png")
         self.wallMetal1 = self.textureLoader.load(path + "wallMetal1.jpg")
         self.floorMetal1 = self.textureLoader.load(path + "floorMetal1.jpg")
+        self.ceilingMetal1 = self.textureLoader.load(path + "ceilingMetal1.jpg")
 
 
 def makeTextureCollection(resolver):
