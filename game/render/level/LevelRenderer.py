@@ -1,3 +1,4 @@
+import numpy
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
@@ -26,22 +27,22 @@ class LevelRenderer:
         glEnable(GL_CULL_FACE)
         glCullFace(GL_BACK)
         self.shaderProgramCollection.mainScene.use()
-        self.setUniforms()
+        self.setCommonUniforms()
         self.renderLevelSegments()
         self.shaderProgramCollection.mainScene.unuse()
         glDisable(GL_CULL_FACE)
         glDisable(GL_TEXTURE_2D)
         glDisable(GL_DEPTH_TEST)
 
-    def setUniforms(self):
+    def setCommonUniforms(self):
         camera = self.gameData.camera
         mvpMatrix = camera.projectionMatrix.copy()
         mvpMatrix.mul(camera.viewMatrix)
         mainScene = self.shaderProgramCollection.mainScene
         mainScene.setUniform("modelMatrix", self.modelMatrixFloat32Array)
-        mainScene.setUniform("viewMatrix", camera.viewMatrix.toFloat32Array())
-        mainScene.setUniform("projectionMatrix", camera.projectionMatrix.toFloat32Array())
-        mainScene.setUniform("mvpMatrix", mvpMatrix.toFloat32Array())
+        mainScene.setUniform("modelViewMatrix", camera.viewMatrix.toFloat32Array())
+        mainScene.setUniform("modelViewProjectionMatrix", mvpMatrix.toFloat32Array())
+        mainScene.setUniform("normalMatrix", camera.viewMatrix.toMatrix3().toFloat32Array())
         mainScene.setUniform("cameraPosition", camera.position.toFloat32Array())
         mainScene.setUniform("maxViewDepth", CommonConstants.maxViewDepthFloat32)
 
@@ -49,9 +50,17 @@ class LevelRenderer:
         for levelSegment in self.gameData.visibleLevelSegments:
             levelItemGroups = self.levelItemGroupCollection.getLevelItemGroups(levelSegment)
             for item in levelItemGroups:
+                self.setMaterialUniforms(item.material)
                 item.texture.bind(GL_TEXTURE0)
                 self.vboRenderer.render(item.vbo)
                 item.texture.unbind()
+
+    def setMaterialUniforms(self, material):
+        mainScene = self.shaderProgramCollection.mainScene
+        mainScene.setUniform("material.ambient", numpy.float32(material.ambient))
+        mainScene.setUniform("material.diffuse", numpy.float32(material.diffuse))
+        mainScene.setUniform("material.specular", numpy.float32(material.specular))
+        mainScene.setUniform("material.shininess", numpy.float32(material.shininess))
 
 
 def makeLevelRenderer(resolver):

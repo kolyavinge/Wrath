@@ -686,8 +686,7 @@ class LevelAurora(Level):
         floor.downRight = Vector3(190, 40, 2)
         floor.upLeft = Vector3(150, 50, 0)
         floor.upRight = Vector3(190, 50, 2)
-        v = floor.upRight.copy()
-        v.sub(floor.upLeft)
+        v = floor.upLeft.getDirectionTo(floor.upRight)
         floor.upNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor.upNormal.normalize()
         floor.material = Material.floorMetal1
@@ -708,8 +707,7 @@ class LevelAurora(Level):
         floor.downRight = Vector3(220, 70, 2)
         floor.upLeft = Vector3(210, 90, 3)
         floor.upRight = Vector3(220, 90, 3)
-        v = floor.upRight.copy()
-        v.sub(floor.downRight)
+        v = floor.downRight.getDirectionTo(floor.upRight)
         floor.upNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
         floor.upNormal.normalize()
         floor.material = Material.floorMetal1
@@ -721,8 +719,7 @@ class LevelAurora(Level):
         ceiling.downRight = Vector3(190, 40, wallHeight + 2)
         ceiling.upLeft = Vector3(150, 50, wallHeight)
         ceiling.upRight = Vector3(190, 50, wallHeight + 2)
-        v = ceiling.upRight.copy()
-        v.sub(ceiling.upLeft)
+        v = ceiling.upLeft.getDirectionTo(ceiling.upRight)
         ceiling.upNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, -Math.piHalf)
         ceiling.upNormal.normalize()
         ceiling.material = Material.ceilingMetal1
@@ -742,8 +739,7 @@ class LevelAurora(Level):
         ceiling.downRight = Vector3(220, 70, wallHeight + 2)
         ceiling.upLeft = Vector3(210, 90, wallHeight + 3)
         ceiling.upRight = Vector3(220, 90, wallHeight + 3)
-        v = ceiling.upRight.copy()
-        v.sub(ceiling.downRight)
+        v = ceiling.downRight.getDirectionTo(ceiling.upRight)
         ceiling.upNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, -Math.piHalf)
         ceiling.upNormal.normalize()
         ceiling.material = Material.ceilingMetal1

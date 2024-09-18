@@ -23,6 +23,8 @@ class ShaderProgram:
             glUniform1f(location, value)
         elif isinstance(value, numpy.ndarray) and len(value) == 3:
             glUniform3fv(location, 1, value)
+        elif isinstance(value, numpy.ndarray) and len(value) == 9:
+            glUniformMatrix3fv(location, 1, GL_FALSE, value)
         elif isinstance(value, numpy.ndarray) and len(value) == 16:
             glUniformMatrix4fv(location, 1, GL_FALSE, value)
         else:

@@ -3,6 +3,7 @@
 const vec3 depthColor = vec3(0, 0, 0);
 
 in vec3 Position;
+in vec3 Normal;
 in vec2 TexCoord;
 
 out vec4 FragColor;
@@ -10,6 +11,13 @@ out vec4 FragColor;
 layout (binding = 0) uniform sampler2D ourTexture;
 uniform vec3 cameraPosition;
 uniform float maxViewDepth;
+uniform struct Material
+{
+    float ambient;
+    float diffuse;
+    float specular;
+    float shininess;
+} material;
 
 vec3 getTextureColor()
 {

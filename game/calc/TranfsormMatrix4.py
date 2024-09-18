@@ -1,5 +1,6 @@
 import numpy
 
+from game.calc.Matrix3 import Matrix3
 from game.lib.Math import Math
 
 # https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glTranslate.xml
@@ -195,20 +196,22 @@ class TransformMatrix4:
         return numpy.array(self.items, dtype=numpy.float32)
 
     def toMatrix3(self):
-        return [
-            # col1
-            self.items[0],
-            self.items[1],
-            self.items[2],
-            # col2
-            self.items[4],
-            self.items[5],
-            self.items[6],
-            # col3
-            self.items[8],
-            self.items[9],
-            self.items[10],
-        ]
+        return Matrix3(
+            [
+                # col1
+                self.items[0],
+                self.items[1],
+                self.items[2],
+                # col2
+                self.items[4],
+                self.items[5],
+                self.items[6],
+                # col3
+                self.items[8],
+                self.items[9],
+                self.items[10],
+            ]
+        )
 
     def __str__(self):
         result = ""
