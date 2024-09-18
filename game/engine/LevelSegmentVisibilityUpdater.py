@@ -1,13 +1,11 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.GameData import GameData
-from game.lib.Math import Math
 
 
 class LevelSegmentVisibilityUpdater:
 
     def __init__(self, gameData):
         self.gameData = gameData
-        self.maxCosLookDirection = Math.cos(self.gameData.camera.viewAngleRadians)
 
     def updateIfPlayerMovedOrTurned(self):
         player = self.gameData.player
@@ -38,25 +36,12 @@ class LevelSegmentVisibilityUpdater:
         return False
 
     def isPointVisible(self, point):
-        startPoint = self.gameData.camera.position
-        endPoint = point
-        direction = startPoint.getDirectionTo(endPoint)
-        directionLength = direction.getLength()
-        if directionLength > CommonConstants.maxViewDepth:
+        direction = self.gameData.camera.position.getDirectionTo(point)
+        if direction.getLength() > CommonConstants.maxViewDepth:
             return False
-        if directionLength < 1:
-            return True
+        pointInFront = self.gameData.camera.lookDirection.dotProduct(direction) > 0
 
-        direction2d = direction.copy()
-        direction2d.z = 0
-        direction2d.normalize()
-
-        look2d = self.gameData.camera.lookDirection.copy()
-        look2d.z = 0
-        look2d.normalize()
-
-        dotProduct = look2d.dotProduct(direction2d)
-        return dotProduct > self.maxCosLookDirection
+        return pointInFront > 0
 
 
 def makeLevelSegmentVisibilityUpdater(resolver):
