@@ -10,6 +10,7 @@ class BSPTreeBuilder:
         bspTree.root.levelSegment.walls = level.walls.copy()
         bspTree.root.levelSegment.floors = level.floors.copy()
         bspTree.root.levelSegment.ceilings = level.ceilings.copy()
+        bspTree.root.levelSegment.lights = level.lights.copy()
         self.buildRec(bspTree.root, splitPlanes)
 
     def buildRec(self, node, splitPlanes):
@@ -55,6 +56,13 @@ class BSPTreeBuilder:
                 frontSegment.ceilings.append(ceiling)
             if SplitPlanePosition.back in positionSet:
                 backSegment.ceilings.append(ceiling)
+
+        for light in node.levelSegment.lights:
+            position = self.getPointPosition(node, light.position)
+            if position == SplitPlanePosition.front or position == SplitPlanePosition.on:
+                frontSegment.lights.append(light)
+            elif position == SplitPlanePosition.back:
+                backSegment.lights.append(light)
 
         frontSplitPlanes = []
         backSplitPlanes = []

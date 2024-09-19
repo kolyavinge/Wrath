@@ -7,7 +7,6 @@ class PlaneFloor(Floor):
 
     def __init__(self):
         super().__init__()
-        self.upNormal = Vector3()
 
     def commit(self):
         self.plane = Plane(self.upNormal, self.downLeft)

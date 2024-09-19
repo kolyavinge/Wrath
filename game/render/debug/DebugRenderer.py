@@ -3,6 +3,7 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 from game.anx.CommonConstants import CommonConstants
+from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 
 
@@ -17,6 +18,9 @@ class DebugRenderer:
         self.renderVisibleWalls()
         self.renderVisibleFloors()
         self.renderVisibleCeilings()
+        self.renderVisibleWallsNormals()
+        # self.renderVisibleFloorsNormals()
+        # self.renderVisibleCeilingsNormals()
         # self.renderVisibleSegmentJoinLines()
         # self.renderPlayerSegmentWalls()
         self.renderPlayerSegmentWallLimitLines()
@@ -96,6 +100,55 @@ class DebugRenderer:
             for ceiling in levelSegment.ceilings:
                 glColor3f(0.4, 0.4, 0.4)
                 self.renderGridQuad(ceiling.downLeft, ceiling.downRight, ceiling.upLeft, ceiling.upRight)
+        glDisable(GL_DEPTH_TEST)
+
+    def renderVisibleWallsNormals(self):
+        glEnable(GL_DEPTH_TEST)
+        for levelSegment in self.gameData.visibleLevelSegments:
+            for wall in levelSegment.walls:
+                glColor3f(1.0, 1.0, 0.0)
+                glBegin(GL_LINES)
+                v = wall.startPoint.getDirectionTo(wall.endPoint)
+                v.div(2.0)
+                v.add(wall.startPoint)
+                v.add(Vector3(0.0, 0.0, wall.height / 2.0))
+                n = v.copy()
+                n.add(wall.frontNormal)
+                glVertex3f(v.x, v.y, v.z)
+                glVertex3f(n.x, n.y, n.z)
+                glEnd()
+        glDisable(GL_DEPTH_TEST)
+
+    def renderVisibleFloorsNormals(self):
+        glEnable(GL_DEPTH_TEST)
+        for levelSegment in self.gameData.visibleLevelSegments:
+            for floor in levelSegment.floors:
+                glColor3f(1.0, 1.0, 0.0)
+                glBegin(GL_LINES)
+                v = floor.downLeft.getDirectionTo(floor.upRight)
+                v.div(2.0)
+                v.add(floor.downLeft)
+                n = v.copy()
+                n.add(floor.upNormal)
+                glVertex3f(v.x, v.y, v.z)
+                glVertex3f(n.x, n.y, n.z)
+                glEnd()
+        glDisable(GL_DEPTH_TEST)
+
+    def renderVisibleCeilingsNormals(self):
+        glEnable(GL_DEPTH_TEST)
+        for levelSegment in self.gameData.visibleLevelSegments:
+            for ceiling in levelSegment.ceilings:
+                glColor3f(1.0, 1.0, 0.0)
+                glBegin(GL_LINES)
+                v = ceiling.downLeft.getDirectionTo(ceiling.upRight)
+                v.div(2.0)
+                v.add(ceiling.downLeft)
+                n = v.copy()
+                n.add(ceiling.frontNormal)
+                glVertex3f(v.x, v.y, v.z)
+                glVertex3f(n.x, n.y, n.z)
+                glEnd()
         glDisable(GL_DEPTH_TEST)
 
     def renderVisibleSegmentJoinLines(self):

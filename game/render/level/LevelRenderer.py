@@ -2,6 +2,7 @@ from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.calc.TranfsormMatrix4 import TransformMatrix4
+from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 from game.gl.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -47,12 +48,22 @@ class LevelRenderer:
 
     def renderLevelSegments(self):
         for levelSegment in self.gameData.visibleLevelSegments:
+            self.setLightUniforms(levelSegment)
             levelItemGroups = self.levelItemGroupCollection.getLevelItemGroups(levelSegment)
             for item in levelItemGroups:
                 self.setMaterialUniforms(item.material)
                 item.texture.bind(GL_TEXTURE0)
                 self.vboRenderer.render(item.vbo)
                 item.texture.unbind()
+
+    def setLightUniforms(self, levelSegment):
+        mainScene = self.shaderProgramCollection.mainScene
+        mainScene.setUniform("lightsCount", len(levelSegment.lights))
+        lightIndex = 0
+        for light in levelSegment.lights:
+            mainScene.setUniform(f"light[{lightIndex}].position", light.position)
+            mainScene.setUniform(f"light[{lightIndex}].color", light.color)
+            lightIndex += 1
 
     def setMaterialUniforms(self, material):
         mainScene = self.shaderProgramCollection.mainScene

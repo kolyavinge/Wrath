@@ -8,6 +8,6 @@ class Material:
 
 
 Material.blank = Material(1.0, 1.0, 1.0, 1.0)
-Material.wallMetal1 = Material(0.2, 1.0, 0.5, 8.0)
-Material.floorMetal1 = Material(0.2, 1.0, 0.5, 8.0)
-Material.ceilingMetal1 = Material(0.2, 1.0, 0.5, 8.0)
+Material.wallMetal1 = Material(0.2, 1.0, 0.1, 8.0)
+Material.floorMetal1 = Material(0.2, 1.0, 0.1, 8.0)
+Material.ceilingMetal1 = Material(0.5, 1.0, 1.0, 8.0)

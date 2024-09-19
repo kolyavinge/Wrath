@@ -1,3 +1,4 @@
+from game.anx.CommonConstants import CommonConstants
 from game.calc.Vector3 import Vector3
 from game.model.Material import Material
 
@@ -9,7 +10,7 @@ class Ceiling:
         self.downRight = Vector3()
         self.upLeft = Vector3()
         self.upRight = Vector3()
-        self.frontNormal = Vector3()
+        self.frontNormal = CommonConstants.down
         self.material = Material.blank
 
     def getBorderPoints(self):

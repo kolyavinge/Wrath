@@ -9,6 +9,7 @@ class Level:
         self.walls = []
         self.floors = []
         self.ceilings = []
+        self.lights = []
         self.joinLines = []
 
     def addWall(self, wall):
@@ -20,6 +21,9 @@ class Level:
 
     def addCeiling(self, ceiling):
         self.ceilings.append(ceiling)
+
+    def addLight(self, light):
+        self.lights.append(light)
 
     def addJoinLine(self, joinLine):
         joinLine.commit()
