@@ -2,7 +2,6 @@
 
 const vec4 depthColor = vec4(0.0, 0.0, 0.0, 1.0);
 
-in vec3 Position;
 in vec3 PositionView;
 in vec3 NormalView;
 in vec2 TexCoord;
@@ -11,6 +10,7 @@ out vec4 FragColor;
 
 layout (binding = 0) uniform sampler2D ourTexture;
 uniform mat4 modelViewMatrix;
+uniform mat3 normalMatrix;
 uniform vec3 cameraPosition;
 uniform float maxViewDepth;
 
@@ -26,16 +26,26 @@ const int maxLightsCount = 100;
 uniform int lightsCount;
 uniform struct Light
 {
-    vec3 position;
     vec3 color;
+    vec3 position;
 } light[maxLightsCount];
+
+uniform int spotsCount;
+uniform struct Spot
+{
+    vec3 color;
+    vec3 position;
+    vec3 direction;
+    float attenuation;
+    float cutoffRadians;
+} spot[maxLightsCount];
 
 vec4 getTextureColor()
 {
     return texture(ourTexture, TexCoord);
 }
 
-vec4 getLightColorFor(int lightIndex)
+vec3 getLightColor(int lightIndex)
 {
     vec3 n = normalize(NormalView);
     float ambient = material.ambient;
@@ -52,32 +62,63 @@ vec4 getLightColorFor(int lightIndex)
         specular = material.specular * pow(hDotN, material.shininess);
     }
 
-    return vec4(light[lightIndex].color * (ambient + diffuse + specular), 1.0);
+    return light[lightIndex].color * (ambient + diffuse + specular);
 }
 
-vec4 getLightColor()
+vec3 getSpotColor(int spotIndex)
 {
-    vec4 result = vec4(0.0);
-    for (int lightIndex = 0; lightIndex < lightsCount; lightIndex++)
+    vec3 n = normalize(NormalView);
+    float ambient = material.ambient;
+    float diffuse = 0.0;
+    float specular = 0.0;
+    vec3 spotPositionView = vec3(modelViewMatrix * vec4(spot[spotIndex].position, 1.0));
+    vec3 s = normalize(spotPositionView - PositionView);
+    float cosAngle = dot(-s, normalize(normalMatrix * spot[spotIndex].direction));
+    float angleRadians = acos(cosAngle);
+    float spotScale = 0.0;
+    if (angleRadians < spot[spotIndex].cutoffRadians)
     {
-        result += getLightColorFor(lightIndex);
+        spotScale = pow(cosAngle, spot[spotIndex].attenuation);
+        float sDotN = max(dot(s, n), 0.0);
+        diffuse = material.diffuse * sDotN;
+        if (sDotN > 0.0)
+        {
+            vec3 v = normalize(-PositionView);
+            vec3 h = normalize(v + s);
+            float hDotN = max(dot(h, n), 0.0);
+            specular = material.specular * pow(hDotN, material.shininess);
+        }
     }
 
-    return result;
+    return spot[spotIndex].color * (ambient + diffuse + specular);
+}
+
+vec4 getTotalLightColor()
+{
+    vec3 result = vec3(0.0);
+
+    for (int lightIndex = 0; lightIndex < lightsCount; lightIndex++)
+    {
+        result += getLightColor(lightIndex);
+    }
+
+    for (int spotIndex = 0; spotIndex < spotsCount; spotIndex++)
+    {
+        result += getSpotColor(spotIndex);
+    }
+
+    return vec4(result, 1.0);
 }
 
 float getViewDepthFactor()
 {
-    float dist = length(Position - cameraPosition);
-    float factor = clamp(dist / maxViewDepth, 0.0, 1.0);
-
-    return factor;
+    return clamp(length(PositionView) / maxViewDepth, 0.0, 1.0);
 }
 
 void main()
 {
     vec4 textureColor = getTextureColor();
-    vec4 lightColor = getLightColor();
+    vec4 lightColor = getTotalLightColor();
     float viewDepthFactor = getViewDepthFactor();
     vec4 shadeColor = mix(textureColor * lightColor, depthColor, viewDepthFactor);
     FragColor = shadeColor;

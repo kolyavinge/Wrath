@@ -18,6 +18,7 @@ class Player:
         self.currentBorder = Box3d(PlayerConstants.xyLength, PlayerConstants.xyLength, PlayerConstants.zLength)
         self.nextCenterPoint = self.currentCenterPoint.copy()
         self.nextBorder = self.currentBorder.copy()
+        self.eyePosition = Vector3()
         self.pitchRadians = 0
         self.yawRadians = 0
         self.lookDirection = CommonConstants.yAxis
@@ -58,3 +59,5 @@ class Player:
     def commitNextPosition(self):
         self.currentCenterPoint = self.nextCenterPoint.copy()
         self.currentBorder = self.nextBorder.copy()
+        self.eyePosition = self.currentCenterPoint.copy()
+        self.eyePosition.z += PlayerConstants.eyeLength

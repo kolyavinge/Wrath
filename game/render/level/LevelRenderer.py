@@ -2,7 +2,6 @@ from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.calc.TranfsormMatrix4 import TransformMatrix4
-from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 from game.gl.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -58,12 +57,22 @@ class LevelRenderer:
 
     def setLightUniforms(self, levelSegment):
         mainScene = self.shaderProgramCollection.mainScene
+        # lamps
         mainScene.setUniform("lightsCount", len(levelSegment.lights))
         lightIndex = 0
         for light in levelSegment.lights:
-            mainScene.setUniform(f"light[{lightIndex}].position", light.position)
             mainScene.setUniform(f"light[{lightIndex}].color", light.color)
+            mainScene.setUniform(f"light[{lightIndex}].position", light.position)
             lightIndex += 1
+        # player torch
+        player = self.gameData.player
+        torch = self.gameData.playerItems.torch
+        mainScene.setUniform("spotsCount", 1)
+        mainScene.setUniform("spot[0].color", torch.color)
+        mainScene.setUniform("spot[0].position", player.eyePosition)
+        mainScene.setUniform("spot[0].direction", player.lookDirection)
+        mainScene.setUniform("spot[0].attenuation", torch.attenuation)
+        mainScene.setUniform("spot[0].cutoffRadians", torch.cutoffRadians)
 
     def setMaterialUniforms(self, material):
         mainScene = self.shaderProgramCollection.mainScene
