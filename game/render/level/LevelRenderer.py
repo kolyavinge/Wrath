@@ -65,14 +65,17 @@ class LevelRenderer:
             mainScene.setUniform(f"light[{lightIndex}].position", light.position)
             lightIndex += 1
         # player torch
-        player = self.gameData.player
         torch = self.gameData.playerItems.torch
-        mainScene.setUniform("spotsCount", 1)
-        mainScene.setUniform("spot[0].color", torch.color)
-        mainScene.setUniform("spot[0].position", player.eyePosition)
-        mainScene.setUniform("spot[0].direction", player.lookDirection)
-        mainScene.setUniform("spot[0].attenuation", torch.attenuation)
-        mainScene.setUniform("spot[0].cutoffRadians", torch.cutoffRadians)
+        if torch.isActive:
+            player = self.gameData.player
+            mainScene.setUniform("spotsCount", 1)
+            mainScene.setUniform("spot[0].color", torch.color)
+            mainScene.setUniform("spot[0].position", player.eyePosition)
+            mainScene.setUniform("spot[0].direction", player.lookDirection)
+            mainScene.setUniform("spot[0].attenuation", torch.attenuation)
+            mainScene.setUniform("spot[0].cutoffCos", torch.cutoffCos)
+        else:
+            mainScene.setUniform("spotsCount", 0)
 
     def setMaterialUniforms(self, material):
         mainScene = self.shaderProgramCollection.mainScene

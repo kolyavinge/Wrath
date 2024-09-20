@@ -29,6 +29,9 @@ class PlayerInputManager:
         elif keyboard.isPressedOrHeld(Keys.d):
             inputData.stepRight = True
 
+        if keyboard.isPressed(Keys.f):
+            self.gameData.playerItems.torch.switch()
+
     def processMouse(self):
         inputData = self.gameData.playerInputData
         mouse = self.inputManager.mouse

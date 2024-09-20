@@ -22,7 +22,7 @@ uniform struct Material
     float shininess;
 } material;
 
-const int maxLightsCount = 100;
+const int maxLightsCount = 25;
 uniform int lightsCount;
 uniform struct Light
 {
@@ -37,7 +37,7 @@ uniform struct Spot
     vec3 position;
     vec3 direction;
     float attenuation;
-    float cutoffRadians;
+    float cutoffCos;
 } spot[maxLightsCount];
 
 vec4 getTextureColor()
@@ -73,10 +73,10 @@ vec3 getSpotColor(int spotIndex)
     float specular = 0.0;
     vec3 spotPositionView = vec3(modelViewMatrix * vec4(spot[spotIndex].position, 1.0));
     vec3 s = normalize(spotPositionView - PositionView);
-    float cosAngle = dot(-s, normalize(normalMatrix * spot[spotIndex].direction));
-    float angleRadians = acos(cosAngle);
+    vec3 lightDirection = normalize(normalMatrix * spot[spotIndex].direction);
+    float cosAngle = dot(-s, lightDirection);
     float spotScale = 0.0;
-    if (angleRadians < spot[spotIndex].cutoffRadians)
+    if (cosAngle >= spot[spotIndex].cutoffCos)
     {
         spotScale = pow(cosAngle, spot[spotIndex].attenuation);
         float sDotN = max(dot(s, n), 0.0);
@@ -90,7 +90,7 @@ vec3 getSpotColor(int spotIndex)
         }
     }
 
-    return spot[spotIndex].color * (ambient + diffuse + specular);
+    return spot[spotIndex].color * spotScale * (ambient + diffuse + specular);
 }
 
 vec4 getTotalLightColor()

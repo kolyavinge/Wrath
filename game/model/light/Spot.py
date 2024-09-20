@@ -1,8 +1,8 @@
 from game.calc.Vector3 import Vector3
-from game.model.light.LightSource import LightSource
+from game.model.light.Lamp import Lamp
 
 
-class Spot(LightSource):
+class Spot(Lamp):
 
     def __init__(self):
         super().__init__()

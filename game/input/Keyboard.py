@@ -4,7 +4,6 @@ from game.input.Keys import Keys
 
 
 class KeyState:
-
     released = 0
     pressed = 1
     held = 2

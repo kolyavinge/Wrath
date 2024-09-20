@@ -4,4 +4,5 @@ class Keys:
     a = "a"
     s = "s"
     d = "d"
-    allKeys = [w, a, s, d]
+    f = "f"
+    allKeys = [w, a, s, d, f]
