@@ -623,7 +623,7 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Lamp()
-        light.position = Vector3(110, 140, wallHeight + z - 1.0)
+        light.position = Vector3(115, 140, wallHeight + z - 1.0)
         self.addLight(light)
 
     def makePass1(self):
