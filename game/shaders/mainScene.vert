@@ -8,7 +8,7 @@ out vec3 PositionView;
 out vec3 NormalView;
 out vec2 TexCoord;
 
-uniform mat4 modelMatrix;
+// uniform mat4 modelMatrix;
 uniform mat4 modelViewMatrix;
 uniform mat4 modelViewProjectionMatrix;
 uniform mat3 normalMatrix;

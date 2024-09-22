@@ -38,7 +38,7 @@ class LevelRenderer:
         mvpMatrix = camera.projectionMatrix.copy()
         mvpMatrix.mul(camera.viewMatrix)
         mainScene = self.shaderProgramCollection.mainScene
-        mainScene.setUniform("modelMatrix", self.modelMatrix)
+        # mainScene.setUniform("modelMatrix", self.modelMatrix)
         mainScene.setUniform("modelViewMatrix", camera.viewMatrix)
         mainScene.setUniform("modelViewProjectionMatrix", mvpMatrix)
         mainScene.setUniform("normalMatrix", camera.viewMatrix.toMatrix3())

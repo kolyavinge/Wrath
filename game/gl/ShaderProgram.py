@@ -4,6 +4,7 @@ from OpenGL.GL import *
 from game.calc.Matrix3 import Matrix3
 from game.calc.TranfsormMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
+from game.lib.sys import warn
 
 
 class ShaderProgram:
@@ -22,6 +23,8 @@ class ShaderProgram:
 
     def setUniform(self, name, value):
         location = glGetUniformLocation(self.id, name)
+        if location == -1:
+            warn(f"Shader program has no {name} uniform.")
 
         if isinstance(value, int):
             glUniform1i(location, numpy.int32(value))

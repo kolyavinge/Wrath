@@ -275,7 +275,7 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Lamp()
-        light.position = Vector3(110, 45, wallHeight - 2)
+        light.position = Vector3(110, 45, wallHeight - 0.1)
         self.addLight(light)
 
     def makeRoom2(self):
@@ -479,7 +479,7 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Lamp()
-        light.position = Vector3(220, 125, z + wallHeight - 2.0)
+        light.position = Vector3(220, 125, z + wallHeight - 0.1)
         self.addLight(light)
 
     def makeRoom3(self):
@@ -623,7 +623,7 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Lamp()
-        light.position = Vector3(115, 140, wallHeight + z - 1.0)
+        light.position = Vector3(115, 140, wallHeight + z - 0.1)
         self.addLight(light)
 
     def makePass1(self):
@@ -755,11 +755,11 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Lamp()
-        light.position = Vector3(170, 45, wallHeight - 1.0)
+        light.position = Vector3(170, 45, wallHeight + 1 - 0.1)
         self.addLight(light)
 
         light = Lamp()
-        light.position = Vector3(205, 60, wallHeight - 1.0)
+        light.position = Vector3(205, 60, wallHeight + 2 - 0.1)
         self.addLight(light)
 
     def makePass2(self):
@@ -909,11 +909,11 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Lamp()
-        light.position = Vector3(45, 115, wallHeight - 1.0)
+        light.position = Vector3(45, 115, wallHeight + 8 - 0.1)
         self.addLight(light)
 
         light = Lamp()
-        light.position = Vector3(45, 45, wallHeight - 1.0)
+        light.position = Vector3(45, 45, wallHeight + 8 - 0.1)
         self.addLight(light)
 
     def makePass3(self):
@@ -1090,11 +1090,11 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Lamp()
-        light.position = Vector3(135, 175, wallHeight + 12 - 1.0)
+        light.position = Vector3(135, 175, wallHeight + 12 - 0.1)
         self.addLight(light)
 
         light = Lamp()
-        light.position = Vector3(235, 125, wallHeight + 12 - 1.0)
+        light.position = Vector3(235, 125, wallHeight + 12 - 0.1)
         self.addLight(light)
 
     def makePass4(self):
@@ -1144,7 +1144,7 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Lamp()
-        light.position = Vector3(155, 125, wallHeight - 1.0)
+        light.position = Vector3(155, 125, wallHeight + 2 - 0.1)
         self.addLight(light)
 
     def makePass5(self):
@@ -1188,7 +1188,7 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Lamp()
-        light.position = Vector3(105, 85, wallHeight - 1.0)
+        light.position = Vector3(105, 85, wallHeight - 0.1)
         self.addLight(light)
 
     def getCollisionSplitPlanes(self):
