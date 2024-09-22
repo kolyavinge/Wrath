@@ -11,8 +11,7 @@ out vec4 FragColor;
 layout (binding = 0) uniform sampler2D ourTexture;
 uniform mat4 modelViewMatrix;
 uniform mat3 normalMatrix;
-uniform vec3 cameraPosition;
-uniform float maxViewDepth;
+uniform float maxDepth;
 
 uniform struct Material
 {
@@ -112,7 +111,7 @@ vec4 getTotalLightColor()
 
 float getViewDepthFactor()
 {
-    return clamp(length(PositionView) / maxViewDepth, 0.0, 1.0);
+    return clamp(length(PositionView) / maxDepth, 0.0, 1.0);
 }
 
 void main()

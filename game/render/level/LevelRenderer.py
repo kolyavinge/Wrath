@@ -42,8 +42,7 @@ class LevelRenderer:
         mainScene.setUniform("modelViewMatrix", camera.viewMatrix)
         mainScene.setUniform("modelViewProjectionMatrix", mvpMatrix)
         mainScene.setUniform("normalMatrix", camera.viewMatrix.toMatrix3())
-        mainScene.setUniform("cameraPosition", camera.position)
-        mainScene.setUniform("maxViewDepth", CommonConstants.maxViewDepth)
+        mainScene.setUniform("maxDepth", CommonConstants.maxDepth)
 
     def renderLevelSegments(self):
         for levelSegment in self.gameData.visibleLevelSegments:
