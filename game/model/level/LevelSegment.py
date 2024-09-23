@@ -11,7 +11,7 @@ class LevelSegment:
         self.joinLines = []
 
     def getAllItems(self):
-        return self.walls + self.floors + self.ceilings
+        return self.walls + self.floors + self.ceilings + self.lights
 
     def commit(self):
         self.checkSegmentVisibilityWalls = [w for w in self.walls if w.checkSegmentVisibility]
