@@ -674,6 +674,16 @@ class LevelAurora(Level):
 
         wall = Wall()
         wall.startPoint = Vector3(220, 70, 2)
+        wall.endPoint = Vector3(220, 80, 2.5)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = wallHeight
+        wall.material = Material.wallMetal1
+        wall.info = "pass 1"
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(220, 80, 2.5)
         wall.endPoint = Vector3(220, 90, 3)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
@@ -705,6 +715,16 @@ class LevelAurora(Level):
 
         wall = Wall()
         wall.startPoint = Vector3(210, 70, 2)
+        wall.endPoint = Vector3(210, 80, 2.5)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = wallHeight
+        wall.material = Material.wallMetal1
+        wall.info = "pass 1"
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(210, 80, 2.5)
         wall.endPoint = Vector3(210, 90, 3)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
@@ -737,6 +757,18 @@ class LevelAurora(Level):
         floor = PlaneFloor()
         floor.downLeft = Vector3(210, 70, 2)
         floor.downRight = Vector3(220, 70, 2)
+        floor.upLeft = Vector3(210, 80, 2.5)
+        floor.upRight = Vector3(220, 80, 2.5)
+        v = floor.downRight.getDirectionTo(floor.upRight)
+        floor.upNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
+        floor.upNormal.normalize()
+        floor.material = Material.floorMetal1
+        floor.commit()
+        self.addFloor(floor)
+
+        floor = PlaneFloor()
+        floor.downLeft = Vector3(210, 80, 2.5)
+        floor.downRight = Vector3(220, 80, 2.5)
         floor.upLeft = Vector3(210, 90, 3)
         floor.upRight = Vector3(220, 90, 3)
         v = floor.downRight.getDirectionTo(floor.upRight)
@@ -768,6 +800,17 @@ class LevelAurora(Level):
         ceiling = Ceiling()
         ceiling.downLeft = Vector3(210, 70, wallHeight + 2)
         ceiling.downRight = Vector3(220, 70, wallHeight + 2)
+        ceiling.upLeft = Vector3(210, 80, wallHeight + 2.5)
+        ceiling.upRight = Vector3(220, 80, wallHeight + 2.5)
+        v = ceiling.downRight.getDirectionTo(ceiling.upRight)
+        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        ceiling.frontNormal.normalize()
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(210, 80, wallHeight + 2.5)
+        ceiling.downRight = Vector3(220, 80, wallHeight + 2.5)
         ceiling.upLeft = Vector3(210, 90, wallHeight + 3)
         ceiling.upRight = Vector3(220, 90, wallHeight + 3)
         v = ceiling.downRight.getDirectionTo(ceiling.upRight)
@@ -809,6 +852,26 @@ class LevelAurora(Level):
 
         wall = Wall()
         wall.startPoint = Vector3(40, 40, 4)
+        wall.endPoint = Vector3(40, 80, 4)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = wallHeight
+        wall.material = Material.wallMetal1
+        wall.info = "pass 2"
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(40, 80, 4)
+        wall.endPoint = Vector3(40, 90, 4)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = wallHeight
+        wall.material = Material.wallMetal1
+        wall.info = "pass 2"
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(40, 90, 4)
         wall.endPoint = Vector3(40, 120, 4)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
@@ -849,6 +912,26 @@ class LevelAurora(Level):
 
         wall = Wall()
         wall.startPoint = Vector3(50, 50, 4)
+        wall.endPoint = Vector3(50, 80, 4)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = wallHeight
+        wall.material = Material.wallMetal1
+        wall.info = "pass 2"
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(50, 80, 4)
+        wall.endPoint = Vector3(50, 90, 4)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = wallHeight
+        wall.material = Material.wallMetal1
+        wall.info = "pass 2"
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(50, 90, 4)
         wall.endPoint = Vector3(50, 110, 4)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
@@ -881,6 +964,24 @@ class LevelAurora(Level):
         floor = FlatFloor()
         floor.downLeft = Vector3(40, 40, 4)
         floor.downRight = Vector3(50, 40, 4)
+        floor.upLeft = Vector3(40, 80, 4)
+        floor.upRight = Vector3(50, 80, 4)
+        floor.z = 4
+        floor.material = Material.floorMetal1
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(40, 80, 4)
+        floor.downRight = Vector3(50, 80, 4)
+        floor.upLeft = Vector3(40, 90, 4)
+        floor.upRight = Vector3(50, 90, 4)
+        floor.z = 4
+        floor.material = Material.floorMetal1
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(40, 90, 4)
+        floor.downRight = Vector3(50, 90, 4)
         floor.upLeft = Vector3(40, 120, 4)
         floor.upRight = Vector3(50, 120, 4)
         floor.z = 4
@@ -913,6 +1014,22 @@ class LevelAurora(Level):
         ceiling = Ceiling()
         ceiling.downLeft = Vector3(40, 40, wallHeight + 4)
         ceiling.downRight = Vector3(50, 40, wallHeight + 4)
+        ceiling.upLeft = Vector3(40, 80, wallHeight + 4)
+        ceiling.upRight = Vector3(50, 80, wallHeight + 4)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(40, 80, wallHeight + 4)
+        ceiling.downRight = Vector3(50, 80, wallHeight + 4)
+        ceiling.upLeft = Vector3(40, 90, wallHeight + 4)
+        ceiling.upRight = Vector3(50, 90, wallHeight + 4)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(40, 90, wallHeight + 4)
+        ceiling.downRight = Vector3(50, 90, wallHeight + 4)
         ceiling.upLeft = Vector3(40, 120, wallHeight + 4)
         ceiling.upRight = Vector3(50, 120, wallHeight + 4)
         ceiling.material = Material.ceilingMetal1
@@ -1174,7 +1291,7 @@ class LevelAurora(Level):
 
         wall = Wall()
         wall.startPoint = Vector3(100, 80, 0)
-        wall.endPoint = Vector3(100, 100, 0)
+        wall.endPoint = Vector3(100, 90, 0)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
         wall.height = wallHeight
@@ -1184,6 +1301,26 @@ class LevelAurora(Level):
 
         wall = Wall()
         wall.startPoint = Vector3(110, 80, 0)
+        wall.endPoint = Vector3(110, 90, 0)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = wallHeight
+        wall.material = Material.wallMetal1
+        wall.info = "pass 5"
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(100, 90, 0)
+        wall.endPoint = Vector3(100, 100, 0)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = wallHeight
+        wall.material = Material.wallMetal1
+        wall.info = "pass 5"
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(110, 90, 0)
         wall.endPoint = Vector3(110, 100, 0)
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
@@ -1195,6 +1332,15 @@ class LevelAurora(Level):
         floor = FlatFloor()
         floor.downLeft = Vector3(100, 80, 0)
         floor.downRight = Vector3(110, 80, 0)
+        floor.upLeft = Vector3(100, 90, 0)
+        floor.upRight = Vector3(110, 90, 0)
+        floor.z = 0
+        floor.material = Material.floorMetal1
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(100, 90, 0)
+        floor.downRight = Vector3(110, 90, 0)
         floor.upLeft = Vector3(100, 100, 0)
         floor.upRight = Vector3(110, 100, 0)
         floor.z = 0
@@ -1204,10 +1350,22 @@ class LevelAurora(Level):
         ceiling = Ceiling()
         ceiling.downLeft = Vector3(100, 80, wallHeight)
         ceiling.downRight = Vector3(110, 80, wallHeight)
+        ceiling.upLeft = Vector3(100, 90, wallHeight)
+        ceiling.upRight = Vector3(110, 90, wallHeight)
+        ceiling.material = Material.ceilingMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(100, 90, wallHeight)
+        ceiling.downRight = Vector3(110, 90, wallHeight)
         ceiling.upLeft = Vector3(100, 100, wallHeight)
         ceiling.upRight = Vector3(110, 100, wallHeight)
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
+
+        light = Spot()
+        light.position = Vector3(105, 85, wallHeight - 0.1)
+        self.addLight(light)
 
         light = Spot()
         light.position = Vector3(105, 95, wallHeight - 0.1)
