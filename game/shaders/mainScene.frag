@@ -53,7 +53,7 @@ vec3 getLightColor(int lightIndex)
     float sDotN = max(dot(s, n), 0.0);
     float diffuse = material.diffuse * sDotN;
     float specular = 0.0;
-    if (sDotN > 0.0)
+    // if (sDotN > 0.0)
     {
         vec3 v = normalize(-PositionView);
         vec3 h = normalize(v + s);
@@ -80,7 +80,7 @@ vec3 getSpotColor(int spotIndex)
         spotScale = pow(cosAngle, spot[spotIndex].attenuation);
         float sDotN = max(dot(s, n), 0.0);
         diffuse = material.diffuse * sDotN;
-        if (sDotN > 0.0)
+        // if (sDotN > 0.0)
         {
             vec3 v = normalize(-PositionView);
             vec3 h = normalize(v + s);

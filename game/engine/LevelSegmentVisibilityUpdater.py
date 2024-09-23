@@ -25,7 +25,7 @@ class LevelSegmentVisibilityUpdater:
             if joinLine not in self.checkedJoinLines:
                 self.checkedJoinLines.add(joinLine)
                 if self.isJoinLineVisible(joinLine):
-                    joinedLevelSegment = joinLine.backLevelSegment if joinLine.frontLevelSegment == levelSegment else joinLine.frontLevelSegment
+                    joinedLevelSegment = joinLine.getJoinedLevelSegment(levelSegment)
                     self.checkLevelSegment(joinedLevelSegment)
 
     def isJoinLineVisible(self, joinLine):

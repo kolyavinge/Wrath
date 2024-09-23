@@ -1210,7 +1210,7 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Spot()
-        light.position = Vector3(105, 85, wallHeight - 0.1)
+        light.position = Vector3(105, 95, wallHeight - 0.1)
         self.addLight(light)
 
     def getCollisionSplitPlanes(self):

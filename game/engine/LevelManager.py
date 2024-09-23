@@ -3,6 +3,7 @@ from game.engine.CameraUpdater import CameraUpdater
 from game.engine.GameData import GameData
 from game.engine.LevelLoader import LevelLoader
 from game.engine.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyzer
+from game.engine.LevelSegmentLightAnalyzer import LevelSegmentLightAnalyzer
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.LevelValidator import LevelValidator
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
@@ -16,7 +17,8 @@ class LevelManager:
         gameData,
         levelLoader,
         bspTreeBuilder,
-        joinLineCeilingAnalyzer,
+        joinLineAnalyzer,
+        lightAnalyzer,
         levelValidator,
         playerTurnLogic,
         playerLevelSegmentsUpdater,
@@ -26,7 +28,8 @@ class LevelManager:
         self.gameData = gameData
         self.levelLoader = levelLoader
         self.bspTreeBuilder = bspTreeBuilder
-        self.joinLineCeilingAnalyzer = joinLineCeilingAnalyzer
+        self.joinLineAnalyzer = joinLineAnalyzer
+        self.lightAnalyzer = lightAnalyzer
         self.levelValidator = levelValidator
         self.playerTurnLogic = playerTurnLogic
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
@@ -38,7 +41,8 @@ class LevelManager:
         self.gameData.level = level
         self.bspTreeBuilder.build(level.collisionTree, level, level.getCollisionSplitPlanes())
         self.bspTreeBuilder.build(level.visibilityTree, level, level.getVisibilitySplitPlanes())
-        self.joinLineCeilingAnalyzer.analyzeJoinLines(level, level.visibilityTree)
+        self.joinLineAnalyzer.analyzeJoinLines(level, level.visibilityTree)
+        self.lightAnalyzer.analyzeLights(level.visibilityTree)
         self.levelValidator.validate(level)
         self.playerTurnLogic.orientByFrontNormal(level.playerFrontNormal)
         self.gameData.player.moveNextPositionTo(level.playerPosition)
@@ -55,6 +59,7 @@ def makeLevelManager(resolver):
         resolver.resolve(LevelLoader),
         resolver.resolve(BSPTreeBuilder),
         resolver.resolve(LevelSegmentJoinLineAnalyzer),
+        resolver.resolve(LevelSegmentLightAnalyzer),
         resolver.resolve(LevelValidator),
         resolver.resolve(PlayerTurnLogic),
         resolver.resolve(PlayerLevelSegmentsUpdater),

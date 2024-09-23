@@ -16,5 +16,8 @@ class LevelSegmentJoinLine:
         self.middlePoint.add(self.startPoint)
         self.points = [self.middlePoint, self.startPoint, self.endPoint]
 
+    def getJoinedLevelSegment(self, levelSegment):
+        return self.backLevelSegment if self.frontLevelSegment == levelSegment else self.frontLevelSegment
+
     def __str__(self):
         return f"{self.startPoint} : {self.endPoint}"

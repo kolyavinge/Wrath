@@ -11,6 +11,7 @@ from game.engine.LevelLoader import *
 from game.engine.LevelManager import *
 from game.engine.LevelSegmentItemFinder import *
 from game.engine.LevelSegmentJoinLineAnalyzer import *
+from game.engine.LevelSegmentLightAnalyzer import *
 from game.engine.LevelSegmentVisibilityUpdater import *
 from game.engine.LevelValidator import *
 from game.engine.PlayerInputManager import *
@@ -40,6 +41,7 @@ class EngineModule:
         binder.bindSingleton(LevelManager, makeLevelManager)
         # binder.bindSingleton(LevelSegmentItemFinder, makeLevelSegmentItemFinder)
         binder.bindSingleton(LevelSegmentJoinLineAnalyzer, makeLevelSegmentJoinLineAnalyzer)
+        binder.bindSingleton(LevelSegmentLightAnalyzer, makeLevelSegmentLightAnalyzer)
         binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
         binder.bindSingleton(LevelValidator, makeLevelValidator)
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
