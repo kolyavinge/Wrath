@@ -4,6 +4,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.TranfsormMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
 from game.gl.VBORenderer import VBORenderer
+from game.model.light.Spot import Spot
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelItemGroupCollection import LevelItemGroupCollection
 
@@ -56,25 +57,33 @@ class LevelRenderer:
 
     def setLightUniforms(self, levelSegment):
         mainScene = self.shaderProgramCollection.mainScene
-        # lamps
-        mainScene.setUniform("lightsCount", len(levelSegment.lights))
+        # lights
         lightIndex = 0
+        spotIndex = 0
         for light in levelSegment.lights:
-            mainScene.setUniform(f"light[{lightIndex}].color", light.color)
-            mainScene.setUniform(f"light[{lightIndex}].position", light.position)
-            lightIndex += 1
+            if isinstance(light, Spot):
+                mainScene.setUniform(f"spot[{spotIndex}].color", light.color)
+                mainScene.setUniform(f"spot[{spotIndex}].position", light.position)
+                mainScene.setUniform(f"spot[{spotIndex}].direction", light.direction)
+                mainScene.setUniform(f"spot[{spotIndex}].attenuation", light.attenuation)
+                mainScene.setUniform(f"spot[{spotIndex}].cutoffCos", light.cutoffCos)
+                spotIndex += 1
+            else:
+                mainScene.setUniform(f"light[{lightIndex}].color", light.color)
+                mainScene.setUniform(f"light[{lightIndex}].position", light.position)
+                lightIndex += 1
         # player torch
         torch = self.gameData.playerItems.torch
         if torch.isActive:
             player = self.gameData.player
-            mainScene.setUniform("spotsCount", 1)
-            mainScene.setUniform("spot[0].color", torch.color)
-            mainScene.setUniform("spot[0].position", player.eyePosition)
-            mainScene.setUniform("spot[0].direction", player.lookDirection)
-            mainScene.setUniform("spot[0].attenuation", torch.attenuation)
-            mainScene.setUniform("spot[0].cutoffCos", torch.cutoffCos)
-        else:
-            mainScene.setUniform("spotsCount", 0)
+            mainScene.setUniform(f"spot[{spotIndex}].color", torch.color)
+            mainScene.setUniform(f"spot[{spotIndex}].position", player.eyePosition)
+            mainScene.setUniform(f"spot[{spotIndex}].direction", player.lookDirection)
+            mainScene.setUniform(f"spot[{spotIndex}].attenuation", torch.attenuation)
+            mainScene.setUniform(f"spot[{spotIndex}].cutoffCos", torch.cutoffCos)
+            spotIndex += 1
+        mainScene.setUniform("lightsCount", lightIndex)
+        mainScene.setUniform("spotsCount", spotIndex)
 
     def setMaterialUniforms(self, material):
         mainScene = self.shaderProgramCollection.mainScene

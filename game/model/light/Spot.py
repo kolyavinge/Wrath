@@ -1,4 +1,4 @@
-from game.calc.Vector3 import Vector3
+from game.anx.CommonConstants import CommonConstants
 from game.model.light.Lamp import Lamp
 
 
@@ -6,6 +6,6 @@ class Spot(Lamp):
 
     def __init__(self):
         super().__init__()
-        self.direction = Vector3()
-        self.attenuation = 0.0
-        self.cutoffRadians = 0.0
+        self.direction = CommonConstants.down
+        self.attenuation = 1.0
+        self.cutoffCos = 0.0

@@ -12,6 +12,7 @@ from game.model.level.PlaneFloor import PlaneFloor
 from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
 from game.model.light.Lamp import Lamp
+from game.model.light.Spot import Spot
 from game.model.Material import Material
 
 
@@ -274,8 +275,29 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(110, 45, wallHeight - 0.1)
+        self.addLight(light)
+
+        light = Spot()
+        light.position = Vector3(85, 45, wallHeight - 0.1)
+        self.addLight(light)
+
+        light = Spot()
+        light.position = Vector3(135, 45, wallHeight - 0.1)
+        self.addLight(light)
+
+        light = Spot()
+        light.position = Vector3(110, 30, wallHeight - 0.1)
+        self.addLight(light)
+
+        light = Spot()
+        light.position = Vector3(110, 60, wallHeight - 0.1)
+        self.addLight(light)
+
+        light = Spot()
+        light.position = Vector3(105, 79, wallHeight - 1.0)
+        light.direction = Vector3(0, -1, 0)
         self.addLight(light)
 
     def makeRoom2(self):
@@ -478,7 +500,7 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(220, 125, z + wallHeight - 0.1)
         self.addLight(light)
 
@@ -622,7 +644,7 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(115, 140, wallHeight + z - 0.1)
         self.addLight(light)
 
@@ -754,11 +776,11 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(170, 45, wallHeight + 1 - 0.1)
         self.addLight(light)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(205, 60, wallHeight + 2 - 0.1)
         self.addLight(light)
 
@@ -908,11 +930,11 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(45, 115, wallHeight + 8 - 0.1)
         self.addLight(light)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(45, 45, wallHeight + 8 - 0.1)
         self.addLight(light)
 
@@ -1089,11 +1111,11 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(135, 175, wallHeight + 12 - 0.1)
         self.addLight(light)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(235, 125, wallHeight + 12 - 0.1)
         self.addLight(light)
 
@@ -1143,7 +1165,7 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(155, 125, wallHeight + 2 - 0.1)
         self.addLight(light)
 
@@ -1187,7 +1209,7 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Lamp()
+        light = Spot()
         light.position = Vector3(105, 85, wallHeight - 0.1)
         self.addLight(light)
 
@@ -1507,6 +1529,16 @@ class LevelAurora(Level):
 
         s = SplitPlane()
         s.basePoint = Vector3(140, 120, 0)
+        s.frontNormal = Vector3(-1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(100, 85, 0)
+        s.frontNormal = Vector3(1, 0, 0)
+        result.append(s)
+
+        s = SplitPlane()
+        s.basePoint = Vector3(110, 85, 0)
         s.frontNormal = Vector3(-1, 0, 0)
         result.append(s)
 
