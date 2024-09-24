@@ -3,13 +3,15 @@ from game.calc.Line import Line
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
+from game.model.level.Construction import Construction
 from game.model.level.Orientation import Orientation
 from game.model.Material import Material
 
 
-class Wall:
+class Wall(Construction):
 
     def __init__(self):
+        super().__init__()
         self.orientation = Orientation.horizontal
         self.startPoint = Vector3()
         self.endPoint = Vector3()
@@ -24,10 +26,12 @@ class Wall:
 
     def commit(self):
         self.direction = self.startPoint.getDirectionTo(self.endPoint)
-        self.upStartPoint = self.startPoint.copy()
-        self.upStartPoint.z += self.height
-        self.upEndPoint = self.endPoint.copy()
-        self.upEndPoint.z += self.height
+        self.downLeft = self.startPoint
+        self.downRight = self.endPoint
+        self.upLeft = self.startPoint.copy()
+        self.upLeft.z += self.height
+        self.upRight = self.endPoint.copy()
+        self.upRight.z += self.height
         self.calculateWallLimitLine()
 
     def calculateWallLimitLine(self):
@@ -48,9 +52,6 @@ class Wall:
             return PlayerConstants.xyLengthHalf * Math.sqrt(2)
         else:
             return PlayerConstants.xyLengthHalf
-
-    def getBorderPoints(self):
-        return [self.startPoint, self.endPoint, self.upStartPoint, self.upEndPoint]
 
     def validate(self):
         assert self.startPoint != self.endPoint

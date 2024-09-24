@@ -37,10 +37,10 @@ class FloorVBOBuilder:
         vboBuilder.addVertex(downRight)
         vboBuilder.addVertex(upRight)
 
-        vboBuilder.addNormal(floor.upNormal)
-        vboBuilder.addNormal(floor.upNormal)
-        vboBuilder.addNormal(floor.upNormal)
-        vboBuilder.addNormal(floor.upNormal)
+        vboBuilder.addNormal(floor.frontNormal)
+        vboBuilder.addNormal(floor.frontNormal)
+        vboBuilder.addNormal(floor.frontNormal)
+        vboBuilder.addNormal(floor.frontNormal)
 
         vboBuilder.addTexCoord(0, 0)
         vboBuilder.addTexCoord(0, 1)

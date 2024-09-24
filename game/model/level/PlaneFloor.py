@@ -1,5 +1,4 @@
 from game.calc.Plane import Plane
-from game.calc.Vector3 import Vector3
 from game.model.level.Floor import Floor
 
 
@@ -9,7 +8,7 @@ class PlaneFloor(Floor):
         super().__init__()
 
     def commit(self):
-        self.plane = Plane(self.upNormal, self.downLeft)
+        self.plane = Plane(self.frontNormal, self.downLeft)
 
     def getZ(self, x, y):
         return self.plane.getZ(x, y)

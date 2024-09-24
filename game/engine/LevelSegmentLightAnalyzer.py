@@ -1,6 +1,8 @@
 class LevelSegmentLightAnalyzer:
 
     def analyzeLights(self, bspTree):
+		# чтобы свет из одного сегмента действовал и на соседние
+
         allLevelSegments = bspTree.getAllLevelSegments()
 
         result = {}

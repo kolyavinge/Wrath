@@ -1,17 +1,7 @@
-from game.anx.CommonConstants import CommonConstants
-from game.calc.Vector3 import Vector3
-from game.model.Material import Material
+from game.model.level.Construction import Construction
 
 
-class Floor:
+class Floor(Construction):
 
     def __init__(self):
-        self.downLeft = Vector3()
-        self.downRight = Vector3()
-        self.upLeft = Vector3()
-        self.upRight = Vector3()
-        self.upNormal = CommonConstants.up
-        self.material = Material.blank
-
-    def getBorderPoints(self):
-        return [self.downLeft, self.downRight, self.upLeft, self.upRight]
+        super().__init__()
