@@ -1,12 +1,10 @@
 from game.gl.VBOBuilderFactory import VBOBuilderFactory
 from game.lib.List import List
-from game.model.level.Ceiling import Ceiling
-from game.model.level.Floor import Floor
+from game.model.level.Construction import Construction
 from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
-from game.render.level.CeilingVBOBuilder import CeilingVBOBuilder
-from game.render.level.FloorVBOBuilder import FloorVBOBuilder
+from game.render.level.ConstructionVBOBuilder import ConstructionVBOBuilder
 from game.render.level.LevelItemGroup import LevelItemGroup
 from game.render.level.StairVBOBuilder import StairVBOBuilder
 from game.render.level.WallVBOBuilder import WallVBOBuilder
@@ -14,12 +12,11 @@ from game.render.level.WallVBOBuilder import WallVBOBuilder
 
 class LevelItemGroupBuilder:
 
-    def __init__(self, vboBuilderFactory, wallVBOBuilder, floorVBOBuilder, stairVBOBuilder, ceilingVBOBuilder, materialTextureCollection):
+    def __init__(self, vboBuilderFactory, wallVBOBuilder, constructionVBOBuilder, stairVBOBuilder, materialTextureCollection):
         self.vboBuilderFactory = vboBuilderFactory
         self.wallVBOBuilder = wallVBOBuilder
-        self.floorVBOBuilder = floorVBOBuilder
+        self.constructionVBOBuilder = constructionVBOBuilder
         self.stairVBOBuilder = stairVBOBuilder
-        self.ceilingVBOBuilder = ceilingVBOBuilder
         self.materialTextureCollection = materialTextureCollection
 
     def buildForLevelSegment(self, levelSegment):
@@ -41,10 +38,8 @@ class LevelItemGroupBuilder:
                 self.wallVBOBuilder.build(item, vboBuilder)
             elif isinstance(item, Stair):
                 self.stairVBOBuilder.build(item, vboBuilder)
-            elif isinstance(item, Floor):
-                self.floorVBOBuilder.build(item, vboBuilder)
-            elif isinstance(item, Ceiling):
-                self.ceilingVBOBuilder.build(item, vboBuilder)
+            elif isinstance(item, Construction):
+                self.constructionVBOBuilder.build(item, vboBuilder)
 
         return vboBuilder.build()
 
@@ -59,8 +54,7 @@ def makeLevelItemGroupBuilder(resolver):
     return LevelItemGroupBuilder(
         resolver.resolve(VBOBuilderFactory),
         resolver.resolve(WallVBOBuilder),
-        resolver.resolve(FloorVBOBuilder),
+        resolver.resolve(ConstructionVBOBuilder),
         resolver.resolve(StairVBOBuilder),
-        resolver.resolve(CeilingVBOBuilder),
         resolver.resolve(MaterialTextureCollection),
     )

@@ -7,8 +7,7 @@ from game.render.common.ShaderCollection import *
 from game.render.common.ShaderProgramCollection import *
 from game.render.common.TextureCollection import *
 from game.render.debug.DebugRenderer import *
-from game.render.level.CeilingVBOBuilder import *
-from game.render.level.FloorVBOBuilder import *
+from game.render.level.ConstructionVBOBuilder import *
 from game.render.level.LevelItemGroupBuilder import *
 from game.render.level.LevelItemGroupCollection import *
 from game.render.level.LevelRenderer import *
@@ -29,11 +28,10 @@ class RenderModule:
         binder.bindSingleton(ShaderProgramCollection, makeShaderProgramCollection)
         binder.bindSingleton(TextureCollection, makeTextureCollection)
         binder.bindSingleton(DebugRenderer, makeDebugRenderer)
-        binder.bindSingleton(CeilingVBOBuilder, makeCeilingVBOBuilder)
-        binder.bindSingleton(FloorVBOBuilder, makeFloorVBOBuilder)
-        binder.bindSingleton(LevelRenderer, makeLevelRenderer)
+        binder.bindSingleton(ConstructionVBOBuilder, makeConstructionVBOBuilder)
         binder.bindSingleton(LevelItemGroupBuilder, makeLevelItemGroupBuilder)
         binder.bindSingleton(LevelItemGroupCollection, makeLevelItemGroupCollection)
+        binder.bindSingleton(LevelRenderer, makeLevelRenderer)
         binder.bindSingleton(StairVBOBuilder, makeStairVBOBuilder)
         binder.bindSingleton(WallVBOBuilder, makeWallVBOBuilder)
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)
