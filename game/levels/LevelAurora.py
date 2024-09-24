@@ -10,7 +10,6 @@ from game.model.level.LevelSegmentJoinLine import LevelSegmentJoinLine
 from game.model.level.PlaneFloor import PlaneFloor
 from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
-from game.model.light.Lamp import Lamp
 from game.model.light.Spot import Spot
 from game.model.Material import Material
 from game.model.Orientation import Orientation
@@ -267,6 +266,149 @@ class LevelAurora(Level):
         floor.material = Material.floorMetal1
         self.addFloor(floor)
 
+        secondFloorHeight = 0.8
+        z -= secondFloorHeight
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(70, 30, z)
+        ceiling.downRight = Vector3(80, 30, z)
+        ceiling.upLeft = Vector3(70, 60, z)
+        ceiling.upRight = Vector3(80, 60, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(90, 10, z)
+        ceiling.downRight = Vector3(90, 20, z)
+        ceiling.upLeft = Vector3(70, 30, z)
+        ceiling.upRight = Vector3(80, 30, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(90, 10, z)
+        ceiling.downRight = Vector3(130, 10, z)
+        ceiling.upLeft = Vector3(90, 20, z)
+        ceiling.upRight = Vector3(130, 20, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(130, 10, z)
+        ceiling.downRight = Vector3(150, 30, z)
+        ceiling.upLeft = Vector3(130, 20, z)
+        ceiling.upRight = Vector3(140, 30, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(140, 30, z)
+        ceiling.downRight = Vector3(150, 30, z)
+        ceiling.upLeft = Vector3(140, 60, z)
+        ceiling.upRight = Vector3(150, 60, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(140, 60, z)
+        ceiling.downRight = Vector3(150, 60, z)
+        ceiling.upLeft = Vector3(130, 70, z)
+        ceiling.upRight = Vector3(130, 80, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(90, 70, z)
+        ceiling.downRight = Vector3(130, 70, z)
+        ceiling.upLeft = Vector3(90, 80, z)
+        ceiling.upRight = Vector3(130, 80, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(70, 60, z)
+        ceiling.downRight = Vector3(80, 60, z)
+        ceiling.upLeft = Vector3(90, 80, z)
+        ceiling.upRight = Vector3(90, 70, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        wall = Wall()
+        wall.startPoint = Vector3(80, 30, z)
+        wall.endPoint = Vector3(80, 60, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(80, 60, z)
+        wall.endPoint = Vector3(90, 70, z)
+        wall.orientation = Orientation.diagonal
+        wall.frontNormal = Vector3(1, -1, 0)
+        wall.frontNormal.normalize()
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(90, 70, z)
+        wall.endPoint = Vector3(130, 70, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(130, 70, z)
+        wall.endPoint = Vector3(140, 60, z)
+        wall.orientation = Orientation.diagonal
+        wall.frontNormal = Vector3(-1, -1, 0)
+        wall.frontNormal.normalize()
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(140, 30, z)
+        wall.endPoint = Vector3(140, 60, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(130, 20, z)
+        wall.endPoint = Vector3(140, 30, z)
+        wall.orientation = Orientation.diagonal
+        wall.frontNormal = Vector3(-1, 1, 0)
+        wall.frontNormal.normalize()
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(90, 20, z)
+        wall.endPoint = Vector3(130, 20, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(80, 30, z)
+        wall.endPoint = Vector3(90, 20, z)
+        wall.orientation = Orientation.diagonal
+        wall.frontNormal = Vector3(1, 1, 0)
+        wall.frontNormal.normalize()
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
         ceiling = Ceiling()
         ceiling.downLeft = Vector3(70, 10, wallHeight)
         ceiling.downRight = Vector3(150, 10, wallHeight)
@@ -491,6 +633,87 @@ class LevelAurora(Level):
         floor.z = z
         floor.material = Material.floorMetal1
         self.addFloor(floor)
+
+        secondFloorHeight = 0.5
+        z -= secondFloorHeight
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(230, 90, z)
+        ceiling.downRight = Vector3(240, 90, z)
+        ceiling.upLeft = Vector3(230, 160, z)
+        ceiling.upRight = Vector3(240, 160, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(200, 90, z)
+        ceiling.downRight = Vector3(210, 90, z)
+        ceiling.upLeft = Vector3(200, 160, z)
+        ceiling.upRight = Vector3(210, 160, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = Vector3(210, 120, z)
+        ceiling.downRight = Vector3(230, 120, z)
+        ceiling.upLeft = Vector3(210, 130, z)
+        ceiling.upRight = Vector3(230, 130, z)
+        ceiling.material = Material.floorMetal1
+        self.addCeiling(ceiling)
+
+        wall = Wall()
+        wall.startPoint = Vector3(200, 90, z)
+        wall.endPoint = Vector3(200, 160, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(210, 90, z)
+        wall.endPoint = Vector3(210, 160, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(230, 90, z)
+        wall.endPoint = Vector3(230, 160, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(240, 90, z)
+        wall.endPoint = Vector3(240, 160, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(210, 120, z)
+        wall.endPoint = Vector3(230, 120, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(210, 130, z)
+        wall.endPoint = Vector3(230, 130, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = secondFloorHeight
+        wall.material = Material.wallMetal1
+        self.addWall(wall)
 
         ceiling = Ceiling()
         ceiling.downLeft = Vector3(170, 90, z + wallHeight)
