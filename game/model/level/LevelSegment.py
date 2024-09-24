@@ -14,6 +14,5 @@ class LevelSegment:
         return self.walls + self.floors + self.ceilings + self.lights
 
     def commit(self):
-        self.checkSegmentVisibilityWalls = [w for w in self.walls if w.checkSegmentVisibility]
         self.horizontalVerticalWalls = [w for w in self.walls if w.orientation == Orientation.horizontal or w.orientation == Orientation.vertical]
         self.diagonalWalls = [w for w in self.walls if w.orientation == Orientation.diagonal]

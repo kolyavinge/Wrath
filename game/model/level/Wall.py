@@ -19,7 +19,6 @@ class Wall(Construction):
         self.direction = Vector3()
         self.limitLine = Line()
         self.limitLineDirection = Vector3()
-        self.checkSegmentVisibility = True  # TODO remove
         self.height = 3
         self.material = Material.blank
         self.info = ""

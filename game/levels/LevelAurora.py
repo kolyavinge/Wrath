@@ -92,7 +92,6 @@ class LevelAurora(Level):
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(-1, 0, 0)
         wall.height = wallHeight - 4
-        wall.checkSegmentVisibility = False
         wall.material = Material.wallMetal1
         wall.info = "room 1"
         self.addWall(wall)
@@ -134,7 +133,6 @@ class LevelAurora(Level):
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
         wall.height = wallHeight - 4
-        wall.checkSegmentVisibility = False
         wall.material = Material.wallMetal1
         wall.info = "room 1"
         self.addWall(wall)
@@ -166,7 +164,6 @@ class LevelAurora(Level):
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
         wall.height = 8
-        wall.checkSegmentVisibility = False
         wall.material = Material.wallMetal1
         wall.info = "room 1"
         self.addWall(wall)
@@ -483,7 +480,6 @@ class LevelAurora(Level):
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, 1, 0)
         wall.height = wallHeight - 4
-        wall.checkSegmentVisibility = False
         wall.material = Material.wallMetal1
         wall.info = "room 2"
         self.addWall(wall)
@@ -546,7 +542,6 @@ class LevelAurora(Level):
         wall.orientation = Orientation.horizontal
         wall.frontNormal = Vector3(0, -1, 0)
         wall.height = 9
-        wall.checkSegmentVisibility = False
         wall.material = Material.wallMetal1
         wall.info = "room 2"
         self.addWall(wall)
@@ -588,7 +583,6 @@ class LevelAurora(Level):
         wall.orientation = Orientation.vertical
         wall.frontNormal = Vector3(1, 0, 0)
         wall.height = wallHeight - 4
-        wall.checkSegmentVisibility = False
         wall.material = Material.wallMetal1
         wall.info = "room 2"
         self.addWall(wall)
