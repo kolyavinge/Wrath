@@ -11,6 +11,7 @@ class Stair(Floor):
         self.stepsCount = 0
 
     def commit(self):
+        super().commit()
         self.maxZ = self.endBasePoint.z
         self.stepDirection2d = self.startBasePoint.getDirectionTo(self.endBasePoint)
         self.stepDirection2d.z = 0

@@ -7,13 +7,13 @@ from game.model.level.Ceiling import Ceiling
 from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Level import Level
 from game.model.level.LevelSegmentJoinLine import LevelSegmentJoinLine
-from game.model.level.Orientation import Orientation
 from game.model.level.PlaneFloor import PlaneFloor
 from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
 from game.model.light.Lamp import Lamp
 from game.model.light.Spot import Spot
 from game.model.Material import Material
+from game.model.Orientation import Orientation
 
 
 class LevelAurora(Level):

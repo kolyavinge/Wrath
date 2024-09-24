@@ -1,6 +1,6 @@
 from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
-from game.model.level.Orientation import Orientation
+from game.model.Orientation import Orientation
 
 
 class PlayerWallCollisionDetector:

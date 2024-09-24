@@ -3,7 +3,7 @@ from game.calc.Vector3 import Vector3
 from game.engine.cm.PlayerWallCollisionDetector import PlayerWallCollisionDetector
 from game.engine.GameData import GameData
 from game.lib.Math import Math
-from game.model.level.Orientation import Orientation
+from game.model.Orientation import Orientation
 
 
 class PlayerWallCollisionProcessor:

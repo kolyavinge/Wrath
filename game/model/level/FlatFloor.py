@@ -6,6 +6,7 @@ class FlatFloor(Floor):
 
     def __init__(self):
         super().__init__()
+        self.frontNormal = CommonConstants.up
         self.z = 0
 
     def getZ(self, x, y):

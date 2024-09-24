@@ -8,6 +8,7 @@ class PlaneFloor(Floor):
         super().__init__()
 
     def commit(self):
+        super().commit()
         self.plane = Plane(self.frontNormal, self.downLeft)
 
     def getZ(self, x, y):

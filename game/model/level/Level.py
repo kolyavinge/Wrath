@@ -17,9 +17,11 @@ class Level:
         self.walls.append(wall)
 
     def addFloor(self, floor):
+        floor.commit()
         self.floors.append(floor)
 
     def addCeiling(self, ceiling):
+        ceiling.commit()
         self.ceilings.append(ceiling)
 
     def addLight(self, light):

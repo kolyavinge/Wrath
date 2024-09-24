@@ -4,8 +4,8 @@ from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 from game.model.level.Construction import Construction
-from game.model.level.Orientation import Orientation
 from game.model.Material import Material
+from game.model.Orientation import Orientation
 
 
 class Wall(Construction):
@@ -25,13 +25,14 @@ class Wall(Construction):
         self.info = ""
 
     def commit(self):
-        self.direction = self.startPoint.getDirectionTo(self.endPoint)
         self.downLeft = self.startPoint
         self.downRight = self.endPoint
         self.upLeft = self.startPoint.copy()
         self.upLeft.z += self.height
         self.upRight = self.endPoint.copy()
         self.upRight.z += self.height
+        super().commit()
+        self.direction = self.startPoint.getDirectionTo(self.endPoint)
         self.calculateWallLimitLine()
 
     def calculateWallLimitLine(self):
