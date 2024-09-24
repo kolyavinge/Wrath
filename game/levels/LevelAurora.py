@@ -709,6 +709,8 @@ class LevelAurora(Level):
         wall.material = Material.wallMetal1
         self.addWall(wall)
 
+        z += secondFloorHeight
+
         ceiling = Ceiling()
         ceiling.downLeft = Vector3(170, 90, z + wallHeight)
         ceiling.downRight = Vector3(270, 90, z + wallHeight)
@@ -1001,7 +1003,7 @@ class LevelAurora(Level):
         ceiling.upLeft = Vector3(150, 50, wallHeight)
         ceiling.upRight = Vector3(190, 50, wallHeight + 2)
         v = ceiling.upLeft.getDirectionTo(ceiling.upRight)
-        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(0, 1, 0), CommonConstants.axisOrigin, Math.piHalf)
         ceiling.frontNormal.normalize()
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
@@ -1020,7 +1022,7 @@ class LevelAurora(Level):
         ceiling.upLeft = Vector3(210, 80, wallHeight + 2.5)
         ceiling.upRight = Vector3(220, 80, wallHeight + 2.5)
         v = ceiling.downRight.getDirectionTo(ceiling.upRight)
-        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(-1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
         ceiling.frontNormal.normalize()
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
@@ -1031,7 +1033,7 @@ class LevelAurora(Level):
         ceiling.upLeft = Vector3(210, 90, wallHeight + 3)
         ceiling.upRight = Vector3(220, 90, wallHeight + 3)
         v = ceiling.downRight.getDirectionTo(ceiling.upRight)
-        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(-1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
         ceiling.frontNormal.normalize()
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
@@ -1222,7 +1224,7 @@ class LevelAurora(Level):
         ceiling.upLeft = Vector3(50, 120, wallHeight + 4)
         ceiling.upRight = Vector3(70, 120, wallHeight)
         v = ceiling.upLeft.getDirectionTo(ceiling.upRight)
-        v = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        v = Geometry.rotatePoint(v, Vector3(0, 1, 0), CommonConstants.axisOrigin, Math.piHalf)
         v.normalize()
         ceiling.frontNormal = v
         ceiling.material = Material.ceilingMetal1
@@ -1258,7 +1260,7 @@ class LevelAurora(Level):
         ceiling.upLeft = Vector3(50, 50, wallHeight + 4)
         ceiling.upRight = Vector3(70, 50, wallHeight + 8)
         v = ceiling.upLeft.getDirectionTo(ceiling.upRight)
-        v = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        v = Geometry.rotatePoint(v, Vector3(0, 1, 0), CommonConstants.axisOrigin, Math.piHalf)
         v.normalize()
         ceiling.frontNormal = v
         ceiling.material = Material.ceilingMetal1
@@ -1413,7 +1415,7 @@ class LevelAurora(Level):
         ceiling.upLeft = Vector3(130, 170, wallHeight + 1)
         ceiling.upRight = Vector3(140, 170, wallHeight + 1)
         v = ceiling.downRight.getDirectionTo(ceiling.upRight)
-        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
+        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(-1, 0, 0), CommonConstants.axisOrigin, Math.piHalf)
         ceiling.frontNormal.normalize()
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
@@ -1432,7 +1434,7 @@ class LevelAurora(Level):
         ceiling.upLeft = Vector3(140, 180, wallHeight + 1)
         ceiling.upRight = Vector3(230, 180, wallHeight + 12)
         v = ceiling.upLeft.getDirectionTo(ceiling.upRight)
-        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, Math.piHalf)
+        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(0, 1, 0), CommonConstants.axisOrigin, Math.piHalf)
         ceiling.frontNormal.normalize()
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
@@ -1494,7 +1496,7 @@ class LevelAurora(Level):
         ceiling.upLeft = Vector3(140, 130, wallHeight)
         ceiling.upRight = Vector3(170, 130, wallHeight + 3)
         v = ceiling.upLeft.getDirectionTo(ceiling.upRight)
-        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(0, -1, 0), CommonConstants.axisOrigin, -Math.piHalf)
+        ceiling.frontNormal = Geometry.rotatePoint(v, Vector3(0, 1, 0), CommonConstants.axisOrigin, Math.piHalf)
         ceiling.frontNormal.normalize()
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
