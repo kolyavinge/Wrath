@@ -1,4 +1,4 @@
-from game.gl.ShaderProgram import ShaderProgram
+from game.render.common.MainSceneShaderProgram import MainSceneShaderProgram
 from game.render.common.ShaderCollection import ShaderCollection
 
 
@@ -8,7 +8,7 @@ class ShaderProgramCollection:
         self.shaderCollection = shaderCollection
 
     def init(self):
-        self.mainScene = ShaderProgram([self.shaderCollection.mainSceneVertex, self.shaderCollection.mainSceneFragment])
+        self.mainScene = MainSceneShaderProgram([self.shaderCollection.mainSceneVertex, self.shaderCollection.mainSceneFragment])
 
 
 def makeShaderProgramCollection(resolver):
