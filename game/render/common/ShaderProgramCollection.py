@@ -9,6 +9,9 @@ class ShaderProgramCollection:
 
     def init(self):
         self.mainScene = MainSceneShaderProgram([self.shaderCollection.mainSceneVertex, self.shaderCollection.mainSceneFragment])
+        self.mainSceneLightComponents = None
+        self.mainSceneShadowVolumes = None
+        self.mainSceneShadowCompose = None
 
 
 def makeShaderProgramCollection(resolver):
