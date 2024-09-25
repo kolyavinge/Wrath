@@ -39,11 +39,11 @@ class LevelRenderer:
         mvpMatrix = camera.projectionMatrix.copy()
         mvpMatrix.mul(camera.viewMatrix)
         mainScene = self.shaderProgramCollection.mainScene
-        # mainScene.setUniform("modelMatrix", self.modelMatrix)
-        mainScene.setUniform("modelViewMatrix", camera.viewMatrix)
-        mainScene.setUniform("modelViewProjectionMatrix", mvpMatrix)
-        mainScene.setUniform("normalMatrix", camera.viewMatrix.toMatrix3())
-        mainScene.setUniform("maxDepth", CommonConstants.maxDepth)
+        # mainScene.setTransformMatrix4("modelMatrix", self.modelMatrix)
+        mainScene.setTransformMatrix4("modelViewMatrix", camera.viewMatrix)
+        mainScene.setTransformMatrix4("modelViewProjectionMatrix", mvpMatrix)
+        mainScene.setMatrix3("normalMatrix", camera.viewMatrix.toMatrix3())
+        mainScene.setFloat32("maxDepth", CommonConstants.maxDepth)
 
     def renderLevelSegments(self):
         for levelSegment in self.gameData.visibleLevelSegments:
@@ -62,35 +62,35 @@ class LevelRenderer:
         spotIndex = 0
         for light in levelSegment.lights:
             if isinstance(light, Spot):
-                mainScene.setUniform(f"spot[{spotIndex}].color", light.color)
-                mainScene.setUniform(f"spot[{spotIndex}].position", light.position)
-                mainScene.setUniform(f"spot[{spotIndex}].direction", light.direction)
-                mainScene.setUniform(f"spot[{spotIndex}].attenuation", light.attenuation)
-                mainScene.setUniform(f"spot[{spotIndex}].cutoffCos", light.cutoffCos)
+                mainScene.setVector3(f"spot[{spotIndex}].color", light.color)
+                mainScene.setVector3(f"spot[{spotIndex}].position", light.position)
+                mainScene.setVector3(f"spot[{spotIndex}].direction", light.direction)
+                mainScene.setFloat32(f"spot[{spotIndex}].attenuation", light.attenuation)
+                mainScene.setFloat32(f"spot[{spotIndex}].cutoffCos", light.cutoffCos)
                 spotIndex += 1
             else:
-                mainScene.setUniform(f"light[{lightIndex}].color", light.color)
-                mainScene.setUniform(f"light[{lightIndex}].position", light.position)
+                mainScene.setVector3(f"light[{lightIndex}].color", light.color)
+                mainScene.setVector3(f"light[{lightIndex}].position", light.position)
                 lightIndex += 1
         # player torch
         torch = self.gameData.playerItems.torch
         if torch.isActive:
             player = self.gameData.player
-            mainScene.setUniform(f"spot[{spotIndex}].color", torch.color)
-            mainScene.setUniform(f"spot[{spotIndex}].position", player.eyePosition)
-            mainScene.setUniform(f"spot[{spotIndex}].direction", player.lookDirection)
-            mainScene.setUniform(f"spot[{spotIndex}].attenuation", torch.attenuation)
-            mainScene.setUniform(f"spot[{spotIndex}].cutoffCos", torch.cutoffCos)
+            mainScene.setVector3(f"spot[{spotIndex}].color", torch.color)
+            mainScene.setVector3(f"spot[{spotIndex}].position", player.eyePosition)
+            mainScene.setVector3(f"spot[{spotIndex}].direction", player.lookDirection)
+            mainScene.setFloat32(f"spot[{spotIndex}].attenuation", torch.attenuation)
+            mainScene.setFloat32(f"spot[{spotIndex}].cutoffCos", torch.cutoffCos)
             spotIndex += 1
-        mainScene.setUniform("lightsCount", lightIndex)
-        mainScene.setUniform("spotsCount", spotIndex)
+        mainScene.setInt32("lightsCount", lightIndex)
+        mainScene.setInt32("spotsCount", spotIndex)
 
     def setMaterialUniforms(self, material):
         mainScene = self.shaderProgramCollection.mainScene
-        mainScene.setUniform("material.ambient", material.ambient)
-        mainScene.setUniform("material.diffuse", material.diffuse)
-        mainScene.setUniform("material.specular", material.specular)
-        mainScene.setUniform("material.shininess", material.shininess)
+        mainScene.setFloat32("material.ambient", material.ambient)
+        mainScene.setFloat32("material.diffuse", material.diffuse)
+        mainScene.setFloat32("material.specular", material.specular)
+        mainScene.setFloat32("material.shininess", material.shininess)
 
 
 def makeLevelRenderer(resolver):
