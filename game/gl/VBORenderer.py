@@ -5,7 +5,7 @@ class VBORenderer:
 
     def render(self, vbo):
         glBindVertexArray(vbo.vaoId)
-        glDrawElements(GL_TRIANGLES, vbo.elementsCount, GL_UNSIGNED_INT, None)
+        glDrawElements(vbo.format, vbo.elementsCount, GL_UNSIGNED_INT, None)
         glBindVertexArray(0)
 
 

@@ -6,12 +6,13 @@ from game.gl.VBO import VBO
 
 class VBOBuilder:
 
-    def __init__(self):
+    def __init__(self, adjacencyFormatConverter):
         self.vertices = []
         self.vertexCount = 0
         self.normals = []
         self.texCoords = []
         self.faces = []
+        self.adjacencyFormatConverter = adjacencyFormatConverter
 
     def getVertexCount(self):
         return self.vertexCount
@@ -37,10 +38,14 @@ class VBOBuilder:
         self.faces.append(i3)
 
     def validate(self):
+        # if len(self.vertices) == 0: TODO
+        # raise Exception("Vertices cannot be empty.")
         if len(self.vertices) != len(self.normals):
-            raise Exception("Vertices and normals must be the same size.")
+            raise Exception("Vertices and normals must be the same length.")
+        # if len(self.faces) == 0:
+        # raise Exception("Faces cannot be empty.")
 
-    def build(self):
+    def build(self, withAdjacency=False):
         self.validate()
 
         # https://www.patternsgameprog.com/opengl-2d-facade-3-vertex-array-objects
@@ -51,6 +56,8 @@ class VBOBuilder:
         normals = numpy.array(self.normals, dtype=numpy.float32)
         texCoords = numpy.array(self.texCoords, dtype=numpy.float32)
         faces = numpy.array(self.faces, dtype=numpy.uint32)
+        if withAdjacency:
+            faces = self.adjacencyFormatConverter.getFacesWithAdjacency(faces)
 
         vboIds = glGenBuffers(4)
 
@@ -76,4 +83,5 @@ class VBOBuilder:
         glBindBuffer(GL_ARRAY_BUFFER, 0)
         glBindVertexArray(0)
 
-        return VBO(vaoId, vboIds, len(faces))
+        format = GL_TRIANGLES if not withAdjacency else GL_TRIANGLES_ADJACENCY
+        return VBO(vaoId, vboIds, len(faces), format)

@@ -14,7 +14,6 @@ class LevelRenderer:
         self.levelItemGroupCollection = levelItemGroupCollection
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
-        # self.modelMatrix = TransformMatrix4()
 
     def init(self):
         self.levelItemGroupCollection.init(self.gameData.level.visibilityTree.getAllLevelSegments())
@@ -37,7 +36,6 @@ class LevelRenderer:
         mvpMatrix = camera.projectionMatrix.copy()
         mvpMatrix.mul(camera.viewMatrix)
         mainScene = self.shaderProgramCollection.mainScene
-        # mainScene.setModelMatrix("modelMatrix", self.modelMatrix)
         mainScene.setModelViewMatrix(camera.viewMatrix)
         mainScene.setModelViewProjectionMatrix(mvpMatrix)
         mainScene.setNormalMatrix(camera.viewMatrix.toMatrix3())

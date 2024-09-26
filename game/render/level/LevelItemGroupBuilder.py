@@ -40,6 +40,8 @@ class LevelItemGroupBuilder:
                 self.stairVBOBuilder.build(item, vboBuilder)
             elif isinstance(item, Construction):
                 self.constructionVBOBuilder.build(item, vboBuilder)
+            # else: TODO
+            # raise Exception()
 
         return vboBuilder.build()
 

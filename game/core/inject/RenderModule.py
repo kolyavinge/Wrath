@@ -1,3 +1,5 @@
+from game.gl.AdjancencyFormatConverter import *
+from game.gl.ScreenQuadVBO import *
 from game.gl.ShaderCompiler import *
 from game.gl.TextureLoader import *
 from game.gl.VBOBuilderFactory import *
@@ -13,12 +15,15 @@ from game.render.level.LevelItemGroupCollection import *
 from game.render.level.LevelRenderer import *
 from game.render.level.StairVBOBuilder import *
 from game.render.level.WallVBOBuilder import *
+from game.render.main.MainSceneRenderer import *
 from game.render.ui.GameScreenRenderer import *
 
 
 class RenderModule:
 
     def init(self, binder):
+        binder.bindSingleton(AdjacencyFormatConverter, makeAdjacencyFormatConverter)
+        binder.bindSingleton(ScreenQuadVBO, makeScreenQuadVBO)
         binder.bindSingleton(ShaderCompiler, makeShaderCompiler)
         binder.bindSingleton(TextureLoader, makeTextureLoader)
         binder.bindSingleton(VBOBuilderFactory, makeVBOBuilderFactory)
@@ -34,4 +39,5 @@ class RenderModule:
         binder.bindSingleton(LevelRenderer, makeLevelRenderer)
         binder.bindSingleton(StairVBOBuilder, makeStairVBOBuilder)
         binder.bindSingleton(WallVBOBuilder, makeWallVBOBuilder)
+        binder.bindSingleton(MainSceneRenderer, makeMainSceneRenderer)
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)
