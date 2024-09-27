@@ -52,12 +52,13 @@ class VBOBuilder:
         vaoId = glGenVertexArrays(1)
         glBindVertexArray(vaoId)
 
+        if withAdjacency:
+            self.faces = self.adjacencyFormatConverter.getFacesWithAdjacency(self.faces)
+
         vertices = numpy.array(self.vertices, dtype=numpy.float32)
         normals = numpy.array(self.normals, dtype=numpy.float32)
         texCoords = numpy.array(self.texCoords, dtype=numpy.float32)
         faces = numpy.array(self.faces, dtype=numpy.uint32)
-        if withAdjacency:
-            faces = self.adjacencyFormatConverter.getFacesWithAdjacency(faces)
 
         vboIds = glGenBuffers(4)
 

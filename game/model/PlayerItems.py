@@ -11,3 +11,4 @@ class PlayerItems:
         self.torch.color = Vector3(4.0, 4.0, 4.0)
         self.torch.attenuation = 150.0
         self.torch.cutoffCos = Math.cos(Geometry.degreesToRadians(25.0))
+        self.torch.switch()

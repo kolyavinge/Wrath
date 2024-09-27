@@ -8,9 +8,11 @@ class AdjacencyFormatConverter:
 
     def getFacesWithAdjacency(self, faces):
         adjacency = []
+        for i in range(0, 2 * len(faces)):
+            adjacency.append(self.maxUint32)
 
         # Copy and make room for adjacency info
-        for i in range(0, len(faces)):
+        for i in range(0, len(faces), 3):
             adjacency[i * 2 + 0] = faces[i]
             adjacency[i * 2 + 1] = self.maxUint32
             adjacency[i * 2 + 2] = faces[i + 1]

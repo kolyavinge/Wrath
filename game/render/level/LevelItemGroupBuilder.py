@@ -43,7 +43,7 @@ class LevelItemGroupBuilder:
             # else: TODO
             # raise Exception()
 
-        return vboBuilder.build()
+        return vboBuilder.build(withAdjacency=True)
 
     def getLevelItemsGroupedByMaterial(self, levelSegment):
         allLevelItems = levelSegment.getAllItems()

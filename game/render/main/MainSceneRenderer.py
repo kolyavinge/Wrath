@@ -1,11 +1,9 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 from game.gl.ext import glGetViewportSize
 from game.gl.ScreenQuadVBO import ScreenQuadVBO
-from game.gl.VBOBuilder import VBOBuilder
 from game.gl.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelItemGroupCollection import LevelItemGroupCollection
@@ -108,6 +106,7 @@ class MainSceneRenderer:
         # stencil test always succeeds, increments for front faces and decrements for back
         glClear(GL_STENCIL_BUFFER_BIT)
         glEnable(GL_STENCIL_TEST)
+        glEnable(GL_DEPTH_TEST)
         glStencilFunc(GL_ALWAYS, 0, 0xFFFF)
         glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_KEEP, GL_INCR_WRAP)
         glStencilOpSeparate(GL_BACK, GL_KEEP, GL_KEEP, GL_DECR_WRAP)
@@ -118,24 +117,26 @@ class MainSceneRenderer:
             allVisibleLights.update(levelSegment.lights)
         shader = self.shaderProgramCollection.mainSceneShadowVolumes
         shader.use()
+        camera = self.gameData.camera
+        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setModelViewMatrix(camera.viewMatrix)
         shader.setLight(allVisibleLights, player, torch)
         # draw Shadow Casters
         for levelSegment in self.gameData.visibleLevelSegments:
             levelItemGroups = self.levelItemGroupCollection.getLevelItemGroups(levelSegment)
             for item in levelItemGroups:
-                glBindVertexArray(item.vbo.vaoId)
-                glDrawElements(GL_TRIANGLES_ADJACENCY, 8 * item.vbo.elementsCount, GL_UNSIGNED_INT, None)
-                glBindVertexArray(0)
+                self.vboRenderer.render(item.vbo)
         shader.unuse()
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)
+        glDisable(GL_DEPTH_TEST)
+        glDisable(GL_STENCIL_TEST)
 
     def composeScene(self):
-        glDisable(GL_DEPTH_TEST)
+        glEnable(GL_STENCIL_TEST)
         glEnable(GL_BLEND)
         glEnable(GL_TEXTURE_2D)
         glBlendFunc(GL_ONE, GL_ONE)
-        # render pixels that have a stencil value 0
-        glStencilFunc(GL_EQUAL, 0, 0xFFFF)
+        glStencilFunc(GL_EQUAL, 0, 0xFFFF)  # render pixels that have a stencil value 0
         glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP)
         shader = self.shaderProgramCollection.mainSceneCompose
         shader.use()
@@ -145,7 +146,7 @@ class MainSceneRenderer:
         shader.unuse()
         glDisable(GL_TEXTURE_2D)
         glDisable(GL_BLEND)
-        glEnable(GL_DEPTH_TEST)
+        glDisable(GL_STENCIL_TEST)
 
 
 def makeMainSceneRenderer(resolver):
