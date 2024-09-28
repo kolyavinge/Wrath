@@ -109,9 +109,8 @@ class MainSceneRenderer:
         player = self.gameData.player
         shader = self.shaderProgramCollection.mainSceneShadowVolumes
         shader.use()
-        camera = self.gameData.camera
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
-        shader.setModelViewMatrix(camera.viewMatrix)
+        shader.setModelViewMatrix(self.gameData.camera.viewMatrix)
         # draw shadow casters
         for levelSegment in self.gameData.visibleLevelSegments:
             shader.setLight(levelSegment.lights, player, torch)

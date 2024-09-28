@@ -1,4 +1,5 @@
 from game.calc.Matrix3 import Matrix3
+from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 
 # https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glTranslate.xml
@@ -45,6 +46,12 @@ class TransformMatrix4:
             self.items[2] * m.items[12] + self.items[6] * m.items[13] + self.items[10] * m.items[14] + self.items[14] * m.items[15],
             self.items[3] * m.items[12] + self.items[7] * m.items[13] + self.items[11] * m.items[14] + self.items[15] * m.items[15],
         ]
+
+    def mulVector3(self, v):
+        x = self.items[0] * v.x + self.items[4] * v.y + self.items[8] * v.z + self.items[12]
+        y = self.items[1] * v.x + self.items[5] * v.y + self.items[9] * v.z + self.items[13]
+        z = self.items[2] * v.x + self.items[6] * v.y + self.items[10] * v.z + self.items[14]
+        return Vector3(x, y, z)
 
     def translate(self, x, y, z):
         self.items = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1]

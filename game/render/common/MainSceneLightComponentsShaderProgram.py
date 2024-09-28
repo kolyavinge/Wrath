@@ -8,12 +8,14 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
         super().__init__(shaders)
 
     def setModelViewMatrix(self, modelViewMatrix):
+        self.modelViewMatrix = modelViewMatrix
         self.setTransformMatrix4("modelViewMatrix", modelViewMatrix)
 
     def setModelViewProjectionMatrix(self, modelViewProjectionMatrix):
         self.setTransformMatrix4("modelViewProjectionMatrix", modelViewProjectionMatrix)
 
     def setNormalMatrix(self, normalMatrix):
+        self.normalMatrix = normalMatrix
         self.setMatrix3("normalMatrix", normalMatrix)
 
     def setMaxDepth(self, maxDepth):
@@ -31,9 +33,11 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
         spotIndex = 0
         for light in lights:
             if isinstance(light, Spot):
+                directionView = self.normalMatrix.mulVector3(light.direction)
+                directionView.normalize()
                 self.setVector3(f"spot[{spotIndex}].color", light.color)
-                self.setVector3(f"spot[{spotIndex}].position", light.position)
-                self.setVector3(f"spot[{spotIndex}].direction", light.direction)
+                self.setVector3(f"spot[{spotIndex}].positionView", self.modelViewMatrix.mulVector3(light.position))
+                self.setVector3(f"spot[{spotIndex}].directionView", directionView)
                 self.setFloat32(f"spot[{spotIndex}].attenuation", light.attenuation)
                 self.setFloat32(f"spot[{spotIndex}].cutoffCos", light.cutoffCos)
                 spotIndex += 1
@@ -43,9 +47,11 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
                 lightIndex += 1
         # player torch
         if torch.isActive:
+            directionView = self.normalMatrix.mulVector3(player.lookDirection)
+            directionView.normalize()
             self.setVector3(f"spot[{spotIndex}].color", torch.color)
-            self.setVector3(f"spot[{spotIndex}].position", player.eyePosition)
-            self.setVector3(f"spot[{spotIndex}].direction", player.lookDirection)
+            self.setVector3(f"spot[{spotIndex}].positionView", self.modelViewMatrix.mulVector3(player.eyePosition))
+            self.setVector3(f"spot[{spotIndex}].directionView", directionView)
             self.setFloat32(f"spot[{spotIndex}].attenuation", torch.attenuation)
             self.setFloat32(f"spot[{spotIndex}].cutoffCos", torch.cutoffCos)
             spotIndex += 1

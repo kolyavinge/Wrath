@@ -4,7 +4,7 @@ from game.lib.Numeric import Numeric
 
 class Vector3:
 
-    def __init__(self, x=0, y=0, z=0):
+    def __init__(self, x=0.0, y=0.0, z=0.0):
         self.set(x, y, z)
 
     def set(self, x, y, z):
