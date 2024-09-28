@@ -4,7 +4,6 @@ from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 from game.model.level.Construction import Construction
-from game.model.Material import Material
 from game.model.Orientation import Orientation
 
 
@@ -20,7 +19,6 @@ class Wall(Construction):
         self.limitLine = Line()
         self.limitLineDirection = Vector3()
         self.height = 3
-        self.material = Material.blank
         self.info = ""
 
     def commit(self):

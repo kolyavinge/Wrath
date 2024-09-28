@@ -1,17 +1,17 @@
 from game.calc.Vector3 import Vector3
 from game.model.FaceDirection import FaceDirection
-from game.model.Material import Material
+from game.model.Visible import Visible
 
 
-class Construction:
+class Construction(Visible):
 
     def __init__(self):
+        super().__init__()
         self.downLeft = Vector3()
         self.downRight = Vector3()
         self.upLeft = Vector3()
         self.upRight = Vector3()
         self.frontNormal = Vector3()
-        self.material = Material.blank
 
     def commit(self):
         self.calculateFaceDirection()

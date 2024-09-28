@@ -1,9 +1,9 @@
 from game.calc.Vector3 import Vector3
-from game.model.Material import Material
+from game.model.Visible import Visible
 
 
-class Light:
+class Light(Visible):
 
     def __init__(self):
+        super().__init__()
         self.color = Vector3(1.0, 1.0, 1.0)
-        self.material = Material.blank
