@@ -2,26 +2,30 @@ from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.engine.GameData import GameData
-from game.gl.ext import glGetViewportSize
+from game.gl.ext import *
 from game.gl.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelItemGroupCollection import LevelItemGroupCollection
+from game.render.level.ShadowCastLevelItemCollection import *
 
 
 class MainSceneRenderer:
 
-    def __init__(self, gameData, levelItemGroupCollection, vboRenderer, shaderProgramCollection, screenQuadVBO):
+    def __init__(self, gameData, levelItemGroupCollection, shadowCastLevelItemCollection, vboRenderer, shaderProgramCollection, screenQuadVBO):
         self.gameData = gameData
         self.levelItemGroupCollection = levelItemGroupCollection
+        self.shadowCastLevelItemCollection = shadowCastLevelItemCollection
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
         self.screenQuadVBO = screenQuadVBO
 
     def init(self):
-        self.viewportWidth, self.viewportHeight = glGetViewportSize()
-        self.levelItemGroupCollection.init(self.gameData.level.visibilityTree.getAllLevelSegments())
+        allLevelSegments = self.gameData.level.visibilityTree.getAllLevelSegments()
+        self.levelItemGroupCollection.init(allLevelSegments)
+        self.shadowCastLevelItemCollection.init(allLevelSegments)
         # init framebuffer
+        self.viewportWidth, self.viewportHeight = glGetViewportSize()
         depthBuffer = glGenRenderbuffers(1)
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer)
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, self.viewportWidth, self.viewportHeight)
@@ -88,18 +92,9 @@ class MainSceneRenderer:
         # copy depth and color buffers from colorDepthFBO to default FBO
         glBindFramebuffer(GL_READ_FRAMEBUFFER, self.colorDepthFBO)
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0)
-        glBlitFramebuffer(
-            0,
-            0,
-            self.viewportWidth - 1,
-            self.viewportHeight - 1,
-            0,
-            0,
-            self.viewportWidth - 1,
-            self.viewportHeight - 1,
-            GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT,
-            GL_NEAREST,
-        )
+        width = self.viewportWidth - 1
+        height = self.viewportHeight - 1
+        glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT, GL_NEAREST)
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE)
         glDepthMask(GL_FALSE)
         glBindFramebuffer(GL_FRAMEBUFFER, 0)
@@ -112,20 +107,16 @@ class MainSceneRenderer:
         glStencilOpSeparate(GL_BACK, GL_KEEP, GL_KEEP, GL_DECR_WRAP)
         torch = self.gameData.playerItems.torch
         player = self.gameData.player
-        allVisibleLights = set()
-        for levelSegment in self.gameData.visibleLevelSegments:
-            allVisibleLights.update(levelSegment.lights)
         shader = self.shaderProgramCollection.mainSceneShadowVolumes
         shader.use()
         camera = self.gameData.camera
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setModelViewMatrix(camera.viewMatrix)
-        shader.setLight(allVisibleLights, player, torch)
-        # draw Shadow Casters
+        # draw shadow casters
         for levelSegment in self.gameData.visibleLevelSegments:
-            levelItemGroups = self.levelItemGroupCollection.getLevelItemGroups(levelSegment)
-            for item in levelItemGroups:
-                self.vboRenderer.render(item.vbo)
+            shader.setLight(levelSegment.lights, player, torch)
+            vbo = self.shadowCastLevelItemCollection.getShadowCastersVBO(levelSegment)
+            self.vboRenderer.render(vbo)
         shader.unuse()
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)
         glDisable(GL_DEPTH_TEST)
@@ -153,6 +144,7 @@ def makeMainSceneRenderer(resolver):
     return MainSceneRenderer(
         resolver.resolve(GameData),
         resolver.resolve(LevelItemGroupCollection),
+        resolver.resolve(ShadowCastLevelItemCollection),
         resolver.resolve(VBORenderer),
         resolver.resolve(ShaderProgramCollection),
         resolver.resolve(ScreenQuadVBO),
