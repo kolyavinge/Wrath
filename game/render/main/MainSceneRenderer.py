@@ -112,14 +112,9 @@ class MainSceneRenderer:
         shader.setModelViewMatrix(self.gameData.camera.viewMatrix)
         # draw shadow casters
         for levelSegment in self.gameData.visibleLevelSegments:
-            # if self.gameData.playerItems.torch.isActive:
-            #     shader.setTorchPosition(self.gameData.player.eyePosition)
-            #     vbo = self.shadowCastLevelItemCollection.getShadowCastersVBO(levelSegment)
-            #     self.vboRenderer.render(vbo)
-            for light in levelSegment.lights:
-                shader.setLight(light)
-                vbo = self.shadowCastLevelItemCollection.getShadowCastersVBO(levelSegment)
-                self.vboRenderer.render(vbo)
+            shader.setLight(levelSegment.lights, self.gameData.player, self.gameData.playerItems.torch)
+            vbo = self.shadowCastLevelItemCollection.getShadowCastersVBO(levelSegment)
+            self.vboRenderer.render(vbo)
         shader.unuse()
         glDisable(GL_DEPTH_CLAMP)
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)

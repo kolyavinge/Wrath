@@ -27,7 +27,7 @@ uniform struct Light
 {
     vec3 color;
     vec3 positionView;
-} light[maxLightsCount];
+} lights[maxLightsCount];
 
 uniform int spotsCount;
 uniform struct Spot
@@ -37,7 +37,7 @@ uniform struct Spot
     vec3 directionView;
     float attenuation;
     float cutoffCos;
-} spot[maxLightsCount];
+} spots[maxLightsCount];
 
 vec4 getTextureColor()
 {
@@ -47,7 +47,7 @@ vec4 getTextureColor()
 void getLightColor(int lightIndex, out vec3 ambient, out vec3 diffuseSpecular)
 {
     vec3 n = normalize(NormalView);
-    vec3 s = normalize(light[lightIndex].positionView - PositionView);
+    vec3 s = normalize(lights[lightIndex].positionView - PositionView);
     float sDotN = max(dot(s, n), 0.0);
     float diffuse = material.diffuse * sDotN;
     float specular = 0.0;
@@ -55,8 +55,8 @@ void getLightColor(int lightIndex, out vec3 ambient, out vec3 diffuseSpecular)
     vec3 h = normalize(v + s);
     float hDotN = max(dot(h, n), 0.0);
     specular = material.specular * pow(hDotN, material.shininess);
-    ambient += light[lightIndex].color * material.ambient;
-    diffuseSpecular += light[lightIndex].color * (diffuse + specular);
+    ambient += lights[lightIndex].color * material.ambient;
+    diffuseSpecular += lights[lightIndex].color * (diffuse + specular);
 }
 
 void getSpotColor(int spotIndex, out vec3 ambient, out vec3 diffuseSpecular)
@@ -64,12 +64,12 @@ void getSpotColor(int spotIndex, out vec3 ambient, out vec3 diffuseSpecular)
     vec3 n = normalize(NormalView);
     float diffuse = 0.0;
     float specular = 0.0;
-    vec3 s = normalize(spot[spotIndex].positionView - PositionView);
-    float cosAngle = dot(-s, spot[spotIndex].directionView);
+    vec3 s = normalize(spots[spotIndex].positionView - PositionView);
+    float cosAngle = dot(-s, spots[spotIndex].directionView);
     float spotScale = 0.0;
-    if (cosAngle >= spot[spotIndex].cutoffCos)
+    if (cosAngle >= spots[spotIndex].cutoffCos)
     {
-        spotScale = pow(cosAngle, spot[spotIndex].attenuation);
+        spotScale = pow(cosAngle, spots[spotIndex].attenuation);
         float sDotN = max(dot(s, n), 0.0);
         diffuse = material.diffuse * sDotN;
         vec3 v = normalize(-PositionView);
@@ -77,8 +77,8 @@ void getSpotColor(int spotIndex, out vec3 ambient, out vec3 diffuseSpecular)
         float hDotN = max(dot(h, n), 0.0);
         specular = material.specular * pow(hDotN, material.shininess);
     }
-    ambient += spot[spotIndex].color * spotScale * material.ambient;
-    diffuseSpecular += spot[spotIndex].color * spotScale * (diffuse + specular);
+    ambient += spots[spotIndex].color * spotScale * material.ambient;
+    diffuseSpecular += spots[spotIndex].color * spotScale * (diffuse + specular);
 }
 
 void getTotalLightColor(out vec3 ambient, out vec3 diffuseSpecular)
