@@ -80,7 +80,7 @@ class MainSceneRenderer:
         torch = self.gameData.playerItems.torch
         player = self.gameData.player
         for levelSegment in self.gameData.visibleLevelSegments:
-            shader.setLight(levelSegment.lights, player, torch)
+            shader.setLight(levelSegment.lightsWithJoined, player, torch)
             levelItemGroups = self.levelItemGroupCollection.getLevelItemGroups(levelSegment)
             for item in levelItemGroups:
                 shader.setMaterial(item.material)

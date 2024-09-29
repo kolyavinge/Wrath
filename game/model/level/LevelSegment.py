@@ -8,6 +8,7 @@ class LevelSegment:
         self.floors = []
         self.ceilings = []
         self.lights = []
+        self.lightsWithJoined = []
         self.joinLines = []
 
     def getAllItems(self):
