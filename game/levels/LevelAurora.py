@@ -448,29 +448,32 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Spot()
-        light.position = Vector3(110, 45, wallHeight - 0.1)
+        light.position = Vector3(90, 45, wallHeight - 0.1)
+        light.color.mul(4)
         self.addLight(light)
 
         light = Spot()
-        light.position = Vector3(85, 45, wallHeight - 0.1)
+        light.position = Vector3(130, 45, wallHeight - 0.1)
+        light.color.mul(4)
         self.addLight(light)
 
         light = Spot()
         light.position = Vector3(135, 45, wallHeight - 0.1)
-        self.addLight(light)
+        light.color.mul(2)
+        # self.addLight(light)
 
         light = Spot()
         light.position = Vector3(110, 30, wallHeight - 0.1)
-        self.addLight(light)
+        # self.addLight(light)
 
         light = Spot()
         light.position = Vector3(110, 60, wallHeight - 0.1)
-        self.addLight(light)
+        # self.addLight(light)
 
         light = Spot()
         light.position = Vector3(105, 79, wallHeight - 1.0)
         light.direction = Vector3(0, -1, 0)
-        self.addLight(light)
+        # self.addLight(light)
 
     def makeRoom2(self):
         wallHeight = 13
@@ -765,8 +768,14 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Spot()
-        light.position = Vector3(220, 125, z + wallHeight - 0.1)
+        light.color.mul(5)
+        light.position = Vector3(225, 125, z + wallHeight - 0.1)
         self.addLight(light)
+
+        light = Spot()
+        light.color.mul(4)
+        light.position = Vector3(255, 140, z + wallHeight - 0.1)
+        # self.addLight(light)
 
     def makeRoom3(self):
         wallHeight = 4

@@ -97,26 +97,31 @@ class MainSceneRenderer:
         glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT, GL_NEAREST)
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE)
         glDepthMask(GL_FALSE)
+        glEnable(GL_DEPTH_CLAMP)
         glBindFramebuffer(GL_FRAMEBUFFER, 0)
         # stencil test always succeeds, increments for front faces and decrements for back
         glClear(GL_STENCIL_BUFFER_BIT)
         glEnable(GL_STENCIL_TEST)
         glEnable(GL_DEPTH_TEST)
         glStencilFunc(GL_ALWAYS, 0, 0xFFFF)
-        glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_KEEP, GL_INCR_WRAP)
-        glStencilOpSeparate(GL_BACK, GL_KEEP, GL_KEEP, GL_DECR_WRAP)
-        torch = self.gameData.playerItems.torch
-        player = self.gameData.player
+        glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP)
+        glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP)
         shader = self.shaderProgramCollection.mainSceneShadowVolumes
         shader.use()
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setModelViewMatrix(self.gameData.camera.viewMatrix)
         # draw shadow casters
         for levelSegment in self.gameData.visibleLevelSegments:
-            shader.setLight(levelSegment.lights, player, torch)
-            vbo = self.shadowCastLevelItemCollection.getShadowCastersVBO(levelSegment)
-            self.vboRenderer.render(vbo)
+            # if self.gameData.playerItems.torch.isActive:
+            #     shader.setTorchPosition(self.gameData.player.eyePosition)
+            #     vbo = self.shadowCastLevelItemCollection.getShadowCastersVBO(levelSegment)
+            #     self.vboRenderer.render(vbo)
+            for light in levelSegment.lights:
+                shader.setLight(light)
+                vbo = self.shadowCastLevelItemCollection.getShadowCastersVBO(levelSegment)
+                self.vboRenderer.render(vbo)
         shader.unuse()
+        glDisable(GL_DEPTH_CLAMP)
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)
         glDisable(GL_DEPTH_TEST)
         glDisable(GL_STENCIL_TEST)

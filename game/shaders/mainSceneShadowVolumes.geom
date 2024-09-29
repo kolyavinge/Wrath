@@ -2,37 +2,41 @@
 
 layout (triangles_adjacency) in;
 layout (triangle_strip, max_vertices = 18) out;
+
 in vec3 PositionView[];
 
 uniform mat4 projectionMatrix;
-const int maxLightsCount = 25;
-uniform int lightsCount;
-uniform vec3 lightPositionView[maxLightsCount];
+uniform vec3 lightPositionView;
 
-bool facesLight(vec3 light, vec3 a, vec3 b, vec3 c)
+const float epsilon = 0.1;
+
+bool facesLight(vec3 a, vec3 b, vec3 c)
 {
     vec3 n = cross(b - a, c - a);
-    vec3 da = light - a;
-    vec3 db = light - b;
-    vec3 dc = light - c;
+    vec3 da = lightPositionView - a;
+    vec3 db = lightPositionView - b;
+    vec3 dc = lightPositionView - c;
 
-    return dot(n, da) > 0.0 || dot(n, db) > 0.0 || dot(n, dc) > 0.0; 
+    return dot(n, da) > 0 || dot(n, db) > 0 || dot(n, dc) > 0; 
 }
 
-void emitEdgeQuad(vec3 light, vec3 a, vec3 b)
+void emitEdgeQuad(vec3 a, vec3 b)
 {
-    gl_Position = projectionMatrix * vec4(a, 1.0);
+    vec3 lightDirection = normalize(a - lightPositionView);
+    vec3 deviation = lightDirection * epsilon;
+    gl_Position = projectionMatrix * vec4(a + deviation, 1.0);
     EmitVertex();
 
-    gl_Position = projectionMatrix * vec4(a - light, 0.0);
+    gl_Position = projectionMatrix * vec4(lightDirection, 0.0);
     EmitVertex();
 
-    gl_Position = projectionMatrix * vec4(b, 1.0);
+    lightDirection = normalize(b - lightPositionView);
+    deviation = lightDirection * epsilon;
+    gl_Position = projectionMatrix * vec4(b + deviation, 1.0);
     EmitVertex();
 
-    gl_Position = projectionMatrix * vec4(b - light, 0.0);
+    gl_Position = projectionMatrix * vec4(lightDirection, 0.0);
     EmitVertex();
-
     EndPrimitive();
 }
 
@@ -40,24 +44,52 @@ void main()
 {
     // If the main triangle faces the light, check each adjacent triangle.
     // If an adjacent triangle does not face the light - output a sihlouette edge quad for the corresponding edge.
-    for (int lightIndex = 0; lightIndex < lightsCount; lightIndex++)
+    if (facesLight(PositionView[0], PositionView[2], PositionView[4]))
     {
-        if (facesLight(lightPositionView[lightIndex], PositionView[0], PositionView[2], PositionView[4]))
+        if (!facesLight(PositionView[0], PositionView[1], PositionView[2]))
         {
-            if (!facesLight(lightPositionView[lightIndex], PositionView[0], PositionView[1], PositionView[2]))
-            {
-                emitEdgeQuad(lightPositionView[lightIndex], PositionView[0], PositionView[2]);
-            }
-
-            if (!facesLight(lightPositionView[lightIndex], PositionView[2], PositionView[3], PositionView[4]))
-            {
-                emitEdgeQuad(lightPositionView[lightIndex], PositionView[2], PositionView[4]);
-            }
-
-            if (!facesLight(lightPositionView[lightIndex], PositionView[4], PositionView[5], PositionView[0]))
-            {
-                emitEdgeQuad(lightPositionView[lightIndex], PositionView[4], PositionView[0]);
-            }
+            emitEdgeQuad(PositionView[0], PositionView[2]);
         }
+
+        if (!facesLight(PositionView[2], PositionView[3], PositionView[4]))
+        {
+            emitEdgeQuad(PositionView[2], PositionView[4]);
+        }
+
+        if (!facesLight(PositionView[4], PositionView[5], PositionView[0]))
+        {
+            emitEdgeQuad(PositionView[4], PositionView[0]);
+        }
+
+        // front cap
+        vec3 lightDirection = normalize(PositionView[0] - lightPositionView);
+        vec3 deviation = lightDirection * epsilon;
+        gl_Position = projectionMatrix * vec4(PositionView[0] + deviation, 1.0);
+        EmitVertex();
+
+        lightDirection = normalize(PositionView[2] - lightPositionView);
+        deviation = lightDirection * epsilon;
+        gl_Position = projectionMatrix * vec4(PositionView[2] + deviation, 1.0);
+        EmitVertex();
+
+        lightDirection = normalize(PositionView[4] - lightPositionView);
+        deviation = lightDirection * epsilon;
+        gl_Position = projectionMatrix * vec4(PositionView[4] + deviation, 1.0);
+        EmitVertex();
+        EndPrimitive();
+
+        // back cap
+        lightDirection = normalize(PositionView[0] - lightPositionView);
+        gl_Position = projectionMatrix * vec4(lightDirection, 0.0);
+        EmitVertex();
+
+        lightDirection = normalize(PositionView[4] - lightPositionView);
+        gl_Position = projectionMatrix * vec4(lightDirection, 0.0);
+        EmitVertex();
+
+        lightDirection = normalize(PositionView[2] - lightPositionView);
+        gl_Position = projectionMatrix * vec4(lightDirection, 0.0);
+        EmitVertex();
+        EndPrimitive();
     }
 }

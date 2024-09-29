@@ -8,7 +8,7 @@ class PlayerItems:
 
     def __init__(self):
         self.torch = Torch()
-        self.torch.color = Vector3(4.0, 4.0, 4.0)
-        self.torch.attenuation = 150.0
-        self.torch.cutoffCos = Math.cos(Geometry.degreesToRadians(25.0))
-        self.torch.switch()
+        self.torch.color = Vector3(1.0, 1.0, 1.0)
+        self.torch.color.mul(5.0)
+        self.torch.attenuation = 200.0
+        self.torch.cutoffCos = Math.cos(Geometry.degreesToRadians(30.0))

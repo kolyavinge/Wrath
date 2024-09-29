@@ -48,9 +48,11 @@ class TransformMatrix4:
         ]
 
     def mulVector3(self, v):
+        # четвертый компонент вектора равен 1
         x = self.items[0] * v.x + self.items[4] * v.y + self.items[8] * v.z + self.items[12]
         y = self.items[1] * v.x + self.items[5] * v.y + self.items[9] * v.z + self.items[13]
         z = self.items[2] * v.x + self.items[6] * v.y + self.items[10] * v.z + self.items[14]
+
         return Vector3(x, y, z)
 
     def translate(self, x, y, z):
