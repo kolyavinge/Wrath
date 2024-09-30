@@ -14,7 +14,6 @@ class Wall(Construction):
         self.orientation = Orientation.horizontal
         self.startPoint = Vector3()
         self.endPoint = Vector3()
-        self.frontNormal = Vector3()
         self.direction = Vector3()
         self.limitLine = Line()
         self.limitLineDirection = Vector3()

@@ -44,7 +44,7 @@ vec4 getTextureColor()
     return texture(ourTexture, TexCoord);
 }
 
-void getLightColor(int lightIndex, out vec3 ambient, out vec3 diffuseSpecular)
+void getLightColor(int lightIndex, inout vec3 ambient, inout vec3 diffuseSpecular)
 {
     vec3 n = normalize(NormalView);
     vec3 s = normalize(lights[lightIndex].positionView - PositionView);
@@ -59,7 +59,7 @@ void getLightColor(int lightIndex, out vec3 ambient, out vec3 diffuseSpecular)
     diffuseSpecular += lights[lightIndex].color * (diffuse + specular);
 }
 
-void getSpotColor(int spotIndex, out vec3 ambient, out vec3 diffuseSpecular)
+void getSpotColor(int spotIndex, inout vec3 ambient, inout vec3 diffuseSpecular)
 {
     vec3 n = normalize(NormalView);
     float diffuse = 0.0;
@@ -81,7 +81,7 @@ void getSpotColor(int spotIndex, out vec3 ambient, out vec3 diffuseSpecular)
     diffuseSpecular += spots[spotIndex].color * spotScale * (diffuse + specular);
 }
 
-void getTotalLightColor(out vec3 ambient, out vec3 diffuseSpecular)
+void getTotalLightColor(inout vec3 ambient, inout vec3 diffuseSpecular)
 {
     for (int lightIndex = 0; lightIndex < lightsCount; lightIndex++)
     {

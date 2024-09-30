@@ -43,7 +43,7 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
                 spotIndex += 1
             else:
                 self.setVector3(f"lights[{lightIndex}].color", light.color)
-                self.setVector3(f"lights[{lightIndex}].position", light.position)
+                self.setVector3(f"lights[{lightIndex}].positionView", self.modelViewMatrix.mulVector3(light.position))
                 lightIndex += 1
         # player torch
         if torch.isActive:

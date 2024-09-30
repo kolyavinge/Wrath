@@ -10,6 +10,8 @@ from game.model.level.LevelSegmentJoinLine import LevelSegmentJoinLine
 from game.model.level.PlaneFloor import PlaneFloor
 from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
+from game.model.light.Lamp import Lamp
+from game.model.light.Light import Light
 from game.model.light.Spot import Spot
 from game.model.Material import Material
 from game.model.Orientation import Orientation
@@ -589,15 +591,15 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Spot()
+        light = Lamp()
         light.position = Vector3(90, 45, wallHeight - 0.1)
-        light.color.mul(4)
+        light.color.mul(2)
         self.addLight(light)
 
-        light = Spot()
+        light = Lamp()
         light.position = Vector3(130, 45, wallHeight - 0.1)
         light.color.mul(4)
-        self.addLight(light)
+        # self.addLight(light)
 
         light = Spot()
         light.position = Vector3(135, 45, wallHeight - 0.1)
