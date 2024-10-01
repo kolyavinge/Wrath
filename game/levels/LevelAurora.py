@@ -921,7 +921,7 @@ class LevelAurora(Level):
         self.addCeiling(ceiling)
 
         light = Lamp()
-        light.color.mul(2)
+        light.color.mul(3)
         light.position = Vector3(225, 125, z + wallHeight - 0.1)
         self.addLight(light)
 
