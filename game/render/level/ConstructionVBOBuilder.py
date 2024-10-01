@@ -1,4 +1,5 @@
 from game.calc.Vector3 import Vector3
+from game.lib.Math import Math
 from game.model.FaceDirection import FaceDirection
 
 
@@ -15,8 +16,8 @@ class ConstructionVBOBuilder:
             leftStepLength = stepLength * leftDirectionLength / rightDirectionLength
             rightStepLength = stepLength
         else:
-            leftStepLength = stepLength
-            rightStepLength = stepLength
+            leftStepLength = Math.min(leftDirectionLength, stepLength)
+            rightStepLength = Math.min(rightDirectionLength, stepLength)
 
         leftPoints = Vector3.splitFromStartToEnd(item.downLeft, item.upLeft, leftStepLength)
         rightPoints = Vector3.splitFromStartToEnd(item.downRight, item.upRight, rightStepLength)
@@ -46,15 +47,20 @@ class ConstructionVBOBuilder:
         vboBuilder.addNormal(item.frontNormal)
         vboBuilder.addNormal(item.frontNormal)
 
-        vboBuilder.addTexCoord(0, 0)
-        vboBuilder.addTexCoord(0, 1)
-        vboBuilder.addTexCoord(1, 0)
-        vboBuilder.addTexCoord(1, 1)
-
         if item.faceDirection == FaceDirection.counterClockwise:
+            vboBuilder.addTexCoord(0, 0)
+            vboBuilder.addTexCoord(0, 1)
+            vboBuilder.addTexCoord(1, 0)
+            vboBuilder.addTexCoord(1, 1)
+
             vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 1)
             vboBuilder.addFace(vertexCount, vertexCount + 2, vertexCount + 3)
         else:
+            vboBuilder.addTexCoord(1, 0)
+            vboBuilder.addTexCoord(1, 1)
+            vboBuilder.addTexCoord(0, 0)
+            vboBuilder.addTexCoord(0, 1)
+
             vboBuilder.addFace(vertexCount, vertexCount + 1, vertexCount + 3)
             vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 2)
 
