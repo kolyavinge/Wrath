@@ -41,7 +41,7 @@ class LevelSegmentVisibilityUpdater:
             return False
         pointInFront = self.gameData.camera.lookDirection.dotProduct(direction) > 0
 
-        return pointInFront > 0
+        return pointInFront
 
 
 def makeLevelSegmentVisibilityUpdater(resolver):

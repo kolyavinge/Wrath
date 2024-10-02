@@ -1,4 +1,3 @@
-from game.anx.PlayerConstants import PlayerConstants
 from game.engine.GameData import GameData
 
 
