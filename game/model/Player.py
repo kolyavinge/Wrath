@@ -27,6 +27,10 @@ class Player:
         self.rightNormal = CommonConstants.xAxis
         self.hasMoved = False
         self.hasTurned = False
+        self.doStep = False
+        self.prevPrevSwingValue = 0
+        self.prevSwingValue = 0
+        self.currentSwingValue = 0
         self.forwardMovingTime = 0
         self.backwardMovingTime = 0
         self.leftStepMovingTime = 0

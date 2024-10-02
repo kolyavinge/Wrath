@@ -1,6 +1,5 @@
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
-from game.engine.CameraSwingLogic import *
 from game.engine.CameraUpdater import *
 from game.engine.cm.PlayerWallCollisionDetector import *
 from game.engine.cm.PlayerWallCollisionDetector2 import *
@@ -17,6 +16,7 @@ from game.engine.LevelValidator import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerMoveLogic import *
+from game.engine.PlayerMovingSwingLogic import *
 from game.engine.PlayerMovingTimeCalculator import *
 from game.engine.PlayerPositionUpdater import *
 from game.engine.PlayerTurnLogic import *
@@ -30,7 +30,6 @@ class EngineModule:
     def init(self, binder):
         binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)
-        binder.bindSingleton(CameraSwingLogic, makeCameraSwingLogic)
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
         binder.bindSingleton(PlayerWallCollisionDetector, makePlayerWallCollisionDetector)
         # binder.bindSingleton(PlayerWallCollisionDetector2, makePlayerWallCollisionDetector2)
@@ -47,6 +46,7 @@ class EngineModule:
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMoveLogic, makePlayerMoveLogic)
+        binder.bindSingleton(PlayerMovingSwingLogic, makePlayerMovingSwingLogic)
         binder.bindSingleton(PlayerMovingTimeCalculator, makePlayerMovingTimeCalculator)
         binder.bindSingleton(PlayerPositionUpdater, makePlayerPositionUpdater)
         binder.bindSingleton(PlayerTurnLogic, makePlayerTurnLogic)

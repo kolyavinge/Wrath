@@ -9,17 +9,12 @@ class CameraUpdater:
     def updatePosition(self):
         self.gameData.camera.position = self.gameData.player.eyePosition
         self.gameData.camera.lookDirection = self.gameData.player.lookDirection
+        self.gameData.camera.calculateViewMatrix()
 
     def updatePositionIfPlayerMoved(self):
         if self.gameData.player.hasMoved or self.gameData.player.hasTurned:
             self.updatePosition()
-
-    def calculateViewMatrix(self):
-        self.gameData.camera.calculateViewMatrix()
-
-    def calculateViewMatrixIfPlayerMoved(self):
-        if self.gameData.player.hasMoved or self.gameData.player.hasTurned:
-            self.calculateViewMatrix()
+            self.gameData.camera.calculateViewMatrix()
 
 
 def makeCameraUpdater(resolver):

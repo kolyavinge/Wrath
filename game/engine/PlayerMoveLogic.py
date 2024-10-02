@@ -10,7 +10,18 @@ class PlayerMoveLogic:
         player = self.gameData.player
         if player.velocityValue > 0:
             player.hasMoved = True
+            self.updateDoStep()
             player.moveNextPositionBy(player.velocityVector)
+
+    def updateDoStep(self):
+        player = self.gameData.player
+        player.doStep = (
+            player.prevPrevSwingValue < 0
+            and player.prevSwingValue < 0
+            and player.currentSwingValue < 0
+            and player.prevPrevSwingValue > player.prevSwingValue
+            and player.currentSwingValue > player.prevSwingValue
+        )
 
 
 def makePlayerMoveLogic(resolver):
