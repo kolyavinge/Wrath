@@ -18,7 +18,7 @@ class ShaderCollection:
         self.mainSceneLightComponentsFragment = self.shaderCompiler.compile(path + "mainSceneLightComponents.frag", ShaderType.fragment)
 
         self.mainSceneShadowVolumesVertex = self.shaderCompiler.compile(path + "mainSceneShadowVolumes.vert", ShaderType.vertex)
-        self.mainSceneShadowVolumesGeometry = self.shaderCompiler.compile(path + "mainSceneShadowVolumes2.geom", ShaderType.geometry)
+        self.mainSceneShadowVolumesGeometry = self.shaderCompiler.compile(path + "mainSceneShadowVolumes.geom", ShaderType.geometry)
         self.mainSceneShadowVolumesFragment = self.shaderCompiler.compile(path + "mainSceneShadowVolumes.frag", ShaderType.fragment)
 
         self.mainSceneComposeVertex = self.shaderCompiler.compile(path + "mainSceneCompose.vert", ShaderType.vertex)
