@@ -11,9 +11,6 @@ class ShaderCollection:
     def init(self):
         path = Environment.programRootPath + "\\game\\shaders\\"
 
-        self.mainSceneVertex = self.shaderCompiler.compile(path + "mainScene.vert", ShaderType.vertex)
-        self.mainSceneFragment = self.shaderCompiler.compile(path + "mainScene.frag", ShaderType.fragment)
-
         self.mainSceneLightComponentsVertex = self.shaderCompiler.compile(path + "mainSceneLightComponents.vert", ShaderType.vertex)
         self.mainSceneLightComponentsFragment = self.shaderCompiler.compile(path + "mainSceneLightComponents.frag", ShaderType.fragment)
 

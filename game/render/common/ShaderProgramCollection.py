@@ -1,6 +1,5 @@
 from game.render.common.MainSceneComposeShaderProgram import *
 from game.render.common.MainSceneLightComponentsShaderProgram import *
-from game.render.common.MainSceneShaderProgram import *
 from game.render.common.MainSceneShadowVolumesShaderProgram import *
 from game.render.common.ShaderCollection import ShaderCollection
 
@@ -11,8 +10,6 @@ class ShaderProgramCollection:
         self.shaderCollection = shaderCollection
 
     def init(self):
-        self.mainScene = MainSceneShaderProgram([self.shaderCollection.mainSceneVertex, self.shaderCollection.mainSceneFragment])
-
         self.mainSceneLightComponents = MainSceneLightComponentsShaderProgram(
             [self.shaderCollection.mainSceneLightComponentsVertex, self.shaderCollection.mainSceneLightComponentsFragment]
         )

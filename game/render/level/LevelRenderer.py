@@ -1,64 +1,47 @@
 from OpenGL.GL import *
 
-from game.anx.CommonConstants import CommonConstants
 from game.engine.GameData import GameData
 from game.gl.VBORenderer import VBORenderer
-from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelItemGroupCollection import LevelItemGroupCollection
+from game.render.level.ShadowCastLevelItemCollection import *
 
 
 class LevelRenderer:
 
-    def __init__(self, gameData, levelItemGroupCollection, vboRenderer, shaderProgramCollection):
+    def __init__(self, gameData, levelItemGroupCollection, shadowCastLevelItemCollection, vboRenderer):
         self.gameData = gameData
         self.levelItemGroupCollection = levelItemGroupCollection
+        self.shadowCastLevelItemCollection = shadowCastLevelItemCollection
         self.vboRenderer = vboRenderer
-        self.shaderProgramCollection = shaderProgramCollection
 
     def init(self):
-        self.levelItemGroupCollection.init(self.gameData.level.visibilityTree.getAllLevelSegments())
+        allLevelSegments = self.gameData.level.visibilityTree.getAllLevelSegments()
+        self.levelItemGroupCollection.init(allLevelSegments)
+        self.shadowCastLevelItemCollection.init(allLevelSegments)
 
-    def render(self):
-        glEnable(GL_DEPTH_TEST)
-        glEnable(GL_TEXTURE_2D)
-        glEnable(GL_CULL_FACE)
-        glCullFace(GL_BACK)
-        self.shaderProgramCollection.mainScene.use()
-        self.setCommonUniforms()
-        self.renderLevelSegments()
-        self.shaderProgramCollection.mainScene.unuse()
-        glDisable(GL_CULL_FACE)
-        glDisable(GL_TEXTURE_2D)
-        glDisable(GL_DEPTH_TEST)
-
-    def setCommonUniforms(self):
-        camera = self.gameData.camera
-        mvpMatrix = camera.projectionMatrix.copy()
-        mvpMatrix.mul(camera.viewMatrix)
-        mainScene = self.shaderProgramCollection.mainScene
-        mainScene.setModelViewMatrix(camera.viewMatrix)
-        mainScene.setModelViewProjectionMatrix(mvpMatrix)
-        mainScene.setNormalMatrix(camera.viewMatrix.toMatrix3())
-        mainScene.setMaxDepth(CommonConstants.maxDepth)
-
-    def renderLevelSegments(self):
-        mainScene = self.shaderProgramCollection.mainScene
+    def renderLevelSegments(self, shader):
         torch = self.gameData.playerItems.torch
         player = self.gameData.player
         for levelSegment in self.gameData.visibleLevelSegments:
-            mainScene.setLight(levelSegment.lights, player, torch)
+            shader.setLight(levelSegment.lightsWithJoined, player, torch)
             levelItemGroups = self.levelItemGroupCollection.getLevelItemGroups(levelSegment)
             for item in levelItemGroups:
-                mainScene.setMaterial(item.material)
+                shader.setMaterial(item.material)
                 item.texture.bind(GL_TEXTURE0)
                 self.vboRenderer.render(item.vbo)
                 item.texture.unbind()
+
+    def renderShadowCasters(self, shader):
+        for levelSegment in self.gameData.visibleLevelSegments:
+            shader.setLight(levelSegment.lights, self.gameData.player, self.gameData.playerItems.torch)
+            vbo = self.shadowCastLevelItemCollection.getShadowCastersVBO(levelSegment)
+            self.vboRenderer.render(vbo)
 
 
 def makeLevelRenderer(resolver):
     return LevelRenderer(
         resolver.resolve(GameData),
         resolver.resolve(LevelItemGroupCollection),
+        resolver.resolve(ShadowCastLevelItemCollection),
         resolver.resolve(VBORenderer),
-        resolver.resolve(ShaderProgramCollection),
     )
