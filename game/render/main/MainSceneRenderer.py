@@ -1,10 +1,12 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
+from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.gl.ext import *
 from game.gl.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.VBORenderer import VBORenderer
+from game.lib.EventManager import EventManager
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelRenderer import LevelRenderer
 from game.render.level.ShadowCastLevelItemCollection import *
@@ -12,20 +14,31 @@ from game.render.level.ShadowCastLevelItemCollection import *
 
 class MainSceneRenderer:
 
-    def __init__(self, gameData, levelRenderer, vboRenderer, shaderProgramCollection, screenQuadVBO):
+    def __init__(self, gameData, levelRenderer, vboRenderer, shaderProgramCollection, screenQuadVBO, eventManager):
         self.gameData = gameData
         self.levelRenderer = levelRenderer
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
         self.screenQuadVBO = screenQuadVBO
+        self.depthBuffer = 0
+        self.ambientBuffer = 0
+        self.diffuseSpecularTexture = 0
+        self.colorDepthFBO = 0
+        eventManager.attachToEvent(Events.viewportSizeChanged, self.initBuffers)
 
     def init(self):
+        pass
+
+    def initBuffers(self):
+        glDeleteRenderbuffers(2, [self.depthBuffer, self.ambientBuffer])
+        glDeleteTextures(1, [self.diffuseSpecularTexture])
+        glDeleteFramebuffers(1, [self.colorDepthFBO])
         self.viewportWidth, self.viewportHeight = glGetViewportSize()
-        depthBuffer = glGenRenderbuffers(1)
-        glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer)
+        self.depthBuffer = glGenRenderbuffers(1)
+        glBindRenderbuffer(GL_RENDERBUFFER, self.depthBuffer)
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, self.viewportWidth, self.viewportHeight)
-        ambientBuffer = glGenRenderbuffers(1)
-        glBindRenderbuffer(GL_RENDERBUFFER, ambientBuffer)
+        self.ambientBuffer = glGenRenderbuffers(1)
+        glBindRenderbuffer(GL_RENDERBUFFER, self.ambientBuffer)
         glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, self.viewportWidth, self.viewportHeight)
         self.diffuseSpecularTexture = glGenTextures(1)
         glActiveTexture(GL_TEXTURE0)
@@ -35,8 +48,8 @@ class MainSceneRenderer:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
         self.colorDepthFBO = glGenFramebuffers(1)
         glBindFramebuffer(GL_FRAMEBUFFER, self.colorDepthFBO)
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer)
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, ambientBuffer)
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, self.depthBuffer)
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, self.ambientBuffer)
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, self.diffuseSpecularTexture, 0)
         glDrawBuffers(2, [GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1])
         glBindFramebuffer(GL_FRAMEBUFFER, 0)
@@ -125,4 +138,5 @@ def makeMainSceneRenderer(resolver):
         resolver.resolve(VBORenderer),
         resolver.resolve(ShaderProgramCollection),
         resolver.resolve(ScreenQuadVBO),
+        resolver.resolve(EventManager),
     )
