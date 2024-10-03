@@ -24,8 +24,6 @@ class App:
     def resize(self, width, height):
         glViewport(0, 0, width, height)
         self.game.eventManager.raiseEvent(Events.viewportSizeChanged)
-        self.lastViewportWidth = width
-        self.lastViewportHeight = height
 
     def render(self):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
@@ -80,5 +78,5 @@ class App:
 app = App()
 app.run()
 
-# benchmarkRunner = BenchmarkRunner()
+benchmarkRunner = BenchmarkRunner()
 # benchmarkRunner.run(app)

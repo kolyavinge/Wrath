@@ -10,50 +10,22 @@ from game.lib.EventManager import EventManager
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelRenderer import LevelRenderer
 from game.render.level.ShadowCastLevelItemCollection import *
+from game.render.main.MainSceneFramebuffer import MainSceneFramebuffer
 
 
 class MainSceneRenderer:
 
-    def __init__(self, gameData, levelRenderer, vboRenderer, shaderProgramCollection, screenQuadVBO, eventManager):
+    def __init__(self, gameData, mainSceneFramebuffer, levelRenderer, vboRenderer, shaderProgramCollection, screenQuadVBO, eventManager):
         self.gameData = gameData
+        self.mainSceneFramebuffer = mainSceneFramebuffer
         self.levelRenderer = levelRenderer
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
         self.screenQuadVBO = screenQuadVBO
-        self.depthBuffer = 0
-        self.ambientBuffer = 0
-        self.diffuseSpecularTexture = 0
-        self.colorDepthFBO = 0
-        eventManager.attachToEvent(Events.viewportSizeChanged, self.initBuffers)
+        eventManager.attachToEvent(Events.viewportSizeChanged, self.mainSceneFramebuffer.init)
 
     def init(self):
         pass
-
-    def initBuffers(self):
-        glDeleteRenderbuffers(2, [self.depthBuffer, self.ambientBuffer])
-        glDeleteTextures(1, [self.diffuseSpecularTexture])
-        glDeleteFramebuffers(1, [self.colorDepthFBO])
-        self.viewportWidth, self.viewportHeight = glGetViewportSize()
-        self.depthBuffer = glGenRenderbuffers(1)
-        glBindRenderbuffer(GL_RENDERBUFFER, self.depthBuffer)
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, self.viewportWidth, self.viewportHeight)
-        self.ambientBuffer = glGenRenderbuffers(1)
-        glBindRenderbuffer(GL_RENDERBUFFER, self.ambientBuffer)
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, self.viewportWidth, self.viewportHeight)
-        self.diffuseSpecularTexture = glGenTextures(1)
-        glActiveTexture(GL_TEXTURE0)
-        glBindTexture(GL_TEXTURE_2D, self.diffuseSpecularTexture)
-        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, self.viewportWidth, self.viewportHeight)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
-        self.colorDepthFBO = glGenFramebuffers(1)
-        glBindFramebuffer(GL_FRAMEBUFFER, self.colorDepthFBO)
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, self.depthBuffer)
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, self.ambientBuffer)
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, self.diffuseSpecularTexture, 0)
-        glDrawBuffers(2, [GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1])
-        glBindFramebuffer(GL_FRAMEBUFFER, 0)
-        glBindTexture(GL_TEXTURE_2D, 0)
 
     def render(self):
         self.calculateLightComponents()
@@ -67,7 +39,7 @@ class MainSceneRenderer:
         glEnable(GL_TEXTURE_2D)
         glEnable(GL_CULL_FACE)
         glCullFace(GL_BACK)
-        glBindFramebuffer(GL_FRAMEBUFFER, self.colorDepthFBO)
+        glBindFramebuffer(GL_FRAMEBUFFER, self.mainSceneFramebuffer.colorDepthFBO)
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT)
         shader = self.shaderProgramCollection.mainSceneLightComponents
         shader.use()
@@ -86,10 +58,11 @@ class MainSceneRenderer:
 
     def calculateShadowVolumes(self):
         # copy depth and color buffers from colorDepthFBO to default FBO
-        glBindFramebuffer(GL_READ_FRAMEBUFFER, self.colorDepthFBO)
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, self.mainSceneFramebuffer.colorDepthFBO)
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0)
-        width = self.viewportWidth - 1
-        height = self.viewportHeight - 1
+        viewportWidth, viewportHeight = glGetViewportSize()
+        width = viewportWidth - 1
+        height = viewportHeight - 1
         glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT, GL_NEAREST)
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE)
         glDepthMask(GL_FALSE)
@@ -123,7 +96,7 @@ class MainSceneRenderer:
         shader = self.shaderProgramCollection.mainSceneCompose
         shader.use()
         glActiveTexture(GL_TEXTURE0)
-        glBindTexture(GL_TEXTURE_2D, self.diffuseSpecularTexture)
+        glBindTexture(GL_TEXTURE_2D, self.mainSceneFramebuffer.diffuseSpecularTexture)
         self.vboRenderer.render(self.screenQuadVBO.vbo)
         shader.unuse()
         glDisable(GL_TEXTURE_2D)
@@ -134,6 +107,7 @@ class MainSceneRenderer:
 def makeMainSceneRenderer(resolver):
     return MainSceneRenderer(
         resolver.resolve(GameData),
+        resolver.resolve(MainSceneFramebuffer),
         resolver.resolve(LevelRenderer),
         resolver.resolve(VBORenderer),
         resolver.resolve(ShaderProgramCollection),

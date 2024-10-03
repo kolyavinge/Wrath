@@ -17,6 +17,7 @@ from game.render.level.ShadowCastLevelItemBuilder import *
 from game.render.level.ShadowCastLevelItemCollection import *
 from game.render.level.StairVBOBuilder import *
 from game.render.level.WallVBOBuilder import *
+from game.render.main.MainSceneFramebuffer import *
 from game.render.main.MainSceneRenderer import *
 from game.render.ui.GameScreenRenderer import *
 
@@ -43,5 +44,6 @@ class RenderModule:
         binder.bindSingleton(ShadowCastLevelItemCollection, makeShadowCastLevelItemCollection)
         binder.bindSingleton(StairVBOBuilder, makeStairVBOBuilder)
         binder.bindSingleton(WallVBOBuilder, makeWallVBOBuilder)
+        binder.bindSingleton(MainSceneFramebuffer, makeMainSceneFramebuffer)
         binder.bindSingleton(MainSceneRenderer, makeMainSceneRenderer)
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)
