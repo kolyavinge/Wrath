@@ -1,4 +1,5 @@
 class ShaderType:
+
     # GL constants
     vertex = 0x8B31
     tessControl = 0x8E88

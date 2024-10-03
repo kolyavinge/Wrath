@@ -23,7 +23,7 @@ class App:
 
     def resize(self, width, height):
         glViewport(0, 0, width, height)
-        self.game.eventManager.raiseEvent(Events.viewportSizeChanged)
+        self.game.eventManager.raiseEvent(Events.viewportSizeChanged, (width, height))
 
     def render(self):
         self.game.renderCurrentScreen()
@@ -41,7 +41,6 @@ class App:
         glutReshapeFunc(self.resize)
         glutKeyboardUpFunc(self.keyup)
         glutSetCursor(GLUT_CURSOR_NONE)
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         self.game = GameFactory.makeGame()
         glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
         glutMainLoop()

@@ -3,7 +3,6 @@ from OpenGL.GL import *
 from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.engine.GameData import GameData
-from game.gl.ext import *
 from game.gl.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager
@@ -27,9 +26,9 @@ class MainSceneRenderer:
     def init(self):
         pass
 
-    def onViewportSizeChanged(self):
+    def onViewportSizeChanged(self, size):
         self.mainSceneFramebuffer.init()
-        self.viewportWidth, self.viewportHeight = glGetViewportSize()
+        self.width, self.height = size
 
     def render(self):
         self.calculateLightComponents()
@@ -64,9 +63,7 @@ class MainSceneRenderer:
         # copy depth and color buffers from colorDepthFBO to default FBO
         glBindFramebuffer(GL_READ_FRAMEBUFFER, self.mainSceneFramebuffer.colorDepthFBO)
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0)
-        width = self.viewportWidth - 1
-        height = self.viewportHeight - 1
-        glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT, GL_NEAREST)
+        glBlitFramebuffer(0, 0, self.width, self.height, 0, 0, self.width, self.height, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT, GL_NEAREST)
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE)
         glDepthMask(GL_FALSE)
         glEnable(GL_DEPTH_CLAMP)

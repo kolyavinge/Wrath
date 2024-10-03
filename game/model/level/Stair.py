@@ -4,6 +4,7 @@ from game.model.level.Floor import Floor
 
 
 class Stair(Floor):
+
     def __init__(self):
         super().__init__()
         self.startBasePoint = Vector3()
