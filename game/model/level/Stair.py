@@ -1,5 +1,8 @@
+from game.anx.CommonConstants import CommonConstants
+from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
+from game.model.FaceDirection import FaceDirection
 from game.model.level.Floor import Floor
 
 
@@ -10,6 +13,7 @@ class Stair(Floor):
         self.startBasePoint = Vector3()
         self.endBasePoint = Vector3()
         self.stepsCount = 0
+        self.stepWidth = 0
 
     def commit(self):
         super().commit()
@@ -20,6 +24,13 @@ class Stair(Floor):
         self.stepDirection2d.normalize()
         self.stepHeight = (self.endBasePoint.z - self.startBasePoint.z) / self.stepsCount
         self.stepLength = self.stepsLength / self.stepsCount
+        self.frontNormal = self.stepDirection2d.copy()
+        self.frontNormal.mul(-1.0)
+        self.topNormal = Geometry.rotatePoint(self.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, Math.piHalf)
+        self.topNormal.normalize()
+
+    def calculateFaceDirection(self):
+        return FaceDirection.counterClockwise
 
     def getZ(self, x, y):
         position = Vector3(x, y, 0)
@@ -30,3 +41,47 @@ class Stair(Floor):
         z = Math.min(z, self.maxZ)
 
         return z
+
+    def getFrontAndTopFacePoints(self, stepNumber):
+        rightDirection = self.getLeftToRightDirection()
+
+        downLeft = self.getDownLeftStepPoint(stepNumber)
+        downRight = downLeft.copy()
+        downRight.add(rightDirection)
+        upLeft = downLeft.copy()
+        upLeft.z += self.stepHeight
+        upRight = downRight.copy()
+        upRight.z += self.stepHeight
+
+        frontFace = (downLeft, downRight, upLeft, upRight)
+
+        stepLengthDirection = self.stepDirection2d.copy()
+        stepLengthDirection.setLength(self.stepLength)
+
+        downLeft = upLeft.copy()
+        downRight = upRight.copy()
+        upLeft = downLeft.copy()
+        upLeft.add(stepLengthDirection)
+        upRight = downRight.copy()
+        upRight.add(stepLengthDirection)
+
+        topFace = (downLeft, downRight, upLeft, upRight)
+
+        return (frontFace, topFace)
+
+    def getLeftToRightDirection(self):
+        rightDirection = self.startBasePoint.getDirectionTo(self.endBasePoint)
+        rightDirection.z = 0
+        rightDirection = Geometry.rotatePoint(rightDirection, CommonConstants.zAxis, CommonConstants.axisOrigin, -Math.piHalf)
+        rightDirection.setLength(self.stepWidth)
+
+        return rightDirection
+
+    def getDownLeftStepPoint(self, stepNumber):
+        stepDirection = self.startBasePoint.getDirectionTo(self.endBasePoint)
+        stepDirection.div(self.stepsCount)
+        stepDirection.mul(stepNumber)
+        downLeft = self.startBasePoint.copy()
+        downLeft.add(stepDirection)
+
+        return downLeft

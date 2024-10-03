@@ -1383,7 +1383,9 @@ class LevelAurora(Level):
         stair.upRight = Vector3(70, 120, 0)
         stair.startBasePoint = Vector3(70, 110, 0)
         stair.endBasePoint = Vector3(50, 110, 4)
-        stair.stepsCount = 10
+        stair.stepsCount = 6
+        stair.stepWidth = 10
+        stair.material = Material.wallMetal5
         stair.commit()
         self.addFloor(stair)
 
@@ -1421,7 +1423,9 @@ class LevelAurora(Level):
         stair.upRight = Vector3(70, 50, 8)
         stair.startBasePoint = Vector3(50, 50, 4)
         stair.endBasePoint = Vector3(70, 50, 8)
-        stair.stepsCount = 10
+        stair.stepsCount = 6
+        stair.stepWidth = 10
+        stair.material = Material.wallMetal1
         stair.commit()
         self.addFloor(stair)
 
