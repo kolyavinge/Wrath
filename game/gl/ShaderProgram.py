@@ -1,8 +1,6 @@
 import numpy
 from OpenGL.GL import *
 
-from game.lib.sys import warn
-
 
 class ShaderProgram:
 
@@ -11,6 +9,7 @@ class ShaderProgram:
         for shader in shaders:
             glAttachShader(self.id, shader.id)
         glLinkProgram(self.id)
+        self.fillLocations()
 
     def use(self):
         glUseProgram(self.id)
@@ -28,7 +27,10 @@ class ShaderProgram:
 
     def setVector3(self, name, value):
         location = self.getUniformLocation(name)
-        glUniform3fv(location, 1, numpy.array([value.x, value.y, value.z], dtype=numpy.float32))
+        x = numpy.float32(value.x)
+        y = numpy.float32(value.y)
+        z = numpy.float32(value.z)
+        glUniform3f(location, x, y, z)
 
     def setMatrix3(self, name, value):
         location = self.getUniformLocation(name)
@@ -39,7 +41,19 @@ class ShaderProgram:
         glUniformMatrix4fv(location, 1, GL_FALSE, numpy.array(value.items, dtype=numpy.float32))
 
     def getUniformLocation(self, name):
-        location = glGetUniformLocation(self.id, name)
-        if location == -1:
-            warn(f"Shader program has no {name} uniform.")
-        return location
+        return self.locations[name]
+
+    def fillLocations(self):
+        self.locations = {}
+        uniformsCount = glGetProgramiv(self.id, GL_ACTIVE_UNIFORMS)
+        for uniform in range(0, uniformsCount):
+            name, size, _ = glGetActiveUniform(self.id, uniform)
+            location = glGetUniformLocation(self.id, name)
+            name = name.decode("utf-8")
+            self.locations[name] = location
+            if size != 1:
+                arrayName = name[0 : name.index("[")]
+                for i in range(1, size):
+                    arrayIndexName = f"{arrayName}[{i}]"
+                    location = glGetUniformLocation(self.id, arrayIndexName)
+                    self.locations[arrayIndexName] = location
