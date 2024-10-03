@@ -29,7 +29,7 @@ class LevelRenderer:
                 shader.setMaterial(item.material)
                 item.texture.bind(GL_TEXTURE0)
                 self.vboRenderer.render(item.vbo)
-                item.texture.unbind()
+                # item.texture.unbind()
 
     def renderShadowCasters(self, shader):
         for levelSegment in self.gameData.visibleLevelSegments:

@@ -26,7 +26,6 @@ class App:
         self.game.eventManager.raiseEvent(Events.viewportSizeChanged)
 
     def render(self):
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         self.game.renderCurrentScreen()
         glutSwapBuffers()
 
@@ -35,7 +34,7 @@ class App:
         glutInitWindowSize(self.windowWidth, self.windowHeight)
         x, y = self.getCenterWindowPosition()
         glutInitWindowPosition(x, y)
-        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE)
+        glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH)
         glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION)
         glutCreateWindow(CommonConstants.gameTitle)
         glutDisplayFunc(self.render)

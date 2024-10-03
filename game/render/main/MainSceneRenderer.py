@@ -22,10 +22,14 @@ class MainSceneRenderer:
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
         self.screenQuadVBO = screenQuadVBO
-        eventManager.attachToEvent(Events.viewportSizeChanged, self.mainSceneFramebuffer.init)
+        eventManager.attachToEvent(Events.viewportSizeChanged, self.onViewportSizeChanged)
 
     def init(self):
         pass
+
+    def onViewportSizeChanged(self):
+        self.mainSceneFramebuffer.init()
+        self.viewportWidth, self.viewportHeight = glGetViewportSize()
 
     def render(self):
         self.calculateLightComponents()
@@ -60,9 +64,8 @@ class MainSceneRenderer:
         # copy depth and color buffers from colorDepthFBO to default FBO
         glBindFramebuffer(GL_READ_FRAMEBUFFER, self.mainSceneFramebuffer.colorDepthFBO)
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0)
-        viewportWidth, viewportHeight = glGetViewportSize()
-        width = viewportWidth - 1
-        height = viewportHeight - 1
+        width = self.viewportWidth - 1
+        height = self.viewportHeight - 1
         glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT, GL_NEAREST)
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE)
         glDepthMask(GL_FALSE)
