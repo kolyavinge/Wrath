@@ -7,3 +7,4 @@ class Light(Visible):
     def __init__(self):
         super().__init__()
         self.color = Vector3(1.0, 1.0, 1.0)
+        self.joinGroup = None

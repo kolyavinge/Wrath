@@ -43,7 +43,7 @@ class LevelManager:
         self.bspTreeBuilder.build(level.visibilityTree, level, level.getVisibilitySplitPlanes())
         self.joinLineAnalyzer.analyzeJoinLines(level, level.visibilityTree)
         self.levelValidator.validate(level)
-        self.lightAnalyzer.analyzeLights(level.visibilityTree)
+        self.lightAnalyzer.analyzeLights(level, level.visibilityTree)
         self.playerTurnLogic.orientByFrontNormal(level.playerFrontNormal)
         self.gameData.player.moveNextPositionTo(level.playerPosition)
         self.gameData.player.commitNextPosition()

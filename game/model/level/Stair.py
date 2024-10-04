@@ -29,7 +29,7 @@ class Stair(Floor):
         self.topNormal = Geometry.rotatePoint(self.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, Math.piHalf)
         self.topNormal.normalize()
 
-    def calculateFaceDirection(self):
+    def getFaceDirection(self):
         return FaceDirection.counterClockwise
 
     def getZ(self, x, y):

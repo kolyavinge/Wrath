@@ -605,29 +605,6 @@ class LevelAurora(Level):
         light.color.mul(2)
         self.addLight(light)
 
-        light = Lamp()
-        light.position = Vector3(130, 45, wallHeight - 0.1)
-        light.color.mul(4)
-        # self.addLight(light)
-
-        light = Spot()
-        light.position = Vector3(135, 45, wallHeight - 0.1)
-        light.color.mul(2)
-        # self.addLight(light)
-
-        light = Spot()
-        light.position = Vector3(110, 30, wallHeight - 0.1)
-        # self.addLight(light)
-
-        light = Spot()
-        light.position = Vector3(110, 60, wallHeight - 0.1)
-        # self.addLight(light)
-
-        light = Spot()
-        light.position = Vector3(105, 79, wallHeight - 1.0)
-        light.direction = Vector3(0, -1, 0)
-        # self.addLight(light)
-
     def makeRoom2(self):
         wallHeight = 13
         z = 3
@@ -922,13 +899,8 @@ class LevelAurora(Level):
 
         light = Lamp()
         light.color.mul(3)
-        light.position = Vector3(225, 125, z + wallHeight - 0.1)
+        light.position = Vector3(220, 125, z + wallHeight - 0.1)
         self.addLight(light)
-
-        light = Spot()
-        light.color.mul(4)
-        light.position = Vector3(255, 140, z + wallHeight - 0.1)
-        # self.addLight(light)
 
     def makeRoom3(self):
         wallHeight = 4
@@ -1070,8 +1042,10 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Spot()
+        light = Lamp()
         light.position = Vector3(115, 140, wallHeight + z - 0.1)
+        light.color.mul(2)
+        light.joinGroup = "room3"
         self.addLight(light)
 
     def makePass1(self):
@@ -1245,13 +1219,22 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Spot()
+        light = Lamp()
         light.position = Vector3(170, 45, wallHeight + 1 - 0.1)
-        # self.addLight(light)
+        light.color.mul(1.5)
+        self.addLight(light)
 
-        light = Spot()
+        light = Lamp()
         light.position = Vector3(205, 60, wallHeight + 2 - 0.1)
-        # self.addLight(light)
+        light.color.mul(1.5)
+        light.joinGroup = "pass1"
+        self.addLight(light)
+
+        light = Lamp()
+        light.position = Vector3(215, 85, wallHeight + 3 - 0.1)
+        light.color.mul(1)
+        light.joinGroup = "pass1"
+        self.addLight(light)
 
     def makePass2(self):
         wallHeight = 4
@@ -1477,12 +1460,22 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Spot()
-        light.position = Vector3(45, 115, wallHeight + 8 - 0.1)
+        light = Lamp()
+        light.position = Vector3(45, 115, wallHeight + 4 - 0.1)
+        light.color.mul(1)
+        light.joinGroup = "pass2"
         self.addLight(light)
 
-        light = Spot()
+        light = Lamp()
+        light.position = Vector3(45, 85, wallHeight + 6 - 0.1)
+        light.color.mul(1)
+        light.joinGroup = "pass2"
+        self.addLight(light)
+
+        light = Lamp()
         light.position = Vector3(45, 45, wallHeight + 8 - 0.1)
+        light.color.mul(1)
+        light.joinGroup = "pass2"
         self.addLight(light)
 
     def makePass3(self):
@@ -1658,13 +1651,15 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Spot()
-        light.position = Vector3(135, 175, wallHeight + 12 - 0.1)
-        # self.addLight(light)
+        light = Lamp()
+        light.position = Vector3(135, 175, wallHeight + 1 - 0.1)
+        light.color.mul(1.5)
+        self.addLight(light)
 
-        light = Spot()
-        light.position = Vector3(235, 125, wallHeight + 12 - 0.1)
-        # self.addLight(light)
+        light = Lamp()
+        light.position = Vector3(235, 175, wallHeight + 12 - 0.1)
+        light.color.mul(1.5)
+        self.addLight(light)
 
     def makePass4(self):
         wallHeight = 4
@@ -1712,8 +1707,9 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Spot()
+        light = Lamp()
         light.position = Vector3(155, 125, wallHeight + 2 - 0.1)
+        light.color.mul(2)
         self.addLight(light)
 
     def makePass5(self):
@@ -1793,12 +1789,9 @@ class LevelAurora(Level):
         ceiling.material = Material.ceilingMetal1
         self.addCeiling(ceiling)
 
-        light = Spot()
+        light = Lamp()
         light.position = Vector3(105, 85, wallHeight - 0.1)
-        self.addLight(light)
-
-        light = Spot()
-        light.position = Vector3(105, 95, wallHeight - 0.1)
+        light.joinGroup = "room3"
         self.addLight(light)
 
     def getCollisionSplitPlanes(self):

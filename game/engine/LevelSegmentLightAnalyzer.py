@@ -1,22 +1,19 @@
+from game.lib.Dictionary import Dictionary
+
+
 class LevelSegmentLightAnalyzer:
 
-    def analyzeLights(self, bspTree):
+    def analyzeLights(self, level, bspTree):
         # чтобы свет из одного сегмента действовал и на соседние
-
+        groupedLights = Dictionary.groupby(level.lights, lambda x: x.joinGroup)
         allLevelSegments = bspTree.getAllLevelSegments()
-
-        result = {}
         for levelSegment in allLevelSegments:
-            result[levelSegment] = []
-
-        for levelSegment in allLevelSegments:
-            for joinLine in levelSegment.joinLines:
-                joinedLevelSegment = joinLine.getJoinedLevelSegment(levelSegment)
-                result[joinedLevelSegment].extend(levelSegment.lights)
-
-        for levelSegment in result.keys():
             levelSegment.lightsWithJoined = levelSegment.lights.copy()
-            levelSegment.lightsWithJoined.extend(result[levelSegment])
+            joinGroups = set([light.joinGroup for light in levelSegment.lights if light.joinGroup is not None])
+            for joinGroup in joinGroups:
+                for joinedLight in groupedLights[joinGroup]:
+                    if joinedLight not in levelSegment.lightsWithJoined:
+                        levelSegment.lightsWithJoined.append(joinedLight)
 
 
 def makeLevelSegmentLightAnalyzer(resolver):

@@ -14,16 +14,16 @@ class Construction(Visible):
         self.frontNormal = Vector3()
 
     def commit(self):
-        self.calculateFaceDirection()
+        self.faceDirection = self.getFaceDirection()
 
-    def calculateFaceDirection(self):
+    def getFaceDirection(self):
         v = self.downLeft.getDirectionTo(self.downRight)
         v1 = self.downLeft.getDirectionTo(self.upRight)
         v.vectorProduct(v1)
         if v.dotProduct(self.frontNormal) > 0.0:
-            self.faceDirection = FaceDirection.counterClockwise
+            return FaceDirection.counterClockwise
         else:
-            self.faceDirection = FaceDirection.clockwise
+            return FaceDirection.clockwise
 
     def getBorderPoints(self):
         return [self.downLeft, self.downRight, self.upLeft, self.upRight]
