@@ -16,10 +16,13 @@ class MaterialTextureCollection:
         self.materials[Material.wallMetal4] = self.textureCollection.wallMetal4
         self.materials[Material.wallMetal5] = self.textureCollection.wallMetal5
         self.materials[Material.wallMetal6] = self.textureCollection.wallMetal6
+        self.materials[Material.wallMetal7] = self.textureCollection.wallMetal7
+        self.materials[Material.wallMetal8] = self.textureCollection.wallMetal8
         self.materials[Material.floorMetal1] = self.textureCollection.floorMetal1
         self.materials[Material.floorMetal2] = self.textureCollection.floorMetal2
         self.materials[Material.floorMetal3] = self.textureCollection.floorMetal3
         self.materials[Material.floorMetal4] = self.textureCollection.floorMetal4
+        self.materials[Material.floorMetal5] = self.textureCollection.floorMetal5
         self.materials[Material.ceilingMetal1] = self.textureCollection.ceilingMetal1
         self.materials[Material.ceilingMetal2] = self.textureCollection.ceilingMetal2
         self.materials[Material.edgeMetal1] = self.textureCollection.edgeMetal1
