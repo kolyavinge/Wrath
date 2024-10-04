@@ -847,12 +847,87 @@ class LevelAurora(Level):
 
         floor = FlatFloor()
         floor.downLeft = Vector3(170, 90, z)
-        floor.downRight = Vector3(270, 90, z)
+        floor.downRight = Vector3(185, 90, z)
         floor.upLeft = Vector3(170, 160, z)
+        floor.upRight = Vector3(185, 160, z)
+        floor.z = z
+        floor.material = Material.floorMetal1
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(255, 90, z)
+        floor.downRight = Vector3(270, 90, z)
+        floor.upLeft = Vector3(255, 160, z)
         floor.upRight = Vector3(270, 160, z)
         floor.z = z
         floor.material = Material.floorMetal1
         self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(185, 145, z)
+        floor.downRight = Vector3(255, 145, z)
+        floor.upLeft = Vector3(185, 160, z)
+        floor.upRight = Vector3(255, 160, z)
+        floor.z = z
+        floor.material = Material.floorMetal1
+        self.addFloor(floor)
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(185, 90, z)
+        floor.downRight = Vector3(255, 90, z)
+        floor.upLeft = Vector3(185, 105, z)
+        floor.upRight = Vector3(255, 105, z)
+        floor.z = z
+        floor.material = Material.floorMetal1
+        self.addFloor(floor)
+
+        lowerFloorHeight = 0.5
+        lowerFloorZ = z - lowerFloorHeight
+
+        floor = FlatFloor()
+        floor.downLeft = Vector3(185, 105, lowerFloorZ)
+        floor.downRight = Vector3(255, 105, lowerFloorZ)
+        floor.upLeft = Vector3(185, 145, lowerFloorZ)
+        floor.upRight = Vector3(255, 145, lowerFloorZ)
+        floor.z = lowerFloorZ
+        floor.material = Material.floorMetal4
+        self.addFloor(floor)
+
+        wall = Wall()
+        wall.startPoint = Vector3(185, 105, lowerFloorZ)
+        wall.endPoint = Vector3(185, 145, lowerFloorZ)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = lowerFloorHeight
+        wall.material = Material.edgeMetal2
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(255, 105, lowerFloorZ)
+        wall.endPoint = Vector3(255, 145, lowerFloorZ)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = lowerFloorHeight
+        wall.material = Material.edgeMetal2
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(185, 105, lowerFloorZ)
+        wall.endPoint = Vector3(255, 105, lowerFloorZ)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = lowerFloorHeight
+        wall.material = Material.edgeMetal2
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(185, 145, lowerFloorZ)
+        wall.endPoint = Vector3(255, 145, lowerFloorZ)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = lowerFloorHeight
+        wall.material = Material.edgeMetal2
+        self.addWall(wall)
 
         # second floor
 
@@ -2057,32 +2132,22 @@ class LevelAurora(Level):
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(190, 125, 2)
+        s.basePoint = Vector3(185, 125, 2)
         s.frontNormal = Vector3(-1, 0, 0)
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(250, 125, 2)
+        s.basePoint = Vector3(255, 125, 2)
         s.frontNormal = Vector3(1, 0, 0)
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(180, 120, 2)
+        s.basePoint = Vector3(220, 105, 2)
         s.frontNormal = Vector3(0, -1, 0)
         result.append(s)
 
         s = SplitPlane()
-        s.basePoint = Vector3(180, 130, 2)
-        s.frontNormal = Vector3(0, 1, 0)
-        result.append(s)
-
-        s = SplitPlane()
-        s.basePoint = Vector3(240, 120, 2)
-        s.frontNormal = Vector3(0, -1, 0)
-        result.append(s)
-
-        s = SplitPlane()
-        s.basePoint = Vector3(240, 130, 2)
+        s.basePoint = Vector3(220, 145, 2)
         s.frontNormal = Vector3(0, 1, 0)
         result.append(s)
 
@@ -2297,5 +2362,5 @@ class LevelAurora(Level):
         self.addJoinLine(joinLine)
 
     def setPlayerPosition(self):
-        self.playerPosition = Vector3(90, 60, 0)
-        self.playerFrontNormal = Vector3(-1, 0, 0)
+        self.playerPosition = Vector3(215, 95, 3)
+        self.playerFrontNormal = Vector3(0, 1, 0)

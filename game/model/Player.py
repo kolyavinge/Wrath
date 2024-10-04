@@ -44,6 +44,7 @@ class Player:
         self.fallingFunc = FallingFunc()
         self.collisionLevelSegments = set()
         self.visibilityLevelSegments = set()
+        self.maxStepHeight = 0.5
 
     def moveNextPositionBy(self, vector):
         self.nextCenterPoint.add(vector)
