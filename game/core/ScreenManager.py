@@ -1,10 +1,11 @@
 from game.render.ui.GameScreenRenderer import GameScreenRenderer
 from game.ui.GameScreen import GameScreen
+from game.vox.ui.GameScreenVox import GameScreenVox
 
 
 class ScreenManager:
 
-    def __init__(self, gameScreen, gameScreenRenderer):
+    def __init__(self, gameScreen, gameScreenRenderer, gameScreenVox):
         self.screens = {}
         self.screens[GameScreen] = gameScreen
         for screen in self.screens.values():
@@ -13,13 +14,17 @@ class ScreenManager:
         self.screenRenderers = {}
         self.screenRenderers[GameScreen] = gameScreenRenderer
 
+        self.screenVoxes = {}
+        self.screenVoxes[GameScreen] = gameScreenVox
+
         self.changeScreen(GameScreen)
 
     def changeScreen(self, screenType):
         self.currentScreen = self.screens[screenType]
         self.currentScreen.activate()
         self.currentScreenRenderer = self.screenRenderers[screenType]
+        self.currentScreenVox = self.screenVoxes[screenType]
 
 
 def makeScreenManager(resolver):
-    return ScreenManager(resolver.resolve(GameScreen), resolver.resolve(GameScreenRenderer))
+    return ScreenManager(resolver.resolve(GameScreen), resolver.resolve(GameScreenRenderer), resolver.resolve(GameScreenVox))

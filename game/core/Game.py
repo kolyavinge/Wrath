@@ -25,7 +25,7 @@ class Game:
         self.screenManager.currentScreenRenderer.render()
 
     def voxCurrentScreen(self):
-        pass
+        self.screenManager.currentScreenVox.update()
 
 
 def makeGame(resolver):

@@ -23,6 +23,9 @@ class DependencyContainer:
         self.instanceHolders[type] = SingletonInstanceHolder(factoryFunc)
 
     def resolve(self, type):
+        if type not in self.instanceHolders:
+            raise Exception(f"No dependency for {type} in container.")
+
         return self.instanceHolders[type].getInstance(self)
 
     def errorIfUnusedInstances(self):

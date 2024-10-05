@@ -4,6 +4,7 @@ from game.core.inject.EngineModule import EngineModule
 from game.core.inject.LibModule import LibModule
 from game.core.inject.RenderModule import RenderModule
 from game.core.inject.UIModule import UIModule
+from game.core.inject.VoxModule import VoxModule
 from game.lib.DependencyContainer import DependencyContainer
 
 
@@ -17,6 +18,7 @@ class GameFactory:
         container.initFromModule(EngineModule())
         container.initFromModule(UIModule())
         container.initFromModule(RenderModule())
+        container.initFromModule(VoxModule())
 
         game = container.resolve(Game)
 

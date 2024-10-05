@@ -14,3 +14,7 @@
 6. pip install Pillow
 
 7. pip install termcolor
+
+8. pip install wave
+
+9. pip install PyOpenAL

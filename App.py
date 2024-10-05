@@ -47,6 +47,7 @@ class App:
 
     def timerCallback(self, value):
         self.game.updateCurrentScreen()
+        self.game.voxCurrentScreen()
         glutPostRedisplay()
         glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
 
