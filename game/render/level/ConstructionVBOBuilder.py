@@ -32,7 +32,7 @@ class ConstructionVBOBuilder:
                 self.addVertices(vboBuilder, item, downPoints[j - 1], downPoints[j], upPoints[j - 1], upPoints[j])
 
     def getStepLength(self, item):
-        return 10.0
+        return item.defaultVisualSize
 
     def addVertices(self, vboBuilder, item, downLeft, downRight, upLeft, upRight):
         vertexCount = vboBuilder.getVertexCount()
