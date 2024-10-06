@@ -18,23 +18,16 @@ class PersonVox:
         self.audioPlayer = audioPlayer
         eventManager.attachToEvent(Events.personStepDone, self.onPersonStepDone)
 
-    def init(self):
-        for source in self.sources.values():
-            source.release()
-
+    def init(self, allSources):
         self.sources = {}
         self.sources[self.gameData.player] = PersonAudioSources(self.gameData.player, self.audioBufferCollection, self.audioSourceLoader)
         # other enemies
+        allSources.extend(self.sources.values())
 
     def onPersonStepDone(self, person):
         source = self.sources[person]
-        floor = person.currentFloor
-        if floor.material.kind == MaterialKind.metal:
+        if person.currentFloor.material.kind == MaterialKind.metal:
             self.audioPlayer.play(source.step)
-
-    def update(self):
-        for source in self.sources.values():
-            source.updatePosition()
 
 
 def makePersonVox(resolver):
