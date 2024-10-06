@@ -11,6 +11,7 @@ class AudioBufferCollection:
         path = Environment.programRootPath + "\\res\\audio\\"
         self.selectMenuItem = self.audioBufferLoader.load(path + "selectMenuItem.wav")
         self.step = self.audioBufferLoader.load(path + "selectMenuItem.wav")
+        self.torchSwitch = self.audioBufferLoader.load(path + "selectMenuItem.wav")
 
 
 def makeAudioBufferCollection(resolver):

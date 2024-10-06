@@ -30,7 +30,7 @@ class PlayerInputManager:
             inputData.stepRight = True
 
         if keyboard.isPressed(Keys.f):
-            self.gameData.playerItems.torch.switch()
+            inputData.torchSwitch = True
 
     def processMouse(self):
         inputData = self.gameData.playerInputData
