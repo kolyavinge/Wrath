@@ -4,6 +4,7 @@ from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.PlayerWallCollisionDetector import PlayerWallCollisionDetector
 from game.engine.cm.PlayerWallCollisionProcessor import PlayerWallCollisionProcessor
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
+from game.engine.PersonDoStepLogic import PersonDoStepLogic
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerMoveLogic import PlayerMoveLogic
 from game.engine.PlayerMovingSwingLogic import PlayerMovingSwingLogic
@@ -25,6 +26,7 @@ class GameUpdater:
         playerZUpdater,
         playerWallCollisionDetector,
         playerWallCollisionProcessor,
+        personDoStepLogic,
         playerLevelSegmentsUpdater,
         playerMovingSwingLogic,
         playerPositionUpdater,
@@ -38,6 +40,7 @@ class GameUpdater:
         self.playerZUpdater = playerZUpdater
         self.playerWallCollisionDetector = playerWallCollisionDetector
         self.playerWallCollisionProcessor = playerWallCollisionProcessor
+        self.personDoStepLogic = personDoStepLogic
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.playerMovingSwingLogic = playerMovingSwingLogic
         self.playerPositionUpdater = playerPositionUpdater
@@ -54,6 +57,7 @@ class GameUpdater:
         self.playerMoveLogic.process()
         self.playerWallCollisionDetector.detectCollisions()
         self.playerWallCollisionProcessor.processCollisions()
+        self.personDoStepLogic.updateDoStep()
         self.playerZUpdater.updateIfPlayerMoved()
         self.playerLevelSegmentsUpdater.updateIfPlayerMoved()
         self.cameraUpdater.updatePositionIfPlayerMoved()
@@ -73,6 +77,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PlayerZUpdater),
         resolver.resolve(PlayerWallCollisionDetector),
         resolver.resolve(PlayerWallCollisionProcessor),
+        resolver.resolve(PersonDoStepLogic),
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(PlayerMovingSwingLogic),
         resolver.resolve(PlayerPositionUpdater),

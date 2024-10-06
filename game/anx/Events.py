@@ -1,3 +1,5 @@
 class Events:
 
-    viewportSizeChanged = 1
+    personStepDone = "personStepDone"
+
+    viewportSizeChanged = "viewportSizeChanged"

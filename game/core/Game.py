@@ -14,6 +14,7 @@ class Game:
         self.screenManager = screenManager
         self.levelManager.loadFirstLevel()  # TODO: временно
         self.screenManager.currentScreenRenderer.init()
+        self.screenManager.currentScreenVox.init()
         self.eventManager = eventManager
 
     def updateCurrentScreen(self):
