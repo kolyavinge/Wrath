@@ -4,17 +4,18 @@ from game.calc.Box3d import Box3d
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.model.FallingFunc import FallingFunc
+from game.model.Person import Person
 from game.model.PlayerState import PlayerState
 from game.model.VelocityFunc import VelocityFunc
 
 
-class Player:
+class Player(Person):
 
     maxPitchRadians = Math.piHalf - 0.1
 
     def __init__(self):
+        super().__init__()
         self.state = PlayerState.standing
-        self.currentCenterPoint = Vector3()
         self.currentBorder = Box3d(PlayerConstants.xyLength, PlayerConstants.xyLength, PlayerConstants.zLength)
         self.nextCenterPoint = self.currentCenterPoint.copy()
         self.nextBorder = self.currentBorder.copy()

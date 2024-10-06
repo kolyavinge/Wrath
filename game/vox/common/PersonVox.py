@@ -3,6 +3,7 @@ from game.audio.AudioPlayer import AudioPlayer
 from game.audio.AudioSourceLoader import AudioSourceLoader
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
+from game.model.Material import MaterialKind
 from game.vox.common.AudioBufferCollection import AudioBufferCollection
 from game.vox.sources.PersonAudioSources import PersonAudioSources
 
@@ -27,7 +28,9 @@ class PersonVox:
 
     def onPersonStepDone(self, person):
         source = self.sources[person]
-        self.audioPlayer.play(source.step)
+        floor = person.currentFloor
+        if floor.material.kind == MaterialKind.metal:
+            self.audioPlayer.play(source.step)
 
     def update(self):
         for source in self.sources.values():

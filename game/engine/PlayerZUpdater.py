@@ -27,7 +27,9 @@ class PlayerZUpdater:
 
     def processFloor(self, levelSegment):
         player = self.gameData.player
-        z = levelSegment.floors[0].getZ(player.nextCenterPoint.x, player.nextCenterPoint.y)
+        floor = levelSegment.floors[0]
+        player.currentFloor = floor
+        z = floor.getZ(player.nextCenterPoint.x, player.nextCenterPoint.y)
         playerOnFloor = player.getZ() - z < 1 or player.getZ() < z
         if playerOnFloor:
             if player.state == PlayerState.standing:
