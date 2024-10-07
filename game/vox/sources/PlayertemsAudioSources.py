@@ -1,8 +1,8 @@
 class PlayertemsAudioSources:
 
-    def __init__(self, player, audioBufferCollection, audioSourceLoader):
+    def __init__(self, player, audioSourceFactory):
         self.player = player
-        self.torchSwitch = audioSourceLoader.load(audioBufferCollection.torchSwitch)
+        self.torchSwitch = audioSourceFactory.getTorchSwitch()
 
     def updatePosition(self):
         position = self.player.currentCenterPoint

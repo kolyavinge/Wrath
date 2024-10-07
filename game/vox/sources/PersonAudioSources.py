@@ -1,8 +1,8 @@
 class PersonAudioSources:
 
-    def __init__(self, person, audioBufferCollection, audioSourceLoader):
+    def __init__(self, person, audioSourceFactory):
         self.person = person
-        self.step = audioSourceLoader.load(audioBufferCollection.step)
+        self.step = audioSourceFactory.getStep()
 
     def updatePosition(self):
         position = self.person.currentCenterPoint
