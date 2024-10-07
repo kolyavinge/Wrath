@@ -10,8 +10,9 @@ class AudioBufferCollection:
     def init(self):
         path = Environment.programRootPath + "\\res\\audio\\"
         self.selectMenuItem = self.audioBufferLoader.load(path + "selectMenuItem.wav")
-        self.step = self.audioBufferLoader.load(path + "selectMenuItem.wav")
-        self.torchSwitch = self.audioBufferLoader.load(path + "selectMenuItem.wav")
+        self.stepConcrete = self.audioBufferLoader.load(path + "stepConcrete.wav")
+        self.stepMetal = self.audioBufferLoader.load(path + "stepMetal.wav")
+        self.switchTorch = self.audioBufferLoader.load(path + "switchTorch.wav")
 
 
 def makeAudioBufferCollection(resolver):

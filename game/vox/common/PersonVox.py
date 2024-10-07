@@ -24,8 +24,10 @@ class PersonVox:
 
     def onPersonStepDone(self, person):
         source = self.sources[person]
-        if person.currentFloor.material.kind == MaterialKind.metal:
-            self.audioPlayer.play(source.step)
+        if person.currentFloor.material.kind == MaterialKind.concrete:
+            self.audioPlayer.play(source.stepConcrete)
+        elif person.currentFloor.material.kind == MaterialKind.metal:
+            self.audioPlayer.play(source.stepMetal)
 
 
 def makePersonVox(resolver):

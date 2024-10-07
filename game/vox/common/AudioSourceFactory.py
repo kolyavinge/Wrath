@@ -8,14 +8,17 @@ class AudioSourceFactory:
         self.audioSourceLoader = audioSourceLoader
         self.audioBufferCollection = audioBufferCollection
 
-    def getSelectMenuItem(self):
+    def makeSelectMenuItem(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.selectMenuItem)
 
-    def getStep(self):
-        return self.audioSourceLoader.load(self.audioBufferCollection.step)
+    def makeStepConcrete(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.stepConcrete)
 
-    def getTorchSwitch(self):
-        return self.audioSourceLoader.load(self.audioBufferCollection.torchSwitch)
+    def makeStepMetal(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.stepMetal)
+
+    def makeSwitchTorch(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.switchTorch)
 
 
 def makeAudioSourceFactory(resolver):

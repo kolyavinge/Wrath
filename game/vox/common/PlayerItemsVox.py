@@ -19,7 +19,7 @@ class PlayerItemsVox:
         allSources.append(self.source)
 
     def onTorchSwitched(self, _):
-        self.audioPlayer.play(self.source.torchSwitch)
+        self.audioPlayer.play(self.source.switchTorch)
 
 
 def makePlayerItemsVox(resolver):

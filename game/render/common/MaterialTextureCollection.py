@@ -18,7 +18,7 @@ class MaterialTextureCollection:
         self.materials[Material.wallMetal6] = self.textureCollection.wallMetal6
         self.materials[Material.wallMetal7] = self.textureCollection.wallMetal7
         self.materials[Material.wallMetal8] = self.textureCollection.wallMetal8
-        self.materials[Material.floorMetal1] = self.textureCollection.floorMetal1
+        self.materials[Material.floorConcrete1] = self.textureCollection.floorMetal1
         self.materials[Material.floorMetal2] = self.textureCollection.floorMetal2
         self.materials[Material.floorMetal3] = self.textureCollection.floorMetal3
         self.materials[Material.floorMetal4] = self.textureCollection.floorMetal4
