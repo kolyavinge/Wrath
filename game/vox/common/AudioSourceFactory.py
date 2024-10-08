@@ -20,6 +20,9 @@ class AudioSourceFactory:
     def makeSwitchTorch(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.switchTorch)
 
+    def makeLanding(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.landing)
+
 
 def makeAudioSourceFactory(resolver):
     return AudioSourceFactory(resolver.resolve(AudioSourceLoader), resolver.resolve(AudioBufferCollection))

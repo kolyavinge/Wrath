@@ -13,6 +13,7 @@ class AudioBufferCollection:
         self.stepConcrete = self.audioBufferLoader.load(path + "stepConcrete.wav")
         self.stepMetal = self.audioBufferLoader.load(path + "stepMetal.wav")
         self.switchTorch = self.audioBufferLoader.load(path + "switchTorch.wav")
+        self.landing = self.audioBufferLoader.load(path + "landing.wav")
 
 
 def makeAudioBufferCollection(resolver):

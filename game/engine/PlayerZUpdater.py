@@ -1,13 +1,16 @@
+from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
+from game.lib.EventManager import EventManager
 from game.model.PlayerState import PlayerState
 
 
 class PlayerZUpdater:
 
-    def __init__(self, gameData, traversal):
+    def __init__(self, gameData, traversal, eventManager):
         self.gameData = gameData
         self.traversal = traversal
+        self.eventManager = eventManager
 
     def updateIfPlayerMoved(self):
         if self.gameData.player.hasMoved:
@@ -39,6 +42,7 @@ class PlayerZUpdater:
                 player.fallingTime = 0
                 player.state = PlayerState.landing
                 player.landingTime = 10 * 0.1
+                self.eventManager.raiseEvent(Events.personLanded, player)
             elif player.state == PlayerState.landing:
                 player.landingTime -= 0.1
                 if player.landingTime <= 0:
@@ -61,4 +65,4 @@ class PlayerZUpdater:
 
 
 def makePlayerZUpdater(resolver):
-    return PlayerZUpdater(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal))
+    return PlayerZUpdater(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal), resolver.resolve(EventManager))
