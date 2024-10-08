@@ -4,7 +4,7 @@ class PersonAudioSources:
         self.person = person
         self.stepConcrete = audioSourceFactory.makeStepConcrete()
         self.stepMetal = audioSourceFactory.makeStepMetal()
-        self.stepMetal.setGain(0.3)
+        self.stepMetal.setGain(0.2)
         self.landing = audioSourceFactory.makeLanding()
         self.landing.setGain(0.8)
 

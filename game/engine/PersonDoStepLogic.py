@@ -1,6 +1,7 @@
 from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
+from game.model.level.Stair import Stair
 
 
 class PersonDoStepLogic:
@@ -10,8 +11,11 @@ class PersonDoStepLogic:
         self.eventManager = eventManager
 
     def updateDoStep(self):
+        doStep = False
         player = self.gameData.player
-        if player.velocityValue > 0:
+        if isinstance(player.currentFloor, Stair):
+            doStep = player.currentCenterPoint.z != player.nextCenterPoint.z
+        else:
             doStep = (
                 player.prevPrevSwingValue < 0
                 and player.prevSwingValue < 0
@@ -19,8 +23,9 @@ class PersonDoStepLogic:
                 and player.prevPrevSwingValue > player.prevSwingValue
                 and player.currentSwingValue > player.prevSwingValue
             )
-            if doStep:
-                self.eventManager.raiseEvent(Events.personStepDone, player)
+
+        if doStep:
+            self.eventManager.raiseEvent(Events.personStepDone, player)
 
 
 def makePersonDoStepLogic(resolver):

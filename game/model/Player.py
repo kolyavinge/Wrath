@@ -36,6 +36,7 @@ class Player(Person):
         self.leftStepMovingTime = 0
         self.rightStepMovingTime = 0
         self.movingTimeDelta = 0.1
+        self.prevVelocityValue = 0
         self.velocityValue = 0
         self.velocityVector = Vector3()
         self.fallingTime = 0

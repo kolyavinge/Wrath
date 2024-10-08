@@ -2,6 +2,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
 from game.lib.Math import Math
+from game.model.level.Stair import Stair
 
 
 class PlayerVelocityCalculator:
@@ -11,6 +12,7 @@ class PlayerVelocityCalculator:
 
     def calculate(self):
         player = self.gameData.player
+        player.prevVelocityValue = player.velocityValue
         if player.forwardMovingTime > 0 or player.backwardMovingTime > 0:
             self.processForwardBackward()
         elif player.leftStepMovingTime > 0 or player.rightStepMovingTime > 0:
@@ -24,6 +26,7 @@ class PlayerVelocityCalculator:
 
         movingTime = player.forwardMovingTime - player.backwardMovingTime
         player.velocityValue = player.velocityFunc.getValue(Math.abs(movingTime))
+        self.slowdownOnStair(player)
         player.velocityVector = player.frontNormal.copy()
         player.velocityVector.setLength(player.velocityValue)
         if movingTime < 0:
@@ -48,10 +51,15 @@ class PlayerVelocityCalculator:
         player = self.gameData.player
         movingTime = player.rightStepMovingTime - player.leftStepMovingTime
         player.velocityValue = player.velocityFunc.getValue(Math.abs(movingTime))
+        self.slowdownOnStair(player)
         player.velocityVector = player.rightNormal.copy()
         player.velocityVector.setLength(player.velocityValue)
         if movingTime < 0:
             player.velocityVector.mul(-1)
+
+    def slowdownOnStair(self, player):
+        if isinstance(player.currentFloor, Stair):
+            player.velocityValue = Math.min(player.velocityValue, 0.4)
 
 
 def makePlayerVelocityCalculator(resolver):
