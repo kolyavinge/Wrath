@@ -10,14 +10,18 @@ from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelRenderer import LevelRenderer
 from game.render.level.ShadowCastLevelItemCollection import *
 from game.render.main.MainSceneFramebuffer import MainSceneFramebuffer
+from game.render.person.PlayerWeaponRenderer import PlayerWeaponRenderer
 
 
 class MainSceneRenderer:
 
-    def __init__(self, gameData, mainSceneFramebuffer, levelRenderer, vboRenderer, shaderProgramCollection, screenQuadVBO, eventManager):
+    def __init__(
+        self, gameData, mainSceneFramebuffer, levelRenderer, playerWeaponRenderer, vboRenderer, shaderProgramCollection, screenQuadVBO, eventManager
+    ):
         self.gameData = gameData
         self.mainSceneFramebuffer = mainSceneFramebuffer
         self.levelRenderer = levelRenderer
+        self.playerWeaponRenderer = playerWeaponRenderer
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
         self.screenQuadVBO = screenQuadVBO
@@ -54,6 +58,7 @@ class MainSceneRenderer:
         shader.setNormalMatrix(camera.viewMatrix.toMatrix3())
         shader.setMaxDepth(CommonConstants.maxDepth)
         self.levelRenderer.renderLevelSegments(shader)
+        self.playerWeaponRenderer.render(shader)
         shader.unuse()
         glDisable(GL_CULL_FACE)
         glDisable(GL_TEXTURE_2D)
@@ -109,6 +114,7 @@ def makeMainSceneRenderer(resolver):
         resolver.resolve(GameData),
         resolver.resolve(MainSceneFramebuffer),
         resolver.resolve(LevelRenderer),
+        resolver.resolve(PlayerWeaponRenderer),
         resolver.resolve(VBORenderer),
         resolver.resolve(ShaderProgramCollection),
         resolver.resolve(ScreenQuadVBO),

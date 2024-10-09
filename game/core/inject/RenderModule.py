@@ -1,4 +1,5 @@
 from game.gl.AdjancencyFormatConverter import *
+from game.gl.MeshLoader import *
 from game.gl.ScreenQuadVBO import *
 from game.gl.ShaderCompiler import *
 from game.gl.TextureLoader import *
@@ -19,6 +20,7 @@ from game.render.level.StairVBOBuilder import *
 from game.render.level.WallVBOBuilder import *
 from game.render.main.MainSceneFramebuffer import *
 from game.render.main.MainSceneRenderer import *
+from game.render.person.PlayerWeaponRenderer import *
 from game.render.ui.GameScreenRenderer import *
 
 
@@ -26,6 +28,7 @@ class RenderModule:
 
     def init(self, binder):
         binder.bindSingleton(AdjacencyFormatConverter, makeAdjacencyFormatConverter)
+        binder.bindSingleton(MeshLoader, makeMeshLoader)
         binder.bindSingleton(ScreenQuadVBO, makeScreenQuadVBO)
         binder.bindSingleton(ShaderCompiler, makeShaderCompiler)
         binder.bindSingleton(TextureLoader, makeTextureLoader)
@@ -46,4 +49,5 @@ class RenderModule:
         binder.bindSingleton(WallVBOBuilder, makeWallVBOBuilder)
         binder.bindSingleton(MainSceneFramebuffer, makeMainSceneFramebuffer)
         binder.bindSingleton(MainSceneRenderer, makeMainSceneRenderer)
+        binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)
