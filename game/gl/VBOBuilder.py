@@ -85,4 +85,5 @@ class VBOBuilder:
         glBindVertexArray(0)
 
         format = GL_TRIANGLES if not withAdjacency else GL_TRIANGLES_ADJACENCY
+
         return VBO(vaoId, vboIds, len(faces), format)
