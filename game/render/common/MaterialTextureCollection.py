@@ -26,6 +26,7 @@ class MaterialTextureCollection:
         self.materials[Material.floorMetal5] = self.textureCollection.floorMetal5
         self.materials[Material.ceilingMetal1] = self.textureCollection.ceilingMetal1
         self.materials[Material.ceilingMetal2] = self.textureCollection.ceilingMetal2
+        self.materials[Material.ceilingMetal3] = self.textureCollection.ceilingMetal3
         self.materials[Material.edgeMetal1] = self.textureCollection.edgeMetal1
         self.materials[Material.edgeMetal2] = self.textureCollection.edgeMetal2
         self.materials[Material.edgeMetal3] = self.textureCollection.edgeMetal3

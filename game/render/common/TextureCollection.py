@@ -26,6 +26,7 @@ class TextureCollection:
         self.floorMetal5 = self.textureLoader.load(path + "floorMetal5.jpg")
         self.ceilingMetal1 = self.textureLoader.load(path + "ceilingMetal1.jpg")
         self.ceilingMetal2 = self.textureLoader.load(path + "ceilingMetal2.jpg")
+        self.ceilingMetal3 = self.textureLoader.load(path + "ceilingMetal3.jpg")
         self.edgeMetal1 = self.textureLoader.load(path + "edgeMetal1.jpg")
         self.edgeMetal2 = self.textureLoader.load(path + "edgeMetal2.jpg")
         self.edgeMetal3 = self.textureLoader.load(path + "edgeMetal3.jpg")

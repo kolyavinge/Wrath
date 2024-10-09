@@ -708,6 +708,7 @@ class LevelAurora(Level):
     def makeRoom2(self):
         wallHeight = 9
         z = 3
+        secondFloorHeight = 0.8
 
         wall = Wall()
         wall.startPoint = Vector3(170, 110, z)
@@ -938,6 +939,343 @@ class LevelAurora(Level):
         wall.material = Material.edgeMetal2
         self.addWall(wall)
 
+        poleHeight = wallHeight - secondFloorHeight
+        # pole 1
+
+        wall = Wall()
+        wall.startPoint = Vector3(204, 124, lowerFloorZ)
+        wall.endPoint = Vector3(206, 124, lowerFloorZ)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(204, 124, lowerFloorZ)
+        wall.endPoint = Vector3(204, 126, lowerFloorZ)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(204, 126, lowerFloorZ)
+        wall.endPoint = Vector3(206, 126, lowerFloorZ)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(206, 124, lowerFloorZ)
+        wall.endPoint = Vector3(206, 126, lowerFloorZ)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        # pole 2
+
+        wall = Wall()
+        wall.startPoint = Vector3(234, 124, lowerFloorZ)
+        wall.endPoint = Vector3(236, 124, lowerFloorZ)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(234, 124, lowerFloorZ)
+        wall.endPoint = Vector3(234, 126, lowerFloorZ)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(234, 126, lowerFloorZ)
+        wall.endPoint = Vector3(236, 126, lowerFloorZ)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(236, 124, lowerFloorZ)
+        wall.endPoint = Vector3(236, 126, lowerFloorZ)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        # pole 3
+
+        wall = Wall()
+        wall.startPoint = Vector3(185, 124, lowerFloorZ)
+        wall.endPoint = Vector3(187, 124, lowerFloorZ)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(185, 124, lowerFloorZ)
+        wall.endPoint = Vector3(185, 126, lowerFloorZ)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(185, 126, lowerFloorZ)
+        wall.endPoint = Vector3(187, 126, lowerFloorZ)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(187, 124, lowerFloorZ)
+        wall.endPoint = Vector3(187, 126, lowerFloorZ)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        # pole 4
+
+        wall = Wall()
+        wall.startPoint = Vector3(253, 124, lowerFloorZ)
+        wall.endPoint = Vector3(255, 124, lowerFloorZ)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(253, 124, lowerFloorZ)
+        wall.endPoint = Vector3(253, 126, lowerFloorZ)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(253, 126, lowerFloorZ)
+        wall.endPoint = Vector3(255, 126, lowerFloorZ)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(255, 124, lowerFloorZ)
+        wall.endPoint = Vector3(255, 126, lowerFloorZ)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        # pole 5
+
+        wall = Wall()
+        wall.startPoint = Vector3(204, 99, z)
+        wall.endPoint = Vector3(206, 99, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(204, 99, z)
+        wall.endPoint = Vector3(204, 101, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(204, 101, z)
+        wall.endPoint = Vector3(206, 101, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(206, 99, z)
+        wall.endPoint = Vector3(206, 101, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        # pole 6
+
+        wall = Wall()
+        wall.startPoint = Vector3(204, 149, z)
+        wall.endPoint = Vector3(206, 149, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(204, 149, z)
+        wall.endPoint = Vector3(204, 151, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(204, 151, z)
+        wall.endPoint = Vector3(206, 151, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(206, 149, z)
+        wall.endPoint = Vector3(206, 151, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        # pole 7
+
+        wall = Wall()
+        wall.startPoint = Vector3(234, 149, z)
+        wall.endPoint = Vector3(236, 149, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(234, 149, z)
+        wall.endPoint = Vector3(234, 151, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(234, 151, z)
+        wall.endPoint = Vector3(236, 151, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(236, 149, z)
+        wall.endPoint = Vector3(236, 151, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        # pole 8
+
+        wall = Wall()
+        wall.startPoint = Vector3(234, 99, z)
+        wall.endPoint = Vector3(236, 99, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, -1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(234, 99, z)
+        wall.endPoint = Vector3(234, 101, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(-1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(234, 101, z)
+        wall.endPoint = Vector3(236, 101, z)
+        wall.orientation = Orientation.horizontal
+        wall.frontNormal = Vector3(0, 1, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
+        wall = Wall()
+        wall.startPoint = Vector3(236, 99, z)
+        wall.endPoint = Vector3(236, 101, z)
+        wall.orientation = Orientation.vertical
+        wall.frontNormal = Vector3(1, 0, 0)
+        wall.height = poleHeight
+        wall.material = Material.ceilingMetal3
+        wall.canCastShadow = True
+        self.addWall(wall)
+
         # second floor
 
         z = 12
@@ -1102,7 +1440,6 @@ class LevelAurora(Level):
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        secondFloorHeight = 0.8
         z -= secondFloorHeight
 
         ceiling = Ceiling()
@@ -1259,7 +1596,7 @@ class LevelAurora(Level):
         ceiling.downRight = Vector3(270, 90, z + wallHeight)
         ceiling.upLeft = Vector3(170, 160, z + wallHeight)
         ceiling.upRight = Vector3(270, 160, z + wallHeight)
-        ceiling.material = Material.ceilingMetal1
+        ceiling.material = Material.ceilingMetal3
         self.addCeiling(ceiling)
 
         light = Lamp()
