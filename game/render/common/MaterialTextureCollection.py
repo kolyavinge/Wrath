@@ -18,6 +18,7 @@ class MaterialTextureCollection:
         self.materials[Material.wallMetal6] = self.textureCollection.wallMetal6
         self.materials[Material.wallMetal7] = self.textureCollection.wallMetal7
         self.materials[Material.wallMetal8] = self.textureCollection.wallMetal8
+        self.materials[Material.wallMetal9] = self.textureCollection.wallMetal9
         self.materials[Material.floorConcrete1] = self.textureCollection.floorMetal1
         self.materials[Material.floorMetal2] = self.textureCollection.floorMetal2
         self.materials[Material.floorMetal3] = self.textureCollection.floorMetal3
@@ -27,6 +28,7 @@ class MaterialTextureCollection:
         self.materials[Material.ceilingMetal2] = self.textureCollection.ceilingMetal2
         self.materials[Material.edgeMetal1] = self.textureCollection.edgeMetal1
         self.materials[Material.edgeMetal2] = self.textureCollection.edgeMetal2
+        self.materials[Material.edgeMetal3] = self.textureCollection.edgeMetal3
 
     def getTextureForMaterial(self, material):
         return self.materials[material]
