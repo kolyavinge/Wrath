@@ -20,8 +20,10 @@ from game.render.level.StairVBOBuilder import *
 from game.render.level.WallVBOBuilder import *
 from game.render.main.MainSceneFramebuffer import *
 from game.render.main.MainSceneRenderer import *
-from game.render.person.PlayerWeaponRenderer import *
 from game.render.ui.GameScreenRenderer import *
+from game.render.weapon.PlayerWeaponRenderer import *
+from game.render.weapon.WeaponMeshFactory import *
+from game.render.weapon.WeaponVBOCollection import *
 
 
 class RenderModule:
@@ -49,5 +51,7 @@ class RenderModule:
         binder.bindSingleton(WallVBOBuilder, makeWallVBOBuilder)
         binder.bindSingleton(MainSceneFramebuffer, makeMainSceneFramebuffer)
         binder.bindSingleton(MainSceneRenderer, makeMainSceneRenderer)
-        binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)
+        binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
+        binder.bindSingleton(WeaponMeshFactory, makeWeaponMeshFactory)
+        binder.bindSingleton(WeaponVBOCollection, makeWeaponVBOCollection)

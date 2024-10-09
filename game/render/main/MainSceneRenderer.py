@@ -10,7 +10,7 @@ from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelRenderer import LevelRenderer
 from game.render.level.ShadowCastLevelItemCollection import *
 from game.render.main.MainSceneFramebuffer import MainSceneFramebuffer
-from game.render.person.PlayerWeaponRenderer import PlayerWeaponRenderer
+from game.render.weapon.PlayerWeaponRenderer import PlayerWeaponRenderer
 
 
 class MainSceneRenderer:

@@ -1,7 +1,7 @@
 from game.render.debug.DebugRenderer import DebugRenderer
 from game.render.level.LevelRenderer import LevelRenderer
 from game.render.main.MainSceneRenderer import MainSceneRenderer
-from game.render.person.PlayerWeaponRenderer import PlayerWeaponRenderer
+from game.render.weapon.PlayerWeaponRenderer import PlayerWeaponRenderer
 
 
 class GameScreenRenderer:
