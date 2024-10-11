@@ -1,14 +1,17 @@
 from OpenGL.GL import *
 
 from game.gl.Shader import Shader
-from game.lib.File import File
+from game.lib.FileSystem import FileSystem
 from game.lib.sys import warn
 
 
 class ShaderCompiler:
 
+    def __init__(self, fileSystem):
+        self.fileSystem = fileSystem
+
     def compile(self, shaderFileFullPath, shaderType):
-        shaderSourceCode = File.readAllFile(shaderFileFullPath)
+        shaderSourceCode = self.fileSystem.readAllFile(shaderFileFullPath)
         shaderId = glCreateShader(shaderType)
         glShaderSource(shaderId, shaderSourceCode)
         glCompileShader(shaderId)
@@ -26,4 +29,4 @@ class ShaderCompiler:
 
 
 def makeShaderCompiler(resolver):
-    return ShaderCompiler()
+    return ShaderCompiler(resolver.resolve(FileSystem))
