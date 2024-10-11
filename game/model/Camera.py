@@ -1,6 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
-from game.calc.TranfsormMatrix4 import TransformMatrix4
+from game.calc.TransformMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
 
 
