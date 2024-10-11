@@ -46,7 +46,7 @@ class PlayerWallCollisionProcessor:
 
             return (projected.x, projected.y)
         else:
-            raise Exception()
+            raise Exception("Wrong wall orientation.")
 
 
 def makePlayerWallCollisionProcessor(resolver):

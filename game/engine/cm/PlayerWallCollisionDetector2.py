@@ -96,7 +96,7 @@ class PlayerWallCollisionDetector2:
         elif wall.orientation == Orientation.diagonal:
             return Geometry.lineContainsPoint(wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, x, y)
         else:
-            raise Exception()
+            raise Exception("Wrong wall orientation.")
 
     def getMinDistance(self, distance1, distance2, distance3, distance4):
         return Math.min(Math.min(distance1, distance2), Math.min(distance3, distance4))

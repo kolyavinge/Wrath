@@ -26,7 +26,7 @@ class PlayerZUpdater:
         elif len(levelSegment.floors) == 0:
             self.processHole()
         else:
-            raise Exception()
+            raise Exception("Wrong floors count in segment.")
 
     def processFloor(self, levelSegment):
         player = self.gameData.player
@@ -49,7 +49,7 @@ class PlayerZUpdater:
                     player.state = PlayerState.standing
                     player.landingTime = 0
             else:
-                raise Exception()
+                raise Exception("Wrong player state.")
         else:
             player.state = PlayerState.falling
             self.processPlayerFall()

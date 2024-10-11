@@ -41,7 +41,7 @@ class LevelItemGroupBuilder:
             elif isinstance(item, Construction):
                 self.constructionVBOBuilder.build(item, vboBuilder)
             # else: TODO
-            # raise Exception()
+            # raise Exception("Wrong level item.")
 
         return vboBuilder.build()
 
