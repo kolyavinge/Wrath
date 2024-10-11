@@ -18,9 +18,9 @@ class WeaponVBOCollection:
             vbo.release()
 
         self.vbos = {}
-        self.makePistol()
+        # self.makePistol()
         self.makeRifle()
-        self.makeLauncher()
+        # self.makeLauncher()
 
     def makePistol(self):
         mesh = self.weaponMeshFactory.makePistol()

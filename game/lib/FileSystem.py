@@ -16,7 +16,7 @@ class FileSystem:
         if extension is None or len(extension) == 0:
             raise Exception("Extension cannot be empty.")
 
-        return [file for file in os.listdir(path) if file.endswith(extension)]
+        return [f"{path}\\{file}" for file in os.listdir(path) if file.endswith(extension)]
 
 
 def makeFileSystem(resolver):

@@ -18,3 +18,9 @@
 8. pip install wave
 
 9. pip install PyOpenAL
+
+10. pip install setuptools
+
+11. pip install impasse
+    Copy 'assimp-vc143-mt.dll' from 'external' to python folder '\Lib\site-packages\impasse'
+

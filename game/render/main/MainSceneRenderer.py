@@ -7,6 +7,7 @@ from game.engine.GameData import GameData
 from game.gl.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager
+from game.lib.Math import Math
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelRenderer import LevelRenderer
 from game.render.level.ShadowCastLevelItemCollection import *
@@ -49,16 +50,34 @@ class MainSceneRenderer:
         glCullFace(GL_BACK)
         glBindFramebuffer(GL_FRAMEBUFFER, self.mainSceneFramebuffer.colorDepthFBO)
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT)
+        player = self.gameData.player
+        camera = self.gameData.camera
         shader = self.shaderProgramCollection.mainSceneLightComponents
         shader.use()
-        camera = self.gameData.camera
+        shader.setMaxDepth(CommonConstants.maxDepth)
+        # render level segments
         mvpMatrix = camera.projectionMatrix.copy()
         mvpMatrix.mul(camera.viewMatrix)
         shader.setModelViewMatrix(camera.viewMatrix)
         shader.setModelViewProjectionMatrix(mvpMatrix)
         shader.setNormalMatrix(camera.viewMatrix.toMatrix3())
-        shader.setMaxDepth(CommonConstants.maxDepth)
         self.levelRenderer.renderLevelSegments(shader)
+        # render player weapon
+        modelMatrix = TransformMatrix4()
+        radians = Math.arccos(CommonConstants.yAxis.dotProduct(player.frontNormal))
+        yAxis = CommonConstants.yAxis.copy()
+        yAxis.vectorProduct(player.frontNormal)
+        if yAxis.z < 0:
+            radians *= -1
+        modelMatrix.translateAndRotate(player.eyePosition.x, player.eyePosition.y, player.eyePosition.z - 0.2, radians, CommonConstants.zAxis)
+        mvpMatrix = camera.projectionMatrix.copy()
+        mvpMatrix.mul(camera.viewMatrix)
+        mvpMatrix.mul(modelMatrix)
+        mvMatrix = camera.viewMatrix.copy()
+        mvMatrix.mul(modelMatrix)
+        shader.setModelViewMatrix(mvMatrix)
+        shader.setModelViewProjectionMatrix(mvpMatrix)
+        shader.setNormalMatrix(mvMatrix.toMatrix3())
         self.playerWeaponRenderer.render(shader)
         shader.unuse()
         glDisable(GL_CULL_FACE)

@@ -8,10 +8,10 @@ class ExtVBOBuilder(VBOBuilder):
 
     def addMesh(self, mesh):
         for vertex in mesh.vertices:
-            self.addVertex(vertex.x, vertex.y, vertex.z)
+            self.addVertex(vertex)
 
         for normal in mesh.normals:
-            self.addNormal(normal.x, normal.y, normal.z)
+            self.addNormal(normal)
 
         for texCoord in mesh.texCoords:
             self.addTexCoord(texCoord.x, texCoord.y)

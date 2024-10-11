@@ -1,0 +1,183 @@
+# Blender MTL File: 'Futuristic_Weapon_Lowpoly.blend'
+# Material Count: 13
+
+newmtl 4
+Ns 37.254902
+Ka 0.087152 0.087152 0.087152
+Kd 0.039207 0.039207 0.039207
+Ks 0.148890 0.148890 0.148890
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Bump textures\\Nor_4.jpg
+map_Kd textures\\col_4.jpg
+map_Ks textures\\col_4.jpg
+refl textures\\REF 1.jpg
+
+newmtl 4.001
+Ns 37.254902
+Ka 0.173356 0.173356 0.173356
+Kd 0.008872 0.008872 0.008872
+Ks 0.034875 0.034875 0.034875
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Bump textures\\Nor_4.jpg
+map_Kd textures\\col_4.jpg
+map_Ks textures\\col_4.jpg
+refl textures\\REF 1.jpg
+
+newmtl Material.001
+Ns 37.254902
+Ka 0.188105 0.188105 0.188105
+Kd 0.066032 0.066032 0.066032
+Ks 0.300000 0.300000 0.300000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Bump textures\\Nor_1.jpg
+map_Kd textures\\col_1.jpg
+map_Ks textures\\col_1.jpg
+refl textures\\REF 1.jpg
+
+newmtl Material.002
+Ns 37.254902
+Ka 0.113526 0.113526 0.113526
+Kd 0.023861 0.023861 0.023861
+Ks 0.241187 0.241187 0.241187
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Kd textures\Nor_2.jpg
+map_Bump textures\\Nor_2.jpg
+map_Ks textures\\col_2.jpg
+refl textures\\REF 1.jpg
+
+newmtl Material.003
+Ns 37.254902
+Ka 0.188105 0.188105 0.188105
+Kd 0.066032 0.066032 0.066032
+Ks 0.300000 0.300000 0.300000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Bump textures\\Nor_1.jpg
+map_Kd textures\\col_1.jpg
+map_Ks textures\\col_1.jpg
+refl textures\\REF 1.jpg
+
+newmtl Material.010
+Ns 37.254902
+Ka 0.090541 0.090541 0.090541
+Kd 0.066032 0.066032 0.066032
+Ks 0.300000 0.300000 0.300000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump textures\\Nor_1.jpg
+map_Kd textures\\col_1.jpg
+map_Ks textures\\col_1.jpg
+refl textures\\REF 1.jpg
+
+newmtl Material.012
+Ns 37.254902
+Ka 0.109578 0.109578 0.109578
+Kd 0.049945 0.049945 0.049945
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Kd textures\Nor_2.jpg
+map_Bump textures\\Nor_2.jpg
+map_Ks textures\\col_2.jpg
+refl textures\\REF 1.jpg
+
+newmtl Material.013
+Ns 37.254902
+Ka 0.065414 0.065414 0.065414
+Kd 0.087032 0.087032 0.087032
+Ks 0.102936 0.102936 0.102936
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Kd textures\col_3.jpg
+map_Bump textures\\nor_3.jpg
+map_Ks textures\\col_3.jpg
+refl textures\\REF 1.jpg
+
+newmtl Material.019
+Ns 37.254902
+Ka 0.087484 0.087484 0.087484
+Kd 0.037570 0.037570 0.037570
+Ks 0.102936 0.102936 0.102936
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Kd textures\col_3.jpg
+map_Bump textures\\nor_3.jpg
+map_Ks textures\\col_3.jpg
+refl textures\\REF 1.jpg
+
+newmtl Material.027
+Ns 37.254902
+Ka 0.023249 0.023249 0.023249
+Kd 0.029706 0.029706 0.029706
+Ks 0.148890 0.148890 0.148890
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Bump textures\\Nor_4.jpg
+map_Kd textures\\col_4.jpg
+map_Ks textures\\col_4.jpg
+
+newmtl Material.028
+Ns 37.254902
+Ka 0.066046 0.066046 0.066046
+Kd 0.011095 0.011095 0.011095
+Ks 0.241187 0.241187 0.241187
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Kd textures\Nor_2.jpg
+map_Bump textures\\Nor_2.jpg
+map_Ks textures\\col_2.jpg
+refl textures\\REF 1.jpg
+
+newmtl Material.029
+Ns 37.254902
+Ka 1.000000 1.000000 1.000000
+Kd 0.168622 0.168622 0.168622
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Bump textures\\Nor_1.jpg
+map_Kd textures\\col_1.jpg
+map_Ks textures\\col_1.jpg
+refl textures\\REF 1.jpg
+
+newmtl Material.030
+Ns 37.254902
+Ka 0.078212 0.078212 0.078212
+Kd 0.066032 0.066032 0.066032
+Ks 0.300000 0.300000 0.300000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 5
+map_Bump textures\\Nor_1.jpg
+map_Kd textures\\col_1.jpg
+map_Ks textures\\col_1.jpg
+refl textures\\REF 1.jpg
