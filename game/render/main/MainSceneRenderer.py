@@ -63,13 +63,7 @@ class MainSceneRenderer:
         shader.setNormalMatrix(camera.viewMatrix.toMatrix3())
         self.levelRenderer.renderLevelSegments(shader)
         # render player weapon
-        modelMatrix = TransformMatrix4()
-        radians = Math.arccos(CommonConstants.yAxis.dotProduct(player.frontNormal))
-        yAxis = CommonConstants.yAxis.copy()
-        yAxis.vectorProduct(player.frontNormal)
-        if yAxis.z < 0:
-            radians *= -1
-        modelMatrix.translateAndRotate(player.eyePosition.x, player.eyePosition.y, player.eyePosition.z - 0.2, radians, CommonConstants.zAxis)
+        modelMatrix = self.gameData.playerItems.currentWeapon.getModelMatrix(player)
         mvpMatrix = camera.projectionMatrix.copy()
         mvpMatrix.mul(camera.viewMatrix)
         mvpMatrix.mul(modelMatrix)
