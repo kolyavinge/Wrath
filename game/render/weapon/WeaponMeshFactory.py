@@ -17,6 +17,7 @@ class WeaponMeshFactory:
         mesh.flipYZ()
         mesh.mulAxes(1, -1, 1)
         mesh.mulAxes(0.05, 0.05, 0.05)
+        mesh.centerBy("yz")
 
         return mesh
 
