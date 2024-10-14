@@ -21,7 +21,7 @@ class PlayerWeaponRenderer:
         weaponType = type(self.gameData.playerItems.currentWeapon)
         weaponVBO = self.weaponVBOCollection.getWeaponVBO(weaponType)
         weaponVBO.texture.bind(GL_TEXTURE0)
-        self.vboRenderer.render(weaponVBO.vbo)
+        self.vboRenderer.renderList(weaponVBO.vbos)
 
 
 def makePlayerWeaponRenderer(resolver):

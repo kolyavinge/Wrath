@@ -14,10 +14,7 @@ class WeaponMeshFactory:
 
     def makeRifle(self):
         mesh = self.meshLoader.load(self.getObjFileFromDirectory("rifle"))
-        mesh.flipYZ()
-        mesh.mulAxes(1, -1, 1)
-        mesh.mulAxes(0.05, 0.05, 0.05)
-        mesh.centerBy("yz")
+        mesh.setScale(0.05)
 
         return mesh
 
