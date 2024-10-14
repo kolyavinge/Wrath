@@ -1,9 +1,9 @@
 class WeaponVBO:
 
-    def __init__(self, vbos, texture):
-        self.vbos = vbos
-        self.texture = texture
+    def __init__(self, texturedVBOs):
+        self.texturedVBOs = texturedVBOs
 
     def release(self):
-        for vbo in self.vbos:
-            vbo.release()
+        for tv in self.texturedVBOs:
+            tv.vbo.release()
+            tv.texture.release()

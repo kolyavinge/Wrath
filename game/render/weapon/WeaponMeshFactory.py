@@ -14,7 +14,7 @@ class WeaponMeshFactory:
 
     def makeRifle(self):
         mesh = self.meshLoader.load(self.getObjFileFromDirectory("rifle"))
-        mesh.setScale(0.05)
+        mesh.setScale(0.025)
 
         return mesh
 

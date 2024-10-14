@@ -13,8 +13,19 @@ class Weapon:
         self.direction = Vector3()
 
     def getModelMatrix(self, player):
+        frontShift = player.frontNormal.copy()
+        frontShift.mul(0.1)
+        rightShift = player.rightNormal.copy()
+        rightShift.mul(0.05)
+        topShift = player.lookDirectionNormal.copy()
+        topShift.mul(-0.1)
+        v = player.eyePosition.copy()
+        v.add(frontShift)
+        v.add(rightShift)
+        v.add(topShift)
+
         m1 = TransformMatrix4()
-        m1.translate(player.eyePosition.x, player.eyePosition.y, player.eyePosition.z - 0.2)
+        m1.translate(v.x, v.y, v.z)
 
         m2 = TransformMatrix4()
         m2.rotate(player.yawRadians, CommonConstants.zAxis)

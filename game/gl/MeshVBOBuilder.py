@@ -32,7 +32,7 @@ class MeshVBOBuilder:
 
             glBindBuffer(GL_ARRAY_BUFFER, vboIds[2])
             glBufferData(GL_ARRAY_BUFFER, childMesh.texCoords.nbytes, childMesh.texCoords, GL_STATIC_DRAW)
-            glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, None)
+            glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, None)
 
             glEnableVertexAttribArray(0)
             glEnableVertexAttribArray(1)
@@ -47,6 +47,6 @@ class MeshVBOBuilder:
             format = GL_TRIANGLES if not withAdjacency else GL_TRIANGLES_ADJACENCY
 
             vbo = VBO(vaoId, vboIds, 3 * len(childMesh.faces), format)
-            result.append(vbo)
+            result.append((childMesh, vbo))
 
         return result

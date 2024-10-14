@@ -5,7 +5,7 @@ class ChildMesh:
         self.normals = []
         self.texCoords = []
         self.faces = []
-        self.mainTexture = None
+        self.texture = None
 
 
 class Mesh:

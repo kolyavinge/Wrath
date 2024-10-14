@@ -10,10 +10,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Bump textures\\Nor_4.jpg
-map_Kd textures\\col_4.jpg
-map_Ks textures\\col_4.jpg
-refl textures\\REF 1.jpg
+map_Bump Nor_4.jpg
+map_Kd col_4.jpg
+map_Ks col_4.jpg
+refl REF 1.jpg
 
 newmtl 4.001
 Ns 37.254902
@@ -24,10 +24,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Bump textures\\Nor_4.jpg
-map_Kd textures\\col_4.jpg
-map_Ks textures\\col_4.jpg
-refl textures\\REF 1.jpg
+map_Bump Nor_4.jpg
+map_Kd col_4.jpg
+map_Ks col_4.jpg
+refl REF 1.jpg
 
 newmtl Material.001
 Ns 37.254902
@@ -38,10 +38,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Bump textures\\Nor_1.jpg
-map_Kd textures\\col_1.jpg
-map_Ks textures\\col_1.jpg
-refl textures\\REF 1.jpg
+map_Bump Nor_1.jpg
+map_Kd col_1.jpg
+map_Ks col_1.jpg
+refl REF 1.jpg
 
 newmtl Material.002
 Ns 37.254902
@@ -52,10 +52,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Kd textures\Nor_2.jpg
-map_Bump textures\\Nor_2.jpg
-map_Ks textures\\col_2.jpg
-refl textures\\REF 1.jpg
+map_Bump Nor_2.jpg
+map_Kd col_2.jpg
+map_Ks col_2.jpg
+refl REF 1.jpg
 
 newmtl Material.003
 Ns 37.254902
@@ -66,10 +66,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Bump textures\\Nor_1.jpg
-map_Kd textures\\col_1.jpg
-map_Ks textures\\col_1.jpg
-refl textures\\REF 1.jpg
+map_Bump Nor_1.jpg
+map_Kd col_1.jpg
+map_Ks col_1.jpg
+refl REF 1.jpg
 
 newmtl Material.010
 Ns 37.254902
@@ -80,10 +80,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 3
-map_Bump textures\\Nor_1.jpg
-map_Kd textures\\col_1.jpg
-map_Ks textures\\col_1.jpg
-refl textures\\REF 1.jpg
+map_Bump Nor_1.jpg
+map_Kd col_1.jpg
+map_Ks col_1.jpg
+refl REF 1.jpg
 
 newmtl Material.012
 Ns 37.254902
@@ -94,10 +94,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Kd textures\Nor_2.jpg
-map_Bump textures\\Nor_2.jpg
-map_Ks textures\\col_2.jpg
-refl textures\\REF 1.jpg
+map_Bump Nor_2.jpg
+map_Kd col_2.jpg
+map_Ks col_2.jpg
+refl REF 1.jpg
 
 newmtl Material.013
 Ns 37.254902
@@ -108,10 +108,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Kd textures\col_3.jpg
-map_Bump textures\\nor_3.jpg
-map_Ks textures\\col_3.jpg
-refl textures\\REF 1.jpg
+map_Bump nor_3.jpg
+map_Kd col_3.jpg
+map_Ks col_3.jpg
+refl REF 1.jpg
 
 newmtl Material.019
 Ns 37.254902
@@ -122,10 +122,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Kd textures\col_3.jpg
-map_Bump textures\\nor_3.jpg
-map_Ks textures\\col_3.jpg
-refl textures\\REF 1.jpg
+map_Bump nor_3.jpg
+map_Kd col_3.jpg
+map_Ks col_3.jpg
+refl REF 1.jpg
 
 newmtl Material.027
 Ns 37.254902
@@ -136,9 +136,9 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Bump textures\\Nor_4.jpg
-map_Kd textures\\col_4.jpg
-map_Ks textures\\col_4.jpg
+map_Bump Nor_4.jpg
+map_Kd col_4.jpg
+map_Ks col_4.jpg
 
 newmtl Material.028
 Ns 37.254902
@@ -149,10 +149,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Kd textures\Nor_2.jpg
-map_Bump textures\\Nor_2.jpg
-map_Ks textures\\col_2.jpg
-refl textures\\REF 1.jpg
+map_Bump Nor_2.jpg
+map_Kd col_2.jpg
+map_Ks col_2.jpg
+refl REF 1.jpg
 
 newmtl Material.029
 Ns 37.254902
@@ -163,10 +163,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Bump textures\\Nor_1.jpg
-map_Kd textures\\col_1.jpg
-map_Ks textures\\col_1.jpg
-refl textures\\REF 1.jpg
+map_Bump Nor_1.jpg
+map_Kd col_1.jpg
+map_Ks col_1.jpg
+refl REF 1.jpg
 
 newmtl Material.030
 Ns 37.254902
@@ -177,7 +177,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 5
-map_Bump textures\\Nor_1.jpg
-map_Kd textures\\col_1.jpg
-map_Ks textures\\col_1.jpg
-refl textures\\REF 1.jpg
+map_Bump Nor_1.jpg
+map_Kd col_1.jpg
+map_Ks col_1.jpg
+refl REF 1.jpg

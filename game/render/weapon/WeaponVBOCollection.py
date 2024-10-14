@@ -1,4 +1,4 @@
-from game.gl.Texture import Texture
+from game.gl.TexturedVBO import TexturedVBO
 from game.gl.VBOBuilderFactory import VBOBuilderFactory
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
@@ -25,23 +25,22 @@ class WeaponVBOCollection:
 
     def makePistol(self):
         mesh = self.weaponMeshFactory.makePistol()
-        vbos = self.makeVBOFromMesh(mesh)
-        self.vbos[Pistol] = WeaponVBO(vbos, mesh.mainTexture)
+        self.vbos[Pistol] = self.makeWeaponVBO(mesh)
 
     def makeRifle(self):
         mesh = self.weaponMeshFactory.makeRifle()
-        vbos = self.makeVBOFromMesh(mesh)
-        self.vbos[Rifle] = WeaponVBO(vbos, Texture(1, 10, 10))
+        self.vbos[Rifle] = self.makeWeaponVBO(mesh)
 
     def makeLauncher(self):
         mesh = self.weaponMeshFactory.makeLauncher()
-        vbos = self.makeVBOFromMesh(mesh)
-        self.vbos[Launcher] = WeaponVBO(vbos, mesh.mainTexture)
+        self.vbos[Launcher] = self.makeWeaponVBO(mesh)
 
-    def makeVBOFromMesh(self, mesh):
+    def makeWeaponVBO(self, mesh):
         vboBuilder = self.vboBuilderFactory.makeMeshVBOBuilder()
+        vbos = vboBuilder.build(mesh)
+        texturedVBOs = [TexturedVBO(vbo, mesh.texture) for mesh, vbo in vbos]
 
-        return vboBuilder.build(mesh)
+        return WeaponVBO(texturedVBOs)
 
     def getWeaponVBO(self, weaponType):
         return self.vbos[weaponType]

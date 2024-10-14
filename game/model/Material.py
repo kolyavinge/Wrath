@@ -40,4 +40,4 @@ Material.edgeMetal1 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
 Material.edgeMetal2 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
 Material.edgeMetal3 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
 
-Material.weapon = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
+Material.weapon = Material(MaterialKind.metal, 0.173356, 0.008872, 0.034875, 37.254902)

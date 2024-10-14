@@ -17,3 +17,6 @@ class Texture:
 
     def unbind(self):
         glBindTexture(GL_TEXTURE_2D, 0)
+
+    def release(self):
+        glDeleteTextures(1, self.id)
