@@ -3,14 +3,14 @@ from game.gl.VBOBuilderFactory import VBOBuilderFactory
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Rifle import Rifle
-from game.render.weapon.WeaponMeshFactory import WeaponMeshFactory
+from game.render.weapon.WeaponModel3dFactory import WeaponModel3dFactory
 from game.render.weapon.WeaponVBO import WeaponVBO
 
 
 class WeaponVBOCollection:
 
-    def __init__(self, weaponMeshFactory, vboBuilderFactory):
-        self.weaponMeshFactory = weaponMeshFactory
+    def __init__(self, weaponModel3dFactory, vboBuilderFactory):
+        self.weaponModel3dFactory = weaponModel3dFactory
         self.vboBuilderFactory = vboBuilderFactory
         self.vbos = {}
 
@@ -24,19 +24,19 @@ class WeaponVBOCollection:
         # self.makeLauncher()
 
     def makePistol(self):
-        mesh = self.weaponMeshFactory.makePistol()
+        mesh = self.weaponModel3dFactory.makePistol()
         self.vbos[Pistol] = self.makeWeaponVBO(mesh)
 
     def makeRifle(self):
-        mesh = self.weaponMeshFactory.makeRifle()
+        mesh = self.weaponModel3dFactory.makeRifle()
         self.vbos[Rifle] = self.makeWeaponVBO(mesh)
 
     def makeLauncher(self):
-        mesh = self.weaponMeshFactory.makeLauncher()
+        mesh = self.weaponModel3dFactory.makeLauncher()
         self.vbos[Launcher] = self.makeWeaponVBO(mesh)
 
     def makeWeaponVBO(self, mesh):
-        vboBuilder = self.vboBuilderFactory.makeMeshVBOBuilder()
+        vboBuilder = self.vboBuilderFactory.makeModel3dVBOBuilder()
         vbos = vboBuilder.build(mesh)
         texturedVBOs = [TexturedVBO(vbo, mesh.texture) for mesh, vbo in vbos]
 
@@ -47,4 +47,4 @@ class WeaponVBOCollection:
 
 
 def makeWeaponVBOCollection(resolver):
-    return WeaponVBOCollection(resolver.resolve(WeaponMeshFactory), resolver.resolve(VBOBuilderFactory))
+    return WeaponVBOCollection(resolver.resolve(WeaponModel3dFactory), resolver.resolve(VBOBuilderFactory))

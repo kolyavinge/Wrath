@@ -1,5 +1,5 @@
 from game.gl.AdjancencyFormatConverter import *
-from game.gl.MeshLoader import *
+from game.gl.Model3dLoader import *
 from game.gl.ScreenQuadVBO import *
 from game.gl.ShaderCompiler import *
 from game.gl.TextureLoader import *
@@ -22,7 +22,7 @@ from game.render.main.MainSceneFramebuffer import *
 from game.render.main.MainSceneRenderer import *
 from game.render.ui.GameScreenRenderer import *
 from game.render.weapon.PlayerWeaponRenderer import *
-from game.render.weapon.WeaponMeshFactory import *
+from game.render.weapon.WeaponModel3dFactory import *
 from game.render.weapon.WeaponVBOCollection import *
 
 
@@ -30,7 +30,7 @@ class RenderModule:
 
     def init(self, binder):
         binder.bindSingleton(AdjacencyFormatConverter, makeAdjacencyFormatConverter)
-        binder.bindSingleton(MeshLoader, makeMeshLoader)
+        binder.bindSingleton(Model3dLoader, makeModel3dLoader)
         binder.bindSingleton(ScreenQuadVBO, makeScreenQuadVBO)
         binder.bindSingleton(ShaderCompiler, makeShaderCompiler)
         binder.bindSingleton(TextureLoader, makeTextureLoader)
@@ -53,5 +53,5 @@ class RenderModule:
         binder.bindSingleton(MainSceneRenderer, makeMainSceneRenderer)
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)
         binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
-        binder.bindSingleton(WeaponMeshFactory, makeWeaponMeshFactory)
+        binder.bindSingleton(WeaponModel3dFactory, makeWeaponModel3dFactory)
         binder.bindSingleton(WeaponVBOCollection, makeWeaponVBOCollection)

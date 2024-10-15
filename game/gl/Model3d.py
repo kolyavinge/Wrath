@@ -1,4 +1,4 @@
-class ChildMesh:
+class Mesh:
 
     def __init__(self):
         self.vertices = []
@@ -8,14 +8,14 @@ class ChildMesh:
         self.texture = None
 
 
-class Mesh:
+class Model3d:
 
     def __init__(self):
-        self.children = []
+        self.meshes = []
 
-    def addChild(self, childMesh):
-        self.children.append(childMesh)
+    def addMesh(self, mesh):
+        self.meshes.append(mesh)
 
     def setScale(self, scale):
-        for child in self.children:
-            child.vertices *= scale
+        for mesh in self.meshes:
+            mesh.vertices *= scale

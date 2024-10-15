@@ -15,6 +15,11 @@ class PlayerMovingSwingLogic:
         self.updateLookSwing()
         self.updateLandingSwing()
 
+    def commitCurrentSwingValue(self):
+        player = self.gameData.player
+        player.prevPrevSwingValue = player.prevSwingValue
+        player.prevSwingValue = player.currentSwingValue
+
     def calculateSwingValue(self):
         player = self.gameData.player
         if player.state != PlayerState.standing:
@@ -31,11 +36,6 @@ class PlayerMovingSwingLogic:
             swingDirection = player.lookDirectionNormal.copy()
             swingDirection.mul(player.currentSwingValue)
             player.eyePosition.add(swingDirection)
-
-    def commitCurrentSwingValue(self):
-        player = self.gameData.player
-        player.prevPrevSwingValue = player.prevSwingValue
-        player.prevSwingValue = player.currentSwingValue
 
     def updateLandingSwing(self):
         player = self.gameData.player

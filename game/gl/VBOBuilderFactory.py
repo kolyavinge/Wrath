@@ -1,5 +1,5 @@
 from game.gl.AdjancencyFormatConverter import AdjacencyFormatConverter
-from game.gl.MeshVBOBuilder import MeshVBOBuilder
+from game.gl.Model3dVBOBuilder import Model3dVBOBuilder
 from game.gl.VBOBuilder import VBOBuilder
 
 
@@ -11,8 +11,8 @@ class VBOBuilderFactory:
     def makeVBOBuilder(self):
         return VBOBuilder(self.adjacencyFormatConverter)
 
-    def makeMeshVBOBuilder(self):
-        return MeshVBOBuilder(self.adjacencyFormatConverter)
+    def makeModel3dVBOBuilder(self):
+        return Model3dVBOBuilder(self.adjacencyFormatConverter)
 
 
 def makeVBOBuilderFactory(resolver):

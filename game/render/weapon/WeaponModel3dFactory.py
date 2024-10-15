@@ -1,25 +1,25 @@
-from game.gl.MeshLoader import MeshLoader
+from game.gl.Model3dLoader import Model3dLoader
 from game.lib.Environment import Environment
 from game.lib.FileSystem import FileSystem
 
 
-class WeaponMeshFactory:
+class WeaponModel3dFactory:
 
-    def __init__(self, fileSystem, meshLoader):
+    def __init__(self, fileSystem, model3dLoader):
         self.fileSystem = fileSystem
-        self.meshLoader = meshLoader
+        self.model3dLoader = model3dLoader
 
     def makePistol(self):
-        return self.meshLoader.load("")
+        return self.model3dLoader.load("")
 
     def makeRifle(self):
-        mesh = self.meshLoader.load(self.getObjFileFromDirectory("rifle"))
-        mesh.setScale(0.025)
+        model = self.model3dLoader.load(self.getObjFileFromDirectory("rifle"))
+        model.setScale(0.025)
 
-        return mesh
+        return model
 
     def makeLauncher(self):
-        return self.meshLoader.load("")
+        return self.model3dLoader.load("")
 
     def getObjFileFromDirectory(self, directoryName):
         path = f"{Environment.programRootPath}\\res\\3dmodels\\{directoryName}"
@@ -32,5 +32,5 @@ class WeaponMeshFactory:
         return objFiles[0]
 
 
-def makeWeaponMeshFactory(resolver):
-    return WeaponMeshFactory(resolver.resolve(FileSystem), resolver.resolve(MeshLoader))
+def makeWeaponModel3dFactory(resolver):
+    return WeaponModel3dFactory(resolver.resolve(FileSystem), resolver.resolve(Model3dLoader))
