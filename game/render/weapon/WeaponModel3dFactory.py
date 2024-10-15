@@ -1,19 +1,18 @@
 from game.gl.Model3dLoader import Model3dLoader
-from game.lib.Environment import Environment
-from game.lib.FileSystem import FileSystem
+from game.render.common.Model3dDirectory import Model3dDirectory
 
 
 class WeaponModel3dFactory:
 
-    def __init__(self, fileSystem, model3dLoader):
-        self.fileSystem = fileSystem
+    def __init__(self, model3dLoader, model3dDirectory):
         self.model3dLoader = model3dLoader
+        self.model3dDirectory = model3dDirectory
 
     def makePistol(self):
         return self.model3dLoader.load("")
 
     def makeRifle(self):
-        model = self.model3dLoader.load(self.getObjFileFromDirectory("rifle"))
+        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("rifle"))
         model.setScale(0.025)
 
         return model
@@ -21,16 +20,6 @@ class WeaponModel3dFactory:
     def makeLauncher(self):
         return self.model3dLoader.load("")
 
-    def getObjFileFromDirectory(self, directoryName):
-        path = f"{Environment.programRootPath}\\res\\3dmodels\\{directoryName}"
-        objFiles = self.fileSystem.findFilesByExtension(path, ".obj")
-        if len(objFiles) == 0:
-            raise Exception(f"No obj file in {path}.")
-        if len(objFiles) > 1:
-            raise Exception(f"Many obj files in {path}.")
-
-        return objFiles[0]
-
 
 def makeWeaponModel3dFactory(resolver):
-    return WeaponModel3dFactory(resolver.resolve(FileSystem), resolver.resolve(Model3dLoader))
+    return WeaponModel3dFactory(resolver.resolve(Model3dLoader), resolver.resolve(Model3dDirectory))

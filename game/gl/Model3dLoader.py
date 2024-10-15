@@ -14,7 +14,7 @@ class Model3dLoader:
         self.textureLoader = textureLoader
 
     def load(self, objFilePath):
-        model = Model3d()
+        model3d = Model3d()
         directoryName = os.path.dirname(objFilePath)
         scene = impasse.load(objFilePath)
 
@@ -26,9 +26,9 @@ class Model3dLoader:
             modelMesh.faces = numpy.array(mesh.faces, dtype=numpy.uint32)
             texFile = self.getDiffuseTextureFileName(mesh.material)
             modelMesh.texture = self.textureLoader.load(f"{directoryName}\\{texFile}")
-            model.addMesh(modelMesh)
+            model3d.addMesh(modelMesh)
 
-        return model
+        return model3d
 
     def getDiffuseTextureFileName(self, material):
         for key, value in material.items():
