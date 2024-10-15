@@ -13,7 +13,7 @@ class Weapon:
         self.direction = Vector3()
 
     def getModelMatrix(self, player):
-        frontShift = player.frontNormal.copy()
+        frontShift = player.lookDirection.copy()
         frontShift.mul(0.1)
         rightShift = player.rightNormal.copy()
         rightShift.mul(0.05)
