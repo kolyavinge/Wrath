@@ -23,7 +23,7 @@ from game.render.main.MainSceneRenderer import *
 from game.render.ui.GameScreenRenderer import *
 from game.render.weapon.PlayerWeaponRenderer import *
 from game.render.weapon.WeaponModel3dFactory import *
-from game.render.weapon.WeaponVBOCollection import *
+from game.render.weapon.WeaponRenderModel3dCollection import *
 
 
 class RenderModule:
@@ -54,4 +54,4 @@ class RenderModule:
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)
         binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
         binder.bindSingleton(WeaponModel3dFactory, makeWeaponModel3dFactory)
-        binder.bindSingleton(WeaponVBOCollection, makeWeaponVBOCollection)
+        binder.bindSingleton(WeaponRenderModel3dCollection, makeWeaponRenderModel3dCollection)

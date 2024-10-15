@@ -2,28 +2,27 @@ from OpenGL.GL import *
 
 from game.engine.GameData import GameData
 from game.gl.VBORenderer import VBORenderer
-from game.model.Material import Material
-from game.render.weapon.WeaponVBOCollection import WeaponVBOCollection
+from game.render.weapon.WeaponRenderModel3dCollection import *
 
 
 class PlayerWeaponRenderer:
 
-    def __init__(self, gameData, weaponVBOCollection, vboRenderer):
+    def __init__(self, gameData, weaponRenderModel3dCollection, vboRenderer):
         self.gameData = gameData
-        self.weaponVBOCollection = weaponVBOCollection
+        self.weaponRenderModel3dCollection = weaponRenderModel3dCollection
         self.vboRenderer = vboRenderer
 
     def init(self):
-        self.weaponVBOCollection.init()
+        self.weaponRenderModel3dCollection.init()
 
     def render(self, shader):
-        shader.setMaterial(Material.weapon)
         weaponType = type(self.gameData.playerItems.currentWeapon)
-        weaponVBO = self.weaponVBOCollection.getWeaponVBO(weaponType)
-        for tv in weaponVBO.texturedVBOs:
-            tv.texture.bind(GL_TEXTURE0)
-            self.vboRenderer.render(tv.vbo)
+        model = self.weaponRenderModel3dCollection.getRenderModel3d(weaponType)
+        for mesh in model.meshes:
+            shader.setMaterial(mesh.material)
+            mesh.texture.bind(GL_TEXTURE0)
+            self.vboRenderer.render(mesh.vbo)
 
 
 def makePlayerWeaponRenderer(resolver):
-    return PlayerWeaponRenderer(resolver.resolve(GameData), resolver.resolve(WeaponVBOCollection), resolver.resolve(VBORenderer))
+    return PlayerWeaponRenderer(resolver.resolve(GameData), resolver.resolve(WeaponRenderModel3dCollection), resolver.resolve(VBORenderer))
