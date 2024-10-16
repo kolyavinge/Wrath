@@ -13,6 +13,7 @@ class GameData:
         self.playerInputData = PlayerInputData()
         self.playerItems = PlayerItems()
         self.playerCollidedWalls = []
+        self.bullets = []
         self.camera = Camera()
 
 

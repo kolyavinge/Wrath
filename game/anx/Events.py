@@ -4,4 +4,6 @@ class Events:
     torchSwitched = "torchSwitched"
     personLanded = "personLanded"
 
+    weaponFired = "weaponFired"
+
     viewportSizeChanged = "viewportSizeChanged"

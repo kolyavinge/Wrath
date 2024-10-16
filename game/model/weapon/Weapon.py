@@ -2,7 +2,17 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
-from game.model.weapon import Bullet
+
+
+class Bullet:
+
+    def __init__(self):
+        self.prevPosition = Vector3()
+        self.position = Vector3()
+        self.velocity = Vector3()
+        self.velocityValue = 0
+        self.damage = 0
+        self.totalDistance = 0
 
 
 class Weapon:
@@ -14,15 +24,17 @@ class Weapon:
         self.pitchRadians = 0
         self.bulletsCount = 0
         self.maxBulletsCount = 0
-        self.bulletSpeed = 0
+        self.bulletVelocity = 0
         self.bulletDamage = 0
+        self.isFiring = False
 
     def makeBullet(self):
         bullet = Bullet()
-        bullet.prevPosition = self.position
-        bullet.position = self.position
-        bullet.direction = self.direction
-        bullet.speed = self.bulletSpeed
+        bullet.prevPosition = self.position.copy()
+        bullet.position = self.position.copy()
+        bullet.velocityValue = self.bulletVelocity
+        bullet.velocity = self.direction.copy()
+        bullet.velocity.setLength(self.bulletVelocity)
         bullet.damage = self.bulletDamage
 
         return bullet
