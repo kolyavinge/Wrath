@@ -8,6 +8,7 @@ from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpda
 from game.engine.LevelValidator import LevelValidator
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerTurnLogic import PlayerTurnLogic
+from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 
 
 class LevelManager:
@@ -24,6 +25,7 @@ class LevelManager:
         playerLevelSegmentsUpdater,
         levelSegmentVisibilityUpdater,
         cameraUpdater,
+        playerWeaponPositionUpdater,
     ):
         self.gameData = gameData
         self.levelLoader = levelLoader
@@ -35,6 +37,7 @@ class LevelManager:
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
+        self.playerWeaponPositionUpdater = playerWeaponPositionUpdater
 
     def loadFirstLevel(self):
         level = self.levelLoader.load()
@@ -48,8 +51,9 @@ class LevelManager:
         self.gameData.player.moveNextPositionTo(level.playerPosition)
         self.gameData.player.commitNextPosition()
         self.playerLevelSegmentsUpdater.update()
-        self.cameraUpdater.updatePosition()
         self.levelSegmentVisibilityUpdater.update()
+        self.cameraUpdater.update()
+        self.playerWeaponPositionUpdater.update()
 
 
 def makeLevelManager(resolver):
@@ -64,4 +68,5 @@ def makeLevelManager(resolver):
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
+        resolver.resolve(PlayerWeaponPositionUpdater),
     )

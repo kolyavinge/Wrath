@@ -50,7 +50,6 @@ class MainSceneRenderer:
         glCullFace(GL_BACK)
         glBindFramebuffer(GL_FRAMEBUFFER, self.mainSceneFramebuffer.colorDepthFBO)
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT)
-        player = self.gameData.player
         camera = self.gameData.camera
         shader = self.shaderProgramCollection.mainSceneLightComponents
         shader.use()
@@ -63,7 +62,7 @@ class MainSceneRenderer:
         shader.setNormalMatrix(camera.viewMatrix.toMatrix3())
         self.levelRenderer.renderLevelSegments(shader)
         # render player weapon
-        modelMatrix = self.gameData.playerItems.currentWeapon.getModelMatrix(player)
+        modelMatrix = self.gameData.playerItems.currentWeapon.getModelMatrix()
         mvpMatrix = camera.projectionMatrix.copy()
         mvpMatrix.mul(camera.viewMatrix)
         mvpMatrix.mul(modelMatrix)
