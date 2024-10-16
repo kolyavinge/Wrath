@@ -12,6 +12,7 @@ from game.engine.PlayerMovingTimeCalculator import PlayerMovingTimeCalculator
 from game.engine.PlayerPositionUpdater import PlayerPositionUpdater
 from game.engine.PlayerTurnLogic import PlayerTurnLogic
 from game.engine.PlayerVelocityCalculator import PlayerVelocityCalculator
+from game.engine.PlayerWeaponPositionSwingLogic import PlayerWeaponPositionSwingLogic
 from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.PlayerZUpdater import PlayerZUpdater
 from game.engine.TorchSwitcher import TorchSwitcher
@@ -35,6 +36,7 @@ class GameUpdater:
         levelSegmentVisibilityUpdater,
         cameraUpdater,
         playerWeaponPositionUpdater,
+        playerWeaponPositionSwingLogic,
         torchSwitcher,
     ):
         self.playerTurnLogic = playerTurnLogic
@@ -51,6 +53,7 @@ class GameUpdater:
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
         self.playerWeaponPositionUpdater = playerWeaponPositionUpdater
+        self.playerWeaponPositionSwingLogic = playerWeaponPositionSwingLogic
         self.torchSwitcher = torchSwitcher
 
     def update(self):
@@ -70,6 +73,7 @@ class GameUpdater:
         self.playerMovingSwingLogic.updateSwing()
         self.cameraUpdater.update()
         self.playerWeaponPositionUpdater.update()
+        self.playerWeaponPositionSwingLogic.updateSwing()
         self.torchSwitcher.update()
 
         # end = time.time()
@@ -92,5 +96,6 @@ def makeGameUpdater(resolver):
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
         resolver.resolve(PlayerWeaponPositionUpdater),
+        resolver.resolve(PlayerWeaponPositionSwingLogic),
         resolver.resolve(TorchSwitcher),
     )

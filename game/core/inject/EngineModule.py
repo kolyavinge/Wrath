@@ -22,6 +22,7 @@ from game.engine.PlayerMovingTimeCalculator import *
 from game.engine.PlayerPositionUpdater import *
 from game.engine.PlayerTurnLogic import *
 from game.engine.PlayerVelocityCalculator import *
+from game.engine.PlayerWeaponPositionSwingLogic import *
 from game.engine.PlayerWeaponPositionUpdater import *
 from game.engine.PlayerZUpdater import *
 from game.engine.TorchSwitcher import *
@@ -55,6 +56,7 @@ class EngineModule:
         binder.bindSingleton(PlayerPositionUpdater, makePlayerPositionUpdater)
         binder.bindSingleton(PlayerTurnLogic, makePlayerTurnLogic)
         binder.bindSingleton(PlayerVelocityCalculator, makePlayerVelocityCalculator)
+        binder.bindSingleton(PlayerWeaponPositionSwingLogic, makePlayerWeaponPositionSwingLogic)
         binder.bindSingleton(PlayerWeaponPositionUpdater, makePlayerWeaponPositionUpdater)
         binder.bindSingleton(PlayerZUpdater, makePlayerZUpdater)
         binder.bindSingleton(TorchSwitcher, makeTorchSwitcher)
