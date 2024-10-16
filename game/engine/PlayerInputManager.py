@@ -46,6 +46,9 @@ class PlayerInputManager:
         elif mouse.dy > 0:
             inputData.lookDownRadians = 0.005 * Math.abs(mouse.dy)
 
+        if mouse.isLeftButtonPressed():
+            inputData.fire = True
+
 
 def makePlayerInputManager(resolver):
     return PlayerInputManager(resolver.resolve(GameData), resolver.resolve(InputManager))

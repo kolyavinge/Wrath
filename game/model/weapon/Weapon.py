@@ -1,6 +1,8 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
+from game.lib.Math import Math
+from game.model.weapon import Bullet
 
 
 class Weapon:
@@ -13,7 +15,20 @@ class Weapon:
         self.bulletsCount = 0
         self.maxBulletsCount = 0
         self.bulletSpeed = 0
-        self.damage = 0
+        self.bulletDamage = 0
+
+    def makeBullet(self):
+        bullet = Bullet()
+        bullet.prevPosition = self.position
+        bullet.position = self.position
+        bullet.direction = self.direction
+        bullet.speed = self.bulletSpeed
+        bullet.damage = self.bulletDamage
+
+        return bullet
+
+    def addBullets(self, count):
+        self.bulletsCount = Math.min(self.bulletsCount + count, self.maxBulletsCount)
 
     def getModelMatrix(self):
         m1 = TransformMatrix4()

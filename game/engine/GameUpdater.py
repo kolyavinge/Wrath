@@ -1,5 +1,6 @@
 import time
 
+from game.engine.BulletMoveLogic import BulletMoveLogic
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.PlayerWallCollisionDetector import PlayerWallCollisionDetector
 from game.engine.cm.PlayerWallCollisionProcessor import PlayerWallCollisionProcessor
@@ -16,6 +17,7 @@ from game.engine.PlayerWeaponPositionSwingLogic import PlayerWeaponPositionSwing
 from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.PlayerZUpdater import PlayerZUpdater
 from game.engine.TorchSwitcher import TorchSwitcher
+from game.engine.WeaponFireLogic import WeaponFireLogic
 
 
 class GameUpdater:
@@ -36,7 +38,9 @@ class GameUpdater:
         levelSegmentVisibilityUpdater,
         cameraUpdater,
         playerWeaponPositionUpdater,
+        weaponFireLogic,
         playerWeaponPositionSwingLogic,
+        bulletMoveLogic,
         torchSwitcher,
     ):
         self.playerTurnLogic = playerTurnLogic
@@ -53,7 +57,9 @@ class GameUpdater:
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
         self.playerWeaponPositionUpdater = playerWeaponPositionUpdater
+        self.weaponFireLogic = weaponFireLogic
         self.playerWeaponPositionSwingLogic = playerWeaponPositionSwingLogic
+        self.bulletMoveLogic = bulletMoveLogic
         self.torchSwitcher = torchSwitcher
 
     def update(self):
@@ -73,7 +79,9 @@ class GameUpdater:
         self.playerMovingSwingLogic.updateSwing()
         self.cameraUpdater.update()
         self.playerWeaponPositionUpdater.update()
+        self.weaponFireLogic.process()
         self.playerWeaponPositionSwingLogic.updateSwing()
+        self.bulletMoveLogic.process()
         self.torchSwitcher.update()
 
         # end = time.time()
@@ -96,6 +104,8 @@ def makeGameUpdater(resolver):
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
         resolver.resolve(PlayerWeaponPositionUpdater),
+        resolver.resolve(WeaponFireLogic),
         resolver.resolve(PlayerWeaponPositionSwingLogic),
+        resolver.resolve(BulletMoveLogic),
         resolver.resolve(TorchSwitcher),
     )

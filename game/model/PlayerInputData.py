@@ -13,3 +13,4 @@ class PlayerInputData:
         self.lookUpRadians = 0
         self.lookDownRadians = 0
         self.torchSwitch = False
+        self.fire = False

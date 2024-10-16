@@ -1,5 +1,6 @@
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
+from game.engine.BulletMoveLogic import *
 from game.engine.CameraUpdater import *
 from game.engine.cm.PlayerWallCollisionDetector import *
 from game.engine.cm.PlayerWallCollisionDetector2 import *
@@ -26,6 +27,7 @@ from game.engine.PlayerWeaponPositionSwingLogic import *
 from game.engine.PlayerWeaponPositionUpdater import *
 from game.engine.PlayerZUpdater import *
 from game.engine.TorchSwitcher import *
+from game.engine.WeaponFireLogic import *
 from game.input.InputManager import *
 
 
@@ -34,6 +36,7 @@ class EngineModule:
     def init(self, binder):
         binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)
+        binder.bindSingleton(BulletMoveLogic, makeBulletMoveLogic)
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
         binder.bindSingleton(PlayerWallCollisionDetector, makePlayerWallCollisionDetector)
         # binder.bindSingleton(PlayerWallCollisionDetector2, makePlayerWallCollisionDetector2)
@@ -60,4 +63,5 @@ class EngineModule:
         binder.bindSingleton(PlayerWeaponPositionUpdater, makePlayerWeaponPositionUpdater)
         binder.bindSingleton(PlayerZUpdater, makePlayerZUpdater)
         binder.bindSingleton(TorchSwitcher, makeTorchSwitcher)
+        binder.bindSingleton(WeaponFireLogic, makeWeaponFireLogic)
         binder.bindSingleton(InputManager, makeInputManager)
