@@ -16,7 +16,6 @@ class Stair(Floor):
         self.stepWidth = 0
 
     def commit(self):
-        super().commit()
         self.maxZ = self.endBasePoint.z
         self.stepDirection2d = self.startBasePoint.getDirectionTo(self.endBasePoint)
         self.stepDirection2d.z = 0
@@ -28,6 +27,7 @@ class Stair(Floor):
         self.frontNormal.mul(-1.0)
         self.topNormal = Geometry.rotatePoint(self.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, Math.piHalf)
         self.topNormal.normalize()
+        super().commit()
 
     def getFaceDirection(self):
         return FaceDirection.counterClockwise

@@ -12,10 +12,10 @@ class BulletMoveLogic:
             self.moveBullet(bullet)
 
     def moveBullet(self, bullet):
-        bullet.prevPosition = bullet.position.copy()
-        bullet.position.add(bullet.velocity)
         bullet.totalDistance += bullet.velocityValue
-        if bullet.totalDistance > CommonConstants.maxLevelSize:
+        if bullet.totalDistance < CommonConstants.maxLevelSize:
+            bullet.nextPosition.add(bullet.velocity)
+        else:
             self.gameData.bullets.remove(bullet)
 
 

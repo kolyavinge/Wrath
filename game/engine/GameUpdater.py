@@ -2,6 +2,7 @@ import time
 
 from game.engine.BulletMoveLogic import BulletMoveLogic
 from game.engine.CameraUpdater import CameraUpdater
+from game.engine.cm.BulletCollisionProcessor import BulletCollisionProcessor
 from game.engine.cm.PlayerWallCollisionDetector import PlayerWallCollisionDetector
 from game.engine.cm.PlayerWallCollisionProcessor import PlayerWallCollisionProcessor
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
@@ -41,6 +42,7 @@ class GameUpdater:
         weaponFireLogic,
         playerWeaponPositionSwingLogic,
         bulletMoveLogic,
+        bulletCollisionProcessor,
         torchSwitcher,
     ):
         self.playerTurnLogic = playerTurnLogic
@@ -60,6 +62,7 @@ class GameUpdater:
         self.weaponFireLogic = weaponFireLogic
         self.playerWeaponPositionSwingLogic = playerWeaponPositionSwingLogic
         self.bulletMoveLogic = bulletMoveLogic
+        self.bulletCollisionProcessor = bulletCollisionProcessor
         self.torchSwitcher = torchSwitcher
 
     def update(self):
@@ -82,6 +85,7 @@ class GameUpdater:
         self.weaponFireLogic.process()
         self.playerWeaponPositionSwingLogic.updateSwing()
         self.bulletMoveLogic.process()
+        self.bulletCollisionProcessor.process()
         self.torchSwitcher.update()
 
         # end = time.time()
@@ -107,5 +111,6 @@ def makeGameUpdater(resolver):
         resolver.resolve(WeaponFireLogic),
         resolver.resolve(PlayerWeaponPositionSwingLogic),
         resolver.resolve(BulletMoveLogic),
+        resolver.resolve(BulletCollisionProcessor),
         resolver.resolve(TorchSwitcher),
     )

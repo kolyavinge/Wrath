@@ -8,7 +8,7 @@ class CommonConstants:
     screenAspect = 16.0 / 9.0
     minDepth = 0.05
     maxDepth = 60.0
-    maxLevelSize = 10000.0
+    maxLevelSize = 1000.0
     axisOrigin = Vector3(0, 0, 0)
     xAxis = Vector3(1, 0, 0)
     yAxis = Vector3(0, 1, 0)

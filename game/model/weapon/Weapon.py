@@ -7,12 +7,16 @@ from game.lib.Math import Math
 class Bullet:
 
     def __init__(self):
-        self.prevPosition = Vector3()
-        self.position = Vector3()
+        self.currentPosition = Vector3()
+        self.nextPosition = Vector3()
         self.velocity = Vector3()
         self.velocityValue = 0
         self.damage = 0
         self.totalDistance = 0
+        self.currentLevelSegment = None
+
+    def commitNextPosition(self):
+        self.currentPosition = self.nextPosition.copy()
 
 
 class Weapon:
@@ -26,12 +30,14 @@ class Weapon:
         self.maxBulletsCount = 0
         self.bulletVelocity = 0
         self.bulletDamage = 0
+        self.delay = 0
+        self.delayRemain = 0
         self.isFiring = False
 
     def makeBullet(self):
         bullet = Bullet()
-        bullet.prevPosition = self.position.copy()
-        bullet.position = self.position.copy()
+        bullet.currentPosition = self.position.copy()
+        bullet.nextPosition = self.position.copy()
         bullet.velocityValue = self.bulletVelocity
         bullet.velocity = self.direction.copy()
         bullet.velocity.setLength(self.bulletVelocity)

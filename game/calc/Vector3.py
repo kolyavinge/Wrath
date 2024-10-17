@@ -103,3 +103,11 @@ class Vector3:
         Vector3.fromStartToEnd(startPoint, endPoint, stepLength, lambda point: result.append(point))
 
         return result
+
+    @staticmethod
+    def getMiddlePoint(startPoint, endPoint):
+        middle = startPoint.getDirectionTo(endPoint)
+        middle.div(2)
+        middle.add(startPoint)
+
+        return middle

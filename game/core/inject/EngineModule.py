@@ -2,8 +2,9 @@ from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
 from game.engine.BulletMoveLogic import *
 from game.engine.CameraUpdater import *
+from game.engine.cm.BulletCollisionDetector import *
+from game.engine.cm.BulletCollisionProcessor import *
 from game.engine.cm.PlayerWallCollisionDetector import *
-from game.engine.cm.PlayerWallCollisionDetector2 import *
 from game.engine.cm.PlayerWallCollisionProcessor import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
@@ -38,8 +39,9 @@ class EngineModule:
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)
         binder.bindSingleton(BulletMoveLogic, makeBulletMoveLogic)
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
+        binder.bindSingleton(BulletCollisionDetector, makeBulletCollisionDetector)
+        binder.bindSingleton(BulletCollisionProcessor, makeBulletCollisionProcessor)
         binder.bindSingleton(PlayerWallCollisionDetector, makePlayerWallCollisionDetector)
-        # binder.bindSingleton(PlayerWallCollisionDetector2, makePlayerWallCollisionDetector2)
         binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)
         binder.bindSingleton(GameData, makeGameData)
         binder.bindSingleton(GameUpdater, makeGameUpdater)

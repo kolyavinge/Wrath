@@ -1,5 +1,6 @@
 from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
+from game.lib.Numeric import Numeric
 from game.model.Orientation import Orientation
 
 
@@ -77,9 +78,9 @@ class PlayerWallCollisionDetector:
     def wallContainsPoint(self, wall, point):
         x, y = point
         if wall.orientation == Orientation.horizontal:
-            return wall.startPoint.x <= x and x <= wall.endPoint.x
+            return Numeric.between(x, wall.startPoint.x, wall.endPoint.x)
         elif wall.orientation == Orientation.vertical:
-            return wall.startPoint.y <= y and y <= wall.endPoint.y
+            return Numeric.between(y, wall.startPoint.y, wall.endPoint.y)
         elif wall.orientation == Orientation.diagonal:
             return Geometry.lineContainsPoint(wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, x, y)
         else:
