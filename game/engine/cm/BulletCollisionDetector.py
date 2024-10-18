@@ -9,20 +9,20 @@ class BulletCollisionDetector:
 
         for wall in levelSegment.walls:
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, wall.downLeft, wall.frontNormal)
-            if collisionPoint is not None and wall.inRect(collisionPoint):
+            if collisionPoint is not None and wall.containsPoint(collisionPoint):
                 print("wall", wall)
                 return collisionPoint
 
         if len(levelSegment.floors) > 0:
             floor = levelSegment.floors[0]
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, floor.downLeft, floor.frontNormal)
-            if collisionPoint is not None and floor.inRect(collisionPoint):
+            if collisionPoint is not None and floor.containsPoint(collisionPoint):
                 print("floor", floor)
                 return collisionPoint
 
         for ceiling in levelSegment.ceilings:
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, ceiling.downLeft, ceiling.frontNormal)
-            if collisionPoint is not None and ceiling.inRect(collisionPoint):
+            if collisionPoint is not None and ceiling.containsPoint(collisionPoint):
                 print("ceiling", ceiling)
                 return collisionPoint
 

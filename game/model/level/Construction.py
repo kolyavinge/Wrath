@@ -1,8 +1,5 @@
-from game.anx.CommonConstants import CommonConstants
-from game.calc.Geometry import Geometry
-from game.calc.Plane import Plane
+from game.calc.RectPlane import RectPlane
 from game.calc.Vector3 import Vector3
-from game.lib.Math import Math
 from game.model.FaceDirection import FaceDirection
 from game.model.Visible import Visible
 
@@ -25,9 +22,8 @@ class Construction(Visible):
 
     def commit(self):
         self.faceDirection = self.getFaceDirection()
-        self.plane = Plane(self.frontNormal, self.downLeft)
         self.calculateFrontCoords()
-        self.calculateSideNormals()
+        self.plane = RectPlane(self.frontNormal, self.frontDownLeft, self.frontDownRight, self.frontUpLeft, self.frontUpRight)
 
     def getFaceDirection(self):
         v = self.downLeft.getDirectionTo(self.downRight)
@@ -41,13 +37,8 @@ class Construction(Visible):
     def getBorderPoints(self):
         return [self.downLeft, self.downRight, self.upLeft, self.upRight]
 
-    def inRect(self, point):
-        return self.plane.containsPoint(point, 0.1) and (
-            self.leftSideNormal.dotProduct(self.frontDownLeft.getDirectionTo(point)) >= 0
-            and self.rightSideNormal.dotProduct(self.frontDownRight.getDirectionTo(point)) >= 0
-            and self.topSideNormal.dotProduct(self.frontUpLeft.getDirectionTo(point)) >= 0
-            and self.bottomSideNormal.dotProduct(self.frontDownLeft.getDirectionTo(point)) >= 0
-        )
+    def containsPoint(self, point):
+        return self.plane.containsPoint(point, 0.1)
 
     def calculateFrontCoords(self):
         if self.faceDirection == FaceDirection.counterClockwise:
@@ -60,20 +51,3 @@ class Construction(Visible):
             self.frontDownRight = self.downLeft
             self.frontUpLeft = self.upRight
             self.frontUpRight = self.upLeft
-
-    def calculateSideNormals(self):
-        v = self.frontUpLeft.getDirectionTo(self.frontDownLeft)
-        self.leftSideNormal = Geometry.rotatePoint(v, self.frontNormal, CommonConstants.axisOrigin, Math.piHalf)
-        self.leftSideNormal.normalize()
-
-        v = self.frontDownRight.getDirectionTo(self.frontUpRight)
-        self.rightSideNormal = Geometry.rotatePoint(v, self.frontNormal, CommonConstants.axisOrigin, Math.piHalf)
-        self.rightSideNormal.normalize()
-
-        v = self.frontUpRight.getDirectionTo(self.frontUpLeft)
-        self.topSideNormal = Geometry.rotatePoint(v, self.frontNormal, CommonConstants.axisOrigin, Math.piHalf)
-        self.topSideNormal.normalize()
-
-        v = self.frontDownLeft.getDirectionTo(self.frontDownRight)
-        self.bottomSideNormal = Geometry.rotatePoint(v, self.frontNormal, CommonConstants.axisOrigin, Math.piHalf)
-        self.bottomSideNormal.normalize()
