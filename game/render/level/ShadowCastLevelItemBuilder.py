@@ -1,5 +1,4 @@
 from game.gl.VBOBuilderFactory import VBOBuilderFactory
-from game.model.FaceDirection import FaceDirection
 
 
 class ShadowCastLevelItemBuilder:
@@ -19,22 +18,18 @@ class ShadowCastLevelItemBuilder:
     def addVertices(self, vboBuilder, item):
         vertexCount = vboBuilder.getVertexCount()
 
-        vboBuilder.addVertex(item.downLeft)
-        vboBuilder.addVertex(item.upLeft)
-        vboBuilder.addVertex(item.downRight)
-        vboBuilder.addVertex(item.upRight)
+        vboBuilder.addVertex(item.frontDownLeft)
+        vboBuilder.addVertex(item.frontUpLeft)
+        vboBuilder.addVertex(item.frontDownRight)
+        vboBuilder.addVertex(item.frontUpRight)
 
         vboBuilder.addNormal(item.frontNormal)
         vboBuilder.addNormal(item.frontNormal)
         vboBuilder.addNormal(item.frontNormal)
         vboBuilder.addNormal(item.frontNormal)
 
-        if item.faceDirection == FaceDirection.counterClockwise:
-            vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 1)
-            vboBuilder.addFace(vertexCount, vertexCount + 2, vertexCount + 3)
-        else:
-            vboBuilder.addFace(vertexCount, vertexCount + 1, vertexCount + 3)
-            vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 2)
+        vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 1)
+        vboBuilder.addFace(vertexCount, vertexCount + 2, vertexCount + 3)
 
 
 def makeShadowCastLevelItemBuilder(resolver):

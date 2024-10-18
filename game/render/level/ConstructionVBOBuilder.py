@@ -1,13 +1,12 @@
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
-from game.model.FaceDirection import FaceDirection
 
 
 class ConstructionVBOBuilder:
 
     def build(self, item, vboBuilder):
-        leftDirectionLength = Vector3.getLengthBetween(item.downLeft, item.upLeft)
-        rightDirectionLength = Vector3.getLengthBetween(item.downRight, item.upRight)
+        leftDirectionLength = Vector3.getLengthBetween(item.frontDownLeft, item.frontUpLeft)
+        rightDirectionLength = Vector3.getLengthBetween(item.frontDownRight, item.frontUpRight)
         stepLength = self.getStepLength(item)
         if leftDirectionLength > rightDirectionLength:
             leftStepLength = stepLength
@@ -19,8 +18,8 @@ class ConstructionVBOBuilder:
             leftStepLength = Math.min(leftDirectionLength, stepLength)
             rightStepLength = Math.min(rightDirectionLength, stepLength)
 
-        leftPoints = Vector3.splitFromStartToEnd(item.downLeft, item.upLeft, leftStepLength)
-        rightPoints = Vector3.splitFromStartToEnd(item.downRight, item.upRight, rightStepLength)
+        leftPoints = Vector3.splitFromStartToEnd(item.frontDownLeft, item.frontUpLeft, leftStepLength)
+        rightPoints = Vector3.splitFromStartToEnd(item.frontDownRight, item.frontUpRight, rightStepLength)
         assert len(leftPoints) == len(rightPoints)
 
         for i in range(1, len(leftPoints)):
@@ -47,22 +46,13 @@ class ConstructionVBOBuilder:
         vboBuilder.addNormal(item.frontNormal)
         vboBuilder.addNormal(item.frontNormal)
 
-        if item.faceDirection == FaceDirection.counterClockwise:
-            vboBuilder.addTexCoord(0, 0)
-            vboBuilder.addTexCoord(0, 1)
-            vboBuilder.addTexCoord(1, 0)
-            vboBuilder.addTexCoord(1, 1)
+        vboBuilder.addTexCoord(0, 0)
+        vboBuilder.addTexCoord(0, 1)
+        vboBuilder.addTexCoord(1, 0)
+        vboBuilder.addTexCoord(1, 1)
 
-            vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 1)
-            vboBuilder.addFace(vertexCount, vertexCount + 2, vertexCount + 3)
-        else:
-            vboBuilder.addTexCoord(1, 0)
-            vboBuilder.addTexCoord(1, 1)
-            vboBuilder.addTexCoord(0, 0)
-            vboBuilder.addTexCoord(0, 1)
-
-            vboBuilder.addFace(vertexCount, vertexCount + 1, vertexCount + 3)
-            vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 2)
+        vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 1)
+        vboBuilder.addFace(vertexCount, vertexCount + 2, vertexCount + 3)
 
 
 def makeConstructionVBOBuilder(resolver):

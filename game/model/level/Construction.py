@@ -11,14 +11,22 @@ class Construction(Visible):
 
     def __init__(self):
         super().__init__()
+        # глобальные координаты
         self.downLeft = Vector3()
         self.downRight = Vector3()
         self.upLeft = Vector3()
         self.upRight = Vector3()
         self.frontNormal = Vector3()
+        # координаты относительно фронтальной грани (frontNormal)
+        self.frontDownLeft = Vector3()
+        self.frontDownRight = Vector3()
+        self.frontUpLeft = Vector3()
+        self.frontUpRight = Vector3()
 
     def commit(self):
         self.faceDirection = self.getFaceDirection()
+        self.plane = Plane(self.frontNormal, self.downLeft)
+        self.calculateFrontCoords()
         self.calculateSideNormals()
 
     def getFaceDirection(self):
@@ -34,31 +42,38 @@ class Construction(Visible):
         return [self.downLeft, self.downRight, self.upLeft, self.upRight]
 
     def inRect(self, point):
-        return Plane(self.frontNormal, self.downLeft).containsPoint(point, 0.1) and (
-            self.leftSideNormal.dotProduct(self.downLeft.getDirectionTo(point)) >= 0
-            and self.rightSideNormal.dotProduct(self.downRight.getDirectionTo(point)) >= 0
-            and self.topSideNormal.dotProduct(self.upLeft.getDirectionTo(point)) >= 0
-            and self.bottomSideNormal.dotProduct(self.downLeft.getDirectionTo(point)) >= 0
+        return self.plane.containsPoint(point, 0.1) and (
+            self.leftSideNormal.dotProduct(self.frontDownLeft.getDirectionTo(point)) >= 0
+            and self.rightSideNormal.dotProduct(self.frontDownRight.getDirectionTo(point)) >= 0
+            and self.topSideNormal.dotProduct(self.frontUpLeft.getDirectionTo(point)) >= 0
+            and self.bottomSideNormal.dotProduct(self.frontDownLeft.getDirectionTo(point)) >= 0
         )
 
-    def calculateSideNormals(self):
-        frontNormal = self.frontNormal
-        if self.faceDirection == FaceDirection.clockwise:
-            frontNormal = frontNormal.copy()
-            frontNormal.mul(-1)
+    def calculateFrontCoords(self):
+        if self.faceDirection == FaceDirection.counterClockwise:
+            self.frontDownLeft = self.downLeft
+            self.frontDownRight = self.downRight
+            self.frontUpLeft = self.upLeft
+            self.frontUpRight = self.upRight
+        else:
+            self.frontDownLeft = self.downRight
+            self.frontDownRight = self.downLeft
+            self.frontUpLeft = self.upRight
+            self.frontUpRight = self.upLeft
 
-        v = self.upLeft.getDirectionTo(self.downLeft)
-        self.leftSideNormal = Geometry.rotatePoint(v, frontNormal, CommonConstants.axisOrigin, Math.piHalf)
+    def calculateSideNormals(self):
+        v = self.frontUpLeft.getDirectionTo(self.frontDownLeft)
+        self.leftSideNormal = Geometry.rotatePoint(v, self.frontNormal, CommonConstants.axisOrigin, Math.piHalf)
         self.leftSideNormal.normalize()
 
-        v = self.downRight.getDirectionTo(self.upRight)
-        self.rightSideNormal = Geometry.rotatePoint(v, frontNormal, CommonConstants.axisOrigin, Math.piHalf)
+        v = self.frontDownRight.getDirectionTo(self.frontUpRight)
+        self.rightSideNormal = Geometry.rotatePoint(v, self.frontNormal, CommonConstants.axisOrigin, Math.piHalf)
         self.rightSideNormal.normalize()
 
-        v = self.upRight.getDirectionTo(self.upLeft)
-        self.topSideNormal = Geometry.rotatePoint(v, frontNormal, CommonConstants.axisOrigin, Math.piHalf)
+        v = self.frontUpRight.getDirectionTo(self.frontUpLeft)
+        self.topSideNormal = Geometry.rotatePoint(v, self.frontNormal, CommonConstants.axisOrigin, Math.piHalf)
         self.topSideNormal.normalize()
 
-        v = self.downLeft.getDirectionTo(self.downRight)
-        self.bottomSideNormal = Geometry.rotatePoint(v, frontNormal, CommonConstants.axisOrigin, Math.piHalf)
+        v = self.frontDownLeft.getDirectionTo(self.frontDownRight)
+        self.bottomSideNormal = Geometry.rotatePoint(v, self.frontNormal, CommonConstants.axisOrigin, Math.piHalf)
         self.bottomSideNormal.normalize()
