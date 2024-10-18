@@ -1,6 +1,7 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.cm.BulletCollisionDetector import BulletCollisionDetector
 from game.engine.GameData import GameData
+from game.model.level.BulletHole import BulletHole
 
 
 class BulletCollisionProcessor:
@@ -12,12 +13,19 @@ class BulletCollisionProcessor:
 
     def process(self):
         for bullet in self.gameData.bullets:
-            collisionPoint = self.bulletCollisionDetector.getConstructionCollisionPointOrNone(bullet)
-            if collisionPoint is None:
+            collisionResult = self.bulletCollisionDetector.getConstructionCollisionResultOrNone(bullet)
+            if collisionResult is None:
                 bullet.commitNextPosition()
                 bspTree = self.gameData.level.collisionTree
                 bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
             else:
+                collisionPoint, frontNormal = collisionResult
+                bspTree = self.gameData.level.visibilityTree
+                visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
+                bulletHole = BulletHole()
+                bulletHole.position = collisionPoint
+                bulletHole.frontNormal = frontNormal
+                visibilityLevelSegment.bulletHoles.append(bulletHole)
                 self.gameData.bullets.remove(bullet)
 
 

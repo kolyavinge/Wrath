@@ -4,27 +4,27 @@ from game.lib.Numeric import Numeric
 
 class BulletCollisionDetector:
 
-    def getConstructionCollisionPointOrNone(self, bullet):
+    def getConstructionCollisionResultOrNone(self, bullet):
         levelSegment = bullet.currentLevelSegment
 
         for wall in levelSegment.walls:
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, wall.downLeft, wall.frontNormal)
             if collisionPoint is not None and wall.containsPoint(collisionPoint):
                 print("wall", wall)
-                return collisionPoint
+                return (collisionPoint, wall.frontNormal)
 
         if len(levelSegment.floors) > 0:
             floor = levelSegment.floors[0]
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, floor.downLeft, floor.frontNormal)
             if collisionPoint is not None and floor.containsPoint(collisionPoint):
                 print("floor", floor)
-                return collisionPoint
+                return (collisionPoint, floor.frontNormal)
 
         for ceiling in levelSegment.ceilings:
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, ceiling.downLeft, ceiling.frontNormal)
             if collisionPoint is not None and ceiling.containsPoint(collisionPoint):
                 print("ceiling", ceiling)
-                return collisionPoint
+                return (collisionPoint, ceiling.frontNormal)
 
         return None
 
