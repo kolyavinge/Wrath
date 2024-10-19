@@ -8,6 +8,7 @@ class PlaneFloor(Floor):
 
     def commit(self):
         super().commit()
+        assert self.plane.c != 0
 
     def getZ(self, x, y):
         return self.plane.getZ(x, y)
