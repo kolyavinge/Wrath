@@ -4,6 +4,9 @@ from game.lib.Numeric import Numeric
 class Plane:
 
     def __init__(self, normal, point):
+        if normal.isZero():
+            raise Exception("Normal vector cannot be zero.")
+
         self.a = normal.x
         self.b = normal.y
         self.c = normal.z
