@@ -15,3 +15,11 @@ class List:
             result.append((key, groups[key]))
 
         return result
+
+    @staticmethod
+    def flatten(lst):
+        result = []
+        for x in lst:
+            result.extend(x)
+
+        return result

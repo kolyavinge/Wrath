@@ -1,4 +1,6 @@
+from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTree import BSPTree
+from game.lib.List import List
 
 
 class Level:
@@ -32,5 +34,15 @@ class Level:
         self.joinLines.append(joinLine)
 
     def validate(self):
+        allItems = self.walls + self.floors + self.ceilings
+        allBorderPoints = List.flatten([item.getBorderPoints() for item in allItems])
+        for p in allBorderPoints:
+            assert p.x >= 0
+            assert p.y >= 0
+            assert p.z >= 0
+            assert p.x <= CommonConstants.maxLevelSize
+            assert p.y <= CommonConstants.maxLevelSize
+            assert p.z <= CommonConstants.maxLevelSize
+
         for w in self.walls:
             w.validate()
