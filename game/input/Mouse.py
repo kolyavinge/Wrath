@@ -8,6 +8,7 @@ class Mouse:
         self.initY = 0
         self.dx = 0
         self.dy = 0
+        self.leftButtonPressed = False
 
     def setInitCursorPosition(self, x, y):
         self.initX = x
@@ -18,9 +19,10 @@ class Mouse:
         self.dx = x - self.initX
         self.dy = y - self.initY
         self.resetCursorPosition()
+        self.leftButtonPressed = mouse.is_pressed(mouse.LEFT)
 
     def isLeftButtonPressed(self):
-        return mouse.is_pressed(mouse.LEFT)
+        return self.leftButtonPressed
 
     def resetCursorPosition(self):
         mouse.move(self.initX, self.initY)
