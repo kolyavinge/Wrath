@@ -1,5 +1,6 @@
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
+from game.engine.BulletHoleFactory import *
 from game.engine.BulletMoveLogic import *
 from game.engine.CameraUpdater import *
 from game.engine.cm.BulletCollisionDetector import *
@@ -37,6 +38,7 @@ class EngineModule:
     def init(self, binder):
         binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)
+        binder.bindSingleton(BulletHoleFactory, makeBulletHoleFactory)
         binder.bindSingleton(BulletMoveLogic, makeBulletMoveLogic)
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
         binder.bindSingleton(BulletCollisionDetector, makeBulletCollisionDetector)

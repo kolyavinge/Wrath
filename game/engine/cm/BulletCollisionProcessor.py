@@ -1,15 +1,16 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.engine.BulletHoleFactory import BulletHoleFactory
 from game.engine.cm.BulletCollisionDetector import BulletCollisionDetector
 from game.engine.GameData import GameData
-from game.model.level.BulletHole import BulletHole
 
 
 class BulletCollisionProcessor:
 
-    def __init__(self, gameData, bulletCollisionDetector, traversal):
+    def __init__(self, gameData, traversal, bulletCollisionDetector, bulletHoleFactory):
         self.gameData = gameData
-        self.bulletCollisionDetector = bulletCollisionDetector
         self.traversal = traversal
+        self.bulletCollisionDetector = bulletCollisionDetector
+        self.bulletHoleFactory = bulletHoleFactory
 
     def process(self):
         for bullet in self.gameData.bullets:
@@ -22,12 +23,12 @@ class BulletCollisionProcessor:
                 collisionPoint, frontNormal = collisionResult
                 bspTree = self.gameData.level.visibilityTree
                 visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
-                bulletHole = BulletHole()
-                bulletHole.position = collisionPoint
-                bulletHole.frontNormal = frontNormal
+                bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal)
                 visibilityLevelSegment.bulletHoles.append(bulletHole)
                 self.gameData.bullets.remove(bullet)
 
 
 def makeBulletCollisionProcessor(resolver):
-    return BulletCollisionProcessor(resolver.resolve(GameData), resolver.resolve(BulletCollisionDetector), resolver.resolve(BSPTreeTraversal))
+    return BulletCollisionProcessor(
+        resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal), resolver.resolve(BulletCollisionDetector), resolver.resolve(BulletHoleFactory)
+    )

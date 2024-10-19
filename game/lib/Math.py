@@ -6,6 +6,7 @@ class Math:
     pi = math.pi
     piDouble = 2 * math.pi
     piHalf = math.pi / 2
+    threePiHalf = 3 * math.pi / 2
 
     @staticmethod
     def min(x, y):
