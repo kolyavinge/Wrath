@@ -15,7 +15,7 @@ class GameScreenRenderer:
     def init(self):
         self.levelRenderer.init()
         self.playerWeaponRenderer.init()
-        self.mainSceneRenderer.init()
+        # self.mainSceneRenderer.init()
 
     def render(self):
         # self.debugRenderer.render()

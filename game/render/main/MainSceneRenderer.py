@@ -2,12 +2,10 @@ from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
-from game.calc.TransformMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
 from game.gl.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager
-from game.lib.Math import Math
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelRenderer import LevelRenderer
 from game.render.level.ShadowCastLevelItemCollection import *
@@ -29,8 +27,8 @@ class MainSceneRenderer:
         self.screenQuadVBO = screenQuadVBO
         eventManager.attachToEvent(Events.viewportSizeChanged, self.onViewportSizeChanged)
 
-    def init(self):
-        pass
+    # def init(self):
+    # pass
 
     def onViewportSizeChanged(self, size):
         self.mainSceneFramebuffer.init()

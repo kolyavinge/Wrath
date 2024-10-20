@@ -2,7 +2,7 @@ from game.calc.Geometry import Geometry
 from game.calc.Plane import Plane
 from game.calc.PlaneUtils import PlaneUtils
 from game.lib.Math import Math
-from game.model.level.BulletHole import BulletHole
+from game.model.weapon.BulletHole import BulletHole
 
 
 class BulletHoleFactory:
