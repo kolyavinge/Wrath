@@ -1,3 +1,4 @@
+from game.gl.RenderModel3d import RenderMesh, RenderModel3d
 from game.gl.VBOBuilderFactory import VBOBuilderFactory
 from game.lib.List import List
 from game.model.level.Construction import Construction
@@ -5,12 +6,11 @@ from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
 from game.render.level.ConstructionVBOBuilder import ConstructionVBOBuilder
-from game.render.level.LevelItemGroup import LevelItemGroup
 from game.render.level.StairVBOBuilder import StairVBOBuilder
 from game.render.level.WallVBOBuilder import WallVBOBuilder
 
 
-class LevelItemGroupBuilder:
+class LevelRenderModel3dBuilder:
 
     def __init__(self, vboBuilderFactory, wallVBOBuilder, constructionVBOBuilder, stairVBOBuilder, materialTextureCollection):
         self.vboBuilderFactory = vboBuilderFactory
@@ -19,17 +19,15 @@ class LevelItemGroupBuilder:
         self.stairVBOBuilder = stairVBOBuilder
         self.materialTextureCollection = materialTextureCollection
 
-    def buildForLevelSegment(self, levelSegment):
-        levelItemGroups = []
+    def buildRenderModel3d(self, levelSegment):
+        meshes = []
         groupsByMaterial = self.getLevelItemsGroupedByMaterial(levelSegment)
         for material, levelItems in groupsByMaterial:
-            levelItemGroup = LevelItemGroup()
-            levelItemGroup.material = material
-            levelItemGroup.texture = self.materialTextureCollection.getTextureForMaterial(material)
-            levelItemGroup.vbo = self.buildVBO(levelItems)
-            levelItemGroups.append(levelItemGroup)
+            texture = self.materialTextureCollection.getTextureForMaterial(material)
+            vbo = self.buildVBO(levelItems)
+            meshes.append(RenderMesh(vbo, texture, material))
 
-        return levelItemGroups
+        return RenderModel3d(meshes)
 
     def buildVBO(self, levelItems):
         vboBuilder = self.vboBuilderFactory.makeVBOBuilder()
@@ -52,8 +50,8 @@ class LevelItemGroupBuilder:
         return result
 
 
-def makeLevelItemGroupBuilder(resolver):
-    return LevelItemGroupBuilder(
+def makeLevelRenderModel3dBuilder(resolver):
+    return LevelRenderModel3dBuilder(
         resolver.resolve(VBOBuilderFactory),
         resolver.resolve(WallVBOBuilder),
         resolver.resolve(ConstructionVBOBuilder),
