@@ -7,11 +7,14 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
     def __init__(self, shaders):
         super().__init__(shaders)
 
-    def setModelViewMatrix(self, modelViewMatrix):
-        self.setTransformMatrix4("modelViewMatrix", modelViewMatrix)
+    def setModelMatrix(self, modelMatrix):
+        self.setTransformMatrix4("modelMatrix", modelMatrix)
 
-    def setModelViewProjectionMatrix(self, modelViewProjectionMatrix):
-        self.setTransformMatrix4("modelViewProjectionMatrix", modelViewProjectionMatrix)
+    def setViewMatrix(self, viewMatrix):
+        self.setTransformMatrix4("viewMatrix", viewMatrix)
+
+    def setProjectionMatrix(self, projectionMatrix):
+        self.setTransformMatrix4("projectionMatrix", projectionMatrix)
 
     def setMaxDepth(self, maxDepth):
         self.setFloat32("maxDepth", maxDepth)

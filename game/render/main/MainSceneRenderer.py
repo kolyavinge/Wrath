@@ -2,6 +2,7 @@ from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
+from game.calc.TransformMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
 from game.gl.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.VBORenderer import VBORenderer
@@ -48,25 +49,13 @@ class MainSceneRenderer:
         glCullFace(GL_BACK)
         glBindFramebuffer(GL_FRAMEBUFFER, self.mainSceneFramebuffer.colorDepthFBO)
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT)
-        camera = self.gameData.camera
         shader = self.shaderProgramCollection.mainSceneLightComponents
         shader.use()
+        shader.setModelMatrix(TransformMatrix4())
+        shader.setViewMatrix(self.gameData.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setMaxDepth(CommonConstants.maxDepth)
-        # render level segments
-        mvpMatrix = camera.projectionMatrix.copy()
-        mvpMatrix.mul(camera.viewMatrix)
-        shader.setModelViewMatrix(camera.viewMatrix)
-        shader.setModelViewProjectionMatrix(mvpMatrix)
         self.levelRenderer.renderLevelSegments(shader)
-        # render player weapon
-        modelMatrix = self.gameData.playerItems.currentWeapon.getModelMatrix()
-        mvpMatrix = camera.projectionMatrix.copy()
-        mvpMatrix.mul(camera.viewMatrix)
-        mvpMatrix.mul(modelMatrix)
-        mvMatrix = camera.viewMatrix.copy()
-        mvMatrix.mul(modelMatrix)
-        shader.setModelViewMatrix(mvMatrix)
-        shader.setModelViewProjectionMatrix(mvpMatrix)
         self.playerWeaponRenderer.render(shader)
         shader.unuse()
         glDisable(GL_CULL_FACE)
@@ -91,8 +80,9 @@ class MainSceneRenderer:
         glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP)
         shader = self.shaderProgramCollection.mainSceneShadowVolumes
         shader.use()
+        shader.setModelMatrix(TransformMatrix4())
+        shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
-        shader.setModelViewMatrix(self.gameData.camera.viewMatrix)
         self.levelRenderer.renderShadowCasters(shader)
         shader.unuse()
         glDisable(GL_DEPTH_CLAMP)

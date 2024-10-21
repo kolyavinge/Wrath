@@ -4,7 +4,10 @@ layout (location = 0) in vec3 in_Position;
 
 out vec3 PositionView;
 
-uniform mat4 modelViewMatrix;
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+
+mat4 modelViewMatrix = viewMatrix * modelMatrix;
 
 void main()
 {

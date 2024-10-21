@@ -7,8 +7,12 @@ const float epsilon = 0.1;
 
 in vec3 PositionView[];
 
-uniform mat4 modelViewMatrix;
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
+
+mat4 modelViewMatrix = viewMatrix * modelMatrix;
+
 const int maxLightsCount = 25;
 uniform int lightsCount;
 uniform vec3 lightPositions[maxLightsCount];

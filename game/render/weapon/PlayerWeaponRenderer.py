@@ -16,8 +16,9 @@ class PlayerWeaponRenderer:
         self.weaponRenderModel3dCollection.init()
 
     def render(self, shader):
-        weaponType = type(self.gameData.playerItems.currentWeapon)
-        model = self.weaponRenderModel3dCollection.getRenderModel3d(weaponType)
+        weapon = self.gameData.playerItems.currentWeapon
+        shader.setModelMatrix(weapon.getModelMatrix())
+        model = self.weaponRenderModel3dCollection.getRenderModel3d(type(weapon))
         for mesh in model.meshes:
             shader.setMaterial(mesh.material)
             mesh.texture.bind(GL_TEXTURE0)
