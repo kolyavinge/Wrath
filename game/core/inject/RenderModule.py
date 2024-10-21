@@ -12,6 +12,7 @@ from game.render.common.ShaderProgramCollection import *
 from game.render.common.TextureCollection import *
 from game.render.debug.DebugRenderer import *
 from game.render.level.ConstructionVBOBuilder import *
+from game.render.level.LevelItemRenderer import *
 from game.render.level.LevelRenderer import *
 from game.render.level.LevelRenderModel3dBuilder import *
 from game.render.level.LevelRenderModel3dCollection import *
@@ -44,9 +45,10 @@ class RenderModule:
         binder.bindSingleton(TextureCollection, makeTextureCollection)
         binder.bindSingleton(DebugRenderer, makeDebugRenderer)
         binder.bindSingleton(ConstructionVBOBuilder, makeConstructionVBOBuilder)
-        binder.bindSingleton(LevelRenderModel3dCollection, makeLevelRenderModel3dCollection)
+        binder.bindSingleton(LevelItemRenderer, makeLevelItemRenderer)
         binder.bindSingleton(LevelRenderer, makeLevelRenderer)
         binder.bindSingleton(LevelRenderModel3dBuilder, makeLevelRenderModel3dBuilder)
+        binder.bindSingleton(LevelRenderModel3dCollection, makeLevelRenderModel3dCollection)
         binder.bindSingleton(ShadowCastLevelItemBuilder, makeShadowCastLevelItemBuilder)
         binder.bindSingleton(ShadowCastLevelItemCollection, makeShadowCastLevelItemCollection)
         binder.bindSingleton(StairVBOBuilder, makeStairVBOBuilder)
