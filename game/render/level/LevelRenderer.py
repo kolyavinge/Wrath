@@ -20,10 +20,8 @@ class LevelRenderer:
         self.shadowCastLevelItemCollection.init(allLevelSegments)
 
     def renderLevelSegments(self, shader):
-        torch = self.gameData.playerItems.torch
-        player = self.gameData.player
         for levelSegment in self.gameData.visibleLevelSegments:
-            shader.setLight(levelSegment.lightsWithJoined, player, torch)
+            shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerItems.torch)
             model3d = self.levelRenderModel3dCollection.getRenderModel3d(levelSegment)
             for mesh in model3d.meshes:
                 shader.setMaterial(mesh.material)
@@ -32,7 +30,7 @@ class LevelRenderer:
 
     def renderShadowCasters(self, shader):
         for levelSegment in self.gameData.visibleLevelSegments:
-            shader.setLight(levelSegment.lights, self.gameData.player, self.gameData.playerItems.torch)
+            shader.setLight(levelSegment.lights, self.gameData.playerItems.torch)
             vbo = self.shadowCastLevelItemCollection.getShadowCastersVBO(levelSegment)
             self.vboRenderer.render(vbo)
 

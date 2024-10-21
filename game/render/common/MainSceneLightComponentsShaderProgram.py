@@ -27,7 +27,7 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
         self.setFloat32("material.specular", material.specular)
         self.setFloat32("material.shininess", material.shininess)
 
-    def setLight(self, lights, player, torch):
+    def setLight(self, lights, torch):
         # lights
         lightIndex = 0
         spotIndex = 0
@@ -47,10 +47,10 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
                 lightIndex += 1
         # player torch
         if torch.isActive:
-            directionView = self.normalMatrix.mulVector3(player.lookDirection)
+            directionView = self.normalMatrix.mulVector3(torch.direction)
             directionView.normalize()
             self.setVector3(f"spots[{spotIndex}].color", torch.color)
-            self.setVector3(f"spots[{spotIndex}].positionView", self.modelViewMatrix.mulVector3(player.eyePosition))
+            self.setVector3(f"spots[{spotIndex}].positionView", self.modelViewMatrix.mulVector3(torch.position))
             self.setVector3(f"spots[{spotIndex}].directionView", directionView)
             self.setFloat32(f"spots[{spotIndex}].attenuation", torch.attenuation)
             self.setFloat32(f"spots[{spotIndex}].cutoffCos", torch.cutoffCos)

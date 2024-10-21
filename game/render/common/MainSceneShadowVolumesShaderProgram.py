@@ -13,12 +13,12 @@ class MainSceneShadowVolumesShaderProgram(ShaderProgram):
         self.modelViewMatrix = modelViewMatrix
         self.setTransformMatrix4("modelViewMatrix", modelViewMatrix)
 
-    def setLight(self, lights, player, torch):
+    def setLight(self, lights, torch):
         lightIndex = 0
         for light in lights:
             self.setVector3(f"lightPositionsView[{lightIndex}]", self.modelViewMatrix.mulVector3(light.position))
             lightIndex += 1
         if torch.isActive:
-            self.setVector3(f"lightPositionsView[{lightIndex}]", self.modelViewMatrix.mulVector3(player.eyePosition))
+            self.setVector3(f"lightPositionsView[{lightIndex}]", self.modelViewMatrix.mulVector3(torch.position))
             lightIndex += 1
         self.setInt32("lightsCount", lightIndex)

@@ -1,12 +1,10 @@
-from game.model.light.Light import Light
+from game.model.light.Spot import Spot
 
 
-class Torch(Light):
+class Torch(Spot):
 
     def __init__(self):
         super().__init__()
-        self.attenuation = 0.0
-        self.cutoffCos = 0.0
         self.isActive = True
 
     def switch(self):
