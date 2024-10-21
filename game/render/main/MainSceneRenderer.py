@@ -57,7 +57,6 @@ class MainSceneRenderer:
         mvpMatrix.mul(camera.viewMatrix)
         shader.setModelViewMatrix(camera.viewMatrix)
         shader.setModelViewProjectionMatrix(mvpMatrix)
-        shader.setNormalMatrix(camera.viewMatrix.toMatrix3())
         self.levelRenderer.renderLevelSegments(shader)
         # render player weapon
         modelMatrix = self.gameData.playerItems.currentWeapon.getModelMatrix()
@@ -68,7 +67,6 @@ class MainSceneRenderer:
         mvMatrix.mul(modelMatrix)
         shader.setModelViewMatrix(mvMatrix)
         shader.setModelViewProjectionMatrix(mvpMatrix)
-        shader.setNormalMatrix(mvMatrix.toMatrix3())
         self.playerWeaponRenderer.render(shader)
         shader.unuse()
         glDisable(GL_CULL_FACE)

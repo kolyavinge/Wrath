@@ -8,15 +8,10 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
         super().__init__(shaders)
 
     def setModelViewMatrix(self, modelViewMatrix):
-        self.modelViewMatrix = modelViewMatrix
         self.setTransformMatrix4("modelViewMatrix", modelViewMatrix)
 
     def setModelViewProjectionMatrix(self, modelViewProjectionMatrix):
         self.setTransformMatrix4("modelViewProjectionMatrix", modelViewProjectionMatrix)
-
-    def setNormalMatrix(self, normalMatrix):
-        self.normalMatrix = normalMatrix
-        self.setMatrix3("normalMatrix", normalMatrix)
 
     def setMaxDepth(self, maxDepth):
         self.setFloat32("maxDepth", maxDepth)
@@ -33,25 +28,21 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
         spotIndex = 0
         for light in lights:
             if isinstance(light, Spot):
-                directionView = self.normalMatrix.mulVector3(light.direction)
-                directionView.normalize()
                 self.setVector3(f"spots[{spotIndex}].color", light.color)
-                self.setVector3(f"spots[{spotIndex}].positionView", self.modelViewMatrix.mulVector3(light.position))
-                self.setVector3(f"spots[{spotIndex}].directionView", directionView)
+                self.setVector3(f"spots[{spotIndex}].position", light.position)
+                self.setVector3(f"spots[{spotIndex}].direction", light.direction)
                 self.setFloat32(f"spots[{spotIndex}].attenuation", light.attenuation)
                 self.setFloat32(f"spots[{spotIndex}].cutoffCos", light.cutoffCos)
                 spotIndex += 1
             else:
                 self.setVector3(f"lights[{lightIndex}].color", light.color)
-                self.setVector3(f"lights[{lightIndex}].positionView", self.modelViewMatrix.mulVector3(light.position))
+                self.setVector3(f"lights[{lightIndex}].position", light.position)
                 lightIndex += 1
         # player torch
         if torch.isActive:
-            directionView = self.normalMatrix.mulVector3(torch.direction)
-            directionView.normalize()
             self.setVector3(f"spots[{spotIndex}].color", torch.color)
-            self.setVector3(f"spots[{spotIndex}].positionView", self.modelViewMatrix.mulVector3(torch.position))
-            self.setVector3(f"spots[{spotIndex}].directionView", directionView)
+            self.setVector3(f"spots[{spotIndex}].position", torch.position)
+            self.setVector3(f"spots[{spotIndex}].direction", torch.direction)
             self.setFloat32(f"spots[{spotIndex}].attenuation", torch.attenuation)
             self.setFloat32(f"spots[{spotIndex}].cutoffCos", torch.cutoffCos)
             spotIndex += 1

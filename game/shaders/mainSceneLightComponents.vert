@@ -10,7 +10,8 @@ out vec2 TexCoord;
 
 uniform mat4 modelViewMatrix;
 uniform mat4 modelViewProjectionMatrix;
-uniform mat3 normalMatrix;
+
+mat3 normalMatrix = mat3(modelViewMatrix);
 
 void main()
 {

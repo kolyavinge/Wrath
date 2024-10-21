@@ -7,10 +7,11 @@ const float epsilon = 0.1;
 
 in vec3 PositionView[];
 
+uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
 const int maxLightsCount = 25;
 uniform int lightsCount;
-uniform vec3 lightPositionsView[maxLightsCount];
+uniform vec3 lightPositions[maxLightsCount];
 
 bool facesLight(vec3 lightPositionView, vec3 a, vec3 b, vec3 c)
 {
@@ -44,7 +45,7 @@ void emitEdgeQuad(vec3 lightPositionView, vec3 a, vec3 b)
 
 void processLight(int lightIndex)
 {
-    vec3 lightPositionView = lightPositionsView[lightIndex];
+    vec3 lightPositionView = vec3(modelViewMatrix * vec4(lightPositions[lightIndex], 1.0));
 
     if (facesLight(lightPositionView, PositionView[0], PositionView[2], PositionView[4]))
     {

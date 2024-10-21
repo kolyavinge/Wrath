@@ -12,6 +12,9 @@ layout (location = 1) out vec4 out_DiffuseSpecular;
 layout (binding = 0) uniform sampler2D ourTexture;
 uniform float maxDepth;
 
+uniform mat4 modelViewMatrix;
+mat3 normalMatrix = mat3(modelViewMatrix);
+
 uniform struct Material
 {
     float ambient;
@@ -25,15 +28,15 @@ uniform int lightsCount;
 uniform struct Light
 {
     vec3 color;
-    vec3 positionView;
+    vec3 position;
 } lights[maxLightsCount];
 
 uniform int spotsCount;
 uniform struct Spot
 {
     vec3 color;
-    vec3 positionView;
-    vec3 directionView;
+    vec3 position;
+    vec3 direction;
     float attenuation;
     float cutoffCos;
 } spots[maxLightsCount];
@@ -46,7 +49,8 @@ vec4 getTextureColor()
 void getLightColor(int lightIndex, inout vec3 ambient, inout vec3 diffuseSpecular)
 {
     vec3 n = normalize(NormalView);
-    vec3 s = normalize(lights[lightIndex].positionView - PositionView);
+    vec3 positionView = vec3(modelViewMatrix * vec4(lights[lightIndex].position, 1.0));
+    vec3 s = normalize(positionView - PositionView);
     float sDotN = max(dot(s, n), 0.0);
     float diffuse = material.diffuse * sDotN;
     float specular = 0.0;
@@ -63,8 +67,10 @@ void getSpotColor(int spotIndex, inout vec3 ambient, inout vec3 diffuseSpecular)
     vec3 n = normalize(NormalView);
     float diffuse = 0.0;
     float specular = 0.0;
-    vec3 s = normalize(spots[spotIndex].positionView - PositionView);
-    float cosAngle = dot(-s, spots[spotIndex].directionView);
+    vec3 positionView = vec3(modelViewMatrix * vec4(spots[spotIndex].position, 1.0));
+    vec3 directionView = normalMatrix * spots[spotIndex].direction;
+    vec3 s = normalize(positionView - PositionView);
+    float cosAngle = dot(-s, directionView);
     float spotScale = 0.0;
     if (cosAngle >= spots[spotIndex].cutoffCos)
     {
