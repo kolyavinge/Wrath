@@ -10,7 +10,7 @@ from game.render.level.StairVBOBuilder import StairVBOBuilder
 from game.render.level.WallVBOBuilder import WallVBOBuilder
 
 
-class LevelRenderModel3dBuilder:
+class LevelItemRenderModel3dBuilder:
 
     def __init__(self, vboBuilderFactory, wallVBOBuilder, constructionVBOBuilder, stairVBOBuilder, materialTextureCollection):
         self.vboBuilderFactory = vboBuilderFactory
@@ -50,8 +50,8 @@ class LevelRenderModel3dBuilder:
         return result
 
 
-def makeLevelRenderModel3dBuilder(resolver):
-    return LevelRenderModel3dBuilder(
+def makeLevelItemRenderModel3dBuilder(resolver):
+    return LevelItemRenderModel3dBuilder(
         resolver.resolve(VBOBuilderFactory),
         resolver.resolve(WallVBOBuilder),
         resolver.resolve(ConstructionVBOBuilder),

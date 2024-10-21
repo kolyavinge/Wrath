@@ -1,7 +1,7 @@
 from game.gl.VBOBuilderFactory import VBOBuilderFactory
 
 
-class ShadowCastLevelItemBuilder:
+class ShadowCasterBuilder:
 
     def __init__(self, vboBuilderFactory):
         self.vboBuilderFactory = vboBuilderFactory
@@ -32,5 +32,5 @@ class ShadowCastLevelItemBuilder:
         vboBuilder.addFace(vertexCount, vertexCount + 2, vertexCount + 3)
 
 
-def makeShadowCastLevelItemBuilder(resolver):
-    return ShadowCastLevelItemBuilder(resolver.resolve(VBOBuilderFactory))
+def makeShadowCasterBuilder(resolver):
+    return ShadowCasterBuilder(resolver.resolve(VBOBuilderFactory))
