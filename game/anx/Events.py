@@ -5,5 +5,6 @@ class Events:
     personLanded = "personLanded"
 
     weaponFired = "weaponFired"
+    bulletHoleAdded = "bulletHoleAdded"
 
     viewportSizeChanged = "viewportSizeChanged"

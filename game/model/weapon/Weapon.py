@@ -13,7 +13,7 @@ class Bullet:
         self.velocityValue = 0
         self.damage = 0
         self.totalDistance = 0
-        self.currentLevelSegment = None
+        self.levelSegment = None
 
     def commitNextPosition(self):
         self.currentPosition = self.nextPosition.copy()
