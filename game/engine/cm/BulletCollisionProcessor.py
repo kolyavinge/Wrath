@@ -27,7 +27,6 @@ class BulletCollisionProcessor:
                 bspTree = self.gameData.level.visibilityTree
                 visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
                 bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, visibilityLevelSegment)
-                visibilityLevelSegment.bulletHoles.append(bulletHole)
                 self.gameData.bullets.remove(bullet)
                 self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
 

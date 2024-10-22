@@ -18,13 +18,16 @@ class BulletHoleRenderCollection:
         self.vbos.clear()
 
         for levelSegment in allVisibilityLevelSegments:
-            self.vbos[levelSegment] = self.vboUpdater.buildUnfilled(CommonConstants.maxBulletHoles)
+            self.vbos[levelSegment] = self.vboUpdater.buildUnfilled(4 * CommonConstants.maxBulletHoles, 2 * CommonConstants.maxBulletHoles)
 
     def getVBO(self, levelSegment):
         return self.vbos[levelSegment]
 
     def updateBulletHoles(self, bulletHole):
         vbo = self.vbos[bulletHole.levelSegment]
+        if vbo.isFilled():
+            vbo.refill()
+
         self.vboUpdater.beginUpdate(vbo)
 
         self.vboUpdater.addVertex(bulletHole.point1)
