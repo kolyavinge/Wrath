@@ -13,4 +13,5 @@ class PlayerItems:
         self.torch.color.mul(5.0)
         self.torch.attenuation = 200.0
         self.torch.cutoffCos = Math.cos(Geometry.degreesToRadians(30.0))
+        self.torch.switch()
         self.currentWeapon = Rifle()
