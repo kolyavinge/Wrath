@@ -1,7 +1,7 @@
 from game.render.level.ShadowCasterBuilder import ShadowCasterBuilder
 
 
-class ShadowCasterCollection:
+class ShadowCasterRenderCollection:
 
     def __init__(self, shadowCasterBuilder):
         self.shadowCasterBuilder = shadowCasterBuilder
@@ -21,5 +21,5 @@ class ShadowCasterCollection:
         return self.shadowCastersVbos[levelSegment]
 
 
-def makeShadowCasterCollection(resolver):
-    return ShadowCasterCollection(resolver.resolve(ShadowCasterBuilder))
+def makeShadowCasterRenderCollection(resolver):
+    return ShadowCasterRenderCollection(resolver.resolve(ShadowCasterBuilder))

@@ -1,25 +1,25 @@
 from OpenGL.GL import *
 
 from game.gl.VBORenderer import VBORenderer
-from game.render.level.ShadowCasterCollection import *
+from game.render.level.ShadowCasterRenderCollection import *
 
 
 class ShadowCasterRenderer:
 
-    def __init__(self, shadowCasterCollection, vboRenderer):
-        self.shadowCasterCollection = shadowCasterCollection
+    def __init__(self, renderCollection, vboRenderer):
+        self.renderCollection = renderCollection
         self.vboRenderer = vboRenderer
 
     def init(self, allLevelSegments):
-        self.shadowCasterCollection.init(allLevelSegments)
+        self.renderCollection.init(allLevelSegments)
 
     def render(self, levelSegment):
-        vbo = self.shadowCasterCollection.getShadowCastersVBO(levelSegment)
+        vbo = self.renderCollection.getShadowCastersVBO(levelSegment)
         self.vboRenderer.render(vbo)
 
 
 def makeShadowCasterRenderer(resolver):
     return ShadowCasterRenderer(
-        resolver.resolve(ShadowCasterCollection),
+        resolver.resolve(ShadowCasterRenderCollection),
         resolver.resolve(VBORenderer),
     )

@@ -1,20 +1,20 @@
 from OpenGL.GL import *
 
 from game.gl.VBORenderer import VBORenderer
-from game.render.level.LevelItemRenderModel3dCollection import *
+from game.render.level.LevelItemRenderCollection import *
 
 
 class LevelItemRenderer:
 
-    def __init__(self, levelItemRenderModel3dCollection, vboRenderer):
-        self.levelItemRenderModel3dCollection = levelItemRenderModel3dCollection
+    def __init__(self, renderCollection, vboRenderer):
+        self.renderCollection = renderCollection
         self.vboRenderer = vboRenderer
 
     def init(self, allLevelSegments):
-        self.levelItemRenderModel3dCollection.init(allLevelSegments)
+        self.renderCollection.init(allLevelSegments)
 
     def render(self, shader, levelSegment):
-        model3d = self.levelItemRenderModel3dCollection.getRenderModel3d(levelSegment)
+        model3d = self.renderCollection.getRenderModel3d(levelSegment)
         for mesh in model3d.meshes:
             shader.setMaterial(mesh.material)
             mesh.texture.bind(GL_TEXTURE0)
@@ -22,4 +22,4 @@ class LevelItemRenderer:
 
 
 def makeLevelItemRenderer(resolver):
-    return LevelItemRenderer(resolver.resolve(LevelItemRenderModel3dCollection), resolver.resolve(VBORenderer))
+    return LevelItemRenderer(resolver.resolve(LevelItemRenderCollection), resolver.resolve(VBORenderer))

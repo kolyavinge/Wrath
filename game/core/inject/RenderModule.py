@@ -12,12 +12,12 @@ from game.render.common.ShaderProgramCollection import *
 from game.render.common.TextureCollection import *
 from game.render.debug.DebugRenderer import *
 from game.render.level.ConstructionVBOBuilder import *
+from game.render.level.LevelItemRenderCollection import *
 from game.render.level.LevelItemRenderer import *
 from game.render.level.LevelItemRenderModel3dBuilder import *
-from game.render.level.LevelItemRenderModel3dCollection import *
 from game.render.level.LevelRenderer import *
 from game.render.level.ShadowCasterBuilder import *
-from game.render.level.ShadowCasterCollection import *
+from game.render.level.ShadowCasterRenderCollection import *
 from game.render.level.ShadowCasterRenderer import *
 from game.render.level.StairVBOBuilder import *
 from game.render.level.WallVBOBuilder import *
@@ -26,7 +26,7 @@ from game.render.main.MainSceneRenderer import *
 from game.render.ui.GameScreenRenderer import *
 from game.render.weapon.PlayerWeaponRenderer import *
 from game.render.weapon.WeaponModel3dFactory import *
-from game.render.weapon.WeaponRenderModel3dCollection import *
+from game.render.weapon.WeaponRenderCollection import *
 
 
 class RenderModule:
@@ -46,12 +46,12 @@ class RenderModule:
         binder.bindSingleton(TextureCollection, makeTextureCollection)
         binder.bindSingleton(DebugRenderer, makeDebugRenderer)
         binder.bindSingleton(ConstructionVBOBuilder, makeConstructionVBOBuilder)
+        binder.bindSingleton(LevelItemRenderCollection, makeLevelItemRenderCollection)
         binder.bindSingleton(LevelItemRenderer, makeLevelItemRenderer)
         binder.bindSingleton(LevelItemRenderModel3dBuilder, makeLevelItemRenderModel3dBuilder)
-        binder.bindSingleton(LevelItemRenderModel3dCollection, makeLevelItemRenderModel3dCollection)
         binder.bindSingleton(LevelRenderer, makeLevelRenderer)
         binder.bindSingleton(ShadowCasterBuilder, makeShadowCasterBuilder)
-        binder.bindSingleton(ShadowCasterCollection, makeShadowCasterCollection)
+        binder.bindSingleton(ShadowCasterRenderCollection, makeShadowCasterRenderCollection)
         binder.bindSingleton(ShadowCasterRenderer, makeShadowCasterRenderer)
         binder.bindSingleton(StairVBOBuilder, makeStairVBOBuilder)
         binder.bindSingleton(WallVBOBuilder, makeWallVBOBuilder)
@@ -60,4 +60,4 @@ class RenderModule:
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)
         binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
         binder.bindSingleton(WeaponModel3dFactory, makeWeaponModel3dFactory)
-        binder.bindSingleton(WeaponRenderModel3dCollection, makeWeaponRenderModel3dCollection)
+        binder.bindSingleton(WeaponRenderCollection, makeWeaponRenderCollection)

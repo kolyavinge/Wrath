@@ -7,7 +7,7 @@ from game.model.weapon.Rifle import Rifle
 from game.render.weapon.WeaponModel3dFactory import WeaponModel3dFactory
 
 
-class WeaponRenderModel3dCollection:
+class WeaponRenderCollection:
 
     def __init__(self, weaponModel3dFactory, vboBuilderFactory):
         self.weaponModel3dFactory = weaponModel3dFactory
@@ -46,5 +46,5 @@ class WeaponRenderModel3dCollection:
         return self.models[weaponType]
 
 
-def makeWeaponRenderModel3dCollection(resolver):
-    return WeaponRenderModel3dCollection(resolver.resolve(WeaponModel3dFactory), resolver.resolve(VBOBuilderFactory))
+def makeWeaponRenderCollection(resolver):
+    return WeaponRenderCollection(resolver.resolve(WeaponModel3dFactory), resolver.resolve(VBOBuilderFactory))

@@ -1,7 +1,7 @@
 from game.render.level.LevelItemRenderModel3dBuilder import *
 
 
-class LevelItemRenderModel3dCollection:
+class LevelItemRenderCollection:
 
     def __init__(self, levelItemRenderModel3dBuilder):
         self.levelItemRenderModel3dBuilder = levelItemRenderModel3dBuilder
@@ -21,5 +21,5 @@ class LevelItemRenderModel3dCollection:
         return self.models3d[levelSegment]
 
 
-def makeLevelItemRenderModel3dCollection(resolver):
-    return LevelItemRenderModel3dCollection(resolver.resolve(LevelItemRenderModel3dBuilder))
+def makeLevelItemRenderCollection(resolver):
+    return LevelItemRenderCollection(resolver.resolve(LevelItemRenderModel3dBuilder))
