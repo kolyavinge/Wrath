@@ -13,4 +13,4 @@ class VBO:
         glBindBuffer(GL_ARRAY_BUFFER, 0)
         glBindVertexArray(0)
         glDeleteBuffers(len(self.vboIds), self.vboIds)
-        glDeleteVertexArrays(1, self.vaoId)
+        glDeleteVertexArrays(1, self.vaoId.item())

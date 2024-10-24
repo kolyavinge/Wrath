@@ -50,7 +50,7 @@ class BulletCollisionDetector:
 
     def shiftCollisionPointOnFrontSide(self, collisionPoint, frontNormal):
         frontNormal = frontNormal.copy()
-        frontNormal.setLength(0.01)
+        frontNormal.setLength(0.05)
         collisionPoint.add(frontNormal)
 
         return collisionPoint

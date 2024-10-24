@@ -30,6 +30,7 @@ class MaterialTextureCollection:
         self.materials[Material.edgeMetal1] = self.textureCollection.edgeMetal1
         self.materials[Material.edgeMetal2] = self.textureCollection.edgeMetal2
         self.materials[Material.edgeMetal3] = self.textureCollection.edgeMetal3
+        self.materials[Material.tinyBulletHole] = self.textureCollection.tinyBulletHole
 
     def getTextureForMaterial(self, material):
         return self.materials[material]

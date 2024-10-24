@@ -19,4 +19,4 @@ class Texture:
         glBindTexture(GL_TEXTURE_2D, 0)
 
     def release(self):
-        glDeleteTextures(1, self.id)
+        glDeleteTextures(1, self.id.item())

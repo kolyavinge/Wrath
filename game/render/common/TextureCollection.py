@@ -30,6 +30,7 @@ class TextureCollection:
         self.edgeMetal1 = self.textureLoader.load(path + "edgeMetal1.jpg")
         self.edgeMetal2 = self.textureLoader.load(path + "edgeMetal2.jpg")
         self.edgeMetal3 = self.textureLoader.load(path + "edgeMetal3.jpg")
+        self.tinyBulletHole = self.textureLoader.load(path + "tinyBulletHole.png")
 
 
 def makeTextureCollection(resolver):

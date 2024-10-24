@@ -9,3 +9,5 @@ class BulletHoleInfo:
 
 
 BulletHoleInfo.tinyHole = BulletHoleInfo(Material.tinyBulletHole, 0.05)
+
+BulletHoleInfo.allItems = [BulletHoleInfo.tinyHole]

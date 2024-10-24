@@ -1,34 +1,45 @@
 from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
+from game.gl.RenderModel3d import RenderMesh
 from game.gl.VBOUpdaterFactory import VBOUpdaterFactory
 from game.lib.EventManager import EventManager
+from game.model.weapon.BulletHoleInfo import BulletHoleInfo
+from game.render.common.MaterialTextureCollection import MaterialTextureCollection
 
 
 class BulletHoleRenderCollection:
 
-    def __init__(self, vboUpdaterFactory, eventManager):
+    def __init__(self, vboUpdaterFactory, materialTextureCollection, eventManager):
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
-        self.vbos = {}
+        self.materialTextureCollection = materialTextureCollection
+        self.meshes = {}
         eventManager.attachToEvent(Events.bulletHoleAdded, self.updateBulletHoles)
 
     def init(self, allVisibilityLevelSegments):
-        for vbo in self.vbos.values():
-            vbo.release()
+        for levelSegments in self.meshes.values():
+            for mesh in levelSegments.values():
+                mesh.release()
 
-        self.vbos.clear()
+        self.meshes.clear()
 
         for levelSegment in allVisibilityLevelSegments:
-            self.vbos[levelSegment] = self.vboUpdater.buildUnfilled(4 * CommonConstants.maxBulletHoles, 2 * CommonConstants.maxBulletHoles)
+            self.meshes[levelSegment] = {}
+            for holeInfo in BulletHoleInfo.allItems:
+                vbo = self.vboUpdater.buildUnfilled(4 * CommonConstants.maxBulletHoles, 2 * CommonConstants.maxBulletHoles)
+                texture = self.materialTextureCollection.getTextureForMaterial(holeInfo.material)
+                mesh = RenderMesh(vbo, texture, holeInfo.material)
+                self.meshes[levelSegment][holeInfo.material] = mesh
 
-    def getVBO(self, levelSegment):
-        return self.vbos[levelSegment]
+    def getRenderMeshes(self, levelSegment):
+        return self.meshes[levelSegment].values()
 
     def updateBulletHoles(self, bulletHole):
-        vbo = self.vbos[bulletHole.levelSegment]
-        if vbo.isFilled():
-            vbo.refill()
+        mesh = self.meshes[bulletHole.levelSegment][bulletHole.material]
 
-        self.vboUpdater.beginUpdate(vbo)
+        if mesh.vbo.isFilled():
+            mesh.vbo.refill()
+
+        self.vboUpdater.beginUpdate(mesh.vbo)
 
         self.vboUpdater.addVertex(bulletHole.point1)
         self.vboUpdater.addVertex(bulletHole.point2)
@@ -52,4 +63,6 @@ class BulletHoleRenderCollection:
 
 
 def makeBulletHoleRenderCollection(resolver):
-    return BulletHoleRenderCollection(resolver.resolve(VBOUpdaterFactory), resolver.resolve(EventManager))
+    return BulletHoleRenderCollection(
+        resolver.resolve(VBOUpdaterFactory), resolver.resolve(MaterialTextureCollection), resolver.resolve(EventManager)
+    )
