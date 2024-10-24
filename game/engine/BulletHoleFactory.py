@@ -7,12 +7,12 @@ from game.model.weapon.BulletHole import BulletHole
 
 class BulletHoleFactory:
 
-    def make(self, collisionPoint, frontNormal, levelSegment):
+    def make(self, collisionPoint, frontNormal, levelSegment, bulletHoleInfo):
+        bulletHole = BulletHole(bulletHoleInfo)
         plane = Plane(frontNormal, collisionPoint)
         point1 = collisionPoint.getDirectionTo(PlaneUtils.getRandomPointOnPlane(plane))
-        point1.setLength(BulletHole.halfSize)
+        point1.setLength(bulletHole.halfSize)
         point1.add(collisionPoint)
-        bulletHole = BulletHole()
         bulletHole.frontNormal = frontNormal
         bulletHole.point1 = point1
         bulletHole.point2 = Geometry.rotatePoint(point1, frontNormal, collisionPoint, Math.piHalf)

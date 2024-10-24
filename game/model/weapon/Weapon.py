@@ -14,6 +14,7 @@ class Bullet:
         self.damage = 0
         self.totalDistance = 0
         self.levelSegment = None
+        self.holeInfo = None
 
     def commitNextPosition(self):
         self.currentPosition = self.nextPosition.copy()
@@ -21,27 +22,24 @@ class Bullet:
 
 class Weapon:
 
-    def __init__(self):
+    def __init__(self, bulletType):
+        self.bulletType = bulletType
         self.position = Vector3()
         self.direction = Vector3()
         self.yawRadians = 0
         self.pitchRadians = 0
         self.bulletsCount = 0
         self.maxBulletsCount = 0
-        self.bulletVelocity = 0
-        self.bulletDamage = 0
         self.delay = 0
         self.delayRemain = 0
         self.isFiring = False
 
     def makeBullet(self):
-        bullet = Bullet()
+        bullet = self.bulletType()
         bullet.currentPosition = self.position.copy()
         bullet.nextPosition = self.position.copy()
-        bullet.velocityValue = self.bulletVelocity
         bullet.velocity = self.direction.copy()
-        bullet.velocity.setLength(self.bulletVelocity)
-        bullet.damage = self.bulletDamage
+        bullet.velocity.setLength(bullet.velocityValue)
 
         return bullet
 
