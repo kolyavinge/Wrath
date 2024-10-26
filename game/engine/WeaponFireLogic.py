@@ -2,6 +2,7 @@ from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
+from game.lib.Random import Random
 
 
 class WeaponFireLogic:
@@ -10,6 +11,7 @@ class WeaponFireLogic:
         self.gameData = gameData
         self.traversal = traversal
         self.eventManager = eventManager
+        self.rand = Random()
 
     def process(self):
         weapon = self.gameData.playerItems.currentWeapon
@@ -27,11 +29,22 @@ class WeaponFireLogic:
             weapon.isFiring = True
             weapon.bulletsCount -= 1
             weapon.delayRemain = weapon.delay
+            weapon.feedback = self.getFeedback(weapon)
             bullet = weapon.makeBullet()
             bspTree = self.gameData.level.collisionTree
             bullet.levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
             self.gameData.bullets.append(bullet)
             self.eventManager.raiseEvent(Events.weaponFired, weapon)
+
+    def getFeedback(self, weapon):
+        feedback = weapon.direction.copy()
+        feedback.setLength(0.05)
+        feedback.mul(-1)
+        feedback.x += self.rand.getFloat(-0.0025, 0.0025)
+        feedback.y += self.rand.getFloat(-0.0025, 0.0025)
+        feedback.z += self.rand.getFloat(-0.0025, 0.0025)
+
+        return feedback
 
 
 def makeWeaponFireLogic(resolver):

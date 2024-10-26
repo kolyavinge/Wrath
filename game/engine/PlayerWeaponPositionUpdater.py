@@ -22,9 +22,13 @@ class PlayerWeaponPositionUpdater:
 
         weapon = self.gameData.playerItems.currentWeapon
         weapon.position = newPosition
+        weapon.position.add(weapon.feedback)
         weapon.direction = player.lookDirection
         weapon.yawRadians = player.yawRadians
         weapon.pitchRadians = player.pitchRadians
+
+        if not weapon.feedback.isZero():
+            weapon.feedback.mul(0.6)
 
 
 def makePlayerWeaponPositionUpdater(resolver):

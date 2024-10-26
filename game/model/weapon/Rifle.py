@@ -15,6 +15,6 @@ class Rifle(Weapon):
 
     def __init__(self):
         super().__init__(RifleBullet)
-        self.bulletsCount = 2000
-        self.maxBulletsCount = 2000
-        self.delay = 10
+        self.bulletsCount = 200
+        self.maxBulletsCount = 200
+        self.delay = 8

@@ -33,6 +33,7 @@ class Weapon:
         self.delay = 0
         self.delayRemain = 0
         self.isFiring = False
+        self.feedback = Vector3()
 
     def makeBullet(self):
         bullet = self.bulletType()

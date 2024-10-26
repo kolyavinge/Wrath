@@ -11,7 +11,7 @@ class BulletCollisionDetector:
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, wall.downLeft, wall.frontNormal)
             if collisionPoint is not None and wall.containsPoint(collisionPoint):
                 collisionPoint = self.shiftCollisionPointOnFrontSide(collisionPoint, wall.frontNormal)
-                print("wall", wall)
+                # print("wall", wall)
                 return (collisionPoint, wall.frontNormal)
 
         if len(levelSegment.floors) > 0:
@@ -19,14 +19,14 @@ class BulletCollisionDetector:
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, floor.downLeft, floor.frontNormal)
             if collisionPoint is not None and floor.containsPoint(collisionPoint):
                 collisionPoint = self.shiftCollisionPointOnFrontSide(collisionPoint, floor.frontNormal)
-                print("floor", floor)
+                # print("floor", floor)
                 return (collisionPoint, floor.frontNormal)
 
         for ceiling in levelSegment.ceilings:
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, ceiling.downLeft, ceiling.frontNormal)
             if collisionPoint is not None and ceiling.containsPoint(collisionPoint):
                 collisionPoint = self.shiftCollisionPointOnFrontSide(collisionPoint, ceiling.frontNormal)
-                print("ceiling", ceiling)
+                # print("ceiling", ceiling)
                 return (collisionPoint, ceiling.frontNormal)
 
         return None
@@ -50,7 +50,7 @@ class BulletCollisionDetector:
 
     def shiftCollisionPointOnFrontSide(self, collisionPoint, frontNormal):
         frontNormal = frontNormal.copy()
-        frontNormal.setLength(0.05)
+        frontNormal.setLength(0.015)
         collisionPoint.add(frontNormal)
 
         return collisionPoint
