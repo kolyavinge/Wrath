@@ -1,4 +1,5 @@
 from game.anx.Events import Events
+from game.calc.Vector3 import Vector3
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
@@ -29,22 +30,30 @@ class WeaponFireLogic:
             weapon.isFiring = True
             weapon.bulletsCount -= 1
             weapon.delayRemain = weapon.delay
-            weapon.feedback = self.getFeedback(weapon)
+            newJitter = self.getNewJitter(weapon)
+            newFeedback = self.getNewFeedback(newJitter, weapon)
+            weapon.jitter.add(newJitter)
+            weapon.feedback.add(newFeedback)
             bullet = weapon.makeBullet()
             bspTree = self.gameData.level.collisionTree
             bullet.levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
             self.gameData.bullets.append(bullet)
             self.eventManager.raiseEvent(Events.weaponFired, weapon)
 
-    def getFeedback(self, weapon):
-        feedback = weapon.direction.copy()
-        feedback.setLength(0.05)
-        feedback.mul(-1)
-        feedback.x += self.rand.getFloat(-0.0025, 0.0025)
-        feedback.y += self.rand.getFloat(-0.0025, 0.0025)
-        feedback.z += self.rand.getFloat(-0.0025, 0.0025)
+    def getNewJitter(self, weapon):
+        x = self.rand.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
+        y = self.rand.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
+        z = self.rand.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
 
-        return feedback
+        return Vector3(x, y, z)
+
+    def getNewFeedback(self, newJitter, weapon):
+        newFeedback = weapon.direction.copy()
+        newFeedback.add(newJitter)
+        newFeedback.setLength(weapon.feedbackLength)
+        newFeedback.mul(-1)
+
+        return newFeedback
 
 
 def makeWeaponFireLogic(resolver):

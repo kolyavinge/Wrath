@@ -18,3 +18,7 @@ class Rifle(Weapon):
         self.bulletsCount = 200
         self.maxBulletsCount = 200
         self.delay = 8
+        self.jitterFade = 0.9
+        self.jitterDelta = 0.05
+        self.feedbackFade = 0.6
+        self.feedbackLength = 0.05
