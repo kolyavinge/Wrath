@@ -25,6 +25,12 @@ class ShaderProgram:
         location = self.getUniformLocation(name)
         glUniform1f(location, numpy.float32(value))
 
+    def setVector2(self, name, x, y):
+        location = self.getUniformLocation(name)
+        x = numpy.float32(x)
+        y = numpy.float32(y)
+        glUniform2f(location, x, y)
+
     def setVector3(self, name, value):
         location = self.getUniformLocation(name)
         x = numpy.float32(value.x)
