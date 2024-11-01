@@ -1,3 +1,4 @@
+from game.anx.CommonConstants import CommonConstants
 from game.calc.Vector3 import Vector3
 from game.lib.Numeric import Numeric
 
@@ -6,26 +7,49 @@ class BulletCollisionDetector:
 
     def getConstructionCollisionResultOrNone(self, bullet):
         levelSegment = bullet.levelSegment
+        result = (
+            self.getWallCollisionResultOrNone(levelSegment.walls, bullet)
+            or self.getFloorCollisionResultOrNone(levelSegment.floors, bullet)
+            or self.getCeilingCollisionResultOrNone(levelSegment.ceilings, bullet)
+        )
 
-        for wall in levelSegment.walls:
+        return result
+
+    def getWallCollisionResultOrNone(self, walls, bullet):
+        resultCollisionPoint = None
+        resultWallFrontNormal = None
+        nearestWallLength = CommonConstants.maxLevelSize
+        for wall in walls:
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, wall.downLeft, wall.frontNormal)
             if collisionPoint is not None and wall.containsPoint(collisionPoint):
-                collisionPoint = self.shiftCollisionPointOnFrontSide(collisionPoint, wall.frontNormal)
                 # print("wall", wall)
-                return (collisionPoint, wall.frontNormal)
+                if Vector3.getLengthBetween(bullet.currentPosition, collisionPoint) < nearestWallLength:
+                    collisionPoint = self.getCollisionPointOnFrontSide(collisionPoint, wall)
+                    nearestWallLength = Vector3.getLengthBetween(bullet.currentPosition, collisionPoint)
+                    resultCollisionPoint = collisionPoint
+                    resultWallFrontNormal = wall.frontNormal
 
-        if len(levelSegment.floors) > 0:
-            floor = levelSegment.floors[0]
+        if resultCollisionPoint is not None:
+            return (resultCollisionPoint, resultWallFrontNormal)
+        else:
+            return None
+
+    def getFloorCollisionResultOrNone(self, floors, bullet):
+        if len(floors) > 0:
+            floor = floors[0]
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, floor.downLeft, floor.frontNormal)
             if collisionPoint is not None and floor.containsPoint(collisionPoint):
-                collisionPoint = self.shiftCollisionPointOnFrontSide(collisionPoint, floor.frontNormal)
+                collisionPoint = self.getCollisionPointOnFrontSide(collisionPoint, floor)
                 # print("floor", floor)
                 return (collisionPoint, floor.frontNormal)
 
-        for ceiling in levelSegment.ceilings:
+        return None
+
+    def getCeilingCollisionResultOrNone(self, ceilings, bullet):
+        for ceiling in ceilings:
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, ceiling.downLeft, ceiling.frontNormal)
             if collisionPoint is not None and ceiling.containsPoint(collisionPoint):
-                collisionPoint = self.shiftCollisionPointOnFrontSide(collisionPoint, ceiling.frontNormal)
+                collisionPoint = self.getCollisionPointOnFrontSide(collisionPoint, ceiling)
                 # print("ceiling", ceiling)
                 return (collisionPoint, ceiling.frontNormal)
 
@@ -48,12 +72,13 @@ class BulletCollisionDetector:
 
         return middlePoint
 
-    def shiftCollisionPointOnFrontSide(self, collisionPoint, frontNormal):
-        frontNormal = frontNormal.copy()
-        frontNormal.setLength(0.5)
-        collisionPoint.add(frontNormal)
+    def getCollisionPointOnFrontSide(self, collisionPoint, construction):
+        projected = construction.getProjectedPoint(collisionPoint)
+        frontNormal = construction.frontNormal.copy()
+        frontNormal.setLength(0.001)
+        projected.add(frontNormal)
 
-        return collisionPoint
+        return projected
 
 
 def makeBulletCollisionDetector(resolver):

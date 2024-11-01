@@ -2917,5 +2917,5 @@ class LevelAurora(Level):
         self.addJoinLine(joinLine)
 
     def setPlayerPosition(self):
-        self.playerPosition = Vector3(225, 105, 3)
+        self.playerPosition = Vector3(235.39, 110.46, 2.50)
         self.playerFrontNormal = Vector3(0, -1, 0)

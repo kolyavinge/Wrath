@@ -41,6 +41,19 @@ class Construction(Visible):
     def containsPoint(self, point):
         return self.plane.containsPoint(point, 0.1)
 
+    def getProjectedPoint(self, pointOutOfPlane):
+        x = self.plane.getX(pointOutOfPlane.y, pointOutOfPlane.z)
+        if x is not None:
+            return Vector3(x, pointOutOfPlane.y, pointOutOfPlane.z)
+
+        y = self.plane.getY(pointOutOfPlane.x, pointOutOfPlane.z)
+        if y is not None:
+            return Vector3(pointOutOfPlane.x, y, pointOutOfPlane.z)
+
+        z = self.plane.getZ(pointOutOfPlane.x, pointOutOfPlane.y)
+        assert z is not None
+        return Vector3(pointOutOfPlane.x, pointOutOfPlane.y, z)
+
     def calculateFrontCoords(self):
         if self.faceDirection == FaceDirection.counterClockwise:
             self.frontDownLeft = self.downLeft
