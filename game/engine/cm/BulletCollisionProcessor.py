@@ -20,8 +20,7 @@ class BulletCollisionProcessor:
             collisionResult = self.bulletCollisionDetector.getConstructionCollisionResultOrNone(bullet)
             if collisionResult is None:
                 bullet.commitNextPosition()
-                bspTree = self.gameData.level.collisionTree
-                bullet.levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
+                bullet.currentLevelSegment = bullet.nextLevelSegment
             else:
                 collisionPoint, frontNormal = collisionResult
                 bspTree = self.gameData.level.visibilityTree

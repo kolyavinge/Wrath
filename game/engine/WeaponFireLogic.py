@@ -36,7 +36,7 @@ class WeaponFireLogic:
             weapon.feedback.add(newFeedback)
             bullet = weapon.makeBullet()
             bspTree = self.gameData.level.collisionTree
-            bullet.levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
+            bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
             self.gameData.bullets.append(bullet)
             self.eventManager.raiseEvent(Events.weaponFired, weapon)
 

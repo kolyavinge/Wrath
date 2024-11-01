@@ -940,6 +940,7 @@ class LevelAurora(Level):
         self.addWall(wall)
 
         poleHeight = wallHeight - secondFloorHeight
+
         # pole 1
 
         wall = Wall()
@@ -1244,6 +1245,7 @@ class LevelAurora(Level):
         wall.height = poleHeight
         wall.material = Material.ceilingMetal3
         wall.canCastShadow = True
+        wall.info = "pole"
         self.addWall(wall)
 
         wall = Wall()
@@ -2917,5 +2919,5 @@ class LevelAurora(Level):
         self.addJoinLine(joinLine)
 
     def setPlayerPosition(self):
-        self.playerPosition = Vector3(235.39, 110.46, 2.50)
+        self.playerPosition = Vector3(245, 98, 3)
         self.playerFrontNormal = Vector3(0, -1, 0)

@@ -6,12 +6,15 @@ from game.lib.Numeric import Numeric
 class BulletCollisionDetector:
 
     def getConstructionCollisionResultOrNone(self, bullet):
-        levelSegment = bullet.levelSegment
-        result = (
-            self.getWallCollisionResultOrNone(levelSegment.walls, bullet)
-            or self.getFloorCollisionResultOrNone(levelSegment.floors, bullet)
-            or self.getCeilingCollisionResultOrNone(levelSegment.ceilings, bullet)
-        )
+        result = self.getWallCollisionResultOrNone(bullet.currentLevelSegment.walls, bullet)
+        if result is None and bullet.currentLevelSegment != bullet.nextLevelSegment:
+            result = self.getWallCollisionResultOrNone(bullet.nextLevelSegment.walls, bullet)
+
+        if result is None:
+            result = self.getFloorCollisionResultOrNone(bullet.currentLevelSegment.floors, bullet)
+
+        if result is None:
+            result = self.getCeilingCollisionResultOrNone(bullet.currentLevelSegment.ceilings, bullet)
 
         return result
 
@@ -22,12 +25,13 @@ class BulletCollisionDetector:
         for wall in walls:
             collisionPoint = self.getPossibleCollisionPointOrNone(bullet.currentPosition, bullet.nextPosition, wall.downLeft, wall.frontNormal)
             if collisionPoint is not None and wall.containsPoint(collisionPoint):
-                # print("wall", wall)
-                if Vector3.getLengthBetween(bullet.currentPosition, collisionPoint) < nearestWallLength:
+                length = Vector3.getLengthBetween(bullet.currentPosition, collisionPoint)
+                if length < nearestWallLength:
                     collisionPoint = self.getCollisionPointOnFrontSide(collisionPoint, wall)
-                    nearestWallLength = Vector3.getLengthBetween(bullet.currentPosition, collisionPoint)
+                    nearestWallLength = length
                     resultCollisionPoint = collisionPoint
                     resultWallFrontNormal = wall.frontNormal
+                    print("wall", wall)
 
         if resultCollisionPoint is not None:
             return (resultCollisionPoint, resultWallFrontNormal)
