@@ -5,6 +5,7 @@ from game.engine.BulletMoveLogic import *
 from game.engine.CameraUpdater import *
 from game.engine.cm.BulletCollisionDetector import *
 from game.engine.cm.BulletCollisionProcessor import *
+from game.engine.cm.ConstructionCollisionDetector import *
 from game.engine.cm.PlayerWallCollisionDetector import *
 from game.engine.cm.PlayerWallCollisionProcessor import *
 from game.engine.GameData import *
@@ -43,6 +44,7 @@ class EngineModule:
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
         binder.bindSingleton(BulletCollisionDetector, makeBulletCollisionDetector)
         binder.bindSingleton(BulletCollisionProcessor, makeBulletCollisionProcessor)
+        binder.bindSingleton(ConstructionCollisionDetector, makeConstructionCollisionDetector)
         binder.bindSingleton(PlayerWallCollisionDetector, makePlayerWallCollisionDetector)
         binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)
         binder.bindSingleton(GameData, makeGameData)
