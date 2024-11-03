@@ -1,4 +1,3 @@
-from game.calc.Vector3 import Vector3
 from game.lib.Numeric import Numeric
 
 
@@ -48,8 +47,8 @@ class ConstructionCollisionDetector:
         if basePoint.getDirectionTo(endPoint).dotProduct(frontNormal) > 0:
             return None
 
-        middlePoint = Vector3.getMiddlePoint(startPoint, endPoint)
-        while Vector3.getLengthBetween(startPoint, endPoint) > 0.01:
+        middlePoint = startPoint.getMiddleTo(endPoint)
+        while startPoint.getLengthTo(endPoint) > 0.01:
             dotProduct = basePoint.getDirectionTo(middlePoint).dotProduct(frontNormal)
             if Numeric.floatEquals(dotProduct, 0, 0.1):
                 break
@@ -57,7 +56,7 @@ class ConstructionCollisionDetector:
                 startPoint = middlePoint
             else:
                 endPoint = middlePoint
-            middlePoint = Vector3.getMiddlePoint(startPoint, endPoint)
+            middlePoint = startPoint.getMiddleTo(endPoint)
 
         return middlePoint
 

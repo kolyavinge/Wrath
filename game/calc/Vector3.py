@@ -73,18 +73,25 @@ class Vector3:
 
         return direction
 
+    def getLengthTo(self, vector):
+        dx = self.x - vector.x
+        dy = self.y - vector.y
+        dz = self.z - vector.z
+
+        return Math.sqrt(dx * dx + dy * dy + dz * dz)
+
+    def getMiddleTo(self, vector):
+        middle = self.getDirectionTo(vector)
+        middle.div(2)
+        middle.add(self)
+
+        return middle
+
     def __eq__(self, vector):
         return self.x == vector.x and self.y == vector.y and self.z == vector.z
 
     def __str__(self):
         return f"{self.x:.2f} : {self.y:.2f} : {self.z:.2f}"
-
-    @staticmethod
-    def getLengthBetween(point1, point2):
-        dx = point1.x - point2.x
-        dy = point1.y - point2.y
-        dz = point1.z - point2.z
-        return Math.sqrt(dx * dx + dy * dy + dz * dz)
 
     @staticmethod
     def fromStartToEnd(startPoint, endPoint, stepLength, action):
@@ -103,11 +110,3 @@ class Vector3:
         Vector3.fromStartToEnd(startPoint, endPoint, stepLength, lambda point: result.append(point))
 
         return result
-
-    @staticmethod
-    def getMiddlePoint(startPoint, endPoint):
-        middle = startPoint.getDirectionTo(endPoint)
-        middle.div(2)
-        middle.add(startPoint)
-
-        return middle

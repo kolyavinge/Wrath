@@ -5,8 +5,8 @@ from game.lib.Math import Math
 class ConstructionVBOBuilder:
 
     def build(self, item, vboBuilder):
-        leftDirectionLength = Vector3.getLengthBetween(item.frontDownLeft, item.frontUpLeft)
-        rightDirectionLength = Vector3.getLengthBetween(item.frontDownRight, item.frontUpRight)
+        leftDirectionLength = item.frontDownLeft.getLengthTo(item.frontUpLeft)
+        rightDirectionLength = item.frontDownRight.getLengthTo(item.frontUpRight)
         stepLength = self.getStepLength(item)
         if leftDirectionLength > rightDirectionLength:
             leftStepLength = stepLength
@@ -24,7 +24,7 @@ class ConstructionVBOBuilder:
 
         for i in range(1, len(leftPoints)):
             downPoints = Vector3.splitFromStartToEnd(leftPoints[i - 1], rightPoints[i - 1], stepLength)
-            stepLength = Vector3.getLengthBetween(leftPoints[i], rightPoints[i]) / (len(downPoints) - 1)
+            stepLength = leftPoints[i].getLengthTo(rightPoints[i]) / (len(downPoints) - 1)
             upPoints = Vector3.splitFromStartToEnd(leftPoints[i], rightPoints[i], stepLength)
             assert len(downPoints) == len(upPoints)
             for j in range(1, len(downPoints)):
