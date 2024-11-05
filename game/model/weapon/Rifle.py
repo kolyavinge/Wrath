@@ -22,3 +22,6 @@ class Rifle(Weapon):
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6
         self.feedbackLength = 0.05
+        self.playerFrontShift = 0.1
+        self.playerRightShift = 0.05
+        self.playerTopShift = 0.1

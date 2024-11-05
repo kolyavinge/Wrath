@@ -49,5 +49,9 @@ class Math:
         return math.acos(v)
 
     @staticmethod
+    def arctan(v):
+        return math.atan(v)
+
+    @staticmethod
     def round(x, digits):
         return round(x, digits)

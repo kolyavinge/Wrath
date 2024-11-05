@@ -1,3 +1,4 @@
+from game.anx.PlayerConstants import PlayerConstants
 from game.engine.GameData import GameData
 
 
@@ -8,22 +9,27 @@ class PlayerWeaponPositionUpdater:
 
     def update(self):
         player = self.gameData.player
+        weapon = self.gameData.playerItems.currentWeapon
 
         frontShift = player.lookDirection.copy()
-        frontShift.mul(0.1)
+        frontShift.mul(weapon.playerFrontShift)
         rightShift = player.rightNormal.copy()
-        rightShift.mul(0.05)
+        rightShift.mul(weapon.playerRightShift)
         topShift = player.lookDirectionNormal.copy()
-        topShift.mul(-0.1)
+        topShift.mul(-weapon.playerTopShift)
         newPosition = player.eyePosition.copy()
         newPosition.add(frontShift)
         newPosition.add(rightShift)
         newPosition.add(topShift)
 
-        weapon = self.gameData.playerItems.currentWeapon
+        aimPoint = player.lookDirection.copy()
+        aimPoint.setLength(PlayerConstants.aimLength)
+        aimPoint.add(player.eyePosition)
+
         weapon.position = newPosition
         weapon.position.add(weapon.feedback)
-        weapon.direction = player.lookDirection.copy()
+        weapon.direction = weapon.position.getDirectionTo(aimPoint)
+        weapon.direction.normalize()
         weapon.direction.add(weapon.jitter)
         weapon.direction.normalize()
         weapon.yawRadians = player.yawRadians

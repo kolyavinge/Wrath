@@ -63,7 +63,7 @@ class ConstructionCollisionDetector:
     def getCollisionPointOnFrontSide(self, collisionPoint, construction):
         projected = construction.getProjectedPoint(collisionPoint)
         frontNormal = construction.frontNormal.copy()
-        frontNormal.setLength(0.001)
+        frontNormal.setLength(0.01)
         projected.add(frontNormal)
 
         return projected

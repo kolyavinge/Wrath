@@ -40,6 +40,9 @@ class Weapon:
         self.feedback = Vector3()
         self.feedbackFade = 0
         self.feedbackLength = 0
+        self.playerFrontShift = 0
+        self.playerRightShift = 0
+        self.playerTopShift = 0
 
     def makeBullet(self):
         bullet = self.bulletType()
