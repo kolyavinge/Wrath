@@ -1,10 +1,10 @@
 from game.calc.Geometry import Geometry
 from game.lib.Random import Random
-from game.model.powerup.PowerUp import PowerUp
+from game.model.powerup.Powerup import Powerup
 from game.model.weapon.Weapon import Weapon
 
 
-class WeaponPowerUp(PowerUp):
+class WeaponPowerup(Powerup):
 
     def __init__(self):
         super().__init__()

@@ -3,7 +3,7 @@ from game.engine.GameData import GameData
 from game.lib.Random import Random
 
 
-class PowerUpPositionGenerator:
+class PowerupPositionGenerator:
 
     def __init__(self, gameData):
         self.gameData = gameData
@@ -24,5 +24,5 @@ class PowerUpPositionGenerator:
         return Vector3(x, y, z)
 
 
-def makePowerUpPositionGenerator(resolver):
-    return PowerUpPositionGenerator(resolver.resolve(GameData))
+def makePowerupPositionGenerator(resolver):
+    return PowerupPositionGenerator(resolver.resolve(GameData))

@@ -29,8 +29,8 @@ from game.engine.PlayerVelocityCalculator import *
 from game.engine.PlayerWeaponPositionSwingLogic import *
 from game.engine.PlayerWeaponPositionUpdater import *
 from game.engine.PlayerZUpdater import *
-from game.engine.PowerUpPositionGenerator import *
-from game.engine.PowerUpUpdater import *
+from game.engine.PowerupPositionGenerator import *
+from game.engine.PowerupUpdater import *
 from game.engine.TorchUpdater import *
 from game.engine.WeaponFireLogic import *
 from game.input.InputManager import *
@@ -70,8 +70,8 @@ class EngineModule:
         binder.bindSingleton(PlayerWeaponPositionSwingLogic, makePlayerWeaponPositionSwingLogic)
         binder.bindSingleton(PlayerWeaponPositionUpdater, makePlayerWeaponPositionUpdater)
         binder.bindSingleton(PlayerZUpdater, makePlayerZUpdater)
-        binder.bindSingleton(PowerUpPositionGenerator, makePowerUpPositionGenerator)
-        binder.bindSingleton(PowerUpUpdater, makePowerUpUpdater)
+        binder.bindSingleton(PowerupPositionGenerator, makePowerupPositionGenerator)
+        binder.bindSingleton(PowerupUpdater, makePowerupUpdater)
         binder.bindSingleton(TorchUpdater, makeTorchUpdater)
         binder.bindSingleton(WeaponFireLogic, makeWeaponFireLogic)
         binder.bindSingleton(InputManager, makeInputManager)

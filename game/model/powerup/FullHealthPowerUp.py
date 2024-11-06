@@ -1,8 +1,8 @@
 from game.anx.CommonConstants import CommonConstants
-from game.model.powerup.PowerUp import PowerUp
+from game.model.powerup.Powerup import Powerup
 
 
-class FullHealthPowerUp(PowerUp):
+class FullHealthPowerup(Powerup):
 
     def __init__(self):
         super().__init__()

@@ -1,23 +1,23 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.GameData import GameData
-from game.engine.PowerUpPositionGenerator import PowerUpPositionGenerator
+from game.engine.PowerupPositionGenerator import PowerupPositionGenerator
 from game.lib.List import List
 from game.lib.Math import Math
-from game.model.powerup.FullHealthPowerUp import FullHealthPowerUp
-from game.model.powerup.HalfHealthPowerUp import HalfHealthPowerUp
-from game.model.powerup.WeaponPowerUp import WeaponPowerUp
+from game.model.powerup.FullHealthPowerup import FullHealthPowerup
+from game.model.powerup.HalfHealthPowerup import HalfHealthPowerup
+from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 
-class PowerUpUpdater:
+class PowerupUpdater:
 
     def __init__(self, gameData, positionGenerator):
         self.gameData = gameData
         self.positionGenerator = positionGenerator
         self.delay = 0
         self.powerupCount = {}
-        self.powerupCount[WeaponPowerUp] = 4
-        self.powerupCount[HalfHealthPowerUp] = 2
-        self.powerupCount[FullHealthPowerUp] = 1
+        self.powerupCount[WeaponPowerup] = 4
+        self.powerupCount[HalfHealthPowerup] = 2
+        self.powerupCount[FullHealthPowerup] = 1
 
     def update(self):
         self.delay = Math.max(self.delay - 1, 0)
@@ -42,5 +42,5 @@ class PowerUpUpdater:
         self.delay = 200 * CommonConstants.mainTimerMsec
 
 
-def makePowerUpUpdater(resolver):
-    return PowerUpUpdater(resolver.resolve(GameData), resolver.resolve(PowerUpPositionGenerator))
+def makePowerupUpdater(resolver):
+    return PowerupUpdater(resolver.resolve(GameData), resolver.resolve(PowerupPositionGenerator))
