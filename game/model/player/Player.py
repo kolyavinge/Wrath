@@ -5,7 +5,7 @@ from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.model.FallingFunc import FallingFunc
 from game.model.Person import Person
-from game.model.PlayerState import PlayerState
+from game.model.player.PlayerState import PlayerState
 from game.model.VelocityFunc import VelocityFunc
 
 

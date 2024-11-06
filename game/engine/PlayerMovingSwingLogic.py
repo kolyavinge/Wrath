@@ -1,6 +1,6 @@
 from game.engine.GameData import GameData
 from game.lib.Math import Math
-from game.model.PlayerState import PlayerState
+from game.model.player.PlayerState import PlayerState
 
 
 class PlayerMovingSwingLogic:
