@@ -23,3 +23,12 @@ class List:
             result.extend(x)
 
         return result
+
+    @staticmethod
+    def count(condition, lst):
+        result = 0
+        for item in lst:
+            if condition(item):
+                result += 1
+
+        return result

@@ -17,6 +17,7 @@ from game.engine.PlayerVelocityCalculator import PlayerVelocityCalculator
 from game.engine.PlayerWeaponPositionSwingLogic import PlayerWeaponPositionSwingLogic
 from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.PlayerZUpdater import PlayerZUpdater
+from game.engine.PowerUpUpdater import PowerUpUpdater
 from game.engine.TorchUpdater import TorchUpdater
 from game.engine.WeaponFireLogic import WeaponFireLogic
 
@@ -44,6 +45,7 @@ class GameUpdater:
         bulletMoveLogic,
         bulletCollisionProcessor,
         torchUpdater,
+        powerUpUpdater,
     ):
         self.playerTurnLogic = playerTurnLogic
         self.playerMovingTimeCalculator = playerMovingTimeCalculator
@@ -64,6 +66,7 @@ class GameUpdater:
         self.bulletMoveLogic = bulletMoveLogic
         self.bulletCollisionProcessor = bulletCollisionProcessor
         self.torchUpdater = torchUpdater
+        self.powerUpUpdater = powerUpUpdater
 
     def update(self):
         # start = time.time()
@@ -87,6 +90,8 @@ class GameUpdater:
         self.bulletMoveLogic.process()
         self.bulletCollisionProcessor.process()
         self.torchUpdater.update()
+        self.powerUpUpdater.update()
+        self.powerUpUpdater.generateNew()
 
         # end = time.time()
         # print(f"Game updated {end-start:.8f}")
@@ -113,4 +118,5 @@ def makeGameUpdater(resolver):
         resolver.resolve(BulletMoveLogic),
         resolver.resolve(BulletCollisionProcessor),
         resolver.resolve(TorchUpdater),
+        resolver.resolve(PowerUpUpdater),
     )

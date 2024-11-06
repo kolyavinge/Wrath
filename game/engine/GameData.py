@@ -14,6 +14,7 @@ class GameData:
         self.playerItems = PlayerItems()
         self.playerCollidedWalls = []
         self.bullets = []
+        self.powerups = []
         self.camera = Camera()
 
 

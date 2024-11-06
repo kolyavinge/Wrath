@@ -72,3 +72,7 @@ class Weapon:
         modelMatrix.mul(m3)
 
         return modelMatrix
+
+    @staticmethod
+    def getAllWeaponTypes():
+        return Weapon.__subclasses__()
