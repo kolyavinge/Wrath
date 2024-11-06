@@ -3,15 +3,17 @@ from OpenGL.GL import *
 from game.engine.GameData import GameData
 from game.render.level.LevelItemRenderer import LevelItemRenderer
 from game.render.level.ShadowCasterRenderer import ShadowCasterRenderer
+from game.render.powerup.PowerupRenderer import PowerupRenderer
 from game.render.weapon.BulletHoleRenderer import BulletHoleRenderer
 
 
 class LevelRenderer:
 
-    def __init__(self, gameData, levelItemRenderer, bulletHoleRenderer, shadowCasterRenderer):
+    def __init__(self, gameData, levelItemRenderer, bulletHoleRenderer, powerupRenderer, shadowCasterRenderer):
         self.gameData = gameData
         self.levelItemRenderer = levelItemRenderer
         self.bulletHoleRenderer = bulletHoleRenderer
+        self.powerupRenderer = powerupRenderer
         self.shadowCasterRenderer = shadowCasterRenderer
 
     def init(self):
@@ -25,6 +27,7 @@ class LevelRenderer:
             shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerItems.torch)
             self.levelItemRenderer.render(shader, levelSegment)
             self.bulletHoleRenderer.render(shader, levelSegment)
+            self.powerupRenderer.render(shader, levelSegment)
 
     def renderShadowCasters(self, shader):
         for levelSegment in self.gameData.visibleLevelSegments:
@@ -37,5 +40,6 @@ def makeLevelRenderer(resolver):
         resolver.resolve(GameData),
         resolver.resolve(LevelItemRenderer),
         resolver.resolve(BulletHoleRenderer),
+        resolver.resolve(PowerupRenderer),
         resolver.resolve(ShadowCasterRenderer),
     )

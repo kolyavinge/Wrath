@@ -50,7 +50,6 @@ class MainSceneRenderer:
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT)
         shader = self.shaderProgramCollection.mainSceneLightComponents
         shader.use()
-        shader.setModelMatrix(TransformMatrix4())
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setMaxDepth(CommonConstants.maxDepth)

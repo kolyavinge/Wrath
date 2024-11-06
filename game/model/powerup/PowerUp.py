@@ -13,19 +13,15 @@ class Powerup:
     def update(self):
         pass
 
-    def getModelMatrix(self, scale=1.0):
+    def getModelMatrix(self):
         m1 = TransformMatrix4()
         m1.translate(self.position.x, self.position.y, self.position.z)
 
         m2 = TransformMatrix4()
         m2.rotate(self.rotateRadians, CommonConstants.zAxis)
 
-        m3 = TransformMatrix4()
-        m3.scale(scale, scale, scale)
-
         modelMatrix = TransformMatrix4()
         modelMatrix.mul(m1)
         modelMatrix.mul(m2)
-        modelMatrix.mul(m3)
 
         return modelMatrix

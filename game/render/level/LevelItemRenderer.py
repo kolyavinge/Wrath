@@ -1,5 +1,6 @@
 from OpenGL.GL import *
 
+from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.VBORenderer import VBORenderer
 from game.render.level.LevelItemRenderCollection import *
 
@@ -14,6 +15,7 @@ class LevelItemRenderer:
         self.renderCollection.init(allLevelSegments)
 
     def render(self, shader, levelSegment):
+        shader.setModelMatrix(TransformMatrix4())
         model3d = self.renderCollection.getRenderModel3d(levelSegment)
         for mesh in model3d.meshes:
             shader.setMaterial(mesh.material)
