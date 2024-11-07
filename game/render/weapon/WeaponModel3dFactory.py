@@ -9,7 +9,10 @@ class WeaponModel3dFactory:
         self.model3dDirectory = model3dDirectory
 
     def makePistol(self):
-        return self.model3dLoader.load("")
+        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("rifle"))
+        model.setScale(0.025)
+
+        return model
 
     def makeRifle(self):
         model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("rifle"))
@@ -18,7 +21,10 @@ class WeaponModel3dFactory:
         return model
 
     def makeLauncher(self):
-        return self.model3dLoader.load("")
+        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("rifle"))
+        model.setScale(0.025)
+
+        return model
 
 
 def makeWeaponModel3dFactory(resolver):

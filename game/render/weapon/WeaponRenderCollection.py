@@ -19,9 +19,9 @@ class WeaponRenderCollection:
             vbo.release()
 
         self.models = {}
-        # self.makePistol()
+        self.makePistol()
         self.makeRifle()
-        # self.makeLauncher()
+        self.makeLauncher()
 
     def makePistol(self):
         model = self.weaponModel3dFactory.makePistol()

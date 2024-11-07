@@ -18,7 +18,7 @@ class PowerupUpdater:
         self.traversal = traversal
         self.delay = 0
         self.powerupCount = {}
-        self.powerupCount[WeaponPowerup] = 4
+        self.powerupCount[WeaponPowerup] = 8
         # self.powerupCount[HalfHealthPowerup] = 2 TODO
         # self.powerupCount[FullHealthPowerup] = 1 TODO
 
@@ -46,7 +46,6 @@ class PowerupUpdater:
     def makeNewPowerup(self, powerupType):
         powerup = powerupType()
         powerup.position = self.positionGenerator.getPosition(powerup.height)
-        powerup.position = Vector3(245, 95, 4.5)  # TODO
         levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.collisionTree, powerup.position)
         levelSegment.powerups.append(powerup)
         levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, powerup.position)
