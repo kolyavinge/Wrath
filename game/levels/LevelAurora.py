@@ -8,6 +8,7 @@ from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Level import Level
 from game.model.level.LevelSegmentJoinLine import LevelSegmentJoinLine
 from game.model.level.PlaneFloor import PlaneFloor
+from game.model.level.PowerupArea import PowerupArea
 from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
 from game.model.light.Lamp import Lamp
@@ -29,6 +30,7 @@ class LevelAurora(Level):
         self.makePass4()
         self.makePass5()
         self.makeJoinLines()
+        self.makePowerupAreas()
         self.setPlayerPosition()
 
     def makeRoom1(self):
@@ -2917,6 +2919,29 @@ class LevelAurora(Level):
         joinLine.endPoint = Vector3(140, 130, 2)
         joinLine.frontNormal = Vector3(-1, 0, 0)
         self.addJoinLine(joinLine)
+
+    def makePowerupAreas(self):
+        # room 1
+        self.addPowerupArea(PowerupArea(Vector3(90, 12, 1), Vector3(90, 12, 1), 0))
+        self.addPowerupArea(PowerupArea(Vector3(85, 65, 1), Vector3(135, 25, 1), 5))
+        self.addPowerupArea(PowerupArea(Vector3(110, 20, 1), Vector3(110, 70, 1), 5))
+        self.addPowerupArea(PowerupArea(Vector3(75, 45, 1), Vector3(185, 45, 1), 5))
+        self.addPowerupArea(PowerupArea(Vector3(75, 30, 8), Vector3(75, 60, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(75, 60, 8), Vector3(90, 75, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(90, 75, 8), Vector3(130, 75, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(130, 75, 8), Vector3(145, 60, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(145, 60, 8), Vector3(145, 30, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(145, 30, 8), Vector3(130, 15, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(130, 15, 8), Vector3(90, 15, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(90, 15, 8), Vector3(75, 30, 8), 5))
+
+        # room 3
+        self.addPowerupArea(PowerupArea(Vector3(90, 115, 1), Vector3(90, 115, 1), 15))
+        self.addPowerupArea(PowerupArea(Vector3(115, 140, 1), Vector3(115, 140, 1), 20))
+
+        # pass 1
+        self.addPowerupArea(PowerupArea(Vector3(195, 50, 2), Vector3(215, 70, 2), 5))
+        self.addPowerupArea(PowerupArea(Vector3(215, 70, 2), Vector3(215, 90, 2), 5))
 
     def setPlayerPosition(self):
         self.playerPosition = Vector3(245, 100, 3)

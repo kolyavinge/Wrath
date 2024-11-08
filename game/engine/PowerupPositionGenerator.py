@@ -1,28 +1,42 @@
-from game.calc.Vector3 import Vector3
+from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
+from game.lib.Math import Math
 from game.lib.Random import Random
 
 
 class PowerupPositionGenerator:
 
-    def __init__(self, gameData):
+    def __init__(self, gameData, traversal):
         self.gameData = gameData
+        self.traversal = traversal
         self.rand = Random()
 
-    def getPosition(self, height):
-        floors = self.gameData.level.floors
-        floor = floors[self.rand.getInt(0, len(floors))]
+    def getPosition(self, powerupHeight):
+        powerupAreas = self.gameData.level.powerupAreas
+        powerupArea = powerupAreas[self.rand.getInt(0, len(powerupAreas))]
 
-        downLeft = floor.downLeft
-        upLeft = floor.upLeft
-        downRight = floor.downRight
+        if powerupArea.startPoint != powerupArea.endPoint:
+            position = powerupArea.startPoint.getDirectionTo(powerupArea.endPoint)
+            position.setLength(self.rand.getFloat(0, position.getLength()))
+            position.add(powerupArea.startPoint)
+        else:
+            position = powerupArea.startPoint.copy()
 
-        x = self.rand.getFloat(downLeft.x, downRight.x)
-        y = self.rand.getFloat(downLeft.y, upLeft.y)
-        z = floor.getZ(x, y) + height
+        if powerupArea.radius != 0:
+            radius = self.rand.getFloat(0, powerupArea.radius)
+            radians = self.rand.getFloat(0, Math.piDouble)
+            x = radius * Math.cos(radians)
+            y = radius * Math.sin(radians)
+            position.x += x
+            position.y += y
 
-        return Vector3(x, y, z)
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.collisionTree, position)
+        floor = levelSegment.floors[0]
+        position.z = floor.getZ(position.x, position.y)
+        position.z += powerupHeight
+
+        return position
 
 
 def makePowerupPositionGenerator(resolver):
-    return PowerupPositionGenerator(resolver.resolve(GameData))
+    return PowerupPositionGenerator(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal))

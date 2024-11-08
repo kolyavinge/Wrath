@@ -13,6 +13,7 @@ class Level:
         self.ceilings = []
         self.lights = []
         self.joinLines = []
+        self.powerupAreas = []
 
     def addWall(self, wall):
         wall.commit()
@@ -32,6 +33,9 @@ class Level:
     def addJoinLine(self, joinLine):
         joinLine.commit()
         self.joinLines.append(joinLine)
+
+    def addPowerupArea(self, powerupArea):
+        self.powerupAreas.append(powerupArea)
 
     def validate(self):
         allItems = self.walls + self.floors + self.ceilings
