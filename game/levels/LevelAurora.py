@@ -2842,83 +2842,19 @@ class LevelAurora(Level):
         return result
 
     def makeJoinLines(self):
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(100, 80, 2)
-        joinLine.endPoint = Vector3(110, 80, 2)
-        joinLine.frontNormal = Vector3(0, -1, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(210, 80, 4)
-        joinLine.endPoint = Vector3(220, 80, 4)
-        joinLine.frontNormal = Vector3(0, -1, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(40, 80, 5)
-        joinLine.endPoint = Vector3(50, 80, 5)
-        joinLine.frontNormal = Vector3(0, -1, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(150, 40, 2)
-        joinLine.endPoint = Vector3(150, 50, 2)
-        joinLine.frontNormal = Vector3(-1, 0, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(70, 40, 10)
-        joinLine.endPoint = Vector3(70, 50, 10)
-        joinLine.frontNormal = Vector3(1, 0, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(100, 90, 2)
-        joinLine.endPoint = Vector3(110, 90, 2)
-        joinLine.frontNormal = Vector3(0, 1, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(40, 90, 5)
-        joinLine.endPoint = Vector3(50, 90, 5)
-        joinLine.frontNormal = Vector3(0, -1, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(210, 90, 2)
-        joinLine.endPoint = Vector3(220, 90, 2)
-        joinLine.frontNormal = Vector3(0, -1, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(130, 160, 2)
-        joinLine.endPoint = Vector3(140, 160, 2)
-        joinLine.frontNormal = Vector3(0, -1, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(230, 160, 13)
-        joinLine.endPoint = Vector3(240, 160, 13)
-        joinLine.frontNormal = Vector3(0, -1, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(170, 120, 4)
-        joinLine.endPoint = Vector3(170, 130, 4)
-        joinLine.frontNormal = Vector3(1, 0, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(70, 110, 2)
-        joinLine.endPoint = Vector3(70, 120, 2)
-        joinLine.frontNormal = Vector3(1, 0, 0)
-        self.addJoinLine(joinLine)
-
-        joinLine = LevelSegmentJoinLine()
-        joinLine.startPoint = Vector3(140, 120, 2)
-        joinLine.endPoint = Vector3(140, 130, 2)
-        joinLine.frontNormal = Vector3(-1, 0, 0)
-        self.addJoinLine(joinLine)
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(100, 80, 2), Vector3(110, 80, 2), Vector3(0, -1, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(210, 80, 4), Vector3(220, 80, 4), Vector3(0, -1, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(40, 80, 5), Vector3(50, 80, 5), Vector3(0, -1, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(150, 40, 2), Vector3(150, 50, 2), Vector3(-1, 0, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(70, 40, 10), Vector3(70, 50, 10), Vector3(1, 0, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(100, 90, 2), Vector3(110, 90, 2), Vector3(0, 1, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(40, 90, 5), Vector3(50, 90, 5), Vector3(0, -1, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(210, 90, 2), Vector3(220, 90, 2), Vector3(0, -1, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(130, 160, 2), Vector3(140, 160, 2), Vector3(0, -1, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(230, 160, 13), Vector3(240, 160, 13), Vector3(0, -1, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(170, 120, 4), Vector3(170, 130, 4), Vector3(1, 0, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(70, 110, 2), Vector3(70, 120, 2), Vector3(1, 0, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(140, 120, 2), Vector3(140, 130, 2), Vector3(-1, 0, 0)))
 
     def makePowerupAreas(self):
         # room 1

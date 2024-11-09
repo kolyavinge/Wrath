@@ -1,12 +1,9 @@
-from game.calc.Vector3 import Vector3
-
-
 class LevelSegmentJoinLine:
 
-    def __init__(self):
-        self.startPoint = Vector3()
-        self.endPoint = Vector3()
-        self.frontNormal = Vector3()
+    def __init__(self, startPoint, endPoint, frontNormal):
+        self.startPoint = startPoint
+        self.endPoint = endPoint
+        self.frontNormal = frontNormal
         self.frontLevelSegment = None
         self.backLevelSegment = None
 
