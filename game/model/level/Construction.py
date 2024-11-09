@@ -54,6 +54,14 @@ class Construction(Visible):
         assert z is not None
         return Vector3(pointOutOfPlane.x, pointOutOfPlane.y, z)
 
+    def getNearestPointOnFront(self, point):
+        projected = self.getProjectedPoint(point)
+        frontNormal = self.frontNormal.copy()
+        frontNormal.setLength(0.01)
+        projected.add(frontNormal)
+
+        return projected
+
     def calculateFrontCoords(self):
         if self.faceDirection == FaceDirection.counterClockwise:
             self.frontDownLeft = self.downLeft
