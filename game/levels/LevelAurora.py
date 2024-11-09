@@ -2863,13 +2863,13 @@ class LevelAurora(Level):
         self.addPowerupArea(PowerupArea(Vector3(110, 20, 1), Vector3(110, 70, 1), 5))
         self.addPowerupArea(PowerupArea(Vector3(75, 45, 1), Vector3(185, 45, 1), 5))
         self.addPowerupArea(PowerupArea(Vector3(75, 30, 8), Vector3(75, 60, 8), 5))
-        self.addPowerupArea(PowerupArea(Vector3(75, 60, 8), Vector3(90, 75, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(75, 60, 8), Vector3(90, 75, 8), 3.5))
         self.addPowerupArea(PowerupArea(Vector3(90, 75, 8), Vector3(130, 75, 8), 5))
-        self.addPowerupArea(PowerupArea(Vector3(130, 75, 8), Vector3(145, 60, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(130, 75, 8), Vector3(145, 60, 8), 3.5))
         self.addPowerupArea(PowerupArea(Vector3(145, 60, 8), Vector3(145, 30, 8), 5))
-        self.addPowerupArea(PowerupArea(Vector3(145, 30, 8), Vector3(130, 15, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(145, 30, 8), Vector3(130, 15, 8), 3.5))
         self.addPowerupArea(PowerupArea(Vector3(130, 15, 8), Vector3(90, 15, 8), 5))
-        self.addPowerupArea(PowerupArea(Vector3(90, 15, 8), Vector3(75, 30, 8), 5))
+        self.addPowerupArea(PowerupArea(Vector3(90, 15, 8), Vector3(75, 30, 8), 3.5))
 
         # room 3
         self.addPowerupArea(PowerupArea(Vector3(90, 115, 1), Vector3(90, 115, 1), 15))
@@ -2880,5 +2880,5 @@ class LevelAurora(Level):
         self.addPowerupArea(PowerupArea(Vector3(215, 70, 2), Vector3(215, 90, 2), 5))
 
     def setPlayerPosition(self):
-        self.playerPosition = Vector3(245, 100, 3)
-        self.playerFrontNormal = Vector3(0, -1, 0)
+        self.playerPosition = Vector3(100, 30, 0)
+        self.playerFrontNormal = Vector3(0, 1, 0)

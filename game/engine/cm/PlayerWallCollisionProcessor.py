@@ -29,10 +29,6 @@ class PlayerWallCollisionProcessor:
         x, y = self.getPointOnLimitLine(wall, player.nextCenterPoint)
         newNextPosition = Vector3(Math.round(x, 2), Math.round(y, 2), player.getZ())
         player.moveNextPositionTo(newNextPosition)
-        player.forwardMovingTime /= 2
-        player.backwardMovingTime /= 2
-        player.leftStepMovingTime /= 2
-        player.rightStepMovingTime /= 2
 
     def getPointOnLimitLine(self, wall, playerNextCenterPoint):
         if wall.orientation == Orientation.horizontal:

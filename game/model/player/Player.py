@@ -5,8 +5,8 @@ from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.model.FallingFunc import FallingFunc
 from game.model.Person import Person
+from game.model.PersonVelocityFunc import PersonVelocityFunc
 from game.model.player.PlayerState import PlayerState
-from game.model.VelocityFunc import VelocityFunc
 
 
 class Player(Person):
@@ -41,7 +41,7 @@ class Player(Person):
         self.velocityVector = Vector3()
         self.fallingTime = 0
         self.landingTime = 0
-        self.velocityFunc = VelocityFunc()
+        self.velocityFunc = PersonVelocityFunc()
         self.fallingFunc = FallingFunc()
         self.collisionLevelSegments = set()
         self.visibilityLevelSegments = set()
