@@ -6,7 +6,7 @@ class ConstructionCollisionDetector:
     def __init__(self, planeCollisionDetector):
         self.planeCollisionDetector = planeCollisionDetector
 
-    def getConstructionCollisionResultOrNone(self, levelSegment, startPoint, endPoint):
+    def getCollisionResultOrNone(self, levelSegment, startPoint, endPoint):
         result = (
             self.getWallCollisionResultOrNone(levelSegment.walls, startPoint, endPoint)
             or self.getFloorCollisionResultOrNone(levelSegment.floors, startPoint, endPoint)

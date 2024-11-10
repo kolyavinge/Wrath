@@ -55,7 +55,7 @@ class EngineModule:
         binder.bindSingleton(GameUpdater, makeGameUpdater)
         binder.bindSingleton(LevelLoader, makeLevelLoader)
         binder.bindSingleton(LevelManager, makeLevelManager)
-        # binder.bindSingleton(LevelSegmentItemFinder, makeLevelSegmentItemFinder)
+        binder.bindSingleton(LevelSegmentItemFinder, makeLevelSegmentItemFinder)
         binder.bindSingleton(LevelSegmentJoinLineAnalyzer, makeLevelSegmentJoinLineAnalyzer)
         binder.bindSingleton(LevelSegmentLightAnalyzer, makeLevelSegmentLightAnalyzer)
         binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
