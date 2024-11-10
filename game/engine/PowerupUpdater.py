@@ -1,5 +1,4 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Vector3 import Vector3
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.engine.PowerupPositionGenerator import PowerupPositionGenerator
@@ -45,11 +44,15 @@ class PowerupUpdater:
 
     def makeNewPowerup(self, powerupType):
         powerup = powerupType()
-        powerup.position = self.positionGenerator.getPosition(powerup.height)
+        powerup.setPosition(self.positionGenerator.getPosition())
+
         levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.collisionTree, powerup.position)
         levelSegment.powerups.append(powerup)
+        powerup.collisionLevelSegment = levelSegment
+
         levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, powerup.position)
         levelSegment.powerups.append(powerup)
+        powerup.visibilityLevelSegment = levelSegment
 
         return powerup
 

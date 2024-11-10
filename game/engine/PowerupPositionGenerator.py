@@ -11,7 +11,7 @@ class PowerupPositionGenerator:
         self.traversal = traversal
         self.rand = Random()
 
-    def getPosition(self, powerupHeight):
+    def getPosition(self):
         powerupAreas = self.gameData.level.powerupAreas
         powerupArea = powerupAreas[self.rand.getInt(0, len(powerupAreas))]
 
@@ -35,7 +35,6 @@ class PowerupPositionGenerator:
             raise Exception(f"Generated powerup position is out of segment floor: {position}.")
         floor = levelSegment.floors[0]
         position.z = floor.getZ(position.x, position.y)
-        position.z += powerupHeight
 
         return position
 

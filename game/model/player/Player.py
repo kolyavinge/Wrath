@@ -17,7 +17,6 @@ class Player(Person):
         super().__init__()
         self.state = PlayerState.standing
         self.currentBorder = Box3d(PlayerConstants.xyLength, PlayerConstants.xyLength, PlayerConstants.zLength)
-        self.nextCenterPoint = self.currentCenterPoint.copy()
         self.nextBorder = self.currentBorder.copy()
         self.eyePosition = Vector3()
         self.pitchRadians = 0

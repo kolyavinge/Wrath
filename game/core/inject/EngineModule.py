@@ -9,6 +9,8 @@ from game.engine.cm.ConstructionCollisionDetector import *
 from game.engine.cm.PlaneCollisionDetector import *
 from game.engine.cm.PlayerWallCollisionDetector import *
 from game.engine.cm.PlayerWallCollisionProcessor import *
+from game.engine.cm.PowerupCollisionDetector import *
+from game.engine.cm.PowerupCollisionProcessor import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
 from game.engine.LevelLoader import *
@@ -51,6 +53,8 @@ class EngineModule:
         binder.bindSingleton(PlaneCollisionDetector, makePlaneCollisionDetector)
         binder.bindSingleton(PlayerWallCollisionDetector, makePlayerWallCollisionDetector)
         binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)
+        binder.bindSingleton(PowerupCollisionDetector, makePowerupCollisionDetector)
+        binder.bindSingleton(PowerupCollisionProcessor, makePowerupCollisionProcessor)
         binder.bindSingleton(GameData, makeGameData)
         binder.bindSingleton(GameUpdater, makeGameUpdater)
         binder.bindSingleton(LevelLoader, makeLevelLoader)
