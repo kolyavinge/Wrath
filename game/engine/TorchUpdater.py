@@ -11,7 +11,7 @@ class TorchUpdater:
 
     def update(self):
         player = self.gameData.player
-        torch = self.gameData.playerItems.torch
+        torch = self.gameData.playerTorch
         torch.position = player.eyePosition
         torch.direction = player.lookDirection
         if self.gameData.playerInputData.torchSwitch:
