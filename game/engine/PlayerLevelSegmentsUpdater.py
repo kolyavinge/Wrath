@@ -14,7 +14,6 @@ class PlayerLevelSegmentsUpdater:
 
     def update(self):
         player = self.gameData.player
-        player.currentCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.collisionTree, player.currentCenterPoint)
         player.collisionLevelSegments = set()
         player.visibilityLevelSegments = set()
         self.updateLevelSegments(self.gameData.level.collisionTree, player.collisionLevelSegments)

@@ -42,7 +42,6 @@ class Player(Person):
         self.landingTime = 0
         self.velocityFunc = VelocityFunc()
         self.fallingFunc = FallingFunc()
-        self.collisionLevelSegments = set()
         self.visibilityLevelSegments = set()
         self.maxStepHeight = 0.5
 
