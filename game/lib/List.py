@@ -1,9 +1,17 @@
 class List:
 
     @staticmethod
-    def groupby(array, groupFunc):
+    def firstOrNone(condition, lst):
+        for item in lst:
+            if condition(item):
+                return item
+
+        return None
+
+    @staticmethod
+    def groupby(lst, groupFunc):
         groups = {}
-        for item in array:
+        for item in lst:
             key = groupFunc(item)
             if key not in groups:
                 groups[key] = [item]

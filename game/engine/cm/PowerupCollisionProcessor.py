@@ -2,6 +2,7 @@ from game.anx.Events import Events
 from game.engine.cm.PowerupCollisionDetector import PowerupCollisionDetector
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
+from game.lib.List import List
 from game.model.powerup.FullHealthPowerup import FullHealthPowerup
 from game.model.powerup.HalfHealthPowerup import HalfHealthPowerup
 from game.model.powerup.WeaponPowerup import WeaponPowerup
@@ -31,7 +32,12 @@ class PowerupCollisionProcessor:
             self.eventManager.raiseEvent(Events.powerupPicked, (person, powerup))
 
     def processWeaponPowerup(self, person, powerup):
-        pass
+        weapons = self.gameData.allPersonItems[person].weapons
+        weapon = List.firstOrNone(lambda w: type(w) == powerup.weaponType, weapons)
+        if weapon is not None:
+            weapon.addBullets(weapon.maxBulletsCount)
+        else:
+            weapons.add(powerup.weaponType())
 
     def processHealthPowerup(self, person, powerup):
         person.addHealth(powerup.value)

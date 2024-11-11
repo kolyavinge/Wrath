@@ -1,8 +1,8 @@
 from game.model.Camera import Camera
 from game.model.light.Torch import Torch
+from game.model.person.PersonItems import PersonItems
 from game.model.person.Player import Player
 from game.model.person.PlayerInputData import PlayerInputData
-from game.model.person.PlayerItems import PlayerItems
 
 
 class GameData:
@@ -12,7 +12,9 @@ class GameData:
         self.visibleLevelSegments = set()
         self.player = Player()
         self.playerInputData = PlayerInputData()
-        self.playerItems = PlayerItems()
+        self.playerItems = PersonItems()
+        self.allPersonItems = {}
+        self.allPersonItems[self.player] = self.playerItems
         self.playerTorch = Torch()
         self.playerCollidedWalls = []
         self.bullets = []
