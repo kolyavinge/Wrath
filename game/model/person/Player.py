@@ -3,10 +3,10 @@ from game.anx.PlayerConstants import PlayerConstants
 from game.calc.Box3d import Box3d
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
-from game.model.FallingFunc import FallingFunc
-from game.model.Person import Person
-from game.model.PersonVelocityFunc import PersonVelocityFunc
-from game.model.player.PlayerState import PlayerState
+from game.model.person.FallingFunc import FallingFunc
+from game.model.person.Person import Person
+from game.model.person.PlayerState import PlayerState
+from game.model.person.VelocityFunc import VelocityFunc
 
 
 class Player(Person):
@@ -40,7 +40,7 @@ class Player(Person):
         self.velocityVector = Vector3()
         self.fallingTime = 0
         self.landingTime = 0
-        self.velocityFunc = PersonVelocityFunc()
+        self.velocityFunc = VelocityFunc()
         self.fallingFunc = FallingFunc()
         self.collisionLevelSegments = set()
         self.visibilityLevelSegments = set()

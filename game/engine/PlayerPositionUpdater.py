@@ -1,5 +1,5 @@
 from game.engine.GameData import GameData
-from game.model.player.PlayerState import PlayerState
+from game.model.person.PlayerState import PlayerState
 
 
 class PlayerPositionUpdater:

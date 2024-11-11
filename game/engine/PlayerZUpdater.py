@@ -2,7 +2,7 @@ from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
-from game.model.player.PlayerState import PlayerState
+from game.model.person.PlayerState import PlayerState
 
 
 class PlayerZUpdater:

@@ -1,7 +1,7 @@
 from game.model.Camera import Camera
-from game.model.player.Player import Player
-from game.model.player.PlayerInputData import PlayerInputData
-from game.model.player.PlayerItems import PlayerItems
+from game.model.person.Player import Player
+from game.model.person.PlayerInputData import PlayerInputData
+from game.model.person.PlayerItems import PlayerItems
 
 
 class GameData:
