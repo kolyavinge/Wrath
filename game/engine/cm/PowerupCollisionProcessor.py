@@ -3,8 +3,8 @@ from game.engine.cm.PowerupCollisionDetector import PowerupCollisionDetector
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
 from game.lib.List import List
-from game.model.powerup.FullHealthPowerup import FullHealthPowerup
-from game.model.powerup.HalfHealthPowerup import HalfHealthPowerup
+from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
+from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
 from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 
@@ -16,8 +16,8 @@ class PowerupCollisionProcessor:
         self.eventManager = eventManager
         self.actions = {}
         self.actions[WeaponPowerup] = self.processWeaponPowerup
-        self.actions[FullHealthPowerup] = self.processHealthPowerup
-        self.actions[HalfHealthPowerup] = self.processHealthPowerup
+        self.actions[LargeHealthPowerup] = self.processHealthPowerup
+        self.actions[SmallHealthPowerup] = self.processHealthPowerup
 
     def process(self):
         self.processPerson(self.gameData.player)

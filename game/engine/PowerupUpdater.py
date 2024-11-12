@@ -4,8 +4,8 @@ from game.engine.GameData import GameData
 from game.engine.PowerupPositionGenerator import PowerupPositionGenerator
 from game.lib.List import List
 from game.lib.Math import Math
-from game.model.powerup.FullHealthPowerup import FullHealthPowerup
-from game.model.powerup.HalfHealthPowerup import HalfHealthPowerup
+from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
+from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
 from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 
@@ -18,8 +18,8 @@ class PowerupUpdater:
         self.delay = 0
         self.powerupCount = {}
         self.powerupCount[WeaponPowerup] = 8
-        # self.powerupCount[HalfHealthPowerup] = 2 TODO
-        # self.powerupCount[FullHealthPowerup] = 1 TODO
+        # self.powerupCount[SmallHealthPowerup] = 2 TODO
+        # self.powerupCount[LargeHealthPowerup] = 1 TODO
 
     def update(self):
         self.delay = Math.max(self.delay - 1, 0)
