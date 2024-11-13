@@ -6,6 +6,8 @@ class WeaponFlashRenderCollection:
 
     def __init__(self, renderMeshFactory):
         self.renderMeshFactory = renderMeshFactory
+
+    def init(self):
         self.meshes = {}
         self.meshes[Rifle] = self.renderMeshFactory.makeRifleFlash()
 

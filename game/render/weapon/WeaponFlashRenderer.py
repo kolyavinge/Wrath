@@ -10,6 +10,9 @@ class WeaponFlashRenderer:
         self.renderCollection = renderCollection
         self.vboRenderer = vboRenderer
 
+    def init(self):
+        self.renderCollection.init()
+
     def render(self, shader, levelSegment):
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
@@ -20,7 +23,7 @@ class WeaponFlashRenderer:
             shader.setModelMatrix(flash.getModelMatrix())
             shader.setMaterial(mesh.material)
             # shader.setAlpha(flash.alpha)
-            # mesh.texture.bind(GL_TEXTURE0)
+            mesh.texture.bind(GL_TEXTURE0)
             self.vboRenderer.render(mesh.vbo)
 
         glDisable(GL_ALPHA_TEST)

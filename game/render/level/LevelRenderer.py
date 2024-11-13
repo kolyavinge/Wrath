@@ -22,6 +22,7 @@ class LevelRenderer:
         allLevelSegments = self.gameData.level.visibilityTree.getAllLevelSegments()
         self.levelItemRenderer.init(allLevelSegments)
         self.bulletHoleRenderer.init(allLevelSegments)
+        self.weaponFlashRenderer.init()
         self.shadowCasterRenderer.init(allLevelSegments)
 
     def renderLevelSegments(self, shader):

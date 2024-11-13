@@ -16,6 +16,7 @@ class PlayerWeaponRenderer:
         self.renderCollection.init()
 
     def render(self, shader):
+        # return
         weapon = self.gameData.playerItems.currentWeapon
         shader.setModelMatrix(weapon.getModelMatrix())
         model = self.renderCollection.getRenderModel3d(type(weapon))

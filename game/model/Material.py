@@ -45,4 +45,4 @@ Material.weapon = Material(MaterialKind.metal, 0.2, 0.1, 0.1, 8.0)
 
 Material.tinyBulletHole = Material(MaterialKind.none, 0.2, 0.1, 0.1, 1.0)
 
-Material.weaponFlash = Material(MaterialKind.none, 1.0, 1.0, 1.0, 1.0)
+Material.weaponFlash = Material(MaterialKind.none, 0.5, 0.5, 0.5, 1.0)
