@@ -11,23 +11,35 @@ class PlayerWeaponPositionUpdater:
         player = self.gameData.player
         weapon = self.gameData.playerItems.currentWeapon
 
-        frontShift = player.lookDirection.copy()
-        frontShift.mul(weapon.playerFrontShift)
         rightShift = player.rightNormal.copy()
-        rightShift.mul(weapon.playerRightShift)
+        rightShift.mul(weapon.playerShift.x)
+        frontShift = player.lookDirection.copy()
+        frontShift.mul(weapon.playerShift.y)
         topShift = player.lookDirectionNormal.copy()
-        topShift.mul(-weapon.playerTopShift)
-        newPosition = player.eyePosition.copy()
-        newPosition.add(frontShift)
-        newPosition.add(rightShift)
-        newPosition.add(topShift)
+        topShift.mul(weapon.playerShift.z)
+        weaponPosition = player.eyePosition.copy()
+        weaponPosition.add(rightShift)
+        weaponPosition.add(frontShift)
+        weaponPosition.add(topShift)
+        weaponPosition.add(weapon.feedback)
+
+        rightShift = player.rightNormal.copy()
+        rightShift.mul(weapon.barrelPoint.x)
+        frontShift = player.lookDirection.copy()
+        frontShift.mul(weapon.barrelPoint.y)
+        topShift = player.lookDirectionNormal.copy()
+        topShift.mul(weapon.barrelPoint.z)
+        barrelPosition = weaponPosition.copy()
+        barrelPosition.add(rightShift)
+        barrelPosition.add(frontShift)
+        barrelPosition.add(topShift)
 
         aimPoint = player.lookDirection.copy()
         aimPoint.setLength(PlayerConstants.aimLength)
-        aimPoint.add(player.eyePosition)
+        aimPoint.add(barrelPosition)
 
-        weapon.position = newPosition
-        weapon.position.add(weapon.feedback)
+        weapon.position = weaponPosition
+        weapon.barrelPosition = barrelPosition
         weapon.direction = weapon.position.getDirectionTo(aimPoint)
         weapon.direction.normalize()
         weapon.direction.add(weapon.jitter)

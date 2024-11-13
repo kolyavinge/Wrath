@@ -38,9 +38,9 @@ class WeaponFlashRenderMeshFactory:
 
     def makeEllipse(self):
         a = 0.1
-        b = a / 5
+        b = a / 6
 
-        return Ellipse(a, b, 0, 0, 0.01)
+        return Ellipse(a, b, 0, 0, a / 10)
 
     def fillByEllipse(self, vboBuilder, ellipse):
         vertexCount = vboBuilder.getVertexCount()

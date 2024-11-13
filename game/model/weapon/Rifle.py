@@ -1,3 +1,4 @@
+from game.calc.Vector3 import Vector3
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
 from game.model.weapon.Weapon import Bullet, Flash, Weapon
 
@@ -32,7 +33,7 @@ class Rifle(Weapon):
 
     def __init__(self):
         super().__init__(RifleBullet, RifleFlash)
-        self.barrelLength = 0.25
+        self.barrelPoint = Vector3(0, 0.25, 0.03)
         self.bulletsCount = 200
         self.maxBulletsCount = 200
         self.delay = 8
@@ -40,6 +41,4 @@ class Rifle(Weapon):
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6
         self.feedbackLength = 0.05
-        self.playerFrontShift = 0.2
-        self.playerRightShift = 0.08
-        self.playerTopShift = 0.1
+        self.playerShift = Vector3(0.08, 0.2, -0.1)

@@ -57,7 +57,8 @@ class Weapon:
         self.flashType = flashType
         self.position = Vector3()
         self.direction = Vector3()
-        self.barrelLength = 0
+        self.barrelPoint = Vector3()
+        self.barrelPosition = Vector3()
         self.yawRadians = 0
         self.pitchRadians = 0
         self.bulletsCount = 0
@@ -71,15 +72,11 @@ class Weapon:
         self.feedback = Vector3()
         self.feedbackFade = 0
         self.feedbackLength = 0
-        self.playerFrontShift = 0
-        self.playerRightShift = 0
-        self.playerTopShift = 0
+        self.playerShift = Vector3()
 
     def makeBullet(self):
         bullet = self.bulletType()
-        bullet.currentPosition = self.direction.copy()
-        bullet.currentPosition.setLength(self.barrelLength)
-        bullet.currentPosition.add(self.position)
+        bullet.currentPosition = self.barrelPosition.copy()
         bullet.nextPosition = bullet.currentPosition.copy()
         bullet.velocity = self.direction.copy()
         bullet.velocity.setLength(bullet.velocityValue)
@@ -89,10 +86,7 @@ class Weapon:
     def makeFlash(self):
         flash = self.flashType()
         flash.weaponType = type(self)
-        position = self.direction.copy()
-        position.setLength(self.barrelLength)
-        position.add(self.position)
-        flash.calculateModelMatrix(position, self.yawRadians, self.pitchRadians)
+        flash.calculateModelMatrix(self.barrelPosition, self.yawRadians, self.pitchRadians)
 
         return flash
 

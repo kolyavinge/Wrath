@@ -1,3 +1,4 @@
+from game.calc.Vector3 import Vector3
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
 from game.model.weapon.Weapon import Bullet, Flash, Weapon
 
@@ -15,7 +16,7 @@ class PistolBullet(Bullet):
 
     def __init__(self):
         super().__init__()
-        self.barrelLength = 0.2
+        self.barrelPoint = Vector3(0, 0.25, 0.03)
         self.velocityValue = 5
         self.damage = 5
         self.holeInfo = BulletHoleInfo.tinyHole
