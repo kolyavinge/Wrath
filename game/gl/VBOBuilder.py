@@ -40,7 +40,7 @@ class VBOBuilder:
     def validate(self):
         # if len(self.vertices) == 0: TODO
         # raise Exception("Vertices cannot be empty.")
-        if len(self.vertices) != len(self.normals):
+        if len(self.normals) > 0 and len(self.vertices) != len(self.normals):
             raise Exception("Vertices and normals must be the same length.")
         # if len(self.faces) == 0:
         # raise Exception("Faces cannot be empty.")
