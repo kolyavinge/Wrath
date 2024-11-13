@@ -21,6 +21,7 @@ from game.engine.PlayerZUpdater import PlayerZUpdater
 from game.engine.PowerupUpdater import PowerupUpdater
 from game.engine.TorchUpdater import TorchUpdater
 from game.engine.WeaponFireLogic import WeaponFireLogic
+from game.engine.WeaponFlashUpdater import WeaponFlashUpdater
 
 
 class GameUpdater:
@@ -48,6 +49,7 @@ class GameUpdater:
         powerupCollisionProcessor,
         torchUpdater,
         powerupUpdater,
+        weaponFlashUpdater,
     ):
         self.playerTurnLogic = playerTurnLogic
         self.playerMovingTimeCalculator = playerMovingTimeCalculator
@@ -70,6 +72,7 @@ class GameUpdater:
         self.powerupCollisionProcessor = powerupCollisionProcessor
         self.torchUpdater = torchUpdater
         self.powerupUpdater = powerupUpdater
+        self.weaponFlashUpdater = weaponFlashUpdater
 
     def update(self):
         # start = time.time()
@@ -96,6 +99,7 @@ class GameUpdater:
         self.torchUpdater.update()
         self.powerupUpdater.update()
         self.powerupUpdater.generateNew()
+        self.weaponFlashUpdater.update()
 
         # end = time.time()
         # print(f"Game updated {end-start:.8f}")
@@ -124,4 +128,5 @@ def makeGameUpdater(resolver):
         resolver.resolve(PowerupCollisionProcessor),
         resolver.resolve(TorchUpdater),
         resolver.resolve(PowerupUpdater),
+        resolver.resolve(WeaponFlashUpdater),
     )

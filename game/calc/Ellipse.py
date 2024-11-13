@@ -13,8 +13,7 @@ class Ellipse:
         self.a = a
         self.a2 = a * a
         self.b = b
-        self.centerX = centerX
-        self.centerY = centerY
+        self.center = Vector3(centerX, centerY, 0)
         self.step = step
         self.calculatePoints()
         self.toCenter()
@@ -47,10 +46,21 @@ class Ellipse:
 
     def toCenter(self):
         for p in self.points:
-            p.x += self.centerX
-            p.y += self.centerY
+            p.add(self.center)
 
     def rotateTo(self, radians):
+        self.center = Geometry.rotatePoint(self.center, CommonConstants.zAxis, CommonConstants.axisOrigin, radians)
+
         for p in self.points:
             rotated = Geometry.rotatePoint(p, CommonConstants.zAxis, CommonConstants.axisOrigin, radians)
             p.set(rotated.x, rotated.y, rotated.z)
+
+    def swapYZ(self):
+        t = self.center.y
+        self.center.y = self.center.z
+        self.center.z = t
+
+        for p in self.points:
+            t = p.y
+            p.y = p.z
+            p.z = t

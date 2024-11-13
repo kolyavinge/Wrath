@@ -1,5 +1,22 @@
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
-from game.model.weapon.Weapon import Bullet, Weapon
+from game.model.weapon.Weapon import Bullet, Flash, Weapon
+
+
+class RifleFlash(Flash):
+
+    def __init__(self):
+        super().__init__()
+        self.alphaSteps = [0.5, 0.75, 1.0, 0.75, 0.5, 0.25]
+        self.alphaStep = 0
+        self.alpha = 0.25
+
+    def update(self):
+        self.alphaStep += 1
+        if self.alphaStep < len(self.alphaSteps):
+            self.alpha = self.alphaSteps[self.alphaStep]
+        else:
+            self.isVisible = False
+            self.alpha = 0
 
 
 class RifleBullet(Bullet):
@@ -14,7 +31,8 @@ class RifleBullet(Bullet):
 class Rifle(Weapon):
 
     def __init__(self):
-        super().__init__(RifleBullet)
+        super().__init__(RifleBullet, RifleFlash)
+        self.barrelLength = 0.25
         self.bulletsCount = 200
         self.maxBulletsCount = 200
         self.delay = 8

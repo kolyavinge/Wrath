@@ -11,6 +11,7 @@ class LevelSegment:
         self.powerups = []
         self.lightsWithJoined = []
         self.joinLines = []
+        self.weaponFlashes = []
 
     def getAllItems(self):
         return self.walls + self.floors + self.ceilings + self.lights

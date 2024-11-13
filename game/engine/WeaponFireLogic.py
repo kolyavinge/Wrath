@@ -34,10 +34,18 @@ class WeaponFireLogic:
             newFeedback = self.getNewFeedback(newJitter, weapon)
             weapon.jitter.add(newJitter)
             weapon.feedback.add(newFeedback)
+
             bullet = weapon.makeBullet()
             bspTree = self.gameData.level.collisionTree
             bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
             self.gameData.bullets.append(bullet)
+
+            bspTree = self.gameData.level.visibilityTree
+            flashLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, weapon.position)
+            if flashLevelSegment in self.gameData.visibleLevelSegments:
+                flash = weapon.makeFlash()
+                flashLevelSegment.weaponFlashes.append(flash)
+
             self.eventManager.raiseEvent(Events.weaponFired, weapon)
 
     def getNewJitter(self, weapon):

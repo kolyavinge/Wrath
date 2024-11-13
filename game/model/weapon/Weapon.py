@@ -4,6 +4,35 @@ from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 
 
+class Flash:
+
+    def __init__(self):
+        self.weaponType = None
+        self.alpha = 0
+        self.isVisible = True
+
+    def update(self):
+        pass
+
+    def calculateModelMatrix(self, position, yawRadians, pitchRadians):
+        m1 = TransformMatrix4()
+        m1.translate(position.x, position.y, position.z)
+
+        m2 = TransformMatrix4()
+        m2.rotate(yawRadians, CommonConstants.zAxis)
+
+        m3 = TransformMatrix4()
+        m3.rotate(pitchRadians, CommonConstants.xAxis)
+
+        self.modelMatrix = TransformMatrix4()
+        self.modelMatrix.mul(m1)
+        self.modelMatrix.mul(m2)
+        self.modelMatrix.mul(m3)
+
+    def getModelMatrix(self):
+        return self.modelMatrix
+
+
 class Bullet:
 
     def __init__(self):
@@ -23,10 +52,12 @@ class Bullet:
 
 class Weapon:
 
-    def __init__(self, bulletType):
+    def __init__(self, bulletType, flashType):
         self.bulletType = bulletType
+        self.flashType = flashType
         self.position = Vector3()
         self.direction = Vector3()
+        self.barrelLength = 0
         self.yawRadians = 0
         self.pitchRadians = 0
         self.bulletsCount = 0
@@ -46,12 +77,24 @@ class Weapon:
 
     def makeBullet(self):
         bullet = self.bulletType()
-        bullet.currentPosition = self.position.copy()
-        bullet.nextPosition = self.position.copy()
+        bullet.currentPosition = self.direction.copy()
+        bullet.currentPosition.setLength(self.barrelLength)
+        bullet.currentPosition.add(self.position)
+        bullet.nextPosition = bullet.currentPosition.copy()
         bullet.velocity = self.direction.copy()
         bullet.velocity.setLength(bullet.velocityValue)
 
         return bullet
+
+    def makeFlash(self):
+        flash = self.flashType()
+        flash.weaponType = type(self)
+        position = self.direction.copy()
+        position.setLength(self.barrelLength)
+        position.add(self.position)
+        flash.calculateModelMatrix(position, self.yawRadians, self.pitchRadians)
+
+        return flash
 
     def addBullets(self, count):
         self.bulletsCount = Math.min(self.bulletsCount + count, self.maxBulletsCount)
