@@ -14,9 +14,6 @@ class WeaponFlashRenderer:
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
 
-    def init(self):
-        self.renderCollection.init()
-
     def render(self):
         shader = self.shaderProgramCollection.texture
         shader.use()

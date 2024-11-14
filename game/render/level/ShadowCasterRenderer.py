@@ -10,9 +10,6 @@ class ShadowCasterRenderer:
         self.renderCollection = renderCollection
         self.vboRenderer = vboRenderer
 
-    def init(self, allLevelSegments):
-        self.renderCollection.init(allLevelSegments)
-
     def render(self, levelSegment):
         vbo = self.renderCollection.getShadowCastersVBO(levelSegment)
         self.vboRenderer.render(vbo)

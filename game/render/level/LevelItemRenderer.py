@@ -11,9 +11,6 @@ class LevelItemRenderer:
         self.renderCollection = renderCollection
         self.vboRenderer = vboRenderer
 
-    def init(self, allLevelSegments):
-        self.renderCollection.init(allLevelSegments)
-
     def render(self, shader, levelSegment):
         shader.setModelMatrix(TransformMatrix4.identity)
         model3d = self.renderCollection.getRenderModel3d(levelSegment)

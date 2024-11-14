@@ -12,11 +12,7 @@ class PlayerWeaponRenderer:
         self.renderCollection = renderCollection
         self.vboRenderer = vboRenderer
 
-    def init(self):
-        self.renderCollection.init()
-
     def render(self, shader):
-        # return
         weapon = self.gameData.playerItems.currentWeapon
         shader.setModelMatrix(weapon.getModelMatrix())
         model = self.renderCollection.getRenderModel3d(type(weapon))

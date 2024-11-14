@@ -16,12 +16,6 @@ class LevelRenderer:
         self.powerupRenderer = powerupRenderer
         self.shadowCasterRenderer = shadowCasterRenderer
 
-    def init(self):
-        allLevelSegments = self.gameData.level.visibilityTree.getAllLevelSegments()
-        self.levelItemRenderer.init(allLevelSegments)
-        self.bulletHoleRenderer.init(allLevelSegments)
-        self.shadowCasterRenderer.init(allLevelSegments)
-
     def renderLevelSegments(self, shader):
         for levelSegment in self.gameData.visibleLevelSegments:
             shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerTorch)

@@ -27,9 +27,6 @@ class MainSceneRenderer:
         self.screenQuadVBO = screenQuadVBO
         eventManager.attachToEvent(Events.viewportSizeChanged, self.onViewportSizeChanged)
 
-    def init(self):
-        pass
-
     def onViewportSizeChanged(self, size):
         self.mainSceneFramebuffer.init()
         self.width, self.height = size

@@ -25,6 +25,7 @@ from game.render.level.WallVBOBuilder import *
 from game.render.main.MainSceneFramebuffer import *
 from game.render.main.MainSceneRenderer import *
 from game.render.powerup.PowerupRenderer import *
+from game.render.ui.GameScreenInitializer import *
 from game.render.ui.GameScreenRenderer import *
 from game.render.weapon.BulletHoleRenderCollection import *
 from game.render.weapon.BulletHoleRenderer import *
@@ -67,6 +68,7 @@ class RenderModule:
         binder.bindSingleton(MainSceneFramebuffer, makeMainSceneFramebuffer)
         binder.bindSingleton(MainSceneRenderer, makeMainSceneRenderer)
         binder.bindSingleton(PowerupRenderer, makePowerupRenderer)
+        binder.bindSingleton(GameScreenInitializer, makeGameScreenInitializer)
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)
         binder.bindSingleton(BulletHoleRenderCollection, makeBulletHoleRenderCollection)
         binder.bindSingleton(BulletHoleRenderer, makeBulletHoleRenderer)

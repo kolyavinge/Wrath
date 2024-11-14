@@ -10,9 +10,6 @@ class BulletHoleRenderer:
         self.bulletHoleRenderCollection = bulletHoleRenderCollection
         self.vboRenderer = vboRenderer
 
-    def init(self, allVisibilityLevelSegments):
-        self.bulletHoleRenderCollection.init(allVisibilityLevelSegments)
-
     def render(self, shader, levelSegment):
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
