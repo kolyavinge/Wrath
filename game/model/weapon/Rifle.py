@@ -1,5 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.TransformMatrix4 import TransformMatrix4
+from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.calc.Vector3 import Vector3
 from game.lib.Random import Random
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
@@ -24,25 +24,14 @@ class RifleFlash(Flash):
             self.alpha = 0
 
     def calculateModelMatrix(self, position, yawRadians, pitchRadians):
-        m1 = TransformMatrix4()
-        m1.translate(position.x, position.y, position.z)
-
-        m2 = TransformMatrix4()
-        m2.rotate(yawRadians, CommonConstants.zAxis)
-
-        rollRadians = self.rand.getFloat(-0.5, 0.5)
-        m3 = TransformMatrix4()
-        m3.rotate(rollRadians, CommonConstants.yAxis)
-
-        m4 = TransformMatrix4()
-        m4.rotate(pitchRadians, CommonConstants.xAxis)
-
-        self.modelMatrix = TransformMatrix4()
-        self.modelMatrix.setIdentity()
-        self.modelMatrix.mul(m1)
-        self.modelMatrix.mul(m2)
-        self.modelMatrix.mul(m3)
-        self.modelMatrix.mul(m4)
+        self.modelMatrix = (
+            TransformMatrix4Builder()
+            .translate(position.x, position.y, position.z)
+            .rotate(yawRadians, CommonConstants.zAxis)
+            .rotate(self.rand.getFloat(-0.5, 0.5), CommonConstants.yAxis)
+            .rotate(pitchRadians, CommonConstants.xAxis)
+            .resultMatrix
+        )
 
     def getModelMatrix(self):
         return self.modelMatrix

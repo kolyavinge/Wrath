@@ -1,5 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.TransformMatrix4 import TransformMatrix4
+from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 
@@ -15,20 +15,13 @@ class Flash:
         pass
 
     def calculateModelMatrix(self, position, yawRadians, pitchRadians):
-        m1 = TransformMatrix4()
-        m1.translate(position.x, position.y, position.z)
-
-        m2 = TransformMatrix4()
-        m2.rotate(yawRadians, CommonConstants.zAxis)
-
-        m3 = TransformMatrix4()
-        m3.rotate(pitchRadians, CommonConstants.xAxis)
-
-        self.modelMatrix = TransformMatrix4()
-        self.modelMatrix.setIdentity()
-        self.modelMatrix.mul(m1)
-        self.modelMatrix.mul(m2)
-        self.modelMatrix.mul(m3)
+        self.modelMatrix = (
+            TransformMatrix4Builder()
+            .translate(position.x, position.y, position.z)
+            .rotate(yawRadians, CommonConstants.zAxis)
+            .rotate(pitchRadians, CommonConstants.xAxis)
+            .resultMatrix
+        )
 
     def getModelMatrix(self):
         return self.modelMatrix
@@ -95,22 +88,13 @@ class Weapon:
         self.bulletsCount = Math.min(self.bulletsCount + count, self.maxBulletsCount)
 
     def getModelMatrix(self):
-        m1 = TransformMatrix4()
-        m1.translate(self.position.x, self.position.y, self.position.z)
-
-        m2 = TransformMatrix4()
-        m2.rotate(self.yawRadians, CommonConstants.zAxis)
-
-        m3 = TransformMatrix4()
-        m3.rotate(self.pitchRadians, CommonConstants.xAxis)
-
-        modelMatrix = TransformMatrix4()
-        modelMatrix.setIdentity()
-        modelMatrix.mul(m1)
-        modelMatrix.mul(m2)
-        modelMatrix.mul(m3)
-
-        return modelMatrix
+        return (
+            TransformMatrix4Builder()
+            .translate(self.position.x, self.position.y, self.position.z)
+            .rotate(self.yawRadians, CommonConstants.zAxis)
+            .rotate(self.pitchRadians, CommonConstants.xAxis)
+            .resultMatrix
+        )
 
     @staticmethod
     def getAllWeaponTypes():
