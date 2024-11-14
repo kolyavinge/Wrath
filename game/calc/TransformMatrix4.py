@@ -14,9 +14,6 @@ from game.lib.Math import Math
 
 class TransformMatrix4:
 
-    def __init__(self):
-        self.setIdentity()
-
     def setIdentity(self):
         self.items = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 
@@ -230,3 +227,7 @@ class TransformMatrix4:
             result += "\r\n"
 
         return result.strip()
+
+
+TransformMatrix4.identity = TransformMatrix4()
+TransformMatrix4.identity.setIdentity()

@@ -29,7 +29,6 @@ class RifleFlash(Flash):
 
         m2 = TransformMatrix4()
         m2.rotate(yawRadians, CommonConstants.zAxis)
-        m1.translate(position.x, position.y, position.z)
 
         rollRadians = self.rand.getFloat(-0.5, 0.5)
         m3 = TransformMatrix4()
@@ -39,6 +38,7 @@ class RifleFlash(Flash):
         m4.rotate(pitchRadians, CommonConstants.xAxis)
 
         self.modelMatrix = TransformMatrix4()
+        self.modelMatrix.setIdentity()
         self.modelMatrix.mul(m1)
         self.modelMatrix.mul(m2)
         self.modelMatrix.mul(m3)

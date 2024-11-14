@@ -29,6 +29,7 @@ class Powerup:
         m2.rotate(self.rotateRadians, CommonConstants.zAxis)
 
         modelMatrix = TransformMatrix4()
+        modelMatrix.setIdentity()
         modelMatrix.mul(m1)
         modelMatrix.mul(m2)
 

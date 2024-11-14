@@ -25,6 +25,7 @@ class Flash:
         m3.rotate(pitchRadians, CommonConstants.xAxis)
 
         self.modelMatrix = TransformMatrix4()
+        self.modelMatrix.setIdentity()
         self.modelMatrix.mul(m1)
         self.modelMatrix.mul(m2)
         self.modelMatrix.mul(m3)
@@ -104,6 +105,7 @@ class Weapon:
         m3.rotate(self.pitchRadians, CommonConstants.xAxis)
 
         modelMatrix = TransformMatrix4()
+        modelMatrix.setIdentity()
         modelMatrix.mul(m1)
         modelMatrix.mul(m2)
         modelMatrix.mul(m3)

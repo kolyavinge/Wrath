@@ -15,7 +15,7 @@ class LevelItemRenderer:
         self.renderCollection.init(allLevelSegments)
 
     def render(self, shader, levelSegment):
-        shader.setModelMatrix(TransformMatrix4())
+        shader.setModelMatrix(TransformMatrix4.identity)
         model3d = self.renderCollection.getRenderModel3d(levelSegment)
         for mesh in model3d.meshes:
             shader.setMaterial(mesh.material)

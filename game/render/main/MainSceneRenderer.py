@@ -78,7 +78,7 @@ class MainSceneRenderer:
         glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP)
         shader = self.shaderProgramCollection.mainSceneShadowVolumes
         shader.use()
-        shader.setModelMatrix(TransformMatrix4())
+        shader.setModelMatrix(TransformMatrix4.identity)
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         self.levelRenderer.renderShadowCasters(shader)
