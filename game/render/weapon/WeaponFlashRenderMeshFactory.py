@@ -1,9 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Ellipse import Ellipse
+from game.calc.Vector3 import Vector3
 from game.gl.RenderModel3d import RenderMesh
 from game.gl.VBOBuilderFactory import VBOBuilderFactory
-from game.lib.Math import Math
-from game.model.Material import Material
 from game.render.common.TextureCollection import TextureCollection
 
 
@@ -16,40 +14,29 @@ class WeaponFlashRenderMeshFactory:
     def makeRifleFlash(self):
         vboBuilder = self.vboBuilderFactory.makeVBOBuilder()
 
-        ellipse = self.makeEllipse()
-        ellipse.swapYZ()
-        self.fillByEllipse(vboBuilder, ellipse)
+        a = 0.1
 
-        ellipse = self.makeEllipse()
-        ellipse.rotateTo(Math.piHalf)
-        ellipse.swapYZ()
-        self.fillByEllipse(vboBuilder, ellipse)
+        vboBuilder.addVertex(Vector3(-a, 0, -a))
+        vboBuilder.addVertex(Vector3(a, 0, -a))
+        vboBuilder.addVertex(Vector3(a, 0, a))
+        vboBuilder.addVertex(Vector3(-a, 0, a))
+
+        vboBuilder.addNormal(CommonConstants.yAxis)
+        vboBuilder.addNormal(CommonConstants.yAxis)
+        vboBuilder.addNormal(CommonConstants.yAxis)
+        vboBuilder.addNormal(CommonConstants.yAxis)
+
+        vboBuilder.addTexCoord(0, 0)
+        vboBuilder.addTexCoord(1, 0)
+        vboBuilder.addTexCoord(1, 1)
+        vboBuilder.addTexCoord(0, 1)
+
+        vboBuilder.addFace(0, 1, 2)
+        vboBuilder.addFace(0, 2, 3)
 
         vbo = vboBuilder.build()
 
-        return RenderMesh(vbo, self.textureCollection.rifleFlash, Material.weaponFlash)
-
-    def makeEllipse(self):
-        a = 0.1
-        b = a / 6
-
-        return Ellipse(a, b, 0, 0, a / 20)
-
-    def fillByEllipse(self, vboBuilder, ellipse):
-        leftX = -ellipse.a
-        xlength = 2 * ellipse.a
-        vertexCount = vboBuilder.getVertexCount()
-        vboBuilder.addVertex(ellipse.center)
-        vboBuilder.addNormal(CommonConstants.yAxis)
-        vboBuilder.addTexCoord(0.5, 0.5)
-        for point in ellipse.points:
-            vboBuilder.addVertex(point)
-            vboBuilder.addNormal(CommonConstants.yAxis)
-            tx = (point.x - leftX) / xlength
-            ty = 1 if point.y >= 0 else 0
-            vboBuilder.addTexCoord(tx, ty)
-        for i in range(1, len(ellipse.points)):
-            vboBuilder.addFace(vertexCount, vertexCount + i, vertexCount + i + 1)
+        return RenderMesh(vbo, self.textureCollection.rifleFlash, None)
 
 
 def makeWeaponFlashRenderMeshFactory(resolver):

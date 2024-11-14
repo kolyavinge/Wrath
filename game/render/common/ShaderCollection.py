@@ -24,6 +24,9 @@ class ShaderCollection:
         self.crosshairVertex = self.shaderCompiler.compile(path + "crosshair.vert", ShaderType.vertex)
         self.crosshairFragment = self.shaderCompiler.compile(path + "crosshair.frag", ShaderType.fragment)
 
+        self.textureVertex = self.shaderCompiler.compile(path + "texture.vert", ShaderType.vertex)
+        self.textureFragment = self.shaderCompiler.compile(path + "texture.frag", ShaderType.fragment)
+
 
 def makeShaderCollection(resolver):
     return ShaderCollection(resolver.resolve(ShaderCompiler))

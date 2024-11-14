@@ -3,6 +3,7 @@ from game.render.common.MainSceneComposeShaderProgram import *
 from game.render.common.MainSceneLightComponentsShaderProgram import *
 from game.render.common.MainSceneShadowVolumesShaderProgram import *
 from game.render.common.ShaderCollection import ShaderCollection
+from game.render.common.TextureShaderProgram import TextureShaderProgram
 
 
 class ShaderProgramCollection:
@@ -28,6 +29,8 @@ class ShaderProgramCollection:
         )
 
         self.crosshair = CrossshairShaderProgram([self.shaderCollection.crosshairVertex, self.shaderCollection.crosshairFragment])
+
+        self.texture = TextureShaderProgram([self.shaderCollection.textureVertex, self.shaderCollection.textureFragment])
 
 
 def makeShaderProgramCollection(resolver):

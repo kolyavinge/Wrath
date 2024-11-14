@@ -5,24 +5,21 @@ from game.render.level.LevelItemRenderer import LevelItemRenderer
 from game.render.level.ShadowCasterRenderer import ShadowCasterRenderer
 from game.render.powerup.PowerupRenderer import PowerupRenderer
 from game.render.weapon.BulletHoleRenderer import BulletHoleRenderer
-from game.render.weapon.WeaponFlashRenderer import WeaponFlashRenderer
 
 
 class LevelRenderer:
 
-    def __init__(self, gameData, levelItemRenderer, bulletHoleRenderer, powerupRenderer, weaponFlashRenderer, shadowCasterRenderer):
+    def __init__(self, gameData, levelItemRenderer, bulletHoleRenderer, powerupRenderer, shadowCasterRenderer):
         self.gameData = gameData
         self.levelItemRenderer = levelItemRenderer
         self.bulletHoleRenderer = bulletHoleRenderer
         self.powerupRenderer = powerupRenderer
-        self.weaponFlashRenderer = weaponFlashRenderer
         self.shadowCasterRenderer = shadowCasterRenderer
 
     def init(self):
         allLevelSegments = self.gameData.level.visibilityTree.getAllLevelSegments()
         self.levelItemRenderer.init(allLevelSegments)
         self.bulletHoleRenderer.init(allLevelSegments)
-        self.weaponFlashRenderer.init()
         self.shadowCasterRenderer.init(allLevelSegments)
 
     def renderLevelSegments(self, shader):
@@ -31,7 +28,6 @@ class LevelRenderer:
             self.levelItemRenderer.render(shader, levelSegment)
             self.bulletHoleRenderer.render(shader, levelSegment)
             self.powerupRenderer.render(shader, levelSegment)
-            self.weaponFlashRenderer.render(shader, levelSegment)
 
     def renderShadowCasters(self, shader):
         for levelSegment in self.gameData.visibleLevelSegments:
@@ -45,6 +41,5 @@ def makeLevelRenderer(resolver):
         resolver.resolve(LevelItemRenderer),
         resolver.resolve(BulletHoleRenderer),
         resolver.resolve(PowerupRenderer),
-        resolver.resolve(WeaponFlashRenderer),
         resolver.resolve(ShadowCasterRenderer),
     )
