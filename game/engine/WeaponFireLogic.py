@@ -16,14 +16,15 @@ class WeaponFireLogic:
 
     def process(self):
         weapon = self.gameData.playerItems.currentWeapon
-        self.processWeapon(weapon)
+        self.processWeapon(self.gameData.player, weapon)
 
-    def processWeapon(self, weapon):
+    def processWeapon(self, person, weapon):
         weapon.isFiring = False
         if weapon.delayRemain > 0:
             weapon.delayRemain -= 1
         if self.gameData.playerInputData.fire:
-            self.fire(weapon)
+            if self.fire(weapon):
+                self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
 
     def fire(self, weapon):
         if weapon.bulletsCount > 0 and weapon.delayRemain == 0:
@@ -46,7 +47,9 @@ class WeaponFireLogic:
                 flash = weapon.makeFlash()
                 flashLevelSegment.weaponFlashes.append(flash)
 
-            self.eventManager.raiseEvent(Events.weaponFired, weapon)
+            return True
+        else:
+            return False
 
     def getNewJitter(self, weapon):
         x = self.rand.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
