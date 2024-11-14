@@ -22,15 +22,7 @@ class Powerup:
         pass
 
     def getModelMatrix(self):
-        m1 = TransformMatrix4()
-        m1.translate(self.position.x, self.position.y, self.position.z)
-
-        m2 = TransformMatrix4()
-        m2.rotate(self.rotateRadians, CommonConstants.zAxis)
-
         modelMatrix = TransformMatrix4()
-        modelMatrix.setIdentity()
-        modelMatrix.mul(m1)
-        modelMatrix.mul(m2)
+        modelMatrix.translateAndRotate(self.position.x, self.position.y, self.position.z, self.rotateRadians, CommonConstants.zAxis)
 
         return modelMatrix

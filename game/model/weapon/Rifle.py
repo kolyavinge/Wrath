@@ -10,7 +10,7 @@ class RifleFlash(Flash):
 
     def __init__(self):
         super().__init__()
-        self.alphaSteps = [0.75, 1.0, 0.75, 0.5, 0.25]
+        self.alphaSteps = [0.8, 1.0, 0.8, 0.5, 0.25, 0.1]
         self.alphaStep = 0
         self.alpha = 0.5
         self.rand = Random()
