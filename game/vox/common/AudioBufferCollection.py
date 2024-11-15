@@ -17,6 +17,7 @@ class AudioBufferCollection:
         self.rifleShot = self.audioBufferLoader.load(path + "rifleShot.wav")
         self.weaponPickup = self.audioBufferLoader.load(path + "weaponPickup.wav")
         self.healthPickup = self.audioBufferLoader.load(path + "healthPickup.wav")
+        self.vestPickup = self.audioBufferLoader.load(path + "vestPickup.wav")
 
 
 def makeAudioBufferCollection(resolver):

@@ -6,6 +6,7 @@ from game.lib.List import List
 from game.lib.Math import Math
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
+from game.model.powerup.VestPowerup import VestPowerup
 from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 
@@ -20,6 +21,7 @@ class PowerupUpdater:
         self.powerupCount[WeaponPowerup] = 10
         self.powerupCount[SmallHealthPowerup] = 10
         self.powerupCount[LargeHealthPowerup] = 10
+        self.powerupCount[VestPowerup] = 10
 
     def update(self):
         self.delay = Math.max(self.delay - 1, 0)

@@ -43,4 +43,6 @@ Material.edgeMetal3 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
 
 Material.weapon = Material(MaterialKind.metal, 0.2, 0.1, 0.1, 8.0)
 
+Material.powerup = Material(MaterialKind.metal, 0.2, 0.1, 0.1, 8.0)
+
 Material.tinyBulletHole = Material(MaterialKind.none, 0.2, 0.1, 0.1, 1.0)

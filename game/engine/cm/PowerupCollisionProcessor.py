@@ -5,6 +5,7 @@ from game.lib.EventManager import EventManager
 from game.lib.List import List
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
+from game.model.powerup.VestPowerup import VestPowerup
 from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 
@@ -18,6 +19,7 @@ class PowerupCollisionProcessor:
         self.actions[WeaponPowerup] = self.processWeaponPowerup
         self.actions[LargeHealthPowerup] = self.processHealthPowerup
         self.actions[SmallHealthPowerup] = self.processHealthPowerup
+        self.actions[VestPowerup] = self.processVestPowerup
 
     def process(self):
         self.processPerson(self.gameData.player)
@@ -41,6 +43,9 @@ class PowerupCollisionProcessor:
 
     def processHealthPowerup(self, person, powerup):
         person.addHealth(powerup.value)
+
+    def processVestPowerup(self, person, powerup):
+        print("processVestPowerup")
 
 
 def makePowerupCollisionProcessor(resolver):

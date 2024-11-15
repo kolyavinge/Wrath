@@ -20,6 +20,11 @@ class PowerupModel3dFactory:
 
         return model
 
+    def makeVest(self):
+        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("vest"))
+
+        return model
+
 
 def makePowerupModel3dFactory(resolver):
     return PowerupModel3dFactory(resolver.resolve(Model3dLoader), resolver.resolve(Model3dDirectory))
