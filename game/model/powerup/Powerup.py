@@ -1,6 +1,8 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
+from game.lib.Math import Math
+from game.lib.Random import Random
 
 
 class Powerup:
@@ -26,3 +28,7 @@ class Powerup:
         modelMatrix.translateAndRotate(self.position.x, self.position.y, self.position.z, self.rotateRadians, CommonConstants.zAxis)
 
         return modelMatrix
+
+    def setRandomRotate(self):
+        rand = Random()
+        self.rotateRadians = rand.getFloat(0, Math.piDouble)

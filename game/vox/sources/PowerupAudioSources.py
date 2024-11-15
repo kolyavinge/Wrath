@@ -1,3 +1,5 @@
+from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
+from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
 from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 
@@ -8,6 +10,9 @@ class PowerupAudioSources:
         self.powerups = {}
         self.powerups[WeaponPowerup] = audioSourceFactory.makeWeaponPickup()
         self.powerups[WeaponPowerup].setGain(0.6)
+        self.powerups[SmallHealthPowerup] = audioSourceFactory.makeHealthPickup()
+        self.powerups[LargeHealthPowerup] = self.powerups[SmallHealthPowerup]
+        self.powerups[SmallHealthPowerup].setGain(0.5)
 
     def updatePosition(self):
         position = self.player.currentCenterPoint

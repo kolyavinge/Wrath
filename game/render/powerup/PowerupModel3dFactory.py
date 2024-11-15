@@ -10,13 +10,13 @@ class PowerupModel3dFactory:
 
     def makeSmallHealth(self):
         model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("smallHealth"))
-        model.setScale(0.025)
+        model.setScale(0.1)
 
         return model
 
     def makeLargeHealth(self):
         model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("largeHealth"))
-        model.setScale(0.025)
+        model.setScale(0.08)
 
         return model
 

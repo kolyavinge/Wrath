@@ -17,9 +17,9 @@ class PowerupUpdater:
         self.traversal = traversal
         self.delay = 0
         self.powerupCount = {}
-        self.powerupCount[WeaponPowerup] = 8
-        # self.powerupCount[SmallHealthPowerup] = 2 TODO
-        # self.powerupCount[LargeHealthPowerup] = 1 TODO
+        self.powerupCount[WeaponPowerup] = 10
+        self.powerupCount[SmallHealthPowerup] = 10
+        self.powerupCount[LargeHealthPowerup] = 10
 
     def update(self):
         self.delay = Math.max(self.delay - 1, 0)

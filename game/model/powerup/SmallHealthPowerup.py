@@ -8,3 +8,4 @@ class SmallHealthPowerup(Powerup):
         super().__init__()
         self.height = 0.2
         self.value = int(CommonConstants.maxPersonHealth / 4)
+        self.setRandomRotate()

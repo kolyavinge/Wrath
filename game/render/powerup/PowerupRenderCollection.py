@@ -17,8 +17,8 @@ class PowerupRenderCollection:
             vbo.release()
 
         self.models = {}
-        # self.makeSmallHealth()
-        # self.makeLargeHealth()
+        self.makeSmallHealth()
+        self.makeLargeHealth()
 
     def makeSmallHealth(self):
         model = self.powerupModel3dFactory.makeSmallHealth()

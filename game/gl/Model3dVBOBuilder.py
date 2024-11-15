@@ -12,6 +12,8 @@ class Model3dVBOBuilder:
         result = []
 
         vaoIdList = glGenVertexArrays(len(model3d.meshes))
+        if len(model3d.meshes) == 1:
+            vaoIdList = [vaoIdList]
 
         for index, mesh in enumerate(model3d.meshes):
             vaoId = vaoIdList[index]

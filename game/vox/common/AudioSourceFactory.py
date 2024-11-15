@@ -29,6 +29,9 @@ class AudioSourceFactory:
     def makeWeaponPickup(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.weaponPickup)
 
+    def makeHealthPickup(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.healthPickup)
+
 
 def makeAudioSourceFactory(resolver):
     return AudioSourceFactory(resolver.resolve(AudioSourceLoader), resolver.resolve(AudioBufferCollection))
