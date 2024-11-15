@@ -7,6 +7,6 @@ class Events:
     weaponFired = "weaponFired"
     bulletHoleAdded = "bulletHoleAdded"
 
-    powerupPicked = "powerupPicked"
+    powerupPickedUp = "powerupPicked"
 
     viewportSizeChanged = "viewportSizeChanged"

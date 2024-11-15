@@ -29,7 +29,7 @@ class PowerupCollisionProcessor:
             self.gameData.powerups.remove(powerup)
             powerup.collisionLevelSegment.powerups.remove(powerup)
             powerup.visibilityLevelSegment.powerups.remove(powerup)
-            self.eventManager.raiseEvent(Events.powerupPicked, (person, powerup))
+            self.eventManager.raiseEvent(Events.powerupPickedUp, (person, powerup))
 
     def processWeaponPowerup(self, person, powerup):
         weapons = self.gameData.allPersonItems[person].weapons
