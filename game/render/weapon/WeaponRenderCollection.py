@@ -1,5 +1,4 @@
-from game.gl.RenderModel3d import RenderMesh, RenderModel3d
-from game.gl.VBOBuilderFactory import VBOBuilderFactory
+from game.gl.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
@@ -9,9 +8,9 @@ from game.render.weapon.WeaponModel3dFactory import WeaponModel3dFactory
 
 class WeaponRenderCollection:
 
-    def __init__(self, weaponModel3dFactory, vboBuilderFactory):
+    def __init__(self, weaponModel3dFactory, renderModel3dLoader):
         self.weaponModel3dFactory = weaponModel3dFactory
-        self.vboBuilderFactory = vboBuilderFactory
+        self.renderModel3dLoader = renderModel3dLoader
         self.models = {}
 
     def init(self):
@@ -25,26 +24,19 @@ class WeaponRenderCollection:
 
     def makePistol(self):
         model = self.weaponModel3dFactory.makePistol()
-        self.models[Pistol] = self.makeRenderModel3d(model)
+        self.models[Pistol] = self.renderModel3dLoader.make(model, Material.weapon)
 
     def makeRifle(self):
         model = self.weaponModel3dFactory.makeRifle()
-        self.models[Rifle] = self.makeRenderModel3d(model)
+        self.models[Rifle] = self.renderModel3dLoader.make(model, Material.weapon)
 
     def makeLauncher(self):
         model = self.weaponModel3dFactory.makeLauncher()
-        self.models[Launcher] = self.makeRenderModel3d(model)
-
-    def makeRenderModel3d(self, model):
-        vboBuilder = self.vboBuilderFactory.makeModel3dVBOBuilder()
-        vbos = vboBuilder.build(model)
-        meshes = [RenderMesh(vbo, mesh.texture, Material.weapon) for mesh, vbo in vbos]
-
-        return RenderModel3d(meshes)
+        self.models[Launcher] = self.renderModel3dLoader.make(model, Material.weapon)
 
     def getRenderModel3d(self, weaponType):
         return self.models[weaponType]
 
 
 def makeWeaponRenderCollection(resolver):
-    return WeaponRenderCollection(resolver.resolve(WeaponModel3dFactory), resolver.resolve(VBOBuilderFactory))
+    return WeaponRenderCollection(resolver.resolve(WeaponModel3dFactory), resolver.resolve(RenderModel3dLoader))
