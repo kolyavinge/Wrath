@@ -46,6 +46,8 @@ class Bullet:
 
 class Weapon:
 
+    defaultCount = 1
+
     def __init__(self, bulletType, flashType):
         self.bulletType = bulletType
         self.flashType = flashType
@@ -59,7 +61,6 @@ class Weapon:
         self.maxBulletsCount = 0
         self.delay = 0
         self.delayRemain = 0
-        self.isFiring = False
         self.jitter = Vector3()
         self.jitterFade = 0
         self.jitterDelta = 0

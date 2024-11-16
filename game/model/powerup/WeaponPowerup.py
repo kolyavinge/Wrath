@@ -11,9 +11,16 @@ class WeaponPowerup(Powerup):
     def __init__(self):
         super().__init__()
         self.height = PlayerConstants.eyeLength - 0.2
+        self.setWeaponType()
+        self.count = self.weaponType.defaultCount
+        self.setZShift()
+
+    def setWeaponType(self):
         rand = Random()
         weaponTypes = Weapon.getAllWeaponTypes()
         self.weaponType = weaponTypes[rand.getInt(0, len(weaponTypes))]
+
+    def setZShift(self):
         shift = 0.002
         self.zShift = CircularIterator([shift for _ in range(0, 20)] + [-shift for _ in range(0, 20)])
 

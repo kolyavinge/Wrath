@@ -34,13 +34,17 @@ class PlayerWeaponPositionSwingLogic:
         swing = Geometry.rotatePoint(player.rightNormal, player.frontNormal, CommonConstants.axisOrigin, radians)
         swing.setLength(0.015 * player.velocityValue)
 
-        self.gameData.playerItems.currentWeapon.position.add(swing)
+        self.gameData.playerItems.rightHandWeapon.position.add(swing)
+        if self.gameData.playerItems.leftHandWeapon is not None:
+            self.gameData.playerItems.leftHandWeapon.position.add(swing)
 
     def updateLandingSwing(self):
         player = self.gameData.player
         if player.state == PlayerState.landing:
             swingValue = 0.05 * player.landingTime * Math.sin(player.landingTime)
-            self.gameData.playerItems.currentWeapon.position.z -= swingValue
+            self.gameData.playerItems.rightHandWeapon.position.z -= swingValue
+            if self.gameData.playerItems.leftHandWeapon is not None:
+                self.gameData.playerItems.leftHandWeapon.position.z -= swingValue
 
 
 def makePlayerWeaponPositionSwingLogic(resolver):

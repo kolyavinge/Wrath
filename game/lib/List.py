@@ -9,6 +9,15 @@ class List:
         return None
 
     @staticmethod
+    def where(condition, lst):
+        result = []
+        for item in lst:
+            if condition(item):
+                result.append(item)
+
+        return result
+
+    @staticmethod
     def groupby(lst, groupFunc):
         groups = {}
         for item in lst:

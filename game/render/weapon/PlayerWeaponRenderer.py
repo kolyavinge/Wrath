@@ -13,7 +13,12 @@ class PlayerWeaponRenderer:
         self.vboRenderer = vboRenderer
 
     def render(self, shader):
-        weapon = self.gameData.playerItems.currentWeapon
+        playerItems = self.gameData.playerItems
+        self.renderWeapon(shader, playerItems.rightHandWeapon)
+        if playerItems.leftHandWeapon is not None:
+            self.renderWeapon(shader, playerItems.leftHandWeapon)
+
+    def renderWeapon(self, shader, weapon):
         shader.setModelMatrix(weapon.getModelMatrix())
         model = self.renderCollection.getRenderModel3d(type(weapon))
         for mesh in model.meshes:

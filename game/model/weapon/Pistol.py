@@ -24,5 +24,7 @@ class PistolBullet(Bullet):
 
 class Pistol(Weapon):
 
+    defaultCount = 2
+
     def __init__(self):
         super().__init__(PistolBullet, PistolFlash)

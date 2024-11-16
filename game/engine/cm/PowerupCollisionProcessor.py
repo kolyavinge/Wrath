@@ -34,12 +34,14 @@ class PowerupCollisionProcessor:
             self.eventManager.raiseEvent(Events.powerupPickedUp, (person, powerup))
 
     def processWeaponPowerup(self, person, powerup):
-        weapons = self.gameData.allPersonItems[person].weapons
-        weapon = List.firstOrNone(lambda w: type(w) == powerup.weaponType, weapons)
-        if weapon is not None:
-            weapon.addBullets(weapon.maxBulletsCount)
+        personWeapons = self.gameData.allPersonItems[person].weapons
+        findedWeapons = List.where(lambda w: type(w) == powerup.weaponType, personWeapons)
+        if len(findedWeapons) > 0:
+            for findedWeapon in findedWeapons:
+                findedWeapon.addBullets(findedWeapon.maxBulletsCount)
         else:
-            weapons.add(powerup.weaponType())
+            for _ in range(0, powerup.count):
+                personWeapons.add(powerup.weaponType())
 
     def processHealthPowerup(self, person, powerup):
         person.addHealth(powerup.value)

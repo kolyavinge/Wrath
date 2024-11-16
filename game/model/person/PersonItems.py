@@ -4,9 +4,11 @@ from game.model.weapon.Rifle import Rifle
 class PersonItems:
 
     def __init__(self):
-        self.currentWeapon = Rifle()
+        self.rightHandWeapon = Rifle()
+        self.leftHandWeapon = None
+        self.currentWeapon = self.rightHandWeapon
         self.weapons = set()
-        self.weapons.add(self.currentWeapon)
+        self.weapons.add(self.rightHandWeapon)
         self.vest = 0
 
     def setFullVest(self):

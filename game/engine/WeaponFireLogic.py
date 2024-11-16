@@ -15,20 +15,22 @@ class WeaponFireLogic:
         self.rand = Random()
 
     def process(self):
-        weapon = self.gameData.playerItems.currentWeapon
-        self.processWeapon(self.gameData.player, weapon)
+        personItems = self.gameData.playerItems
+        weapon = personItems.currentWeapon
+        self.processWeapon(self.gameData.player, personItems, weapon)
 
-    def processWeapon(self, person, weapon):
-        weapon.isFiring = False
+    def processWeapon(self, person, personItems, weapon):
         if weapon.delayRemain > 0:
             weapon.delayRemain -= 1
-        if self.gameData.playerInputData.fire:
-            if self.fire(weapon):
-                self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
+            if weapon.delayRemain == 0:
+                self.switchWeaponIfNeeded(personItems)
+        else:
+            if self.gameData.playerInputData.fire:  # TODO person input data
+                if self.fire(weapon):
+                    self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
 
     def fire(self, weapon):
         if weapon.bulletsCount > 0 and weapon.delayRemain == 0:
-            weapon.isFiring = True
             weapon.bulletsCount -= 1
             weapon.delayRemain = weapon.delay
             newJitter = self.getNewJitter(weapon)
@@ -50,6 +52,13 @@ class WeaponFireLogic:
             return True
         else:
             return False
+
+    def switchWeaponIfNeeded(self, personItems):
+        if personItems.leftHandWeapon is not None:
+            if personItems.rightHandWeapon == personItems.currentWeapon:
+                personItems.currentWeapon = personItems.leftHandWeapon
+            else:
+                personItems.currentWeapon = personItems.rightHandWeapon
 
     def getNewJitter(self, weapon):
         x = self.rand.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
