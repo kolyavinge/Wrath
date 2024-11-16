@@ -45,7 +45,7 @@ class PowerupCollisionProcessor:
         person.addHealth(powerup.value)
 
     def processVestPowerup(self, person, powerup):
-        print("processVestPowerup")
+        self.gameData.allPersonItems[person].setFullVest()
 
 
 def makePowerupCollisionProcessor(resolver):
