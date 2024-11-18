@@ -11,15 +11,19 @@ class WeaponFlashRenderMeshFactory:
         self.vboBuilderFactory = vboBuilderFactory
         self.textureCollection = textureCollection
 
+    def makePistolFlash(self):
+        return RenderMesh(self.makeQuadVBO(0.08), self.textureCollection.pistolFlash, None)
+
     def makeRifleFlash(self):
+        return RenderMesh(self.makeQuadVBO(0.1), self.textureCollection.rifleFlash, None)
+
+    def makeQuadVBO(self, size):
         vboBuilder = self.vboBuilderFactory.makeVBOBuilder()
 
-        a = 0.1
-
-        vboBuilder.addVertex(Vector3(-a, 0, -a))
-        vboBuilder.addVertex(Vector3(a, 0, -a))
-        vboBuilder.addVertex(Vector3(a, 0, a))
-        vboBuilder.addVertex(Vector3(-a, 0, a))
+        vboBuilder.addVertex(Vector3(-size, 0, -size))
+        vboBuilder.addVertex(Vector3(size, 0, -size))
+        vboBuilder.addVertex(Vector3(size, 0, size))
+        vboBuilder.addVertex(Vector3(-size, 0, size))
 
         vboBuilder.addNormal(CommonConstants.yAxis)
         vboBuilder.addNormal(CommonConstants.yAxis)
@@ -36,7 +40,7 @@ class WeaponFlashRenderMeshFactory:
 
         vbo = vboBuilder.build()
 
-        return RenderMesh(vbo, self.textureCollection.rifleFlash, None)
+        return vbo
 
 
 def makeWeaponFlashRenderMeshFactory(resolver):
