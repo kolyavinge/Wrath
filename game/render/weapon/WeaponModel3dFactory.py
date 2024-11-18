@@ -21,8 +21,8 @@ class WeaponModel3dFactory:
         return model
 
     def makeLauncher(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("rifle"))
-        model.setScale(0.025)
+        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("launcher"))
+        model.setScale(0.12)
 
         return model
 
