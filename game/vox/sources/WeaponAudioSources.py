@@ -7,10 +7,9 @@ class WeaponAudioSources:
     def __init__(self, person, audioSourceFactory):
         self.person = person
         self.weapons = {}
-        self.weapons[Pistol] = audioSourceFactory.makeRifleShot()
+        self.weapons[Pistol] = audioSourceFactory.makePistolShot()
         self.weapons[Pistol].setGain(0.8)
         self.weapons[Rifle] = audioSourceFactory.makeRifleShot()
-        self.weapons[Rifle].setGain(0.8)
 
     def updatePosition(self):
         position = self.person.currentCenterPoint

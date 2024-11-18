@@ -23,6 +23,9 @@ class AudioSourceFactory:
     def makeLanding(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.landing)
 
+    def makePistolShot(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.pistolShot)
+
     def makeRifleShot(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.rifleShot)
 
