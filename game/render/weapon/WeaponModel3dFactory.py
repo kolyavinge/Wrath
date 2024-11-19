@@ -20,6 +20,12 @@ class WeaponModel3dFactory:
 
         return model
 
+    def makePlasma(self):
+        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("plasma"))
+        model.setScale(0.0008)
+
+        return model
+
     def makeLauncher(self):
         model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("launcher"))
         model.setScale(0.12)
