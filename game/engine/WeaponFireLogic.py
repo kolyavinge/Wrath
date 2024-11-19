@@ -17,17 +17,12 @@ class WeaponFireLogic:
     def process(self):
         personItems = self.gameData.playerItems
         weapon = personItems.currentWeapon
-        self.processWeapon(self.gameData.player, personItems, weapon)
+        self.processWeapon(self.gameData.player, weapon)
 
-    def processWeapon(self, person, personItems, weapon):
-        if weapon.delayRemain > 0:
-            weapon.delayRemain -= 1
-            if weapon.delayRemain == 0:
-                self.switchWeaponIfNeeded(personItems)
-        else:
-            if self.gameData.playerInputData.fire:  # TODO person input data
-                if self.fire(weapon):
-                    self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
+    def processWeapon(self, person, weapon):
+        if self.gameData.playerInputData.fire:  # TODO person input data
+            if self.fire(weapon):
+                self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
 
     def fire(self, weapon):
         if weapon.bulletsCount > 0 and weapon.delayRemain == 0:
@@ -47,18 +42,12 @@ class WeaponFireLogic:
             flashLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, weapon.position)
             if flashLevelSegment in self.gameData.visibleLevelSegments:
                 flash = weapon.makeFlash()
-                flashLevelSegment.weaponFlashes.append(flash)
+                if flash is not None:
+                    flashLevelSegment.weaponFlashes.append(flash)
 
             return True
         else:
             return False
-
-    def switchWeaponIfNeeded(self, personItems):
-        if personItems.leftHandWeapon is not None:
-            if personItems.rightHandWeapon == personItems.currentWeapon:
-                personItems.currentWeapon = personItems.leftHandWeapon
-            else:
-                personItems.currentWeapon = personItems.rightHandWeapon
 
     def getNewJitter(self, weapon):
         x = self.rand.getFloat(-weapon.jitterDelta, weapon.jitterDelta)

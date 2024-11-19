@@ -79,6 +79,9 @@ class Weapon:
         return bullet
 
     def makeFlash(self):
+        if self.flashType is None:
+            return None
+
         flash = self.flashType()
         flash.weaponType = type(self)
         flash.calculateModelMatrix(self.barrelPosition, self.yawRadians, self.pitchRadians)

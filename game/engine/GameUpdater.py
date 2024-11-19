@@ -20,6 +20,7 @@ from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.PlayerZUpdater import PlayerZUpdater
 from game.engine.PowerupUpdater import PowerupUpdater
 from game.engine.TorchUpdater import TorchUpdater
+from game.engine.WeaponDelayUpdater import WeaponDelayUpdater
 from game.engine.WeaponFireLogic import WeaponFireLogic
 from game.engine.WeaponFlashUpdater import WeaponFlashUpdater
 
@@ -42,6 +43,7 @@ class GameUpdater:
         levelSegmentVisibilityUpdater,
         cameraUpdater,
         playerWeaponPositionUpdater,
+        weaponDelayUpdater,
         weaponFireLogic,
         playerWeaponPositionSwingLogic,
         bulletMoveLogic,
@@ -65,6 +67,7 @@ class GameUpdater:
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
         self.playerWeaponPositionUpdater = playerWeaponPositionUpdater
+        self.weaponDelayUpdater = weaponDelayUpdater
         self.weaponFireLogic = weaponFireLogic
         self.playerWeaponPositionSwingLogic = playerWeaponPositionSwingLogic
         self.bulletMoveLogic = bulletMoveLogic
@@ -91,6 +94,7 @@ class GameUpdater:
         self.playerMovingSwingLogic.updateSwing()
         self.cameraUpdater.update()
         self.playerWeaponPositionUpdater.update()
+        self.weaponDelayUpdater.update()
         self.weaponFireLogic.process()
         self.playerWeaponPositionSwingLogic.updateSwing()
         self.bulletMoveLogic.process()
@@ -121,6 +125,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
         resolver.resolve(PlayerWeaponPositionUpdater),
+        resolver.resolve(WeaponDelayUpdater),
         resolver.resolve(WeaponFireLogic),
         resolver.resolve(PlayerWeaponPositionSwingLogic),
         resolver.resolve(BulletMoveLogic),

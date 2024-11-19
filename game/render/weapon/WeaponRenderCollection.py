@@ -23,7 +23,6 @@ class WeaponRenderCollection:
         self.makeRifle()
         self.makeLauncher()
         self.makeRailgun()
-        # TODO weapon type - make func in map
 
     def makePistol(self):
         model = self.weaponModel3dFactory.makePistol()
