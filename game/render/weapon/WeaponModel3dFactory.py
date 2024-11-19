@@ -38,6 +38,12 @@ class WeaponModel3dFactory:
 
         return model
 
+    def makeSniper(self):
+        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("sniper"))
+        model.setScale(0.07)
+
+        return model
+
 
 def makeWeaponModel3dFactory(resolver):
     return WeaponModel3dFactory(resolver.resolve(Model3dLoader), resolver.resolve(Model3dDirectory))

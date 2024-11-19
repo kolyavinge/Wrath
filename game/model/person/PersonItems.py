@@ -3,12 +3,13 @@ from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.Railgun import Railgun
 from game.model.weapon.Rifle import Rifle
+from game.model.weapon.Sniper import Sniper
 
 
 class PersonItems:
 
     def __init__(self):
-        self.rightHandWeapon = Plasma()
+        self.rightHandWeapon = Sniper()
         self.leftHandWeapon = None
         self.currentWeapon = self.rightHandWeapon
         self.weapons = set()

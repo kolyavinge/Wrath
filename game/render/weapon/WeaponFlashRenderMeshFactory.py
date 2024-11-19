@@ -17,6 +17,9 @@ class WeaponFlashRenderMeshFactory:
     def makeRifleFlash(self):
         return RenderMesh(self.makeQuadVBO(0.1), self.textureCollection.rifleFlash, None)
 
+    def makeSniperFlash(self):
+        return RenderMesh(self.makeQuadVBO(0.1), self.textureCollection.sniperFlash, None)
+
     def makeQuadVBO(self, size):
         vboBuilder = self.vboBuilderFactory.makeVBOBuilder()
 

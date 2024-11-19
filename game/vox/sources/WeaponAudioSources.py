@@ -3,6 +3,7 @@ from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.Railgun import Railgun
 from game.model.weapon.Rifle import Rifle
+from game.model.weapon.Sniper import Sniper
 
 
 class WeaponAudioSources:
@@ -16,6 +17,8 @@ class WeaponAudioSources:
         self.weapons[Plasma] = audioSourceFactory.makeRifleShot()
         self.weapons[Launcher] = audioSourceFactory.makeRifleShot()
         self.weapons[Railgun] = audioSourceFactory.makeRifleShot()
+        self.weapons[Sniper] = audioSourceFactory.makeSniperShot()
+        self.weapons[Sniper].setGain(0.8)
 
     def updatePosition(self):
         position = self.person.currentCenterPoint

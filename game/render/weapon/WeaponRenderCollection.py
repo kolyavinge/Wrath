@@ -5,6 +5,7 @@ from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.Railgun import Railgun
 from game.model.weapon.Rifle import Rifle
+from game.model.weapon.Sniper import Sniper
 from game.render.weapon.WeaponModel3dFactory import WeaponModel3dFactory
 
 
@@ -25,6 +26,7 @@ class WeaponRenderCollection:
         self.makePlasma()
         self.makeLauncher()
         self.makeRailgun()
+        self.makeSniper()
 
     def makePistol(self):
         model = self.weaponModel3dFactory.makePistol()
@@ -45,6 +47,10 @@ class WeaponRenderCollection:
     def makeRailgun(self):
         model = self.weaponModel3dFactory.makeRailgun()
         self.models[Railgun] = self.renderModel3dLoader.make(model, Material.weapon)
+
+    def makeSniper(self):
+        model = self.weaponModel3dFactory.makeSniper()
+        self.models[Sniper] = self.renderModel3dLoader.make(model, Material.weapon)
 
     def getRenderModel3d(self, weaponType):
         return self.models[weaponType]
