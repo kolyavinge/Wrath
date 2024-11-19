@@ -2,6 +2,7 @@ from game.gl.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
+from game.model.weapon.Railgun import Railgun
 from game.model.weapon.Rifle import Rifle
 from game.render.weapon.WeaponModel3dFactory import WeaponModel3dFactory
 
@@ -21,6 +22,8 @@ class WeaponRenderCollection:
         self.makePistol()
         self.makeRifle()
         self.makeLauncher()
+        self.makeRailgun()
+        # TODO weapon type - make func in map
 
     def makePistol(self):
         model = self.weaponModel3dFactory.makePistol()
@@ -33,6 +36,10 @@ class WeaponRenderCollection:
     def makeLauncher(self):
         model = self.weaponModel3dFactory.makeLauncher()
         self.models[Launcher] = self.renderModel3dLoader.make(model, Material.weapon)
+
+    def makeRailgun(self):
+        model = self.weaponModel3dFactory.makeRailgun()
+        self.models[Railgun] = self.renderModel3dLoader.make(model, Material.weapon)
 
     def getRenderModel3d(self, weaponType):
         return self.models[weaponType]
