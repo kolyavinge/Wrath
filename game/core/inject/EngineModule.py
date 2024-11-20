@@ -38,6 +38,7 @@ from game.engine.TorchUpdater import *
 from game.engine.WeaponDelayUpdater import *
 from game.engine.WeaponFireLogic import *
 from game.engine.WeaponFlashUpdater import *
+from game.engine.WeaponSelector import *
 from game.input.InputManager import *
 
 
@@ -84,4 +85,5 @@ class EngineModule:
         binder.bindSingleton(WeaponDelayUpdater, makeWeaponDelayUpdater)
         binder.bindSingleton(WeaponFireLogic, makeWeaponFireLogic)
         binder.bindSingleton(WeaponFlashUpdater, makeWeaponFlashUpdater)
+        binder.bindSingleton(WeaponSelector, makeWeaponSelector)
         binder.bindSingleton(InputManager, makeInputManager)

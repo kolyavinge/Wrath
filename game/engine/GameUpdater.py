@@ -23,6 +23,7 @@ from game.engine.TorchUpdater import TorchUpdater
 from game.engine.WeaponDelayUpdater import WeaponDelayUpdater
 from game.engine.WeaponFireLogic import WeaponFireLogic
 from game.engine.WeaponFlashUpdater import WeaponFlashUpdater
+from game.engine.WeaponSelector import WeaponSelector
 
 
 class GameUpdater:
@@ -52,6 +53,8 @@ class GameUpdater:
         torchUpdater,
         powerupUpdater,
         weaponFlashUpdater,
+        # event listeners
+        weaponSelector,
     ):
         self.playerTurnLogic = playerTurnLogic
         self.playerMovingTimeCalculator = playerMovingTimeCalculator
@@ -134,4 +137,5 @@ def makeGameUpdater(resolver):
         resolver.resolve(TorchUpdater),
         resolver.resolve(PowerupUpdater),
         resolver.resolve(WeaponFlashUpdater),
+        resolver.resolve(WeaponSelector),
     )

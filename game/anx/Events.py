@@ -9,4 +9,7 @@ class Events:
 
     powerupPickedUp = "powerupPicked"
 
+    torchSwitchRequested = "torchSwitchRequested"
+    selectWeaponRequested = "selectWeaponRequested"
+
     viewportSizeChanged = "viewportSizeChanged"

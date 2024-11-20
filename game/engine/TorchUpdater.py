@@ -8,16 +8,18 @@ class TorchUpdater:
     def __init__(self, gameData, eventManager):
         self.gameData = gameData
         self.eventManager = eventManager
+        self.eventManager.attachToEvent(Events.torchSwitchRequested, self.switchTorch)
 
     def update(self):
         player = self.gameData.player
         torch = self.gameData.playerTorch
         torch.position = player.eyePosition
         torch.direction = player.lookDirection
-        if self.gameData.playerInputData.torchSwitch:
-            self.gameData.playerInputData.torchSwitch = False
-            torch.switch()
-            self.eventManager.raiseEvent(Events.torchSwitched)
+
+    def switchTorch(self, _):
+        torch = self.gameData.playerTorch
+        torch.switch()
+        self.eventManager.raiseEvent(Events.torchSwitched)
 
 
 def makeTorchUpdater(resolver):

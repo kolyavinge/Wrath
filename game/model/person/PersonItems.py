@@ -9,11 +9,25 @@ from game.model.weapon.Sniper import Sniper
 class PersonItems:
 
     def __init__(self):
-        self.rightHandWeapon = Sniper()
+        pistol1 = Pistol()
+        pistol2 = Pistol()
+        rifle = Rifle()
+        plasma = Plasma()
+        launcher = Launcher()
+        railgun = Railgun()
+        sniper = Sniper()
+
+        self.weapons = set()
+        self.weapons.add(pistol1)
+        self.weapons.add(pistol2)
+        self.weapons.add(rifle)
+        self.weapons.add(plasma)
+        self.weapons.add(launcher)
+        self.weapons.add(railgun)
+        self.weapons.add(sniper)
+        self.rightHandWeapon = sniper
         self.leftHandWeapon = None
         self.currentWeapon = self.rightHandWeapon
-        self.weapons = set()
-        self.weapons.add(self.rightHandWeapon)
         self.vest = 0
 
     def setFullVest(self):

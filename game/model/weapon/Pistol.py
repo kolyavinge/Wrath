@@ -28,7 +28,7 @@ class Pistol(Weapon):
         self.barrelPoint = Vector3(0, 0.1, 0.01)
         self.bulletsCount = 25
         self.maxBulletsCount = 25
-        self.delay = 8
+        self.delay = 10
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6

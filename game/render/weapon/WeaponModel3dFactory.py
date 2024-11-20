@@ -34,7 +34,7 @@ class WeaponModel3dFactory:
 
     def makeRailgun(self):
         model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("railgun"))
-        model.setScale(0.5)
+        model.setScale(0.45)
 
         return model
 

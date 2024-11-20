@@ -1,14 +1,17 @@
+from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.input.InputManager import InputManager
 from game.input.Keys import Keys
+from game.lib.EventManager import EventManager
 from game.lib.Math import Math
 
 
 class PlayerInputManager:
 
-    def __init__(self, gameData, inputManager):
+    def __init__(self, gameData, inputManager, eventManager):
         self.gameData = gameData
         self.inputManager = inputManager
+        self.eventManager = eventManager
 
     def processInput(self):
         self.gameData.playerInputData.clear()
@@ -18,6 +21,19 @@ class PlayerInputManager:
     def processKeyboard(self):
         inputData = self.gameData.playerInputData
         keyboard = self.inputManager.keyboard
+
+        if keyboard.isPressed(Keys.d1):
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, 1)
+        elif keyboard.isPressed(Keys.d2):
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, 2)
+        elif keyboard.isPressed(Keys.d3):
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, 3)
+        elif keyboard.isPressed(Keys.d4):
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, 4)
+        elif keyboard.isPressed(Keys.d5):
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, 5)
+        elif keyboard.isPressed(Keys.d6):
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, 6)
 
         if keyboard.isPressedOrHeld(Keys.w):
             inputData.goForward = True
@@ -30,25 +46,25 @@ class PlayerInputManager:
             inputData.stepRight = True
 
         if keyboard.isPressed(Keys.f):
-            inputData.torchSwitch = True
+            self.eventManager.raiseEvent(Events.torchSwitchRequested)
 
     def processMouse(self):
         inputData = self.gameData.playerInputData
         mouse = self.inputManager.mouse
 
         if mouse.dx < 0:
-            inputData.turnLeftRadians = 0.005 * Math.abs(mouse.dx)
+            inputData.turnLeftRadians = 0.004 * Math.abs(mouse.dx)
         elif mouse.dx > 0:
-            inputData.turnRightRadians = 0.005 * Math.abs(mouse.dx)
+            inputData.turnRightRadians = 0.004 * Math.abs(mouse.dx)
 
         if mouse.dy < 0:
-            inputData.lookUpRadians = 0.005 * Math.abs(mouse.dy)
+            inputData.lookUpRadians = 0.004 * Math.abs(mouse.dy)
         elif mouse.dy > 0:
-            inputData.lookDownRadians = 0.005 * Math.abs(mouse.dy)
+            inputData.lookDownRadians = 0.004 * Math.abs(mouse.dy)
 
         if mouse.isLeftButtonPressed():
             inputData.fire = True
 
 
 def makePlayerInputManager(resolver):
-    return PlayerInputManager(resolver.resolve(GameData), resolver.resolve(InputManager))
+    return PlayerInputManager(resolver.resolve(GameData), resolver.resolve(InputManager), resolver.resolve(EventManager))
