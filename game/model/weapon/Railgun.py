@@ -8,7 +8,7 @@ class RailgunBullet(Bullet):
         super().__init__()
         self.velocityValue = 5
         self.damage = 5
-        self.holeInfo = BulletHoleInfo.tinyHole
+        self.holeInfo = BulletHoleInfo.smallHole
 
 
 class Railgun(Weapon):
@@ -16,8 +16,8 @@ class Railgun(Weapon):
     def __init__(self):
         super().__init__(RailgunBullet, None)
         self.barrelPoint = Vector3(0, 0.3, 0.03)
-        self.bulletsCount = 50
-        self.maxBulletsCount = 50
+        self.bulletsCount = 10
+        self.maxBulletsCount = 10
         self.delay = 20
         self.jitterFade = 0.9
         self.jitterDelta = 0.05

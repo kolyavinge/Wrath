@@ -8,6 +8,7 @@ class BulletHoleInfo:
         self.halfSize = halfSize
 
 
-BulletHoleInfo.tinyHole = BulletHoleInfo(Material.tinyBulletHole, 0.05)
+BulletHoleInfo.smallHole = BulletHoleInfo(Material.bulletHole, 0.05)
+BulletHoleInfo.largeHole = BulletHoleInfo(Material.bulletHole, 0.1)
 
-BulletHoleInfo.allItems = [BulletHoleInfo.tinyHole]
+BulletHoleInfo.allItems = [BulletHoleInfo.smallHole, BulletHoleInfo.largeHole]

@@ -16,7 +16,7 @@ class PistolBullet(Bullet):
         super().__init__()
         self.velocityValue = 5
         self.damage = 5
-        self.holeInfo = BulletHoleInfo.tinyHole
+        self.holeInfo = BulletHoleInfo.smallHole
 
 
 class Pistol(Weapon):
@@ -33,4 +33,4 @@ class Pistol(Weapon):
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6
         self.feedbackLength = 0.05
-        self.playerShift = Vector3(0.08, 0.3, -0.1)
+        self.playerShift = Vector3(0.12, 0.3, -0.1)

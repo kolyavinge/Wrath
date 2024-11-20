@@ -19,7 +19,7 @@ class LauncherBullet(Bullet):
         self.barrelPoint = Vector3(0, 0.25, 0.03)
         self.velocityValue = 5
         self.damage = 5
-        self.holeInfo = BulletHoleInfo.tinyHole
+        self.holeInfo = BulletHoleInfo.smallHole
 
 
 class Launcher(Weapon):

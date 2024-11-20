@@ -9,7 +9,7 @@ class PlasmaBullet(Bullet):
         super().__init__()
         self.velocityValue = 5
         self.damage = 5
-        self.holeInfo = BulletHoleInfo.tinyHole
+        self.holeInfo = BulletHoleInfo.smallHole
 
 
 class Plasma(Weapon):
