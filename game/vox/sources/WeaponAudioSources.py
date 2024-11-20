@@ -15,7 +15,7 @@ class WeaponAudioSources:
         self.weapons[Pistol].setGain(0.8)
         self.weapons[Rifle] = audioSourceFactory.makeRifleShot()
         self.weapons[Plasma] = audioSourceFactory.makeRifleShot()
-        self.weapons[Launcher] = audioSourceFactory.makeRifleShot()
+        self.weapons[Launcher] = audioSourceFactory.makeLauncherShot()
         self.weapons[Railgun] = audioSourceFactory.makeRifleShot()
         self.weapons[Sniper] = audioSourceFactory.makeSniperShot()
         self.weapons[Sniper].setGain(0.8)
