@@ -30,6 +30,7 @@ class Flash:
 class Bullet:
 
     def __init__(self):
+        self.isVisible = False
         self.currentPosition = Vector3()
         self.nextPosition = Vector3()
         self.velocity = Vector3()
@@ -38,6 +39,7 @@ class Bullet:
         self.totalDistance = 0
         self.currentLevelSegment = None
         self.nextLevelSegment = None
+        self.currentVisibilityLevelSegment = None
         self.holeInfo = None
 
     def commitNextPosition(self):

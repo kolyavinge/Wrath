@@ -16,6 +16,7 @@ class LauncherBullet(Bullet):
 
     def __init__(self):
         super().__init__()
+        self.isVisible = True
         self.barrelPoint = Vector3(0, 0.25, 0.03)
         self.velocityValue = 5
         self.damage = 5

@@ -19,15 +19,36 @@ class BulletCollisionProcessor:
         for bullet in self.gameData.bullets:
             collisionResult = self.bulletCollisionDetector.getConstructionCollisionResultOrNone(bullet)
             if collisionResult is None:
-                bullet.commitNextPosition()
-                bullet.currentLevelSegment = bullet.nextLevelSegment
+                self.processNoCollision(bullet)
             else:
-                collisionPoint, frontNormal = collisionResult
-                bspTree = self.gameData.level.visibilityTree
-                visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
-                bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, visibilityLevelSegment, bullet.holeInfo)
-                self.gameData.bullets.remove(bullet)
-                self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
+                self.processCollision(bullet, collisionResult)
+
+    def processNoCollision(self, bullet):
+        if bullet.isVisible:
+            oldVisibilityLevelSegment = bullet.currentVisibilityLevelSegment
+            bullet.commitNextPosition()
+            bullet.currentLevelSegment = bullet.nextLevelSegment
+            bspTree = self.gameData.level.visibilityTree
+            bullet.currentVisibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
+            self.moveBulletToNewVisibilityLevelSegment(bullet, oldVisibilityLevelSegment, bullet.currentVisibilityLevelSegment)
+        else:
+            bullet.commitNextPosition()
+            bullet.currentLevelSegment = bullet.nextLevelSegment
+
+    def processCollision(self, bullet, collisionResult):
+        collisionPoint, frontNormal = collisionResult
+        bspTree = self.gameData.level.visibilityTree
+        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
+        bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, visibilityLevelSegment, bullet.holeInfo)
+        self.gameData.bullets.remove(bullet)
+        if bullet.isVisible:
+            bullet.currentVisibilityLevelSegment.bullets.remove(bullet)
+        self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
+
+    def moveBulletToNewVisibilityLevelSegment(self, bullet, oldLevelSegment, newLevelSegment):
+        if oldLevelSegment != newLevelSegment:
+            oldLevelSegment.bullets.remove(bullet)
+            newLevelSegment.bullets.append(bullet)
 
 
 def makeBulletCollisionProcessor(resolver):

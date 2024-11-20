@@ -21,6 +21,8 @@ class BulletMoveLogic:
             bullet.nextLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.nextPosition)
         else:
             self.gameData.bullets.remove(bullet)
+            if bullet.isVisible:
+                bullet.currentVisibilityLevelSegment.bullets.remove(bullet)
 
 
 def makeBulletMoveLogic(resolver):

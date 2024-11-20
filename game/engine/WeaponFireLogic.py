@@ -34,16 +34,20 @@ class WeaponFireLogic:
             weapon.feedback.add(newFeedback)
 
             bullet = weapon.makeBullet()
+            self.gameData.bullets.append(bullet)
             bspTree = self.gameData.level.collisionTree
             bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
-            self.gameData.bullets.append(bullet)
 
             bspTree = self.gameData.level.visibilityTree
-            flashLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, weapon.position)
-            if flashLevelSegment in self.gameData.visibleLevelSegments:
+            visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
+            if bullet.isVisible:
+                bullet.currentVisibilityLevelSegment = visibilityLevelSegment
+                visibilityLevelSegment.bullets.append(bullet)
+
+            if visibilityLevelSegment in self.gameData.visibleLevelSegments:
                 flash = weapon.makeFlash()
                 if flash is not None:
-                    flashLevelSegment.weaponFlashes.append(flash)
+                    visibilityLevelSegment.weaponFlashes.append(flash)
 
             return True
         else:
