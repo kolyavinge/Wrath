@@ -3,6 +3,7 @@ from game.render.level.LevelItemRenderCollection import LevelItemRenderCollectio
 from game.render.level.ShadowCasterRenderCollection import ShadowCasterRenderCollection
 from game.render.powerup.PowerupRenderCollection import PowerupRenderCollection
 from game.render.weapon.BulletHoleRenderCollection import BulletHoleRenderCollection
+from game.render.weapon.BulletRenderCollection import BulletRenderCollection
 from game.render.weapon.WeaponFlashRenderCollection import WeaponFlashRenderCollection
 from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection
 
@@ -15,6 +16,7 @@ class GameScreenInitializer:
         levelItemRenderCollection,
         bulletHoleRenderCollection,
         shadowCasterRenderCollection,
+        bulletRenderCollection,
         weaponRenderCollection,
         powerupRenderCollection,
         weaponFlashRenderCollection,
@@ -23,6 +25,7 @@ class GameScreenInitializer:
         self.levelItemRenderCollection = levelItemRenderCollection
         self.bulletHoleRenderCollection = bulletHoleRenderCollection
         self.shadowCasterRenderCollection = shadowCasterRenderCollection
+        self.bulletRenderCollection = bulletRenderCollection
         self.weaponRenderCollection = weaponRenderCollection
         self.powerupRenderCollection = powerupRenderCollection
         self.weaponFlashRenderCollection = weaponFlashRenderCollection
@@ -32,6 +35,7 @@ class GameScreenInitializer:
         self.levelItemRenderCollection.init(allLevelSegments)
         self.bulletHoleRenderCollection.init(allLevelSegments)
         self.shadowCasterRenderCollection.init(allLevelSegments)
+        self.bulletRenderCollection.init()
         self.weaponRenderCollection.init()
         self.powerupRenderCollection.init()
         self.weaponFlashRenderCollection.init()
@@ -43,6 +47,7 @@ def makeGameScreenInitializer(resolver):
         resolver.resolve(LevelItemRenderCollection),
         resolver.resolve(BulletHoleRenderCollection),
         resolver.resolve(ShadowCasterRenderCollection),
+        resolver.resolve(BulletRenderCollection),
         resolver.resolve(WeaponRenderCollection),
         resolver.resolve(PowerupRenderCollection),
         resolver.resolve(WeaponFlashRenderCollection),

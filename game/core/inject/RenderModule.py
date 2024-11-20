@@ -32,6 +32,9 @@ from game.render.ui.GameScreenInitializer import *
 from game.render.ui.GameScreenRenderer import *
 from game.render.weapon.BulletHoleRenderCollection import *
 from game.render.weapon.BulletHoleRenderer import *
+from game.render.weapon.BulletModel3dFactory import *
+from game.render.weapon.BulletRenderCollection import *
+from game.render.weapon.BulletRenderer import *
 from game.render.weapon.CrosshairRenderer import *
 from game.render.weapon.PlayerWeaponRenderer import *
 from game.render.weapon.WeaponFlashRenderCollection import *
@@ -78,6 +81,9 @@ class RenderModule:
         binder.bindSingleton(GameScreenRenderer, makeGameScreenRenderer)
         binder.bindSingleton(BulletHoleRenderCollection, makeBulletHoleRenderCollection)
         binder.bindSingleton(BulletHoleRenderer, makeBulletHoleRenderer)
+        binder.bindSingleton(BulletModel3dFactory, makeBulletModel3dFactory)
+        binder.bindSingleton(BulletRenderCollection, makeBulletRenderCollection)
+        binder.bindSingleton(BulletRenderer, makeBulletRenderer)
         binder.bindSingleton(CrosshairRenderer, makeCrosshairRenderer)
         binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
         binder.bindSingleton(WeaponFlashRenderCollection, makeWeaponFlashRenderCollection)

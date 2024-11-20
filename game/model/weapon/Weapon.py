@@ -33,6 +33,8 @@ class Bullet:
         self.isVisible = False
         self.currentPosition = Vector3()
         self.nextPosition = Vector3()
+        self.yawRadians = 0
+        self.pitchRadians = 0
         self.velocity = Vector3()
         self.velocityValue = 0
         self.damage = 0
@@ -44,6 +46,15 @@ class Bullet:
 
     def commitNextPosition(self):
         self.currentPosition = self.nextPosition.copy()
+
+    def getModelMatrix(self):
+        return (
+            TransformMatrix4Builder()
+            .translate(self.currentPosition.x, self.currentPosition.y, self.currentPosition.z)
+            .rotate(self.yawRadians, CommonConstants.zAxis)
+            .rotate(self.pitchRadians, CommonConstants.xAxis)
+            .resultMatrix
+        )
 
 
 class Weapon:
@@ -75,6 +86,8 @@ class Weapon:
         bullet = self.bulletType()
         bullet.currentPosition = self.barrelPosition.copy()
         bullet.nextPosition = bullet.currentPosition.copy()
+        bullet.yawRadians = self.yawRadians
+        bullet.pitchRadians = self.pitchRadians
         bullet.velocity = self.direction.copy()
         bullet.velocity.setLength(bullet.velocityValue)
 

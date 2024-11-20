@@ -17,8 +17,7 @@ class LauncherBullet(Bullet):
     def __init__(self):
         super().__init__()
         self.isVisible = True
-        self.barrelPoint = Vector3(0, 0.25, 0.03)
-        self.velocityValue = 5
+        self.velocityValue = 0.5
         self.damage = 5
         self.holeInfo = BulletHoleInfo.smallHole
 
@@ -27,7 +26,7 @@ class Launcher(Weapon):
 
     def __init__(self):
         super().__init__(LauncherBullet, LauncherFlash)
-        self.barrelPoint = Vector3(0, 0.3, 0.03)
+        self.barrelPoint = Vector3(0, 0, 0.018)
         self.bulletsCount = 5
         self.maxBulletsCount = 5
         self.delay = 40
