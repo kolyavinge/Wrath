@@ -1,5 +1,6 @@
 from OpenGL.GL import *
 
+from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.VBORenderer import VBORenderer
 from game.render.weapon.BulletHoleRenderCollection import BulletHoleRenderCollection
 
@@ -15,6 +16,7 @@ class BulletHoleRenderer:
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
 
+        shader.setModelMatrix(TransformMatrix4.identity)
         meshes = self.bulletHoleRenderCollection.getRenderMeshes(levelSegment)
         for mesh in meshes:
             shader.setMaterial(mesh.material)
