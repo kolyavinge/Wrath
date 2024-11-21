@@ -19,7 +19,7 @@ class LauncherBullet(Bullet):
         self.isVisible = True
         self.velocityValue = 0.5
         self.damage = 5
-        self.holeInfo = BulletHoleInfo.smallHole
+        self.holeInfo = BulletHoleInfo.explosionHole
 
 
 class Launcher(Weapon):

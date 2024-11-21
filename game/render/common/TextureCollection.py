@@ -31,6 +31,7 @@ class TextureCollection:
         self.edgeMetal2 = self.textureLoader.load(path + "edgeMetal2.jpg")
         self.edgeMetal3 = self.textureLoader.load(path + "edgeMetal3.jpg")
         self.bulletHole = self.textureLoader.load(path + "bulletHole.png")
+        self.explosionHole = self.textureLoader.load(path + "explosionHole.png")
         self.pistolFlash = self.textureLoader.load(path + "pistolFlash.png")
         self.rifleFlash = self.textureLoader.load(path + "rifleFlash.png")
         self.sniperFlash = self.textureLoader.load(path + "sniperFlash.png")
