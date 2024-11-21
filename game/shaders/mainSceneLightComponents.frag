@@ -1,7 +1,5 @@
 #version 460 core
 
-const vec4 depthColor = vec4(0.0, 0.0, 0.0, 1.0);
-
 in vec3 PositionView;
 in vec3 NormalView;
 in vec2 TexCoord;
@@ -104,7 +102,7 @@ void getTotalLightColor(inout vec3 ambient, inout vec3 diffuseSpecular)
 
 float getViewDepthFactor()
 {
-    return clamp(length(PositionView) / maxDepth, 0.0, 1.0);
+    return 1.0 - clamp(length(PositionView) / maxDepth, 0.0, 1.0);
 }
 
 void main()
@@ -113,7 +111,7 @@ void main()
     vec3 ambient = vec3(0.0);
     vec3 diffuseSpecular = vec3(0.0);
     getTotalLightColor(ambient, diffuseSpecular);
-    float viewDepthFactor = getViewDepthFactor();
-    out_Ambient = mix(textureColor * vec4(ambient, 1.0), depthColor, viewDepthFactor);
-    out_DiffuseSpecular = mix(textureColor * vec4(diffuseSpecular, 1.0), depthColor, viewDepthFactor);
+    vec4 depthColor = vec4(vec3(getViewDepthFactor()), 1.0);
+    out_Ambient = textureColor * vec4(ambient, 1.0) * depthColor;
+    out_DiffuseSpecular = textureColor * vec4(diffuseSpecular, 1.0) * depthColor;
 }
