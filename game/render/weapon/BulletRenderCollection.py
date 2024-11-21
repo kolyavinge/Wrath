@@ -19,7 +19,7 @@ class BulletRenderCollection:
         self.makeLauncherBullet()
 
     def makeLauncherBullet(self):
-        model = self.bulletModel3dFactory.makeRocket()
+        model = self.bulletModel3dFactory.makeLauncherBullet()
         self.models[LauncherBullet] = self.renderModel3dLoader.make(model, Material.weapon)
 
     def getRenderModel3d(self, bulletType):

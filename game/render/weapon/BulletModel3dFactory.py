@@ -8,8 +8,8 @@ class BulletModel3dFactory:
         self.model3dLoader = model3dLoader
         self.model3dDirectory = model3dDirectory
 
-    def makeRocket(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("rocket"))
+    def makeLauncherBullet(self):
+        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("launcherBullet"))
         model.setScale(0.025)
 
         return model
