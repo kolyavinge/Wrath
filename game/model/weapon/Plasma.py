@@ -7,9 +7,9 @@ class PlasmaBullet(Bullet):
 
     def __init__(self):
         super().__init__()
-        self.velocityValue = 5
+        self.velocityValue = 1
         self.damage = 5
-        self.holeInfo = BulletHoleInfo.smallHole
+        self.holeInfo = BulletHoleInfo.plasmaHole
 
 
 class Plasma(Weapon):
@@ -19,7 +19,7 @@ class Plasma(Weapon):
         self.barrelPoint = Vector3(0, 0.3, 0.03)
         self.bulletsCount = 50
         self.maxBulletsCount = 50
-        self.delay = 8
+        self.delay = 15
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6

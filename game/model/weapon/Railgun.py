@@ -6,7 +6,7 @@ from game.model.weapon.Weapon import Bullet, Weapon
 class RailgunBullet(Bullet):
     def __init__(self):
         super().__init__()
-        self.velocityValue = 5
+        self.velocityValue = 1
         self.damage = 5
         self.holeInfo = BulletHoleInfo.smallHole
 
