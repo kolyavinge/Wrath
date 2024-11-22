@@ -102,3 +102,18 @@ class Geometry:
         projected.setLength(newLength)
 
         return projected
+
+    @staticmethod
+    def getScreenProjectedPoint(modelMatrix, viewMatrix, projectionMatrix, viewport, point):
+        mvpMatrix = projectionMatrix.copy()
+        mvpMatrix.mul(viewMatrix)
+        mvpMatrix.mul(modelMatrix)
+        viewPoint = viewMatrix.mulVector3(point)
+        projPoint = mvpMatrix.mulVector3(point)
+        projPoint.x /= -viewPoint.z
+        projPoint.y /= -viewPoint.z
+        screenPoint = Vector3(
+            viewport[0] + viewport[2] * (projPoint.x + 1) / 2, viewport[1] + viewport[3] * (projPoint.y + 1) / 2, (projPoint.z + 1) / 2
+        )
+
+        return screenPoint
