@@ -7,6 +7,7 @@ from game.gl.TextureLoader import *
 from game.gl.VBOBuilderFactory import *
 from game.gl.VBORenderer import *
 from game.gl.VBOUpdaterFactory import *
+from game.render.anx.ShineCircleRenderer import *
 from game.render.common.MaterialTextureCollection import *
 from game.render.common.Model3dDirectory import *
 from game.render.common.ShaderCollection import *
@@ -36,6 +37,7 @@ from game.render.weapon.BulletModel3dFactory import *
 from game.render.weapon.BulletRenderCollection import *
 from game.render.weapon.BulletRenderer import *
 from game.render.weapon.CrosshairRenderer import *
+from game.render.weapon.NonStandartBulletRenderer import *
 from game.render.weapon.PlayerWeaponRenderer import *
 from game.render.weapon.WeaponFlashRenderCollection import *
 from game.render.weapon.WeaponFlashRenderer import *
@@ -56,6 +58,7 @@ class RenderModule:
         binder.bindSingleton(VBOBuilderFactory, makeVBOBuilderFactory)
         binder.bindSingleton(VBORenderer, makeVBORenderer)
         binder.bindSingleton(VBOUpdaterFactory, makeVBOUpdaterFactory)
+        binder.bindSingleton(ShineCircleRenderer, makeShineCircleRenderer)
         binder.bindSingleton(MaterialTextureCollection, makeMaterialTextureCollection)
         binder.bindSingleton(Model3dDirectory, makeModel3dDirectory)
         binder.bindSingleton(ShaderCollection, makeShaderCollection)
@@ -85,6 +88,7 @@ class RenderModule:
         binder.bindSingleton(BulletRenderCollection, makeBulletRenderCollection)
         binder.bindSingleton(BulletRenderer, makeBulletRenderer)
         binder.bindSingleton(CrosshairRenderer, makeCrosshairRenderer)
+        binder.bindSingleton(NonStandartBulletRenderer, makeNonStandartBulletRenderer)
         binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
         binder.bindSingleton(WeaponFlashRenderCollection, makeWeaponFlashRenderCollection)
         binder.bindSingleton(WeaponFlashRenderer, makeWeaponFlashRenderer)
