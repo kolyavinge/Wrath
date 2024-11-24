@@ -47,6 +47,9 @@ class Bullet:
     def commitNextPosition(self):
         self.currentPosition = self.nextPosition.copy()
 
+    def update(self):
+        pass
+
     def getModelMatrix(self):
         return (
             TransformMatrix4Builder()

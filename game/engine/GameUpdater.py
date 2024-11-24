@@ -1,6 +1,7 @@
 import time
 
 from game.engine.BulletMoveLogic import BulletMoveLogic
+from game.engine.BulletUpdater import BulletUpdater
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.BulletCollisionProcessor import BulletCollisionProcessor
 from game.engine.cm.PlayerWallCollisionDetector import PlayerWallCollisionDetector
@@ -47,6 +48,7 @@ class GameUpdater:
         weaponDelayUpdater,
         weaponFireLogic,
         playerWeaponPositionSwingLogic,
+        bulletUpdater,
         bulletMoveLogic,
         bulletCollisionProcessor,
         powerupCollisionProcessor,
@@ -73,6 +75,7 @@ class GameUpdater:
         self.weaponDelayUpdater = weaponDelayUpdater
         self.weaponFireLogic = weaponFireLogic
         self.playerWeaponPositionSwingLogic = playerWeaponPositionSwingLogic
+        self.bulletUpdater = bulletUpdater
         self.bulletMoveLogic = bulletMoveLogic
         self.bulletCollisionProcessor = bulletCollisionProcessor
         self.powerupCollisionProcessor = powerupCollisionProcessor
@@ -100,6 +103,7 @@ class GameUpdater:
         self.weaponDelayUpdater.update()
         self.weaponFireLogic.process()
         self.playerWeaponPositionSwingLogic.updateSwing()
+        self.bulletUpdater.update()
         self.bulletMoveLogic.process()
         self.bulletCollisionProcessor.process()
         self.powerupCollisionProcessor.process()
@@ -131,6 +135,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(WeaponDelayUpdater),
         resolver.resolve(WeaponFireLogic),
         resolver.resolve(PlayerWeaponPositionSwingLogic),
+        resolver.resolve(BulletUpdater),
         resolver.resolve(BulletMoveLogic),
         resolver.resolve(BulletCollisionProcessor),
         resolver.resolve(PowerupCollisionProcessor),
