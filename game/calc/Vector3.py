@@ -1,5 +1,6 @@
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
+from game.lib.Random import Random
 
 
 class Vector3:
@@ -108,5 +109,16 @@ class Vector3:
     def splitFromStartToEnd(startPoint, endPoint, stepLength):
         result = []
         Vector3.fromStartToEnd(startPoint, endPoint, stepLength, lambda point: result.append(point))
+
+        return result
+
+    @staticmethod
+    def getRandomNormalVector():
+        rand = Random()
+        x = rand.getFloat(-1.0, 1.0)
+        y = rand.getFloat(-1.0, 1.0)
+        z = rand.getFloat(-1.0, 1.0)
+        result = Vector3(x, y, z)
+        result.normalize()
 
         return result

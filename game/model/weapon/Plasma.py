@@ -1,3 +1,5 @@
+from game.calc.Geometry import Geometry
+from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.calc.Vector3 import Vector3
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
 from game.model.weapon.Weapon import Bullet, Weapon
@@ -7,9 +9,23 @@ class PlasmaBullet(Bullet):
 
     def __init__(self):
         super().__init__()
+        self.isVisible = True
         self.velocityValue = 1
         self.damage = 5
         self.holeInfo = BulletHoleInfo.plasmaHole
+        self.rotateRadians = 0
+        self.rotateAxis = Vector3.getRandomNormalVector()
+
+    def update(self):
+        self.rotateRadians = Geometry.normalizeRadians(self.rotateRadians + 0.1)
+
+    def getModelMatrix(self):
+        return (
+            TransformMatrix4Builder()
+            .translate(self.currentPosition.x, self.currentPosition.y, self.currentPosition.z)
+            .rotate(self.rotateRadians, self.rotateAxis)
+            .resultMatrix
+        )
 
 
 class Plasma(Weapon):
