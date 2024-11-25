@@ -8,6 +8,14 @@ from game.gl.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 
+class ShineCircleParams:
+
+    def __init__(self):
+        self.radius = 0
+        self.shineColor = Vector3()
+        self.shineStrength = 0
+
+
 class ShineCircleRenderer:
 
     def __init__(self, gameData, shaderProgramCollection, vboBuilderFactory, vboRenderer):
@@ -17,7 +25,7 @@ class ShineCircleRenderer:
         self.vboRenderer = vboRenderer
         self.initQuadVBO()
 
-    def render(self, modelMatrix):
+    def render(self, modelMatrix, params):
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
@@ -26,9 +34,9 @@ class ShineCircleRenderer:
         circleShader.setModelMatrix(modelMatrix)
         circleShader.setViewMatrix(self.gameData.camera.viewMatrix)
         circleShader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
-        circleShader.setRadius(0.1)
-        circleShader.setShineColor(Vector3(1.0, 1.0, 0.0))
-        circleShader.setShineStrength(1)
+        circleShader.setRadius(params.radius)
+        circleShader.setShineColor(params.shineColor)
+        circleShader.setShineStrength(params.shineStrength)
         circleShader.setScreenAspect(CommonConstants.screenAspect)
         self.vboRenderer.render(self.quadVBO)
         circleShader.unuse()

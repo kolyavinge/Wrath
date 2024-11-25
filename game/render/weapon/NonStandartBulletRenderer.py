@@ -1,9 +1,10 @@
 from OpenGL.GL import *
 
+from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 from game.gl.VBORenderer import VBORenderer
 from game.model.weapon.Plasma import PlasmaBullet
-from game.render.anx.ShineCircleRenderer import ShineCircleRenderer
+from game.render.anx.ShineCircleRenderer import ShineCircleParams, ShineCircleRenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.weapon.BulletRenderCollection import BulletRenderCollection
 
@@ -16,6 +17,10 @@ class NonStandartBulletRenderer:
         self.shaderProgramCollection = shaderProgramCollection
         self.shineCircleRenderer = shineCircleRenderer
         self.vboRenderer = vboRenderer
+        self.shineCircleParams = ShineCircleParams()
+        self.shineCircleParams.radius = 0.1
+        self.shineCircleParams.shineColor = Vector3(1.0, 1.0, 0.0)
+        self.shineCircleParams.shineStrength = 1
 
     def render(self):
         for bullet in self.gameData.bullets:
@@ -24,7 +29,7 @@ class NonStandartBulletRenderer:
 
     def renderPlasmaBullet(self, bullet):
         modelMatrix = bullet.getModelMatrix()
-        self.shineCircleRenderer.render(modelMatrix)
+        self.shineCircleRenderer.render(modelMatrix, self.shineCircleParams)
         shader = self.shaderProgramCollection.texture
         shader.use()
         shader.setModelMatrix(modelMatrix)
