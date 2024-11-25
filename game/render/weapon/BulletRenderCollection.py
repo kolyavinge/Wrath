@@ -1,6 +1,7 @@
 from game.gl.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.weapon.Launcher import LauncherBullet
+from game.model.weapon.Plasma import PlasmaBullet
 from game.render.weapon.BulletModel3dFactory import BulletModel3dFactory
 
 
@@ -16,7 +17,12 @@ class BulletRenderCollection:
             vbo.release()
 
         self.models = {}
+        self.makePlasmaBullet()
         self.makeLauncherBullet()
+
+    def makePlasmaBullet(self):
+        model = self.bulletModel3dFactory.makePlasmaBullet()
+        self.models[PlasmaBullet] = self.renderModel3dLoader.make(model, Material.weapon)
 
     def makeLauncherBullet(self):
         model = self.bulletModel3dFactory.makeLauncherBullet()

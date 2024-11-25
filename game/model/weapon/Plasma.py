@@ -1,6 +1,7 @@
 from game.calc.Geometry import Geometry
-from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.calc.Vector3 import Vector3
+from game.lib.Math import Math
+from game.lib.Random import Random
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
 from game.model.weapon.Weapon import Bullet, Weapon
 
@@ -10,29 +11,23 @@ class PlasmaBullet(Bullet):
     def __init__(self):
         super().__init__()
         self.isVisible = True
-        self.velocityValue = 1
+        self.velocityValue = 0.5
         self.damage = 5
         self.holeInfo = BulletHoleInfo.plasmaHole
-        self.rotateRadians = 0
-        self.rotateAxis = Vector3.getRandomNormalVector()
+        rand = Random()
+        self.pitchRadians = rand.getFloat(0, Math.piDouble)
+        self.yawRadians = rand.getFloat(0, Math.piDouble)
 
     def update(self):
-        self.rotateRadians = Geometry.normalizeRadians(self.rotateRadians + 0.1)
-
-    def getModelMatrix(self):
-        return (
-            TransformMatrix4Builder()
-            .translate(self.currentPosition.x, self.currentPosition.y, self.currentPosition.z)
-            .rotate(self.rotateRadians, self.rotateAxis)
-            .resultMatrix
-        )
+        self.pitchRadians = Geometry.normalizeRadians(self.pitchRadians + 0.1)
+        self.yawRadians = Geometry.normalizeRadians(self.yawRadians + 0.1)
 
 
 class Plasma(Weapon):
 
     def __init__(self):
         super().__init__(PlasmaBullet, None)
-        self.barrelPoint = Vector3(0, 0.3, 0.03)
+        self.barrelPoint = Vector3(0, 0, 0)
         self.bulletsCount = 50
         self.maxBulletsCount = 50
         self.delay = 15

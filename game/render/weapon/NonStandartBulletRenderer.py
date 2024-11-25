@@ -1,7 +1,9 @@
 from OpenGL.GL import *
 
-from game.calc.Vector3 import Vector3
+from game.anx.CommonConstants import CommonConstants
+from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.engine.GameData import GameData
+from game.gl.ColorVector3 import ColorVector3
 from game.gl.VBORenderer import VBORenderer
 from game.model.weapon.Plasma import PlasmaBullet
 from game.render.anx.ShineCircleRenderer import ShineCircleParams, ShineCircleRenderer
@@ -18,26 +20,39 @@ class NonStandartBulletRenderer:
         self.shineCircleRenderer = shineCircleRenderer
         self.vboRenderer = vboRenderer
         self.shineCircleParams = ShineCircleParams()
-        self.shineCircleParams.radius = 0.1
-        self.shineCircleParams.shineColor = Vector3(1.0, 1.0, 0.0)
-        self.shineCircleParams.shineStrength = 1
+        self.shineCircleParams.radius = 0.005
+        self.shineCircleParams.shineColor = ColorVector3(85, 239, 247)
+        self.shineCircleParams.shineColor.normalize()
+        self.shineCircleParams.shineStrength = 2
 
     def render(self):
+        glEnable(GL_DEPTH_TEST)
+        glEnable(GL_CULL_FACE)
+        glCullFace(GL_BACK)
+
         for bullet in self.gameData.bullets:
             if type(bullet) == PlasmaBullet:
                 self.renderPlasmaBullet(bullet)
 
+        glDisable(GL_CULL_FACE)
+        glDisable(GL_DEPTH_TEST)
+
     def renderPlasmaBullet(self, bullet):
-        modelMatrix = bullet.getModelMatrix()
+        modelMatrix = (
+            TransformMatrix4Builder()
+            .translate(bullet.currentPosition.x, bullet.currentPosition.y, bullet.currentPosition.z)
+            .rotate(self.gameData.player.yawRadians, CommonConstants.zAxis)
+            .rotate(self.gameData.player.pitchRadians, CommonConstants.xAxis)
+            .resultMatrix
+        )
         self.shineCircleRenderer.render(modelMatrix, self.shineCircleParams)
         shader = self.shaderProgramCollection.texture
         shader.use()
-        shader.setModelMatrix(modelMatrix)
+        shader.setModelMatrix(bullet.getModelMatrix())
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         model = self.renderCollection.getRenderModel3d(PlasmaBullet)
         for mesh in model.meshes:
-            shader.setMaterial(mesh.material)
             mesh.texture.bind(GL_TEXTURE0)
             self.vboRenderer.render(mesh.vbo)
         shader.unuse()
