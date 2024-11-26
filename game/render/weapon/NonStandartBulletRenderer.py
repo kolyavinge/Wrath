@@ -46,7 +46,7 @@ class NonStandartBulletRenderer:
             .resultMatrix
         )
         self.shineCircleRenderer.render(modelMatrix, self.shineCircleParams)
-        shader = self.shaderProgramCollection.texture
+        shader = self.shaderProgramCollection.mesh
         shader.use()
         shader.setModelMatrix(bullet.getModelMatrix())
         shader.setViewMatrix(self.gameData.camera.viewMatrix)

@@ -24,8 +24,8 @@ class ShaderCollection:
         self.crosshairVertex = self.shaderCompiler.compile(path + "crosshair.vert", ShaderType.vertex)
         self.crosshairFragment = self.shaderCompiler.compile(path + "crosshair.frag", ShaderType.fragment)
 
-        self.textureVertex = self.shaderCompiler.compile(path + "texture.vert", ShaderType.vertex)
-        self.textureFragment = self.shaderCompiler.compile(path + "texture.frag", ShaderType.fragment)
+        self.meshVertex = self.shaderCompiler.compile(path + "mesh.vert", ShaderType.vertex)
+        self.meshFragment = self.shaderCompiler.compile(path + "mesh.frag", ShaderType.fragment)
 
         self.shineCircleVertex = self.shaderCompiler.compile(path + "shineCircle.vert", ShaderType.vertex)
         self.shineCircleFragment = self.shaderCompiler.compile(path + "shineCircle.frag", ShaderType.fragment)

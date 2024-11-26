@@ -15,7 +15,7 @@ class WeaponFlashRenderer:
         self.vboRenderer = vboRenderer
 
     def render(self):
-        shader = self.shaderProgramCollection.texture
+        shader = self.shaderProgramCollection.mesh
         shader.use()
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)

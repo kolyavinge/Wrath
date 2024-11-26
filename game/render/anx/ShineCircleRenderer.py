@@ -1,3 +1,6 @@
+# https://inspirnathan.com/posts/65-glow-shader-in-shadertoy
+
+
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
