@@ -36,6 +36,7 @@ from game.render.weapon.BulletHoleRenderer import *
 from game.render.weapon.BulletModel3dFactory import *
 from game.render.weapon.BulletRenderCollection import *
 from game.render.weapon.BulletRenderer import *
+from game.render.weapon.BulletTraceRenderer import *
 from game.render.weapon.CrosshairRenderer import *
 from game.render.weapon.PlayerWeaponRenderer import *
 from game.render.weapon.ShineBulletRenderer import *
@@ -87,6 +88,7 @@ class RenderModule:
         binder.bindSingleton(BulletModel3dFactory, makeBulletModel3dFactory)
         binder.bindSingleton(BulletRenderCollection, makeBulletRenderCollection)
         binder.bindSingleton(BulletRenderer, makeBulletRenderer)
+        binder.bindSingleton(BulletTraceRenderer, makeBulletTraceRenderer)
         binder.bindSingleton(CrosshairRenderer, makeCrosshairRenderer)
         binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
         binder.bindSingleton(ShineBulletRenderer, makeShineBulletRenderer)
