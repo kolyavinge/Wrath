@@ -8,7 +8,7 @@ class Weapon:
 
     defaultCount = 1
 
-    def __init__(self, bulletType, flashType):
+    def __init__(self, bulletType, flashType=None):
         self.bulletType = bulletType
         self.flashType = flashType
         self.position = Vector3()

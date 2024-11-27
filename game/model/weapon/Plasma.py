@@ -27,7 +27,7 @@ class PlasmaBullet(Bullet):
 class Plasma(Weapon):
 
     def __init__(self):
-        super().__init__(PlasmaBullet, None)
+        super().__init__(PlasmaBullet)
         self.barrelPoint = Vector3(0, 0, 0)
         self.bulletsCount = 50
         self.maxBulletsCount = 50
