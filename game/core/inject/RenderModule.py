@@ -37,8 +37,8 @@ from game.render.weapon.BulletModel3dFactory import *
 from game.render.weapon.BulletRenderCollection import *
 from game.render.weapon.BulletRenderer import *
 from game.render.weapon.CrosshairRenderer import *
-from game.render.weapon.NonStandartBulletRenderer import *
 from game.render.weapon.PlayerWeaponRenderer import *
+from game.render.weapon.ShineBulletRenderer import *
 from game.render.weapon.WeaponFlashRenderCollection import *
 from game.render.weapon.WeaponFlashRenderer import *
 from game.render.weapon.WeaponFlashRenderMeshFactory import *
@@ -88,8 +88,8 @@ class RenderModule:
         binder.bindSingleton(BulletRenderCollection, makeBulletRenderCollection)
         binder.bindSingleton(BulletRenderer, makeBulletRenderer)
         binder.bindSingleton(CrosshairRenderer, makeCrosshairRenderer)
-        binder.bindSingleton(NonStandartBulletRenderer, makeNonStandartBulletRenderer)
         binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
+        binder.bindSingleton(ShineBulletRenderer, makeShineBulletRenderer)
         binder.bindSingleton(WeaponFlashRenderCollection, makeWeaponFlashRenderCollection)
         binder.bindSingleton(WeaponFlashRenderer, makeWeaponFlashRenderer)
         binder.bindSingleton(WeaponFlashRenderMeshFactory, makeWeaponFlashRenderMeshFactory)

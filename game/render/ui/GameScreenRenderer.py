@@ -2,17 +2,17 @@ from game.render.debug.DebugRenderer import DebugRenderer
 from game.render.main.MainSceneRenderer import MainSceneRenderer
 from game.render.ui.GameScreenInitializer import GameScreenInitializer
 from game.render.weapon.CrosshairRenderer import CrosshairRenderer
-from game.render.weapon.NonStandartBulletRenderer import NonStandartBulletRenderer
+from game.render.weapon.ShineBulletRenderer import ShineBulletRenderer
 from game.render.weapon.WeaponFlashRenderer import WeaponFlashRenderer
 
 
 class GameScreenRenderer:
 
-    def __init__(self, gameScreenInitializer, debugRenderer, mainSceneRenderer, nonStandartBulletRenderer, weaponFlashRenderer, crosshairRenderer):
+    def __init__(self, gameScreenInitializer, debugRenderer, mainSceneRenderer, shineBulletRenderer, weaponFlashRenderer, crosshairRenderer):
         self.gameScreenInitializer = gameScreenInitializer
         self.debugRenderer = debugRenderer
         self.mainSceneRenderer = mainSceneRenderer
-        self.nonStandartBulletRenderer = nonStandartBulletRenderer
+        self.shineBulletRenderer = shineBulletRenderer
         self.weaponFlashRenderer = weaponFlashRenderer
         self.crosshairRenderer = crosshairRenderer
 
@@ -22,7 +22,7 @@ class GameScreenRenderer:
     def render(self):
         # self.debugRenderer.render()
         self.mainSceneRenderer.render()
-        self.nonStandartBulletRenderer.render()
+        self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()
         self.crosshairRenderer.render()
 
@@ -32,7 +32,7 @@ def makeGameScreenRenderer(resolver):
         resolver.resolve(GameScreenInitializer),
         resolver.resolve(DebugRenderer),
         resolver.resolve(MainSceneRenderer),
-        resolver.resolve(NonStandartBulletRenderer),
+        resolver.resolve(ShineBulletRenderer),
         resolver.resolve(WeaponFlashRenderer),
         resolver.resolve(CrosshairRenderer),
     )

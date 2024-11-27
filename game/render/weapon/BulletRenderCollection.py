@@ -22,11 +22,11 @@ class BulletRenderCollection:
 
     def makePlasmaBullet(self):
         model = self.bulletModel3dFactory.makePlasmaBullet()
-        self.models[PlasmaBullet] = self.renderModel3dLoader.make(model, Material.weapon)
+        self.models[PlasmaBullet] = self.renderModel3dLoader.make(model, Material.plasmaBullet)
 
     def makeLauncherBullet(self):
         model = self.bulletModel3dFactory.makeLauncherBullet()
-        self.models[LauncherBullet] = self.renderModel3dLoader.make(model, Material.weapon)
+        self.models[LauncherBullet] = self.renderModel3dLoader.make(model, Material.launcherBullet)
 
     def getRenderModel3d(self, bulletType):
         return self.models[bulletType]
