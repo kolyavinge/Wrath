@@ -1,7 +1,8 @@
 from game.calc.Vector3 import Vector3
+from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
 from game.model.weapon.SimpleFlash import SimpleFlash
-from game.model.weapon.Weapon import Bullet, Weapon
+from game.model.weapon.Weapon import Weapon
 
 
 class PistolFlash(SimpleFlash):
