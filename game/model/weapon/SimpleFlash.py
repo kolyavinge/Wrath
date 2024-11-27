@@ -1,10 +1,10 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.lib.Random import Random
-from game.model.weapon.Flash import Flash
+from game.model.weapon.WeaponFlash import WeaponFlash
 
 
-class SimpleFlash(Flash):
+class SimpleFlash(WeaponFlash):
 
     def __init__(self):
         super().__init__()

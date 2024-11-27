@@ -2,7 +2,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 
 
-class Flash:
+class WeaponFlash:
 
     def __init__(self):
         self.weaponType = None

@@ -1,11 +1,11 @@
 from game.calc.Vector3 import Vector3
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
-from game.model.weapon.Flash import Flash
 from game.model.weapon.Weapon import Weapon
+from game.model.weapon.WeaponFlash import WeaponFlash
 
 
-class LauncherFlash(Flash):
+class LauncherFlash(WeaponFlash):
 
     def __init__(self):
         super().__init__()
