@@ -37,6 +37,7 @@ from game.engine.PowerupPositionGenerator import *
 from game.engine.PowerupUpdater import *
 from game.engine.TorchUpdater import *
 from game.engine.WeaponDelayUpdater import *
+from game.engine.WeaponFeedbackLogic import *
 from game.engine.WeaponFireLogic import *
 from game.engine.WeaponFlashUpdater import *
 from game.engine.WeaponSelector import *
@@ -85,6 +86,7 @@ class EngineModule:
         binder.bindSingleton(PowerupUpdater, makePowerupUpdater)
         binder.bindSingleton(TorchUpdater, makeTorchUpdater)
         binder.bindSingleton(WeaponDelayUpdater, makeWeaponDelayUpdater)
+        binder.bindSingleton(WeaponFeedbackLogic, makeWeaponFeedbackLogic)
         binder.bindSingleton(WeaponFireLogic, makeWeaponFireLogic)
         binder.bindSingleton(WeaponFlashUpdater, makeWeaponFlashUpdater)
         binder.bindSingleton(WeaponSelector, makeWeaponSelector)
