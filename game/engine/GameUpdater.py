@@ -1,6 +1,7 @@
 import time
 
 from game.engine.BulletMoveLogic import BulletMoveLogic
+from game.engine.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.BulletUpdater import BulletUpdater
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.BulletCollisionProcessor import BulletCollisionProcessor
@@ -55,6 +56,7 @@ class GameUpdater:
         torchUpdater,
         powerupUpdater,
         weaponFlashUpdater,
+        bulletTraceUpdater,
         # event listeners
         weaponSelector,
     ):
@@ -82,6 +84,7 @@ class GameUpdater:
         self.torchUpdater = torchUpdater
         self.powerupUpdater = powerupUpdater
         self.weaponFlashUpdater = weaponFlashUpdater
+        self.bulletTraceUpdater = bulletTraceUpdater
 
     def update(self):
         # start = time.time()
@@ -111,6 +114,7 @@ class GameUpdater:
         self.powerupUpdater.update()
         self.powerupUpdater.generateNew()
         self.weaponFlashUpdater.update()
+        self.bulletTraceUpdater.update()
 
         # end = time.time()
         # print(f"Game updated {end-start:.8f}")
@@ -142,5 +146,6 @@ def makeGameUpdater(resolver):
         resolver.resolve(TorchUpdater),
         resolver.resolve(PowerupUpdater),
         resolver.resolve(WeaponFlashUpdater),
+        resolver.resolve(BulletTraceUpdater),
         resolver.resolve(WeaponSelector),
     )

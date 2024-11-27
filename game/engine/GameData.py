@@ -18,6 +18,7 @@ class GameData:
         self.playerTorch = Torch()
         self.playerCollidedWalls = []
         self.bullets = []
+        self.bulletTraces = []
         self.powerups = []
         self.camera = Camera()
 

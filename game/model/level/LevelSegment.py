@@ -12,6 +12,7 @@ class LevelSegment:
         self.lightsWithJoined = []
         self.joinLines = []
         self.bullets = []
+        self.bulletTraces = []
         self.weaponFlashes = []
 
     def getAllItems(self):

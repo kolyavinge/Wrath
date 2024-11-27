@@ -48,6 +48,12 @@ class WeaponFireLogic:
             if flash is not None:
                 visibilityLevelSegment.weaponFlashes.append(flash)
 
+        trace = bullet.makeTrace()
+        if trace is not None:
+            self.gameData.bulletTraces.append(trace)
+            visibilityLevelSegment.bulletTraces.append(trace)
+            trace.visibilityLevelSegments.add(visibilityLevelSegment)
+
 
 def makeWeaponFireLogic(resolver):
     return WeaponFireLogic(

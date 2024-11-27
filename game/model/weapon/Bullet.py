@@ -32,6 +32,7 @@ class Bullet:
             return None
 
         trace = self.traceType()
+        trace.bullet = self
         trace.startPosition = self.currentPosition.copy()
         trace.currentPosition = self.currentPosition.copy()
 
