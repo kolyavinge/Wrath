@@ -51,5 +51,5 @@ Material.railgunBulletTrace = Material(MaterialKind.none, 1.0, 0.0, 0.0, 0.0)
 Material.powerup = Material(MaterialKind.metal, 0.2, 0.1, 0.1, 8.0)
 
 Material.bulletHole = Material(MaterialKind.none, 0.2, 0.1, 0.1, 1.0)
-Material.plasmaHole = Material(MaterialKind.none, 0.2, 0.1, 0.1, 1.0)
+Material.blackHole = Material(MaterialKind.none, 0.2, 0.1, 0.1, 1.0)
 Material.explosionHole = Material(MaterialKind.none, 0.2, 0.1, 0.1, 1.0)

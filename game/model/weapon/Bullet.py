@@ -33,8 +33,11 @@ class Bullet:
 
         trace = self.traceType()
         trace.bullet = self
-        trace.startPosition = self.currentPosition.copy()
         trace.currentPosition = self.currentPosition.copy()
+        trace.startPosition = self.currentPosition.copy()
+        minTraceLength = self.velocity.copy()
+        minTraceLength.setLength(0.01)
+        trace.startPosition.sub(minTraceLength)
 
         return trace
 
