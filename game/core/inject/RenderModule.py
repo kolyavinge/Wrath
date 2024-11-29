@@ -41,6 +41,7 @@ from game.render.weapon.CrosshairRenderer import *
 from game.render.weapon.PlayerWeaponRenderer import *
 from game.render.weapon.shine.PlasmaShineBulletRenderer import *
 from game.render.weapon.ShineBulletRenderer import *
+from game.render.weapon.trace.RailgunBulletTraceRenderer import *
 from game.render.weapon.WeaponFlashRenderCollection import *
 from game.render.weapon.WeaponFlashRenderer import *
 from game.render.weapon.WeaponFlashRenderMeshFactory import *
@@ -94,6 +95,7 @@ class RenderModule:
         binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
         binder.bindSingleton(PlasmaShineBulletRenderer, makePlasmaShineBulletRenderer)
         binder.bindSingleton(ShineBulletRenderer, makeShineBulletRenderer)
+        binder.bindSingleton(RailgunBulletTraceRenderer, makeRailgunBulletTraceRenderer)
         binder.bindSingleton(WeaponFlashRenderCollection, makeWeaponFlashRenderCollection)
         binder.bindSingleton(WeaponFlashRenderer, makeWeaponFlashRenderer)
         binder.bindSingleton(WeaponFlashRenderMeshFactory, makeWeaponFlashRenderMeshFactory)

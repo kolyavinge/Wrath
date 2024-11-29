@@ -1,3 +1,4 @@
+from game.calc.Vector3 import Vector3
 from game.lib.Numeric import Numeric
 
 
@@ -30,6 +31,9 @@ class Plane:
         if self.c == 0:
             return None
         return -(self.a * x + self.b * y + self.d) / self.c
+
+    def getNormal(self):
+        return Vector3(self.a, self.b, self.c)
 
     @staticmethod
     def makeByThreePoints(p0, p1, p2):

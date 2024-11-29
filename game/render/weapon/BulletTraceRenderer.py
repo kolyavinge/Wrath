@@ -1,29 +1,35 @@
 from OpenGL.GL import *
 
 from game.engine.GameData import GameData
+from game.model.weapon.Railgun import RailgunBulletTrace
+from game.render.weapon.trace.RailgunBulletTraceRenderer import *
 
 
 class BulletTraceRenderer:
 
-    def __init__(self, gameData):
+    def __init__(self, gameData, railgunBulletTraceRenderer):
         self.gameData = gameData
+        self.renderers = {}
+        self.renderers[RailgunBulletTrace] = railgunBulletTraceRenderer
 
     def render(self):
+        traces = self.getVisibleTraces()
+        if len(traces) == 0:
+            return
+
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
         glEnable(GL_DEPTH_TEST)
 
-        traces = self.getVisibleTraces()
         for trace in traces:
-            self.renderTrace(trace)
+            if type(trace) in self.renderers:
+                renderer = self.renderers[type(trace)]
+                renderer.renderTrace(trace)
 
         glDisable(GL_DEPTH_TEST)
         glDisable(GL_ALPHA_TEST)
         glDisable(GL_BLEND)
-
-    def renderTrace(self, trace):
-        pass
 
     def getVisibleTraces(self):
         result = set()
@@ -35,4 +41,4 @@ class BulletTraceRenderer:
 
 
 def makeBulletTraceRenderer(resolver):
-    return BulletTraceRenderer(resolver.resolve(GameData))
+    return BulletTraceRenderer(resolver.resolve(GameData), resolver.resolve(RailgunBulletTraceRenderer))
