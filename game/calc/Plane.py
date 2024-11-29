@@ -30,3 +30,14 @@ class Plane:
         if self.c == 0:
             return None
         return -(self.a * x + self.b * y + self.d) / self.c
+
+    @staticmethod
+    def makeByThreePoints(p0, p1, p2):
+        v1 = p1.copy()
+        v1.sub(p0)
+        v2 = p2.copy()
+        v2.sub(p0)
+        v1.vectorProduct(v2)
+        v1.normalize()
+
+        return Plane(v1, p0)
