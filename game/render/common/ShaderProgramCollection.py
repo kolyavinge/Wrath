@@ -3,6 +3,7 @@ from game.render.common.MainSceneComposeShaderProgram import *
 from game.render.common.MainSceneLightComponentsShaderProgram import *
 from game.render.common.MainSceneShadowVolumesShaderProgram import *
 from game.render.common.MeshShaderProgram import MeshShaderProgram
+from game.render.common.RayShaderProgram import RayShaderProgram
 from game.render.common.ShaderCollection import ShaderCollection
 from game.render.common.ShineCircleShaderProgram import ShineCircleShaderProgram
 
@@ -34,6 +35,8 @@ class ShaderProgramCollection:
         self.mesh = MeshShaderProgram([self.shaderCollection.meshVertex, self.shaderCollection.meshFragment])
 
         self.shineCircle = ShineCircleShaderProgram([self.shaderCollection.shineCircleVertex, self.shaderCollection.shineCircleFragment])
+
+        self.ray = RayShaderProgram([self.shaderCollection.rayVertex, self.shaderCollection.rayFragment])
 
 
 def makeShaderProgramCollection(resolver):

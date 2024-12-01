@@ -1,12 +1,11 @@
 #version 460 core
 
-layout (location = 0) out vec4 FragColor;
+out vec4 FragColor;
 
 in vec2 TexCoord;
 
 uniform float alpha;
-
-layout (location = 0) uniform sampler2D ourTexture;
+uniform sampler2D ourTexture;
 
 void main()
 {

@@ -7,7 +7,7 @@ in vec2 TexCoord;
 layout (location = 0) out vec4 out_Ambient;
 layout (location = 1) out vec4 out_DiffuseSpecular;
 
-layout (binding = 0) uniform sampler2D ourTexture;
+uniform sampler2D ourTexture;
 
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;

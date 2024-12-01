@@ -1,8 +1,8 @@
 #version 460 core
 
-layout (location = 0) out vec4 FragColor;
+out vec4 FragColor;
 
-layout (binding = 0) uniform sampler2D diffuseSpecularTexture;
+uniform sampler2D diffuseSpecularTexture;
 
 void main()
 {
