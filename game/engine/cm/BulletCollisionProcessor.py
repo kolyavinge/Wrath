@@ -40,6 +40,8 @@ class BulletCollisionProcessor:
         bspTree = self.gameData.level.visibilityTree
         visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
         bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, visibilityLevelSegment, bullet.holeInfo)
+        bullet.currentPosition = collisionPoint
+        bullet.nextPosition = collisionPoint
         self.gameData.bullets.remove(bullet)
         if bullet.isVisible:
             bullet.currentVisibilityLevelSegment.bullets.remove(bullet)
