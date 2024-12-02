@@ -18,14 +18,20 @@ class RayShaderProgram(ShaderProgram):
     def setOriginPosition(self, origin):
         self.setVector3("origin", origin)
 
-    def setMainAxis(self, axis):
-        self.setVector3("mainAxis", axis)
+    def setMainAxis(self, mainAxis):
+        self.setVector3("mainAxis", mainAxis)
 
-    def setRayHeight(self, height):
-        self.setFloat32("rayHeight", height)
+    def setRayLength(self, rayLength):
+        self.setFloat32("rayLength", rayLength)
 
-    def setRayColor(self, color):
-        self.setVector3("rayColor", color)
+    def setRayHeight(self, rayHeight):
+        self.setFloat32("rayHeight", rayHeight)
+
+    def setRayColor(self, rayColor):
+        self.setVector3("rayColor", rayColor)
+
+    def setRayBrightness(self, rayBrightness):
+        self.setFloat32("rayBrightness", rayBrightness)
 
     def setShineStrength(self, shineStrength):
         self.setFloat32("shineStrength", shineStrength)

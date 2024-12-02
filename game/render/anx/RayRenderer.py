@@ -17,6 +17,7 @@ class RayParams:
     def __init__(self):
         self.rayHeight = 0
         self.rayColor = ColorVector3()
+        self.rayBrightness = 0
         self.shineStrength = 0
 
 
@@ -34,7 +35,8 @@ class RayRenderer:
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
 
-        mainAxis = startPosition.getDirectionTo(endPosition)
+        rayDirection = startPosition.getDirectionTo(endPosition)
+        mainAxis = rayDirection.copy()
         mainAxis.normalize()
         plane = self.getPlane(startPosition, endPosition, mainAxis)
         vertices = self.getVertices(startPosition, endPosition, plane, mainAxis)
@@ -46,8 +48,10 @@ class RayRenderer:
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setOriginPosition(startPosition)
         shader.setMainAxis(mainAxis)
+        shader.setRayLength(rayDirection.getLength())
         shader.setRayHeight(params.rayHeight)
         shader.setRayColor(params.rayColor)
+        shader.setRayBrightness(params.rayBrightness)
         shader.setShineStrength(params.shineStrength)
         self.vboRenderer.render(self.vbo)
         shader.unuse()

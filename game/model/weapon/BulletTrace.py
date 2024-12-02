@@ -14,7 +14,7 @@ class BulletTrace:
         self.visibilityLevelSegments = set()
 
     def update(self):
-        self.brightness *= self.fade
+        self.brightness -= self.fade
         if self.brightness < 0.01:
             self.isVisible = False
             self.brightness = 0.0
