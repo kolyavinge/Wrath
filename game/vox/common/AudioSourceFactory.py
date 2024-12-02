@@ -35,6 +35,9 @@ class AudioSourceFactory:
     def makeLauncherShot(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.launcherShot)
 
+    def makeRailgunShot(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.railgunShot)
+
     def makeSniperShot(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.sniperShot)
 
