@@ -48,21 +48,12 @@ class ShineCircleRenderer:
 
     def initQuadVBO(self):
         vboBuilder = self.vboBuilderFactory.makeVBOBuilder()
-
-        side = 1
-        vboBuilder.addVertex(Vector3(-side, 0, -side))
-        vboBuilder.addVertex(Vector3(side, 0, -side))
-        vboBuilder.addVertex(Vector3(side, 0, side))
-        vboBuilder.addVertex(Vector3(-side, 0, side))
-
-        vboBuilder.addNormal(Vector3())
-        vboBuilder.addNormal(Vector3())
-        vboBuilder.addNormal(Vector3())
-        vboBuilder.addNormal(Vector3())
-
+        vboBuilder.addVertex(Vector3(-1, 0, -1))
+        vboBuilder.addVertex(Vector3(1, 0, -1))
+        vboBuilder.addVertex(Vector3(1, 0, 1))
+        vboBuilder.addVertex(Vector3(-1, 0, 1))
         vboBuilder.addFace(0, 1, 2)
         vboBuilder.addFace(0, 2, 3)
-
         self.quadVBO = vboBuilder.build()
 
 

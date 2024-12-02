@@ -1,5 +1,6 @@
 from OpenGL.GL import *
 
+from game.gl.BufferIndices import BufferIndices
 from game.gl.UpdatableVBO import UpdatableVBO
 from game.lib.Math import Math
 
@@ -17,7 +18,7 @@ class VBOUpdater:
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0)
 
     def setVertex(self, index, vector):
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[0])
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[BufferIndices.vertices])
         mapBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY)
         mapArray = (GLfloat * (3 * self.vbo.maxVerticesCount)).from_address(mapBuffer)
         mapArray[3 * index] = vector.x
@@ -26,7 +27,7 @@ class VBOUpdater:
         glUnmapBuffer(GL_ARRAY_BUFFER)
 
     def addVertex(self, vector):
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[0])
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[BufferIndices.vertices])
         mapBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY)
         mapArray = (GLfloat * (3 * self.vbo.maxVerticesCount)).from_address(mapBuffer)
         mapArray[self.vbo.verticesLastIndex] = vector.x
@@ -37,7 +38,7 @@ class VBOUpdater:
         self.newVerticesCount += 1
 
     def addNormal(self, vector):
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[1])
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[BufferIndices.normals])
         mapBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY)
         mapArray = (GLfloat * (3 * self.vbo.maxVerticesCount)).from_address(mapBuffer)
         mapArray[self.vbo.normalsLastIndex] = vector.x
@@ -47,7 +48,7 @@ class VBOUpdater:
         self.vbo.normalsLastIndex += 3
 
     def addTexCoord(self, x, y):
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[2])
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[BufferIndices.texCoords])
         mapBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY)
         mapArray = (GLfloat * (2 * self.vbo.maxVerticesCount)).from_address(mapBuffer)
         mapArray[self.vbo.texCoordsLastIndex] = x
@@ -56,7 +57,7 @@ class VBOUpdater:
         self.vbo.texCoordsLastIndex += 2
 
     def addFace(self, i1, i2, i3):
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.vbo.vboIds[3])
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.vbo.vboIds[BufferIndices.faces])
         mapBuffer = glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY)
         mapArray = (GLuint * (3 * self.vbo.maxFacesCount)).from_address(mapBuffer)
         mapArray[self.vbo.faceLastIndex] = self.vbo.verticesCount + i1
@@ -66,30 +67,41 @@ class VBOUpdater:
         self.vbo.elementsCount = Math.min(self.vbo.elementsCount + 3, self.vbo.maxElementsCount)
         self.vbo.faceLastIndex += 3
 
-    def buildUnfilled(self, maxVerticesCount, maxFacesCount):
+    def buildUnfilled(self, maxVerticesCount, maxFacesCount, bufferIndices=BufferIndices.all):
         vaoId = glGenVertexArrays(1)
         glBindVertexArray(vaoId)
 
-        vboIds = glGenBuffers(4)
+        vboIds = [0, 0, 0, 0]
 
-        glBindBuffer(GL_ARRAY_BUFFER, vboIds[0])
-        glBufferData(GL_ARRAY_BUFFER, 3 * 4 * maxVerticesCount, None, GL_STATIC_DRAW)
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, None)
+        if BufferIndices.vertices in bufferIndices:
+            vboId = glGenBuffers(1)
+            glBindBuffer(GL_ARRAY_BUFFER, vboId)
+            glBufferData(GL_ARRAY_BUFFER, 3 * 4 * maxVerticesCount, None, GL_STATIC_DRAW)
+            glVertexAttribPointer(BufferIndices.vertices, 3, GL_FLOAT, GL_FALSE, 0, None)
+            glEnableVertexAttribArray(BufferIndices.vertices)
+            vboIds[BufferIndices.vertices] = vboId
 
-        glBindBuffer(GL_ARRAY_BUFFER, vboIds[1])
-        glBufferData(GL_ARRAY_BUFFER, 3 * 4 * maxVerticesCount, None, GL_STATIC_DRAW)
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, None)
+        if BufferIndices.normals in bufferIndices:
+            vboId = glGenBuffers(1)
+            glBindBuffer(GL_ARRAY_BUFFER, vboId)
+            glBufferData(GL_ARRAY_BUFFER, 3 * 4 * maxVerticesCount, None, GL_STATIC_DRAW)
+            glVertexAttribPointer(BufferIndices.normals, 3, GL_FLOAT, GL_FALSE, 0, None)
+            glEnableVertexAttribArray(BufferIndices.normals)
+            vboIds[BufferIndices.normals] = vboId
 
-        glBindBuffer(GL_ARRAY_BUFFER, vboIds[2])
-        glBufferData(GL_ARRAY_BUFFER, 2 * 4 * maxVerticesCount, None, GL_STATIC_DRAW)
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, None)
+        if BufferIndices.texCoords in bufferIndices:
+            vboId = glGenBuffers(1)
+            glBindBuffer(GL_ARRAY_BUFFER, vboId)
+            glBufferData(GL_ARRAY_BUFFER, 2 * 4 * maxVerticesCount, None, GL_STATIC_DRAW)
+            glVertexAttribPointer(BufferIndices.texCoords, 2, GL_FLOAT, GL_FALSE, 0, None)
+            glEnableVertexAttribArray(BufferIndices.texCoords)
+            vboIds[BufferIndices.texCoords] = vboId
 
-        glEnableVertexAttribArray(0)
-        glEnableVertexAttribArray(1)
-        glEnableVertexAttribArray(2)
-
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIds[3])
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * 4 * maxFacesCount, None, GL_STATIC_DRAW)
+        if BufferIndices.faces in bufferIndices:
+            vboId = glGenBuffers(1)
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboId)
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * 4 * maxFacesCount, None, GL_STATIC_DRAW)
+            vboIds[BufferIndices.faces] = vboId
 
         glBindBuffer(GL_ARRAY_BUFFER, 0)
         glBindVertexArray(0)
