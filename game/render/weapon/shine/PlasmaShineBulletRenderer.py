@@ -14,7 +14,7 @@ class PlasmaShineBulletRenderer:
         self.shineParams.radius = 0.005
         self.shineParams.shineColor = ColorVector3(85, 239, 247)
         self.shineParams.shineColor.normalize()
-        self.shineParams.shineStrength = 2
+        self.shineParams.shineStrength = 0.02
 
     def renderBullet(self, bullet):
         modelMatrix = (

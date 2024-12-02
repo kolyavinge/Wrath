@@ -25,10 +25,10 @@ class Railgun(Weapon):
 
     def __init__(self):
         super().__init__(RailgunBullet)
-        self.barrelPoint = Vector3(0, 0, 0.035)
+        self.barrelPoint = Vector3(0.003, -0.02, 0.008)
         self.bulletsCount = 10
         self.maxBulletsCount = 10
-        self.delay = 20
+        self.delay = 50
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6

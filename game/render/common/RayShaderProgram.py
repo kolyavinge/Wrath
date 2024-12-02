@@ -26,3 +26,6 @@ class RayShaderProgram(ShaderProgram):
 
     def setRayColor(self, color):
         self.setVector3("rayColor", color)
+
+    def setShineStrength(self, shineStrength):
+        self.setFloat32("shineStrength", shineStrength)

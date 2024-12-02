@@ -20,7 +20,7 @@ class RailgunBulletTraceRenderer:
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
         self.vbo = self.vboUpdater.buildUnfilled(4, 2)
-        self.rayColor = ColorVector3(61, 74, 67)
+        self.rayColor = ColorVector3(3, 252, 115)
         self.rayColor.normalize()
 
     def renderTrace(self, trace):
@@ -30,7 +30,7 @@ class RailgunBulletTraceRenderer:
 
         traceAxis = trace.startPosition.getDirectionTo(trace.currentPosition)
         traceAxis.normalize()
-        rayHeight = 0.005
+        rayHeight = 0.001
         plane = self.getPlane(trace, traceAxis)
         vertices = self.getVertices(trace, plane, traceAxis, rayHeight)
         self.updateVBO(vertices)
@@ -43,6 +43,7 @@ class RailgunBulletTraceRenderer:
         shader.setMainAxis(traceAxis)
         shader.setRayHeight(rayHeight)
         shader.setRayColor(self.rayColor)
+        shader.setShineStrength(0.002)
         self.vboRenderer.render(self.vbo)
         shader.unuse()
 
@@ -70,7 +71,7 @@ class RailgunBulletTraceRenderer:
 
     def getVertices(self, trace, plane, traceAxis, rayHeight):
         step = Geometry.rotatePoint(plane.getNormal(), traceAxis, CommonConstants.axisOrigin, Math.piHalf)
-        step.setLength(10 * rayHeight)
+        step.setLength(1)
 
         p1 = trace.startPosition.copy()
         p2 = trace.startPosition.copy()

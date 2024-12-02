@@ -17,9 +17,9 @@ void main()
     uv.x *= screenAspect;
     float dist = length(uv) - radius;
     vec4 color = vec4(step(0.0, -dist));
-    float shine = 0.01 / dist;
+    float shine = shineStrength / dist;
     shine = clamp(shine, 0.0, 1.0);
-    color += shine * shineStrength;
+    color += shine;
     color *= vec4(shineColor, 1.0);
     FragColor = color;
 }
