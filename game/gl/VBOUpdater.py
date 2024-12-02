@@ -6,33 +6,24 @@ from game.lib.Math import Math
 
 class VBOUpdater:
 
-    def __init__(self):
-        self.vbo = None
-
     def beginUpdate(self, vbo):
         self.newVerticesCount = 0
-        self.newNormalsCount = 0
-        self.newTexCoordsCount = 0
-        self.newFacesCount = 0
         self.vbo = vbo
 
     def endUpdate(self):
-        if self.newVerticesCount == 0:
-            raise Exception("Vertices have not been updated.")
-        if self.newNormalsCount == 0:
-            raise Exception("Normals have not been updated.")
-        if self.newTexCoordsCount == 0:
-            raise Exception("Texture coords have not been updated.")
-        if self.newFacesCount == 0:
-            raise Exception("Faces have not been updated.")
-        if self.newVerticesCount != self.newNormalsCount:
-            raise Exception("Vertices and normals must be the same count.")
-        if self.newVerticesCount != self.newTexCoordsCount:
-            raise Exception("Vertices and texture coords must be the same count.")
         self.vbo.verticesCount += self.newVerticesCount
         self.vbo = None
         glBindBuffer(GL_ARRAY_BUFFER, 0)
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0)
+
+    def setVertex(self, index, vector):
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[0])
+        mapBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY)
+        mapArray = (GLfloat * (3 * self.vbo.maxVerticesCount)).from_address(mapBuffer)
+        mapArray[3 * index] = vector.x
+        mapArray[3 * index + 1] = vector.y
+        mapArray[3 * index + 2] = vector.z
+        glUnmapBuffer(GL_ARRAY_BUFFER)
 
     def addVertex(self, vector):
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[0])
@@ -54,7 +45,6 @@ class VBOUpdater:
         mapArray[self.vbo.normalsLastIndex + 2] = vector.z
         glUnmapBuffer(GL_ARRAY_BUFFER)
         self.vbo.normalsLastIndex += 3
-        self.newNormalsCount += 1
 
     def addTexCoord(self, x, y):
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[2])
@@ -64,7 +54,6 @@ class VBOUpdater:
         mapArray[self.vbo.texCoordsLastIndex + 1] = y
         glUnmapBuffer(GL_ARRAY_BUFFER)
         self.vbo.texCoordsLastIndex += 2
-        self.newTexCoordsCount += 1
 
     def addFace(self, i1, i2, i3):
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.vbo.vboIds[3])
@@ -76,7 +65,6 @@ class VBOUpdater:
         glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER)
         self.vbo.elementsCount = Math.min(self.vbo.elementsCount + 3, self.vbo.maxElementsCount)
         self.vbo.faceLastIndex += 3
-        self.newFacesCount += 1
 
     def buildUnfilled(self, maxVerticesCount, maxFacesCount):
         vaoId = glGenVertexArrays(1)

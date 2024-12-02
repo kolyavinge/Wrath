@@ -4,6 +4,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Plane import Plane
 from game.calc.TransformMatrix4 import TransformMatrix4
+from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 from game.gl.ColorVector3 import ColorVector3
 from game.gl.VBORenderer import VBORenderer
@@ -28,7 +29,7 @@ class RayRenderer:
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
-        self.vbo = self.vboUpdater.buildUnfilled(4, 2)
+        self.vbo = self.makeVBO()
 
     def render(self, startPosition, endPosition, params):
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
@@ -40,7 +41,7 @@ class RayRenderer:
         mainAxis.normalize()
         plane = self.getPlane(startPosition, endPosition, mainAxis)
         vertices = self.getVertices(startPosition, endPosition, plane, mainAxis)
-        self.updateVBO(vertices)
+        self.setVerticesToVBO(vertices)
         shader = self.shaderProgramCollection.ray
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
@@ -59,23 +60,12 @@ class RayRenderer:
         glDisable(GL_ALPHA_TEST)
         glDisable(GL_BLEND)
 
-    def updateVBO(self, vertices):
-        self.vbo.refill()
+    def setVerticesToVBO(self, vertices):
         self.vboUpdater.beginUpdate(self.vbo)
-        self.vboUpdater.addVertex(vertices[0])
-        self.vboUpdater.addVertex(vertices[1])
-        self.vboUpdater.addVertex(vertices[2])
-        self.vboUpdater.addVertex(vertices[3])
-        self.vboUpdater.addNormal(CommonConstants.axisOrigin)
-        self.vboUpdater.addNormal(CommonConstants.axisOrigin)
-        self.vboUpdater.addNormal(CommonConstants.axisOrigin)
-        self.vboUpdater.addNormal(CommonConstants.axisOrigin)
-        self.vboUpdater.addTexCoord(0, 0)
-        self.vboUpdater.addTexCoord(0, 0)
-        self.vboUpdater.addTexCoord(0, 0)
-        self.vboUpdater.addTexCoord(0, 0)
-        self.vboUpdater.addFace(0, 1, 2)
-        self.vboUpdater.addFace(1, 3, 2)
+        self.vboUpdater.setVertex(0, vertices[0])
+        self.vboUpdater.setVertex(1, vertices[1])
+        self.vboUpdater.setVertex(2, vertices[2])
+        self.vboUpdater.setVertex(3, vertices[3])
         self.vboUpdater.endUpdate()
 
     def getVertices(self, startPosition, endPosition, plane, mainAxis):
@@ -99,6 +89,27 @@ class RayRenderer:
         plane = Plane.makeByThreePoints(rotatedCameraPosition, startPosition, endPosition)
 
         return plane
+
+    def makeVBO(self):
+        vbo = self.vboUpdater.buildUnfilled(4, 2)
+        self.vboUpdater.beginUpdate(vbo)
+        self.vboUpdater.addVertex(Vector3())
+        self.vboUpdater.addVertex(Vector3())
+        self.vboUpdater.addVertex(Vector3())
+        self.vboUpdater.addVertex(Vector3())
+        self.vboUpdater.addNormal(CommonConstants.axisOrigin)
+        self.vboUpdater.addNormal(CommonConstants.axisOrigin)
+        self.vboUpdater.addNormal(CommonConstants.axisOrigin)
+        self.vboUpdater.addNormal(CommonConstants.axisOrigin)
+        self.vboUpdater.addTexCoord(0, 0)
+        self.vboUpdater.addTexCoord(0, 0)
+        self.vboUpdater.addTexCoord(0, 0)
+        self.vboUpdater.addTexCoord(0, 0)
+        self.vboUpdater.addFace(0, 1, 2)
+        self.vboUpdater.addFace(1, 3, 2)
+        self.vboUpdater.endUpdate()
+
+        return vbo
 
 
 def makeRayRenderer(resolver):
