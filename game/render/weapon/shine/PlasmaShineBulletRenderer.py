@@ -10,11 +10,11 @@ class PlasmaShineBulletRenderer:
     def __init__(self, gameData, shineCircleRenderer):
         self.gameData = gameData
         self.shineCircleRenderer = shineCircleRenderer
-        self.shineParams = ShineCircleParams()
-        self.shineParams.radius = 0.005
-        self.shineParams.shineColor = ColorVector3(85, 239, 247)
-        self.shineParams.shineColor.normalize()
-        self.shineParams.shineStrength = 0.02
+        self.shineCircleParams = ShineCircleParams()
+        self.shineCircleParams.radius = 0.005
+        self.shineCircleParams.shineColor = ColorVector3(85, 239, 247)
+        self.shineCircleParams.shineColor.normalize()
+        self.shineCircleParams.shineStrength = 0.02
 
     def renderBullet(self, bullet):
         modelMatrix = (
@@ -24,7 +24,7 @@ class PlasmaShineBulletRenderer:
             .rotate(self.gameData.player.pitchRadians, CommonConstants.xAxis)
             .resultMatrix
         )
-        self.shineCircleRenderer.render(modelMatrix, self.shineParams)
+        self.shineCircleRenderer.render(modelMatrix, self.shineCircleParams)
 
 
 def makePlasmaShineBulletRenderer(resolver):
