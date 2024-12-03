@@ -16,7 +16,7 @@ class PistolBullet(Bullet):
     def __init__(self):
         super().__init__()
         self.velocityValue = 2
-        self.damage = 5
+        self.damagePercent = 0.1
         self.holeInfo = BulletHoleInfo.smallHole
 
 

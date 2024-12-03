@@ -14,7 +14,7 @@ class Bullet:
         self.pitchRadians = 0
         self.velocity = Vector3()
         self.velocityValue = 0
-        self.damage = 0
+        self.damagePercent = 0
         self.totalDistance = 0
         self.currentLevelSegment = None
         self.nextLevelSegment = None
