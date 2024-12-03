@@ -12,7 +12,7 @@ class BulletCollisionDetector:
 
     def getConstructionCollisionResultOrNone(self, bullet):
         return self.levelSegmentItemFinder.findItemOrNone(
-            self.gameData.level.collisionTree,
+            self.gameData.collisionTree,
             bullet.currentLevelSegment,
             bullet.nextLevelSegment,
             bullet.currentPosition,

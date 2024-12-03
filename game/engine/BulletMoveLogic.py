@@ -17,7 +17,7 @@ class BulletMoveLogic:
         bullet.totalDistance += bullet.velocityValue
         if bullet.totalDistance < CommonConstants.maxLevelSize:
             bullet.nextPosition.add(bullet.velocity)
-            bspTree = self.gameData.level.collisionTree
+            bspTree = self.gameData.collisionTree
             bullet.nextLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.nextPosition)
         else:
             self.gameData.bullets.remove(bullet)

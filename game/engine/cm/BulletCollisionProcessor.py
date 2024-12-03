@@ -28,7 +28,7 @@ class BulletCollisionProcessor:
             oldVisibilityLevelSegment = bullet.currentVisibilityLevelSegment
             bullet.commitNextPosition()
             bullet.currentLevelSegment = bullet.nextLevelSegment
-            bspTree = self.gameData.level.visibilityTree
+            bspTree = self.gameData.visibilityTree
             bullet.currentVisibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
             self.moveBulletToNewVisibilityLevelSegment(bullet, oldVisibilityLevelSegment, bullet.currentVisibilityLevelSegment)
         else:
@@ -37,7 +37,7 @@ class BulletCollisionProcessor:
 
     def processCollision(self, bullet, collisionResult):
         collisionPoint, frontNormal = collisionResult
-        bspTree = self.gameData.level.visibilityTree
+        bspTree = self.gameData.visibilityTree
         visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
         bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, visibilityLevelSegment, bullet.holeInfo)
         bullet.currentPosition = collisionPoint

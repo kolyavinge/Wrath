@@ -12,8 +12,7 @@ class BulletTraceUpdater:
         for trace in self.gameData.bulletTraces:
             trace.currentPosition = trace.bullet.currentPosition.copy()
 
-            bspTree = self.gameData.level.visibilityTree
-            visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, trace.currentPosition)
+            visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, trace.currentPosition)
             if visibilityLevelSegment not in trace.visibilityLevelSegments:
                 visibilityLevelSegment.bulletTraces.append(trace)
                 trace.visibilityLevelSegments.add(visibilityLevelSegment)

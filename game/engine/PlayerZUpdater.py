@@ -18,8 +18,7 @@ class PlayerZUpdater:
 
     def update(self):
         player = self.gameData.player
-        bspTree = self.gameData.level.collisionTree
-        levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, player.nextCenterPoint)
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, player.nextCenterPoint)
         assert levelSegment is not None
         if len(levelSegment.floors) == 1:
             self.processFloor(levelSegment)

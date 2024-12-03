@@ -34,11 +34,9 @@ class WeaponFireLogic:
 
         bullet = weapon.makeBullet()
         self.gameData.bullets.append(bullet)
-        bspTree = self.gameData.level.collisionTree
-        bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
+        bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, bullet.currentPosition)
 
-        bspTree = self.gameData.level.visibilityTree
-        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
+        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, bullet.currentPosition)
         if bullet.isVisible:
             bullet.currentVisibilityLevelSegment = visibilityLevelSegment
             visibilityLevelSegment.bullets.append(bullet)

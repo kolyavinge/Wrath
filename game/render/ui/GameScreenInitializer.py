@@ -31,7 +31,7 @@ class GameScreenInitializer:
         self.weaponFlashRenderCollection = weaponFlashRenderCollection
 
     def init(self):
-        allLevelSegments = self.gameData.level.visibilityTree.getAllLevelSegments()
+        allLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
         self.levelItemRenderCollection.init(allLevelSegments)
         self.bulletHoleRenderCollection.init(allLevelSegments)
         self.shadowCasterRenderCollection.init(allLevelSegments)

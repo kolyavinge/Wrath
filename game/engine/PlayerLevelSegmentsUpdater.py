@@ -16,8 +16,8 @@ class PlayerLevelSegmentsUpdater:
         player = self.gameData.player
         player.collisionLevelSegments = set()
         player.visibilityLevelSegments = set()
-        self.updateLevelSegments(self.gameData.level.collisionTree, player.collisionLevelSegments)
-        self.updateLevelSegments(self.gameData.level.visibilityTree, player.visibilityLevelSegments)
+        self.updateLevelSegments(self.gameData.collisionTree, player.collisionLevelSegments)
+        self.updateLevelSegments(self.gameData.visibilityTree, player.visibilityLevelSegments)
 
     def updateLevelSegments(self, bspTree, playerLevelSegments):
         border = self.gameData.player.nextBorder

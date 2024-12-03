@@ -7,7 +7,7 @@ class WeaponFlashUpdater:
         self.gameData = gameData
 
     def init(self):
-        self.allVisibilityLevelSegments = self.gameData.level.visibilityTree.getAllLevelSegments()
+        self.allVisibilityLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
 
     def update(self):
         for levelSegment in self.allVisibilityLevelSegments:

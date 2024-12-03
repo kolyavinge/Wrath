@@ -45,11 +45,11 @@ class LevelManager:
     def loadFirstLevel(self):
         level = self.levelLoader.load()
         self.gameData.level = level
-        self.bspTreeBuilder.build(level.collisionTree, level, level.getCollisionSplitPlanes())
-        self.bspTreeBuilder.build(level.visibilityTree, level, level.getVisibilitySplitPlanes())
-        self.joinLineAnalyzer.analyzeJoinLines(level, level.visibilityTree)
-        self.levelValidator.validate(level)
-        self.lightAnalyzer.analyzeLights(level, level.visibilityTree)
+        self.bspTreeBuilder.build(self.gameData.collisionTree, level, level.getCollisionSplitPlanes())
+        self.bspTreeBuilder.build(self.gameData.visibilityTree, level, level.getVisibilitySplitPlanes())
+        self.joinLineAnalyzer.analyzeJoinLines(level, self.gameData.visibilityTree)
+        self.levelValidator.validate(level, self.gameData.visibilityTree)
+        self.lightAnalyzer.analyzeLights(level, self.gameData.visibilityTree)
         self.playerTurnLogic.orientByFrontNormal(level.playerFrontNormal)
         self.gameData.player.moveNextPositionTo(level.playerPosition)
         self.gameData.player.commitNextPosition()

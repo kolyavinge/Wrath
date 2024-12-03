@@ -1,13 +1,10 @@
 from game.anx.CommonConstants import CommonConstants
-from game.engine.bsp.BSPTree import BSPTree
 from game.lib.List import List
 
 
 class Level:
 
     def __init__(self):
-        self.collisionTree = BSPTree()
-        self.visibilityTree = BSPTree()
         self.walls = []
         self.floors = []
         self.ceilings = []

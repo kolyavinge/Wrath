@@ -48,11 +48,11 @@ class PowerupUpdater:
         powerup = powerupType()
         powerup.setPosition(self.positionGenerator.getPosition())
 
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.collisionTree, powerup.position)
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, powerup.position)
         levelSegment.powerups.append(powerup)
         powerup.collisionLevelSegment = levelSegment
 
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.level.visibilityTree, powerup.position)
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, powerup.position)
         levelSegment.powerups.append(powerup)
         powerup.visibilityLevelSegment = levelSegment
 
