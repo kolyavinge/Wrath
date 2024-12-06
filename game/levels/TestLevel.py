@@ -17,7 +17,7 @@ from game.model.Material import Material
 from game.model.Orientation import Orientation
 
 
-class LevelAurora(Level):
+class TestLevel(Level):
 
     def __init__(self):
         super().__init__()

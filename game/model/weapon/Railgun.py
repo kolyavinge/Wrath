@@ -10,7 +10,7 @@ class RailgunBulletTrace(BulletTrace):
 
     def __init__(self):
         super().__init__()
-        self.fade = 0.001
+        self.fade = 0.01
         self.material = Material.railgunBulletTrace
 
 
