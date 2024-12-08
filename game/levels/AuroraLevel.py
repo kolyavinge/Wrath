@@ -1,6 +1,6 @@
-from game.anx.LevelBuilder import *
 from game.calc.Vector3 import Vector3
 from game.engine.bsp.SplitPlane import SplitPlane
+from game.levels.builder.LevelBuilder import *
 from game.model.level.Level import Level
 from game.model.level.PowerupArea import PowerupArea
 from game.model.Material import Material
@@ -24,7 +24,7 @@ class AuroraLevel(Level):
             ),
             WallInfo(Vector3(1, 1, 0), Vector3(0, 1, 0), 3, Material.ceilingMetal1, Border(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2)),
         )
-        # self.builder.buildPillar(Vector3(5, 4, 0), 0.5, 3, Material.ceilingMetal1)
+        self.builder.buildPillar(Vector3(5, 4, 0), 0.5, 3, Material.ceilingMetal1)
         self.builder.buildFlatFloor(Vector3(1, 1, 0), 5, 4, Material.floorConcrete1)
         self.builder.buildCeiling(Vector3(1, 1, 3), 5, 4, Material.floorMetal2)
         self.builder.buildLamp(Vector3(3, 3, 3 - 0.1))

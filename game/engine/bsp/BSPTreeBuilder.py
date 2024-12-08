@@ -7,6 +7,7 @@ class BSPTreeBuilder:
 
     def build(self, bspTree, level, splitPlanes):
         bspTree.root.levelSegment = LevelSegment()
+        bspTree.root.levelSegment.constructions = level.constructions.copy()
         bspTree.root.levelSegment.walls = level.walls.copy()
         bspTree.root.levelSegment.floors = level.floors.copy()
         bspTree.root.levelSegment.ceilings = level.ceilings.copy()
@@ -35,6 +36,13 @@ class BSPTreeBuilder:
     def getFrontAndBackSegments(self, node, splitPlanes):
         frontSegment = LevelSegment()
         backSegment = LevelSegment()
+
+        for construction in node.levelSegment.constructions:
+            positionSet = self.getLevelItemPosition(node, construction)
+            if SplitPlanePosition.front in positionSet:
+                frontSegment.constructions.append(construction)
+            if SplitPlanePosition.back in positionSet:
+                backSegment.constructions.append(construction)
 
         for wall in node.levelSegment.walls:
             positionSet = self.getLevelItemPosition(node, wall)

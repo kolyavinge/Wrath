@@ -8,38 +8,22 @@ class ConstructionCollisionDetector:
 
     def getCollisionResultOrNone(self, levelSegment, startPoint, endPoint):
         result = (
-            self.getWallCollisionResultOrNone(levelSegment.walls, startPoint, endPoint)
-            or self.getFloorCollisionResultOrNone(levelSegment.floors, startPoint, endPoint)
-            or self.getCeilingCollisionResultOrNone(levelSegment.ceilings, startPoint, endPoint)
+            self.getConstructionCollisionResultOrNone(levelSegment.constructions, startPoint, endPoint)
+            or self.getConstructionCollisionResultOrNone(levelSegment.walls, startPoint, endPoint)
+            or self.getConstructionCollisionResultOrNone(levelSegment.floors, startPoint, endPoint)
+            or self.getConstructionCollisionResultOrNone(levelSegment.ceilings, startPoint, endPoint)
         )
 
         return result
 
-    def getWallCollisionResultOrNone(self, walls, startPoint, endPoint):
-        for wall in walls:
-            collisionPoint = self.planeCollisionDetector.getCollisionPointOrNone(startPoint, endPoint, wall.downLeft, wall.frontNormal)
-            if collisionPoint is not None and wall.containsPoint(collisionPoint):
-                collisionPoint = wall.getNearestPointOnFront(collisionPoint)
-                return (collisionPoint, wall.frontNormal)
-
-        return None
-
-    def getFloorCollisionResultOrNone(self, floors, startPoint, endPoint):
-        if len(floors) > 0:
-            floor = floors[0]
-            collisionPoint = self.planeCollisionDetector.getCollisionPointOrNone(startPoint, endPoint, floor.downLeft, floor.frontNormal)
-            if collisionPoint is not None and floor.containsPoint(collisionPoint):
-                collisionPoint = floor.getNearestPointOnFront(collisionPoint)
-                return (collisionPoint, floor.frontNormal)
-
-        return None
-
-    def getCeilingCollisionResultOrNone(self, ceilings, startPoint, endPoint):
-        for ceiling in ceilings:
-            collisionPoint = self.planeCollisionDetector.getCollisionPointOrNone(startPoint, endPoint, ceiling.downLeft, ceiling.frontNormal)
-            if collisionPoint is not None and ceiling.containsPoint(collisionPoint):
-                collisionPoint = ceiling.getNearestPointOnFront(collisionPoint)
-                return (collisionPoint, ceiling.frontNormal)
+    def getConstructionCollisionResultOrNone(self, constructions, startPoint, endPoint):
+        for construction in constructions:
+            collisionPoint = self.planeCollisionDetector.getCollisionPointOrNone(
+                startPoint, endPoint, construction.downLeft, construction.frontNormal
+            )
+            if collisionPoint is not None and construction.containsPoint(collisionPoint):
+                collisionPoint = construction.getNearestPointOnFront(collisionPoint)
+                return (collisionPoint, construction.frontNormal)
 
         return None
 

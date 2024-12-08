@@ -5,12 +5,17 @@ from game.lib.List import List
 class Level:
 
     def __init__(self):
+        self.constructions = []
         self.walls = []
         self.floors = []
         self.ceilings = []
         self.lights = []
         self.joinLines = []
         self.powerupAreas = []
+
+    def addConstruction(self, construction):
+        construction.commit()
+        self.constructions.append(construction)
 
     def addWall(self, wall):
         wall.commit()

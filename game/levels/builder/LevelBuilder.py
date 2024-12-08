@@ -68,9 +68,8 @@ class LevelBuilder:
                 top.upLeft.add(depthDirection)
                 top.upRight.add(depthDirection)
                 top.frontNormal = CommonConstants.zAxis
-                # top.z = info.border.height
                 top.material = info.border.topMaterial
-                self.level.addCeiling(top)
+                self.level.addConstruction(top)
                 zFightingDelta += 0.001
 
             if info.border is not None:
