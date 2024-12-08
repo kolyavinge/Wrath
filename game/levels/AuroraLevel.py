@@ -1,6 +1,8 @@
 from game.calc.Vector3 import Vector3
 from game.engine.bsp.SplitPlane import SplitPlane
-from game.levels.builder.LevelBuilder import *
+from game.levels.builder.BottomBorder import BottomBorder
+from game.levels.builder.LevelBuilder import LevelBuilder
+from game.levels.builder.WallInfo import WallInfo
 from game.model.level.Level import Level
 from game.model.level.PowerupArea import PowerupArea
 from game.model.Material import Material
@@ -17,12 +19,18 @@ class AuroraLevel(Level):
     def makeRoom1(self):
         self.builder.buildWalls(
             Vector3(1, 1, 0),
-            WallInfo(Vector3(1, 5, 0), Vector3(1, 0, 0), 3, Material.floorMetal4, Border(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2)),
-            WallInfo(Vector3(6, 5, 0), Vector3(0, -1, 0), 3, Material.floorMetal4, Border(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2)),
             WallInfo(
-                Vector3(6, 1, 0), Vector3(-1, 0, 0), 3, Material.ceilingMetal1, Border(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2)
+                Vector3(1, 5, 0), Vector3(1, 0, 0), 3, Material.floorMetal4, BottomBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2)
             ),
-            WallInfo(Vector3(1, 1, 0), Vector3(0, 1, 0), 3, Material.ceilingMetal1, Border(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2)),
+            WallInfo(
+                Vector3(6, 5, 0), Vector3(0, -1, 0), 3, Material.floorMetal4, BottomBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2)
+            ),
+            WallInfo(
+                Vector3(6, 1, 0), Vector3(-1, 0, 0), 3, Material.ceilingMetal1, BottomBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2)
+            ),
+            WallInfo(
+                Vector3(1, 1, 0), Vector3(0, 1, 0), 3, Material.ceilingMetal1, BottomBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2)
+            ),
         )
         self.builder.buildPillar(Vector3(5, 4, 0), 0.5, 3, Material.ceilingMetal1)
         self.builder.buildFlatFloor(Vector3(1, 1, 0), 5, 4, Material.floorConcrete1)

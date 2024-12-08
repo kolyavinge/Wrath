@@ -6,25 +6,6 @@ from game.model.level.Wall import Wall
 from game.model.light.Lamp import Lamp
 
 
-class Border:
-
-    def __init__(self, height, depth, frontMaterial, topMaterial):
-        self.height = height
-        self.depth = depth
-        self.frontMaterial = frontMaterial
-        self.topMaterial = topMaterial
-
-
-class WallInfo:
-
-    def __init__(self, position, frontNormal, height, material, border=None):
-        self.position = position
-        self.frontNormal = frontNormal
-        self.height = height
-        self.material = material
-        self.border = border
-
-
 class LevelBuilder:
 
     def __init__(self, level):
@@ -42,9 +23,9 @@ class LevelBuilder:
             wall.material = info.material
             self.level.addWall(wall)
 
-            if info.border is not None:
+            if info.bottomBorder is not None:
                 depthDirection = info.frontNormal.copy()
-                depthDirection.setLength(info.border.depth)
+                depthDirection.setLength(info.bottomBorder.depth)
 
                 front = Wall()
                 front.startPoint = wall.startPoint.copy()
@@ -52,8 +33,8 @@ class LevelBuilder:
                 front.startPoint.add(depthDirection)
                 front.endPoint.add(depthDirection)
                 front.frontNormal = info.frontNormal
-                front.height = info.border.height
-                front.material = info.border.frontMaterial
+                front.height = info.bottomBorder.height
+                front.material = info.bottomBorder.frontMaterial
                 self.level.addWall(front)
 
                 top = Ceiling()
@@ -61,21 +42,21 @@ class LevelBuilder:
                 top.downRight = wall.downRight.copy()
                 top.upLeft = wall.downLeft.copy()
                 top.upRight = wall.downRight.copy()
-                top.downLeft.z += info.border.height + zFightingDelta
-                top.downRight.z += info.border.height + zFightingDelta
-                top.upLeft.z += info.border.height + zFightingDelta
-                top.upRight.z += info.border.height + zFightingDelta
+                top.downLeft.z += info.bottomBorder.height + zFightingDelta
+                top.downRight.z += info.bottomBorder.height + zFightingDelta
+                top.upLeft.z += info.bottomBorder.height + zFightingDelta
+                top.upRight.z += info.bottomBorder.height + zFightingDelta
                 top.upLeft.add(depthDirection)
                 top.upRight.add(depthDirection)
                 top.frontNormal = CommonConstants.zAxis
-                top.material = info.border.topMaterial
+                top.material = info.bottomBorder.topMaterial
                 self.level.addConstruction(top)
                 zFightingDelta += 0.001
 
-            if info.border is not None:
-                wall.startPoint.z += info.border.height
-                wall.endPoint.z += info.border.height
-                wall.height -= info.border.height
+            if info.bottomBorder is not None:
+                wall.startPoint.z += info.bottomBorder.height
+                wall.endPoint.z += info.bottomBorder.height
+                wall.height -= info.bottomBorder.height
 
             startPoint = info.position
 
