@@ -5,6 +5,7 @@ from game.model.level.Construction import Construction
 from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Wall import Wall
 from game.model.light.Lamp import Lamp
+from game.model.light.RoundLamp import RoundLamp
 
 
 class LevelBuilder:
@@ -161,7 +162,11 @@ class LevelBuilder:
         ceiling.material = material
         self.level.addCeiling(ceiling)
 
-    def buildLamp(self, position):
-        light = Lamp()
+    def buildRoundLamp(self, position, frontNormal, radius, height, material):
+        light = RoundLamp()
         light.position = position
+        light.frontNormal = frontNormal
+        light.radius = radius
+        light.height = height
+        light.material = material
         self.level.addLight(light)

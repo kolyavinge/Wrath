@@ -7,3 +7,4 @@ class Lamp(Light):
     def __init__(self):
         super().__init__()
         self.position = Vector3()
+        self.frontNormal = Vector3()

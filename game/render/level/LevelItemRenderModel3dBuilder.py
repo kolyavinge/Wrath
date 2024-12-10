@@ -4,19 +4,22 @@ from game.lib.List import List
 from game.model.level.Construction import Construction
 from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
+from game.model.light.Lamp import Lamp
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
 from game.render.level.ConstructionVBOBuilder import ConstructionVBOBuilder
+from game.render.level.LampVBOBuilder import LampVBOBuilder
 from game.render.level.StairVBOBuilder import StairVBOBuilder
 from game.render.level.WallVBOBuilder import WallVBOBuilder
 
 
 class LevelItemRenderModel3dBuilder:
 
-    def __init__(self, vboBuilderFactory, wallVBOBuilder, constructionVBOBuilder, stairVBOBuilder, materialTextureCollection):
+    def __init__(self, vboBuilderFactory, wallVBOBuilder, constructionVBOBuilder, stairVBOBuilder, lampVBOBuilder, materialTextureCollection):
         self.vboBuilderFactory = vboBuilderFactory
         self.wallVBOBuilder = wallVBOBuilder
         self.constructionVBOBuilder = constructionVBOBuilder
         self.stairVBOBuilder = stairVBOBuilder
+        self.lampVBOBuilder = lampVBOBuilder
         self.materialTextureCollection = materialTextureCollection
 
     def buildRenderModel3d(self, levelSegment):
@@ -38,8 +41,10 @@ class LevelItemRenderModel3dBuilder:
                 self.stairVBOBuilder.build(item, vboBuilder)
             elif isinstance(item, Construction):
                 self.constructionVBOBuilder.build(item, vboBuilder)
-            # else: TODO
-            # raise Exception("Wrong level item.")
+            elif isinstance(item, Lamp):
+                self.lampVBOBuilder.build(item, vboBuilder)
+            else:
+                raise Exception("Wrong level item.")
 
         return vboBuilder.build()
 
@@ -56,5 +61,6 @@ def makeLevelItemRenderModel3dBuilder(resolver):
         resolver.resolve(WallVBOBuilder),
         resolver.resolve(ConstructionVBOBuilder),
         resolver.resolve(StairVBOBuilder),
+        resolver.resolve(LampVBOBuilder),
         resolver.resolve(MaterialTextureCollection),
     )
