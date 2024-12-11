@@ -17,7 +17,6 @@ class LampVBOBuilder:
             nextBasePoint = basePoints[i + 1]
             nextFrontPoint = frontPoints[i + 1]
             normal = normals[i]
-            nextNormal = normals[i + 1]
 
             vertexCount = vboBuilder.getVertexCount()
 
@@ -28,8 +27,8 @@ class LampVBOBuilder:
 
             vboBuilder.addNormal(normal)
             vboBuilder.addNormal(normal)
-            vboBuilder.addNormal(nextNormal)
-            vboBuilder.addNormal(nextNormal)
+            vboBuilder.addNormal(normal)
+            vboBuilder.addNormal(normal)
 
             vboBuilder.addTexCoord(0, 0)
             vboBuilder.addTexCoord(0, 1)

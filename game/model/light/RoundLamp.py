@@ -36,6 +36,5 @@ class RoundLamp(Lamp):
 
         resultBasePoints.append(resultBasePoints[0])
         resultFrontPoints.append(resultFrontPoints[0])
-        resultNormals.append(resultNormals[0])
 
         return (resultBasePoints, resultFrontPoints, resultNormals)
