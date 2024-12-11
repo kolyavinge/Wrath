@@ -40,7 +40,15 @@ class VBOBuilder:
         self.faces.append(i2)
         self.faces.append(i3)
 
+    def validate(self):
+        if len(self.vertices) == 0:
+            raise Exception("Vertices cannot be empty.")
+        if len(self.faces) == 0:
+            raise Exception("Faces cannot be empty.")
+
     def build(self, withAdjacency=False):
+        self.validate()
+
         vaoId = glGenVertexArrays(1)
         glBindVertexArray(vaoId)
 

@@ -12,7 +12,8 @@ class ShadowCasterRenderer:
 
     def render(self, levelSegment):
         vbo = self.renderCollection.getShadowCastersVBO(levelSegment)
-        self.vboRenderer.render(vbo)
+        if vbo is not None:
+            self.vboRenderer.render(vbo)
 
 
 def makeShadowCasterRenderer(resolver):

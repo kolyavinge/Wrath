@@ -7,13 +7,16 @@ class ShadowCasterBuilder:
         self.vboBuilderFactory = vboBuilderFactory
 
     def buildForLevelSegment(self, levelSegment):
-        vboBuilder = self.vboBuilderFactory.makeVBOBuilder()
         shadowCasters = [item for item in levelSegment.getAllItems() if item.canCastShadow]
-        for item in shadowCasters:
-            self.addVertices(vboBuilder, item)
-        vbo = vboBuilder.build(withAdjacency=True)
+        if len(shadowCasters) > 0:
+            vboBuilder = self.vboBuilderFactory.makeVBOBuilder()
+            for item in shadowCasters:
+                self.addVertices(vboBuilder, item)
+            vbo = vboBuilder.build(withAdjacency=True)
 
-        return vbo
+            return vbo
+        else:
+            return None
 
     def addVertices(self, vboBuilder, item):
         vertexCount = vboBuilder.getVertexCount()
