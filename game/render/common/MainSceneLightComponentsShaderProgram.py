@@ -32,14 +32,14 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
         for light in lights:
             if isinstance(light, Spot):
                 self.setVector3(f"spots[{spotIndex}].color", light.color)
-                self.setVector3(f"spots[{spotIndex}].position", light.position)
+                self.setVector3(f"spots[{spotIndex}].position", light.lightPosition)
                 self.setVector3(f"spots[{spotIndex}].direction", light.direction)
                 self.setFloat32(f"spots[{spotIndex}].attenuation", light.attenuation)
                 self.setFloat32(f"spots[{spotIndex}].cutoffCos", light.cutoffCos)
                 spotIndex += 1
             else:
                 self.setVector3(f"lights[{lightIndex}].color", light.color)
-                self.setVector3(f"lights[{lightIndex}].position", light.position)
+                self.setVector3(f"lights[{lightIndex}].position", light.lightPosition)
                 lightIndex += 1
         # player torch
         if torch.isActive:

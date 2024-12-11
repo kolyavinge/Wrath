@@ -18,7 +18,7 @@ class MainSceneShadowVolumesShaderProgram(ShaderProgram):
     def setLight(self, lights, torch):
         lightIndex = 0
         for light in lights:
-            self.setVector3(f"lightPositions[{lightIndex}]", light.position)
+            self.setVector3(f"lightPositions[{lightIndex}]", light.lightPosition)
             lightIndex += 1
         if torch.isActive:
             self.setVector3(f"lightPositions[{lightIndex}]", torch.position)

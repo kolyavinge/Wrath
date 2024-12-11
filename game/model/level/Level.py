@@ -30,6 +30,7 @@ class Level:
         self.ceilings.append(ceiling)
 
     def addLight(self, light):
+        light.commit()
         self.lights.append(light)
 
     def addJoinLine(self, joinLine):
