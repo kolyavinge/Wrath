@@ -1,6 +1,5 @@
 from game.calc.Geometry import Geometry
 from game.calc.Plane import Plane
-from game.calc.PlaneUtils import PlaneUtils
 from game.lib.Math import Math
 from game.model.light.Lamp import Lamp
 
@@ -14,8 +13,7 @@ class RoundLamp(Lamp):
 
     def getPoints(self):
         plane = Plane(self.frontNormal, self.position)
-        basePoint = PlaneUtils.getRandomPointOnPlane(plane)
-        basePoint.sub(self.position)
+        basePoint = plane.getAnyVector()
         basePoint.setLength(self.radius)
         basePoint.add(self.position)
         pointsCount = 16
