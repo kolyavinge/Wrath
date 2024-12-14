@@ -1,6 +1,7 @@
 from game.calc.Vector3 import Vector3
 from game.engine.bsp.SplitPlane import SplitPlane
 from game.levels.builder.Border import Border
+from game.levels.builder.Doorway import Doorway
 from game.levels.builder.LevelBuilder import LevelBuilder
 from game.levels.builder.WallInfo import WallInfo
 from game.model.level.Level import Level
@@ -50,6 +51,7 @@ class AuroraLevel(Level):
                 Material.ceilingMetal1,
                 Border(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 Border(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
+                Doorway(Vector3(4, 1, 0), 1, 2.2, Material.floorMetal3),
             ),
         )
         self.builder.buildPillar(Vector3(5, 4, 0), 0.5, 3, Material.ceilingMetal1)
