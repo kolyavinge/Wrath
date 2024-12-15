@@ -1,8 +1,9 @@
 from game.calc.Vector3 import Vector3
 from game.engine.bsp.SplitPlane import SplitPlane
-from game.levels.builder.Border import Border
 from game.levels.builder.Doorway import Doorway
+from game.levels.builder.DoorwayBorder import DoorwayBorder
 from game.levels.builder.LevelBuilder import LevelBuilder
+from game.levels.builder.WallBorder import WallBorder
 from game.levels.builder.WallInfo import WallInfo
 from game.model.level.Level import Level
 from game.model.level.PowerupArea import PowerupArea
@@ -25,33 +26,33 @@ class AuroraLevel(Level):
                 Vector3(1, 0, 0),
                 3,
                 Material.floorMetal4,
-                Border(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
-                Border(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
             WallInfo(
                 Vector3(6, 5, 0),
                 Vector3(0, -1, 0),
                 3,
                 Material.floorMetal4,
-                Border(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
-                Border(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
             WallInfo(
                 Vector3(6, 1, 0),
                 Vector3(-1, 0, 0),
                 3,
                 Material.ceilingMetal1,
-                Border(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
-                Border(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
             WallInfo(
                 Vector3(1, 1, 0),
                 Vector3(0, 1, 0),
                 3,
                 Material.ceilingMetal1,
-                Border(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
-                Border(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
-                Doorway(Vector3(4, 1, 0), 1, 2.2, Material.floorMetal3),
+                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
+                Doorway(Vector3(4, 1, 0), 1, 2.2, Material.floorMetal3, DoorwayBorder(0.2, 0.1, Material.ceilingMetal2)),
             ),
         )
         self.builder.buildPillar(Vector3(5, 4, 0), 0.5, 3, Material.ceilingMetal1)
@@ -75,4 +76,4 @@ class AuroraLevel(Level):
 
     def setPlayerPosition(self):
         self.playerPosition = Vector3(2, 2, 0)
-        self.playerFrontNormal = Vector3(0, 1, 0)
+        self.playerFrontNormal = Vector3(0, -1, 0)

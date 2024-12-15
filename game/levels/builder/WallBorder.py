@@ -1,4 +1,4 @@
-class Border:
+class WallBorder:
 
     def __init__(self, height, depth, frontMaterial, sideMaterial):
         self.height = height

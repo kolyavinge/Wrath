@@ -19,21 +19,11 @@ class WallBuilder:
                 doorwayEndPosition = self.getDoorwayEndPosition(startPoint, info.doorway)
                 self.makeWallAboveDoorway(doorwayEndPosition, info)
                 self.makeSolidWall(doorwayEndPosition, info.position, info.frontNormal, info.height, info.material, info.bottomBorder, info.topBorder)
+                self.makeDoorwayBorder(info.frontNormal, doorwayEndPosition, info.doorway)
             else:
                 self.makeSolidWall(startPoint, info.position, info.frontNormal, info.height, info.material, info.bottomBorder, info.topBorder)
 
             startPoint = info.position
-
-    def makeWallAboveDoorway(self, doorwayEndPosition, info):
-        self.makeSolidWall(
-            Vector3(info.doorway.startPosition.x, info.doorway.startPosition.y, info.doorway.startPosition.z + info.doorway.height),
-            Vector3(doorwayEndPosition.x, doorwayEndPosition.y, doorwayEndPosition.z + info.doorway.height),
-            info.frontNormal,
-            info.height - info.doorway.height,
-            info.doorway.topMaterial,
-            None,
-            info.topBorder,
-        )
 
     def makeSolidWall(self, startPoint, endPoint, frontNormal, height, material, bottomBorder=None, topBorder=None):
         wall = self.makeWall(startPoint, endPoint, frontNormal, height, material)
@@ -129,3 +119,68 @@ class WallBuilder:
         endPosition.add(doorway.startPosition)
 
         return endPosition
+
+    def makeWallAboveDoorway(self, doorwayEndPosition, info):
+        self.makeSolidWall(
+            Vector3(info.doorway.startPosition.x, info.doorway.startPosition.y, info.doorway.startPosition.z + info.doorway.height),
+            Vector3(doorwayEndPosition.x, doorwayEndPosition.y, doorwayEndPosition.z + info.doorway.height),
+            info.frontNormal,
+            info.height - info.doorway.height,
+            info.doorway.topMaterial,
+            None,
+            info.topBorder,
+        )
+
+    def makeDoorwayBorder(self, frontNormal, doorwayEndPosition, doorway):
+        doorwayStartPosition = doorway.startPosition
+        doorwayWidthDirection = doorwayStartPosition.getDirectionTo(doorwayEndPosition)
+        doorwayWidthDirection.setLength(doorway.width)
+        borderWidthDirection = doorwayWidthDirection.copy()
+        borderWidthDirection.setLength(doorway.border.width)
+        borderDepthDirection = frontNormal.copy()
+        borderDepthDirection.setLength(doorway.border.depth)
+
+        left = Construction()
+        left.downLeft = doorwayStartPosition.copy()
+        left.downLeft.sub(borderWidthDirection)
+        left.downRight = doorwayStartPosition.copy()
+        left.upLeft = left.downLeft.copy()
+        left.upLeft.z += doorway.height
+        left.upRight = left.downRight.copy()
+        left.upRight.z += doorway.height
+        left.downLeft.add(borderDepthDirection)
+        left.downRight.add(borderDepthDirection)
+        left.upLeft.add(borderDepthDirection)
+        left.upRight.add(borderDepthDirection)
+        left.frontNormal = frontNormal
+        left.material = doorway.border.frontMaterial
+        left.defaultVisualSize = doorway.border.width
+        self.level.addConstruction(left)
+
+        right = Construction()
+        right.downLeft = doorwayEndPosition.copy()
+        right.downRight = doorwayEndPosition.copy()
+        right.downRight.add(borderWidthDirection)
+        right.upLeft = right.downLeft.copy()
+        right.upLeft.z += doorway.height
+        right.upRight = right.downRight.copy()
+        right.upRight.z += doorway.height
+        right.downLeft.add(borderDepthDirection)
+        right.downRight.add(borderDepthDirection)
+        right.upLeft.add(borderDepthDirection)
+        right.upRight.add(borderDepthDirection)
+        right.frontNormal = frontNormal
+        right.material = doorway.border.frontMaterial
+        right.defaultVisualSize = doorway.border.width
+        self.level.addConstruction(right)
+
+        top = Construction()
+        top.downLeft = left.upLeft
+        top.downRight = right.upRight
+        top.upLeft = top.downLeft.copy()
+        top.upLeft.z += doorway.border.width
+        top.upRight = top.downRight.copy()
+        top.upRight.z += doorway.border.width
+        top.frontNormal = frontNormal
+        top.material = doorway.border.frontMaterial
+        self.level.addConstruction(top)
