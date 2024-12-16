@@ -121,11 +121,16 @@ class WallBuilder:
         return endPosition
 
     def makeWallAboveDoorway(self, doorwayEndPosition, info):
+        doorwayHeight = info.doorway.height
+        doorwayBorderTopHeight = 0
+        if info.doorway is not None:
+            doorwayBorderTopHeight = info.doorway.border.width
+        doorwayStartPosition = info.doorway.startPosition
         self.makeSolidWall(
-            Vector3(info.doorway.startPosition.x, info.doorway.startPosition.y, info.doorway.startPosition.z + info.doorway.height),
-            Vector3(doorwayEndPosition.x, doorwayEndPosition.y, doorwayEndPosition.z + info.doorway.height),
+            Vector3(doorwayStartPosition.x, doorwayStartPosition.y, doorwayStartPosition.z + doorwayHeight + doorwayBorderTopHeight),
+            Vector3(doorwayEndPosition.x, doorwayEndPosition.y, doorwayEndPosition.z + doorwayHeight + doorwayBorderTopHeight),
             info.frontNormal,
-            info.height - info.doorway.height,
+            info.height - doorwayHeight - doorwayBorderTopHeight,
             info.doorway.topMaterial,
             None,
             info.topBorder,
@@ -138,7 +143,7 @@ class WallBuilder:
         borderWidthDirection = doorwayWidthDirection.copy()
         borderWidthDirection.setLength(doorway.border.width)
         borderDepthDirection = frontNormal.copy()
-        borderDepthDirection.setLength(doorway.border.depth)
+        borderDepthDirection.setLength(doorway.border.depth + 0.001)
 
         left = Construction()
         left.downLeft = doorwayStartPosition.copy()
@@ -184,3 +189,77 @@ class WallBuilder:
         top.frontNormal = frontNormal
         top.material = doorway.border.frontMaterial
         self.level.addConstruction(top)
+
+        outside = Construction()
+        outside.downLeft = left.downLeft.copy()
+        outside.downLeft.sub(borderDepthDirection)
+        outside.downRight = left.downLeft.copy()
+        outside.upLeft = top.upLeft.copy()
+        outside.upLeft.sub(borderDepthDirection)
+        outside.upRight = top.upLeft.copy()
+        outside.frontNormal = doorwayEndPosition.getDirectionTo(doorwayStartPosition)
+        outside.frontNormal.normalize()
+        outside.material = doorway.border.frontMaterial
+        outside.defaultVisualSize = doorway.border.depth
+        self.level.addConstruction(outside)
+
+        outside = Construction()
+        outside.downLeft = right.downRight.copy()
+        outside.downRight = right.downRight.copy()
+        outside.downRight.sub(borderDepthDirection)
+        outside.upLeft = top.upRight.copy()
+        outside.upRight = top.upRight.copy()
+        outside.upRight.sub(borderDepthDirection)
+        outside.frontNormal = doorwayStartPosition.getDirectionTo(doorwayEndPosition)
+        outside.frontNormal.normalize()
+        outside.material = doorway.border.frontMaterial
+        outside.defaultVisualSize = doorway.border.depth
+        self.level.addConstruction(outside)
+
+        inside = Construction()
+        inside.downLeft = left.downRight.copy()
+        inside.downRight = left.downRight.copy()
+        inside.downRight.sub(borderDepthDirection)
+        inside.upLeft = left.upRight.copy()
+        inside.upRight = left.upRight.copy()
+        inside.upRight.sub(borderDepthDirection)
+        inside.frontNormal = doorwayStartPosition.getDirectionTo(doorwayEndPosition)
+        inside.frontNormal.normalize()
+        inside.material = doorway.border.frontMaterial
+        inside.defaultVisualSize = doorway.border.depth
+        self.level.addConstruction(inside)
+
+        inside = Construction()
+        inside.downLeft = right.downLeft.copy()
+        inside.downLeft.sub(borderDepthDirection)
+        inside.downRight = right.downLeft.copy()
+        inside.upLeft = right.upLeft.copy()
+        inside.upLeft.sub(borderDepthDirection)
+        inside.upRight = right.upLeft.copy()
+        inside.frontNormal = doorwayEndPosition.getDirectionTo(doorwayStartPosition)
+        inside.frontNormal.normalize()
+        inside.material = doorway.border.frontMaterial
+        inside.defaultVisualSize = doorway.border.depth
+        self.level.addConstruction(inside)
+
+        inside = Construction()
+        inside.downLeft = left.upRight.copy()
+        inside.downLeft.sub(borderDepthDirection)
+        inside.downRight = right.upLeft.copy()
+        inside.downRight.sub(borderDepthDirection)
+        inside.upLeft = left.upRight.copy()
+        inside.upRight = right.upLeft.copy()
+        inside.frontNormal = Vector3(0, 0, -1)
+        inside.material = doorway.border.frontMaterial
+        self.level.addConstruction(inside)
+
+        outside = Construction()
+        outside.downLeft = top.upLeft.copy()
+        outside.downRight = top.upRight.copy()
+        outside.upLeft = top.upLeft.copy()
+        outside.upLeft.sub(borderDepthDirection)
+        outside.upRight = top.upRight.copy()
+        outside.upRight.sub(borderDepthDirection)
+        outside.frontNormal = Vector3(0, 0, 1)
+        outside.material = doorway.border.frontMaterial
+        self.level.addConstruction(outside)
