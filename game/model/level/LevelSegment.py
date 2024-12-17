@@ -22,3 +22,4 @@ class LevelSegment:
     def commit(self):
         self.horizontalVerticalWalls = [w for w in self.walls if w.orientation == Orientation.horizontal or w.orientation == Orientation.vertical]
         self.diagonalWalls = [w for w in self.walls if w.orientation == Orientation.diagonal]
+        self.allConstructions = self.constructions + self.walls + self.floors + self.ceilings
