@@ -28,6 +28,16 @@ class WallBuilder:
             startPoint = info.position
 
     def makeSolidWall(self, startPoint, endPoint, frontNormal, height, material, bottomBorder=None, topBorder=None):
+        if bottomBorder is not None:
+            startPoint = startPoint.copy()
+            endPoint = endPoint.copy()
+            startPoint.z += bottomBorder.height
+            endPoint.z += bottomBorder.height
+            height -= bottomBorder.height
+
+        if topBorder is not None:
+            height -= topBorder.height
+
         wall = self.makeWall(startPoint, endPoint, frontNormal, height, material)
 
         if bottomBorder is not None:
@@ -56,6 +66,8 @@ class WallBuilder:
         front = Wall()
         front.startPoint = wall.startPoint.copy()
         front.endPoint = wall.endPoint.copy()
+        front.startPoint.z -= bottomBorder.height
+        front.endPoint.z -= bottomBorder.height
         front.startPoint.add(depthDirection)
         front.endPoint.add(depthDirection)
         front.frontNormal = wall.frontNormal
@@ -68,52 +80,49 @@ class WallBuilder:
         top.downRight = wall.downRight.copy()
         top.upLeft = wall.downLeft.copy()
         top.upRight = wall.downRight.copy()
-        top.downLeft.z += bottomBorder.height + self.zFightingDelta
-        top.downRight.z += bottomBorder.height + self.zFightingDelta
-        top.upLeft.z += bottomBorder.height + self.zFightingDelta
-        top.upRight.z += bottomBorder.height + self.zFightingDelta
+        top.downLeft.z += self.zFightingDelta
+        top.downRight.z += self.zFightingDelta
+        top.upLeft.z += self.zFightingDelta
+        top.upRight.z += self.zFightingDelta
         top.upLeft.add(depthDirection)
         top.upRight.add(depthDirection)
         top.frontNormal = CommonConstants.zAxis
         top.material = bottomBorder.sideMaterial
         self.level.addConstruction(top)
 
-        wall.startPoint.z += bottomBorder.height
-        wall.endPoint.z += bottomBorder.height
-        wall.height -= bottomBorder.height
-
     def makeTopBorder(self, wall, topBorder):
         depthDirection = wall.frontNormal.copy()
         depthDirection.setLength(topBorder.depth)
 
-        front = Wall()
-        front.startPoint = wall.upLeft.copy()
-        front.endPoint = wall.upRight.copy()
-        front.startPoint.add(depthDirection)
-        front.endPoint.add(depthDirection)
-        front.startPoint.z -= topBorder.height
-        front.endPoint.z -= topBorder.height
+        front = Construction()
+        front.downLeft = wall.upLeft.copy()
+        front.downRight = wall.upRight.copy()
+        front.upLeft = wall.upLeft.copy()
+        front.upRight = wall.upRight.copy()
+        front.upLeft.z += topBorder.height
+        front.upRight.z += topBorder.height
+        front.downLeft.add(depthDirection)
+        front.downRight.add(depthDirection)
+        front.upLeft.add(depthDirection)
+        front.upRight.add(depthDirection)
         front.frontNormal = wall.frontNormal
-        front.height = topBorder.height
         front.material = topBorder.frontMaterial
-        self.level.addWall(front)
+        self.level.addConstruction(front)
 
         bottom = Construction()
         bottom.downLeft = wall.upLeft.copy()
         bottom.downRight = wall.upRight.copy()
         bottom.upLeft = wall.upLeft.copy()
         bottom.upRight = wall.upRight.copy()
-        bottom.downLeft.z -= topBorder.height - self.zFightingDelta
-        bottom.downRight.z -= topBorder.height - self.zFightingDelta
-        bottom.upLeft.z -= topBorder.height - self.zFightingDelta
-        bottom.upRight.z -= topBorder.height - self.zFightingDelta
+        bottom.downLeft.z -= self.zFightingDelta
+        bottom.downRight.z -= self.zFightingDelta
+        bottom.upLeft.z -= self.zFightingDelta
+        bottom.upRight.z -= self.zFightingDelta
         bottom.upLeft.add(depthDirection)
         bottom.upRight.add(depthDirection)
         bottom.frontNormal = Vector3(0, 0, -1)
         bottom.material = topBorder.sideMaterial
         self.level.addConstruction(bottom)
-
-        wall.height -= topBorder.height
 
     def getDoorwayEndPosition(self, startPoint, doorway):
         endPosition = startPoint.getDirectionTo(doorway.startPosition)
