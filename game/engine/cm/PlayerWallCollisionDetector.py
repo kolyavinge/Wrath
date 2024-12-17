@@ -78,9 +78,9 @@ class PlayerWallCollisionDetector:
     def wallContainsPoint(self, wall, point):
         x, y = point
         if wall.orientation == Orientation.horizontal:
-            return Numeric.between(x, wall.startPoint.x, wall.endPoint.x)
+            return Numeric.between(x, wall.startPoint.x, wall.endPoint.x) or Numeric.between(x, wall.endPoint.x, wall.startPoint.x)
         elif wall.orientation == Orientation.vertical:
-            return Numeric.between(y, wall.startPoint.y, wall.endPoint.y)
+            return Numeric.between(y, wall.startPoint.y, wall.endPoint.y) or Numeric.between(y, wall.endPoint.y, wall.startPoint.y)
         elif wall.orientation == Orientation.diagonal:
             return Geometry.lineContainsPoint(wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, x, y)
         else:
