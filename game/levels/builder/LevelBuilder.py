@@ -73,8 +73,8 @@ class LevelBuilder:
         floor.material = material
         self.level.addFloor(floor)
 
-    def buildFlatCeiling(self, downLeft, xLength, yLength, material):
-        self.ceilingBuilder.buildFlatCeiling(downLeft, xLength, yLength, material)
+    def buildCeiling(self, downLeft, xLength, yLength, material, hole=None):
+        self.ceilingBuilder.buildCeiling(downLeft, xLength, yLength, material, hole)
 
     def buildRoundLamp(self, position, frontNormal, radius, height, material):
         light = RoundLamp()

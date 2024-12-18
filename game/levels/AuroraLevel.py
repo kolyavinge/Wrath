@@ -1,5 +1,6 @@
 from game.calc.Vector3 import Vector3
 from game.engine.bsp.SplitPlane import SplitPlane
+from game.levels.builder.CeilingBuilder import CeilingHole
 from game.levels.builder.Doorway import Doorway
 from game.levels.builder.DoorwayBorder import DoorwayBorder
 from game.levels.builder.LevelBuilder import LevelBuilder
@@ -55,9 +56,9 @@ class AuroraLevel(Level):
                 Doorway(Vector3(4, 1, 0), 1, 2.2, Material.floorMetal3, DoorwayBorder(0.2, 0.1, Material.ceilingMetal2)),
             ),
         )
-        self.builder.buildPillar(Vector3(4, 3, 0), 0.5, 3, Material.ceilingMetal1)
+        # self.builder.buildPillar(Vector3(4, 3, 0), 0.5, 3, Material.ceilingMetal1)
         self.builder.buildFlatFloor(Vector3(1, 1, 0), 5, 4, Material.floorConcrete1)
-        self.builder.buildFlatCeiling(Vector3(1, 1, 3), 5, 4, Material.floorMetal2)
+        self.builder.buildCeiling(Vector3(1, 1, 3), 5, 4, Material.floorMetal2, CeilingHole(1, 2, Material.floorMetal2))
         self.builder.buildRoundLamp(Vector3(1, 3, 3), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
         # self.builder.buildRectLamp(Vector3(4, 3, 3), Vector3(0, 0, -1), 0.05, 0.1, 1.0, Vector3(1, 0, 0), Material.ceilingMetal2)
         self.addPowerupArea(PowerupArea(Vector3(2, 2.5, 0), Vector3(2, 2.5, 0), 0.5))
@@ -76,4 +77,4 @@ class AuroraLevel(Level):
 
     def setPlayerPosition(self):
         self.playerPosition = Vector3(2, 2, 0)
-        self.playerFrontNormal = Vector3(0, -1, 0)
+        self.playerFrontNormal = Vector3(0, 1, 0)
