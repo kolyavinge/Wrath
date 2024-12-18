@@ -1,5 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Vector3 import Vector3
+from game.levels.builder.CeilingBuilder import CeilingBuilder
 from game.levels.builder.WallBuilder import WallBuilder
 from game.model.level.Ceiling import Ceiling
 from game.model.level.Construction import Construction
@@ -15,6 +16,7 @@ class LevelBuilder:
     def __init__(self, level):
         self.level = level
         self.wallBuilder = WallBuilder(self.level)
+        self.ceilingBuilder = CeilingBuilder(self.level)
 
     def buildWalls(self, startPoint, *wallBuildInfoList):
         self.wallBuilder.buildWalls(startPoint, *wallBuildInfoList)
@@ -71,14 +73,8 @@ class LevelBuilder:
         floor.material = material
         self.level.addFloor(floor)
 
-    def buildCeiling(self, downLeft, xLength, yLength, material):
-        ceiling = Ceiling()
-        ceiling.downLeft = downLeft
-        ceiling.downRight = Vector3(downLeft.x + xLength, downLeft.y, downLeft.z)
-        ceiling.upLeft = Vector3(downLeft.x, downLeft.y + yLength, downLeft.z)
-        ceiling.upRight = Vector3(downLeft.x + xLength, downLeft.y + yLength, downLeft.z)
-        ceiling.material = material
-        self.level.addCeiling(ceiling)
+    def buildFlatCeiling(self, downLeft, xLength, yLength, material):
+        self.ceilingBuilder.buildFlatCeiling(downLeft, xLength, yLength, material)
 
     def buildRoundLamp(self, position, frontNormal, radius, height, material):
         light = RoundLamp()

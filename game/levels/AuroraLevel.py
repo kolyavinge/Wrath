@@ -57,7 +57,7 @@ class AuroraLevel(Level):
         )
         self.builder.buildPillar(Vector3(4, 3, 0), 0.5, 3, Material.ceilingMetal1)
         self.builder.buildFlatFloor(Vector3(1, 1, 0), 5, 4, Material.floorConcrete1)
-        self.builder.buildCeiling(Vector3(1, 1, 3), 5, 4, Material.floorMetal2)
+        self.builder.buildFlatCeiling(Vector3(1, 1, 3), 5, 4, Material.floorMetal2)
         self.builder.buildRoundLamp(Vector3(1, 3, 3), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
         # self.builder.buildRectLamp(Vector3(4, 3, 3), Vector3(0, 0, -1), 0.05, 0.1, 1.0, Vector3(1, 0, 0), Material.ceilingMetal2)
         self.addPowerupArea(PowerupArea(Vector3(2, 2.5, 0), Vector3(2, 2.5, 0), 0.5))
