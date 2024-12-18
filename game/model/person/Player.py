@@ -43,7 +43,6 @@ class Player(Person):
         self.velocityFunc = VelocityFunc()
         self.fallingFunc = FallingFunc()
         self.visibilityLevelSegments = set()
-        self.maxStepHeight = 0.5
 
     def moveNextPositionBy(self, vector):
         self.nextCenterPoint.add(vector)

@@ -29,20 +29,20 @@ class PlayerWallCollisionDetector:
                         self.gameData.playerCollidedWalls.append(wall)
 
     def hasCollision(self, player, wall):
-        if self.playerCanStepOverWall(player, wall):
-            return False
-
         currentBorder = player.currentBorder.bottom
         nextBorder = player.nextBorder.bottom
+        # check corners
         result = self.playerLineIntersectsWall(currentBorder.downLeft, nextBorder.downLeft, wall)
         result = result or self.playerLineIntersectsWall(currentBorder.downRight, nextBorder.downRight, wall)
         result = result or self.playerLineIntersectsWall(currentBorder.upLeft, nextBorder.upLeft, wall)
         result = result or self.playerLineIntersectsWall(currentBorder.upRight, nextBorder.upRight, wall)
+        # check middle
+        result = result or self.playerLineIntersectsWall(currentBorder.middleLeft, nextBorder.middleLeft, wall)
+        result = result or self.playerLineIntersectsWall(currentBorder.middleRight, nextBorder.middleRight, wall)
+        result = result or self.playerLineIntersectsWall(currentBorder.middleTop, nextBorder.middleTop, wall)
+        result = result or self.playerLineIntersectsWall(currentBorder.middleBottom, nextBorder.middleBottom, wall)
 
         return result
-
-    def playerCanStepOverWall(self, player, wall):
-        return wall.height <= player.maxStepHeight
 
     def playerLineIntersectsWall(self, playerPointFrom, playerPointTo, wall):
         if self.isPlayerPointBehindWall(playerPointTo, wall):

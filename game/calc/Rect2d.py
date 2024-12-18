@@ -13,12 +13,22 @@ class Rect2d:
         self.downRight = Vector3()
         self.upLeft = Vector3()
         self.upRight = Vector3()
+        self.middleLeft = Vector3()
+        self.middleRight = Vector3()
+        self.middleTop = Vector3()
+        self.middleBottom = Vector3()
 
     def calculatePointsByCenter(self, center):
+        # corners
         self.downLeft.set(center.x - self.xLengthHalf, center.y - self.yLengthHalf, center.z)
         self.downRight.set(center.x + self.xLengthHalf, center.y - self.yLengthHalf, center.z)
         self.upLeft.set(center.x - self.xLengthHalf, center.y + self.yLengthHalf, center.z)
         self.upRight.set(center.x + self.xLengthHalf, center.y + self.yLengthHalf, center.z)
+        # middle
+        self.middleLeft.set(center.x - self.xLengthHalf, center.y, center.z)
+        self.middleRight.set(center.x + self.xLengthHalf, center.y, center.z)
+        self.middleTop.set(center.x, center.y + self.yLengthHalf, center.z)
+        self.middleBottom.set(center.x, center.y - self.yLengthHalf, center.z)
 
     def containsPoint(self, point):
         return Numeric.between(point.x, self.downLeft.x, self.downRight.x) and Numeric.between(point.y, self.downLeft.y, self.upLeft.y)
