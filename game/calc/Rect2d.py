@@ -39,6 +39,10 @@ class Rect2d:
         copy.downRight = self.downRight.copy()
         copy.upLeft = self.upLeft.copy()
         copy.upRight = self.upRight.copy()
+        copy.middleLeft = self.middleLeft.copy()
+        copy.middleRight = self.middleRight.copy()
+        copy.middleTop = self.middleTop.copy()
+        copy.middleBottom = self.middleBottom.copy()
 
         return copy
 
