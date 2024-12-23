@@ -1,12 +1,8 @@
-from game.anx.CommonConstants import CommonConstants
 from game.calc.Vector3 import Vector3
 from game.levels.builder.CeilingBuilder import CeilingBuilder
 from game.levels.builder.WallBuilder import WallBuilder
-from game.model.level.Ceiling import Ceiling
-from game.model.level.Construction import Construction
 from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Wall import Wall
-from game.model.light.Lamp import Lamp
 from game.model.light.RectLamp import RectLamp
 from game.model.light.RoundLamp import RoundLamp
 
