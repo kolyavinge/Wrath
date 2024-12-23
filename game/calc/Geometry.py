@@ -1,5 +1,6 @@
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
+from game.lib.Numeric import Numeric
 
 
 class Geometry:
@@ -117,3 +118,26 @@ class Geometry:
         )
 
         return screenPoint
+
+    @staticmethod
+    def getSphereIntersectPointOrNone(sphereRadius, startPoint, endPoint, delta=0.1):
+        if sphereRadius < 0:
+            raise Exception("sphereRadius cannot be negative.")
+
+        hasIntersection = Numeric.between(sphereRadius, startPoint.getLength(), endPoint.getLength())
+        if not hasIntersection:
+            return None
+
+        middlePoint = startPoint.getMiddleTo(endPoint)
+        middlePointLength = middlePoint.getLength()
+
+        while not Numeric.floatEquals(sphereRadius, middlePointLength, delta):
+            if middlePointLength < sphereRadius:
+                startPoint = middlePoint
+            else:
+                endPoint = middlePoint
+
+            middlePoint = startPoint.getMiddleTo(endPoint)
+            middlePointLength = middlePoint.getLength()
+
+        return middlePoint
