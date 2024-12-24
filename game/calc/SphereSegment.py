@@ -4,15 +4,15 @@ from game.lib.Numeric import Numeric
 
 class SphereSegment:
 
-    def __init__(self, basePoint, centerPoint, rightNormal, horizontViewRadians, verticalViewRadians, horizontPoints, verticalPoints):
-        if not Numeric.isOdd(horizontPoints):
-            raise Exception("horizontPoints must be an odd number.")
+    def __init__(self, basePoint, centerPoint, rightNormal, horizontalViewRadians, verticalViewRadians, horizontalPoints, verticalPoints):
+        if not Numeric.isOdd(horizontalPoints):
+            raise Exception("horizontalPoints must be an odd number.")
         if not Numeric.isOdd(verticalPoints):
             raise Exception("verticalPoints must be an odd number.")
 
         self.points = []
 
-        horizontRadiansStep = horizontViewRadians / (horizontPoints - 1)
+        horizontalRadiansStep = horizontalViewRadians / (horizontalPoints - 1)
         verticalRadiansStep = verticalViewRadians / (verticalPoints - 1)
 
         verticalRadians = verticalViewRadians / 2
@@ -23,9 +23,9 @@ class SphereSegment:
             upNormal.vectorProduct(rowCenter)
             upNormal.normalize()
 
-            horizontRadians = horizontViewRadians / 2
-            for _ in range(0, horizontPoints):
-                self.points.append(Geometry.rotatePoint(rowCenter, upNormal, basePoint, horizontRadians))
-                horizontRadians -= horizontRadiansStep
+            horizontalRadians = horizontalViewRadians / 2
+            for _ in range(0, horizontalPoints):
+                self.points.append(Geometry.rotatePoint(rowCenter, upNormal, basePoint, horizontalRadians))
+                horizontalRadians -= horizontalRadiansStep
 
             verticalRadians -= verticalRadiansStep

@@ -15,7 +15,9 @@ class Camera:
         self.lookDirection = Vector3()
         self.viewMatrix = TransformMatrix4()
         self.projectionMatrix = TransformMatrix4()
-        self.projectionMatrix.perspective(self.viewAngleRadians, CommonConstants.screenAspect, CommonConstants.minDepth, CommonConstants.maxDepth)
+        self.projectionMatrix.perspective(
+            self.viewAngleRadians, CommonConstants.screenAspect, CommonConstants.minPerspectiveDepth, CommonConstants.maxPerspectiveDepth
+        )
 
     def calculateViewMatrix(self):
         self.viewMatrix.lookAt(self.position, self.lookDirection, CommonConstants.zAxis)

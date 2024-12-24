@@ -4,7 +4,6 @@ from OpenGL.GLUT import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
-from game.calc.SphereSegment import SphereSegment
 from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 
@@ -38,7 +37,9 @@ class DebugRenderer:
         camera = self.gameData.camera
         glLoadIdentity()
         glMatrixMode(GL_PROJECTION)
-        gluPerspective(camera.viewAngleDegrees, CommonConstants.screenAspect, CommonConstants.minDepth, CommonConstants.maxDepth)
+        gluPerspective(
+            camera.viewAngleDegrees, CommonConstants.screenAspect, CommonConstants.minPerspectiveDepth, CommonConstants.maxPerspectiveDepth
+        )
         gluLookAt(
             camera.position.x,
             camera.position.y,
@@ -311,23 +312,7 @@ class DebugRenderer:
         glEnd()
 
     def renderSphereSegment(self):
-        player = self.gameData.player
-        camera = self.gameData.camera
-        endPoint = player.lookDirection.copy()
-        endPoint.setLength(100)
-        endPoint.add(camera.position)
-        centerPoint = Geometry.getSphereIntersectPointOrNone(40, camera.position, endPoint)
-        segment = SphereSegment(
-            camera.position,
-            centerPoint,
-            player.rightNormal,
-            camera.viewAngleRadians * CommonConstants.screenAspect - 0.15,
-            camera.viewAngleRadians - 0.01,
-            15,
-            15,
-        )
-
-        for point in segment.points:
+        for point in self.gameData.backgroundVisibility.visiblePoints:
             glColor3f(0, 1, 0)
             glBegin(GL_POINTS)
             glVertex3f(point.x, point.y, point.z)

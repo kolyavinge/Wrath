@@ -1,5 +1,6 @@
 import time
 
+from game.engine.BackgroundVisibilityDetector import BackgroundVisibilityDetector
 from game.engine.BulletMoveLogic import BulletMoveLogic
 from game.engine.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.BulletUpdater import BulletUpdater
@@ -42,6 +43,7 @@ class GameUpdater:
         personDoStepLogic,
         playerLevelSegmentsUpdater,
         playerMovingSwingLogic,
+        backgroundVisibilityDetector,
         playerPositionUpdater,
         levelSegmentVisibilityUpdater,
         cameraUpdater,
@@ -70,6 +72,7 @@ class GameUpdater:
         self.personDoStepLogic = personDoStepLogic
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.playerMovingSwingLogic = playerMovingSwingLogic
+        self.backgroundVisibilityDetector = backgroundVisibilityDetector
         self.playerPositionUpdater = playerPositionUpdater
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
@@ -99,6 +102,7 @@ class GameUpdater:
         self.personDoStepLogic.updateDoStep()
         self.playerLevelSegmentsUpdater.updateIfPlayerMoved()
         self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
+        self.backgroundVisibilityDetector.updateIfPlayerMovedOrTurned()
         self.playerPositionUpdater.update()
         self.playerMovingSwingLogic.updateSwing()
         self.cameraUpdater.update()
@@ -132,6 +136,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PersonDoStepLogic),
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(PlayerMovingSwingLogic),
+        resolver.resolve(BackgroundVisibilityDetector),
         resolver.resolve(PlayerPositionUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),

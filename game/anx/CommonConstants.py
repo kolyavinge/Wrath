@@ -6,9 +6,10 @@ class CommonConstants:
     gameTitle = b"Wrath"
     gameTitleU = "Wrath"
     screenAspect = 16.0 / 9.0
-    minDepth = 0.05
+    minPerspectiveDepth = 0.05
+    maxPerspectiveDepth = 1000.0
     maxDepth = 60.0
-    maxLevelSize = 1000.0
+    maxLevelSize = 100.0
     axisOrigin = Vector3(0, 0, 0)
     xAxis = Vector3(1, 0, 0)
     yAxis = Vector3(0, 1, 0)

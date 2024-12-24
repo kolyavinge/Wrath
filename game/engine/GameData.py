@@ -6,6 +6,14 @@ from game.model.person.Player import Player
 from game.model.person.PlayerInputData import PlayerInputData
 
 
+class BackgroundVisibilityData:
+
+    def __init__(self):
+        self.visiblePoints = []
+        self.horizontalPointsCount = 0
+        self.verticalPointsCount = 0
+
+
 class GameData:
 
     def __init__(self):
@@ -24,6 +32,7 @@ class GameData:
         self.bulletTraces = []
         self.powerups = []
         self.camera = Camera()
+        self.backgroundVisibility = BackgroundVisibilityData()
 
 
 def makeGameData(resolver):

@@ -1,3 +1,4 @@
+from game.engine.BackgroundVisibilityDetector import BackgroundVisibilityDetector
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.GameData import GameData
@@ -26,6 +27,7 @@ class LevelManager:
         playerLevelSegmentsUpdater,
         levelSegmentVisibilityUpdater,
         cameraUpdater,
+        backgroundVisibilityDetector,
         playerWeaponPositionUpdater,
         weaponFlashUpdater,
     ):
@@ -39,6 +41,7 @@ class LevelManager:
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
+        self.backgroundVisibilityDetector = backgroundVisibilityDetector
         self.playerWeaponPositionUpdater = playerWeaponPositionUpdater
         self.weaponFlashUpdater = weaponFlashUpdater
 
@@ -56,6 +59,7 @@ class LevelManager:
         self.playerLevelSegmentsUpdater.update()
         self.levelSegmentVisibilityUpdater.update()
         self.cameraUpdater.update()
+        self.backgroundVisibilityDetector.update()
         self.playerWeaponPositionUpdater.update()
         self.weaponFlashUpdater.init()
 
@@ -72,6 +76,7 @@ def makeLevelManager(resolver):
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
+        resolver.resolve(BackgroundVisibilityDetector),
         resolver.resolve(PlayerWeaponPositionUpdater),
         resolver.resolve(WeaponFlashUpdater),
     )
