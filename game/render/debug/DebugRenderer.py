@@ -3,6 +3,8 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 from game.anx.CommonConstants import CommonConstants
+from game.calc.Geometry import Geometry
+from game.calc.SphereSegment import SphereSegment
 from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 
@@ -15,21 +17,22 @@ class DebugRenderer:
     def render(self):
         self.initCamera()
         # self.renderFloorGrid()
-        self.renderVisibleWalls()
-        self.renderVisibleFloors()
-        self.renderVisibleCeilings()
-        self.renderVisibleWallsNormals()
+        # self.renderVisibleWalls()
+        # self.renderVisibleFloors()
+        # self.renderVisibleCeilings()
+        # self.renderVisibleWallsNormals()
         # self.renderVisibleFloorsNormals()
         # self.renderVisibleCeilingsNormals()
         # self.renderVisibleSegmentJoinLines()
         # self.renderPlayerSegmentWalls()
-        self.renderPlayerSegmentWallLimitLines()
+        # self.renderPlayerSegmentWallLimitLines()
         # self.renderPlayerSegmentFloors()
         # self.renderPlayerSegmentCeilings()
-        self.renderPlayerBorder()
-        self.renderPlayerFrontNormal()
-        self.renderPlayerVelocityVector()
+        # self.renderPlayerBorder()
+        # self.renderPlayerFrontNormal()
+        # self.renderPlayerVelocityVector()
         # self.renderAxis()
+        self.renderSphereSegment()
 
     def initCamera(self):
         camera = self.gameData.camera
@@ -306,6 +309,29 @@ class DebugRenderer:
         glVertex3f(downRight.x, downRight.y, downRight.z)
         glVertex3f(upLeft.x, upLeft.y, upLeft.z)
         glEnd()
+
+    def renderSphereSegment(self):
+        player = self.gameData.player
+        camera = self.gameData.camera
+        endPoint = player.lookDirection.copy()
+        endPoint.setLength(100)
+        endPoint.add(camera.position)
+        centerPoint = Geometry.getSphereIntersectPointOrNone(40, camera.position, endPoint)
+        segment = SphereSegment(
+            camera.position,
+            centerPoint,
+            player.rightNormal,
+            camera.viewAngleRadians * CommonConstants.screenAspect - 0.15,
+            camera.viewAngleRadians - 0.01,
+            15,
+            15,
+        )
+
+        for point in segment.points:
+            glColor3f(0, 1, 0)
+            glBegin(GL_POINTS)
+            glVertex3f(point.x, point.y, point.z)
+            glEnd()
 
 
 def makeDebugRenderer(resolver):

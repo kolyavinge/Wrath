@@ -31,12 +31,12 @@ class GameScreenRenderer:
         self.gameScreenInitializer.init()
 
     def render(self):
-        # self.debugRenderer.render()
         self.mainSceneRenderer.render()
         self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()
         self.bulletTraceRenderer.render()
         self.crosshairRenderer.render()
+        self.debugRenderer.render()
 
 
 def makeGameScreenRenderer(resolver):

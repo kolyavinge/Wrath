@@ -23,3 +23,7 @@ class Numeric:
                 x /= 2
             else:
                 return False
+
+    @staticmethod
+    def isOdd(x):
+        return (x % 2) != 0
