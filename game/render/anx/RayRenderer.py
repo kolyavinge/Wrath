@@ -4,7 +4,6 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Plane import Plane
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 from game.gl.ColorVector3 import ColorVector3
 from game.gl.VBORenderer import VBORenderer

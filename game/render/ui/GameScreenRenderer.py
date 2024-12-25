@@ -1,3 +1,4 @@
+from game.render.anx.BackgroundRenderer import BackgroundRenderer
 from game.render.debug.DebugRenderer import DebugRenderer
 from game.render.main.MainSceneRenderer import MainSceneRenderer
 from game.render.ui.GameScreenInitializer import GameScreenInitializer
@@ -13,6 +14,7 @@ class GameScreenRenderer:
         self,
         gameScreenInitializer,
         debugRenderer,
+        backgroundRenderer,
         mainSceneRenderer,
         shineBulletRenderer,
         weaponFlashRenderer,
@@ -21,6 +23,7 @@ class GameScreenRenderer:
     ):
         self.gameScreenInitializer = gameScreenInitializer
         self.debugRenderer = debugRenderer
+        self.backgroundRenderer = backgroundRenderer
         self.mainSceneRenderer = mainSceneRenderer
         self.shineBulletRenderer = shineBulletRenderer
         self.weaponFlashRenderer = weaponFlashRenderer
@@ -32,17 +35,19 @@ class GameScreenRenderer:
 
     def render(self):
         self.mainSceneRenderer.render()
+        self.backgroundRenderer.render()
         self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()
         self.bulletTraceRenderer.render()
         self.crosshairRenderer.render()
-        self.debugRenderer.render()
+        # self.debugRenderer.render()
 
 
 def makeGameScreenRenderer(resolver):
     return GameScreenRenderer(
         resolver.resolve(GameScreenInitializer),
         resolver.resolve(DebugRenderer),
+        resolver.resolve(BackgroundRenderer),
         resolver.resolve(MainSceneRenderer),
         resolver.resolve(ShineBulletRenderer),
         resolver.resolve(WeaponFlashRenderer),

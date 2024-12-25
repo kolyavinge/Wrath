@@ -7,6 +7,7 @@ from game.gl.TextureLoader import *
 from game.gl.VBOBuilderFactory import *
 from game.gl.VBORenderer import *
 from game.gl.VBOUpdaterFactory import *
+from game.render.anx.BackgroundRenderer import *
 from game.render.anx.RayRenderer import *
 from game.render.anx.ShineCircleRenderer import *
 from game.render.common.MaterialTextureCollection import *
@@ -63,6 +64,7 @@ class RenderModule:
         binder.bindSingleton(VBOBuilderFactory, makeVBOBuilderFactory)
         binder.bindSingleton(VBORenderer, makeVBORenderer)
         binder.bindSingleton(VBOUpdaterFactory, makeVBOUpdaterFactory)
+        binder.bindSingleton(BackgroundRenderer, makeBackgroundRenderer)
         binder.bindSingleton(RayRenderer, makeRayRenderer)
         binder.bindSingleton(ShineCircleRenderer, makeShineCircleRenderer)
         binder.bindSingleton(MaterialTextureCollection, makeMaterialTextureCollection)

@@ -1,0 +1,74 @@
+from OpenGL.GL import *
+
+from game.calc.TransformMatrix4 import TransformMatrix4
+from game.engine.GameData import GameData
+from game.gl.BufferIndices import BufferIndices
+from game.gl.VBORenderer import VBORenderer
+from game.gl.VBOUpdaterFactory import VBOUpdaterFactory
+from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+
+
+class BackgroundRenderer:
+
+    def __init__(self, gameData, vboUpdaterFactory, shaderProgramCollection, vboRenderer):
+        self.gameData = gameData
+        self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
+        self.shaderProgramCollection = shaderProgramCollection
+        self.vboRenderer = vboRenderer
+        self.vbo = self.makeVBO()
+        self.visiblePoints = None
+
+    def render(self):
+        self.updateVBOIfNeeded()
+        glEnable(GL_DEPTH_TEST)
+        shader = self.shaderProgramCollection.mesh
+        shader.use()
+        shader.setModelMatrix(TransformMatrix4.identity)
+        shader.setViewMatrix(self.gameData.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setAlpha(1.0)
+        glActiveTexture(GL_TEXTURE0)
+        glBindTexture(GL_TEXTURE_2D, 4)
+        self.vboRenderer.render(self.vbo)
+        shader.unuse()
+        glDisable(GL_DEPTH_TEST)
+
+    def updateVBOIfNeeded(self):
+        if self.visiblePoints != self.gameData.backgroundVisibility.visiblePoints:
+            self.visiblePoints = self.gameData.backgroundVisibility.visiblePoints
+            self.vboUpdater.beginUpdate(self.vbo)
+            i = 0
+            for point in self.visiblePoints:
+                self.vboUpdater.setVertex(i, point)
+                self.vboUpdater.setTexCoord(i, 0, 1)
+                i += 1
+            self.vboUpdater.endUpdate()
+
+    def makeVBO(self):
+        backgroundVisibility = self.gameData.backgroundVisibility
+        verticesCount = backgroundVisibility.horizontalPointsCount * backgroundVisibility.verticalPointsCount
+        facesCount = 2 * (backgroundVisibility.verticalPointsCount - 1) * (backgroundVisibility.horizontalPointsCount - 1)
+        vbo = self.vboUpdater.buildUnfilled(verticesCount, facesCount, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces])
+        self.vboUpdater.beginUpdate(vbo)
+        self.makeFaces(backgroundVisibility)
+        self.vboUpdater.endUpdate()
+
+        return vbo
+
+    def makeFaces(self, backgroundVisibility):
+        for row in range(0, backgroundVisibility.verticalPointsCount - 1):
+            vertexIndex = row * backgroundVisibility.horizontalPointsCount
+            for _ in range(0, backgroundVisibility.horizontalPointsCount - 1):
+                upLeft = vertexIndex
+                upRight = upLeft + 1
+                downLeft = upLeft + backgroundVisibility.horizontalPointsCount
+                downRight = downLeft + 1
+                self.vboUpdater.addFace(upLeft, downLeft, downRight)
+                self.vboUpdater.addFace(upLeft, downRight, upRight)
+                vertexIndex += 1
+
+
+def makeBackgroundRenderer(resolver):
+    return BackgroundRenderer(
+        resolver.resolve(GameData), resolver.resolve(VBOUpdaterFactory), resolver.resolve(ShaderProgramCollection), resolver.resolve(VBORenderer)
+    )
