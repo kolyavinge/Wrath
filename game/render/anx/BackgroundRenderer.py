@@ -6,17 +6,19 @@ from game.gl.BufferIndices import BufferIndices
 from game.gl.VBORenderer import VBORenderer
 from game.gl.VBOUpdaterFactory import VBOUpdaterFactory
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.common.TextureCollection import TextureCollection
 
 
 class BackgroundRenderer:
 
-    def __init__(self, gameData, vboUpdaterFactory, shaderProgramCollection, vboRenderer):
+    def __init__(self, gameData, vboUpdaterFactory, shaderProgramCollection, vboRenderer, textureCollection):
         self.gameData = gameData
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
+        self.textureCollection = textureCollection
         self.vbo = self.makeVBO()
-        self.visiblePoints = None
+        self.vertices = None
 
     def render(self):
         self.updateVBOIfNeeded()
@@ -27,20 +29,22 @@ class BackgroundRenderer:
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setAlpha(1.0)
-        glActiveTexture(GL_TEXTURE0)
-        glBindTexture(GL_TEXTURE_2D, 4)
+        # self.textureCollection.background1.bind(GL_TEXTURE0)
         self.vboRenderer.render(self.vbo)
         shader.unuse()
         glDisable(GL_DEPTH_TEST)
 
     def updateVBOIfNeeded(self):
-        if self.visiblePoints != self.gameData.backgroundVisibility.visiblePoints:
-            self.visiblePoints = self.gameData.backgroundVisibility.visiblePoints
+        if self.vertices != self.gameData.backgroundVisibility.vertices:
+            self.vertices = self.gameData.backgroundVisibility.vertices
             self.vboUpdater.beginUpdate(self.vbo)
             i = 0
-            for point in self.visiblePoints:
-                self.vboUpdater.setVertex(i, point)
-                self.vboUpdater.setTexCoord(i, 0, 1)
+            for vertex in self.gameData.backgroundVisibility.vertices:
+                self.vboUpdater.setVertex(i, vertex)
+                i += 1
+            i = 0
+            for texCoord in self.gameData.backgroundVisibility.texCoords:
+                self.vboUpdater.setTexCoord(i, texCoord.x, texCoord.y)
                 i += 1
             self.vboUpdater.endUpdate()
 
@@ -70,5 +74,9 @@ class BackgroundRenderer:
 
 def makeBackgroundRenderer(resolver):
     return BackgroundRenderer(
-        resolver.resolve(GameData), resolver.resolve(VBOUpdaterFactory), resolver.resolve(ShaderProgramCollection), resolver.resolve(VBORenderer)
+        resolver.resolve(GameData),
+        resolver.resolve(VBOUpdaterFactory),
+        resolver.resolve(ShaderProgramCollection),
+        resolver.resolve(VBORenderer),
+        resolver.resolve(TextureCollection),
     )

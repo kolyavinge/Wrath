@@ -38,7 +38,7 @@ class DebugRenderer:
         glLoadIdentity()
         glMatrixMode(GL_PROJECTION)
         gluPerspective(
-            camera.viewAngleDegrees, CommonConstants.screenAspect, CommonConstants.minPerspectiveDepth, CommonConstants.maxPerspectiveDepth
+            camera.verticalViewDegrees, CommonConstants.screenAspect, CommonConstants.minPerspectiveDepth, CommonConstants.maxPerspectiveDepth
         )
         gluLookAt(
             camera.position.x,
@@ -312,10 +312,10 @@ class DebugRenderer:
         glEnd()
 
     def renderSphereSegment(self):
-        for point in self.gameData.backgroundVisibility.visiblePoints:
+        for v in self.gameData.backgroundVisibility.vertices:
             glColor3f(0, 1, 0)
             glBegin(GL_POINTS)
-            glVertex3f(point.x, point.y, point.z)
+            glVertex3f(v.x, v.y, v.z)
             glEnd()
 
 

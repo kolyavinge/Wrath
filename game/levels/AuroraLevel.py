@@ -20,45 +20,45 @@ class AuroraLevel(Level):
         self.setPlayerPosition()
 
     def makeRoom1(self):
-        # self.builder.buildWalls(
-        #     Vector3(1, 1, 0),
-        #     WallInfo(
-        #         Vector3(1, 5, 0),
-        #         Vector3(1, 0, 0),
-        #         3,
-        #         Material.floorMetal4,
-        #         WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
-        #         WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
-        #     ),
-        #     WallInfo(
-        #         Vector3(6, 5, 0),
-        #         Vector3(0, -1, 0),
-        #         3,
-        #         Material.floorMetal4,
-        #         WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
-        #         WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
-        #     ),
-        #     WallInfo(
-        #         Vector3(6, 1, 0),
-        #         Vector3(-1, 0, 0),
-        #         3,
-        #         Material.ceilingMetal1,
-        #         WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
-        #         WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
-        #     ),
-        #     WallInfo(
-        #         Vector3(1, 1, 0),
-        #         Vector3(0, 1, 0),
-        #         3,
-        #         Material.ceilingMetal1,
-        #         WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
-        #         WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
-        #         Doorway(Vector3(4, 1, 0), 1, 2.2, Material.floorMetal3, DoorwayBorder(0.2, 0.1, Material.ceilingMetal2)),
-        #     ),
-        # )
+        self.builder.buildWalls(
+            Vector3(1, 1, 0),
+            WallInfo(
+                Vector3(1, 5, 0),
+                Vector3(1, 0, 0),
+                3,
+                Material.floorMetal4,
+                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
+            ),
+            WallInfo(
+                Vector3(6, 5, 0),
+                Vector3(0, -1, 0),
+                3,
+                Material.floorMetal4,
+                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
+            ),
+            WallInfo(
+                Vector3(6, 1, 0),
+                Vector3(-1, 0, 0),
+                3,
+                Material.ceilingMetal1,
+                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
+            ),
+            WallInfo(
+                Vector3(1, 1, 0),
+                Vector3(0, 1, 0),
+                3,
+                Material.ceilingMetal1,
+                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
+                Doorway(Vector3(4, 1, 0), 1, 2.2, Material.floorMetal3, DoorwayBorder(0.2, 0.1, Material.ceilingMetal2)),
+            ),
+        )
         # self.builder.buildPillar(Vector3(4, 3, 0), 0.5, 3, Material.ceilingMetal1)
         self.builder.buildFlatFloor(Vector3(1, 1, 0), 5, 4, Material.floorConcrete1)
-        # self.builder.buildCeiling(Vector3(1, 1, 3), 5, 4, Material.floorMetal2, CeilingHole(1, 2, Material.floorMetal2))
+        self.builder.buildCeiling(Vector3(1, 1, 3), 5, 4, Material.floorMetal2, CeilingHole(1, 2, Material.floorMetal2))
         self.builder.buildRoundLamp(Vector3(1, 3, 3), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
         # self.builder.buildRectLamp(Vector3(4, 3, 3), Vector3(0, 0, -1), 0.05, 0.1, 1.0, Vector3(1, 0, 0), Material.ceilingMetal2)
         self.addPowerupArea(PowerupArea(Vector3(2, 2.5, 0), Vector3(2, 2.5, 0), 0.5))

@@ -1,3 +1,4 @@
+from game.calc.SphereSegmentCalculator import *
 from game.engine.BackgroundVisibilityDetector import *
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
@@ -49,6 +50,7 @@ from game.input.InputManager import *
 class EngineModule:
 
     def init(self, binder):
+        binder.bindSingleton(SphereSegmentCalculator, makeSphereSegmentCalculator)
         binder.bindSingleton(BackgroundVisibilityDetector, makeBackgroundVisibilityDetector)
         binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)

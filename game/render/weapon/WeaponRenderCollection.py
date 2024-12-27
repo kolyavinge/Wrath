@@ -21,12 +21,12 @@ class WeaponRenderCollection:
             vbo.release()
 
         self.models = {}
-        self.makePistol()
+        # self.makePistol()
         self.makeRifle()
-        self.makePlasma()
-        self.makeLauncher()
-        self.makeRailgun()
-        self.makeSniper()
+        # self.makePlasma()
+        # self.makeLauncher()
+        # self.makeRailgun()
+        # self.makeSniper()
 
     def makePistol(self):
         model = self.weaponModel3dFactory.makePistol()

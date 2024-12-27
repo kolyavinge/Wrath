@@ -9,7 +9,8 @@ from game.model.person.PlayerInputData import PlayerInputData
 class BackgroundVisibilityData:
 
     def __init__(self):
-        self.visiblePoints = []
+        self.vertices = []
+        self.texCoords = []
         self.horizontalPointsCount = 0
         self.verticalPointsCount = 0
 

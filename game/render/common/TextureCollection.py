@@ -36,6 +36,7 @@ class TextureCollection:
         self.pistolFlash = self.textureLoader.load(path + "pistolFlash.png")
         self.rifleFlash = self.textureLoader.load(path + "rifleFlash.png")
         self.sniperFlash = self.textureLoader.load(path + "sniperFlash.png")
+        self.background1 = self.textureLoader.load(path + "background1.jpg")
 
 
 def makeTextureCollection(resolver):
