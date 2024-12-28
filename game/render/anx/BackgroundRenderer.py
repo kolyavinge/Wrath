@@ -29,7 +29,7 @@ class BackgroundRenderer:
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setAlpha(1.0)
-        # self.textureCollection.background1.bind(GL_TEXTURE0)
+        self.textureCollection.background1.bind(GL_TEXTURE0)
         self.vboRenderer.render(self.vbo)
         shader.unuse()
         glDisable(GL_DEPTH_TEST)
