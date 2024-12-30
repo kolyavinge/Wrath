@@ -3,6 +3,7 @@ from game.levels.builder.CeilingBuilder import CeilingBuilder
 from game.levels.builder.WallBuilder import WallBuilder
 from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Wall import Wall
+from game.model.light.Light import Light
 from game.model.light.RectLamp import RectLamp
 from game.model.light.RoundLamp import RoundLamp
 
@@ -71,6 +72,11 @@ class LevelBuilder:
 
     def buildCeiling(self, downLeft, xLength, yLength, material, hole=None):
         self.ceilingBuilder.buildCeiling(downLeft, xLength, yLength, material, hole)
+
+    def buildLight(self, position):
+        light = Light()
+        light.position = position
+        self.level.addLight(light)
 
     def buildRoundLamp(self, position, frontNormal, radius, height, material):
         light = RoundLamp()

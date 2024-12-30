@@ -14,6 +14,7 @@ class WallBuilder:
 
     def buildWalls(self, startPoint, *wallBuildInfoList):
         for info in wallBuildInfoList:
+            info.frontNormal.normalize()
             if info.doorway is not None:
                 self.makeSolidWall(
                     startPoint, info.doorway.startPosition, info.frontNormal, info.height, info.material, info.bottomBorder, info.topBorder
@@ -21,7 +22,8 @@ class WallBuilder:
                 doorwayEndPosition = self.getDoorwayEndPosition(startPoint, info.doorway)
                 self.makeWallAboveDoorway(doorwayEndPosition, info)
                 self.makeSolidWall(doorwayEndPosition, info.position, info.frontNormal, info.height, info.material, info.bottomBorder, info.topBorder)
-                self.doorwayBorderBuilder.makeDoorwayBorder(info.frontNormal, doorwayEndPosition, info.doorway)
+                if info.doorway.border is not None:
+                    self.doorwayBorderBuilder.makeDoorwayBorder(info.frontNormal, doorwayEndPosition, info.doorway)
             else:
                 self.makeSolidWall(startPoint, info.position, info.frontNormal, info.height, info.material, info.bottomBorder, info.topBorder)
 
@@ -42,11 +44,11 @@ class WallBuilder:
 
         if bottomBorder is not None:
             self.makeBottomBorder(wall, bottomBorder)
-            self.zFightingDelta += 0.001
+            self.zFightingDelta += 0.0001
 
         if topBorder is not None:
             self.makeTopBorder(wall, topBorder)
-            self.zFightingDelta += 0.001
+            self.zFightingDelta += 0.0001
 
     def makeWall(self, startPoint, endPoint, frontNormal, height, material):
         wall = Wall()
@@ -134,7 +136,7 @@ class WallBuilder:
     def makeWallAboveDoorway(self, doorwayEndPosition, info):
         doorwayHeight = info.doorway.height
         doorwayBorderTopHeight = 0
-        if info.doorway is not None:
+        if info.doorway is not None and info.doorway.border is not None:
             doorwayBorderTopHeight = info.doorway.border.width
         doorwayStartPosition = info.doorway.startPosition
         self.makeSolidWall(
