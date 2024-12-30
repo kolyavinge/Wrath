@@ -1,12 +1,12 @@
 from game.calc.Vector3 import Vector3
-from game.model.light.VisibleLight import VisibleLight
+from game.model.light.Light import Light
+from game.model.Visible import Visible
 
 
-class Lamp(VisibleLight):
+class Lamp(Light, Visible):
 
     def __init__(self):
         super().__init__()
-        self.position = Vector3()
         self.frontNormal = Vector3()
 
     def commit(self):
