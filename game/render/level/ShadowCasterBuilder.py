@@ -7,7 +7,7 @@ class ShadowCasterBuilder:
         self.vboBuilderFactory = vboBuilderFactory
 
     def buildForLevelSegment(self, levelSegment):
-        shadowCasters = [item for item in levelSegment.getAllItems() if item.canCastShadow]
+        shadowCasters = [item for item in levelSegment.getAllVisibleItems() if item.canCastShadow]
         if len(shadowCasters) > 0:
             vboBuilder = self.vboBuilderFactory.makeVBOBuilder()
             for item in shadowCasters:

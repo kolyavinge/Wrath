@@ -1,11 +1,12 @@
 from game.calc.Vector3 import Vector3
-from game.model.Visible import Visible
 
 
-class Light(Visible):
+class Light:
 
     def __init__(self):
-        super().__init__()
         self.color = Vector3(1.0, 1.0, 1.0)
         self.lightPosition = Vector3()
         self.joinGroup = None
+
+    def commit(self):
+        pass
