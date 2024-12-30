@@ -14,7 +14,7 @@ class DoorwayBorderBuilder:
         borderWidthDirection = doorwayWidthDirection.copy()
         borderWidthDirection.setLength(doorway.border.width)
         borderDepthDirection = frontNormal.copy()
-        borderDepthDirection.setLength(doorway.border.depth + 0.001)
+        borderDepthDirection.setLength(doorway.border.depth + 0.0001)
 
         left = Construction()
         left.downLeft = doorwayStartPosition.copy()

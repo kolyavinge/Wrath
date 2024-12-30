@@ -29,7 +29,6 @@ class PowerupUpdater:
             powerup.update()
 
     def generateNew(self):
-        return
         if self.delay > 0:
             return
 
