@@ -1,4 +1,5 @@
 from game.gl.AdjancencyFormatConverter import *
+from game.gl.AdjacencyFormatConverter import *
 from game.gl.Model3dLoader import *
 from game.gl.RenderModel3dLoader import *
 from game.gl.ScreenQuadVBO import *

@@ -10,6 +10,12 @@ class FileSystem:
         with open(filePath, "r") as f:
             return f.read()
 
+    def getFilesInDirectory(self, path):
+        if path is None or len(path) == 0:
+            raise Exception("Path cannot be empty.")
+
+        return [f"{path}\\{file}" for file in os.listdir(path)]
+
     def findFilesByExtension(self, path, extension):
         if path is None or len(path) == 0:
             raise Exception("Path cannot be empty.")

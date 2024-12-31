@@ -1,4 +1,4 @@
-from game.gl.AdjancencyFormatConverter import AdjacencyFormatConverter
+from game.gl.AdjacencyFormatConverter import AdjacencyFormatConverter
 from game.gl.Model3dVBOBuilder import Model3dVBOBuilder
 from game.gl.VBOBuilder import VBOBuilder
 
