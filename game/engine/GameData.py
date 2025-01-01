@@ -29,6 +29,7 @@ class GameData:
         self.allPersonItems[self.player] = self.playerItems
         self.playerTorch = Torch()
         self.playerCollidedWalls = []
+        self.enemies = []
         self.bullets = []
         self.bulletTraces = []
         self.powerups = []
