@@ -1,5 +1,5 @@
-from game.gl.AdjancencyFormatConverter import *
 from game.gl.AdjacencyFormatConverter import *
+from game.gl.AsyncModel3dLoader import *
 from game.gl.Model3dLoader import *
 from game.gl.RenderModel3dLoader import *
 from game.gl.ScreenQuadVBO import *
@@ -12,6 +12,7 @@ from game.render.anx.BackgroundRenderer import *
 from game.render.anx.RayRenderer import *
 from game.render.anx.ShineCircleRenderer import *
 from game.render.common.MaterialTextureCollection import *
+from game.render.common.Model3dCollection import *
 from game.render.common.Model3dDirectory import *
 from game.render.common.ShaderCollection import *
 from game.render.common.ShaderProgramCollection import *
@@ -57,6 +58,7 @@ class RenderModule:
 
     def init(self, binder):
         binder.bindSingleton(AdjacencyFormatConverter, makeAdjacencyFormatConverter)
+        # binder.bindSingleton(AsyncModel3dLoader, makeAsyncModel3dLoader)
         binder.bindSingleton(Model3dLoader, makeModel3dLoader)
         binder.bindSingleton(RenderModel3dLoader, makeRenderModel3dLoader)
         binder.bindSingleton(ScreenQuadVBO, makeScreenQuadVBO)
@@ -69,6 +71,7 @@ class RenderModule:
         binder.bindSingleton(RayRenderer, makeRayRenderer)
         binder.bindSingleton(ShineCircleRenderer, makeShineCircleRenderer)
         binder.bindSingleton(MaterialTextureCollection, makeMaterialTextureCollection)
+        # binder.bindSingleton(Model3dCollection, makeModel3dCollection)
         binder.bindSingleton(Model3dDirectory, makeModel3dDirectory)
         binder.bindSingleton(ShaderCollection, makeShaderCollection)
         binder.bindSingleton(ShaderProgramCollection, makeShaderProgramCollection)
