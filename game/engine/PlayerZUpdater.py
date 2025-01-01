@@ -2,7 +2,7 @@ from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
-from game.model.person.PlayerState import PlayerState
+from game.model.person.PersonState import PersonState
 
 
 class PlayerZUpdater:
@@ -34,27 +34,27 @@ class PlayerZUpdater:
         z = floor.getZ(player.nextCenterPoint.x, player.nextCenterPoint.y)
         playerOnFloor = player.getZ() - z < 1 or player.getZ() < z
         if playerOnFloor:
-            if player.state == PlayerState.standing:
+            if player.state == PersonState.standing:
                 player.setZ(z)
-            elif player.state == PlayerState.falling:
+            elif player.state == PersonState.falling:
                 player.setZ(z)
                 player.fallingTime = 0
-                player.state = PlayerState.landing
+                player.state = PersonState.landing
                 player.landingTime = 10 * 0.1
                 self.eventManager.raiseEvent(Events.personLanded, player)
-            elif player.state == PlayerState.landing:
+            elif player.state == PersonState.landing:
                 player.landingTime -= 0.1
                 if player.landingTime <= 0:
-                    player.state = PlayerState.standing
+                    player.state = PersonState.standing
                     player.landingTime = 0
             else:
                 raise Exception("Wrong player state.")
         else:
-            player.state = PlayerState.falling
+            player.state = PersonState.falling
             self.processPlayerFall()
 
     def processHole(self):
-        self.gameData.player.state = PlayerState.falling
+        self.gameData.player.state = PersonState.falling
         self.processPlayerFall()
 
     def processPlayerFall(self):

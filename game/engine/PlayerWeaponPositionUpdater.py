@@ -1,4 +1,4 @@
-from game.anx.PlayerConstants import PlayerConstants
+from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
 
 
@@ -69,7 +69,7 @@ class PlayerWeaponPositionUpdater:
 
     def getAimPoint(self, player, barrelPosition):
         aimPoint = player.lookDirection.copy()
-        aimPoint.setLength(PlayerConstants.aimLength)
+        aimPoint.setLength(PersonConstants.aimLength)
         aimPoint.add(barrelPosition)
 
         return aimPoint

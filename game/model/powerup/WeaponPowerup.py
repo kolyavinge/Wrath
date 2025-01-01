@@ -1,4 +1,4 @@
-from game.anx.PlayerConstants import PlayerConstants
+from game.anx.PersonConstants import PersonConstants
 from game.calc.Geometry import Geometry
 from game.lib.CircularIterator import CircularIterator
 from game.lib.Random import Random
@@ -10,7 +10,7 @@ class WeaponPowerup(Powerup):
 
     def __init__(self):
         super().__init__()
-        self.height = PlayerConstants.eyeLength - 0.2
+        self.height = PersonConstants.eyeLength - 0.2
         self.setWeaponType()
         self.count = self.weaponType.defaultCount
         self.setZShift()

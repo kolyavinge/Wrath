@@ -1,4 +1,4 @@
-class PlayerState:
+class PersonState:
 
     standing = 1
     falling = 2

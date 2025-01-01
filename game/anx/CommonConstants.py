@@ -18,4 +18,3 @@ class CommonConstants:
     down = Vector3(0, 0, -1)
     mainTimerMsec = 20
     maxBulletHoles = 1000
-    maxPersonHealth = 100

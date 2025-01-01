@@ -1,5 +1,5 @@
 from game.engine.GameData import GameData
-from game.model.person.PlayerState import PlayerState
+from game.model.person.PersonState import PersonState
 
 
 class PlayerPositionUpdater:
@@ -12,7 +12,7 @@ class PlayerPositionUpdater:
         player.hasTurned = False
         if player.hasMoved:
             player.commitNextPosition()
-            if player.state == PlayerState.standing:
+            if player.state == PersonState.standing:
                 player.hasMoved = False
 
 

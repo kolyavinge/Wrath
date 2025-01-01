@@ -1,4 +1,4 @@
-from game.anx.PlayerConstants import PlayerConstants
+from game.anx.PersonConstants import PersonConstants
 from game.calc.Line import Line
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
@@ -56,9 +56,9 @@ class Wall(Construction):
 
     def getLimitLineOffset(self):
         if self.orientation == Orientation.diagonal:
-            return PlayerConstants.xyLengthHalf * Math.sqrt(2)
+            return PersonConstants.xyLengthHalf * Math.sqrt(2)
         else:
-            return PlayerConstants.xyLengthHalf
+            return PersonConstants.xyLengthHalf
 
     def validate(self):
         assert self.startPoint != self.endPoint
