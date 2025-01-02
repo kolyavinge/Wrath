@@ -1,3 +1,5 @@
+import time
+
 from game.engine.GameData import GameData
 from game.render.level.LevelItemRenderCollection import LevelItemRenderCollection
 from game.render.level.ShadowCasterRenderCollection import ShadowCasterRenderCollection
@@ -32,6 +34,9 @@ class GameScreenInitializer:
 
     def init(self):
         allLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
+
+        start = time.time()
+
         self.levelItemRenderCollection.init(allLevelSegments)
         self.bulletHoleRenderCollection.init(allLevelSegments)
         self.shadowCasterRenderCollection.init(allLevelSegments)
@@ -39,6 +44,9 @@ class GameScreenInitializer:
         self.weaponRenderCollection.init()
         self.powerupRenderCollection.init()
         self.weaponFlashRenderCollection.init()
+
+        end = time.time()
+        print(f"GameScreenInitializer: {end-start:.8f}")
 
 
 def makeGameScreenInitializer(resolver):
