@@ -1,6 +1,8 @@
 from game.calc.Vector3 import Vector3
 from game.levels.builder.CeilingBuilder import CeilingBuilder
 from game.levels.builder.WallBuilder import WallBuilder
+from game.model.level.Ceiling import Ceiling
+from game.model.level.Construction import Construction
 from game.model.level.FlatFloor import FlatFloor
 from game.model.level.Wall import Wall
 from game.model.light.Light import Light
@@ -70,24 +72,60 @@ class LevelBuilder:
         floor.material = material
         self.level.addFloor(floor)
 
+    def buildBalcony(self, downLeft, downRight, upLeft, upRight, height, topBottomMaterial, edgeMaterial):
+        floor = FlatFloor()
+        floor.downLeft = downLeft
+        floor.downRight = downRight
+        floor.upLeft = upLeft
+        floor.upRight = upRight
+        floor.z = downLeft.z
+        floor.material = topBottomMaterial
+        floor.canCastShadow = True
+        self.level.addFloor(floor)
+
+        ceiling = Ceiling()
+        ceiling.downLeft = downLeft.copy()
+        ceiling.downRight = downRight.copy()
+        ceiling.upLeft = upLeft.copy()
+        ceiling.upRight = upRight.copy()
+        ceiling.downLeft.z -= height
+        ceiling.downRight.z -= height
+        ceiling.upLeft.z -= height
+        ceiling.upRight.z -= height
+        ceiling.material = topBottomMaterial
+        ceiling.canCastShadow = True
+        self.level.addCeiling(ceiling)
+
+        edge = Construction()
+        edge.downLeft = ceiling.upRight
+        edge.downRight = ceiling.upLeft
+        edge.upLeft = floor.upRight
+        edge.upRight = floor.upLeft
+        edge.frontNormal = downLeft.getDirectionTo(upLeft)
+        edge.frontNormal.normalize()
+        edge.material = edgeMaterial
+        self.level.addConstruction(edge)
+
     def buildCeiling(self, downLeft, xLength, yLength, material, hole=None):
         self.ceilingBuilder.buildCeiling(downLeft, xLength, yLength, material, hole)
 
-    def buildLight(self, position):
+    def buildLight(self, position, joinGroup=None):
         light = Light()
         light.position = position
+        light.joinGroup = joinGroup
         self.level.addLight(light)
 
-    def buildRoundLamp(self, position, frontNormal, radius, height, material):
+    def buildRoundLamp(self, position, frontNormal, radius, height, material, joinGroup=None):
         light = RoundLamp()
         light.position = position
         light.frontNormal = frontNormal
         light.radius = radius
         light.height = height
         light.material = material
+        light.joinGroup = joinGroup
         self.level.addLight(light)
 
-    def buildRectLamp(self, position, frontNormal, height, width, long, longNormal, material):
+    def buildRectLamp(self, position, frontNormal, height, width, long, longNormal, material, joinGroup=None):
         light = RectLamp()
         light.position = position
         light.frontNormal = frontNormal
@@ -96,4 +134,5 @@ class LevelBuilder:
         light.long = long
         light.longNormal = longNormal
         light.material = material
+        light.joinGroup = joinGroup
         self.level.addLight(light)

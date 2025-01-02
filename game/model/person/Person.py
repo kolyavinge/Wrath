@@ -63,13 +63,12 @@ class Person:
         self.currentBorder = self.nextBorder.copy()
 
     def addHealth(self, health):
-        self.health = Math.min(self.health + health, CommonConstants.maxPersonHealth)
+        self.health = Math.min(self.health + health, PersonConstants.maxPersonHealth)
 
     def getModelMatrix(self):
         return (
             TransformMatrix4Builder()
             .translate(self.currentCenterPoint.x, self.currentCenterPoint.y, self.currentCenterPoint.z)
             .rotate(CommonConstants.zAxis, self.yawRadians)
-            .rotate(self.rightNormal, self.pitchRadians)
             .resultMatrix
         )
