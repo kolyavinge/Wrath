@@ -31,6 +31,9 @@ from game.render.level.StairVBOBuilder import *
 from game.render.level.WallVBOBuilder import *
 from game.render.main.MainSceneFramebuffer import *
 from game.render.main.MainSceneRenderer import *
+from game.render.person.EnemyModel3dFactory import *
+from game.render.person.EnemyRenderCollection import *
+from game.render.person.EnemyRenderer import *
 from game.render.powerup.PowerupModel3dFactory import *
 from game.render.powerup.PowerupRenderCollection import *
 from game.render.powerup.PowerupRenderer import *
@@ -90,6 +93,9 @@ class RenderModule:
         binder.bindSingleton(WallVBOBuilder, makeWallVBOBuilder)
         binder.bindSingleton(MainSceneFramebuffer, makeMainSceneFramebuffer)
         binder.bindSingleton(MainSceneRenderer, makeMainSceneRenderer)
+        binder.bindSingleton(EnemyModel3dFactory, makeEnemyModel3dFactory)
+        binder.bindSingleton(EnemyRenderCollection, makeEnemyRenderCollection)
+        binder.bindSingleton(EnemyRenderer, makeEnemyRenderer)
         binder.bindSingleton(PowerupModel3dFactory, makePowerupModel3dFactory)
         binder.bindSingleton(PowerupRenderCollection, makePowerupRenderCollection)
         binder.bindSingleton(PowerupRenderer, makePowerupRenderer)

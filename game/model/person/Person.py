@@ -69,6 +69,6 @@ class Person:
         return (
             TransformMatrix4Builder()
             .translate(self.currentCenterPoint.x, self.currentCenterPoint.y, self.currentCenterPoint.z)
-            .rotate(CommonConstants.zAxis, self.yawRadians)
+            .rotate(self.yawRadians, CommonConstants.zAxis)
             .resultMatrix
         )

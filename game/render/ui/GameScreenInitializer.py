@@ -3,6 +3,7 @@ import time
 from game.engine.GameData import GameData
 from game.render.level.LevelItemRenderCollection import LevelItemRenderCollection
 from game.render.level.ShadowCasterRenderCollection import ShadowCasterRenderCollection
+from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 from game.render.powerup.PowerupRenderCollection import PowerupRenderCollection
 from game.render.weapon.BulletHoleRenderCollection import BulletHoleRenderCollection
 from game.render.weapon.BulletRenderCollection import BulletRenderCollection
@@ -22,6 +23,7 @@ class GameScreenInitializer:
         weaponRenderCollection,
         powerupRenderCollection,
         weaponFlashRenderCollection,
+        enemyRenderCollection,
     ):
         self.gameData = gameData
         self.levelItemRenderCollection = levelItemRenderCollection
@@ -31,6 +33,7 @@ class GameScreenInitializer:
         self.weaponRenderCollection = weaponRenderCollection
         self.powerupRenderCollection = powerupRenderCollection
         self.weaponFlashRenderCollection = weaponFlashRenderCollection
+        self.enemyRenderCollection = enemyRenderCollection
 
     def init(self):
         allLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
@@ -44,6 +47,7 @@ class GameScreenInitializer:
         self.weaponRenderCollection.init()
         self.powerupRenderCollection.init()
         self.weaponFlashRenderCollection.init()
+        self.enemyRenderCollection.init()
 
         end = time.time()
         print(f"GameScreenInitializer: {end-start:.8f}")
@@ -59,4 +63,5 @@ def makeGameScreenInitializer(resolver):
         resolver.resolve(WeaponRenderCollection),
         resolver.resolve(PowerupRenderCollection),
         resolver.resolve(WeaponFlashRenderCollection),
+        resolver.resolve(EnemyRenderCollection),
     )
