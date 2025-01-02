@@ -4,10 +4,9 @@ from game.calc.Vector3 import Vector3
 from game.engine.bsp.SplitPlane import SplitPlane
 from game.lib.Math import Math
 from game.model.level.Ceiling import Ceiling
-from game.model.level.FlatFloor import FlatFloor
+from game.model.level.Floor import Floor
 from game.model.level.Level import Level
 from game.model.level.LevelSegmentJoinLine import LevelSegmentJoinLine
-from game.model.level.PlaneFloor import PlaneFloor
 from game.model.level.PowerupArea import PowerupArea
 from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
@@ -303,12 +302,11 @@ class TestLevel(Level):
         wall.info = "room 1"
         self.addWall(wall)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(70, 10, z)
         floor.downRight = Vector3(150, 10, z)
         floor.upLeft = Vector3(70, 80, z)
         floor.upRight = Vector3(150, 80, z)
-        floor.z = 0
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
@@ -446,89 +444,81 @@ class TestLevel(Level):
         wall.canCastShadow = True
         self.addWall(wall)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(70, 60, z)
         floor.downRight = Vector3(70, 30, z)
         floor.upLeft = Vector3(80, 60, z)
         floor.upRight = Vector3(80, 30, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(70, 30, z)
         floor.downRight = Vector3(90, 10, z)
         floor.upLeft = Vector3(80, 30, z)
         floor.upRight = Vector3(90, 20, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(90, 10, z)
         floor.downRight = Vector3(130, 10, z)
         floor.upLeft = Vector3(90, 20, z)
         floor.upRight = Vector3(130, 20, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(130, 10, z)
         floor.downRight = Vector3(150, 30, z)
         floor.upLeft = Vector3(130, 20, z)
         floor.upRight = Vector3(140, 30, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(150, 30, z)
         floor.downRight = Vector3(150, 60, z)
         floor.upLeft = Vector3(140, 30, z)
         floor.upRight = Vector3(140, 60, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(150, 60, z)
         floor.downRight = Vector3(130, 80, z)
         floor.upLeft = Vector3(140, 60, z)
         floor.upRight = Vector3(130, 70, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(90, 70, z)
         floor.downRight = Vector3(130, 70, z)
         floor.upLeft = Vector3(90, 80, z)
         floor.upRight = Vector3(130, 80, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(90, 80, z)
         floor.downRight = Vector3(70, 60, z)
         floor.upLeft = Vector3(90, 70, z)
         floor.upRight = Vector3(80, 60, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
@@ -856,46 +846,42 @@ class TestLevel(Level):
         wall.info = "room 2"
         self.addWall(wall)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(170, 90, z)
         floor.downRight = Vector3(185, 90, z)
         floor.upLeft = Vector3(170, 160, z)
         floor.upRight = Vector3(185, 160, z)
-        floor.z = z
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(255, 90, z)
         floor.downRight = Vector3(270, 90, z)
         floor.upLeft = Vector3(255, 160, z)
         floor.upRight = Vector3(270, 160, z)
-        floor.z = z
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(185, 145, z)
         floor.downRight = Vector3(255, 145, z)
         floor.upLeft = Vector3(185, 160, z)
         floor.upRight = Vector3(255, 160, z)
-        floor.z = z
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(185, 90, z)
         floor.downRight = Vector3(255, 90, z)
         floor.upLeft = Vector3(185, 105, z)
         floor.upRight = Vector3(255, 105, z)
-        floor.z = z
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
         lowerFloorHeight = 0.5
         lowerFloorZ = z - lowerFloorHeight
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(185, 105, lowerFloorZ)
         floor.downRight = Vector3(255, 105, lowerFloorZ)
         floor.upLeft = Vector3(185, 145, lowerFloorZ)
@@ -1389,56 +1375,51 @@ class TestLevel(Level):
         wall.info = "room 2"
         self.addWall(wall)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(230, 90, z)
         floor.downRight = Vector3(240, 90, z)
         floor.upLeft = Vector3(230, 160, z)
         floor.upRight = Vector3(240, 160, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.wallMetal3
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(200, 90, z)
         floor.downRight = Vector3(210, 90, z)
         floor.upLeft = Vector3(200, 160, z)
         floor.upRight = Vector3(210, 160, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.wallMetal3
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(210, 120, z)
         floor.downRight = Vector3(230, 120, z)
         floor.upLeft = Vector3(210, 130, z)
         floor.upRight = Vector3(230, 130, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.wallMetal3
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(170, 120, z)
         floor.downRight = Vector3(200, 120, z)
         floor.upLeft = Vector3(170, 130, z)
         floor.upRight = Vector3(200, 130, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.wallMetal3
         floor.canCastShadow = True
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(240, 120, z)
         floor.downRight = Vector3(270, 120, z)
         floor.upLeft = Vector3(240, 130, z)
         floor.upRight = Vector3(270, 130, z)
-        floor.z = z
         floor.defaultVisualSize = 10.0
         floor.material = Material.wallMetal3
         floor.canCastShadow = True
@@ -1713,30 +1694,27 @@ class TestLevel(Level):
         wall.info = "room 3"
         self.addWall(wall)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(70, 100, z)
         floor.downRight = Vector3(110, 100, z)
         floor.upLeft = Vector3(70, 130, z)
         floor.upRight = Vector3(110, 130, z)
-        floor.z = z
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(90, 130, z)
         floor.downRight = Vector3(140, 130, z)
         floor.upLeft = Vector3(90, 160, z)
         floor.upRight = Vector3(140, 160, z)
-        floor.z = z
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(110, 120, z)
         floor.downRight = Vector3(140, 120, z)
         floor.upLeft = Vector3(110, 130, z)
         floor.upRight = Vector3(140, 130, z)
-        floor.z = z
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
@@ -1839,7 +1817,7 @@ class TestLevel(Level):
         wall.info = "pass 1"
         self.addWall(wall)
 
-        floor = PlaneFloor()
+        floor = Floor()
         floor.downLeft = Vector3(150, 40, 0)
         floor.downRight = Vector3(190, 40, 2)
         floor.upLeft = Vector3(150, 50, 0)
@@ -1851,7 +1829,7 @@ class TestLevel(Level):
         floor.commit()
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(190, 40, 2)
         floor.downRight = Vector3(220, 40, 2)
         floor.upLeft = Vector3(190, 70, 2)
@@ -1860,7 +1838,7 @@ class TestLevel(Level):
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
-        floor = PlaneFloor()
+        floor = Floor()
         floor.downLeft = Vector3(210, 70, 2)
         floor.downRight = Vector3(220, 70, 2)
         floor.upLeft = Vector3(210, 80, 2.5)
@@ -1872,7 +1850,7 @@ class TestLevel(Level):
         floor.commit()
         self.addFloor(floor)
 
-        floor = PlaneFloor()
+        floor = Floor()
         floor.downLeft = Vector3(210, 80, 2.5)
         floor.downRight = Vector3(220, 80, 2.5)
         floor.upLeft = Vector3(210, 90, 3)
@@ -2078,7 +2056,7 @@ class TestLevel(Level):
         stair.commit()
         self.addFloor(stair)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(40, 40, 4)
         floor.downRight = Vector3(50, 40, 4)
         floor.upLeft = Vector3(40, 80, 4)
@@ -2087,7 +2065,7 @@ class TestLevel(Level):
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(40, 80, 4)
         floor.downRight = Vector3(50, 80, 4)
         floor.upLeft = Vector3(40, 90, 4)
@@ -2096,7 +2074,7 @@ class TestLevel(Level):
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(40, 90, 4)
         floor.downRight = Vector3(50, 90, 4)
         floor.upLeft = Vector3(40, 120, 4)
@@ -2277,7 +2255,7 @@ class TestLevel(Level):
         wall.info = "pass 3"
         self.addWall(wall)
 
-        floor = PlaneFloor()
+        floor = Floor()
         floor.downLeft = Vector3(130, 160, 0)
         floor.downRight = Vector3(140, 160, 0)
         floor.upLeft = Vector3(130, 170, 1)
@@ -2289,7 +2267,7 @@ class TestLevel(Level):
         floor.commit()
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(130, 170, 1)
         floor.downRight = Vector3(140, 170, 1)
         floor.upLeft = Vector3(130, 180, 1)
@@ -2298,7 +2276,7 @@ class TestLevel(Level):
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
-        floor = PlaneFloor()
+        floor = Floor()
         floor.downLeft = Vector3(140, 170, 1)
         floor.downRight = Vector3(230, 170, 12)
         floor.upLeft = Vector3(140, 180, 1)
@@ -2310,7 +2288,7 @@ class TestLevel(Level):
         floor.commit()
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(230, 160, 12)
         floor.downRight = Vector3(240, 160, 12)
         floor.upLeft = Vector3(230, 180, 12)
@@ -2390,7 +2368,7 @@ class TestLevel(Level):
         wall.info = "pass 4"
         self.addWall(wall)
 
-        floor = PlaneFloor()
+        floor = Floor()
         floor.downLeft = Vector3(140, 120, 0)
         floor.downRight = Vector3(170, 120, 3)
         floor.upLeft = Vector3(140, 130, 0)
@@ -2461,7 +2439,7 @@ class TestLevel(Level):
         wall.info = "pass 5"
         self.addWall(wall)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(100, 80, 0)
         floor.downRight = Vector3(110, 80, 0)
         floor.upLeft = Vector3(100, 90, 0)
@@ -2470,7 +2448,7 @@ class TestLevel(Level):
         floor.material = Material.floorConcrete1
         self.addFloor(floor)
 
-        floor = FlatFloor()
+        floor = Floor()
         floor.downLeft = Vector3(100, 90, 0)
         floor.downRight = Vector3(110, 90, 0)
         floor.upLeft = Vector3(100, 100, 0)
