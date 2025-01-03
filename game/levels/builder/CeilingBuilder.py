@@ -1,13 +1,13 @@
 from game.calc.Vector3 import Vector3
 from game.model.level.Ceiling import Ceiling
+from game.model.level.Construction import Construction
 
 
 class CeilingHole:
 
-    def __init__(self, xLength, yLength, material):
+    def __init__(self, xLength, yLength):
         self.xLength = xLength
         self.yLength = yLength
-        self.material = material
 
 
 class CeilingBuilder:
@@ -65,3 +65,51 @@ class CeilingBuilder:
         right.upRight = Vector3(downLeft.x + xLength, downLeft.y + yLengthHalf + hole.yLength, downLeft.z)
         right.material = material
         self.level.addCeiling(right)
+
+        edge = Construction()
+        edge.downLeft = left.downRight
+        edge.downRight = left.upRight
+        edge.upLeft = edge.downLeft.copy()
+        edge.upRight = edge.downRight.copy()
+        edge.upLeft.z += 0.2
+        edge.upRight.z += 0.2
+        edge.frontNormal = left.downLeft.getDirectionTo(left.downRight)
+        edge.frontNormal.normalize()
+        edge.material = material
+        self.level.addConstruction(edge)
+
+        edge = Construction()
+        edge.downLeft = right.upLeft
+        edge.downRight = right.downLeft
+        edge.upLeft = edge.downLeft.copy()
+        edge.upRight = edge.downRight.copy()
+        edge.upLeft.z += 0.2
+        edge.upRight.z += 0.2
+        edge.frontNormal = right.downRight.getDirectionTo(right.downLeft)
+        edge.frontNormal.normalize()
+        edge.material = material
+        self.level.addConstruction(edge)
+
+        edge = Construction()
+        edge.downLeft = left.downRight
+        edge.downRight = right.downLeft
+        edge.upLeft = edge.downLeft.copy()
+        edge.upRight = edge.downRight.copy()
+        edge.upLeft.z += 0.2
+        edge.upRight.z += 0.2
+        edge.frontNormal = left.downRight.getDirectionTo(left.upRight)
+        edge.frontNormal.normalize()
+        edge.material = material
+        self.level.addConstruction(edge)
+
+        edge = Construction()
+        edge.downLeft = left.upRight
+        edge.downRight = right.upLeft
+        edge.upLeft = edge.downLeft.copy()
+        edge.upRight = edge.downRight.copy()
+        edge.upLeft.z += 0.2
+        edge.upRight.z += 0.2
+        edge.frontNormal = left.upRight.getDirectionTo(left.downRight)
+        edge.frontNormal.normalize()
+        edge.material = material
+        self.level.addConstruction(edge)
