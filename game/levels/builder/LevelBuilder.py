@@ -120,15 +120,17 @@ class LevelBuilder:
     def buildCeiling(self, downLeft, xLength, yLength, material, hole=None):
         self.ceilingBuilder.buildCeiling(downLeft, xLength, yLength, material, hole)
 
-    def buildLight(self, position, joinGroup=None):
+    def buildLight(self, position, intensity=1.0, joinGroup=None):
         light = Light()
         light.position = position
+        light.color.mul(intensity)
         light.joinGroup = joinGroup
         self.level.addLight(light)
 
-    def buildRoundLamp(self, position, frontNormal, radius, height, material, joinGroup=None):
+    def buildRoundLamp(self, position, frontNormal, radius, height, material, intensity=1.0, joinGroup=None):
         light = RoundLamp()
         light.position = position
+        light.color.mul(intensity)
         light.frontNormal = frontNormal
         light.radius = radius
         light.height = height
@@ -136,9 +138,10 @@ class LevelBuilder:
         light.joinGroup = joinGroup
         self.level.addLight(light)
 
-    def buildRectLamp(self, position, frontNormal, height, width, long, longNormal, material, joinGroup=None):
+    def buildRectLamp(self, position, frontNormal, height, width, long, longNormal, material, intensity=1.0, joinGroup=None):
         light = RectLamp()
         light.position = position
+        light.color.mul(intensity)
         light.frontNormal = frontNormal
         light.height = height
         light.width = width

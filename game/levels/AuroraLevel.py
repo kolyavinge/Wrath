@@ -40,61 +40,61 @@ class AuroraLevel(Level):
                 Vector3(16, 17, 0),
                 Vector3(1, 0, 0),
                 firstFloorHeight,
-                Material.wallMetal1,
-                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                Material.wallMetal5,
+                WallBorder(0.4, 0.1, Material.edgeMetal1, Material.edgeMetal1),
                 None,
-                Doorway(Vector3(16, 13, 0), 2, 2.2, Material.floorMetal3, DoorwayBorder(0.3, 0.1, Material.ceilingMetal2)),
+                Doorway(Vector3(16, 13, 0), 2, 2.2, Material.floorMetal3, DoorwayBorder(0.4, 0.1, Material.edgeMetal1)),
             ),
             WallInfo(
                 Vector3(19, 20, 0),
                 Vector3(1, -1, 0).getNormalized(),
                 firstFloorHeight,
-                Material.wallMetal1,
-                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                Material.wallMetal5,
+                WallBorder(0.4, 0.1, Material.edgeMetal1, Material.edgeMetal1),
             ),
             WallInfo(
                 Vector3(25, 20, 0),
                 Vector3(0, -1, 0),
                 firstFloorHeight,
-                Material.wallMetal1,
-                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                Material.wallMetal4,
+                WallBorder(0.4, 0.1, Material.edgeMetal1, Material.edgeMetal1),
             ),
             WallInfo(
                 Vector3(28, 17, 0),
                 Vector3(-1, -1, 0).getNormalized(),
                 firstFloorHeight,
-                Material.wallMetal1,
-                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                Material.wallMetal5,
+                WallBorder(0.4, 0.1, Material.edgeMetal1, Material.edgeMetal1),
             ),
             WallInfo(
                 Vector3(28, 11, 0),
                 Vector3(-1, 0, 0),
                 firstFloorHeight,
-                Material.wallMetal1,
-                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                Material.wallMetal5,
+                WallBorder(0.4, 0.1, Material.edgeMetal1, Material.edgeMetal1),
             ),
             WallInfo(
                 Vector3(25, 8, 0),
                 Vector3(-1, 1, 0).getNormalized(),
                 firstFloorHeight,
-                Material.wallMetal1,
-                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                Material.wallMetal5,
+                WallBorder(0.4, 0.1, Material.edgeMetal1, Material.edgeMetal1),
             ),
             WallInfo(
                 Vector3(19, 8, 0),
                 Vector3(0, 1, 0),
                 firstFloorHeight,
-                Material.wallMetal1,
-                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                Material.wallMetal5,
+                WallBorder(0.4, 0.1, Material.edgeMetal1, Material.edgeMetal1),
                 None,
-                Doorway(Vector3(23, 8, 0), 2, 2.2, Material.floorMetal3, DoorwayBorder(0.3, 0.2, Material.ceilingMetal2)),
+                Doorway(Vector3(23, 8, 0), 2, 2.2, Material.floorMetal3, DoorwayBorder(0.3, 0.2, Material.edgeMetal1)),
             ),
             WallInfo(
                 Vector3(16, 11, 0),
                 Vector3(1, 1, 0).getNormalized(),
                 firstFloorHeight,
-                Material.wallMetal1,
-                WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
+                Material.wallMetal5,
+                WallBorder(0.4, 0.1, Material.edgeMetal1, Material.edgeMetal1),
             ),
         )
         # balcony
@@ -180,7 +180,7 @@ class AuroraLevel(Level):
                 Vector3(16, 17, balconyZ),
                 Vector3(1, 0, 0),
                 secondFloorHeight,
-                Material.wallMetal1,
+                Material.wallMetal4,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -188,7 +188,7 @@ class AuroraLevel(Level):
                 Vector3(19, 20, balconyZ),
                 Vector3(1, -1, 0).getNormalized(),
                 secondFloorHeight,
-                Material.wallMetal1,
+                Material.wallMetal4,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -196,7 +196,7 @@ class AuroraLevel(Level):
                 Vector3(25, 20, balconyZ),
                 Vector3(0, -1, 0),
                 secondFloorHeight,
-                Material.wallMetal1,
+                Material.wallMetal4,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -204,7 +204,7 @@ class AuroraLevel(Level):
                 Vector3(28, 17, balconyZ),
                 Vector3(-1, -1, 0).getNormalized(),
                 secondFloorHeight,
-                Material.wallMetal1,
+                Material.wallMetal4,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -212,7 +212,7 @@ class AuroraLevel(Level):
                 Vector3(28, 11, balconyZ),
                 Vector3(-1, 0, 0),
                 secondFloorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
                 Doorway(Vector3(28, 15, balconyZ), 2, 2.2, Material.floorMetal3, DoorwayBorder(0.3, 0.2, Material.ceilingMetal2)),
@@ -221,7 +221,7 @@ class AuroraLevel(Level):
                 Vector3(25, 8, balconyZ),
                 Vector3(-1, 1, 0).getNormalized(),
                 secondFloorHeight,
-                Material.wallMetal1,
+                Material.wallMetal4,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -229,7 +229,7 @@ class AuroraLevel(Level):
                 Vector3(19, 8, balconyZ),
                 Vector3(0, 1, 0),
                 secondFloorHeight,
-                Material.wallMetal1,
+                Material.wallMetal4,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -237,7 +237,7 @@ class AuroraLevel(Level):
                 Vector3(16, 11, balconyZ),
                 Vector3(1, 1, 0).getNormalized(),
                 secondFloorHeight,
-                Material.wallMetal1,
+                Material.wallMetal4,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -245,9 +245,9 @@ class AuroraLevel(Level):
         self.builder.buildPillar(Vector3(22 - 0.25, 18, 0), 0.5, firstFloorHeight, Material.ceilingMetal1)
         self.builder.buildFlatFloor(Vector3(16, 8, 0), 12, 12, Material.floorConcrete1)
         ceilingZ = balconyZ + secondFloorHeight
-        self.builder.buildCeiling(Vector3(16, 8, ceilingZ), 12, 12, Material.ceilingMetal1, CeilingHole(4, 4))
-        self.builder.buildLight(Vector3(22, 14, 4), "mainRoom")
-        self.builder.buildLight(Vector3(22, 14, ceilingZ), "mainRoom")
+        self.builder.buildCeiling(Vector3(16, 8, ceilingZ), 12, 12, Material.floorMetal3, CeilingHole(4, 4))
+        self.builder.buildLight(Vector3(22, 14, 4), 0.5, "mainRoom")
+        self.builder.buildLight(Vector3(22, 14, ceilingZ), 0.8, "mainRoom")
         self.addPowerupArea(PowerupArea(Vector3(22, 14, 0), Vector3(22, 14, 0), 6))
 
     def makeLeftRoom(self):
@@ -258,7 +258,7 @@ class AuroraLevel(Level):
                 Vector3(9, 17, 0),
                 Vector3(1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -266,7 +266,7 @@ class AuroraLevel(Level):
                 Vector3(10, 18, 0),
                 Vector3(1, -1, 0).getNormalized(),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -274,7 +274,7 @@ class AuroraLevel(Level):
                 Vector3(13, 18, 0),
                 Vector3(0, -1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -282,7 +282,7 @@ class AuroraLevel(Level):
                 Vector3(14, 17, 0),
                 Vector3(-1, -1, 0).getNormalized(),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -290,7 +290,7 @@ class AuroraLevel(Level):
                 Vector3(14, 11, 0),
                 Vector3(-1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
                 Doorway(Vector3(14, 15, 0), 2, 2.2, Material.floorMetal3, DoorwayBorder(0.3, 0.1, Material.ceilingMetal2)),
@@ -299,7 +299,7 @@ class AuroraLevel(Level):
                 Vector3(13, 10, 0),
                 Vector3(-1, 1, 0).getNormalized(),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -307,7 +307,7 @@ class AuroraLevel(Level):
                 Vector3(10, 10, 0),
                 Vector3(0, 1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
                 Doorway(Vector3(12, 10, 0), 1, 2.2, Material.floorMetal3, DoorwayBorder(0.3, 0.1, Material.ceilingMetal2)),
@@ -316,7 +316,7 @@ class AuroraLevel(Level):
                 Vector3(9, 11, 0),
                 Vector3(1, 1, 0).getNormalized(),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -333,7 +333,7 @@ class AuroraLevel(Level):
                 Vector3(16, 6, 0),
                 Vector3(1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
                 Doorway(Vector3(16, 3, 0), 1, 2.2, Material.floorMetal3, DoorwayBorder(0.2, 0.1, Material.ceilingMetal2)),
@@ -342,7 +342,7 @@ class AuroraLevel(Level):
                 Vector3(28, 6, 0),
                 Vector3(0, -1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
                 Doorway(Vector3(21, 6, 0), 2, 2.2, Material.floorMetal3, DoorwayBorder(0.3, 0.1, Material.ceilingMetal2)),
@@ -351,7 +351,7 @@ class AuroraLevel(Level):
                 Vector3(28, 1, 0),
                 Vector3(-1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
                 Doorway(Vector3(28, 4, 0), 1, 2.2, Material.floorMetal3, DoorwayBorder(0.2, 0.1, Material.ceilingMetal2)),
@@ -360,7 +360,7 @@ class AuroraLevel(Level):
                 Vector3(16, 1, 0),
                 Vector3(0, 1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
                 WallBorder(0.2, 0.1, Material.ceilingMetal1, Material.ceilingMetal2),
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
@@ -370,15 +370,15 @@ class AuroraLevel(Level):
         self.builder.buildRectLamp(Vector3(22, 3.5, 3), Vector3(0, 0, -1), 0.05, 0.1, 1.0, Vector3(1, 0, 0), Material.ceilingMetal2),
 
     def makeLeftRoomPass(self):
-        self.builder.wallBuilder.makeSolidWall(Vector3(14, 15, 0), Vector3(16, 15, 0), Vector3(0, -1, 0), 2.2, Material.wallMetal1)
-        self.builder.wallBuilder.makeSolidWall(Vector3(14, 13, 0), Vector3(16, 13, 0), Vector3(0, 1, 0), 2.2, Material.wallMetal1)
+        self.builder.wallBuilder.makeSolidWall(Vector3(14, 15, 0), Vector3(16, 15, 0), Vector3(0, -1, 0), 2.2, Material.ceilingMetal2)
+        self.builder.wallBuilder.makeSolidWall(Vector3(14, 13, 0), Vector3(16, 13, 0), Vector3(0, 1, 0), 2.2, Material.ceilingMetal2)
         self.builder.buildFlatFloor(Vector3(14, 13, 0), 2, 2, Material.floorConcrete1)
         self.builder.buildCeiling(Vector3(14, 13, 2.2), 2, 2, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(15, 14, 2.2), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
     def makeBottomRoomPass(self):
-        self.builder.wallBuilder.makeSolidWall(Vector3(21, 8, 0), Vector3(21, 6, 0), Vector3(1, 0, 0), 2.2, Material.wallMetal1)
-        self.builder.wallBuilder.makeSolidWall(Vector3(23, 8, 0), Vector3(23, 6, 0), Vector3(-1, 0, 0), 2.2, Material.wallMetal1)
+        self.builder.wallBuilder.makeSolidWall(Vector3(21, 8, 0), Vector3(21, 6, 0), Vector3(1, 0, 0), 2.2, Material.ceilingMetal2)
+        self.builder.wallBuilder.makeSolidWall(Vector3(23, 8, 0), Vector3(23, 6, 0), Vector3(-1, 0, 0), 2.2, Material.ceilingMetal2)
         self.builder.buildFlatFloor(Vector3(21, 6, 0), 2, 2, Material.floorConcrete1)
         self.builder.buildCeiling(Vector3(21, 6, 2.2), 2, 2, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(22, 7, 2.2), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
@@ -391,31 +391,31 @@ class AuroraLevel(Level):
                 Vector3(10.5, 10, 0),
                 Vector3(0, -1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.floorMetal4,
             ),
             WallInfo(
                 Vector3(10.5, 6, 0),
                 Vector3(1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.floorMetal4,
             ),
             WallInfo(
                 Vector3(14, 2.5, 0),
                 Vector3(1, 1, 0).getNormalized(),
                 floorHeight,
-                Material.wallMetal1,
+                Material.floorMetal4,
             ),
             WallInfo(
                 Vector3(16, 2.5, 0),
                 Vector3(0, 1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.floorMetal4,
             ),
             WallInfo(
                 Vector3(16, 3, 0),
                 Vector3(-1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.floorMetal4,
             ),
         )
         self.builder.buildWalls(
@@ -424,31 +424,31 @@ class AuroraLevel(Level):
                 Vector3(12.5, 10, 0),
                 Vector3(0, -1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.floorMetal4,
             ),
             WallInfo(
                 Vector3(12.5, 6, 0),
                 Vector3(-1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.floorMetal4,
             ),
             WallInfo(
                 Vector3(14, 4.5, 0),
                 Vector3(-1, -1, 0).getNormalized(),
                 floorHeight,
-                Material.wallMetal1,
+                Material.floorMetal4,
             ),
             WallInfo(
                 Vector3(16, 4.5, 0),
                 Vector3(0, -1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.floorMetal4,
             ),
             WallInfo(
                 Vector3(16, 4, 0),
                 Vector3(-1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.floorMetal4,
             ),
         )
 
@@ -472,43 +472,43 @@ class AuroraLevel(Level):
                 Vector3(28, 2.5, 0),
                 Vector3(1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
             ),
             WallInfo(
                 Vector3(32, 2.5, 0),
                 Vector3(0, 1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
             ),
             WallInfo(
                 Vector3(32, 4.5, 0),
                 Vector3(-1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
             ),
             WallInfo(
                 Vector3(32, 6.5, 2),
                 Vector3(-1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal3,
             ),
             WallInfo(
                 Vector3(32, 15, 2),
                 Vector3(-1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal3,
             ),
             WallInfo(
                 Vector3(30, 15, 2),
                 Vector3(0, -1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal3,
             ),
             WallInfo(
                 Vector3(28, 15, 4.2),
                 Vector3(0, -1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal3,
             ),
         )
         self.builder.buildWalls(
@@ -517,38 +517,38 @@ class AuroraLevel(Level):
                 Vector3(28, 4.5, 0),
                 Vector3(1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
             ),
             WallInfo(
                 Vector3(30, 4.5, 0),
                 Vector3(0, -1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal5,
             ),
             WallInfo(
                 Vector3(30, 6.5, 2),
                 Vector3(1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal3,
             ),
             WallInfo(
                 Vector3(30, 13, 2),
                 Vector3(1, 0, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal3,
             ),
             WallInfo(
                 Vector3(28, 13, 4.2),
                 Vector3(0, 1, 0),
                 floorHeight,
-                Material.wallMetal1,
+                Material.wallMetal3,
             ),
         )
         self.builder.buildFlatFloor(Vector3(28, 2.5, 0), 4, 2, Material.floorConcrete1)
         self.builder.buildCeiling(Vector3(28, 2.5, 3), 4, 2, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(30, 3.5, 3), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
-        self.builder.buildStair(Vector3(30, 4.5, 0), 2, 2, Vector3(30, 4.5, 0), Vector3(30, 6.5, 2), 12, 2, Material.floorConcrete1)
+        self.builder.buildStair(Vector3(30, 4.5, 0), 2, 2, Vector3(30, 4.5, 0), Vector3(30, 6.5, 2), 12, 2, Material.wallMetal9)
         ceiling = Ceiling()
         ceiling.downLeft = Vector3(30, 4.5, 3)
         ceiling.downRight = Vector3(32, 4.5, 3)
@@ -565,7 +565,7 @@ class AuroraLevel(Level):
         self.builder.buildCeiling(Vector3(30, 6.5, 5), 2, 9, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(31, 10, 5), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
-        self.builder.buildStair(Vector3(28, 13, 2), 2, 2, Vector3(30, 13, 2), Vector3(28, 13, 4.2), 12, 2, Material.floorConcrete1)
+        self.builder.buildStair(Vector3(28, 13, 2), 2, 2, Vector3(30, 13, 2), Vector3(28, 13, 4.2), 12, 2, Material.wallMetal9)
         ceiling = Ceiling()
         ceiling.downLeft = Vector3(30, 13, 5)
         ceiling.downRight = Vector3(30, 15, 5)
