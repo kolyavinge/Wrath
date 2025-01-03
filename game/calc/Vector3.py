@@ -53,6 +53,12 @@ class Vector3:
         length = self.getLength()
         self.div(length)
 
+    def getNormalized(self):
+        v = self.copy()
+        v.normalize()
+
+        return v
+
     def dotProduct(self, vector):
         return self.x * vector.x + self.y * vector.y + self.z * vector.z
 

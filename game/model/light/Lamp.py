@@ -6,7 +6,8 @@ from game.model.Visible import Visible
 class Lamp(Light, Visible):
 
     def __init__(self):
-        super().__init__()
+        Light.__init__(self)
+        Visible.__init__(self)
         self.frontNormal = Vector3()
 
     def commit(self):
