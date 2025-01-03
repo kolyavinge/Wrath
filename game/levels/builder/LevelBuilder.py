@@ -4,6 +4,7 @@ from game.levels.builder.WallBuilder import WallBuilder
 from game.model.level.Ceiling import Ceiling
 from game.model.level.Construction import Construction
 from game.model.level.Floor import Floor
+from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
 from game.model.light.Light import Light
 from game.model.light.RectLamp import RectLamp
@@ -71,6 +72,19 @@ class LevelBuilder:
         floor.material = material
         self.level.addFloor(floor)
 
+    def buildStair(self, downLeft, xLength, yLength, startBasePoint, endBasePoint, stepsCount, stepWidth, material):
+        stair = Stair()
+        stair.downLeft = downLeft
+        stair.downRight = Vector3(downLeft.x + xLength, downLeft.y, downLeft.z)
+        stair.upLeft = Vector3(downLeft.x, downLeft.y + yLength, downLeft.z)
+        stair.upRight = Vector3(downLeft.x + xLength, downLeft.y + yLength, downLeft.z)
+        stair.startBasePoint = startBasePoint
+        stair.endBasePoint = endBasePoint
+        stair.stepsCount = stepsCount
+        stair.stepWidth = stepWidth
+        stair.material = material
+        self.level.addFloor(stair)
+
     def buildBalcony(self, downLeft, downRight, upLeft, upRight, height, topBottomMaterial, edgeMaterial):
         floor = Floor()
         floor.downLeft = downLeft
@@ -91,7 +105,6 @@ class LevelBuilder:
         ceiling.upLeft.z -= height
         ceiling.upRight.z -= height
         ceiling.material = topBottomMaterial
-        ceiling.canCastShadow = True
         self.level.addCeiling(ceiling)
 
         edge = Construction()

@@ -51,6 +51,12 @@ class GameData:
         enemy.commitNextPosition()
         self.enemies.append(enemy)
 
+        enemy = Enemy()
+        enemy.yawRadians = Math.piHalf
+        enemy.moveNextPositionTo(Vector3(16, 3.5, 0))
+        enemy.commitNextPosition()
+        self.enemies.append(enemy)
+
 
 def makeGameData(resolver):
     return GameData()

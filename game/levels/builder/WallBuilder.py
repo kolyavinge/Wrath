@@ -14,7 +14,6 @@ class WallBuilder:
 
     def buildWalls(self, startPoint, *wallBuildInfoList):
         for info in wallBuildInfoList:
-            info.frontNormal.normalize()
             if info.doorway is not None:
                 self.makeSolidWall(
                     startPoint, info.doorway.startPosition, info.frontNormal, info.height, info.material, info.bottomBorder, info.topBorder
