@@ -24,6 +24,7 @@ class ConstructionVBOBuilder:
 
         for i in range(1, len(leftPoints)):
             downPoints = Vector3.splitFromStartToEnd(leftPoints[i - 1], rightPoints[i - 1], stepLength)
+            assert len(downPoints) > 1
             stepLength = leftPoints[i].getLengthTo(rightPoints[i]) / (len(downPoints) - 1)
             upPoints = Vector3.splitFromStartToEnd(leftPoints[i], rightPoints[i], stepLength)
             assert len(downPoints) == len(upPoints)
