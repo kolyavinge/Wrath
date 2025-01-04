@@ -92,24 +92,26 @@ class LevelBuilder:
         floor.upLeft = upLeft
         floor.upRight = upRight
         floor.material = topBottomMaterial
+        floor.visualSize = None
         floor.canCastShadow = True
         self.level.addFloor(floor)
 
         ceiling = Ceiling()
-        ceiling.downLeft = downLeft.copy()
-        ceiling.downRight = downRight.copy()
-        ceiling.upLeft = upLeft.copy()
-        ceiling.upRight = upRight.copy()
+        ceiling.downLeft = downRight.copy()
+        ceiling.downRight = downLeft.copy()
+        ceiling.upLeft = upRight.copy()
+        ceiling.upRight = upLeft.copy()
         ceiling.downLeft.z -= height
         ceiling.downRight.z -= height
         ceiling.upLeft.z -= height
         ceiling.upRight.z -= height
         ceiling.material = topBottomMaterial
+        ceiling.visualSize = None
         self.level.addCeiling(ceiling)
 
         edge = Construction()
-        edge.downLeft = ceiling.upRight
-        edge.downRight = ceiling.upLeft
+        edge.downLeft = ceiling.upLeft
+        edge.downRight = ceiling.upRight
         edge.upLeft = floor.upRight
         edge.upRight = floor.upLeft
         edge.frontNormal = downLeft.getDirectionTo(upLeft)

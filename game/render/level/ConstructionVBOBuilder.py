@@ -5,6 +5,12 @@ from game.lib.Math import Math
 class ConstructionVBOBuilder:
 
     def build(self, item, vboBuilder):
+        if item.visualSize is not None:
+            self.buildSplitted(item, vboBuilder)
+        else:
+            self.addVertices(vboBuilder, item, item.downLeft, item.downRight, item.upLeft, item.upRight)
+
+    def buildSplitted(self, item, vboBuilder):
         leftDirectionLength = item.frontDownLeft.getLengthTo(item.frontUpLeft)
         rightDirectionLength = item.frontDownRight.getLengthTo(item.frontUpRight)
         stepLength = item.visualSize
