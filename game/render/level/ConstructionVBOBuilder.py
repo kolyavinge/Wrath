@@ -7,7 +7,7 @@ class ConstructionVBOBuilder:
     def build(self, item, vboBuilder):
         leftDirectionLength = item.frontDownLeft.getLengthTo(item.frontUpLeft)
         rightDirectionLength = item.frontDownRight.getLengthTo(item.frontUpRight)
-        stepLength = self.getStepLength(item)
+        stepLength = item.visualSize
         if leftDirectionLength > rightDirectionLength:
             leftStepLength = stepLength
             rightStepLength = stepLength * rightDirectionLength / leftDirectionLength
@@ -30,9 +30,6 @@ class ConstructionVBOBuilder:
             assert len(downPoints) == len(upPoints)
             for j in range(1, len(downPoints)):
                 self.addVertices(vboBuilder, item, downPoints[j - 1], downPoints[j], upPoints[j - 1], upPoints[j])
-
-    def getStepLength(self, item):
-        return item.defaultVisualSize
 
     def addVertices(self, vboBuilder, item, downLeft, downRight, upLeft, upRight):
         vertexCount = vboBuilder.getVertexCount()

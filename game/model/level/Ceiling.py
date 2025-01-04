@@ -7,3 +7,4 @@ class Ceiling(Construction):
     def __init__(self):
         super().__init__()
         self.frontNormal = CommonConstants.down
+        self.visualSize = 2

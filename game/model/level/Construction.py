@@ -19,7 +19,7 @@ class Construction(Visible):
         self.frontDownRight = Vector3()
         self.frontUpLeft = Vector3()
         self.frontUpRight = Vector3()
-        self.defaultVisualSize = 1.0
+        self.visualSize = 1.0
 
     def commit(self):
         self.faceDirection = self.getFaceDirection()

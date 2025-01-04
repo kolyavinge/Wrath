@@ -19,7 +19,7 @@ class Wall(Construction):
         self.limitLineDirection = Vector3()
         self.height = 3
         self.info = ""
-        self.defaultVisualSize = 2
+        self.visualSize = 2
 
     def commit(self):
         self.downLeft = self.startPoint

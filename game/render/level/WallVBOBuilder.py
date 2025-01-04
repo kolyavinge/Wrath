@@ -7,7 +7,7 @@ from game.render.level.ConstructionVBOBuilder import ConstructionVBOBuilder
 class WallVBOBuilder(ConstructionVBOBuilder):
 
     def build(self, wall, vboBuilder):
-        stepLength = self.getStepLength(wall)
+        stepLength = wall.visualSize
         if wall.orientation == Orientation.diagonal:
             stepLength /= Math.sqrt(2.0)
         stepLength = Math.min(stepLength, wall.direction.getLength())

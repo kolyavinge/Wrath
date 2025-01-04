@@ -449,7 +449,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(70, 30, z)
         floor.upLeft = Vector3(80, 60, z)
         floor.upRight = Vector3(80, 30, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -459,7 +459,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(90, 10, z)
         floor.upLeft = Vector3(80, 30, z)
         floor.upRight = Vector3(90, 20, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -469,7 +469,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(130, 10, z)
         floor.upLeft = Vector3(90, 20, z)
         floor.upRight = Vector3(130, 20, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -479,7 +479,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(150, 30, z)
         floor.upLeft = Vector3(130, 20, z)
         floor.upRight = Vector3(140, 30, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -489,7 +489,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(150, 60, z)
         floor.upLeft = Vector3(140, 30, z)
         floor.upRight = Vector3(140, 60, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -499,7 +499,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(130, 80, z)
         floor.upLeft = Vector3(140, 60, z)
         floor.upRight = Vector3(130, 70, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -509,7 +509,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(130, 70, z)
         floor.upLeft = Vector3(90, 80, z)
         floor.upRight = Vector3(130, 80, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -519,7 +519,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(70, 60, z)
         floor.upLeft = Vector3(90, 70, z)
         floor.upRight = Vector3(80, 60, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.floorMetal2
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -887,7 +887,7 @@ class TestLevel(Level):
         floor.upLeft = Vector3(185, 145, lowerFloorZ)
         floor.upRight = Vector3(255, 145, lowerFloorZ)
         floor.z = lowerFloorZ
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.floorMetal4
         self.addFloor(floor)
 
@@ -1380,7 +1380,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(240, 90, z)
         floor.upLeft = Vector3(230, 160, z)
         floor.upRight = Vector3(240, 160, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.wallMetal3
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -1390,7 +1390,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(210, 90, z)
         floor.upLeft = Vector3(200, 160, z)
         floor.upRight = Vector3(210, 160, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.wallMetal3
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -1400,7 +1400,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(230, 120, z)
         floor.upLeft = Vector3(210, 130, z)
         floor.upRight = Vector3(230, 130, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.wallMetal3
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -1410,7 +1410,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(200, 120, z)
         floor.upLeft = Vector3(170, 130, z)
         floor.upRight = Vector3(200, 130, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.wallMetal3
         floor.canCastShadow = True
         self.addFloor(floor)
@@ -1420,7 +1420,7 @@ class TestLevel(Level):
         floor.downRight = Vector3(270, 120, z)
         floor.upLeft = Vector3(240, 130, z)
         floor.upRight = Vector3(270, 130, z)
-        floor.defaultVisualSize = 10.0
+        floor.visualSize = 10.0
         floor.material = Material.wallMetal3
         floor.canCastShadow = True
         self.addFloor(floor)

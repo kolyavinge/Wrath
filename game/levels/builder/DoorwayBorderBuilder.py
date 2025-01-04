@@ -30,7 +30,7 @@ class DoorwayBorderBuilder:
         left.upRight.add(borderDepthDirection)
         left.frontNormal = frontNormal
         left.material = doorway.border.frontMaterial
-        left.defaultVisualSize = doorway.border.width
+        left.visualSize = doorway.border.width
         self.level.addConstruction(left)
 
         right = Construction()
@@ -47,7 +47,7 @@ class DoorwayBorderBuilder:
         right.upRight.add(borderDepthDirection)
         right.frontNormal = frontNormal
         right.material = doorway.border.frontMaterial
-        right.defaultVisualSize = doorway.border.width
+        right.visualSize = doorway.border.width
         self.level.addConstruction(right)
 
         top = Construction()
@@ -74,7 +74,7 @@ class DoorwayBorderBuilder:
         outside.frontNormal = doorwayEndPosition.getDirectionTo(doorwayStartPosition)
         outside.frontNormal.normalize()
         outside.material = doorway.border.frontMaterial
-        outside.defaultVisualSize = doorway.border.depth
+        outside.visualSize = doorway.border.depth
         self.level.addConstruction(outside)
 
         outside = Construction()
@@ -90,7 +90,7 @@ class DoorwayBorderBuilder:
         outside.frontNormal = doorwayStartPosition.getDirectionTo(doorwayEndPosition)
         outside.frontNormal.normalize()
         outside.material = doorway.border.frontMaterial
-        outside.defaultVisualSize = doorway.border.depth
+        outside.visualSize = doorway.border.depth
         self.level.addConstruction(outside)
 
         inside = Construction()
@@ -104,7 +104,7 @@ class DoorwayBorderBuilder:
         inside.frontNormal = doorwayStartPosition.getDirectionTo(doorwayEndPosition)
         inside.frontNormal.normalize()
         inside.material = doorway.border.frontMaterial
-        inside.defaultVisualSize = doorway.border.depth
+        inside.visualSize = doorway.border.depth
         self.level.addConstruction(inside)
 
         inside = Construction()
@@ -118,7 +118,7 @@ class DoorwayBorderBuilder:
         inside.frontNormal = doorwayEndPosition.getDirectionTo(doorwayStartPosition)
         inside.frontNormal.normalize()
         inside.material = doorway.border.frontMaterial
-        inside.defaultVisualSize = doorway.border.depth
+        inside.visualSize = doorway.border.depth
         self.level.addConstruction(inside)
 
         inside = Construction()
