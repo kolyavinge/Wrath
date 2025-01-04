@@ -105,10 +105,11 @@ class Vector3:
         stepDirection = startPoint.getDirectionTo(endPoint)
         stepsCount = int(stepDirection.getLength() / stepLength)
         stepDirection.setLength(stepLength)
+        action(startPoint.copy())
         point = startPoint.copy()
-        for _ in range(stepsCount):
-            action(point.copy())
+        for _ in range(stepsCount - 1):
             point.add(stepDirection)
+            action(point.copy())
         action(endPoint.copy())
 
     @staticmethod
