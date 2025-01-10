@@ -57,6 +57,8 @@ class GameData:
         enemy.commitNextPosition()
         self.enemies.append(enemy)
 
+        self.allPerson = [self.player] + self.enemies
+
 
 def makeGameData(resolver):
     return GameData()

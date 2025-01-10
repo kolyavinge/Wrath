@@ -7,7 +7,7 @@ from game.engine.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyze
 from game.engine.LevelSegmentLightAnalyzer import LevelSegmentLightAnalyzer
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.LevelValidator import LevelValidator
-from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
+from game.engine.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
 from game.engine.PlayerTurnLogic import PlayerTurnLogic
 from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.WeaponFlashUpdater import WeaponFlashUpdater
@@ -24,7 +24,7 @@ class LevelManager:
         lightAnalyzer,
         levelValidator,
         playerTurnLogic,
-        playerLevelSegmentsUpdater,
+        personLevelSegmentsUpdater,
         levelSegmentVisibilityUpdater,
         cameraUpdater,
         backgroundVisibilityDetector,
@@ -38,7 +38,7 @@ class LevelManager:
         self.lightAnalyzer = lightAnalyzer
         self.levelValidator = levelValidator
         self.playerTurnLogic = playerTurnLogic
-        self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
+        self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
         self.backgroundVisibilityDetector = backgroundVisibilityDetector
@@ -56,7 +56,7 @@ class LevelManager:
         self.playerTurnLogic.orientByFrontNormal(level.playerFrontNormal)
         self.gameData.player.moveNextPositionTo(level.playerPosition)
         self.gameData.player.commitNextPosition()
-        self.playerLevelSegmentsUpdater.update()
+        self.personLevelSegmentsUpdater.update()
         self.levelSegmentVisibilityUpdater.update()
         self.cameraUpdater.update()
         self.backgroundVisibilityDetector.update()
@@ -73,7 +73,7 @@ def makeLevelManager(resolver):
         resolver.resolve(LevelSegmentLightAnalyzer),
         resolver.resolve(LevelValidator),
         resolver.resolve(PlayerTurnLogic),
-        resolver.resolve(PlayerLevelSegmentsUpdater),
+        resolver.resolve(PersonLevelSegmentsUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
         resolver.resolve(BackgroundVisibilityDetector),

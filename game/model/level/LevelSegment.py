@@ -17,7 +17,6 @@ class LevelSegment:
         self.bullets = []
         self.bulletTraces = []
         self.weaponFlashes = []
-        self.enemies = []
 
     def getAllItems(self):
         return self.constructions + self.walls + self.floors + self.ceilings + self.lights
