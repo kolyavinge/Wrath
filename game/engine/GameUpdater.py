@@ -12,6 +12,7 @@ from game.engine.cm.PowerupCollisionProcessor import PowerupCollisionProcessor
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.PersonDoStepLogic import PersonDoStepLogic
 from game.engine.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
+from game.engine.PersonZUpdater import PersonZUpdater
 from game.engine.PlayerMoveLogic import PlayerMoveLogic
 from game.engine.PlayerMovingSwingLogic import PlayerMovingSwingLogic
 from game.engine.PlayerMovingTimeCalculator import PlayerMovingTimeCalculator
@@ -20,7 +21,6 @@ from game.engine.PlayerTurnLogic import PlayerTurnLogic
 from game.engine.PlayerVelocityCalculator import PlayerVelocityCalculator
 from game.engine.PlayerWeaponPositionSwingLogic import PlayerWeaponPositionSwingLogic
 from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
-from game.engine.PlayerZUpdater import PlayerZUpdater
 from game.engine.PowerupUpdater import PowerupUpdater
 from game.engine.TorchUpdater import TorchUpdater
 from game.engine.WeaponDelayUpdater import WeaponDelayUpdater
@@ -37,7 +37,7 @@ class GameUpdater:
         playerMovingTimeCalculator,
         playerVelocityCalculator,
         playerMoveLogic,
-        playerZUpdater,
+        personZUpdater,
         playerWallCollisionDetector,
         playerWallCollisionProcessor,
         personDoStepLogic,
@@ -66,7 +66,7 @@ class GameUpdater:
         self.playerMovingTimeCalculator = playerMovingTimeCalculator
         self.playerVelocityCalculator = playerVelocityCalculator
         self.playerMoveLogic = playerMoveLogic
-        self.playerZUpdater = playerZUpdater
+        self.personZUpdater = personZUpdater
         self.playerWallCollisionDetector = playerWallCollisionDetector
         self.playerWallCollisionProcessor = playerWallCollisionProcessor
         self.personDoStepLogic = personDoStepLogic
@@ -98,7 +98,7 @@ class GameUpdater:
         self.playerMoveLogic.process()
         self.playerWallCollisionDetector.detectCollisions()
         self.playerWallCollisionProcessor.processCollisions()
-        self.playerZUpdater.updateIfPlayerMoved()
+        self.personZUpdater.updateIfMoved()
         self.personDoStepLogic.updateDoStep()
         self.personLevelSegmentsUpdater.updateIfMoved()
         self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
@@ -130,7 +130,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PlayerMovingTimeCalculator),
         resolver.resolve(PlayerVelocityCalculator),
         resolver.resolve(PlayerMoveLogic),
-        resolver.resolve(PlayerZUpdater),
+        resolver.resolve(PersonZUpdater),
         resolver.resolve(PlayerWallCollisionDetector),
         resolver.resolve(PlayerWallCollisionProcessor),
         resolver.resolve(PersonDoStepLogic),

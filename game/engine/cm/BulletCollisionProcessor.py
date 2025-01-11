@@ -18,22 +18,11 @@ class BulletCollisionProcessor:
     def process(self):
         for bullet in self.gameData.bullets:
             collisionResult = self.bulletCollisionDetector.getConstructionCollisionResultOrNone(bullet)
-            if collisionResult is None:
-                self.processNoCollision(bullet)
-            else:
+            if collisionResult is not None:
                 self.processCollision(bullet, collisionResult)
+                return
 
-    def processNoCollision(self, bullet):
-        if bullet.isVisible:
-            oldVisibilityLevelSegment = bullet.currentVisibilityLevelSegment
-            bullet.commitNextPosition()
-            bullet.currentLevelSegment = bullet.nextLevelSegment
-            bspTree = self.gameData.visibilityTree
-            bullet.currentVisibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
-            self.moveBulletToNewVisibilityLevelSegment(bullet, oldVisibilityLevelSegment, bullet.currentVisibilityLevelSegment)
-        else:
-            bullet.commitNextPosition()
-            bullet.currentLevelSegment = bullet.nextLevelSegment
+            self.processNoCollision(bullet)
 
     def processCollision(self, bullet, collisionResult):
         collisionPoint, frontNormal = collisionResult
@@ -46,6 +35,18 @@ class BulletCollisionProcessor:
             bullet.currentVisibilityLevelSegment.bullets.remove(bullet)
         bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, visibilityLevelSegment, bullet.holeInfo)
         self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
+
+    def processNoCollision(self, bullet):
+        if bullet.isVisible:
+            oldVisibilityLevelSegment = bullet.currentVisibilityLevelSegment
+            bullet.commitNextPosition()
+            bullet.currentLevelSegment = bullet.nextLevelSegment
+            bspTree = self.gameData.visibilityTree
+            bullet.currentVisibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.currentPosition)
+            self.moveBulletToNewVisibilityLevelSegment(bullet, oldVisibilityLevelSegment, bullet.currentVisibilityLevelSegment)
+        else:
+            bullet.commitNextPosition()
+            bullet.currentLevelSegment = bullet.nextLevelSegment
 
     def moveBulletToNewVisibilityLevelSegment(self, bullet, oldLevelSegment, newLevelSegment):
         if oldLevelSegment != newLevelSegment:
