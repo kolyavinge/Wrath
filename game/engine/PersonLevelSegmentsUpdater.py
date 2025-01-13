@@ -8,39 +8,34 @@ class PersonLevelSegmentsUpdater:
         self.gameData = gameData
         self.traversal = traversal
 
-    def updateIfMoved(self):
-        for person in self.gameData.allPerson:
-            if person.hasMoved:
-                self.updatePerson(person)
-
-    def update(self):
-        for person in self.gameData.allPerson:
-            self.updatePerson(person)
-
     def updatePerson(self, person):
-        person.collisionLevelSegments = set()
-        person.visibilityLevelSegments = set()
-        self.updatePersonLevelSegments(self.gameData.collisionTree, person, person.collisionLevelSegments)
-        self.updatePersonLevelSegments(self.gameData.visibilityTree, person, person.visibilityLevelSegments)
+        self.updateCollisionLevelSegments(person)
+        self.updateVisibilityLevelSegment(person)
 
-    def updatePersonLevelSegments(self, bspTree, person, personLevelSegments):
+    def updateCollisionLevelSegments(self, person):
         border = person.nextBorder.bottom
+        bspTree = self.gameData.collisionTree
+        person.collisionLevelSegments = set()
 
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.downLeft)
         assert levelSegment is not None
-        personLevelSegments.add(levelSegment)
+        person.collisionLevelSegments.add(levelSegment)
 
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.downRight)
         assert levelSegment is not None
-        personLevelSegments.add(levelSegment)
+        person.collisionLevelSegments.add(levelSegment)
 
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.upLeft)
         assert levelSegment is not None
-        personLevelSegments.add(levelSegment)
+        person.collisionLevelSegments.add(levelSegment)
 
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.upRight)
         assert levelSegment is not None
-        personLevelSegments.add(levelSegment)
+        person.collisionLevelSegments.add(levelSegment)
+
+    def updateVisibilityLevelSegment(self, person):
+        person.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, person.currentCenterPoint)
+        assert person.visibilityLevelSegment is not None
 
 
 def makePersonLevelSegmentsUpdater(resolver):

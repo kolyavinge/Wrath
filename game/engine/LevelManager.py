@@ -1,13 +1,14 @@
 from game.engine.BackgroundVisibilityDetector import BackgroundVisibilityDetector
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.CameraUpdater import CameraUpdater
+from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.GameData import GameData
 from game.engine.LevelLoader import LevelLoader
 from game.engine.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyzer
 from game.engine.LevelSegmentLightAnalyzer import LevelSegmentLightAnalyzer
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.LevelValidator import LevelValidator
-from game.engine.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
+from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerTurnLogic import PlayerTurnLogic
 from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.WeaponFlashUpdater import WeaponFlashUpdater
@@ -24,7 +25,8 @@ class LevelManager:
         lightAnalyzer,
         levelValidator,
         playerTurnLogic,
-        personLevelSegmentsUpdater,
+        playerLevelSegmentsUpdater,
+        enemyLevelSegmentsUpdater,
         levelSegmentVisibilityUpdater,
         cameraUpdater,
         backgroundVisibilityDetector,
@@ -38,7 +40,8 @@ class LevelManager:
         self.lightAnalyzer = lightAnalyzer
         self.levelValidator = levelValidator
         self.playerTurnLogic = playerTurnLogic
-        self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
+        self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
+        self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
         self.backgroundVisibilityDetector = backgroundVisibilityDetector
@@ -56,7 +59,8 @@ class LevelManager:
         self.playerTurnLogic.orientByFrontNormal(level.playerFrontNormal)
         self.gameData.player.moveNextPositionTo(level.playerPosition)
         self.gameData.player.commitNextPosition()
-        self.personLevelSegmentsUpdater.update()
+        self.playerLevelSegmentsUpdater.update()
+        self.enemyLevelSegmentsUpdater.update()
         self.levelSegmentVisibilityUpdater.update()
         self.cameraUpdater.update()
         self.backgroundVisibilityDetector.update()
@@ -73,7 +77,8 @@ def makeLevelManager(resolver):
         resolver.resolve(LevelSegmentLightAnalyzer),
         resolver.resolve(LevelValidator),
         resolver.resolve(PlayerTurnLogic),
-        resolver.resolve(PersonLevelSegmentsUpdater),
+        resolver.resolve(PlayerLevelSegmentsUpdater),
+        resolver.resolve(EnemyLevelSegmentsUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
         resolver.resolve(BackgroundVisibilityDetector),

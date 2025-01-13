@@ -9,10 +9,11 @@ from game.engine.cm.BulletCollisionProcessor import BulletCollisionProcessor
 from game.engine.cm.PlayerWallCollisionDetector import PlayerWallCollisionDetector
 from game.engine.cm.PlayerWallCollisionProcessor import PlayerWallCollisionProcessor
 from game.engine.cm.PowerupCollisionProcessor import PowerupCollisionProcessor
+from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.PersonDoStepLogic import PersonDoStepLogic
-from game.engine.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
 from game.engine.PersonZUpdater import PersonZUpdater
+from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerMoveLogic import PlayerMoveLogic
 from game.engine.PlayerMovingSwingLogic import PlayerMovingSwingLogic
 from game.engine.PlayerMovingTimeCalculator import PlayerMovingTimeCalculator
@@ -41,7 +42,8 @@ class GameUpdater:
         playerWallCollisionDetector,
         playerWallCollisionProcessor,
         personDoStepLogic,
-        personLevelSegmentsUpdater,
+        playerLevelSegmentsUpdater,
+        enemyLevelSegmentsUpdater,
         playerMovingSwingLogic,
         backgroundVisibilityDetector,
         playerPositionUpdater,
@@ -70,7 +72,8 @@ class GameUpdater:
         self.playerWallCollisionDetector = playerWallCollisionDetector
         self.playerWallCollisionProcessor = playerWallCollisionProcessor
         self.personDoStepLogic = personDoStepLogic
-        self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
+        self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
+        self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
         self.playerMovingSwingLogic = playerMovingSwingLogic
         self.backgroundVisibilityDetector = backgroundVisibilityDetector
         self.playerPositionUpdater = playerPositionUpdater
@@ -100,7 +103,8 @@ class GameUpdater:
         self.playerWallCollisionProcessor.processCollisions()
         self.personZUpdater.updateIfMoved()
         self.personDoStepLogic.updateDoStep()
-        self.personLevelSegmentsUpdater.updateIfMoved()
+        self.playerLevelSegmentsUpdater.updateIfMoved()
+        self.enemyLevelSegmentsUpdater.updateIfMoved()
         self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
         self.backgroundVisibilityDetector.updateIfPlayerMovedOrTurned()
         self.playerPositionUpdater.update()
@@ -134,7 +138,8 @@ def makeGameUpdater(resolver):
         resolver.resolve(PlayerWallCollisionDetector),
         resolver.resolve(PlayerWallCollisionProcessor),
         resolver.resolve(PersonDoStepLogic),
-        resolver.resolve(PersonLevelSegmentsUpdater),
+        resolver.resolve(PlayerLevelSegmentsUpdater),
+        resolver.resolve(EnemyLevelSegmentsUpdater),
         resolver.resolve(PlayerMovingSwingLogic),
         resolver.resolve(BackgroundVisibilityDetector),
         resolver.resolve(PlayerPositionUpdater),

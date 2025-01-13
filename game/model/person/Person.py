@@ -5,6 +5,7 @@ from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.model.level.Floor import Floor
+from game.model.level.LevelSegment import LevelSegment
 from game.model.person.FallingFunc import FallingFunc
 from game.model.person.PersonState import PersonState
 from game.model.person.VelocityFunc import VelocityFunc
@@ -17,7 +18,7 @@ class Person:
         self.currentCenterPoint = Vector3()
         self.nextCenterPoint = self.currentCenterPoint.copy()
         self.collisionLevelSegments = set()
-        self.visibilityLevelSegments = set()
+        self.visibilityLevelSegment = LevelSegment()
         self.currentBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)
         self.nextBorder = self.currentBorder.copy()
         self.pitchRadians = 0

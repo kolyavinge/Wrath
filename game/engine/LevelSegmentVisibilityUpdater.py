@@ -16,8 +16,7 @@ class LevelSegmentVisibilityUpdater:
     def update(self):
         self.gameData.visibleLevelSegments = set()
         self.checkedJoinLines = set()
-        for levelSegment in self.gameData.player.visibilityLevelSegments:
-            self.checkLevelSegment(levelSegment)
+        self.checkLevelSegment(self.gameData.player.visibilityLevelSegment)
 
     def checkLevelSegment(self, levelSegment):
         self.gameData.visibleLevelSegments.add(levelSegment)

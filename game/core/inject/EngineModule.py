@@ -15,6 +15,7 @@ from game.engine.cm.PlayerWallCollisionDetector import *
 from game.engine.cm.PlayerWallCollisionProcessor import *
 from game.engine.cm.PowerupCollisionDetector import *
 from game.engine.cm.PowerupCollisionProcessor import *
+from game.engine.EnemyLevelSegmentsUpdater import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
 from game.engine.LevelLoader import *
@@ -28,6 +29,7 @@ from game.engine.PersonDoStepLogic import *
 from game.engine.PersonLevelSegmentsUpdater import *
 from game.engine.PersonZUpdater import *
 from game.engine.PlayerInputManager import *
+from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerMoveLogic import *
 from game.engine.PlayerMovingSwingLogic import *
 from game.engine.PlayerMovingTimeCalculator import *
@@ -67,6 +69,7 @@ class EngineModule:
         binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)
         binder.bindSingleton(PowerupCollisionDetector, makePowerupCollisionDetector)
         binder.bindSingleton(PowerupCollisionProcessor, makePowerupCollisionProcessor)
+        binder.bindSingleton(EnemyLevelSegmentsUpdater, makeEnemyLevelSegmentsUpdater)
         binder.bindSingleton(GameData, makeGameData)
         binder.bindSingleton(GameUpdater, makeGameUpdater)
         binder.bindSingleton(LevelLoader, makeLevelLoader)
@@ -80,6 +83,7 @@ class EngineModule:
         binder.bindSingleton(PersonLevelSegmentsUpdater, makePersonLevelSegmentsUpdater)
         binder.bindSingleton(PersonZUpdater, makePersonZUpdater)
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
+        binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMoveLogic, makePlayerMoveLogic)
         binder.bindSingleton(PlayerMovingSwingLogic, makePlayerMovingSwingLogic)
         binder.bindSingleton(PlayerMovingTimeCalculator, makePlayerMovingTimeCalculator)
