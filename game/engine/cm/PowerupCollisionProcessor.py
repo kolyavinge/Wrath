@@ -2,7 +2,7 @@ from game.anx.Events import Events
 from game.engine.cm.PowerupCollisionDetector import PowerupCollisionDetector
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
-from game.lib.List import List
+from game.lib.Query import Query
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
 from game.model.powerup.VestPowerup import VestPowerup
@@ -35,7 +35,7 @@ class PowerupCollisionProcessor:
 
     def processWeaponPowerup(self, person, powerup):
         personWeapons = self.gameData.allPersonItems[person].weapons
-        findedWeapons = List.where(lambda w: type(w) == powerup.weaponType, personWeapons)
+        findedWeapons = Query(personWeapons).where(lambda w: type(w) == powerup.weaponType).result
         if len(findedWeapons) > 0:
             for findedWeapon in findedWeapons:
                 findedWeapon.addBullets(findedWeapon.maxBulletsCount)

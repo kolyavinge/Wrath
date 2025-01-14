@@ -1,6 +1,6 @@
 from game.gl.RenderModel3d import RenderMesh, RenderModel3d
 from game.gl.VBOBuilderFactory import VBOBuilderFactory
-from game.lib.List import List
+from game.lib.Query import Query
 from game.model.level.Construction import Construction
 from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
@@ -49,7 +49,7 @@ class LevelItemRenderModel3dBuilder:
         return vboBuilder.build()
 
     def getLevelItemsGroupedByMaterial(self, levelSegment):
-        return List.groupby(levelSegment.getAllVisibleItems(), lambda item: item.material)
+        return Query(levelSegment.getAllVisibleItems()).groupby(lambda item: item.material).result
 
 
 def makeLevelItemRenderModel3dBuilder(resolver):

@@ -2,8 +2,8 @@ from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.engine.PowerupPositionGenerator import PowerupPositionGenerator
-from game.lib.List import List
 from game.lib.Math import Math
+from game.lib.Query import Query
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
 from game.model.powerup.VestPowerup import VestPowerup
@@ -35,7 +35,7 @@ class PowerupUpdater:
         currentPowerups = self.gameData.powerups
         newPowerups = []
         for powerupType, powerupCount in self.powerupCount.items():
-            count = List.count(lambda x: isinstance(x, powerupType), currentPowerups)
+            count = Query(currentPowerups).count(lambda x: isinstance(x, powerupType))
             while count < powerupCount:
                 powerup = self.makeNewPowerup(powerupType)
                 newPowerups.append(powerup)

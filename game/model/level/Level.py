@@ -1,5 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
-from game.lib.List import List
+from game.lib.Query import Query
 
 
 class Level:
@@ -42,7 +42,7 @@ class Level:
 
     def validate(self):
         allItems = self.walls + self.floors + self.ceilings
-        allBorderPoints = List.flatten([item.getBorderPoints() for item in allItems])
+        allBorderPoints = Query([item.getBorderPoints() for item in allItems]).flatten().result
         for p in allBorderPoints:
             assert p.x >= 0
             assert p.y >= 0

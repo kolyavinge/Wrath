@@ -1,4 +1,4 @@
-from game.lib.List import List
+from game.lib.Query import Query
 from game.model.Orientation import Orientation
 from game.model.Visible import Visible
 
@@ -23,7 +23,7 @@ class LevelSegment:
         return self.constructions + self.walls + self.floors + self.ceilings + self.lights
 
     def getAllVisibleItems(self):
-        return List.where(lambda item: isinstance(item, Visible), self.getAllItems())
+        return Query(self.getAllItems()).where(lambda item: isinstance(item, Visible)).result
 
     def commit(self):
         self.horizontalVerticalWalls = [w for w in self.walls if w.orientation == Orientation.horizontal or w.orientation == Orientation.vertical]

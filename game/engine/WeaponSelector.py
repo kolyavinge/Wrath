@@ -1,7 +1,7 @@
 from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
-from game.lib.List import List
+from game.lib.Query import Query
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma
@@ -27,13 +27,13 @@ class WeaponSelector:
         requestedWeaponType = self.weapons[weaponNumber]
         playerItems = self.gameData.playerItems
         if requestedWeaponType.defaultCount == 1:
-            findedWeapon = List.firstOrNone(lambda x: type(x) == requestedWeaponType, playerItems.weapons)
+            findedWeapon = Query(playerItems.weapons).firstOrNone(lambda x: type(x) == requestedWeaponType)
             if findedWeapon is not None:
                 playerItems.rightHandWeapon = findedWeapon
                 playerItems.leftHandWeapon = None
                 playerItems.currentWeapon = playerItems.rightHandWeapon
         elif requestedWeaponType.defaultCount == 2:
-            findedWeapons = List.where(lambda x: type(x) == requestedWeaponType, playerItems.weapons)
+            findedWeapons = Query(playerItems.weapons).where(lambda x: type(x) == requestedWeaponType).result
             if len(findedWeapons) == 2:
                 playerItems.rightHandWeapon = findedWeapons[0]
                 playerItems.leftHandWeapon = findedWeapons[1]
