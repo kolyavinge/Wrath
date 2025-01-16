@@ -8,18 +8,18 @@ class PersonPositionUpdater:
         self.gameData = gameData
 
     def moveNextPosition(self):
-        player = self.gameData.player
-        if player.velocityValue > 0:
-            player.hasMoved = True
-            player.moveNextPositionBy(player.velocityVector)
+        for person in self.gameData.allPerson:
+            if person.velocityValue > 0:
+                person.hasMoved = True
+                person.moveNextPositionBy(person.velocityVector)
 
     def commitNextPosition(self):
-        player = self.gameData.player
-        player.hasTurned = False
-        if player.hasMoved:
-            player.commitNextPosition()
-            if player.state == PersonState.standing:
-                player.hasMoved = False
+        for person in self.gameData.allPerson:
+            person.hasTurned = False
+            if person.hasMoved:
+                person.commitNextPosition()
+                if person.state == PersonState.standing:
+                    person.hasMoved = False
 
 
 def makePersonPositionUpdater(resolver):
