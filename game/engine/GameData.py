@@ -4,9 +4,9 @@ from game.lib.Math import Math
 from game.model.Camera import Camera
 from game.model.light.Torch import Torch
 from game.model.person.Enemy import Enemy
+from game.model.person.PersonInputData import PersonInputData
 from game.model.person.PersonItems import PersonItems
 from game.model.person.Player import Player
-from game.model.person.PlayerInputData import PlayerInputData
 
 
 class BackgroundVisibilityData:
@@ -26,8 +26,8 @@ class GameData:
         self.visibilityTree = BSPTree()
         self.visibleLevelSegments = set()
         self.player = Player()
-        self.playerInputData = PlayerInputData()
         self.playerItems = PersonItems()
+        self.playerInputData = PersonInputData()
         self.allPersonItems = {}
         self.allPersonItems[self.player] = self.playerItems
         self.playerTorch = Torch()

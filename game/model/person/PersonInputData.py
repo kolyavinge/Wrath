@@ -1,4 +1,4 @@
-class PlayerInputData:
+class PersonInputData:
 
     def __init__(self):
         self.clear()
