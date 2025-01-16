@@ -5,7 +5,7 @@ from game.lib.Math import Math
 from game.model.level.Stair import Stair
 
 
-class PlayerVelocityCalculator:
+class PersonVelocityCalculator:
 
     def __init__(self, gameData):
         self.gameData = gameData
@@ -62,5 +62,5 @@ class PlayerVelocityCalculator:
             person.velocityValue = Math.min(person.velocityValue, 0.05)
 
 
-def makePlayerVelocityCalculator(resolver):
-    return PlayerVelocityCalculator(resolver.resolve(GameData))
+def makePersonVelocityCalculator(resolver):
+    return PersonVelocityCalculator(resolver.resolve(GameData))

@@ -13,12 +13,12 @@ from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.PersonDoStepLogic import PersonDoStepLogic
 from game.engine.PersonPositionUpdater import PersonPositionUpdater
+from game.engine.PersonVelocityCalculator import PersonVelocityCalculator
 from game.engine.PersonZUpdater import PersonZUpdater
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerMovingSwingLogic import PlayerMovingSwingLogic
 from game.engine.PlayerMovingTimeCalculator import PlayerMovingTimeCalculator
 from game.engine.PlayerTurnLogic import PlayerTurnLogic
-from game.engine.PlayerVelocityCalculator import PlayerVelocityCalculator
 from game.engine.PlayerWeaponPositionSwingLogic import PlayerWeaponPositionSwingLogic
 from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.PowerupUpdater import PowerupUpdater
@@ -35,7 +35,7 @@ class GameUpdater:
         self,
         playerTurnLogic,
         playerMovingTimeCalculator,
-        playerVelocityCalculator,
+        personVelocityCalculator,
         personZUpdater,
         playerWallCollisionDetector,
         playerWallCollisionProcessor,
@@ -64,7 +64,7 @@ class GameUpdater:
     ):
         self.playerTurnLogic = playerTurnLogic
         self.playerMovingTimeCalculator = playerMovingTimeCalculator
-        self.playerVelocityCalculator = playerVelocityCalculator
+        self.personVelocityCalculator = personVelocityCalculator
         self.personZUpdater = personZUpdater
         self.playerWallCollisionDetector = playerWallCollisionDetector
         self.playerWallCollisionProcessor = playerWallCollisionProcessor
@@ -94,7 +94,7 @@ class GameUpdater:
 
         self.playerTurnLogic.process()
         self.playerMovingTimeCalculator.calculate()
-        self.playerVelocityCalculator.calculate()
+        self.personVelocityCalculator.calculate()
         self.personPositionUpdater.moveNextPosition()
         self.playerWallCollisionDetector.detectCollisions()
         self.playerWallCollisionProcessor.processCollisions()
@@ -129,7 +129,7 @@ def makeGameUpdater(resolver):
     return GameUpdater(
         resolver.resolve(PlayerTurnLogic),
         resolver.resolve(PlayerMovingTimeCalculator),
-        resolver.resolve(PlayerVelocityCalculator),
+        resolver.resolve(PersonVelocityCalculator),
         resolver.resolve(PersonZUpdater),
         resolver.resolve(PlayerWallCollisionDetector),
         resolver.resolve(PlayerWallCollisionProcessor),

@@ -28,13 +28,13 @@ from game.engine.LevelValidator import *
 from game.engine.PersonDoStepLogic import *
 from game.engine.PersonLevelSegmentsUpdater import *
 from game.engine.PersonPositionUpdater import *
+from game.engine.PersonVelocityCalculator import *
 from game.engine.PersonZUpdater import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerMovingSwingLogic import *
 from game.engine.PlayerMovingTimeCalculator import *
 from game.engine.PlayerTurnLogic import *
-from game.engine.PlayerVelocityCalculator import *
 from game.engine.PlayerWeaponPositionSwingLogic import *
 from game.engine.PlayerWeaponPositionUpdater import *
 from game.engine.PowerupPositionGenerator import *
@@ -81,13 +81,13 @@ class EngineModule:
         binder.bindSingleton(PersonDoStepLogic, makePersonDoStepLogic)
         binder.bindSingleton(PersonLevelSegmentsUpdater, makePersonLevelSegmentsUpdater)
         binder.bindSingleton(PersonPositionUpdater, makePersonPositionUpdater)
+        binder.bindSingleton(PersonVelocityCalculator, makePersonVelocityCalculator)
         binder.bindSingleton(PersonZUpdater, makePersonZUpdater)
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMovingSwingLogic, makePlayerMovingSwingLogic)
         binder.bindSingleton(PlayerMovingTimeCalculator, makePlayerMovingTimeCalculator)
         binder.bindSingleton(PlayerTurnLogic, makePlayerTurnLogic)
-        binder.bindSingleton(PlayerVelocityCalculator, makePlayerVelocityCalculator)
         binder.bindSingleton(PlayerWeaponPositionSwingLogic, makePlayerWeaponPositionSwingLogic)
         binder.bindSingleton(PlayerWeaponPositionUpdater, makePlayerWeaponPositionUpdater)
         binder.bindSingleton(PowerupPositionGenerator, makePowerupPositionGenerator)
