@@ -59,7 +59,7 @@ class PlayerVelocityCalculator:
 
     def slowdownOnStair(self, player):
         if isinstance(player.currentFloor, Stair):
-            player.velocityValue = Math.min(player.velocityValue, 0.4)
+            player.velocityValue = Math.min(player.velocityValue, 0.05)
 
 
 def makePlayerVelocityCalculator(resolver):

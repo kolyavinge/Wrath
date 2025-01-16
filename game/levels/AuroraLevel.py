@@ -548,7 +548,7 @@ class AuroraLevel(Level):
         self.builder.buildCeiling(Vector3(28, 2.5, 3), 4, 2, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(30, 3.5, 3), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
-        self.builder.buildStair(Vector3(30, 4.5, 0), 2, 2, Vector3(30, 4.5, 0), Vector3(30, 6.5, 2), 12, 2, Material.wallMetal9)
+        self.builder.buildStair(Vector3(30, 4.5, 0), 2, 2, Vector3(30, 4.5, 0), Vector3(30, 6.5, 2), 9, 2, Material.wallMetal9)
         ceiling = Ceiling()
         ceiling.downLeft = Vector3(30, 4.5, 3)
         ceiling.downRight = Vector3(32, 4.5, 3)
@@ -565,7 +565,7 @@ class AuroraLevel(Level):
         self.builder.buildCeiling(Vector3(30, 6.5, 5), 2, 9, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(31, 10, 5), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
-        self.builder.buildStair(Vector3(28, 13, 2), 2, 2, Vector3(30, 13, 2), Vector3(28, 13, 4.2), 12, 2, Material.wallMetal9)
+        self.builder.buildStair(Vector3(28, 13, 2), 2, 2, Vector3(30, 13, 2), Vector3(28, 13, 4.2), 9, 2, Material.wallMetal9)
         ceiling = Ceiling()
         ceiling.downLeft = Vector3(30, 13, 5)
         ceiling.downRight = Vector3(30, 15, 5)
