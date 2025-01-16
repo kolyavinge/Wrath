@@ -7,9 +7,8 @@ class WeaponDelayUpdater:
         self.gameData = gameData
 
     def update(self):
-        personItems = self.gameData.playerItems
-        weapon = personItems.currentWeapon
-        self.updateWeapon(personItems, weapon)
+        for personItems in self.gameData.allPersonItems.values():
+            self.updateWeapon(personItems, personItems.currentWeapon)
 
     def updateWeapon(self, personItems, weapon):
         if weapon.delayRemain > 0:

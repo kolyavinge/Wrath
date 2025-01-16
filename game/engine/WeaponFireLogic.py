@@ -16,13 +16,12 @@ class WeaponFireLogic:
     def process(self):
         personItems = self.gameData.playerItems
         weapon = personItems.currentWeapon
-        self.processWeapon(self.gameData.player, weapon)
+        self.processWeapon(self.gameData.player, self.gameData.playerInputData, weapon)
 
-    def processWeapon(self, person, weapon):
-        if self.gameData.playerInputData.fire:  # TODO person input data
-            if self.canFire(weapon):
-                self.fire(weapon)
-                self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
+    def processWeapon(self, person, personInputData, weapon):
+        if personInputData.fire and self.canFire(weapon):
+            self.fire(weapon)
+            self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
 
     def canFire(self, weapon):
         return weapon.bulletsCount > 0 and weapon.delayRemain == 0
