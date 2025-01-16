@@ -7,7 +7,13 @@ class PlayerPositionUpdater:
     def __init__(self, gameData):
         self.gameData = gameData
 
-    def update(self):
+    def moveNextPosition(self):
+        player = self.gameData.player
+        if player.velocityValue > 0:
+            player.hasMoved = True
+            player.moveNextPositionBy(player.velocityVector)
+
+    def commitNextPosition(self):
         player = self.gameData.player
         player.hasTurned = False
         if player.hasMoved:

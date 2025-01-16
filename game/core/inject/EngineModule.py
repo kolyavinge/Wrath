@@ -30,7 +30,6 @@ from game.engine.PersonLevelSegmentsUpdater import *
 from game.engine.PersonZUpdater import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
-from game.engine.PlayerMoveLogic import *
 from game.engine.PlayerMovingSwingLogic import *
 from game.engine.PlayerMovingTimeCalculator import *
 from game.engine.PlayerPositionUpdater import *
@@ -84,7 +83,6 @@ class EngineModule:
         binder.bindSingleton(PersonZUpdater, makePersonZUpdater)
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
-        binder.bindSingleton(PlayerMoveLogic, makePlayerMoveLogic)
         binder.bindSingleton(PlayerMovingSwingLogic, makePlayerMovingSwingLogic)
         binder.bindSingleton(PlayerMovingTimeCalculator, makePlayerMovingTimeCalculator)
         binder.bindSingleton(PlayerPositionUpdater, makePlayerPositionUpdater)
