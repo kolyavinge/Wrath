@@ -11,55 +11,55 @@ class PlayerVelocityCalculator:
         self.gameData = gameData
 
     def calculate(self):
-        player = self.gameData.player
-        player.prevVelocityValue = player.velocityValue
-        if player.forwardMovingTime > 0 or player.backwardMovingTime > 0:
-            self.processForwardBackward()
-        elif player.leftStepMovingTime > 0 or player.rightStepMovingTime > 0:
-            self.processLeftRightStep()
+        for person in self.gameData.allPerson:
+            self.calculateForPerson(person)
+
+    def calculateForPerson(self, person):
+        person.prevVelocityValue = person.velocityValue
+        if person.forwardMovingTime > 0 or person.backwardMovingTime > 0:
+            self.processForwardBackward(person)
+        elif person.leftStepMovingTime > 0 or person.rightStepMovingTime > 0:
+            self.processLeftRightStep(person)
         else:
-            player.velocityValue = 0
-            player.velocityVector.set(0, 0, 0)
+            person.velocityValue = 0
+            person.velocityVector.set(0, 0, 0)
 
-    def processForwardBackward(self):
-        player = self.gameData.player
-
-        movingTime = player.forwardMovingTime - player.backwardMovingTime
-        player.velocityValue = player.velocityFunc.getValue(Math.abs(movingTime))
-        self.slowdownOnStair(player)
-        player.velocityVector = player.frontNormal.copy()
-        player.velocityVector.setLength(player.velocityValue)
+    def processForwardBackward(self, person):
+        movingTime = person.forwardMovingTime - person.backwardMovingTime
+        person.velocityValue = person.velocityFunc.getValue(Math.abs(movingTime))
+        self.slowdownOnStair(person)
+        person.velocityVector = person.frontNormal.copy()
+        person.velocityVector.setLength(person.velocityValue)
         if movingTime < 0:
-            player.velocityVector.mul(-1)
+            person.velocityVector.mul(-1)
 
-        leftStep = player.leftStepMovingTime > player.rightStepMovingTime
-        rightStep = player.leftStepMovingTime < player.rightStepMovingTime
+        leftStep = person.leftStepMovingTime > person.rightStepMovingTime
+        rightStep = person.leftStepMovingTime < person.rightStepMovingTime
         radians = 0
         if movingTime > 0 and leftStep:
-            radians = player.leftStepMovingTime
+            radians = person.leftStepMovingTime
         elif movingTime > 0 and rightStep:
-            radians = -player.rightStepMovingTime
+            radians = -person.rightStepMovingTime
         elif movingTime < 0 and leftStep:
-            radians = -player.leftStepMovingTime
+            radians = -person.leftStepMovingTime
         elif movingTime < 0 and rightStep:
-            radians = player.rightStepMovingTime
+            radians = person.rightStepMovingTime
 
         if radians != 0:
-            player.velocityVector = Geometry.rotatePoint(player.velocityVector, CommonConstants.zAxis, CommonConstants.axisOrigin, radians)
+            person.velocityVector = Geometry.rotatePoint(person.velocityVector, CommonConstants.zAxis, CommonConstants.axisOrigin, radians)
 
-    def processLeftRightStep(self):
-        player = self.gameData.player
-        movingTime = player.rightStepMovingTime - player.leftStepMovingTime
-        player.velocityValue = player.velocityFunc.getValue(Math.abs(movingTime))
-        self.slowdownOnStair(player)
-        player.velocityVector = player.rightNormal.copy()
-        player.velocityVector.setLength(player.velocityValue)
+    def processLeftRightStep(self, person):
+        movingTime = person.rightStepMovingTime - person.leftStepMovingTime
+        person.velocityValue = person.velocityFunc.getValue(Math.abs(movingTime))
+        self.slowdownOnStair(person)
+        person.velocityVector = person.rightNormal.copy()
+        person.velocityVector.setLength(person.velocityValue)
         if movingTime < 0:
-            player.velocityVector.mul(-1)
+            person.velocityVector.mul(-1)
 
-    def slowdownOnStair(self, player):
-        if isinstance(player.currentFloor, Stair):
-            player.velocityValue = Math.min(player.velocityValue, 0.05)
+    def slowdownOnStair(self, person):
+        if isinstance(person.currentFloor, Stair):
+            person.velocityValue = Math.min(person.velocityValue, 0.05)
 
 
 def makePlayerVelocityCalculator(resolver):
