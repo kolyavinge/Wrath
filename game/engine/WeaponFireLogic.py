@@ -14,9 +14,10 @@ class WeaponFireLogic:
         self.eventManager = eventManager
 
     def process(self):
-        personItems = self.gameData.playerItems
-        weapon = personItems.currentWeapon
-        self.processWeapon(self.gameData.player, self.gameData.playerInputData, weapon)
+        for person, personInputData in self.gameData.allPersonInputData.items():
+            personItems = self.gameData.allPersonItems[person]
+            weapon = personItems.currentWeapon
+            self.processWeapon(person, personInputData, weapon)
 
     def processWeapon(self, person, personInputData, weapon):
         if personInputData.fire and self.canFire(weapon):
