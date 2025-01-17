@@ -26,6 +26,7 @@ from game.engine.LevelSegmentLightAnalyzer import *
 from game.engine.LevelSegmentVisibilityUpdater import *
 from game.engine.LevelValidator import *
 from game.engine.PersonDoStepLogic import *
+from game.engine.PersonInitializer import *
 from game.engine.PersonLevelSegmentsUpdater import *
 from game.engine.PersonMovingTimeCalculator import *
 from game.engine.PersonPositionUpdater import *
@@ -79,6 +80,7 @@ class EngineModule:
         binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
         binder.bindSingleton(LevelValidator, makeLevelValidator)
         binder.bindSingleton(PersonDoStepLogic, makePersonDoStepLogic)
+        binder.bindSingleton(PersonInitializer, makePersonInitializer)
         binder.bindSingleton(PersonLevelSegmentsUpdater, makePersonLevelSegmentsUpdater)
         binder.bindSingleton(PersonMovingTimeCalculator, makePersonMovingTimeCalculator)
         binder.bindSingleton(PersonPositionUpdater, makePersonPositionUpdater)
