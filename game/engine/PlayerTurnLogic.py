@@ -10,66 +10,62 @@ class PlayerTurnLogic:
         self.gameData = gameData
 
     def process(self):
-        inputData = self.gameData.playerInputData
+        for person, inputData in self.gameData.allPersonInputData.items():
+            self.processForPerson(person, inputData)
 
+    def processForPerson(self, person, inputData):
         if inputData.turnLeftRadians > 0:
-            self.turnLeft(inputData.turnLeftRadians)
+            self.turnLeft(person, inputData.turnLeftRadians)
         elif inputData.turnRightRadians > 0:
-            self.turnRight(inputData.turnRightRadians)
+            self.turnRight(person, inputData.turnRightRadians)
 
         if inputData.lookUpRadians > 0:
-            self.lookUp(inputData.lookUpRadians)
+            self.lookUp(person, inputData.lookUpRadians)
         elif inputData.lookDownRadians > 0:
-            self.lookDown(inputData.lookDownRadians)
+            self.lookDown(person, inputData.lookDownRadians)
 
-    def turnLeft(self, radians):
+    def turnLeft(self, person, radians):
         assert radians > 0
-        player = self.gameData.player
-        player.hasTurned = True
-        player.yawRadians = Geometry.normalizeRadians(player.yawRadians + radians)
-        self.calculateDirectionVectors()
+        person.hasTurned = True
+        person.yawRadians = Geometry.normalizeRadians(person.yawRadians + radians)
+        self.calculateDirectionVectors(person)
 
-    def turnRight(self, radians):
+    def turnRight(self, person, radians):
         assert radians > 0
-        player = self.gameData.player
-        player.hasTurned = True
-        player.yawRadians = Geometry.normalizeRadians(player.yawRadians - radians)
-        self.calculateDirectionVectors()
+        person.hasTurned = True
+        person.yawRadians = Geometry.normalizeRadians(person.yawRadians - radians)
+        self.calculateDirectionVectors(person)
 
-    def lookUp(self, radians):
+    def lookUp(self, person, radians):
         assert radians > 0
-        player = self.gameData.player
-        player.hasTurned = True
-        player.pitchRadians = Geometry.normalizeRadians(player.pitchRadians + radians)
-        if player.pitchRadians >= player.maxPitchRadians:
-            player.pitchRadians = player.maxPitchRadians
-        self.calculateDirectionVectors()
+        person.hasTurned = True
+        person.pitchRadians = Geometry.normalizeRadians(person.pitchRadians + radians)
+        if person.pitchRadians >= person.maxPitchRadians:
+            person.pitchRadians = person.maxPitchRadians
+        self.calculateDirectionVectors(person)
 
-    def lookDown(self, radians):
+    def lookDown(self, person, radians):
         assert radians > 0
-        player = self.gameData.player
-        player.hasTurned = True
-        player.pitchRadians = Geometry.normalizeRadians(player.pitchRadians - radians)
-        if player.pitchRadians <= -player.maxPitchRadians:
-            player.pitchRadians = -player.maxPitchRadians
-        self.calculateDirectionVectors()
+        person.hasTurned = True
+        person.pitchRadians = Geometry.normalizeRadians(person.pitchRadians - radians)
+        if person.pitchRadians <= -person.maxPitchRadians:
+            person.pitchRadians = -person.maxPitchRadians
+        self.calculateDirectionVectors(person)
 
-    def orientByFrontNormal(self, frontNormal):
-        player = self.gameData.player
-        radians = Math.arccos(player.frontNormal.dotProduct(frontNormal))
-        vectorProduct = player.frontNormal.copy()
+    def orientByFrontNormal(self, person, frontNormal):
+        radians = Math.arccos(person.frontNormal.dotProduct(frontNormal))
+        vectorProduct = person.frontNormal.copy()
         vectorProduct.vectorProduct(frontNormal)
         if vectorProduct.z < 0:
             radians *= -1
-        player.yawRadians = radians
-        self.calculateDirectionVectors()
+        person.yawRadians = radians
+        self.calculateDirectionVectors(person)
 
-    def calculateDirectionVectors(self):
-        player = self.gameData.player
-        player.frontNormal = Geometry.rotatePoint(CommonConstants.yAxis, CommonConstants.zAxis, CommonConstants.axisOrigin, player.yawRadians)
-        player.rightNormal = Geometry.rotatePoint(player.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, -Math.piHalf)
-        player.lookDirection = Geometry.rotatePoint(player.frontNormal, player.rightNormal, CommonConstants.axisOrigin, player.pitchRadians)
-        player.lookDirectionNormal = Geometry.rotatePoint(player.lookDirection, player.rightNormal, CommonConstants.axisOrigin, Math.piHalf)
+    def calculateDirectionVectors(self, person):
+        person.frontNormal = Geometry.rotatePoint(CommonConstants.yAxis, CommonConstants.zAxis, CommonConstants.axisOrigin, person.yawRadians)
+        person.rightNormal = Geometry.rotatePoint(person.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, -Math.piHalf)
+        person.lookDirection = Geometry.rotatePoint(person.frontNormal, person.rightNormal, CommonConstants.axisOrigin, person.pitchRadians)
+        person.lookDirectionNormal = Geometry.rotatePoint(person.lookDirection, person.rightNormal, CommonConstants.axisOrigin, Math.piHalf)
 
 
 def makePlayerTurnLogic(resolver):

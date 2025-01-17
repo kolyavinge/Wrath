@@ -8,29 +8,31 @@ class PlayerMovingTimeCalculator:
         self.gameData = gameData
 
     def calculate(self):
-        inputData = self.gameData.playerInputData
-        player = self.gameData.player
-        playerStand = player.state == PersonState.standing
+        for person, inputData in self.gameData.allPersonInputData.items():
+            self.calculateForPerson(person, inputData)
 
-        if inputData.goForward and playerStand:
-            player.forwardMovingTime = self.limitTo(player.forwardMovingTime + player.movingTimeDelta, 1.25)
-        else:
-            player.forwardMovingTime = self.limitBy(player.forwardMovingTime * 0.8, 0.1, 0)
+    def calculateForPerson(self, person, inputData):
+        personStand = person.state == PersonState.standing
 
-        if inputData.goBackward and playerStand:
-            player.backwardMovingTime = self.limitTo(player.backwardMovingTime + player.movingTimeDelta, 0.5)
+        if inputData.goForward and personStand:
+            person.forwardMovingTime = self.limitTo(person.forwardMovingTime + person.movingTimeDelta, 1.25)
         else:
-            player.backwardMovingTime = self.limitBy(player.backwardMovingTime * 0.8, 0.1, 0)
+            person.forwardMovingTime = self.limitBy(person.forwardMovingTime * 0.8, 0.1, 0)
 
-        if inputData.stepLeft and playerStand:
-            player.leftStepMovingTime = self.limitTo(player.leftStepMovingTime + player.movingTimeDelta, 0.5)
+        if inputData.goBackward and personStand:
+            person.backwardMovingTime = self.limitTo(person.backwardMovingTime + person.movingTimeDelta, 0.5)
         else:
-            player.leftStepMovingTime = self.limitBy(player.leftStepMovingTime * 0.8, 0.1, 0)
+            person.backwardMovingTime = self.limitBy(person.backwardMovingTime * 0.8, 0.1, 0)
 
-        if inputData.stepRight and playerStand:
-            player.rightStepMovingTime = self.limitTo(player.rightStepMovingTime + player.movingTimeDelta, 0.5)
+        if inputData.stepLeft and personStand:
+            person.leftStepMovingTime = self.limitTo(person.leftStepMovingTime + person.movingTimeDelta, 0.5)
         else:
-            player.rightStepMovingTime = self.limitBy(player.rightStepMovingTime * 0.8, 0.1, 0)
+            person.leftStepMovingTime = self.limitBy(person.leftStepMovingTime * 0.8, 0.1, 0)
+
+        if inputData.stepRight and personStand:
+            person.rightStepMovingTime = self.limitTo(person.rightStepMovingTime + person.movingTimeDelta, 0.5)
+        else:
+            person.rightStepMovingTime = self.limitBy(person.rightStepMovingTime * 0.8, 0.1, 0)
 
     def limitTo(self, value, maxValue):
         if value > maxValue:

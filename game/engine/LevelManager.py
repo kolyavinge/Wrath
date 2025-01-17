@@ -56,7 +56,7 @@ class LevelManager:
         self.joinLineAnalyzer.analyzeJoinLines(level, self.gameData.visibilityTree)
         self.levelValidator.validate(level, self.gameData.visibilityTree)
         self.lightAnalyzer.analyzeLights(level, self.gameData.visibilityTree)
-        self.playerTurnLogic.orientByFrontNormal(level.playerFrontNormal)
+        self.playerTurnLogic.orientByFrontNormal(self.gameData.player, level.playerFrontNormal)
         self.gameData.player.moveNextPositionTo(level.playerPosition)
         self.gameData.player.commitNextPosition()
         self.playerLevelSegmentsUpdater.update()
