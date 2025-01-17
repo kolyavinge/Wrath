@@ -1,5 +1,6 @@
 import time
 
+from game.engine.ai.EnemyAILogic import EnemyAILogic
 from game.engine.BackgroundVisibilityDetector import BackgroundVisibilityDetector
 from game.engine.BulletMoveLogic import BulletMoveLogic
 from game.engine.BulletTraceUpdater import BulletTraceUpdater
@@ -59,6 +60,7 @@ class GameUpdater:
         powerupUpdater,
         weaponFlashUpdater,
         bulletTraceUpdater,
+        enemyAILogic,
         # event listeners
         weaponSelector,
     ):
@@ -88,6 +90,7 @@ class GameUpdater:
         self.powerupUpdater = powerupUpdater
         self.weaponFlashUpdater = weaponFlashUpdater
         self.bulletTraceUpdater = bulletTraceUpdater
+        self.enemyAILogic = enemyAILogic
 
     def update(self):
         # start = time.time()
@@ -120,6 +123,7 @@ class GameUpdater:
         self.powerupUpdater.generateNew()
         self.weaponFlashUpdater.update()
         self.bulletTraceUpdater.update()
+        self.enemyAILogic.apply()
 
         # end = time.time()
         # print(f"Game updated {end-start:.8f}")
@@ -153,5 +157,6 @@ def makeGameUpdater(resolver):
         resolver.resolve(PowerupUpdater),
         resolver.resolve(WeaponFlashUpdater),
         resolver.resolve(BulletTraceUpdater),
+        resolver.resolve(EnemyAILogic),
         resolver.resolve(WeaponSelector),
     )
