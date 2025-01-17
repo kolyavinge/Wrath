@@ -4,7 +4,7 @@ from game.engine.GameData import GameData
 from game.lib.Math import Math
 
 
-class PlayerTurnLogic:
+class PersonTurnLogic:
 
     def __init__(self, gameData):
         self.gameData = gameData
@@ -68,5 +68,5 @@ class PlayerTurnLogic:
         person.lookDirectionNormal = Geometry.rotatePoint(person.lookDirection, person.rightNormal, CommonConstants.axisOrigin, Math.piHalf)
 
 
-def makePlayerTurnLogic(resolver):
-    return PlayerTurnLogic(resolver.resolve(GameData))
+def makePersonTurnLogic(resolver):
+    return PersonTurnLogic(resolver.resolve(GameData))

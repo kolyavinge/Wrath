@@ -8,8 +8,8 @@ from game.engine.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyze
 from game.engine.LevelSegmentLightAnalyzer import LevelSegmentLightAnalyzer
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.LevelValidator import LevelValidator
+from game.engine.PersonTurnLogic import PersonTurnLogic
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
-from game.engine.PlayerTurnLogic import PlayerTurnLogic
 from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.WeaponFlashUpdater import WeaponFlashUpdater
 
@@ -24,7 +24,7 @@ class LevelManager:
         joinLineAnalyzer,
         lightAnalyzer,
         levelValidator,
-        playerTurnLogic,
+        personTurnLogic,
         playerLevelSegmentsUpdater,
         enemyLevelSegmentsUpdater,
         levelSegmentVisibilityUpdater,
@@ -39,7 +39,7 @@ class LevelManager:
         self.joinLineAnalyzer = joinLineAnalyzer
         self.lightAnalyzer = lightAnalyzer
         self.levelValidator = levelValidator
-        self.playerTurnLogic = playerTurnLogic
+        self.personTurnLogic = personTurnLogic
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
@@ -56,7 +56,7 @@ class LevelManager:
         self.joinLineAnalyzer.analyzeJoinLines(level, self.gameData.visibilityTree)
         self.levelValidator.validate(level, self.gameData.visibilityTree)
         self.lightAnalyzer.analyzeLights(level, self.gameData.visibilityTree)
-        self.playerTurnLogic.orientByFrontNormal(self.gameData.player, level.playerFrontNormal)
+        self.personTurnLogic.orientByFrontNormal(self.gameData.player, level.playerFrontNormal)
         self.gameData.player.moveNextPositionTo(level.playerPosition)
         self.gameData.player.commitNextPosition()
         self.playerLevelSegmentsUpdater.update()
@@ -76,7 +76,7 @@ def makeLevelManager(resolver):
         resolver.resolve(LevelSegmentJoinLineAnalyzer),
         resolver.resolve(LevelSegmentLightAnalyzer),
         resolver.resolve(LevelValidator),
-        resolver.resolve(PlayerTurnLogic),
+        resolver.resolve(PersonTurnLogic),
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(EnemyLevelSegmentsUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),

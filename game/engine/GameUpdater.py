@@ -12,13 +12,13 @@ from game.engine.cm.PowerupCollisionProcessor import PowerupCollisionProcessor
 from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.PersonDoStepLogic import PersonDoStepLogic
+from game.engine.PersonMovingTimeCalculator import PersonMovingTimeCalculator
 from game.engine.PersonPositionUpdater import PersonPositionUpdater
+from game.engine.PersonTurnLogic import PersonTurnLogic
 from game.engine.PersonVelocityCalculator import PersonVelocityCalculator
 from game.engine.PersonZUpdater import PersonZUpdater
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerMovingSwingLogic import PlayerMovingSwingLogic
-from game.engine.PlayerMovingTimeCalculator import PlayerMovingTimeCalculator
-from game.engine.PlayerTurnLogic import PlayerTurnLogic
 from game.engine.PlayerWeaponPositionSwingLogic import PlayerWeaponPositionSwingLogic
 from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.PowerupUpdater import PowerupUpdater
@@ -33,8 +33,8 @@ class GameUpdater:
 
     def __init__(
         self,
-        playerTurnLogic,
-        playerMovingTimeCalculator,
+        personTurnLogic,
+        personMovingTimeCalculator,
         personVelocityCalculator,
         personZUpdater,
         playerWallCollisionDetector,
@@ -62,8 +62,8 @@ class GameUpdater:
         # event listeners
         weaponSelector,
     ):
-        self.playerTurnLogic = playerTurnLogic
-        self.playerMovingTimeCalculator = playerMovingTimeCalculator
+        self.personTurnLogic = personTurnLogic
+        self.personMovingTimeCalculator = personMovingTimeCalculator
         self.personVelocityCalculator = personVelocityCalculator
         self.personZUpdater = personZUpdater
         self.playerWallCollisionDetector = playerWallCollisionDetector
@@ -92,8 +92,8 @@ class GameUpdater:
     def update(self):
         # start = time.time()
 
-        self.playerTurnLogic.process()
-        self.playerMovingTimeCalculator.calculate()
+        self.personTurnLogic.process()
+        self.personMovingTimeCalculator.calculate()
         self.personVelocityCalculator.calculate()
         self.personPositionUpdater.moveNextPosition()
         self.playerWallCollisionDetector.detectCollisions()
@@ -127,8 +127,8 @@ class GameUpdater:
 
 def makeGameUpdater(resolver):
     return GameUpdater(
-        resolver.resolve(PlayerTurnLogic),
-        resolver.resolve(PlayerMovingTimeCalculator),
+        resolver.resolve(PersonTurnLogic),
+        resolver.resolve(PersonMovingTimeCalculator),
         resolver.resolve(PersonVelocityCalculator),
         resolver.resolve(PersonZUpdater),
         resolver.resolve(PlayerWallCollisionDetector),

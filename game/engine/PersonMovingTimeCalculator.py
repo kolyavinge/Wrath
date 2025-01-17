@@ -2,7 +2,7 @@ from game.engine.GameData import GameData
 from game.model.person.PersonState import PersonState
 
 
-class PlayerMovingTimeCalculator:
+class PersonMovingTimeCalculator:
 
     def __init__(self, gameData):
         self.gameData = gameData
@@ -47,5 +47,5 @@ class PlayerMovingTimeCalculator:
             return value
 
 
-def makePlayerMovingTimeCalculator(resolver):
-    return PlayerMovingTimeCalculator(resolver.resolve(GameData))
+def makePersonMovingTimeCalculator(resolver):
+    return PersonMovingTimeCalculator(resolver.resolve(GameData))
