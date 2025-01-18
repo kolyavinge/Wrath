@@ -3,7 +3,14 @@ from game.lib.Numeric import Numeric
 
 class PlaneCollisionDetector:
 
-    def getCollisionPointOrNone(self, startPoint, endPoint, basePoint, frontNormal):
+    def getRectPlaneCollisionPointOrNone(self, startPoint, endPoint, rectPlane, eps):
+        collisionPoint = self.getPlaneCollisionPointOrNone(startPoint, endPoint, rectPlane.downLeft, rectPlane.normal)
+        if collisionPoint is not None and rectPlane.containsPoint(collisionPoint, eps):
+            return collisionPoint
+        else:
+            return None
+
+    def getPlaneCollisionPointOrNone(self, startPoint, endPoint, basePoint, frontNormal):
         if basePoint.getDirectionTo(endPoint).dotProduct(frontNormal) > 0:
             return None
 

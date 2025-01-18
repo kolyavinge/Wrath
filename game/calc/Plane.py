@@ -13,7 +13,7 @@ class Plane:
         self.c = normal.z
         self.d = -normal.dotProduct(point)
 
-    def containsPoint(self, point, eps=0.0001):
+    def containsPoint(self, point, eps):
         v = self.a * point.x + self.b * point.y + self.c * point.z + self.d
         return Numeric.floatEquals(v, 0, eps)
 
@@ -34,6 +34,27 @@ class Plane:
 
     def getNormal(self):
         return Vector3(self.a, self.b, self.c)
+
+    def getProjectedPoint(self, pointOutOfPlane):
+        x = self.getX(pointOutOfPlane.y, pointOutOfPlane.z)
+        if x is not None:
+            return Vector3(x, pointOutOfPlane.y, pointOutOfPlane.z)
+
+        y = self.getY(pointOutOfPlane.x, pointOutOfPlane.z)
+        if y is not None:
+            return Vector3(pointOutOfPlane.x, y, pointOutOfPlane.z)
+
+        z = self.getZ(pointOutOfPlane.x, pointOutOfPlane.y)
+        assert z is not None
+        return Vector3(pointOutOfPlane.x, pointOutOfPlane.y, z)
+
+    def getNearestPointOnFront(self, point):
+        projected = self.getProjectedPoint(point)
+        frontNormal = self.normal.copy()
+        frontNormal.setLength(0.01)
+        projected.add(frontNormal)
+
+        return projected
 
     def getAnyVector(self):
         a0 = 0

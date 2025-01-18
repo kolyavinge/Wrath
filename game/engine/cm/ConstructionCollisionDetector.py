@@ -11,11 +11,9 @@ class ConstructionCollisionDetector:
         resultCollisionPoint = None
         nearestLength = CommonConstants.maxLevelSize
         for construction in levelSegment.allConstructions:
-            collisionPoint = self.planeCollisionDetector.getCollisionPointOrNone(
-                startPoint, endPoint, construction.downLeft, construction.frontNormal
-            )
-            if collisionPoint is not None and construction.containsPoint(collisionPoint):
-                collisionPoint = construction.getNearestPointOnFront(collisionPoint)
+            collisionPoint = self.planeCollisionDetector.getRectPlaneCollisionPointOrNone(startPoint, endPoint, construction.plane, 0.1)
+            if collisionPoint is not None:
+                collisionPoint = construction.plane.getNearestPointOnFront(collisionPoint)
                 length = startPoint.getLengthTo(collisionPoint)
                 if length < nearestLength:
                     resultCollisionPoint = (collisionPoint, construction.frontNormal)

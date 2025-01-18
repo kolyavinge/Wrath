@@ -15,7 +15,7 @@ class RectPlane(Plane):
         self.upRight = upRight
         self.calculateSideNormals()
 
-    def containsPoint(self, point, eps=0.0001):
+    def containsPoint(self, point, eps):
         return super().containsPoint(point, eps) and (
             self.leftSideNormal.dotProduct(self.downLeft.getDirectionTo(point)) >= 0
             and self.rightSideNormal.dotProduct(self.downRight.getDirectionTo(point)) >= 0
