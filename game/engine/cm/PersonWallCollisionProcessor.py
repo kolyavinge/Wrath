@@ -12,7 +12,7 @@ class PersonWallCollisionProcessor:
         self.gameData = gameData
         self.personWallCollisionDetector = personWallCollisionDetector
 
-    def processCollisions(self):
+    def process(self):
         for person in self.gameData.allPerson:
             self.processPersonCollisions(person)
 
