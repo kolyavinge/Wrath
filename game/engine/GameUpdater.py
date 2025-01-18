@@ -7,7 +7,6 @@ from game.engine.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.BulletUpdater import BulletUpdater
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.BulletCollisionProcessor import BulletCollisionProcessor
-from game.engine.cm.PlayerWallCollisionDetector import PlayerWallCollisionDetector
 from game.engine.cm.PlayerWallCollisionProcessor import PlayerWallCollisionProcessor
 from game.engine.cm.PowerupCollisionProcessor import PowerupCollisionProcessor
 from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
@@ -38,7 +37,6 @@ class GameUpdater:
         personMovingTimeCalculator,
         personVelocityCalculator,
         personZUpdater,
-        playerWallCollisionDetector,
         playerWallCollisionProcessor,
         personDoStepLogic,
         playerLevelSegmentsUpdater,
@@ -68,7 +66,6 @@ class GameUpdater:
         self.personMovingTimeCalculator = personMovingTimeCalculator
         self.personVelocityCalculator = personVelocityCalculator
         self.personZUpdater = personZUpdater
-        self.playerWallCollisionDetector = playerWallCollisionDetector
         self.playerWallCollisionProcessor = playerWallCollisionProcessor
         self.personDoStepLogic = personDoStepLogic
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
@@ -99,7 +96,6 @@ class GameUpdater:
         self.personMovingTimeCalculator.calculate()
         self.personVelocityCalculator.calculate()
         self.personPositionUpdater.moveNextPosition()
-        self.playerWallCollisionDetector.detectCollisions()
         self.playerWallCollisionProcessor.processCollisions()
         self.personZUpdater.updateIfMoved()
         self.personDoStepLogic.updateDoStep()
@@ -135,7 +131,6 @@ def makeGameUpdater(resolver):
         resolver.resolve(PersonMovingTimeCalculator),
         resolver.resolve(PersonVelocityCalculator),
         resolver.resolve(PersonZUpdater),
-        resolver.resolve(PlayerWallCollisionDetector),
         resolver.resolve(PlayerWallCollisionProcessor),
         resolver.resolve(PersonDoStepLogic),
         resolver.resolve(PlayerLevelSegmentsUpdater),

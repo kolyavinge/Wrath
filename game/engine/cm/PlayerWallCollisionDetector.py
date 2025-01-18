@@ -9,24 +9,26 @@ class PlayerWallCollisionDetector:
     def __init__(self, gameData):
         self.gameData = gameData
 
-    def detectCollisions(self):
-        self.gameData.playerCollidedWalls = []
-
+    def getCollidedWalls(self):
         player = self.gameData.player
         if not player.hasMoved:
-            return
+            return []
+
+        collidedWalls = []
 
         for levelSegment in player.collisionLevelSegments:
             for wall in levelSegment.horizontalVerticalWalls:
                 if self.hasCollision(player, wall):
-                    if wall not in self.gameData.playerCollidedWalls:
-                        self.gameData.playerCollidedWalls.append(wall)
+                    if wall not in collidedWalls:
+                        collidedWalls.append(wall)
 
         for levelSegment in player.collisionLevelSegments:
             for wall in levelSegment.diagonalWalls:
                 if self.hasCollision(player, wall):
-                    if wall not in self.gameData.playerCollidedWalls:
-                        self.gameData.playerCollidedWalls.append(wall)
+                    if wall not in collidedWalls:
+                        collidedWalls.append(wall)
+
+        return collidedWalls
 
     def hasCollision(self, player, wall):
         currentBorder = player.currentBorder.bottom

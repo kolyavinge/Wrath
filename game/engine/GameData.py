@@ -34,7 +34,6 @@ class GameData:
         self.allPersonInputData = {}
         self.allPersonInputData[self.player] = self.playerInputData
         self.playerTorch = Torch()
-        self.playerCollidedWalls = []
         self.bullets = []
         self.bulletTraces = []
         self.powerups = []

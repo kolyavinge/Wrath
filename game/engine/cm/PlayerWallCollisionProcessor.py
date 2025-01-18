@@ -13,14 +13,15 @@ class PlayerWallCollisionProcessor:
         self.playerWallCollisionDetector = playerWallCollisionDetector
 
     def processCollisions(self):
-        if len(self.gameData.playerCollidedWalls) == 0:
+        collidedWalls = self.playerWallCollisionDetector.getCollidedWalls()
+        if len(collidedWalls) == 0:
             return
 
-        self.processWall(self.gameData.playerCollidedWalls[0])
+        self.processWall(collidedWalls[0])
 
         player = self.gameData.player
-        for i in range(1, len(self.gameData.playerCollidedWalls)):
-            wall = self.gameData.playerCollidedWalls[i]
+        for i in range(1, len(collidedWalls)):
+            wall = collidedWalls[i]
             if self.playerWallCollisionDetector.hasCollision(player, wall):
                 self.processWall(wall)
 
