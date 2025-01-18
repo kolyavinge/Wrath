@@ -6,7 +6,7 @@ from game.lib.Math import Math
 from game.model.Orientation import Orientation
 
 
-class PlayerWallCollisionProcessor:
+class PersonWallCollisionProcessor:
 
     def __init__(self, gameData, personWallCollisionDetector):
         self.gameData = gameData
@@ -48,5 +48,5 @@ class PlayerWallCollisionProcessor:
             raise Exception("Wrong wall orientation.")
 
 
-def makePlayerWallCollisionProcessor(resolver):
-    return PlayerWallCollisionProcessor(resolver.resolve(GameData), resolver.resolve(PersonWallCollisionDetector))
+def makePersonWallCollisionProcessor(resolver):
+    return PersonWallCollisionProcessor(resolver.resolve(GameData), resolver.resolve(PersonWallCollisionDetector))

@@ -12,8 +12,8 @@ from game.engine.cm.BulletCollisionDetector import *
 from game.engine.cm.BulletCollisionProcessor import *
 from game.engine.cm.ConstructionCollisionDetector import *
 from game.engine.cm.PersonWallCollisionDetector import *
+from game.engine.cm.PersonWallCollisionProcessor import *
 from game.engine.cm.PlaneCollisionDetector import *
-from game.engine.cm.PlayerWallCollisionProcessor import *
 from game.engine.cm.PowerupCollisionDetector import *
 from game.engine.cm.PowerupCollisionProcessor import *
 from game.engine.EnemyLevelSegmentsUpdater import *
@@ -67,8 +67,8 @@ class EngineModule:
         binder.bindSingleton(BulletCollisionProcessor, makeBulletCollisionProcessor)
         binder.bindSingleton(ConstructionCollisionDetector, makeConstructionCollisionDetector)
         binder.bindSingleton(PersonWallCollisionDetector, makePersonWallCollisionDetector)
+        binder.bindSingleton(PersonWallCollisionProcessor, makePersonWallCollisionProcessor)
         binder.bindSingleton(PlaneCollisionDetector, makePlaneCollisionDetector)
-        binder.bindSingleton(PlayerWallCollisionProcessor, makePlayerWallCollisionProcessor)
         binder.bindSingleton(PowerupCollisionDetector, makePowerupCollisionDetector)
         binder.bindSingleton(PowerupCollisionProcessor, makePowerupCollisionProcessor)
         binder.bindSingleton(EnemyLevelSegmentsUpdater, makeEnemyLevelSegmentsUpdater)
