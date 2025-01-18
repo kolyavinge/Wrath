@@ -3,7 +3,7 @@ from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 
 
-class BulletMoveLogic:
+class BulletPositionUpdater:
 
     def __init__(self, gameData, traversal):
         self.gameData = gameData
@@ -25,5 +25,5 @@ class BulletMoveLogic:
                 bullet.currentVisibilityLevelSegment.bullets.remove(bullet)
 
 
-def makeBulletMoveLogic(resolver):
-    return BulletMoveLogic(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal))
+def makeBulletPositionUpdater(resolver):
+    return BulletPositionUpdater(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal))

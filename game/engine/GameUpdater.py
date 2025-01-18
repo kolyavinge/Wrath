@@ -2,7 +2,7 @@ import time
 
 from game.engine.ai.EnemyAILogic import EnemyAILogic
 from game.engine.BackgroundVisibilityDetector import BackgroundVisibilityDetector
-from game.engine.BulletMoveLogic import BulletMoveLogic
+from game.engine.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.BulletUpdater import BulletUpdater
 from game.engine.CameraUpdater import CameraUpdater
@@ -51,7 +51,7 @@ class GameUpdater:
         weaponFireLogic,
         playerWeaponPositionSwingLogic,
         bulletUpdater,
-        bulletMoveLogic,
+        bulletPositionUpdater,
         bulletCollisionProcessor,
         powerupCollisionProcessor,
         torchUpdater,
@@ -80,7 +80,7 @@ class GameUpdater:
         self.weaponFireLogic = weaponFireLogic
         self.playerWeaponPositionSwingLogic = playerWeaponPositionSwingLogic
         self.bulletUpdater = bulletUpdater
-        self.bulletMoveLogic = bulletMoveLogic
+        self.bulletPositionUpdater = bulletPositionUpdater
         self.bulletCollisionProcessor = bulletCollisionProcessor
         self.powerupCollisionProcessor = powerupCollisionProcessor
         self.torchUpdater = torchUpdater
@@ -111,7 +111,7 @@ class GameUpdater:
         self.weaponFireLogic.process()
         self.playerWeaponPositionSwingLogic.updateSwing()
         self.bulletUpdater.update()
-        self.bulletMoveLogic.process()
+        self.bulletPositionUpdater.process()
         self.bulletCollisionProcessor.process()
         self.powerupCollisionProcessor.process()
         self.torchUpdater.update()
@@ -145,7 +145,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(WeaponFireLogic),
         resolver.resolve(PlayerWeaponPositionSwingLogic),
         resolver.resolve(BulletUpdater),
-        resolver.resolve(BulletMoveLogic),
+        resolver.resolve(BulletPositionUpdater),
         resolver.resolve(BulletCollisionProcessor),
         resolver.resolve(PowerupCollisionProcessor),
         resolver.resolve(TorchUpdater),

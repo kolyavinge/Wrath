@@ -4,7 +4,7 @@ from game.engine.BackgroundVisibilityDetector import *
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
 from game.engine.BulletHoleFactory import *
-from game.engine.BulletMoveLogic import *
+from game.engine.BulletPositionUpdater import *
 from game.engine.BulletTraceUpdater import *
 from game.engine.BulletUpdater import *
 from game.engine.CameraUpdater import *
@@ -59,7 +59,7 @@ class EngineModule:
         binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)
         binder.bindSingleton(BulletHoleFactory, makeBulletHoleFactory)
-        binder.bindSingleton(BulletMoveLogic, makeBulletMoveLogic)
+        binder.bindSingleton(BulletPositionUpdater, makeBulletPositionUpdater)
         binder.bindSingleton(BulletTraceUpdater, makeBulletTraceUpdater)
         binder.bindSingleton(BulletUpdater, makeBulletUpdater)
         binder.bindSingleton(CameraUpdater, makeCameraUpdater)
