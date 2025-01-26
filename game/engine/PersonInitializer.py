@@ -15,6 +15,7 @@ class PersonInitializer:
     def init(self):
         self.initPlayer()
         self.initEnemies()
+        self.initAllPersonPairs()
 
     def initPlayer(self):
         level = self.gameData.level
@@ -23,7 +24,7 @@ class PersonInitializer:
         self.gameData.player.commitNextPosition()
 
     def initEnemies(self):
-        self.initEnemy(Vector3(16, 13.5, 0))
+        self.initEnemy(Vector3(18, 13.5, 0))
 
     def initEnemy(self, position):
         enemy = Enemy()
@@ -36,6 +37,13 @@ class PersonInitializer:
         self.gameData.enemyInputData[enemy] = PersonInputData()
         self.gameData.allPersonItems[enemy] = self.gameData.enemyItems[enemy]
         self.gameData.allPersonInputData[enemy] = self.gameData.enemyInputData[enemy]
+
+    def initAllPersonPairs(self):
+        for i in range(0, len(self.gameData.allPerson) - 1):
+            for j in range(i + 1, len(self.gameData.allPerson)):
+                person1 = self.gameData.allPerson[i]
+                person2 = self.gameData.allPerson[j]
+                self.gameData.allPersonPairs.append((person1, person2))
 
 
 def makePersonInitializer(resolver):

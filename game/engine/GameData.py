@@ -29,6 +29,7 @@ class GameData:
         self.enemyItems = {}
         self.enemyInputData = {}
         self.allPerson = [self.player]
+        self.allPersonPairs = []
         self.allPersonItems = {}
         self.allPersonItems[self.player] = self.playerItems
         self.allPersonInputData = {}
