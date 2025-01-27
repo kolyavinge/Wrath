@@ -15,6 +15,10 @@ class Box3d:
         self.top.downRight.z += self.zLength
         self.top.upLeft.z += self.zLength
         self.top.upRight.z += self.zLength
+        self.top.middleLeft.z += self.zLength
+        self.top.middleRight.z += self.zLength
+        self.top.middleTop.z += self.zLength
+        self.top.middleBottom.z += self.zLength
 
     def copy(self):
         copy = Box3d(self.bottom.xLength, self.bottom.yLength, self.zLength)
