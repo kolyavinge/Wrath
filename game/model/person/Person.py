@@ -64,7 +64,16 @@ class Person:
         self.currentBorder = self.nextBorder.copy()
 
     def addHealth(self, health):
+        if health < 0:
+            raise Exception("health cannot be negative.")
+
         self.health = Math.min(self.health + health, PersonConstants.maxPersonHealth)
+
+    def damage(self, value):
+        if value < 0:
+            raise Exception("value cannot be negative.")
+
+        self.health = Math.max(self.health - value, 0)
 
     def getModelMatrix(self):
         return (
