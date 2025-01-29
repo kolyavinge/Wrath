@@ -1,7 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.RectPlane import RectPlane
 from game.calc.Vector3 import Vector3
-from game.engine.cm.ConstructionCollisionDetector import ConstructionCollisionDetector
 from game.engine.cm.PlaneCollisionDetector import PlaneCollisionDetector
 from game.engine.GameData import GameData
 from game.engine.LevelSegmentItemFinder import LevelSegmentItemFinder
@@ -15,10 +14,9 @@ class BulletCollisionTarget:
 
 class BulletCollisionDetector:
 
-    def __init__(self, gameData, levelSegmentItemFinder, constructionCollisionDetector, planeCollisionDetector):
+    def __init__(self, gameData, levelSegmentItemFinder, planeCollisionDetector):
         self.gameData = gameData
         self.levelSegmentItemFinder = levelSegmentItemFinder
-        self.constructionCollisionDetector = constructionCollisionDetector
         self.planeCollisionDetector = planeCollisionDetector
         self.xNormal = Vector3(1, 0, 0)
         self.yNormal = Vector3(0, 1, 0)
@@ -83,6 +81,5 @@ def makeBulletCollisionDetector(resolver):
     return BulletCollisionDetector(
         resolver.resolve(GameData),
         resolver.resolve(LevelSegmentItemFinder),
-        resolver.resolve(ConstructionCollisionDetector),
         resolver.resolve(PlaneCollisionDetector),
     )
