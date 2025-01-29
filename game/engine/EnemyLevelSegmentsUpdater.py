@@ -25,15 +25,19 @@ class EnemyLevelSegmentsUpdater:
     def removeEnemyFromLevelSegments(self, enemy):
         for segment in enemy.collisionLevelSegments:
             segment.enemies.remove(enemy)
+            segment.allPerson.remove(enemy)
 
         if enemy in enemy.visibilityLevelSegment.enemies:
             enemy.visibilityLevelSegment.enemies.remove(enemy)
+            enemy.visibilityLevelSegment.allPerson.remove(enemy)
 
     def addEnemyToLevelSegments(self, enemy):
         for segment in enemy.collisionLevelSegments:
             segment.enemies.append(enemy)
+            segment.allPerson.append(enemy)
 
         enemy.visibilityLevelSegment.enemies.append(enemy)
+        enemy.visibilityLevelSegment.allPerson.append(enemy)
 
 
 def makeEnemyLevelSegmentsUpdater(resolver):

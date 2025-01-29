@@ -59,7 +59,7 @@ class BulletCollisionDetector:
     def getPersonCollisionResultOrNone(self, levelSegment, startPoint, endPoint):
         result = None
         nearestLength = CommonConstants.maxLevelSize
-        for person in levelSegment.enemies:
+        for person in levelSegment.allPerson:
             # check two cross planes
             border = person.currentBorder
             plane = RectPlane(self.xNormal, border.bottom.middleBottom, border.bottom.middleTop, border.top.middleBottom, border.top.middleTop)

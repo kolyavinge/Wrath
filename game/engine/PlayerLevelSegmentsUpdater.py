@@ -13,7 +13,19 @@ class PlayerLevelSegmentsUpdater:
             self.update()
 
     def update(self):
+        self.removePlayerFromLevelSegments(self.gameData.player)
         self.personLevelSegmentsUpdater.updatePerson(self.gameData.player)
+        self.addPlayerToLevelSegments(self.gameData.player)
+
+    def removePlayerFromLevelSegments(self, player):
+        for segment in player.collisionLevelSegments:
+            segment.enemies.remove(player)
+            segment.allPerson.remove(player)
+
+    def addPlayerToLevelSegments(self, player):
+        for segment in player.collisionLevelSegments:
+            segment.enemies.append(player)
+            segment.allPerson.append(player)
 
 
 def makePlayerLevelSegmentsUpdater(resolver):
