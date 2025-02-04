@@ -7,16 +7,20 @@ from game.calc.Vector3 import Vector3
 class Camera:
 
     def __init__(self):
-        self.verticalViewDegrees = 45
-        self.verticalViewRadians = Geometry.degreesToRadians(self.verticalViewDegrees)
-        self.horizontalViewRadians = self.verticalViewRadians * CommonConstants.screenAspect
         self.position = Vector3()
         self.lookDirection = Vector3()
         self.viewMatrix = TransformMatrix4()
         self.projectionMatrix = TransformMatrix4()
-        self.projectionMatrix.perspective(
-            self.verticalViewRadians, CommonConstants.screenAspect, CommonConstants.minPerspectiveDepth, CommonConstants.maxPerspectiveDepth
-        )
+
+    def setVerticalViewDegrees(self, verticalViewDegrees):
+        self.verticalViewDegrees = verticalViewDegrees
+        self.verticalViewRadians = Geometry.degreesToRadians(self.verticalViewDegrees)
+        self.horizontalViewRadians = self.verticalViewRadians * CommonConstants.screenAspect
 
     def calculateViewMatrix(self):
         self.viewMatrix.lookAt(self.position, self.lookDirection, CommonConstants.zAxis)
+
+    def calculateProjectionMatrix(self):
+        self.projectionMatrix.perspective(
+            self.verticalViewRadians, CommonConstants.screenAspect, CommonConstants.minPerspectiveDepth, CommonConstants.maxPerspectiveDepth
+        )

@@ -1,16 +1,20 @@
 from game.anx.Events import Events
+from game.engine.AimStateSwitcher import AimStateSwitcher
 from game.engine.GameData import GameData
 from game.input.InputManager import InputManager
 from game.input.Keys import Keys
 from game.lib.EventManager import EventManager
 from game.lib.Math import Math
+from game.model.AimState import SniperAimState
+from game.model.weapon.Sniper import Sniper
 
 
 class PlayerInputManager:
 
-    def __init__(self, gameData, inputManager, eventManager):
+    def __init__(self, gameData, inputManager, aimStateSwitcher, eventManager):
         self.gameData = gameData
         self.inputManager = inputManager
+        self.aimStateSwitcher = aimStateSwitcher
         self.eventManager = eventManager
 
     def processInput(self):
@@ -65,6 +69,17 @@ class PlayerInputManager:
         if mouse.isLeftButtonPressed():
             inputData.fire = True
 
+        if mouse.isRightButtonClicked() and type(self.gameData.playerItems.currentWeapon) == Sniper:
+            self.aimStateSwitcher.switchDefaultOrSniper()
+
+        if mouse.getScrollDelta() != 0 and type(self.gameData.aimState) == SniperAimState:
+            if mouse.getScrollDelta() > 0:
+                self.gameData.aimState.zoomIn()
+            elif mouse.getScrollDelta() < 0:
+                self.gameData.aimState.zoomOut()
+
 
 def makePlayerInputManager(resolver):
-    return PlayerInputManager(resolver.resolve(GameData), resolver.resolve(InputManager), resolver.resolve(EventManager))
+    return PlayerInputManager(
+        resolver.resolve(GameData), resolver.resolve(InputManager), resolver.resolve(AimStateSwitcher), resolver.resolve(EventManager)
+    )

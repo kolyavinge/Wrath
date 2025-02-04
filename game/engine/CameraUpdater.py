@@ -7,14 +7,12 @@ class CameraUpdater:
         self.gameData = gameData
 
     def update(self):
-        self.gameData.camera.position = self.gameData.player.eyePosition
-        self.gameData.camera.lookDirection = self.gameData.player.lookDirection
-        self.gameData.camera.calculateViewMatrix()
-
-    # def updateIfPlayerMoved(self):
-    #     if self.gameData.player.hasMoved or self.gameData.player.hasTurned:
-    #         self.update()
-    #         self.gameData.camera.calculateViewMatrix()
+        camera = self.gameData.camera
+        camera.position = self.gameData.player.eyePosition
+        camera.lookDirection = self.gameData.player.lookDirection
+        camera.calculateViewMatrix()
+        camera.setVerticalViewDegrees(self.gameData.aimState.verticalViewDegrees)
+        camera.calculateProjectionMatrix()
 
 
 def makeCameraUpdater(resolver):

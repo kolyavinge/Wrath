@@ -1,4 +1,5 @@
 from game.engine.bsp.BSPTree import BSPTree
+from game.model.AimState import DefaultAimState
 from game.model.Camera import Camera
 from game.model.light.Torch import Torch
 from game.model.person.PersonInputData import PersonInputData
@@ -39,6 +40,7 @@ class GameData:
         self.bulletTraces = []
         self.powerups = []
         self.camera = Camera()
+        self.aimState = DefaultAimState()
         self.backgroundVisibility = BackgroundVisibilityData()
 
 

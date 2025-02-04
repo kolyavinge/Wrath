@@ -1,4 +1,5 @@
 from game.anx.Events import Events
+from game.engine.AimStateSwitcher import AimStateSwitcher
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
 from game.lib.Query import Query
@@ -12,8 +13,9 @@ from game.model.weapon.Sniper import Sniper
 
 class WeaponSelector:
 
-    def __init__(self, gameData, eventManager):
+    def __init__(self, gameData, aimStateSwitcher, eventManager):
         self.gameData = gameData
+        self.aimStateSwitcher = aimStateSwitcher
         self.weapons = {}
         self.weapons[1] = Pistol
         self.weapons[2] = Rifle
@@ -24,6 +26,7 @@ class WeaponSelector:
         eventManager.attachToEvent(Events.selectWeaponRequested, self.selectWeapon)
 
     def selectWeapon(self, weaponNumber):
+        self.aimStateSwitcher.setToDefaultIfNeeded()
         requestedWeaponType = self.weapons[weaponNumber]
         playerItems = self.gameData.playerItems
         if requestedWeaponType.defaultCount == 1:
@@ -41,4 +44,4 @@ class WeaponSelector:
 
 
 def makeWeaponSelector(resolver):
-    return WeaponSelector(resolver.resolve(GameData), resolver.resolve(EventManager))
+    return WeaponSelector(resolver.resolve(GameData), resolver.resolve(AimStateSwitcher), resolver.resolve(EventManager))
