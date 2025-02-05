@@ -8,6 +8,7 @@ from game.render.ui.GameScreenInitializer import GameScreenInitializer
 from game.render.weapon.BulletTraceRenderer import BulletTraceRenderer
 from game.render.weapon.CrosshairRenderer import CrosshairRenderer
 from game.render.weapon.ShineBulletRenderer import ShineBulletRenderer
+from game.render.weapon.SniperCrosshairRenderer import SniperCrosshairRenderer
 from game.render.weapon.WeaponFlashRenderer import WeaponFlashRenderer
 
 
@@ -23,6 +24,7 @@ class GameScreenRenderer:
         weaponFlashRenderer,
         bulletTraceRenderer,
         crosshairRenderer,
+        sniperCrosshairRenderer,
         eventManager,
     ):
         self.gameScreenInitializer = gameScreenInitializer
@@ -33,6 +35,7 @@ class GameScreenRenderer:
         self.weaponFlashRenderer = weaponFlashRenderer
         self.bulletTraceRenderer = bulletTraceRenderer
         self.crosshairRenderer = crosshairRenderer
+        self.sniperCrosshairRenderer = sniperCrosshairRenderer
         self.renderFunc = self.renderDefaultAimState
         eventManager.attachToEvent(Events.aimStateSwitched, self.onAimStateSwitched)
 
@@ -57,6 +60,7 @@ class GameScreenRenderer:
         self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()
         self.bulletTraceRenderer.render()
+        self.sniperCrosshairRenderer.render()
 
     def onAimStateSwitched(self, aimState):
         if type(aimState) == DefaultAimState:
@@ -77,5 +81,6 @@ def makeGameScreenRenderer(resolver):
         resolver.resolve(WeaponFlashRenderer),
         resolver.resolve(BulletTraceRenderer),
         resolver.resolve(CrosshairRenderer),
+        resolver.resolve(SniperCrosshairRenderer),
         resolver.resolve(EventManager),
     )

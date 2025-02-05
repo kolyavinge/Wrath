@@ -12,7 +12,7 @@ class TextureLoader:
         with Image.open(fullFilePath) as image:
             image = image.transpose(Image.FLIP_TOP_BOTTOM)
             if not Numeric.isPowerOf2(image.width) or not Numeric.isPowerOf2(image.height):
-                warn("Texture size isn't power of two.")
+                warn(f"Texture size '{fullFilePath}' isn't power of two.")
             imageData = image.convert("RGBA").tobytes()
             textureId = glGenTextures(1)
             glBindTexture(GL_TEXTURE_2D, textureId)
