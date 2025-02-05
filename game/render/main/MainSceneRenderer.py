@@ -25,6 +25,7 @@ class MainSceneRenderer:
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
         self.screenQuadVBO = screenQuadVBO
+        self.renderPlayerWeapon = True
         eventManager.attachToEvent(Events.viewportSizeChanged, self.onViewportSizeChanged)
 
     def onViewportSizeChanged(self, size):
@@ -51,7 +52,8 @@ class MainSceneRenderer:
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setMaxDepth(CommonConstants.maxDepth)
         self.levelRenderer.renderLevelSegments(shader)
-        self.playerWeaponRenderer.render(shader)
+        if self.renderPlayerWeapon:
+            self.playerWeaponRenderer.render(shader)
         shader.unuse()
         glDisable(GL_CULL_FACE)
         glDisable(GL_TEXTURE_2D)

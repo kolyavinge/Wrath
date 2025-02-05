@@ -13,3 +13,5 @@ class Events:
     selectWeaponRequested = "selectWeaponRequested"
 
     viewportSizeChanged = "viewportSizeChanged"
+
+    aimStateSwitched = "aimStateSwitched"
