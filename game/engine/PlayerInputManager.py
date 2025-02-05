@@ -55,16 +55,17 @@ class PlayerInputManager:
     def processMouse(self):
         inputData = self.gameData.playerInputData
         mouse = self.inputManager.mouse
+        aimState = self.gameData.aimState
 
         if mouse.dx < 0:
-            inputData.turnLeftRadians = 0.004 * Math.abs(mouse.dx)
+            inputData.turnLeftRadians = aimState.mouseSensibility * Math.abs(mouse.dx)
         elif mouse.dx > 0:
-            inputData.turnRightRadians = 0.004 * Math.abs(mouse.dx)
+            inputData.turnRightRadians = aimState.mouseSensibility * Math.abs(mouse.dx)
 
         if mouse.dy < 0:
-            inputData.lookUpRadians = 0.004 * Math.abs(mouse.dy)
+            inputData.lookUpRadians = aimState.mouseSensibility * Math.abs(mouse.dy)
         elif mouse.dy > 0:
-            inputData.lookDownRadians = 0.004 * Math.abs(mouse.dy)
+            inputData.lookDownRadians = aimState.mouseSensibility * Math.abs(mouse.dy)
 
         if mouse.isLeftButtonPressed():
             inputData.fire = True
@@ -72,11 +73,11 @@ class PlayerInputManager:
         if mouse.isRightButtonClicked() and type(self.gameData.playerItems.currentWeapon) == Sniper:
             self.aimStateSwitcher.switchDefaultOrSniper()
 
-        if mouse.getScrollDelta() != 0 and type(self.gameData.aimState) == SniperAimState:
+        if mouse.getScrollDelta() != 0 and type(aimState) == SniperAimState:
             if mouse.getScrollDelta() > 0:
-                self.gameData.aimState.zoomIn()
+                aimState.zoomIn()
             elif mouse.getScrollDelta() < 0:
-                self.gameData.aimState.zoomOut()
+                aimState.zoomOut()
 
 
 def makePlayerInputManager(resolver):
