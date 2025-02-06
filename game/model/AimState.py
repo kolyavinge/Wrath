@@ -12,10 +12,10 @@ class SniperAimState:
 
     def __init__(self):
         self.verticalViewDegreesMax = 15
-        self.verticalViewDegreesMin = 5
+        self.verticalViewDegreesMin = 2
         self.degreeStep = 2
         self.verticalViewDegrees = self.verticalViewDegreesMax
-        self.mouseSensibility = 0.001
+        self.mouseSensibility = 0.0005
 
     def zoomIn(self):
         self.verticalViewDegrees = Math.max(self.verticalViewDegrees - self.degreeStep, self.verticalViewDegreesMin)

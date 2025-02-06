@@ -74,7 +74,7 @@ class App:
         return (x, y)
 
 
-print("\nProgram start")
+print("\r\nProgram start")
 app = App()
 app.run()
 
