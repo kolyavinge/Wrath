@@ -23,7 +23,7 @@ from game.render.level.LampVBOBuilder import *
 from game.render.level.LevelItemRenderCollection import *
 from game.render.level.LevelItemRenderer import *
 from game.render.level.LevelItemRenderModel3dBuilder import *
-from game.render.level.LevelRenderer import *
+from game.render.level.LevelSegmentRenderer import *
 from game.render.level.ShadowCasterBuilder import *
 from game.render.level.ShadowCasterRenderCollection import *
 from game.render.level.ShadowCasterRenderer import *
@@ -87,7 +87,7 @@ class RenderModule:
         binder.bindSingleton(LevelItemRenderCollection, makeLevelItemRenderCollection)
         binder.bindSingleton(LevelItemRenderer, makeLevelItemRenderer)
         binder.bindSingleton(LevelItemRenderModel3dBuilder, makeLevelItemRenderModel3dBuilder)
-        binder.bindSingleton(LevelRenderer, makeLevelRenderer)
+        binder.bindSingleton(LevelSegmentRenderer, makeLevelSegmentRenderer)
         binder.bindSingleton(ShadowCasterBuilder, makeShadowCasterBuilder)
         binder.bindSingleton(ShadowCasterRenderCollection, makeShadowCasterRenderCollection)
         binder.bindSingleton(ShadowCasterRenderer, makeShadowCasterRenderer)

@@ -9,7 +9,7 @@ from game.render.weapon.BulletHoleRenderer import BulletHoleRenderer
 from game.render.weapon.BulletRenderer import BulletRenderer
 
 
-class LevelRenderer:
+class LevelSegmentRenderer:
 
     def __init__(self, gameData, levelItemRenderer, bulletRenderer, bulletHoleRenderer, powerupRenderer, enemyRenderer, shadowCasterRenderer):
         self.gameData = gameData
@@ -20,7 +20,7 @@ class LevelRenderer:
         self.enemyRenderer = enemyRenderer
         self.shadowCasterRenderer = shadowCasterRenderer
 
-    def renderLevelSegments(self, shader):
+    def render(self, shader):
         for levelSegment in self.gameData.visibleLevelSegments:
             shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerTorch)
             self.levelItemRenderer.render(shader, levelSegment)
@@ -35,8 +35,8 @@ class LevelRenderer:
             self.shadowCasterRenderer.render(levelSegment)
 
 
-def makeLevelRenderer(resolver):
-    return LevelRenderer(
+def makeLevelSegmentRenderer(resolver):
+    return LevelSegmentRenderer(
         resolver.resolve(GameData),
         resolver.resolve(LevelItemRenderer),
         resolver.resolve(BulletRenderer),

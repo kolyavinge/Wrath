@@ -10,7 +10,7 @@ import game.engine.LevelSegmentVisibilityUpdater as LevelSegmentVisibilityUpdate
 import game.engine.PersonLevelSegmentsUpdater as PersonLevelSegmentsUpdater
 from game.gl.ShaderProgram import ShaderProgram
 from game.render.common.MainSceneLightComponentsShaderProgram import *
-from game.render.level.LevelRenderer import LevelRenderer
+from game.render.level.LevelSegmentRenderer import LevelSegmentRenderer
 from game.render.main.MainSceneRenderer import MainSceneRenderer
 
 
@@ -22,7 +22,7 @@ class BenchmarkRunner:
         # lp.add_module(LevelSegmentItemFinder)
         # lp.add_module(BSPTreeTraversal)
         lp.add_module(MainSceneRenderer)
-        lp.add_module(LevelRenderer)
+        lp.add_module(LevelSegmentRenderer)
         lp.add_module(MainSceneLightComponentsShaderProgram)
         lp.add_module(ShaderProgram)
         # lp.add_module(LevelSegmentItemFinder)
