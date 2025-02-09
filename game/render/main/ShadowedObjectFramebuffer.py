@@ -3,7 +3,7 @@ from OpenGL.GL import *
 from game.gl.ext import *
 
 
-class MainSceneFramebuffer:
+class ShadowedObjectFramebuffer:
 
     def __init__(self):
         self.depthBuffer = 0
@@ -38,5 +38,5 @@ class MainSceneFramebuffer:
         glBindTexture(GL_TEXTURE_2D, 0)
 
 
-def makeMainSceneFramebuffer(resolver):
-    return MainSceneFramebuffer()
+def makeShadowedObjectFramebuffer(resolver):
+    return ShadowedObjectFramebuffer()

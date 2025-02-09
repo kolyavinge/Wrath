@@ -46,7 +46,7 @@ class GameScreenRenderer:
         self.renderFunc()
 
     def renderDefaultAimState(self):
-        self.mainSceneRenderer.render()
+        self.mainSceneRenderer.renderDefaultAimState()
         self.backgroundRenderer.render()
         self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()
@@ -55,7 +55,7 @@ class GameScreenRenderer:
         # self.debugRenderer.render()
 
     def renderSniperAimState(self):
-        self.mainSceneRenderer.render()
+        self.mainSceneRenderer.renderSniperAimState()
         self.backgroundRenderer.render()
         self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()
@@ -65,10 +65,8 @@ class GameScreenRenderer:
     def onAimStateSwitched(self, aimState):
         if type(aimState) == DefaultAimState:
             self.renderFunc = self.renderDefaultAimState
-            self.mainSceneRenderer.renderPlayerWeapon = True
         else:
             self.renderFunc = self.renderSniperAimState
-            self.mainSceneRenderer.renderPlayerWeapon = False
 
 
 def makeGameScreenRenderer(resolver):

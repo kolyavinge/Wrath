@@ -29,8 +29,9 @@ from game.render.level.ShadowCasterRenderCollection import *
 from game.render.level.ShadowCasterRenderer import *
 from game.render.level.StairVBOBuilder import *
 from game.render.level.WallVBOBuilder import *
-from game.render.main.MainSceneFramebuffer import *
 from game.render.main.MainSceneRenderer import *
+from game.render.main.ShadowedObjectFramebuffer import *
+from game.render.main.ShadowedObjectRenderer import *
 from game.render.person.EnemyModel3dFactory import *
 from game.render.person.EnemyRenderCollection import *
 from game.render.person.EnemyRenderer import *
@@ -92,8 +93,9 @@ class RenderModule:
         binder.bindSingleton(ShadowCasterRenderer, makeShadowCasterRenderer)
         binder.bindSingleton(StairVBOBuilder, makeStairVBOBuilder)
         binder.bindSingleton(WallVBOBuilder, makeWallVBOBuilder)
-        binder.bindSingleton(MainSceneFramebuffer, makeMainSceneFramebuffer)
         binder.bindSingleton(MainSceneRenderer, makeMainSceneRenderer)
+        binder.bindSingleton(ShadowedObjectFramebuffer, makeShadowedObjectFramebuffer)
+        binder.bindSingleton(ShadowedObjectRenderer, makeShadowedObjectRenderer)
         binder.bindSingleton(EnemyModel3dFactory, makeEnemyModel3dFactory)
         binder.bindSingleton(EnemyRenderCollection, makeEnemyRenderCollection)
         binder.bindSingleton(EnemyRenderer, makeEnemyRenderer)
