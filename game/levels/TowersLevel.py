@@ -29,19 +29,19 @@ class TowersLevel(Level):
 
     def makeLeftTower(self):
         self.builder.buildLight(Vector3(1, 11, 10), 0.5, "mainLight")
-        self.builder.buildFlatFloor(Vector3(0, 10, 0), 40, 40, Material.floorConcrete1)
+        self.builder.buildFloor(Vector3(0, 10, 0), 30, 30, Material.floorConcrete1)
 
     def makeRightTower(self):
         self.builder.buildLight(Vector3(101, 11, 10), 0.5, "mainLight")
-        self.builder.buildFlatFloor(Vector3(100, 10, 0), 40, 40, Material.floorConcrete1)
+        self.builder.buildFloor(Vector3(100, 10, 0), 40, 40, Material.floorConcrete1)
 
     def makePasses(self):
         self.builder.buildLight(Vector3(40, 20, 10), 0.5, "mainLight")
-        self.builder.buildFlatFloor(Vector3(40, 12, 0), 60, 5, Material.floorConcrete1)
+        self.builder.buildFloor(Vector3(30, 12, 0), 50, 5, Material.floorConcrete1)
         self.addPowerupArea(PowerupArea(Vector3(20, 18.5, 0), Vector3(21, 18.5, 0), 1))
 
     def makeJoinLines(self):
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(40, 6, 0), Vector3(40, 26, 0), Vector3(1, 0, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(30, 6, 0), Vector3(30, 26, 0), Vector3(1, 0, 0)))
         self.addJoinLine(LevelSegmentJoinLine(Vector3(100, 6, 0), Vector3(100, 26, 0), Vector3(1, 0, 0)))
 
     def getCollisionSplitPlanes(self):
@@ -49,7 +49,7 @@ class TowersLevel(Level):
             yield sp
 
     def getVisibilitySplitPlanes(self):
-        yield SplitPlane(Vector3(40, 17, 0), Vector3(1, 0, 0))
+        yield SplitPlane(Vector3(30, 17, 0), Vector3(1, 0, 0))
         yield SplitPlane(Vector3(100, 17, 0), Vector3(1, 0, 0))
 
     def setPlayerPosition(self):
