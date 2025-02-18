@@ -141,3 +141,10 @@ class Geometry:
             middlePointLength = middlePoint.getLength()
 
         return middlePoint
+
+    def getNormalVector(base, toRight, toUp):
+        normal = base.getDirectionTo(toRight)
+        normal.vectorProduct(base.getDirectionTo(toUp))
+        normal.normalize()
+
+        return normal

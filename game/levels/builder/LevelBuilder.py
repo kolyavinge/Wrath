@@ -1,3 +1,4 @@
+from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.levels.builder.CeilingBuilder import CeilingBuilder
 from game.levels.builder.WallBuilder import WallBuilder
@@ -63,15 +64,23 @@ class LevelBuilder:
         wall.canCastShadow = True
         self.level.addWall(wall)
 
-    def buildFloor(self, downLeft, xLength, yLength, material):
+    def buildFlatFloor(self, downLeft, xLength, yLength, material):
         floor = Floor()
         floor.downLeft = downLeft
         floor.downRight = Vector3(downLeft.x + xLength, downLeft.y, downLeft.z)
         floor.upLeft = Vector3(downLeft.x, downLeft.y + yLength, downLeft.z)
         floor.upRight = Vector3(downLeft.x + xLength, downLeft.y + yLength, downLeft.z)
-        floor.frontNormal = floor.downLeft.getDirectionTo(floor.downRight)
-        floor.frontNormal.vectorProduct(floor.downLeft.getDirectionTo(floor.upLeft))
-        floor.frontNormal.normalize()
+        floor.frontNormal = Geometry.getNormalVector(floor.downLeft, floor.downRight, floor.upLeft)
+        floor.material = material
+        self.level.addFloor(floor)
+
+    def buildFloor(self, downLeft, downRight, upLeft, upRight, material):
+        floor = Floor()
+        floor.downLeft = downLeft
+        floor.downRight = downRight
+        floor.upLeft = upLeft
+        floor.upRight = upRight
+        floor.frontNormal = Geometry.getNormalVector(floor.downLeft, floor.downRight, floor.upLeft)
         floor.material = material
         self.level.addFloor(floor)
 
@@ -88,36 +97,64 @@ class LevelBuilder:
         stair.material = material
         self.level.addFloor(stair)
 
-    def buildBalcony(self, downLeft, downRight, upLeft, upRight, height, topBottomMaterial, edgeMaterial):
+    def buildSlab(self, downLeft, downRight, upLeft, upRight, height, topBottomMaterial, edgeMaterial):
         floor = Floor()
         floor.downLeft = downLeft
         floor.downRight = downRight
         floor.upLeft = upLeft
         floor.upRight = upRight
         floor.material = topBottomMaterial
-        floor.visualSize = None
         floor.canCastShadow = True
         self.level.addFloor(floor)
 
         ceiling = Ceiling()
-        ceiling.downLeft = downRight.copy()
-        ceiling.downRight = downLeft.copy()
-        ceiling.upLeft = upRight.copy()
-        ceiling.upRight = upLeft.copy()
+        ceiling.downLeft = downLeft.copy()
+        ceiling.downRight = downRight.copy()
+        ceiling.upLeft = upLeft.copy()
+        ceiling.upRight = upRight.copy()
         ceiling.downLeft.z -= height
         ceiling.downRight.z -= height
         ceiling.upLeft.z -= height
         ceiling.upRight.z -= height
         ceiling.material = topBottomMaterial
-        ceiling.visualSize = None
         self.level.addCeiling(ceiling)
+
+        edge = Construction()
+        edge.downLeft = ceiling.downLeft
+        edge.downRight = ceiling.downRight
+        edge.upLeft = floor.downLeft
+        edge.upRight = floor.downRight
+        edge.frontNormal = upLeft.getDirectionTo(downLeft)
+        edge.frontNormal.normalize()
+        edge.material = edgeMaterial
+        self.level.addConstruction(edge)
+
+        edge = Construction()
+        edge.downLeft = ceiling.downRight
+        edge.downRight = ceiling.upRight
+        edge.upLeft = floor.downRight
+        edge.upRight = floor.upRight
+        edge.frontNormal = downLeft.getDirectionTo(downRight)
+        edge.frontNormal.normalize()
+        edge.material = edgeMaterial
+        self.level.addConstruction(edge)
 
         edge = Construction()
         edge.downLeft = ceiling.upLeft
         edge.downRight = ceiling.upRight
-        edge.upLeft = floor.upRight
-        edge.upRight = floor.upLeft
-        edge.frontNormal = downLeft.getDirectionTo(upLeft)
+        edge.upLeft = floor.upLeft
+        edge.upRight = floor.upRight
+        edge.frontNormal = downLeft.getDirectionTo(downRight)
+        edge.frontNormal.normalize()
+        edge.material = edgeMaterial
+        self.level.addConstruction(edge)
+
+        edge = Construction()
+        edge.downLeft = ceiling.upLeft
+        edge.downRight = ceiling.downLeft
+        edge.upLeft = floor.upLeft
+        edge.upRight = floor.downLeft
+        edge.frontNormal = downRight.getDirectionTo(downLeft)
         edge.frontNormal.normalize()
         edge.material = edgeMaterial
         self.level.addConstruction(edge)

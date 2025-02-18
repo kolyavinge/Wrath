@@ -28,6 +28,7 @@ Material.wallMetal8 = Material(MaterialKind.metal)
 Material.wallMetal9 = Material(MaterialKind.metal)
 
 Material.floorConcrete1 = Material(MaterialKind.concrete, 0.2, 0.5, 0.5, 8.0)
+Material.floorMetal1 = Material(MaterialKind.metal, 0.2, 0.5, 0.5, 8.0)
 Material.floorMetal2 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
 Material.floorMetal3 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
 Material.floorMetal4 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
