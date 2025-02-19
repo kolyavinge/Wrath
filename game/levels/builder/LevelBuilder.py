@@ -64,7 +64,7 @@ class LevelBuilder:
         wall.canCastShadow = True
         self.level.addWall(wall)
 
-    def buildFlatFloor(self, downLeft, xLength, yLength, material):
+    def buildFlatFloor(self, downLeft, xLength, yLength, material, visualSize=1):
         floor = Floor()
         floor.downLeft = downLeft
         floor.downRight = Vector3(downLeft.x + xLength, downLeft.y, downLeft.z)
@@ -72,6 +72,7 @@ class LevelBuilder:
         floor.upRight = Vector3(downLeft.x + xLength, downLeft.y + yLength, downLeft.z)
         floor.frontNormal = Geometry.getNormalVector(floor.downLeft, floor.downRight, floor.upLeft)
         floor.material = material
+        floor.visualSize = visualSize
         self.level.addFloor(floor)
 
     def buildFloor(self, downLeft, downRight, upLeft, upRight, material):

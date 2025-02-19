@@ -19,6 +19,7 @@ class TextureCollection:
         self.wallMetal7 = self.textureLoader.load(path + "wallMetal7.jpg")
         self.wallMetal8 = self.textureLoader.load(path + "wallMetal8.jpg")
         self.wallMetal9 = self.textureLoader.load(path + "wallMetal9.jpg")
+        self.rock1 = self.textureLoader.load(path + "rock1.jpg")
         self.floorMetal1 = self.textureLoader.load(path + "floorMetal1.jpg")
         self.floorMetal2 = self.textureLoader.load(path + "floorMetal2.jpg")
         self.floorMetal3 = self.textureLoader.load(path + "floorMetal3.jpg")
