@@ -1,5 +1,4 @@
 from game.levels.AuroraLevel import AuroraLevel
-from game.levels.TestLevel import TestLevel
 from game.levels.TowersLevel import TowersLevel
 
 
