@@ -20,73 +20,80 @@ class TowersLevel(Level):
 
     def __init__(self):
         super().__init__()
-        self.builder = LevelBuilder(self)
-        self.makeMainFloor()
-        self.makeMainLight()
-        self.makeTower()
+        builder = LevelBuilder(self)
+        self.minZ = 2
+        self.makeArea1(builder)
+        self.makeArea2(builder)
+        self.makeArea3(builder)
+        self.makeJoinLines()
         self.setPlayerPosition()
 
-    def makeMainFloor(self):
-        material = Material.rock1
-        self.builder.buildFlatFloor(Vector3(0, 0, 0), 100, 100, material, 3)
-        self.builder.buildFlatFloor(Vector3(100, 0, 0), 100, 100, material, 3)
-        self.builder.buildFlatFloor(Vector3(0, 100, 0), 100, 100, material, 3)
-        self.builder.buildFlatFloor(Vector3(100, 100, 0), 100, 100, material, 3)
+    def makeArea1(self, builder):
+        # floor
+        builder.buildRectSlab(Vector3(10, 10, self.minZ), 80, 80, 1, Material.rock1, Material.rock1)
 
-    def makeMainLight(self):
-        self.builder.buildLight(Vector3(1, 1, 1), 2, "main")
-
-    def makeTower(self):
+        # tower
+        x = 40
+        y = 40
         material = Material.ceilingMetal1
         edgeMaterial = Material.edgeMetal3
-        self.builder.buildSlab(Vector3(10, 10, 4), Vector3(30, 10, 4), Vector3(10, 30, 4), Vector3(30, 30, 4), 0.5, material, edgeMaterial)
-        self.builder.buildSlab(Vector3(12, 12, 7), Vector3(28, 12, 7), Vector3(12, 28, 7), Vector3(28, 28, 7), 0.5, material, edgeMaterial)
-        self.builder.buildSlab(Vector3(14, 14, 10), Vector3(26, 14, 10), Vector3(14, 26, 10), Vector3(26, 26, 10), 0.5, material, edgeMaterial)
-        self.builder.buildSlab(Vector3(16, 16, 13), Vector3(24, 16, 13), Vector3(16, 24, 13), Vector3(24, 24, 13), 0.5, material, edgeMaterial)
+        builder.buildRectSlab(Vector3(x, y, self.minZ + 4), 20, 20, 0.5, material, edgeMaterial)
+        builder.buildRectSlab(Vector3(x + 2, y + 2, self.minZ + 7), 16, 16, 0.5, material, edgeMaterial)
+        builder.buildRectSlab(Vector3(x + 4, y + 4, self.minZ + 10), 12, 12, 0.5, material, edgeMaterial)
+        builder.buildRectSlab(Vector3(x + 6, y + 6, self.minZ + 13), 8, 8, 0.5, material, edgeMaterial)
 
         material = Material.ceilingMetal1
-        self.builder.buildPillar(Vector3(11, 11, 0), 1, 3.5, material)
-        self.builder.buildPillar(Vector3(28, 11, 0), 1, 3.5, material)
-        self.builder.buildPillar(Vector3(11, 28, 0), 1, 3.5, material)
-        self.builder.buildPillar(Vector3(28, 28, 0), 1, 3.5, material)
+        builder.buildPillar(Vector3(x + 1, y + 1, self.minZ), 1, 3.5, material)
+        builder.buildPillar(Vector3(x + 18, y + 1, self.minZ), 1, 3.5, material)
+        builder.buildPillar(Vector3(x + 1, y + 18, self.minZ), 1, 3.5, material)
+        builder.buildPillar(Vector3(x + 18, y + 18, self.minZ), 1, 3.5, material)
 
-        self.builder.buildPillar(Vector3(13, 13, 4), 1, 2.5, material)
-        self.builder.buildPillar(Vector3(26, 13, 4), 1, 2.5, material)
-        self.builder.buildPillar(Vector3(13, 26, 4), 1, 2.5, material)
-        self.builder.buildPillar(Vector3(26, 26, 4), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 3, y + 3, self.minZ + 4), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 16, y + 3, self.minZ + 4), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 3, y + 16, self.minZ + 4), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 16, y + 16, self.minZ + 4), 1, 2.5, material)
 
-        self.builder.buildPillar(Vector3(15, 15, 7), 1, 2.5, material)
-        self.builder.buildPillar(Vector3(24, 15, 7), 1, 2.5, material)
-        self.builder.buildPillar(Vector3(15, 24, 7), 1, 2.5, material)
-        self.builder.buildPillar(Vector3(24, 24, 7), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 5, y + 5, self.minZ + 7), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 14, y + 5, self.minZ + 7), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 5, y + 14, self.minZ + 7), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 14, y + 14, self.minZ + 7), 1, 2.5, material)
 
-        self.builder.buildPillar(Vector3(17, 17, 10), 1, 2.5, material)
-        self.builder.buildPillar(Vector3(22, 17, 10), 1, 2.5, material)
-        self.builder.buildPillar(Vector3(17, 22, 10), 1, 2.5, material)
-        self.builder.buildPillar(Vector3(22, 22, 10), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 7, y + 7, self.minZ + 10), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 12, y + 7, self.minZ + 10), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 7, y + 12, self.minZ + 10), 1, 2.5, material)
+        builder.buildPillar(Vector3(x + 12, y + 12, self.minZ + 10), 1, 2.5, material)
+
+        # light
+        builder.buildLight(Vector3(1, 1, self.minZ + 2), 2)
+
+    def makeArea2(self, builder):
+        # floor
+        builder.buildRectSlab(Vector3(20, 150, self.minZ + 2), 80, 80, 1, Material.rock1, Material.rock1)
+
+        # light
+        builder.buildLight(Vector3(20, 150, self.minZ + 4), 2)
+
+    def makeArea3(self, builder):
+        # floor
+        builder.buildRectSlab(Vector3(150, 50, self.minZ + 5), 80, 80, 1, Material.rock1, Material.rock1)
+
+        # light
+        builder.buildLight(Vector3(150, 50, self.minZ + 7), 2)
 
     def makeJoinLines(self):
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(100, 0, 0), Vector3(100, 100, 0)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(100, 100, 0), Vector3(100, 200, 0)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 100, 0), Vector3(100, 100, 0)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(100, 100, 0), Vector3(200, 100, 0)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(100, 0, self.minZ + 2), Vector3(100, 100, self.minZ + 2)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 100, self.minZ + 2), Vector3(90, 100, self.minZ + 2)))
 
     def getCollisionSplitPlanes(self):
         for sp in self.getVisibilitySplitPlanes():
             yield sp
 
-        yield SplitPlane(Vector3(50, 50, 2), Vector3(0, 0, 1))
+        yield SplitPlane(Vector3(0, 0, self.minZ + 1), Vector3(0, 0, 1))
 
     def getVisibilitySplitPlanes(self):
-        yield SplitPlane(Vector3(0, 0, 0), Vector3(-1, 0, 0))
-        yield SplitPlane(Vector3(200, 0, 0), Vector3(1, 0, 0))
-        yield SplitPlane(Vector3(100, 0, 0), Vector3(0, -1, 0))
-        yield SplitPlane(Vector3(100, 200, 0), Vector3(0, 1, 0))
-
-        yield SplitPlane(Vector3(100, 100, 0), Vector3(1, 0, 0))
-        yield SplitPlane(Vector3(50, 100, 0), Vector3(0, 1, 0))
-        yield SplitPlane(Vector3(150, 100, 0), Vector3(0, 1, 0))
+        yield SplitPlane(Vector3(100, 0, 0), Vector3(1, 0, 0))
+        yield SplitPlane(Vector3(0, 100, 0), Vector3(0, 1, 0))
 
     def setPlayerPosition(self):
-        self.playerPosition = Vector3(1, 1, 0)
-        self.playerFrontNormal = Vector3(1, 1, 0).getNormalized()
+        self.playerPosition = Vector3(20, 80, self.minZ)
+        self.playerFrontNormal = Vector3(0, 1, 0).getNormalized()

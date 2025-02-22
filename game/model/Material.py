@@ -7,7 +7,7 @@ class MaterialKind:
 
 class Material:
 
-    def __init__(self, kind, ambient=0.2, diffuse=0.8, specular=0.1, shininess=2.0):
+    def __init__(self, kind, ambient=0.1, diffuse=0.8, specular=0.8, shininess=8.0):
         self.kind = kind
         self.ambient = ambient
         self.diffuse = diffuse

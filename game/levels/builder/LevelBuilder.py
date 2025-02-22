@@ -160,6 +160,12 @@ class LevelBuilder:
         edge.material = edgeMaterial
         self.level.addConstruction(edge)
 
+    def buildRectSlab(self, downLeft, xLength, yLength, height, topBottomMaterial, edgeMaterial):
+        downRight = Vector3(downLeft.x + xLength, downLeft.y, downLeft.z)
+        upLeft = Vector3(downLeft.x, downLeft.y + yLength, downLeft.z)
+        upRight = Vector3(downLeft.x + xLength, downLeft.y + yLength, downLeft.z)
+        self.buildSlab(downLeft, downRight, upLeft, upRight, height, topBottomMaterial, edgeMaterial)
+
     def buildCeiling(self, downLeft, xLength, yLength, material, hole=None):
         self.ceilingBuilder.buildCeiling(downLeft, xLength, yLength, material, hole)
 

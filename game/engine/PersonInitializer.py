@@ -24,7 +24,7 @@ class PersonInitializer:
         self.gameData.player.commitNextPosition()
 
     def initEnemies(self):
-        self.initEnemy(Vector3(18, 13.5, 0))
+        self.initEnemy(Vector3(20, 20, 10))
 
     def initEnemy(self, position):
         enemy = Enemy()
