@@ -32,13 +32,13 @@ class BulletCollisionDetector:
         )
 
     def getTotalCollisionResultOrNone(self, levelSegment, startPoint, endPoint):
-        collisionResult = self.getConstructionCollisionResultOrNone(levelSegment, startPoint, endPoint)
-        if collisionResult is not None:
-            return (BulletCollisionTarget.construction, collisionResult)
-
         collisionResult = self.getPersonCollisionResultOrNone(levelSegment, startPoint, endPoint)
         if collisionResult is not None:
             return (BulletCollisionTarget.person, collisionResult)
+
+        collisionResult = self.getConstructionCollisionResultOrNone(levelSegment, startPoint, endPoint)
+        if collisionResult is not None:
+            return (BulletCollisionTarget.construction, collisionResult)
 
         return None
 

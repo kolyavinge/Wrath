@@ -11,9 +11,6 @@ class PlaneCollisionDetector:
             return None
 
     def getPlaneCollisionPointOrNone(self, startPoint, endPoint, basePoint, frontNormal):
-        if basePoint.getDirectionTo(endPoint).dotProduct(frontNormal) > 0:
-            return None
-
         middlePoint = startPoint.getMiddleTo(endPoint)
         while startPoint.getLengthTo(endPoint) > 0.01:
             dotProduct = basePoint.getDirectionTo(middlePoint).dotProduct(frontNormal)

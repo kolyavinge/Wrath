@@ -13,10 +13,12 @@ class PersonLevelSegmentsUpdater:
         self.updateVisibilityLevelSegment(person)
 
     def updateCollisionLevelSegments(self, person):
-        border = person.nextBorder.bottom
-        bspTree = self.gameData.collisionTree
         person.collisionLevelSegments = set()
+        bspTree = self.gameData.collisionTree
+        self.updateForBorder(person, bspTree, person.nextBorder.bottom)
+        self.updateForBorder(person, bspTree, person.nextBorder.top)
 
+    def updateForBorder(self, person, bspTree, border):
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.downLeft)
         assert levelSegment is not None
         person.collisionLevelSegments.add(levelSegment)
