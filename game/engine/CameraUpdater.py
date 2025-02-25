@@ -11,7 +11,7 @@ class CameraUpdater:
         camera.position = self.gameData.player.eyePosition
         camera.lookDirection = self.gameData.player.lookDirection
         camera.calculateViewMatrix()
-        camera.setVerticalViewDegrees(self.gameData.aimState.verticalViewDegrees)
+        camera.setVerticalViewRadians(self.gameData.aimState.verticalViewRadians)
         camera.calculateProjectionMatrix()
 
 

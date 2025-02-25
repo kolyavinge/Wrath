@@ -1,5 +1,4 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Geometry import Geometry
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
 
@@ -11,10 +10,13 @@ class Camera:
         self.lookDirection = Vector3()
         self.viewMatrix = TransformMatrix4()
         self.projectionMatrix = TransformMatrix4()
+        self.verticalViewRadians = 0
+        self.horizontalViewRadians = 0
+        self.hasVerticalViewRadiansChanged = False
 
-    def setVerticalViewDegrees(self, verticalViewDegrees):
-        self.verticalViewDegrees = verticalViewDegrees
-        self.verticalViewRadians = Geometry.degreesToRadians(self.verticalViewDegrees)
+    def setVerticalViewRadians(self, verticalViewRadians):
+        self.hasVerticalViewRadiansChanged = self.verticalViewRadians != verticalViewRadians
+        self.verticalViewRadians = verticalViewRadians
         self.horizontalViewRadians = self.verticalViewRadians * CommonConstants.screenAspect
 
     def calculateViewMatrix(self):

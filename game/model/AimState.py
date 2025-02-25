@@ -1,24 +1,25 @@
+from game.calc.Geometry import Geometry
 from game.lib.Math import Math
 
 
 class DefaultAimState:
 
     def __init__(self):
-        self.verticalViewDegrees = 45
+        self.verticalViewRadians = Geometry.degreesToRadians(45.0)
         self.mouseSensibility = 0.004
 
 
 class SniperAimState:
 
     def __init__(self):
-        self.verticalViewDegreesMax = 15
-        self.verticalViewDegreesMin = 2
-        self.degreeStep = 2
-        self.verticalViewDegrees = self.verticalViewDegreesMax
+        self.verticalViewRadiansMax = Geometry.degreesToRadians(15.0)
+        self.verticalViewRadiansMin = Geometry.degreesToRadians(2.0)
+        self.radiansStep = Geometry.degreesToRadians(2.0)
+        self.verticalViewRadians = self.verticalViewRadiansMax
         self.mouseSensibility = 0.0005
 
     def zoomIn(self):
-        self.verticalViewDegrees = Math.max(self.verticalViewDegrees - self.degreeStep, self.verticalViewDegreesMin)
+        self.verticalViewRadians = Math.max(self.verticalViewRadians - self.radiansStep, self.verticalViewRadiansMin)
 
     def zoomOut(self):
-        self.verticalViewDegrees = Math.min(self.verticalViewDegrees + self.degreeStep, self.verticalViewDegreesMax)
+        self.verticalViewRadians = Math.min(self.verticalViewRadians + self.radiansStep, self.verticalViewRadiansMax)
