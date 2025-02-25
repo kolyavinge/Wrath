@@ -26,7 +26,6 @@ class TowersLevel(Level):
         self.makeArea2(builder)
         self.makeArea3(builder)
         self.makeJoinLines()
-        self.setPlayerPosition()
 
     def makeArea1(self, builder):
         # floor
@@ -94,6 +93,11 @@ class TowersLevel(Level):
         yield SplitPlane(Vector3(100, 0, 0), Vector3(1, 0, 0))
         yield SplitPlane(Vector3(0, 100, 0), Vector3(0, 1, 0))
 
-    def setPlayerPosition(self):
-        self.playerPosition = Vector3(20, 80, self.minZ)
-        self.playerFrontNormal = Vector3(0, 1, 0).getNormalized()
+    def getPlayerPosition(self):
+        return Vector3(10, 10, self.minZ)
+
+    def getPlayerFrontNormal(self):
+        return Vector3(1, 1, 0).getNormalized()
+
+    def getEnemyPositions(self):
+        return [Vector3(20, 20, self.minZ)]

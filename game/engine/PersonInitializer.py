@@ -19,12 +19,13 @@ class PersonInitializer:
 
     def initPlayer(self):
         level = self.gameData.level
-        self.personTurnLogic.orientByFrontNormal(self.gameData.player, level.playerFrontNormal)
-        self.gameData.player.moveNextPositionTo(level.playerPosition)
+        self.personTurnLogic.orientByFrontNormal(self.gameData.player, level.getPlayerFrontNormal())
+        self.gameData.player.moveNextPositionTo(level.getPlayerPosition())
         self.gameData.player.commitNextPosition()
 
     def initEnemies(self):
-        self.initEnemy(Vector3(20, 20, 10))
+        for position in self.gameData.level.getEnemyPositions():
+            self.initEnemy(position)
 
     def initEnemy(self, position):
         enemy = Enemy()
