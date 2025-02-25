@@ -11,7 +11,6 @@ class LevelSegmentVisibilityUpdater:
         player = self.gameData.player
         if player.hasMoved or player.hasTurned:
             self.update()
-            # print(len(self.gameData.visibleLevelSegments))
 
     def update(self):
         self.gameData.visibleLevelSegments = set()
