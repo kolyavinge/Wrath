@@ -9,12 +9,12 @@ class BackgroundVisibilityDetector:
     def __init__(self, gameData, sphereSegmentCalculator):
         self.sphereRadius = CommonConstants.maxLevelSize
         self.gameData = gameData
-        self.gameData.backgroundVisibility.horizontalPointsCount = 5
-        self.gameData.backgroundVisibility.verticalPointsCount = 5
+        self.gameData.backgroundVisibility.horizontalPointsCount = 17
+        self.gameData.backgroundVisibility.verticalPointsCount = 11
         self.sphereSegmentCalculator = sphereSegmentCalculator
 
     def updateIfPlayerMovedOrTurned(self):
-        if self.gameData.player.hasMoved or self.gameData.player.hasTurned:
+        if self.gameData.player.hasMoved or self.gameData.player.hasTurned or self.gameData.camera.hasVerticalViewRadiansChanged:
             self.update()
 
     def update(self):
@@ -29,8 +29,8 @@ class BackgroundVisibilityDetector:
             camera.position,
             centerPoint,
             player.rightNormal,
-            camera.horizontalViewRadians,
-            camera.verticalViewRadians,
+            camera.horizontalViewRadians + 0.1,
+            camera.verticalViewRadians + 0.2,
             self.gameData.backgroundVisibility.horizontalPointsCount,
             self.gameData.backgroundVisibility.verticalPointsCount,
         )
@@ -38,8 +38,8 @@ class BackgroundVisibilityDetector:
         self.gameData.backgroundVisibility.texCoords = self.sphereSegmentCalculator.getTexCoords(
             player.yawRadians,
             player.pitchRadians,
-            camera.horizontalViewRadians,
-            camera.verticalViewRadians,
+            camera.horizontalViewRadians + 0.1,
+            camera.verticalViewRadians + 0.2,
             self.gameData.backgroundVisibility.horizontalPointsCount,
             self.gameData.backgroundVisibility.verticalPointsCount,
         )
