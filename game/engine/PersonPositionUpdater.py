@@ -15,11 +15,14 @@ class PersonPositionUpdater:
 
     def commitNextPosition(self):
         for person in self.gameData.allPerson:
-            person.hasTurned = False
             if person.hasMoved:
                 person.commitNextPosition()
-                if person.state == PersonState.standing:
-                    person.hasMoved = False
+
+    def resetMovedAndTurned(self):
+        for person in self.gameData.allPerson:
+            person.hasTurned = False
+            if person.hasMoved and person.state == PersonState.standing:
+                person.hasMoved = False
 
 
 def makePersonPositionUpdater(resolver):
