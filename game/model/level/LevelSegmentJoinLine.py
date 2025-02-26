@@ -5,18 +5,21 @@ from game.lib.Math import Math
 
 class LevelSegmentJoinLine:
 
-    def __init__(self, startPoint, endPoint):
+    def __init__(self, startPoint, endPoint, frontNormal=None):
         self.startPoint = startPoint
         self.endPoint = endPoint
+        self.frontNormal = frontNormal or self.getFrontNormal()
         self.frontLevelSegment = None
         self.backLevelSegment = None
 
     def commit(self):
-        self.frontNormal = Geometry.rotatePoint(self.startPoint, CommonConstants.zAxis, self.endPoint, Math.piHalf).getNormalized()
         self.middlePoint = self.startPoint.getDirectionTo(self.endPoint)
         self.middlePoint.div(2)
         self.middlePoint.add(self.startPoint)
         self.points = [self.middlePoint, self.startPoint, self.endPoint]
+
+    def getFrontNormal(self):
+        return Geometry.rotatePoint(self.startPoint, CommonConstants.zAxis, self.endPoint, Math.piHalf).getNormalized()
 
     def getJoinedLevelSegment(self, levelSegment):
         return self.backLevelSegment if self.frontLevelSegment == levelSegment else self.frontLevelSegment
