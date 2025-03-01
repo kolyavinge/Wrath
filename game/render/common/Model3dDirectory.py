@@ -6,18 +6,19 @@ class Model3dDirectory:
 
     def __init__(self, fileSystem):
         self.fileSystem = fileSystem
+        self.extensions = [".obj"]
 
-    def getObjFileFromDirectory(self, model3dDirectoryName):
+    def getModelFileFromDirectory(self, model3dDirectoryName):
         path = f"{Environment.programRootPath}\\res\\3dmodels\\{model3dDirectoryName}"
-        objFiles = self.fileSystem.findFilesByExtension(path, ".obj")
 
-        if len(objFiles) == 0:
-            raise Exception(f"No obj file in {path}.")
+        for ext in self.extensions:
+            modelFiles = self.fileSystem.findFilesByExtension(path, ext)
+            if len(modelFiles) > 1:
+                raise Exception(f"Many model files in {path}.")
+            if len(modelFiles) == 1:
+                return modelFiles[0]
 
-        if len(objFiles) > 1:
-            raise Exception(f"Many obj files in {path}.")
-
-        return objFiles[0]
+        raise Exception(f"No model files in {path}.")
 
 
 def makeModel3dDirectory(resolver):

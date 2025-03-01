@@ -9,13 +9,13 @@ class BulletModel3dFactory:
         self.model3dDirectory = model3dDirectory
 
     def makePlasmaBullet(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("plasmaBullet"))
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("plasmaBullet"))
         model.setScale(0.01)
 
         return model
 
     def makeLauncherBullet(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("launcherBullet"))
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("launcherBullet"))
         model.setScale(0.025)
 
         return model

@@ -10,17 +10,17 @@ class Model3dCollection:
 
     def load(self):
         modelNames = [
-            self.model3dDirectory.getObjFileFromDirectory("largeHealth"),
-            self.model3dDirectory.getObjFileFromDirectory("launcher"),
-            self.model3dDirectory.getObjFileFromDirectory("launcherBullet"),
-            self.model3dDirectory.getObjFileFromDirectory("pistol"),
-            self.model3dDirectory.getObjFileFromDirectory("plasma"),
-            self.model3dDirectory.getObjFileFromDirectory("plasmaBullet"),
-            self.model3dDirectory.getObjFileFromDirectory("railgun"),
-            self.model3dDirectory.getObjFileFromDirectory("rifle"),
-            self.model3dDirectory.getObjFileFromDirectory("smallHealth"),
-            self.model3dDirectory.getObjFileFromDirectory("sniper"),
-            self.model3dDirectory.getObjFileFromDirectory("vest"),
+            self.model3dDirectory.getModelFileFromDirectory("largeHealth"),
+            self.model3dDirectory.getModelFileFromDirectory("launcher"),
+            self.model3dDirectory.getModelFileFromDirectory("launcherBullet"),
+            self.model3dDirectory.getModelFileFromDirectory("pistol"),
+            self.model3dDirectory.getModelFileFromDirectory("plasma"),
+            self.model3dDirectory.getModelFileFromDirectory("plasmaBullet"),
+            self.model3dDirectory.getModelFileFromDirectory("railgun"),
+            self.model3dDirectory.getModelFileFromDirectory("rifle"),
+            self.model3dDirectory.getModelFileFromDirectory("smallHealth"),
+            self.model3dDirectory.getModelFileFromDirectory("sniper"),
+            self.model3dDirectory.getModelFileFromDirectory("vest"),
         ]
         self.models = self.asyncModel3dLoader.loadAsync(modelNames)
 

@@ -13,10 +13,10 @@ class Model3dLoader:
     def __init__(self, textureLoader):
         self.textureLoader = textureLoader
 
-    def load(self, objFilePath):
+    def load(self, modelFilePath):
         model3d = Model3d()
-        directoryName = os.path.dirname(objFilePath)
-        scene = impasse.load(objFilePath)
+        directoryName = os.path.dirname(modelFilePath)
+        scene = impasse.load(modelFilePath)
 
         for mesh in scene.meshes:
             modelMesh = Mesh()

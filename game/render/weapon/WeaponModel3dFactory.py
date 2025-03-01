@@ -9,37 +9,37 @@ class WeaponModel3dFactory:
         self.model3dDirectory = model3dDirectory
 
     def makePistol(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("pistol"))
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("pistol"))
         model.setScale(0.025)
 
         return model
 
     def makeRifle(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("rifle"))
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("rifle"))
         model.setScale(0.025)
 
         return model
 
     def makePlasma(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("plasma"))
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("plasma"))
         model.setScale(0.0008)
 
         return model
 
     def makeLauncher(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("launcher"))
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("launcher"))
         model.setScale(0.15)
 
         return model
 
     def makeRailgun(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("railgun"))
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("railgun"))
         model.setScale(0.45)
 
         return model
 
     def makeSniper(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("sniper"))
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("sniper"))
         model.setScale(0.07)
 
         return model

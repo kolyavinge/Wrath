@@ -9,7 +9,7 @@ class EnemyModel3dFactory:
         self.model3dDirectory = model3dDirectory
 
     def makeEnemy(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getObjFileFromDirectory("enemy"))
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("enemy"))
         model.setScale(0.014)
 
         return model
