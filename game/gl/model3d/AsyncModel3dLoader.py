@@ -1,6 +1,6 @@
 from threading import Thread
 
-from game.gl.Model3dLoader import Model3dLoader
+from game.gl.model3d.Model3dLoader import Model3dLoader
 
 
 class AsyncModel3dLoader:

@@ -1,4 +1,4 @@
-from game.gl.RenderModel3dLoader import RenderModel3dLoader
+from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup

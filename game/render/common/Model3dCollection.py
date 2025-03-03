@@ -1,4 +1,4 @@
-from game.gl.AsyncModel3dLoader import AsyncModel3dLoader
+from game.gl.model3d.AsyncModel3dLoader import AsyncModel3dLoader
 from game.render.common.Model3dDirectory import Model3dDirectory
 
 

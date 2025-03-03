@@ -1,6 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
-from game.gl.RenderModel3d import RenderMesh
+from game.gl.model3d.RenderModel3d import RenderMesh
 from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 from game.lib.EventManager import EventManager
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo

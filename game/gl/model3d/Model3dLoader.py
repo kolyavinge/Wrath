@@ -4,7 +4,7 @@ import impasse
 import numpy
 from impasse.constants import TextureSemantic
 
-from game.gl.Model3d import Mesh, Model3d
+from game.gl.model3d.Model3d import Mesh, Model3d
 from game.gl.TextureLoader import TextureLoader
 
 

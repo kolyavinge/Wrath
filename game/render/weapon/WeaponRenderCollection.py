@@ -1,4 +1,4 @@
-from game.gl.RenderModel3dLoader import RenderModel3dLoader
+from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
