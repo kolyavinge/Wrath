@@ -3,8 +3,8 @@ from OpenGL.GL import *
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
 from game.gl.BufferIndices import BufferIndices
-from game.gl.VBORenderer import VBORenderer
-from game.gl.VBOUpdaterFactory import VBOUpdaterFactory
+from game.gl.vbo.VBORenderer import VBORenderer
+from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.common.TextureCollection import TextureCollection
 

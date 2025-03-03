@@ -3,8 +3,8 @@ from OpenGL.GL import *
 from game.anx.CommonConstants import CommonConstants
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
-from game.gl.VBOBuilderFactory import VBOBuilderFactory
-from game.gl.VBORenderer import VBORenderer
+from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
+from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.common.TextureCollection import TextureCollection
 

@@ -6,8 +6,8 @@ from OpenGL.GL import *
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
-from game.gl.VBOBuilderFactory import VBOBuilderFactory
-from game.gl.VBORenderer import VBORenderer
+from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
+from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 

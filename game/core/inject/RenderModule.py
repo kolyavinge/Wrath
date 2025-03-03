@@ -2,12 +2,12 @@ from game.gl.AdjacencyFormatConverter import *
 from game.gl.AsyncModel3dLoader import *
 from game.gl.Model3dLoader import *
 from game.gl.RenderModel3dLoader import *
-from game.gl.ScreenQuadVBO import *
 from game.gl.ShaderCompiler import *
 from game.gl.TextureLoader import *
-from game.gl.VBOBuilderFactory import *
-from game.gl.VBORenderer import *
-from game.gl.VBOUpdaterFactory import *
+from game.gl.vbo.ScreenQuadVBO import *
+from game.gl.vbo.VBOBuilderFactory import *
+from game.gl.vbo.VBORenderer import *
+from game.gl.vbo.VBOUpdaterFactory import *
 from game.render.anx.BackgroundRenderer import *
 from game.render.anx.RayRenderer import *
 from game.render.anx.ShineCircleRenderer import *

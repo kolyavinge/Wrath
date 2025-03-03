@@ -4,8 +4,8 @@ from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
-from game.gl.ScreenQuadVBO import ScreenQuadVBO
-from game.gl.VBORenderer import VBORenderer
+from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
+from game.gl.vbo.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.main.ShadowedObjectFramebuffer import ShadowedObjectFramebuffer

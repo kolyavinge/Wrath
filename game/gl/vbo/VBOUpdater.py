@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
 from game.gl.BufferIndices import BufferIndices
-from game.gl.UpdatableVBO import UpdatableVBO
+from game.gl.vbo.UpdatableVBO import UpdatableVBO
 from game.lib.Math import Math
 
 

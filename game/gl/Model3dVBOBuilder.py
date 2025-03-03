@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.gl.VBO import VBO
+from game.gl.vbo.VBO import VBO
 
 
 class Model3dVBOBuilder:

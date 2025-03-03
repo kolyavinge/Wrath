@@ -1,4 +1,4 @@
-from game.gl.VBOUpdater import VBOUpdater
+from game.gl.vbo.VBOUpdater import VBOUpdater
 
 
 class VBOUpdaterFactory:

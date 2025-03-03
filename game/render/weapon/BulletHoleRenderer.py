@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.gl.VBORenderer import VBORenderer
+from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.weapon.BulletHoleRenderCollection import BulletHoleRenderCollection
 
 

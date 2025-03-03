@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.gl.VBORenderer import VBORenderer
+from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 
 

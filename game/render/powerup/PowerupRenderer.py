@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.gl.VBORenderer import VBORenderer
+from game.gl.vbo.VBORenderer import VBORenderer
 from game.model.powerup.WeaponPowerup import WeaponPowerup
 from game.render.powerup.PowerupRenderCollection import PowerupRenderCollection
 from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection

@@ -6,8 +6,8 @@ from game.calc.Plane import Plane
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
 from game.gl.ColorVector3 import ColorVector3
-from game.gl.VBORenderer import VBORenderer
-from game.gl.VBOUpdaterFactory import VBOUpdaterFactory
+from game.gl.vbo.VBORenderer import VBORenderer
+from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 from game.lib.Math import Math
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 

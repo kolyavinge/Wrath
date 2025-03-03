@@ -1,4 +1,4 @@
-from game.gl.VBOBuilderFactory import VBOBuilderFactory
+from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 
 
 class ShadowCasterBuilder:

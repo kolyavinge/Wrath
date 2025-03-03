@@ -1,8 +1,8 @@
 from OpenGL.GL import *
 
 from game.gl.ext import glGetViewportSize
-from game.gl.ScreenQuadVBO import ScreenQuadVBO
-from game.gl.VBORenderer import VBORenderer
+from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
+from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 

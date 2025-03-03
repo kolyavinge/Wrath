@@ -1,5 +1,5 @@
 from game.gl.RenderModel3d import RenderMesh, RenderModel3d
-from game.gl.VBOBuilderFactory import VBOBuilderFactory
+from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 
 
 class RenderModel3dLoader:
