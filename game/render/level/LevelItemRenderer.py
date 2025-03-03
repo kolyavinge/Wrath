@@ -1,24 +1,21 @@
 from OpenGL.GL import *
 
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.gl.vbo.VBORenderer import VBORenderer
+from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.render.level.LevelItemRenderCollection import *
 
 
 class LevelItemRenderer:
 
-    def __init__(self, renderCollection, vboRenderer):
+    def __init__(self, renderCollection, model3dRenderer):
         self.renderCollection = renderCollection
-        self.vboRenderer = vboRenderer
+        self.model3dRenderer = model3dRenderer
 
     def render(self, shader, levelSegment):
         shader.setModelMatrix(TransformMatrix4.identity)
-        model3d = self.renderCollection.getRenderModel3d(levelSegment)
-        for mesh in model3d.meshes:
-            shader.setMaterial(mesh.material)
-            mesh.texture.bind(GL_TEXTURE0)
-            self.vboRenderer.render(mesh.vbo)
+        model = self.renderCollection.getRenderModel3d(levelSegment)
+        self.model3dRenderer.render(model, shader)
 
 
 def makeLevelItemRenderer(resolver):
-    return LevelItemRenderer(resolver.resolve(LevelItemRenderCollection), resolver.resolve(VBORenderer))
+    return LevelItemRenderer(resolver.resolve(LevelItemRenderCollection), resolver.resolve(Model3dRenderer))

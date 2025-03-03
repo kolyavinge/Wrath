@@ -1,6 +1,7 @@
 from game.gl.AdjacencyFormatConverter import *
 from game.gl.model3d.AsyncModel3dLoader import *
 from game.gl.model3d.Model3dLoader import *
+from game.gl.model3d.Model3dRenderer import *
 from game.gl.model3d.RenderModel3dLoader import *
 from game.gl.ShaderCompiler import *
 from game.gl.TextureLoader import *
@@ -65,6 +66,7 @@ class RenderModule:
         binder.bindSingleton(AdjacencyFormatConverter, makeAdjacencyFormatConverter)
         # binder.bindSingleton(AsyncModel3dLoader, makeAsyncModel3dLoader)
         binder.bindSingleton(Model3dLoader, makeModel3dLoader)
+        binder.bindSingleton(Model3dRenderer, makeModel3dRenderer)
         binder.bindSingleton(RenderModel3dLoader, makeRenderModel3dLoader)
         binder.bindSingleton(ScreenQuadVBO, makeScreenQuadVBO)
         binder.bindSingleton(ShaderCompiler, makeShaderCompiler)

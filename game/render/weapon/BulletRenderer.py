@@ -1,24 +1,21 @@
 from OpenGL.GL import *
 
-from game.gl.vbo.VBORenderer import VBORenderer
+from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.render.weapon.BulletRenderCollection import BulletRenderCollection
 
 
 class BulletRenderer:
 
-    def __init__(self, renderCollection, vboRenderer):
+    def __init__(self, renderCollection, model3dRenderer):
         self.renderCollection = renderCollection
-        self.vboRenderer = vboRenderer
+        self.model3dRenderer = model3dRenderer
 
     def render(self, shader, levelSegment):
         for bullet in levelSegment.bullets:
             shader.setModelMatrix(bullet.getModelMatrix())
             model = self.renderCollection.getRenderModel3d(type(bullet))
-            for mesh in model.meshes:
-                shader.setMaterial(mesh.material)
-                mesh.texture.bind(GL_TEXTURE0)
-                self.vboRenderer.render(mesh.vbo)
+            self.model3dRenderer.render(model, shader)
 
 
 def makeBulletRenderer(resolver):
-    return BulletRenderer(resolver.resolve(BulletRenderCollection), resolver.resolve(VBORenderer))
+    return BulletRenderer(resolver.resolve(BulletRenderCollection), resolver.resolve(Model3dRenderer))
