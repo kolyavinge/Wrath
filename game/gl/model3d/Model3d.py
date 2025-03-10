@@ -47,5 +47,5 @@ class Model3d:
         if self.hasAnimations:
             for animation in self.animations:
                 for channel in animation.channels:
-                    for frame in channel.frames:
-                        frame.translation *= scale
+                    for frame in channel.translations:
+                        frame.value = frame.value * scale  # output array is readonly
