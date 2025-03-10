@@ -6,6 +6,7 @@ from impasse.constants import TextureSemantic
 
 from game.gl.model3d.Model3d import *
 from game.gl.TextureLoader import TextureLoader
+from game.lib.Tree import Tree
 
 
 class Model3dLoader:
@@ -54,23 +55,24 @@ class Model3dLoader:
 
     def getMeshesByNodesDictionary(self, model3d, scene):
         modelMeshDictionary = dict([(mesh.name, mesh) for mesh in model3d.meshes])
-
-        def getNodesWithMeshes(parent, result):
-            if len(parent.meshes) > 0:
-                result.append(parent)
-            for node in parent.children:
-                getNodesWithMeshes(node, result)
-
-        nodes = []
-        getNodesWithMeshes(scene.root_node, nodes)
-        nodesDictionary = dict([(node.name, node) for node in nodes])
-
+        nodesDictionary = self.getNodesDictionary(scene.root_node)
         meshesByNodesDictionary = {}
-        for nodeName, node in nodesDictionary.items():
-            nodeMeshes = [modelMeshDictionary[mesh.name] for mesh in node.meshes]
+        for nodeName, meshNames in nodesDictionary.items():
+            nodeMeshes = [modelMeshDictionary[meshName] for meshName in meshNames]
             meshesByNodesDictionary[nodeName] = nodeMeshes
 
         return meshesByNodesDictionary
+
+    def getNodesDictionary(self, rootNode):
+        nodes = Tree.flattenToList(rootNode, lambda parent: parent.children)
+        nodesDictionary = dict([(node.name, set()) for node in nodes])
+        for node in nodes:
+            for mesh in node.meshes:
+                nodesDictionary[node.name].add(mesh.name)
+                for bone in mesh.bones:
+                    nodesDictionary[bone.name].add(mesh.name)
+
+        return nodesDictionary
 
     def getDiffuseTextureFileName(self, material):
         for key, value in material.items():
