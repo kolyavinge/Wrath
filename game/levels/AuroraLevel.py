@@ -29,7 +29,6 @@ class AuroraLevel(Level):
         self.makeLeftBottomRoomPass()
         self.makeRightPass()
         self.makeJoinLines()
-        self.setPlayerPosition()
 
     def makeMainRoom(self):
         # first floor
@@ -243,7 +242,7 @@ class AuroraLevel(Level):
             ),
         )
         self.builder.buildPillar(Vector3(22 - 0.25, 18, 0), 0.5, firstFloorHeight, Material.ceilingMetal1)
-        self.builder.buildFlatFloor(Vector3(16, 8, 0), 12, 12, Material.floorConcrete1)
+        self.builder.buildFlatFloor(Vector3(16, 8, 0), 12, 12, Material.floorMetal1)
         ceilingZ = balconyZ + secondFloorHeight
         self.builder.buildCeiling(Vector3(16, 8, ceilingZ), 12, 12, Material.floorMetal3, CeilingHole(4, 4))
         self.builder.buildLight(Vector3(22, 14, 4), 0.5, "mainRoom")
@@ -321,7 +320,7 @@ class AuroraLevel(Level):
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
         )
-        self.builder.buildFlatFloor(Vector3(9, 10, 0), 5, 8, Material.floorConcrete1)
+        self.builder.buildFlatFloor(Vector3(9, 10, 0), 5, 8, Material.floorMetal1)
         self.builder.buildCeiling(Vector3(9, 10, 3), 5, 8, Material.ceilingMetal1)
         self.builder.buildRectLamp(Vector3(11.5, 14, 3), Vector3(0, 0, -1), 0.05, 0.1, 1.0, Vector3(1, 0, 0), Material.ceilingMetal2),
 
@@ -365,21 +364,21 @@ class AuroraLevel(Level):
                 WallBorder(0.3, 0.2, Material.ceilingMetal1, Material.ceilingMetal2),
             ),
         )
-        self.builder.buildFlatFloor(Vector3(16, 1, 0), 12, 5, Material.floorConcrete1)
+        self.builder.buildFlatFloor(Vector3(16, 1, 0), 12, 5, Material.floorMetal1)
         self.builder.buildCeiling(Vector3(16, 1, 3), 12, 5, Material.ceilingMetal1)
         self.builder.buildRectLamp(Vector3(22, 3.5, 3), Vector3(0, 0, -1), 0.05, 0.1, 1.0, Vector3(1, 0, 0), Material.ceilingMetal2),
 
     def makeLeftRoomPass(self):
         self.builder.wallBuilder.makeSolidWall(Vector3(14, 15, 0), Vector3(16, 15, 0), Vector3(0, -1, 0), 2.2, Material.ceilingMetal2)
         self.builder.wallBuilder.makeSolidWall(Vector3(14, 13, 0), Vector3(16, 13, 0), Vector3(0, 1, 0), 2.2, Material.ceilingMetal2)
-        self.builder.buildFlatFloor(Vector3(14, 13, 0), 2, 2, Material.floorConcrete1)
+        self.builder.buildFlatFloor(Vector3(14, 13, 0), 2, 2, Material.floorMetal1)
         self.builder.buildCeiling(Vector3(14, 13, 2.2), 2, 2, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(15, 14, 2.2), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
     def makeBottomRoomPass(self):
         self.builder.wallBuilder.makeSolidWall(Vector3(21, 8, 0), Vector3(21, 6, 0), Vector3(1, 0, 0), 2.2, Material.ceilingMetal2)
         self.builder.wallBuilder.makeSolidWall(Vector3(23, 8, 0), Vector3(23, 6, 0), Vector3(-1, 0, 0), 2.2, Material.ceilingMetal2)
-        self.builder.buildFlatFloor(Vector3(21, 6, 0), 2, 2, Material.floorConcrete1)
+        self.builder.buildFlatFloor(Vector3(21, 6, 0), 2, 2, Material.floorMetal1)
         self.builder.buildCeiling(Vector3(21, 6, 2.2), 2, 2, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(22, 7, 2.2), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
@@ -452,15 +451,15 @@ class AuroraLevel(Level):
             ),
         )
 
-        self.builder.buildFlatFloor(Vector3(10, 6, 0), 3, 4, Material.floorConcrete1)
+        self.builder.buildFlatFloor(Vector3(10, 6, 0), 3, 4, Material.floorMetal1)
         self.builder.buildCeiling(Vector3(10, 6, 2.2), 3, 4, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(11.5, 8, 2.2), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
-        self.builder.buildFlatFloor(Vector3(10, 2, 0), 4, 4, Material.floorConcrete1)
+        self.builder.buildFlatFloor(Vector3(10, 2, 0), 4, 4, Material.floorMetal1)
         self.builder.buildCeiling(Vector3(10, 2, 2.2), 4, 4, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(12.5, 5, 2.2), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
-        self.builder.buildFlatFloor(Vector3(14, 2, 0), 2, 3, Material.floorConcrete1)
+        self.builder.buildFlatFloor(Vector3(14, 2, 0), 2, 3, Material.floorMetal1)
         self.builder.buildCeiling(Vector3(14, 2, 2.2), 2, 3, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(15, 3.5, 2.2), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
@@ -544,7 +543,7 @@ class AuroraLevel(Level):
                 Material.wallMetal3,
             ),
         )
-        self.builder.buildFlatFloor(Vector3(28, 2.5, 0), 4, 2, Material.floorConcrete1)
+        self.builder.buildFlatFloor(Vector3(28, 2.5, 0), 4, 2, Material.floorMetal1)
         self.builder.buildCeiling(Vector3(28, 2.5, 3), 4, 2, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(30, 3.5, 3), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
@@ -561,7 +560,7 @@ class AuroraLevel(Level):
         self.addCeiling(ceiling)
         self.builder.buildRoundLamp(Vector3(31, 5.5, 4), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
-        self.builder.buildFlatFloor(Vector3(30, 6.5, 2), 2, 8.5, Material.floorConcrete1)
+        self.builder.buildFlatFloor(Vector3(30, 6.5, 2), 2, 8.5, Material.floorMetal1)
         self.builder.buildCeiling(Vector3(30, 6.5, 5), 2, 9, Material.ceilingMetal1)
         self.builder.buildRoundLamp(Vector3(31, 10, 5), Vector3(0, 0, -1), 0.1, 0.05, Material.ceilingMetal2)
 
@@ -642,6 +641,11 @@ class AuroraLevel(Level):
         yield SplitPlane(Vector3(31, 6.5, 0), Vector3(0, 1, 0))
         yield SplitPlane(Vector3(30, 14, 0), Vector3(1, 0, 0))
 
-    def setPlayerPosition(self):
-        self.playerPosition = Vector3(22, 14, 0)
-        self.playerFrontNormal = Vector3(-1, 0, 0)
+    def getPlayerPosition(self):
+        return Vector3(22, 14, 0)
+
+    def getPlayerFrontNormal(self):
+        return Vector3(-1, 0, 0)
+
+    def getEnemyPositions(self):
+        return []
