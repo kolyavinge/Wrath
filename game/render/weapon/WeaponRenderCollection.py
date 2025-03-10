@@ -1,3 +1,4 @@
+from game.engine.GameData import GameData
 from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.weapon.Launcher import Launcher
@@ -11,7 +12,8 @@ from game.render.weapon.WeaponModel3dFactory import WeaponModel3dFactory
 
 class WeaponRenderCollection:
 
-    def __init__(self, weaponModel3dFactory, renderModel3dLoader):
+    def __init__(self, gameData, weaponModel3dFactory, renderModel3dLoader):
+        self.gameData = gameData
         self.weaponModel3dFactory = weaponModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.models = {}
@@ -21,12 +23,16 @@ class WeaponRenderCollection:
             vbo.release()
 
         self.models = {}
-        self.makePistol()
-        self.makeRifle()
-        self.makePlasma()
-        self.makeLauncher()
-        self.makeRailgun()
-        self.makeSniper()
+
+        if not self.gameData.isDebug:
+            self.makePistol()
+            self.makeRifle()
+            self.makePlasma()
+            self.makeLauncher()
+            self.makeRailgun()
+            self.makeSniper()
+        else:
+            self.debugLoading()
 
     def makePistol(self):
         model = self.weaponModel3dFactory.makePistol()
@@ -52,9 +58,17 @@ class WeaponRenderCollection:
         model = self.weaponModel3dFactory.makeSniper()
         self.models[Sniper] = self.renderModel3dLoader.make(model, Material.weapon)
 
+    def debugLoading(self):
+        self.makePistol()
+        self.models[Rifle] = self.models[Pistol]
+        self.models[Plasma] = self.models[Pistol]
+        self.models[Launcher] = self.models[Pistol]
+        self.models[Railgun] = self.models[Pistol]
+        self.models[Sniper] = self.models[Pistol]
+
     def getRenderModel3d(self, weaponType):
         return self.models[weaponType]
 
 
 def makeWeaponRenderCollection(resolver):
-    return WeaponRenderCollection(resolver.resolve(WeaponModel3dFactory), resolver.resolve(RenderModel3dLoader))
+    return WeaponRenderCollection(resolver.resolve(GameData), resolver.resolve(WeaponModel3dFactory), resolver.resolve(RenderModel3dLoader))

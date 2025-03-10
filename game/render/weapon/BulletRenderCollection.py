@@ -1,3 +1,4 @@
+from game.engine.GameData import GameData
 from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.weapon.Launcher import LauncherBullet
@@ -7,12 +8,16 @@ from game.render.weapon.BulletModel3dFactory import BulletModel3dFactory
 
 class BulletRenderCollection:
 
-    def __init__(self, bulletModel3dFactory, renderModel3dLoader):
+    def __init__(self, gameData, bulletModel3dFactory, renderModel3dLoader):
+        self.gameData = gameData
         self.bulletModel3dFactory = bulletModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.models = {}
 
     def init(self):
+        if self.gameData.isDebug:
+            return
+
         for vbo in self.models:
             vbo.release()
 
@@ -33,4 +38,4 @@ class BulletRenderCollection:
 
 
 def makeBulletRenderCollection(resolver):
-    return BulletRenderCollection(resolver.resolve(BulletModel3dFactory), resolver.resolve(RenderModel3dLoader))
+    return BulletRenderCollection(resolver.resolve(GameData), resolver.resolve(BulletModel3dFactory), resolver.resolve(RenderModel3dLoader))

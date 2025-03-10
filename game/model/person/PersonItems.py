@@ -25,8 +25,8 @@ class PersonItems:
         self.weapons.add(launcher)
         self.weapons.add(railgun)
         self.weapons.add(sniper)
-        self.rightHandWeapon = rifle
-        self.leftHandWeapon = None
+        self.rightHandWeapon = pistol1
+        self.leftHandWeapon = pistol2
         self.currentWeapon = self.rightHandWeapon
         self.vest = 0
 

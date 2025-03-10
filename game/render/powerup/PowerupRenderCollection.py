@@ -1,3 +1,4 @@
+from game.engine.GameData import GameData
 from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
@@ -8,7 +9,8 @@ from game.render.powerup.PowerupModel3dFactory import PowerupModel3dFactory
 
 class PowerupRenderCollection:
 
-    def __init__(self, powerupModel3dFactory, renderModel3dLoader):
+    def __init__(self, gameData, powerupModel3dFactory, renderModel3dLoader):
+        self.gameData = gameData
         self.powerupModel3dFactory = powerupModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.models = {}
@@ -18,9 +20,13 @@ class PowerupRenderCollection:
             vbo.release()
 
         self.models = {}
-        self.makeSmallHealth()
-        self.makeLargeHealth()
-        self.makeVest()
+
+        if not self.gameData.isDebug:
+            self.makeSmallHealth()
+            self.makeLargeHealth()
+            self.makeVest()
+        else:
+            self.debugLoading()
 
     def makeSmallHealth(self):
         model = self.powerupModel3dFactory.makeSmallHealth()
@@ -34,9 +40,14 @@ class PowerupRenderCollection:
         model = self.powerupModel3dFactory.makeVest()
         self.models[VestPowerup] = self.renderModel3dLoader.make(model, Material.powerup)
 
+    def debugLoading(self):
+        self.makeSmallHealth()
+        self.models[LargeHealthPowerup] = self.models[SmallHealthPowerup]
+        self.models[VestPowerup] = self.models[SmallHealthPowerup]
+
     def getRenderModel3d(self, powerupType):
         return self.models[powerupType]
 
 
 def makePowerupRenderCollection(resolver):
-    return PowerupRenderCollection(resolver.resolve(PowerupModel3dFactory), resolver.resolve(RenderModel3dLoader))
+    return PowerupRenderCollection(resolver.resolve(GameData), resolver.resolve(PowerupModel3dFactory), resolver.resolve(RenderModel3dLoader))

@@ -42,6 +42,7 @@ class GameData:
         self.camera = Camera()
         self.aimState = DefaultAimState()
         self.backgroundVisibility = BackgroundVisibilityData()
+        self.isDebug = True
 
 
 def makeGameData(resolver):
