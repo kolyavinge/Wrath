@@ -1,4 +1,5 @@
 from game.gl.AdjacencyFormatConverter import *
+from game.gl.model3d.AnimationLoader import *
 from game.gl.model3d.AsyncModel3dLoader import *
 from game.gl.model3d.Model3dLoader import *
 from game.gl.model3d.Model3dRenderer import *
@@ -64,6 +65,7 @@ class RenderModule:
 
     def init(self, binder):
         binder.bindSingleton(AdjacencyFormatConverter, makeAdjacencyFormatConverter)
+        binder.bindSingleton(AnimationLoader, makeAnimationLoader)
         # binder.bindSingleton(AsyncModel3dLoader, makeAsyncModel3dLoader)
         binder.bindSingleton(Model3dLoader, makeModel3dLoader)
         binder.bindSingleton(Model3dRenderer, makeModel3dRenderer)

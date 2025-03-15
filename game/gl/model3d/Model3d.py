@@ -45,7 +45,7 @@ class Model3d:
             mesh.vertices *= scale
 
         if self.hasAnimations:
-            for animation in self.animations:
+            for animation in self.animations.values():
                 for channel in animation.channels:
                     for frame in channel.translations:
                         frame.value = frame.value * scale  # output array is readonly

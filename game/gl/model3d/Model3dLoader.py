@@ -4,17 +4,18 @@ import impasse
 import numpy
 from impasse.constants import TextureSemantic
 
-from game.gl.model3d.Model3d import *
+from game.gl.model3d.AnimationLoader import AnimationLoader
+from game.gl.model3d.Model3d import Mesh, Model3d
 from game.gl.TextureLoader import TextureLoader
-from game.lib.Tree import Tree
 from game.render.common.TextureCollection import TextureCollection
 
 
 class Model3dLoader:
 
-    def __init__(self, textureLoader, textureCollection):
+    def __init__(self, textureLoader, textureCollection, animationLoader):
         self.textureLoader = textureLoader
         self.textureCollection = textureCollection
+        self.animationLoader = animationLoader
 
     def load(self, modelFilePath):
         scene = impasse.load(modelFilePath)
@@ -22,8 +23,7 @@ class Model3dLoader:
         model3d = Model3d()
         self.loadMeshes(model3d, scene, directoryName)
         if len(scene.animations) > 0:
-            meshesByNodesDictionary = self.getMeshesByNodesDictionary(model3d, scene)
-            self.loadAnimations(model3d, scene, meshesByNodesDictionary)
+            self.animationLoader.loadAnimations(model3d, scene)
 
         return model3d
 
@@ -42,43 +42,6 @@ class Model3dLoader:
                 modelMesh.texture = self.textureCollection.blank
             model3d.meshes.append(modelMesh)
 
-    def loadAnimations(self, model3d, scene, meshesByNodesDictionary):
-        model3d.hasAnimations = True
-        model3d.animations = []
-        for animation in scene.animations:
-            modelAnimation = Animation(animation.name, animation.duration, animation.ticks_per_second)
-            for channel in animation.channels:
-                modelChannel = Channel()
-                modelChannel.meshes = meshesByNodesDictionary[channel.node_name]
-                modelChannel.translations = [Frame(frame.time, frame.value) for frame in channel.position_keys]
-                modelChannel.rotations = [Frame(frame.time, frame.value) for frame in channel.rotation_keys]
-                modelChannel.scales = [Frame(frame.time, frame.value) for frame in channel.scaling_keys]
-                modelAnimation.channels.append(modelChannel)
-            model3d.animations.append(modelAnimation)
-
-        return model3d
-
-    def getMeshesByNodesDictionary(self, model3d, scene):
-        modelMeshDictionary = dict([(mesh.name, mesh) for mesh in model3d.meshes])
-        nodesDictionary = self.getNodesDictionary(scene.root_node)
-        meshesByNodesDictionary = {}
-        for nodeName, meshNames in nodesDictionary.items():
-            nodeMeshes = [modelMeshDictionary[meshName] for meshName in meshNames]
-            meshesByNodesDictionary[nodeName] = nodeMeshes
-
-        return meshesByNodesDictionary
-
-    def getNodesDictionary(self, rootNode):
-        nodes = Tree.flattenToList(rootNode, lambda parent: parent.children)
-        nodesDictionary = dict([(node.name, set()) for node in nodes])
-        for node in nodes:
-            for mesh in node.meshes:
-                nodesDictionary[node.name].add(mesh.name)
-                for bone in mesh.bones:
-                    nodesDictionary[bone.name].add(mesh.name)
-
-        return nodesDictionary
-
     def getDiffuseTextureFileNameOrNone(self, material):
         for key, value in material.items():
             name, kind = key
@@ -89,4 +52,4 @@ class Model3dLoader:
 
 
 def makeModel3dLoader(resolver):
-    return Model3dLoader(resolver.resolve(TextureLoader), resolver.resolve(TextureCollection))
+    return Model3dLoader(resolver.resolve(TextureLoader), resolver.resolve(TextureCollection), resolver.resolve(AnimationLoader))
