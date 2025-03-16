@@ -12,41 +12,41 @@ class AnimationLoader:
     def __init__(self):
         pass
 
-    def loadAnimations(self, model3d, scene):
+    def loadAnimations(self, model3d, aiScene):
         model3d.hasAnimations = True
         model3d.animations = {}
-        meshesByNodesDictionary = self.getMeshesByNodesDictionary(model3d, scene)
-        for animation in scene.animations:
-            modelAnimation = Animation(animation.name, animation.duration, animation.ticks_per_second)
-            for channel in animation.channels:
-                modelChannel = Channel()
-                modelChannel.meshes = meshesByNodesDictionary[channel.node_name]
-                modelChannel.translations = [Frame(frame.time, frame.value) for frame in channel.position_keys]
-                modelChannel.rotations = [Frame(frame.time, frame.value) for frame in channel.rotation_keys]
-                modelChannel.scales = [Frame(frame.time, frame.value) for frame in channel.scaling_keys]
-                modelAnimation.channels.append(modelChannel)
-            model3d.animations[modelAnimation.name] = modelAnimation
+        meshesByNodesDictionary = self.getMeshesByNodesDictionary(model3d, aiScene)
+        for aiAnimation in aiScene.animations:
+            animation = Animation(aiAnimation.name, aiAnimation.duration, aiAnimation.ticks_per_second)
+            for aiChannel in aiAnimation.channels:
+                channel = Channel()
+                channel.meshes = meshesByNodesDictionary[aiChannel.node_name]
+                channel.translations = [Frame(aiFrame.time, aiFrame.value) for aiFrame in aiChannel.position_keys]
+                channel.rotations = [Frame(aiFrame.time, aiFrame.value) for aiFrame in aiChannel.rotation_keys]
+                channel.scales = [Frame(aiFrame.time, aiFrame.value) for aiFrame in aiChannel.scaling_keys]
+                animation.channels.append(channel)
+            model3d.animations[animation.name] = animation
 
         return model3d
 
-    def getMeshesByNodesDictionary(self, model3d, scene):
+    def getMeshesByNodesDictionary(self, model3d, aiScene):
         modelMeshDictionary = dict([(mesh.name, mesh) for mesh in model3d.meshes])
-        nodesDictionary = self.getNodesDictionary(scene.root_node)
+        aiNodesDictionary = self.getAiNodesDictionary(aiScene.root_node)
         meshesByNodesDictionary = {}
-        for nodeName, meshNames in nodesDictionary.items():
+        for nodeName, meshNames in aiNodesDictionary.items():
             nodeMeshes = [modelMeshDictionary[meshName] for meshName in meshNames]
             meshesByNodesDictionary[nodeName] = nodeMeshes
 
         return meshesByNodesDictionary
 
-    def getNodesDictionary(self, rootNode):
-        nodes = Tree.flattenToList(rootNode, lambda parent: parent.children)
-        nodesDictionary = dict([(node.name, set()) for node in nodes])
-        for node in nodes:
-            for mesh in node.meshes:
-                nodesDictionary[node.name].add(mesh.name)
-                for bone in mesh.bones:
-                    nodesDictionary[bone.name].add(mesh.name)
+    def getAiNodesDictionary(self, rootNode):
+        aiNodes = Tree.flattenToList(rootNode, lambda parent: parent.children)
+        nodesDictionary = dict([(aiNode.name, set()) for aiNode in aiNodes])
+        for aiNode in aiNodes:
+            for aiMesh in aiNode.meshes:
+                nodesDictionary[aiNode.name].add(aiMesh.name)
+                for aiBone in aiMesh.bones:
+                    nodesDictionary[aiBone.name].add(aiMesh.name)
 
         return nodesDictionary
 

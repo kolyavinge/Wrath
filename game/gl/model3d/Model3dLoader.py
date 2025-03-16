@@ -18,29 +18,29 @@ class Model3dLoader:
         self.animationLoader = animationLoader
 
     def load(self, modelFilePath):
-        scene = impasse.load(modelFilePath)
+        aiScene = impasse.load(modelFilePath)
         directoryName = os.path.dirname(modelFilePath)
         model3d = Model3d()
-        self.loadMeshes(model3d, scene, directoryName)
-        if len(scene.animations) > 0:
-            self.animationLoader.loadAnimations(model3d, scene)
+        self.loadMeshes(model3d, aiScene, directoryName)
+        if len(aiScene.animations) > 0:
+            self.animationLoader.loadAnimations(model3d, aiScene)
 
         return model3d
 
-    def loadMeshes(self, model3d, scene, directoryName):
-        for mesh in scene.meshes:
-            modelMesh = Mesh()
-            modelMesh.name = mesh.name
-            modelMesh.vertices = numpy.array(mesh.vertices, dtype=numpy.float32)
-            modelMesh.normals = numpy.array(mesh.normals, dtype=numpy.float32)
-            modelMesh.texCoords = numpy.array(mesh.texture_coords[0], dtype=numpy.float32)
-            modelMesh.faces = numpy.array(mesh.faces, dtype=numpy.uint32)
-            texFile = self.getDiffuseTextureFileNameOrNone(mesh.material)
+    def loadMeshes(self, model3d, aiScene, directoryName):
+        for aiMesh in aiScene.meshes:
+            mesh = Mesh()
+            mesh.name = aiMesh.name
+            mesh.vertices = numpy.array(aiMesh.vertices, dtype=numpy.float32)
+            mesh.normals = numpy.array(aiMesh.normals, dtype=numpy.float32)
+            mesh.texCoords = numpy.array(aiMesh.texture_coords[0], dtype=numpy.float32)
+            mesh.faces = numpy.array(aiMesh.faces, dtype=numpy.uint32)
+            texFile = self.getDiffuseTextureFileNameOrNone(aiMesh.material)
             if texFile is not None:
-                modelMesh.texture = self.textureLoader.load(f"{directoryName}\\{texFile}")
+                mesh.texture = self.textureLoader.load(f"{directoryName}\\{texFile}")
             else:
-                modelMesh.texture = self.textureCollection.blank
-            model3d.meshes.append(modelMesh)
+                mesh.texture = self.textureCollection.blank
+            model3d.meshes.append(mesh)
 
     def getDiffuseTextureFileNameOrNone(self, material):
         for key, value in material.items():
