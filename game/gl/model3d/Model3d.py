@@ -14,13 +14,32 @@ class Channel:
         self.scales = []
 
 
+class Bone:
+
+    def __init__(self, id, name, offsetMatrix):
+        self.id = id
+        self.name = name
+        self.offsetMatrix = offsetMatrix
+
+
+class Node:
+
+    def __init__(self, name, parent):
+        self.name = name
+        self.parent = parent
+        self.children = []
+        self.transformMatrix = None
+        self.bone = None
+
+
 class Animation:
 
     def __init__(self, name, duration, ticksPerSecond):
         self.name = name
         self.duration = duration
         self.ticksPerSecond = ticksPerSecond
-        self.channels = []
+        self.rootNode = None
+        self.bones = []
 
 
 class Mesh:
@@ -45,6 +64,7 @@ class Model3d:
             mesh.vertices *= scale
 
         if self.hasAnimations:
+            return  # TODO
             for animation in self.animations.values():
                 for channel in animation.channels:
                     for frame in channel.translations:

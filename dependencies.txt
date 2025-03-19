@@ -21,6 +21,7 @@
 
 10. pip install setuptools
 
-11. pip install impasse
-    Copy 'assimp-vc143-mt.dll' from 'external' to python folder '\Lib\site-packages\impasse'
+11. PyAssimp
+    From 'https://github.com/assimp/assimp/tree/master/port/PyAssimp'
+    Copy 'assimp-vc143-mt.dll' from 'external' to python packages folder '\Lib\site-packages\pyassimp'
 

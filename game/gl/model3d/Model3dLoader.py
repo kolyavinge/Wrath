@@ -1,8 +1,7 @@
 import os
 
-import impasse
 import numpy
-from impasse.constants import TextureSemantic
+import pyassimp
 
 from game.gl.model3d.AnimationLoader import AnimationLoader
 from game.gl.model3d.Model3d import Mesh, Model3d
@@ -18,12 +17,12 @@ class Model3dLoader:
         self.animationLoader = animationLoader
 
     def load(self, modelFilePath):
-        aiScene = impasse.load(modelFilePath)
         directoryName = os.path.dirname(modelFilePath)
-        model3d = Model3d()
-        self.loadMeshes(model3d, aiScene, directoryName)
-        if len(aiScene.animations) > 0:
-            self.animationLoader.loadAnimations(model3d, aiScene)
+        with pyassimp.load(modelFilePath) as aiScene:
+            model3d = Model3d()
+            self.loadMeshes(model3d, aiScene, directoryName)
+            if len(aiScene.animations) > 0:
+                self.animationLoader.loadAnimations(model3d, aiScene)
 
         return model3d
 
@@ -33,7 +32,7 @@ class Model3dLoader:
             mesh.name = aiMesh.name
             mesh.vertices = numpy.array(aiMesh.vertices, dtype=numpy.float32)
             mesh.normals = numpy.array(aiMesh.normals, dtype=numpy.float32)
-            mesh.texCoords = numpy.array(aiMesh.texture_coords[0], dtype=numpy.float32)
+            mesh.texCoords = numpy.array(aiMesh.texturecoords[0], dtype=numpy.float32)
             mesh.faces = numpy.array(aiMesh.faces, dtype=numpy.uint32)
             texFile = self.getDiffuseTextureFileNameOrNone(aiMesh.material)
             if texFile is not None:
@@ -43,9 +42,8 @@ class Model3dLoader:
             model3d.meshes.append(mesh)
 
     def getDiffuseTextureFileNameOrNone(self, material):
-        for key, value in material.items():
-            name, kind = key
-            if name == "$tex.file" and kind == TextureSemantic.DIFFUSE:
+        for key, value in material.properties.items():
+            if key == "file":
                 return value
 
         return None
