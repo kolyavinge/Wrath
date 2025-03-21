@@ -16,6 +16,8 @@ class Channel:
 
 class Bone:
 
+    maxBoneCountInfluence = 4
+
     def __init__(self, id, name, offsetMatrix):
         self.id = id
         self.name = name
@@ -24,9 +26,9 @@ class Bone:
 
 class Node:
 
-    def __init__(self, name, parent):
-        self.name = name
-        self.parent = parent
+    def __init__(self):
+        self.name = ""
+        self.parent = None
         self.children = []
         self.transformMatrix = None
         self.bone = None
@@ -45,7 +47,7 @@ class Animation:
 class Mesh:
 
     def __init__(self):
-        self.name = ""
+        self.id = 0
         self.vertices = []
         self.normals = []
         self.texCoords = []

@@ -18,7 +18,7 @@ class Model3dLoader:
 
     def load(self, modelFilePath):
         directoryName = os.path.dirname(modelFilePath)
-        with pyassimp.load(modelFilePath) as aiScene:
+        with pyassimp.load(modelFilePath) as aiScene:  # processing=None
             model3d = Model3d()
             self.loadMeshes(model3d, aiScene, directoryName)
             if len(aiScene.animations) > 0:
@@ -27,9 +27,11 @@ class Model3dLoader:
         return model3d
 
     def loadMeshes(self, model3d, aiScene, directoryName):
+        meshId = 0
         for aiMesh in aiScene.meshes:
             mesh = Mesh()
-            mesh.name = aiMesh.name
+            aiMesh.id = meshId
+            mesh.id = meshId
             mesh.vertices = numpy.array(aiMesh.vertices, dtype=numpy.float32)
             mesh.normals = numpy.array(aiMesh.normals, dtype=numpy.float32)
             mesh.texCoords = numpy.array(aiMesh.texturecoords[0], dtype=numpy.float32)
@@ -40,6 +42,7 @@ class Model3dLoader:
             else:
                 mesh.texture = self.textureCollection.blank
             model3d.meshes.append(mesh)
+            meshId += 1
 
     def getDiffuseTextureFileNameOrNone(self, material):
         for key, value in material.properties.items():
