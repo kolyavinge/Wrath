@@ -1,17 +1,8 @@
-class Frame:
+class FrameTransformation:
 
-    def __init__(self, time, value):
+    def __init__(self, time, transformMatrix):
         self.time = time
-        self.value = value
-
-
-class Channel:
-
-    def __init__(self):
-        self.meshes = []
-        self.translations = []
-        self.rotations = []
-        self.scales = []
+        self.transformMatrix = transformMatrix
 
 
 class Bone:
@@ -22,6 +13,9 @@ class Bone:
         self.id = id
         self.name = name
         self.offsetMatrix = offsetMatrix
+        self.translations = []
+        self.rotations = []
+        self.scales = []
 
 
 class Node:
@@ -36,12 +30,11 @@ class Node:
 
 class Animation:
 
-    def __init__(self, name, duration, ticksPerSecond):
+    def __init__(self, name, duration, ticksPerSecond, rootNode):
         self.name = name
         self.duration = duration
         self.ticksPerSecond = ticksPerSecond
-        self.rootNode = None
-        self.bones = []
+        self.rootNode = rootNode
 
 
 class Mesh:

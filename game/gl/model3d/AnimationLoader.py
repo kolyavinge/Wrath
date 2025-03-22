@@ -4,8 +4,7 @@ import numpy
 
 from game.calc.Quaternion import Quaternion
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
-from game.gl.model3d.Model3d import *
+from game.gl.model3d.Model3d import Animation, Bone, FrameTransformation, Node
 from game.lib.Tree import Tree
 
 
@@ -20,7 +19,7 @@ class AnimationLoader:
         bonesDictionary = self.getBonesDictionary(aiScene)
         self.setWeightsToMeshes(model3d, aiScene, bonesDictionary)
         rootNode = self.getRootNode(aiScene, bonesDictionary)
-        self.readAnimations(model3d, aiScene, rootNode)
+        self.readAnimations(model3d, aiScene, rootNode, bonesDictionary)
 
         return model3d
 
@@ -71,15 +70,44 @@ class AnimationLoader:
 
         return rootNode
 
-    def readAnimations(self, model3d, aiScene, rootNode):
+    def readAnimations(self, model3d, aiScene, rootNode, bonesDictionary):
         for aiAnimation in aiScene.animations:
-            animation = Animation(aiAnimation.name, aiAnimation.duration, aiAnimation.tickspersecond)
+            animation = Animation(aiAnimation.name, aiAnimation.duration, aiAnimation.tickspersecond, rootNode)
             for aiChannel in aiAnimation.channels:
-                channel = Channel()
-                channel.translations = [Frame(aiFrame.time, aiFrame.value) for aiFrame in aiChannel.positionkeys]
-                channel.rotations = [Frame(aiFrame.time, aiFrame.value) for aiFrame in aiChannel.rotationkeys]
-                channel.scales = [Frame(aiFrame.time, aiFrame.value) for aiFrame in aiChannel.scalingkeys]
+                nodeName = aiChannel.nodename.data.decode("utf-8")
+                if nodeName in bonesDictionary:
+                    bone = bonesDictionary[nodeName]
+                    bone.translations = list(self.getTranslations(aiChannel))
+                    bone.rotations = list(self.getRotations(aiChannel))
+                    bone.scales = list(self.getScales(aiChannel))
+                else:
+                    pass
             model3d.animations[animation.name] = animation
+
+    def getTranslations(self, aiChannel):
+        for aiFrame in aiChannel.positionkeys:
+            transformMatrix = TransformMatrix4()
+            transformMatrix.translate(aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
+            yield FrameTransformation(aiFrame.time, transformMatrix)
+
+    def getRotations(self, aiChannel):
+        for aiFrame in aiChannel.rotationkeys:
+            quat = Quaternion()
+            quat.setComponents(aiFrame.mValue.w, aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
+            if quat.w > 1.0:  # shitty data
+                quat.w = 1.0
+            elif quat.w < -1.0:
+                quat.w = -1.0
+            radians, pivot = quat.getAngleAndPivot()
+            transformMatrix = TransformMatrix4()
+            transformMatrix.rotate(radians, pivot)
+            yield FrameTransformation(aiFrame.time, transformMatrix)
+
+    def getScales(self, aiChannel):
+        for aiFrame in aiChannel.scalingkeys:
+            transformMatrix = TransformMatrix4()
+            transformMatrix.scale(aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
+            yield FrameTransformation(aiFrame.time, transformMatrix)
 
 
 def makeAnimationLoader(resolver):
