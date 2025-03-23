@@ -5,7 +5,7 @@ import numpy
 from game.calc.Quaternion import Quaternion
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.model3d.Model3d import Animation, Bone, FrameTransformation, Node
-from game.lib.Tree import Tree
+from game.lib.Numeric import Numeric
 
 
 class AnimationLoader:
@@ -94,13 +94,10 @@ class AnimationLoader:
         for aiFrame in aiChannel.rotationkeys:
             quat = Quaternion()
             quat.setComponents(aiFrame.mValue.w, aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
-            if quat.w > 1.0:  # shitty data
-                quat.w = 1.0
-            elif quat.w < -1.0:
-                quat.w = -1.0
-            radians, pivot = quat.getAngleAndPivot()
+            quat.w = Numeric.limitBy(quat.w, -1.0, 1.0)  # shitty data
+            radians, axis = quat.getAngleAndAxis()
             transformMatrix = TransformMatrix4()
-            transformMatrix.rotate(radians, pivot)
+            transformMatrix.rotate(radians, axis)
             yield FrameTransformation(aiFrame.time, transformMatrix)
 
     def getScales(self, aiChannel):

@@ -28,31 +28,31 @@ class Quaternion:
         elif cosAlpha < -1.0:
             cosAlpha = -1.0
         alpha = Math.arccos(cosAlpha)
-        pivot = fromVector.copy()
-        pivot.vectorProduct(toVector)
-        if not pivot.isZero():
-            self.setAngleAndPivot(alpha, pivot)
+        axis = fromVector.copy()
+        axis.vectorProduct(toVector)
+        if not axis.isZero():
+            self.setAngleAndAxis(alpha, axis)
         else:
             self.setIdentity()
 
-    def getAngleAndPivot(self):
+    def getAngleAndAxis(self):
         alphaHalf = Math.arccos(self.w)
         radians = 2.0 * alphaHalf
-        pivot = Vector3(self.x, self.y, self.z)
+        axis = Vector3(self.x, self.y, self.z)
         sinHalf = Math.sin(alphaHalf)
         if not Numeric.floatEquals(sinHalf, 0.0):
-            pivot.div(sinHalf)
-        if pivot.isZero():
-            pivot.set(0.0, 0.0, 1.0)
+            axis.div(sinHalf)
+        if axis.isZero():
+            axis.set(0.0, 0.0, 1.0)
 
-        return (radians, pivot)
+        return (radians, axis)
 
-    def setAngleAndPivot(self, radians, pivot):
+    def setAngleAndAxis(self, radians, axis):
         sinHalf = Math.sin(radians / 2.0)
         cosHalf = Math.cos(radians / 2.0)
-        pivot.normalize()
-        pivot.mul(sinHalf)
-        self.setComponents(cosHalf, pivot.x, pivot.y, pivot.z)
+        axis.normalize()
+        axis.mul(sinHalf)
+        self.setComponents(cosHalf, axis.x, axis.y, axis.z)
 
     def inverse(self):
         self.x = -self.x

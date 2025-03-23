@@ -27,3 +27,12 @@ class Numeric:
     @staticmethod
     def isOdd(x):
         return (x % 2) != 0
+
+    @staticmethod
+    def limitBy(value, leftLimit, rightLimit):
+        if value < leftLimit:
+            return leftLimit
+        elif value > rightLimit:
+            return rightLimit
+        else:
+            return value
