@@ -1,4 +1,5 @@
 import os
+import time
 
 import numpy
 import pyassimp
@@ -18,11 +19,18 @@ class Model3dLoader:
 
     def load(self, modelFilePath):
         directoryName = os.path.dirname(modelFilePath)
+        loadStart = time.time()
         with pyassimp.load(modelFilePath) as aiScene:  # processing=None
+            loadEnd = time.time()
+            procStart = time.time()
             model3d = Model3d()
             self.loadMeshes(model3d, aiScene, directoryName)
             if len(aiScene.animations) > 0:
                 self.animationLoader.loadAnimations(model3d, aiScene)
+            procEnd = time.time()
+
+        print(f"Load model {directoryName} {loadEnd-loadStart:.8f} sec")
+        print(f"    process {procEnd-procStart:.8f} sec")
 
         return model3d
 

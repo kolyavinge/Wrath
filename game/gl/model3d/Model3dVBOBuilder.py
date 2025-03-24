@@ -1,5 +1,6 @@
 from OpenGL.GL import *
 
+from game.gl.BufferIndices import BufferIndices
 from game.gl.vbo.VBO import VBO
 
 
@@ -24,23 +25,22 @@ class Model3dVBOBuilder:
 
             vboIds = glGenBuffers(4)
 
-            glBindBuffer(GL_ARRAY_BUFFER, vboIds[0])
+            glBindBuffer(GL_ARRAY_BUFFER, vboIds[BufferIndices.vertices])
             glBufferData(GL_ARRAY_BUFFER, mesh.vertices.nbytes, mesh.vertices, GL_STATIC_DRAW)
-            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, None)
+            glVertexAttribPointer(BufferIndices.vertices, 3, GL_FLOAT, GL_FALSE, 0, None)
+            glEnableVertexAttribArray(BufferIndices.vertices)
 
-            glBindBuffer(GL_ARRAY_BUFFER, vboIds[1])
+            glBindBuffer(GL_ARRAY_BUFFER, vboIds[BufferIndices.normals])
             glBufferData(GL_ARRAY_BUFFER, mesh.normals.nbytes, mesh.normals, GL_STATIC_DRAW)
-            glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, None)
+            glVertexAttribPointer(BufferIndices.normals, 3, GL_FLOAT, GL_FALSE, 0, None)
+            glEnableVertexAttribArray(BufferIndices.normals)
 
-            glBindBuffer(GL_ARRAY_BUFFER, vboIds[2])
+            glBindBuffer(GL_ARRAY_BUFFER, vboIds[BufferIndices.texCoords])
             glBufferData(GL_ARRAY_BUFFER, mesh.texCoords.nbytes, mesh.texCoords, GL_STATIC_DRAW)
-            glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, None)
+            glVertexAttribPointer(BufferIndices.texCoords, 3, GL_FLOAT, GL_FALSE, 0, None)
+            glEnableVertexAttribArray(BufferIndices.texCoords)
 
-            glEnableVertexAttribArray(0)
-            glEnableVertexAttribArray(1)
-            glEnableVertexAttribArray(2)
-
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIds[3])
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIds[BufferIndices.faces])
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.faces.nbytes, mesh.faces, GL_STATIC_DRAW)
 
             glBindBuffer(GL_ARRAY_BUFFER, 0)

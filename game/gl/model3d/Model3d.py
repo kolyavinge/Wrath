@@ -1,21 +1,29 @@
-class FrameTransformation:
+class Frame:
 
     def __init__(self, time, transformMatrix):
         self.time = time
         self.transformMatrix = transformMatrix
 
 
+class Channel:
+
+    def __init__(self):
+        self.node = None
+        self.translationFrames = []
+        self.rotationFrames = []
+        self.scaleFrames = []
+
+
 class Bone:
 
-    maxBoneCountInfluence = 4
+    # такие же константы есть в шейдерах
+    maxBonesCountInfluence = 4
+    maxBonesCount = 100
 
     def __init__(self, id, name, offsetMatrix):
         self.id = id
         self.name = name
         self.offsetMatrix = offsetMatrix
-        self.translations = []
-        self.rotations = []
-        self.scales = []
 
 
 class Node:
@@ -30,11 +38,13 @@ class Node:
 
 class Animation:
 
-    def __init__(self, name, duration, ticksPerSecond, rootNode):
+    def __init__(self, name, duration, ticksPerSecond, rootNode, allBonesCount):
         self.name = name
         self.duration = duration
         self.ticksPerSecond = ticksPerSecond
         self.rootNode = rootNode
+        self.channels = {}
+        self.allBonesCount = allBonesCount
 
 
 class Mesh:
@@ -52,13 +62,13 @@ class Model3d:
 
     def __init__(self):
         self.meshes = []
-        self.hasAnimations = False
+        self.animations = None
 
     def setScale(self, scale):
         for mesh in self.meshes:
             mesh.vertices *= scale
 
-        if self.hasAnimations:
+        if self.animations is not None:
             return  # TODO
             for animation in self.animations.values():
                 for channel in animation.channels:
