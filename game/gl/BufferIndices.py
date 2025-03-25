@@ -4,6 +4,8 @@ class BufferIndices:
     normals = 1
     texCoords = 2
     faces = 3
+    boneIds = 4
+    weights = 5
 
 
-BufferIndices.all = [BufferIndices.vertices, BufferIndices.normals, BufferIndices.texCoords, BufferIndices.faces]
+BufferIndices.main = [BufferIndices.vertices, BufferIndices.normals, BufferIndices.texCoords, BufferIndices.faces]

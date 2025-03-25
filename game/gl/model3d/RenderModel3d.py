@@ -12,8 +12,9 @@ class RenderMesh:
 
 class RenderModel3d:
 
-    def __init__(self, meshes):
+    def __init__(self, meshes, animations=None):
         self.meshes = meshes
+        self.animations = animations
 
     def release(self):
         for m in self.meshes:

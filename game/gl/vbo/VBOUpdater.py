@@ -75,7 +75,7 @@ class VBOUpdater:
         self.vbo.elementsCount = Math.min(self.vbo.elementsCount + 3, self.vbo.maxElementsCount)
         self.vbo.faceLastIndex += 3
 
-    def buildUnfilled(self, maxVerticesCount, maxFacesCount, bufferIndices=BufferIndices.all):
+    def buildUnfilled(self, maxVerticesCount, maxFacesCount, bufferIndices=BufferIndices.main):
         vaoId = glGenVertexArrays(1)
         glBindVertexArray(vaoId)
 
