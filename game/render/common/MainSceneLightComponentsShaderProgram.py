@@ -25,6 +25,13 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
         self.setFloat32("material.specular", material.specular)
         self.setFloat32("material.shininess", material.shininess)
 
+    def hasAnimation(self, value):
+        self.setInt32("hasAnimation", 1 if value else 0)
+
+    def setBoneTransformMatrices(self, boneTransformMatrices):
+        for index, matrix in enumerate(boneTransformMatrices):
+            self.setTransformMatrix4(f"boneTransformMatrices[{index}]", matrix)
+
     def setLight(self, lights, torch):
         # lights
         lightIndex = 0
