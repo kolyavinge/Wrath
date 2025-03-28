@@ -1,3 +1,4 @@
+from game.calc.TransformMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
@@ -79,6 +80,46 @@ class Quaternion:
         res.mul(inversed)
 
         return Vector3(res.x, res.y, res.z)
+
+    def getMagnitude(self):
+        return Math.sqrt(self.w * self.w + self.x * self.x + self.y * self.y + self.z * self.z)
+
+    def normalize(self):
+        mg = self.getMagnitude()
+        self.w /= mg
+        self.x /= mg
+        self.y /= mg
+        self.z /= mg
+
+    def toTransformMatrix4(self):
+        m = TransformMatrix4()
+        m.items = [
+            # col 1
+            1.0 - 2.0 * (self.y * self.y + self.z * self.z),
+            2.0 * (self.x * self.y + self.z * self.w),
+            2.0 * (self.x * self.z - self.y * self.w),
+            0,
+            # col 2
+            2.0 * (self.x * self.y - self.z * self.w),
+            1.0 - 2.0 * (self.x * self.x + self.z * self.z),
+            2.0 * (self.y * self.z + self.x * self.w),
+            0,
+            # col 3
+            2.0 * (self.x * self.z + self.y * self.w),
+            2.0 * (self.y * self.z - self.x * self.w),
+            1.0 - 2.0 * (self.x * self.x + self.y * self.y),
+            0,
+            # col 4
+            0,
+            0,
+            0,
+            1,
+        ]
+
+        return m
+
+    def isZero(self):
+        return self.w == 0.0 and self.x == 0.0 and self.y == 0.0 and self.z == 0.0
 
     def copy(self):
         q = Quaternion()
