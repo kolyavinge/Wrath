@@ -65,12 +65,8 @@ class Model3d:
         self.animations = None
 
     def setScale(self, scale):
+        if self.animations is not None:
+            raise Exception("Model cannot be scaled if it has any animations.")
+
         for mesh in self.meshes:
             mesh.vertices *= scale
-
-        if self.animations is not None:
-            return  # TODO
-            for animation in self.animations.values():
-                for channel in animation.channels:
-                    for frame in channel.translations:
-                        frame.value = frame.value * scale  # output array is readonly

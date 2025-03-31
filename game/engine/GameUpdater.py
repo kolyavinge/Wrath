@@ -126,6 +126,7 @@ class GameUpdater:
         self.bulletTraceUpdater.update()
         self.enemyAILogic.apply()
         self.personPositionUpdater.resetMovedAndTurned()
+        self.personPositionUpdater.commitPersonState()
 
         # end = time.time()
         # print(f"Game updated {end-start:.8f}")

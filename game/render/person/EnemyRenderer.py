@@ -12,7 +12,9 @@ class EnemyRenderer:
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
         self.animationPlayer = animationPlayer
-        self.animation = None
+        self.animationNames = {}
+        self.animationNames[PersonState.standing] = "group|Take 001|BaseLayer"
+        self.animations = {}
 
     def render(self, shader, levelSegment):
         model = self.renderCollection.enemyModel
@@ -27,15 +29,17 @@ class EnemyRenderer:
             shader.hasAnimation(False)
 
     def getPlayableAnimationOrNone(self, enemy, model):
-        if self.animation is None:
-            if enemy.state == PersonState.standing:
-                animation = model.animations["group|standing"]
-                self.animation = PlayableAnimation(animation)
-                return self.animation
-        else:
-            return self.animation
+        if enemy.state == enemy.prevState:
+            return self.animations[enemy]
 
-        return None
+        if enemy.state in self.animationNames:
+            animation = PlayableAnimation(model.animations[self.animationNames[enemy.state]])
+        else:
+            animation = None
+
+        self.animations[enemy] = animation
+
+        return animation
 
 
 def makeEnemyRenderer(resolver):

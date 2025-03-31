@@ -11,7 +11,7 @@ class PlayableAnimation:
 
 class AnimationPlayer:
 
-    def update(self, playableAnimation, deltaTime=0.1):
+    def update(self, playableAnimation, deltaTime=0.025):
         self.calculateBoneTransformMatrices(playableAnimation, playableAnimation.animation.rootNode, TransformMatrix4.identity)
         playableAnimation.currentTime += playableAnimation.animation.ticksPerSecond * deltaTime
         playableAnimation.currentTime = playableAnimation.currentTime % playableAnimation.animation.duration

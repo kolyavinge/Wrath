@@ -24,6 +24,10 @@ class PersonPositionUpdater:
             if person.hasMoved and person.state == PersonState.standing:
                 person.hasMoved = False
 
+    def commitPersonState(self):
+        for person in self.gameData.allPerson:
+            person.prevState = person.state
+
 
 def makePersonPositionUpdater(resolver):
     return PersonPositionUpdater(resolver.resolve(GameData))

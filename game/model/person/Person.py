@@ -15,6 +15,7 @@ class Person:
 
     def __init__(self):
         self.state = PersonState.standing
+        self.prevState = None
         self.currentCenterPoint = Vector3()
         self.nextCenterPoint = self.currentCenterPoint.copy()
         self.collisionLevelSegments = set()
