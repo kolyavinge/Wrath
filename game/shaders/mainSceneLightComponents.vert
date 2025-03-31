@@ -25,22 +25,18 @@ mat3 normalMatrix = mat3(modelViewMatrix);
 
 void processWithAnimation()
 {
-    vec4 totalPosition = vec4(in_Position, 1.0);
+    mat4 boneTransform = mat4(0.0);
     for (int i = 0; i < maxBonesCountInfluence; i++)
     {
-        if (boneIds[i] == -1) continue;
-        if (boneIds[i] >= maxBonesCount) 
+        if (weights[i] > 0.0)
         {
-            totalPosition = vec4(in_Position, 1.0);
-            break;
+            boneTransform += boneTransformMatrices[boneIds[i]] * weights[i];
         }
-        vec4 localPosition = boneTransformMatrices[boneIds[i]] * vec4(in_Position, 1.0);
-        totalPosition += localPosition * weights[i];
     }
-    PositionView = vec3(modelViewMatrix * totalPosition);
+    PositionView = vec3(modelViewMatrix * boneTransform * vec4(in_Position, 1.0));
     NormalView = normalize(normalMatrix * in_Normal); // пересчитать нормаль
     TexCoord = in_TexCoord;
-    gl_Position = modelViewProjectionMatrix * totalPosition;
+    gl_Position = modelViewProjectionMatrix * boneTransform * vec4(in_Position, 1.0);
 }
 
 void processDefault()
