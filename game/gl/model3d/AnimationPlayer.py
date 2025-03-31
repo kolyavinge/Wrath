@@ -43,14 +43,13 @@ class AnimationPlayer:
         return transformMatrix
 
     def getFrameTransformMatrix(self, frames, currentTime):
-        prevFrame = frames[0]
         for frame in frames:
             if currentTime < frame.time:
-                break
+                return prevFrame.transformMatrix
             else:
                 prevFrame = frame
 
-        return prevFrame.transformMatrix
+        assert False
 
 
 def makeAnimationPlayer(resolver):

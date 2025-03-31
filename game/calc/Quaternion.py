@@ -91,7 +91,7 @@ class Quaternion:
         self.y /= mg
         self.z /= mg
 
-    def toTransformMatrix4(self):
+    def getTransformMatrix4(self):
         m = TransformMatrix4()
         m.items = [
             # col 1

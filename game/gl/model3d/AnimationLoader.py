@@ -5,7 +5,6 @@ import numpy
 from game.calc.Quaternion import Quaternion
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.model3d.Model3d import Animation, Bone, Channel, Frame, Node
-from game.lib.Numeric import Numeric
 from game.lib.Tree import Tree
 
 
@@ -45,6 +44,7 @@ class AnimationLoader:
             for aiBone in aiMesh.bones:
                 bone = bonesDictionary[aiBone.name]
                 for aiWeight in aiBone.weights:
+                    assert vertexWeightsCount[aiWeight.vertexid] < Bone.maxBonesCountInfluence
                     weightIndex = Bone.maxBonesCountInfluence * aiWeight.vertexid + vertexWeightsCount[aiWeight.vertexid]
                     mesh.boneIds[weightIndex] = bone.id
                     mesh.weights[weightIndex] = aiWeight.weight
@@ -81,26 +81,27 @@ class AnimationLoader:
                 channel.rotationFrames = list(self.getRotationFrames(aiChannel))
                 channel.scaleFrames = list(self.getScaleFrames(aiChannel))
                 animation.channels[nodeName] = channel
+            assert len(animation.channels) > 1
             model3d.animations[animation.name] = animation
 
     def getTranslationFrames(self, aiChannel):
         for aiFrame in aiChannel.positionkeys:
+            assert aiFrame.time >= 0
             transformMatrix = TransformMatrix4()
             transformMatrix.translate(aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
             yield Frame(aiFrame.time, transformMatrix)
 
     def getRotationFrames(self, aiChannel):
         for aiFrame in aiChannel.rotationkeys:
+            assert aiFrame.time >= 0
             quat = Quaternion()
             quat.setComponents(aiFrame.mValue.w, aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
-            quat.w = Numeric.limitBy(quat.w, -1.0, 1.0)  # shitty data
-            radians, axis = quat.getAngleAndAxis()
-            transformMatrix = TransformMatrix4()
-            transformMatrix.rotate(radians, axis)
+            transformMatrix = quat.getTransformMatrix4()
             yield Frame(aiFrame.time, transformMatrix)
 
     def getScaleFrames(self, aiChannel):
         for aiFrame in aiChannel.scalingkeys:
+            assert aiFrame.time >= 0
             transformMatrix = TransformMatrix4()
             transformMatrix.scale(aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
             yield Frame(aiFrame.time, transformMatrix)

@@ -6,7 +6,7 @@ class Model3dDirectory:
 
     def __init__(self, fileSystem):
         self.fileSystem = fileSystem
-        self.extensions = [".obj", ".fbx"]
+        self.extensions = [".obj", ".fbx", ".glb"]
 
     def getModelFileFromDirectory(self, model3dDirectoryName):
         path = f"{Environment.programRootPath}\\res\\3dmodels\\{model3dDirectoryName}"

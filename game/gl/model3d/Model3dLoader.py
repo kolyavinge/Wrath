@@ -3,6 +3,7 @@ import time
 
 import numpy
 import pyassimp
+from pyassimp import postprocess
 
 from game.gl.model3d.AnimationLoader import AnimationLoader
 from game.gl.model3d.Model3d import Mesh, Model3d
@@ -20,7 +21,7 @@ class Model3dLoader:
     def load(self, modelFilePath):
         directoryName = os.path.dirname(modelFilePath)
         loadStart = time.time()
-        with pyassimp.load(modelFilePath) as aiScene:  # processing=None
+        with pyassimp.load(modelFilePath, processing=postprocess.aiProcess_Triangulate | postprocess.aiProcess_LimitBoneWeights) as aiScene:
             loadEnd = time.time()
             procStart = time.time()
             model3d = Model3d()
@@ -29,8 +30,7 @@ class Model3dLoader:
                 self.animationLoader.loadAnimations(model3d, aiScene)
             procEnd = time.time()
 
-        print(f"Load model {directoryName} {loadEnd-loadStart:.8f} sec")
-        print(f"    process {procEnd-procStart:.8f} sec")
+        print(f"Load model {modelFilePath} {loadEnd-loadStart:.8f} (process {procEnd-procStart:.8f})")
 
         return model3d
 
