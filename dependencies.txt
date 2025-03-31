@@ -22,6 +22,5 @@
 10. pip install setuptools
 
 11. PyAssimp
-    From 'https://github.com/assimp/assimp/tree/master/port/PyAssimp'
-    Copy 'assimp-vc143-mt.dll' from 'external' to python packages folder '\Lib\site-packages\pyassimp'
-
+    1. Python package get from 'https://github.com/assimp/assimp/tree/master/port/PyAssimp'
+    2. Build main assimp library from this source and copy 'assimp-vc143-mt.dll' to python packages folder '\Lib\site-packages\pyassimp'
