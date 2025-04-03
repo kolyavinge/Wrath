@@ -34,7 +34,7 @@ void processWithAnimation()
         }
     }
     PositionView = vec3(modelViewMatrix * boneTransform * vec4(in_Position, 1.0));
-    NormalView = normalize(normalMatrix * in_Normal); // пересчитать нормаль
+    NormalView = normalize(normalMatrix * vec3(boneTransform * vec4(in_Normal, 1.0)));
     TexCoord = in_TexCoord;
     gl_Position = modelViewProjectionMatrix * boneTransform * vec4(in_Position, 1.0);
 }
