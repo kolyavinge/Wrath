@@ -81,10 +81,10 @@ class AnimationLoader:
                 channel.rotationFrames = list(self.getRotationFrames(aiChannel))
                 channel.scaleFrames = list(self.getScaleFrames(aiChannel))
                 animation.channels[nodeName] = channel
-            assert len(animation.channels) > 1
             model3d.animations[animation.name] = animation
 
     def getTranslationFrames(self, aiChannel):
+        assert len(aiChannel.positionkeys) > 1
         for aiFrame in aiChannel.positionkeys:
             assert aiFrame.time >= 0
             transformMatrix = TransformMatrix4()
@@ -92,6 +92,7 @@ class AnimationLoader:
             yield Frame(aiFrame.time, transformMatrix)
 
     def getRotationFrames(self, aiChannel):
+        assert len(aiChannel.rotationkeys) > 1
         for aiFrame in aiChannel.rotationkeys:
             assert aiFrame.time >= 0
             quat = Quaternion()
@@ -100,6 +101,7 @@ class AnimationLoader:
             yield Frame(aiFrame.time, transformMatrix)
 
     def getScaleFrames(self, aiChannel):
+        assert len(aiChannel.scalingkeys) > 1
         for aiFrame in aiChannel.scalingkeys:
             assert aiFrame.time >= 0
             transformMatrix = TransformMatrix4()

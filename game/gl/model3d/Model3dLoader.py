@@ -1,4 +1,3 @@
-import os
 import time
 
 import numpy
@@ -8,24 +7,28 @@ from pyassimp import postprocess
 from game.gl.model3d.AnimationLoader import AnimationLoader
 from game.gl.model3d.Model3d import Mesh, Model3d
 from game.gl.TextureLoader import TextureLoader
+from game.lib.FileSystem import FileSystem
+from game.lib.Query import Query
 from game.render.common.TextureCollection import TextureCollection
 
 
 class Model3dLoader:
 
-    def __init__(self, textureLoader, textureCollection, animationLoader):
+    def __init__(self, textureLoader, textureCollection, animationLoader, fileSystem):
         self.textureLoader = textureLoader
         self.textureCollection = textureCollection
         self.animationLoader = animationLoader
+        self.fileSystem = fileSystem
 
     def load(self, modelFilePath):
-        directoryName = os.path.dirname(modelFilePath)
+        directoryName = self.fileSystem.getDirectoryName(modelFilePath)
         loadStart = time.time()
         with pyassimp.load(modelFilePath, processing=postprocess.aiProcess_Triangulate | postprocess.aiProcess_LimitBoneWeights) as aiScene:
             loadEnd = time.time()
             procStart = time.time()
             model3d = Model3d()
-            self.loadMeshes(model3d, aiScene, directoryName)
+            textures = self.getTextures(directoryName)
+            self.loadMeshes(model3d, aiScene, textures, directoryName)
             if len(aiScene.animations) > 0:
                 self.animationLoader.loadAnimations(model3d, aiScene)
             procEnd = time.time()
@@ -34,7 +37,15 @@ class Model3dLoader:
 
         return model3d
 
-    def loadMeshes(self, model3d, aiScene, directoryName):
+    def getTextures(self, directoryName):
+        textures = {}
+        imageFiles = self.fileSystem.findFilesByExtension(directoryName, ".jpg")
+        for imageFile in imageFiles:
+            textures[imageFile] = self.textureLoader.load(imageFile)
+
+        return textures
+
+    def loadMeshes(self, model3d, aiScene, textures, directoryName):
         meshId = 0
         for aiMesh in aiScene.meshes:
             mesh = Mesh()
@@ -44,21 +55,28 @@ class Model3dLoader:
             mesh.normals = numpy.array(aiMesh.normals, dtype=numpy.float32)
             mesh.texCoords = numpy.array(aiMesh.texturecoords[0], dtype=numpy.float32)
             mesh.faces = numpy.array(aiMesh.faces, dtype=numpy.uint32)
-            texFile = self.getDiffuseTextureFileNameOrNone(aiMesh.material)
-            if texFile is not None:
-                mesh.texture = self.textureLoader.load(f"{directoryName}\\{texFile}")
-            else:
-                mesh.texture = self.textureCollection.blank
+            mesh.texture = self.getDiffuseTexture(aiMesh.material, textures, directoryName)
             model3d.meshes.append(mesh)
             meshId += 1
 
-    def getDiffuseTextureFileNameOrNone(self, material):
-        for key, value in material.properties.items():
-            if key == "file":
-                return value
+    def getDiffuseTexture(self, material, textures, directoryName):
+        if len(textures) == 1:
+            return Query(textures.values()).first()
 
-        return None
+        for key, value in material.properties.items():
+            if key == "name":
+                fileName = f"{directoryName}\\{value}_BaseColor.jpg"
+                if fileName in textures:
+                    return textures[fileName]
+
+            if key == "file":
+                fileName = f"{directoryName}\\{value}"
+                return textures[fileName]
+
+        return self.textureCollection.blank
 
 
 def makeModel3dLoader(resolver):
-    return Model3dLoader(resolver.resolve(TextureLoader), resolver.resolve(TextureCollection), resolver.resolve(AnimationLoader))
+    return Model3dLoader(
+        resolver.resolve(TextureLoader), resolver.resolve(TextureCollection), resolver.resolve(AnimationLoader), resolver.resolve(FileSystem)
+    )
