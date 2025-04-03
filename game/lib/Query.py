@@ -3,9 +3,16 @@ class Query:
     def __init__(self, lst):
         self.result = lst
 
-    def firstOrNone(self, condition):
+    def first(self, condition=None):
         for item in self.result:
-            if condition(item):
+            if condition == None or condition(item):
+                return item
+
+        raise Exception("Collection has no elements.")
+
+    def firstOrNone(self, condition=None):
+        for item in self.result:
+            if condition == None or condition(item):
                 return item
 
         return None
