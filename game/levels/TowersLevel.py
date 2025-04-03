@@ -117,10 +117,10 @@ class TowersLevel(Level):
         yield SplitPlane(Vector3(0, 100, 0), Vector3(0, 1, 0))
 
     def getPlayerPosition(self):
-        return Vector3(11, 11, self.minZ)
+        return Vector3(18, 18, self.minZ)
 
     def getPlayerFrontNormal(self):
-        return Vector3(1, 1, 0).getNormalized()
+        return Vector3(-1, -1, 0).getNormalized()
 
     def getEnemyPositions(self):
-        return [Vector3(20, 20, self.minZ)]
+        return [Vector3(15, 15, self.minZ)]
