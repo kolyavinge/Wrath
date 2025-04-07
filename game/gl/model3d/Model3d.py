@@ -3,6 +3,7 @@ class Frame:
     def __init__(self, time, transformMatrix):
         self.time = time
         self.transformMatrix = transformMatrix
+        self.nextFrame = None
 
 
 class Channel:

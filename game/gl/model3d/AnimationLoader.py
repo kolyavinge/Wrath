@@ -2,13 +2,16 @@
 
 import numpy
 
-from game.calc.Quaternion import Quaternion
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.gl.model3d.Model3d import Animation, Bone, Channel, Frame, Node
+from game.gl.model3d.FrameLoader import FrameLoader
+from game.gl.model3d.Model3d import Animation, Bone, Channel, Node
 from game.lib.Tree import Tree
 
 
 class AnimationLoader:
+
+    def __init__(self, frameLoader):
+        self.frameLoader = frameLoader
 
     def loadAnimations(self, model3d, aiScene):
         model3d.animations = {}
@@ -77,37 +80,10 @@ class AnimationLoader:
                 nodeName = aiChannel.nodename.data.decode("utf-8")
                 channel = Channel()
                 channel.node = nodesDictionary[nodeName]
-                channel.translationFrames = list(self.getTranslationFrames(aiChannel))
-                channel.rotationFrames = list(self.getRotationFrames(aiChannel))
-                channel.scaleFrames = list(self.getScaleFrames(aiChannel))
+                self.frameLoader.loadFrames(channel, aiChannel)
                 animation.channels[nodeName] = channel
             model3d.animations[animation.name] = animation
 
-    def getTranslationFrames(self, aiChannel):
-        assert len(aiChannel.positionkeys) > 1
-        for aiFrame in aiChannel.positionkeys:
-            assert aiFrame.time >= 0
-            transformMatrix = TransformMatrix4()
-            transformMatrix.translate(aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
-            yield Frame(aiFrame.time, transformMatrix)
-
-    def getRotationFrames(self, aiChannel):
-        assert len(aiChannel.rotationkeys) > 1
-        for aiFrame in aiChannel.rotationkeys:
-            assert aiFrame.time >= 0
-            quat = Quaternion()
-            quat.setComponents(aiFrame.mValue.w, aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
-            transformMatrix = quat.getTransformMatrix4()
-            yield Frame(aiFrame.time, transformMatrix)
-
-    def getScaleFrames(self, aiChannel):
-        assert len(aiChannel.scalingkeys) > 1
-        for aiFrame in aiChannel.scalingkeys:
-            assert aiFrame.time >= 0
-            transformMatrix = TransformMatrix4()
-            transformMatrix.scale(aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
-            yield Frame(aiFrame.time, transformMatrix)
-
 
 def makeAnimationLoader(resolver):
-    return AnimationLoader()
+    return AnimationLoader(resolver.resolve(FrameLoader))
