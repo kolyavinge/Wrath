@@ -642,10 +642,7 @@ class AuroraLevel(Level):
         yield SplitPlane(Vector3(30, 14, 0), Vector3(1, 0, 0))
 
     def getPlayerPosition(self):
-        return Vector3(22, 14, 0)
-
-    def getPlayerFrontNormal(self):
-        return Vector3(-1, 0, 0)
+        return (Vector3(22, 14, 0), Vector3(-1, 0, 0))
 
     def getEnemyPositions(self):
         return []
