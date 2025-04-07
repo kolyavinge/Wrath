@@ -2,6 +2,7 @@ from game.gl.AdjacencyFormatConverter import *
 from game.gl.model3d.AnimationLoader import *
 from game.gl.model3d.AnimationPlayer import *
 from game.gl.model3d.AsyncModel3dLoader import *
+from game.gl.model3d.FrameInterpolator import *
 from game.gl.model3d.FrameLoader import *
 from game.gl.model3d.Model3dLoader import *
 from game.gl.model3d.Model3dRenderer import *
@@ -70,6 +71,7 @@ class RenderModule:
         binder.bindSingleton(AnimationLoader, makeAnimationLoader)
         binder.bindSingleton(AnimationPlayer, makeAnimationPlayer)
         # binder.bindSingleton(AsyncModel3dLoader, makeAsyncModel3dLoader)
+        binder.bindSingleton(FrameInterpolator, makeFrameInterpolator)
         binder.bindSingleton(FrameLoader, makeFrameLoader)
         binder.bindSingleton(Model3dLoader, makeModel3dLoader)
         binder.bindSingleton(Model3dRenderer, makeModel3dRenderer)

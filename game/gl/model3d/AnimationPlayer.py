@@ -1,4 +1,5 @@
 from game.calc.TransformMatrix4 import TransformMatrix4
+from game.gl.model3d.FrameInterpolator import FrameInterpolator
 
 
 class PlayableAnimation:
@@ -10,6 +11,9 @@ class PlayableAnimation:
 
 
 class AnimationPlayer:
+
+    def __init__(self, frameInterpolator):
+        self.frameInterpolator = frameInterpolator
 
     def update(self, playableAnimation, deltaTime=0.025):
         self.calculateBoneTransformMatrices(playableAnimation, playableAnimation.animation.rootNode, TransformMatrix4.identity)
@@ -36,13 +40,30 @@ class AnimationPlayer:
             self.calculateBoneTransformMatrices(playableAnimation, child, globalTransformMatrix)
 
     def getChannelTransformMatrix(self, channel, currentTime):
-        transformMatrix = self.getFrameTransformMatrix(channel.translationFrameRoot, currentTime).copy()
-        transformMatrix.mul(self.getFrameTransformMatrix(channel.rotationFrameRoot, currentTime))
-        transformMatrix.mul(self.getFrameTransformMatrix(channel.scaleFrameRoot, currentTime))
+        translationFrame = self.getFrame(channel.translationFrameRoot, currentTime)
+        rotationFrame = self.getFrame(channel.rotationFrameRoot, currentTime)
+        scaleFrame = self.getFrame(channel.scaleFrameRoot, currentTime)
+
+        translationValue = self.frameInterpolator.getTranslationValue(translationFrame, currentTime)
+        translationMatrix = TransformMatrix4()
+        translationMatrix.translate(translationValue.x, translationValue.y, translationValue.z)
+
+        rotationValue = self.frameInterpolator.getRotationValue(rotationFrame, currentTime)
+        rotationMatrix = rotationValue.getTransformMatrix4()
+
+        scaleValue = self.frameInterpolator.getScaleValue(scaleFrame, currentTime)
+        scaleMatrix = TransformMatrix4()
+        scaleMatrix.scale(scaleValue.x, scaleValue.y, scaleValue.z)
+
+        transformMatrix = TransformMatrix4()
+        transformMatrix.setIdentity()
+        transformMatrix.mul(translationMatrix)
+        transformMatrix.mul(rotationMatrix)
+        transformMatrix.mul(scaleMatrix)
 
         return transformMatrix
 
-    def getFrameTransformMatrix(self, frameRoot, currentTime):
+    def getFrame(self, frameRoot, currentTime):
         node = frameRoot
 
         while True:
@@ -59,8 +80,8 @@ class AnimationPlayer:
 
         assert resultFrame is not None
 
-        return resultFrame.transformMatrix
+        return resultFrame
 
 
 def makeAnimationPlayer(resolver):
-    return AnimationPlayer()
+    return AnimationPlayer(resolver.resolve(FrameInterpolator))

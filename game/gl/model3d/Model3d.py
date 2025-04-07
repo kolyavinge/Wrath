@@ -1,8 +1,8 @@
 class Frame:
 
-    def __init__(self, time, transformMatrix):
+    def __init__(self, time, value):
         self.time = time
-        self.transformMatrix = transformMatrix
+        self.value = value
         self.nextFrame = None
         self.leftChild = None
         self.rightChild = None

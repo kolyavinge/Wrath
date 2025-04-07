@@ -1,5 +1,5 @@
 from game.calc.Quaternion import Quaternion
-from game.calc.TransformMatrix4 import TransformMatrix4
+from game.calc.Vector3 import Vector3
 from game.gl.model3d.Model3d import Frame
 from game.lib.List import List
 
@@ -24,9 +24,7 @@ class FrameLoader:
         assert len(aiChannel.positionkeys) > 1
         for aiFrame in aiChannel.positionkeys:
             assert aiFrame.time >= 0
-            transformMatrix = TransformMatrix4()
-            transformMatrix.translate(aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
-            yield Frame(aiFrame.time, transformMatrix)
+            yield Frame(aiFrame.time, Vector3(aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z))
 
     def getRotationFrames(self, aiChannel):
         assert len(aiChannel.rotationkeys) > 1
@@ -34,16 +32,14 @@ class FrameLoader:
             assert aiFrame.time >= 0
             quat = Quaternion()
             quat.setComponents(aiFrame.mValue.w, aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
-            transformMatrix = quat.getTransformMatrix4()
-            yield Frame(aiFrame.time, transformMatrix)
+            quat.normalize()
+            yield Frame(aiFrame.time, quat)
 
     def getScaleFrames(self, aiChannel):
         assert len(aiChannel.scalingkeys) > 1
         for aiFrame in aiChannel.scalingkeys:
             assert aiFrame.time >= 0
-            transformMatrix = TransformMatrix4()
-            transformMatrix.scale(aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z)
-            yield Frame(aiFrame.time, transformMatrix)
+            yield Frame(aiFrame.time, Vector3(aiFrame.mValue.x, aiFrame.mValue.y, aiFrame.mValue.z))
 
     def linkNextFrames(self, frames):
         frameIterator = iter(frames)
