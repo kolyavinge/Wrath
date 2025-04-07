@@ -129,3 +129,14 @@ class Vector3:
         result.normalize()
 
         return result
+
+    @staticmethod
+    def getLinearInterpolatedVector(a, b, t):
+        # a * (1.0 - t) + b * t
+
+        k = 1.0 - t
+        x = a.x * k + b.x * t
+        y = a.y * k + b.y * t
+        z = a.z * k + b.z * t
+
+        return Vector3(x, y, z)

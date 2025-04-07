@@ -60,6 +60,12 @@ class Quaternion:
         self.y = -self.y
         self.z = -self.z
 
+    def add(self, q1):
+        self.w += q1.w
+        self.x += q1.x
+        self.y += q1.y
+        self.z += q1.z
+
     def mul(self, q2):
         q1 = self
         w = (q1.w * q2.w) - (q1.x * q2.x) - (q1.y * q2.y) - (q1.z * q2.z)
@@ -67,6 +73,12 @@ class Quaternion:
         y = (q1.w * q2.y) - (q1.x * q2.z) + (q1.y * q2.w) + (q1.z * q2.x)
         z = (q1.w * q2.z) + (q1.x * q2.y) - (q1.y * q2.x) + (q1.z * q2.w)
         self.setComponents(w, x, y, z)
+
+    def mulConst(self, c):
+        self.w *= c
+        self.x *= c
+        self.y *= c
+        self.z *= c
 
     def rotatePoint(self, point):
         p = Quaternion()
@@ -90,6 +102,9 @@ class Quaternion:
         self.x /= mg
         self.y /= mg
         self.z /= mg
+
+    def dotProduct(self, q):
+        return self.w * q.w + self.x * q.x + self.y * q.y + self.z * q.z
 
     def getTransformMatrix4(self):
         m = TransformMatrix4()
@@ -129,3 +144,51 @@ class Quaternion:
         q.z = self.z
 
         return q
+
+    @staticmethod
+    def getSlerpNear(q1, q2, t):
+        q1 = q1.copy()
+        q2 = q2.copy()
+
+        dot = q1.dotProduct(q2)
+        if dot < 0.0:
+            dot = -dot
+            q2.inverse()
+
+        theta = Math.arccos(dot)
+        sinTheta = Math.sin(theta)
+        if sinTheta == 0.0:
+            return q1
+
+        af = Math.sin((1.0 - t) * theta) / sinTheta
+        bf = Math.sin(t * theta) / sinTheta
+
+        q1.mulConst(af)
+        q2.mulConst(bf)
+        q1.add(q2)
+
+        return q1
+
+    @staticmethod
+    def getSlerpFar(q1, q2, t):
+        q1 = q1.copy()
+        q2 = q2.copy()
+
+        dot = q1.dotProduct(q2)
+        if dot > 0.0:
+            dot = -dot
+            q2.inverse()
+
+        theta = Math.arccos(dot)
+        sinTheta = Math.sin(theta)
+        if sinTheta == 0.0:
+            return q1
+
+        af = Math.sin((1.0 - t) * theta) / sinTheta
+        bf = Math.sin(t * theta) / sinTheta
+
+        q1.mulConst(af)
+        q2.mulConst(bf)
+        q1.add(q2)
+
+        return q1
