@@ -36,20 +36,30 @@ class AnimationPlayer:
             self.calculateBoneTransformMatrices(playableAnimation, child, globalTransformMatrix)
 
     def getChannelTransformMatrix(self, channel, currentTime):
-        transformMatrix = self.getFrameTransformMatrix(channel.translationFrames, currentTime).copy()
-        transformMatrix.mul(self.getFrameTransformMatrix(channel.rotationFrames, currentTime))
-        transformMatrix.mul(self.getFrameTransformMatrix(channel.scaleFrames, currentTime))
+        transformMatrix = self.getFrameTransformMatrix(channel.translationFrameRoot, currentTime).copy()
+        transformMatrix.mul(self.getFrameTransformMatrix(channel.rotationFrameRoot, currentTime))
+        transformMatrix.mul(self.getFrameTransformMatrix(channel.scaleFrameRoot, currentTime))
 
         return transformMatrix
 
-    def getFrameTransformMatrix(self, frames, currentTime):
-        for frame in frames:
-            if currentTime < frame.time:
-                return prevFrame.transformMatrix
-            else:
-                prevFrame = frame
+    def getFrameTransformMatrix(self, frameRoot, currentTime):
+        node = frameRoot
 
-        assert False
+        while True:
+            if node is None:
+                break
+            elif currentTime == node.time:
+                resultFrame = node
+                break
+            elif currentTime < node.time:
+                node = node.leftChild
+            else:
+                resultFrame = node
+                node = node.rightChild
+
+        assert resultFrame is not None
+
+        return resultFrame.transformMatrix
 
 
 def makeAnimationPlayer(resolver):

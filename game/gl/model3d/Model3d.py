@@ -4,15 +4,17 @@ class Frame:
         self.time = time
         self.transformMatrix = transformMatrix
         self.nextFrame = None
+        self.leftChild = None
+        self.rightChild = None
 
 
 class Channel:
 
     def __init__(self):
         self.node = None
-        self.translationFrames = []
-        self.rotationFrames = []
-        self.scaleFrames = []
+        self.translationFrameRoot = []
+        self.rotationFrameRoot = []
+        self.scaleFrameRoot = []
 
 
 class Bone:
