@@ -4,14 +4,14 @@ from game.calc.Vector3 import Vector3
 
 class FrameInterpolator:
 
-    def getTranslationValue(self, currentFrame, currentTime):
+    def getTranslationVector(self, currentFrame, currentTime):
         nextFrame = currentFrame.nextFrame
         scaleFactor = self.getScaleFactor(currentFrame.time, nextFrame.time, currentTime)
         result = Vector3.getLinearInterpolatedVector(currentFrame.value, nextFrame.value, scaleFactor)
 
         return result
 
-    def getRotationValue(self, currentFrame, currentTime):
+    def getRotationQuaternion(self, currentFrame, currentTime):
         nextFrame = currentFrame.nextFrame
         scaleFactor = self.getScaleFactor(currentFrame.time, nextFrame.time, currentTime)
         result = Quaternion.getSlerpNear(currentFrame.value, nextFrame.value, scaleFactor)
@@ -19,7 +19,7 @@ class FrameInterpolator:
 
         return result
 
-    def getScaleValue(self, currentFrame, currentTime):
+    def getScaleVector(self, currentFrame, currentTime):
         nextFrame = currentFrame.nextFrame
         scaleFactor = self.getScaleFactor(currentFrame.time, nextFrame.time, currentTime)
         result = Vector3.getLinearInterpolatedVector(currentFrame.value, nextFrame.value, scaleFactor)

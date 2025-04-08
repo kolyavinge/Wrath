@@ -14,3 +14,20 @@ class Tree:
         rec(root)
 
         return result
+
+    @staticmethod
+    def makeBinaryTreeFromSortedList(items):
+
+        def rec(leftIndex, rightIndex):
+            if leftIndex <= rightIndex:
+                middleIndex = int(leftIndex + (rightIndex - leftIndex) / 2)
+                middle = items[middleIndex]
+                middle.leftChild = rec(leftIndex, middleIndex - 1)
+                middle.rightChild = rec(middleIndex + 1, rightIndex)
+                return middle
+            else:
+                return None
+
+        rootNode = rec(0, len(items) - 1)
+
+        return rootNode

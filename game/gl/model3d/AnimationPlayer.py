@@ -40,20 +40,20 @@ class AnimationPlayer:
             self.calculateBoneTransformMatrices(playableAnimation, child, globalTransformMatrix)
 
     def getChannelTransformMatrix(self, channel, currentTime):
-        translationFrame = self.getFrame(channel.translationFrameRoot, currentTime)
-        rotationFrame = self.getFrame(channel.rotationFrameRoot, currentTime)
-        scaleFrame = self.getFrame(channel.scaleFrameRoot, currentTime)
+        translationFrame = self.getFrame(channel.translationRootFrame, currentTime)
+        rotationFrame = self.getFrame(channel.rotationRootFrame, currentTime)
+        scaleFrame = self.getFrame(channel.scaleRootFrame, currentTime)
 
-        translationValue = self.frameInterpolator.getTranslationValue(translationFrame, currentTime)
+        translationVector = self.frameInterpolator.getTranslationVector(translationFrame, currentTime)
         translationMatrix = TransformMatrix4()
-        translationMatrix.translate(translationValue.x, translationValue.y, translationValue.z)
+        translationMatrix.translate(translationVector.x, translationVector.y, translationVector.z)
 
-        rotationValue = self.frameInterpolator.getRotationValue(rotationFrame, currentTime)
-        rotationMatrix = rotationValue.getTransformMatrix4()
+        rotationQuaternion = self.frameInterpolator.getRotationQuaternion(rotationFrame, currentTime)
+        rotationMatrix = rotationQuaternion.getTransformMatrix4()
 
-        scaleValue = self.frameInterpolator.getScaleValue(scaleFrame, currentTime)
+        scaleVector = self.frameInterpolator.getScaleVector(scaleFrame, currentTime)
         scaleMatrix = TransformMatrix4()
-        scaleMatrix.scale(scaleValue.x, scaleValue.y, scaleValue.z)
+        scaleMatrix.scale(scaleVector.x, scaleVector.y, scaleVector.z)
 
         transformMatrix = TransformMatrix4()
         transformMatrix.setIdentity()

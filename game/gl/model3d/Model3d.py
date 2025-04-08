@@ -12,9 +12,9 @@ class Channel:
 
     def __init__(self):
         self.node = None
-        self.translationFrameRoot = []
-        self.rotationFrameRoot = []
-        self.scaleFrameRoot = []
+        self.translationRootFrame = []
+        self.rotationRootFrame = []
+        self.scaleRootFrame = []
 
 
 class Bone:

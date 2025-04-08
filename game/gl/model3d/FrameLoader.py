@@ -2,6 +2,7 @@ from game.calc.Quaternion import Quaternion
 from game.calc.Vector3 import Vector3
 from game.gl.model3d.Model3d import Frame
 from game.lib.List import List
+from game.lib.Tree import Tree
 
 
 class FrameLoader:
@@ -16,9 +17,9 @@ class FrameLoader:
         self.linkNextFrames(translationFrames)
         self.linkNextFrames(rotationFrames)
         self.linkNextFrames(scaleFrames)
-        channel.translationFrameRoot = self.makeFrameRootNode(translationFrames)
-        channel.rotationFrameRoot = self.makeFrameRootNode(rotationFrames)
-        channel.scaleFrameRoot = self.makeFrameRootNode(scaleFrames)
+        channel.translationRootFrame = self.makeRootFrameNode(translationFrames)
+        channel.rotationRootFrame = self.makeRootFrameNode(rotationFrames)
+        channel.scaleRootFrame = self.makeRootFrameNode(scaleFrames)
 
     def getTranslationFrames(self, aiChannel):
         assert len(aiChannel.positionkeys) > 1
@@ -48,21 +49,8 @@ class FrameLoader:
             prevFrame.nextFrame = currentFrame
             prevFrame = currentFrame
 
-    def makeFrameRootNode(self, frames):
-
-        def rec(leftIndex, rightIndex):
-            if leftIndex <= rightIndex:
-                middleIndex = int(leftIndex + (rightIndex - leftIndex) / 2)
-                middle = frames[middleIndex]
-                middle.leftChild = rec(leftIndex, middleIndex - 1)
-                middle.rightChild = rec(middleIndex + 1, rightIndex)
-                return middle
-            else:
-                return None
-
-        rootNode = rec(0, len(frames) - 1)
-
-        return rootNode
+    def makeRootFrameNode(self, frames):
+        return Tree.makeBinaryTreeFromSortedList(frames)
 
 
 def makeFrameLoader(resolver):
