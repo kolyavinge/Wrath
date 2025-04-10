@@ -8,6 +8,7 @@ from game.gl.model3d.Model3dLoader import *
 from game.gl.model3d.Model3dRenderer import *
 from game.gl.model3d.RenderModel3dLoader import *
 from game.gl.ShaderCompiler import *
+from game.gl.TextRenderer import *
 from game.gl.TextureLoader import *
 from game.gl.vbo.ScreenQuadVBO import *
 from game.gl.vbo.VBOBuilderFactory import *
@@ -78,6 +79,7 @@ class RenderModule:
         binder.bindSingleton(RenderModel3dLoader, makeRenderModel3dLoader)
         binder.bindSingleton(ScreenQuadVBO, makeScreenQuadVBO)
         binder.bindSingleton(ShaderCompiler, makeShaderCompiler)
+        binder.bindSingleton(TextRenderer, makeTextRenderer)
         binder.bindSingleton(TextureLoader, makeTextureLoader)
         binder.bindSingleton(VBOBuilderFactory, makeVBOBuilderFactory)
         binder.bindSingleton(VBORenderer, makeVBORenderer)
