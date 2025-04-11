@@ -28,11 +28,6 @@ class WeaponFlashRenderMeshFactory:
         vboBuilder.addVertex(Vector3(size, 0, size))
         vboBuilder.addVertex(Vector3(-size, 0, size))
 
-        vboBuilder.addNormal(CommonConstants.yAxis)
-        vboBuilder.addNormal(CommonConstants.yAxis)
-        vboBuilder.addNormal(CommonConstants.yAxis)
-        vboBuilder.addNormal(CommonConstants.yAxis)
-
         vboBuilder.addTexCoord(0, 0)
         vboBuilder.addTexCoord(1, 0)
         vboBuilder.addTexCoord(1, 1)

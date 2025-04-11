@@ -43,7 +43,7 @@ class BulletCollisionProcessor:
 
     def processPersonCollision(self, bullet, person):
         person.damage(bullet.damagePercent * PersonConstants.maxPersonHealth)
-        print("person health: " + str(person.health))
+        print(f"{person} health: {person.health}")
 
 
 def makeBulletCollisionProcessor(resolver):
