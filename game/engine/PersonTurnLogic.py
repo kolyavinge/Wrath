@@ -1,4 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
+from game.anx.PersonConstants import PersonConstants
 from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
 from game.lib.Math import Math
@@ -40,16 +41,16 @@ class PersonTurnLogic:
         assert radians > 0
         person.hasTurned = True
         person.pitchRadians = Geometry.normalizeRadians(person.pitchRadians + radians)
-        if person.pitchRadians >= person.maxPitchRadians:
-            person.pitchRadians = person.maxPitchRadians
+        if person.pitchRadians >= PersonConstants.maxPitchRadians:
+            person.pitchRadians = PersonConstants.maxPitchRadians
         self.calculateDirectionVectors(person)
 
     def lookDown(self, person, radians):
         assert radians > 0
         person.hasTurned = True
         person.pitchRadians = Geometry.normalizeRadians(person.pitchRadians - radians)
-        if person.pitchRadians <= -person.maxPitchRadians:
-            person.pitchRadians = -person.maxPitchRadians
+        if person.pitchRadians <= -PersonConstants.maxPitchRadians:
+            person.pitchRadians = -PersonConstants.maxPitchRadians
         self.calculateDirectionVectors(person)
 
     def orientByFrontNormal(self, person, frontNormal):

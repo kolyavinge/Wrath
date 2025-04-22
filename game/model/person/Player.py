@@ -6,8 +6,6 @@ from game.model.person.Person import Person
 
 class Player(Person):
 
-    maxPitchRadians = Math.piHalf - 0.1
-
     def __init__(self):
         super().__init__()
         self.eyePosition = Vector3()

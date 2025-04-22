@@ -1,3 +1,6 @@
+from game.lib.Math import Math
+
+
 class PersonConstants:
 
     xyLength = 0.7
@@ -6,3 +9,4 @@ class PersonConstants:
     eyeLength = 1.6
     aimLength = 20.0
     maxPersonHealth = 100
+    maxPitchRadians = Math.piHalf - 0.1
