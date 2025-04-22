@@ -17,11 +17,11 @@ from game.engine.PersonMovingTimeCalculator import PersonMovingTimeCalculator
 from game.engine.PersonPositionUpdater import PersonPositionUpdater
 from game.engine.PersonTurnLogic import PersonTurnLogic
 from game.engine.PersonVelocityCalculator import PersonVelocityCalculator
+from game.engine.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.PersonZUpdater import PersonZUpdater
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerMovingSwingLogic import PlayerMovingSwingLogic
 from game.engine.PlayerWeaponPositionSwingLogic import PlayerWeaponPositionSwingLogic
-from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.PowerupUpdater import PowerupUpdater
 from game.engine.TorchUpdater import TorchUpdater
 from game.engine.WeaponDelayUpdater import WeaponDelayUpdater
@@ -48,7 +48,7 @@ class GameUpdater:
         personPositionUpdater,
         levelSegmentVisibilityUpdater,
         cameraUpdater,
-        playerWeaponPositionUpdater,
+        personWeaponPositionUpdater,
         weaponDelayUpdater,
         weaponFireLogic,
         playerWeaponPositionSwingLogic,
@@ -78,7 +78,7 @@ class GameUpdater:
         self.personPositionUpdater = personPositionUpdater
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
-        self.playerWeaponPositionUpdater = playerWeaponPositionUpdater
+        self.personWeaponPositionUpdater = personWeaponPositionUpdater
         self.weaponDelayUpdater = weaponDelayUpdater
         self.weaponFireLogic = weaponFireLogic
         self.playerWeaponPositionSwingLogic = playerWeaponPositionSwingLogic
@@ -110,7 +110,7 @@ class GameUpdater:
         self.playerMovingSwingLogic.updateSwing()
         self.cameraUpdater.update()
         self.backgroundVisibilityDetector.updateIfPlayerMovedOrTurned()
-        self.playerWeaponPositionUpdater.update()
+        self.personWeaponPositionUpdater.update()
         self.weaponDelayUpdater.update()
         self.weaponFireLogic.process()
         self.playerWeaponPositionSwingLogic.updateSwing()
@@ -148,7 +148,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PersonPositionUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
-        resolver.resolve(PlayerWeaponPositionUpdater),
+        resolver.resolve(PersonWeaponPositionUpdater),
         resolver.resolve(WeaponDelayUpdater),
         resolver.resolve(WeaponFireLogic),
         resolver.resolve(PlayerWeaponPositionSwingLogic),

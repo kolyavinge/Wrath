@@ -9,8 +9,8 @@ from game.engine.LevelSegmentLightAnalyzer import LevelSegmentLightAnalyzer
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.LevelValidator import LevelValidator
 from game.engine.PersonInitializer import PersonInitializer
+from game.engine.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
-from game.engine.PlayerWeaponPositionUpdater import PlayerWeaponPositionUpdater
 from game.engine.WeaponFlashUpdater import WeaponFlashUpdater
 
 
@@ -30,7 +30,7 @@ class LevelManager:
         levelSegmentVisibilityUpdater,
         cameraUpdater,
         backgroundVisibilityDetector,
-        playerWeaponPositionUpdater,
+        personWeaponPositionUpdater,
         weaponFlashUpdater,
     ):
         self.gameData = gameData
@@ -45,7 +45,7 @@ class LevelManager:
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
         self.backgroundVisibilityDetector = backgroundVisibilityDetector
-        self.playerWeaponPositionUpdater = playerWeaponPositionUpdater
+        self.personWeaponPositionUpdater = personWeaponPositionUpdater
         self.weaponFlashUpdater = weaponFlashUpdater
 
     def loadFirstLevel(self):
@@ -62,7 +62,7 @@ class LevelManager:
         self.cameraUpdater.update()
         self.levelSegmentVisibilityUpdater.update()
         self.backgroundVisibilityDetector.update()
-        self.playerWeaponPositionUpdater.update()
+        self.personWeaponPositionUpdater.update()
         self.weaponFlashUpdater.init()
 
 
@@ -80,6 +80,6 @@ def makeLevelManager(resolver):
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
         resolver.resolve(BackgroundVisibilityDetector),
-        resolver.resolve(PlayerWeaponPositionUpdater),
+        resolver.resolve(PersonWeaponPositionUpdater),
         resolver.resolve(WeaponFlashUpdater),
     )

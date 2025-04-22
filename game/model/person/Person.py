@@ -24,6 +24,7 @@ class Person:
         self.nextBorder = self.currentBorder.copy()
         self.pitchRadians = 0
         self.yawRadians = 0
+        self.eyePosition = Vector3()
         self.lookDirection = CommonConstants.yAxis
         self.lookDirectionNormal = CommonConstants.zAxis
         self.frontNormal = CommonConstants.yAxis
@@ -63,6 +64,8 @@ class Person:
     def commitNextPosition(self):
         self.currentCenterPoint = self.nextCenterPoint.copy()
         self.currentBorder = self.nextBorder.copy()
+        self.eyePosition = self.currentCenterPoint.copy()
+        self.eyePosition.z += PersonConstants.eyeLength
 
     def addHealth(self, health):
         if health < 0:

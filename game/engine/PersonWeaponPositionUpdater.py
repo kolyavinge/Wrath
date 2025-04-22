@@ -2,22 +2,32 @@ from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
 
 
-class PlayerWeaponPositionUpdater:
+class PersonWeaponPositionUpdater:
 
     def __init__(self, gameData):
         self.gameData = gameData
 
     def update(self):
-        playerItems = self.gameData.playerItems
-        self.updateWeapon(playerItems.rightHandWeapon, rightHand=True)
-        if playerItems.leftHandWeapon is not None:
-            self.updateWeapon(playerItems.leftHandWeapon, rightHand=False)
+        self.updateForPlayer()
+        self.updateForEnemies()
 
-    def updateWeapon(self, weapon, rightHand):
-        player = self.gameData.player
-        weaponPosition = self.getWeaponPosition(player, weapon, rightHand)
-        barrelPosition = self.getBarrelPosition(player, weapon, weaponPosition, rightHand)
-        aimPoint = self.getAimPoint(player, barrelPosition)
+    def updateForPlayer(self):
+        self.updateForPerson(self.gameData.player)
+
+    def updateForEnemies(self):
+        for enemy in self.gameData.enemies:
+            self.updateForPerson(enemy)
+
+    def updateForPerson(self, person):
+        personItems = self.gameData.allPersonItems[person]
+        self.updateWeapon(person, personItems.rightHandWeapon, rightHand=True)
+        if personItems.leftHandWeapon is not None:
+            self.updateWeapon(person, personItems.leftHandWeapon, rightHand=False)
+
+    def updateWeapon(self, person, weapon, rightHand):
+        weaponPosition = self.getWeaponPosition(person, weapon, rightHand)
+        barrelPosition = self.getBarrelPosition(person, weapon, weaponPosition, rightHand)
+        aimPoint = self.getAimPoint(person, barrelPosition)
 
         weapon.position = weaponPosition
         weapon.barrelPosition = barrelPosition
@@ -25,8 +35,8 @@ class PlayerWeaponPositionUpdater:
         weapon.direction.normalize()
         weapon.direction.add(weapon.jitter)
         weapon.direction.normalize()
-        weapon.yawRadians = player.yawRadians
-        weapon.pitchRadians = player.pitchRadians
+        weapon.yawRadians = person.yawRadians
+        weapon.pitchRadians = person.pitchRadians
 
         if not weapon.jitter.isZero():
             weapon.jitter.mul(weapon.jitterFade)
@@ -34,16 +44,16 @@ class PlayerWeaponPositionUpdater:
         if not weapon.feedback.isZero():
             weapon.feedback.mul(weapon.feedbackFade)
 
-    def getWeaponPosition(self, player, weapon, rightHand):
-        rightShift = player.rightNormal.copy()
+    def getWeaponPosition(self, person, weapon, rightHand):
+        rightShift = person.rightNormal.copy()
         rightShift.mul(weapon.playerShift.x)
         if not rightHand:
             rightShift.mul(-1)
-        frontShift = player.lookDirection.copy()
+        frontShift = person.lookDirection.copy()
         frontShift.mul(weapon.playerShift.y)
-        topShift = player.lookDirectionNormal.copy()
+        topShift = person.lookDirectionNormal.copy()
         topShift.mul(weapon.playerShift.z)
-        weaponPosition = player.eyePosition.copy()
+        weaponPosition = person.eyePosition.copy()
         weaponPosition.add(rightShift)
         weaponPosition.add(frontShift)
         weaponPosition.add(topShift)
@@ -51,14 +61,14 @@ class PlayerWeaponPositionUpdater:
 
         return weaponPosition
 
-    def getBarrelPosition(self, player, weapon, weaponPosition, rightHand):
-        rightShift = player.rightNormal.copy()
+    def getBarrelPosition(self, person, weapon, weaponPosition, rightHand):
+        rightShift = person.rightNormal.copy()
         rightShift.mul(weapon.barrelPoint.x)
         if not rightHand:
             rightShift.mul(-1)
-        frontShift = player.lookDirection.copy()
+        frontShift = person.lookDirection.copy()
         frontShift.mul(weapon.barrelPoint.y)
-        topShift = player.lookDirectionNormal.copy()
+        topShift = person.lookDirectionNormal.copy()
         topShift.mul(weapon.barrelPoint.z)
         barrelPosition = weaponPosition.copy()
         barrelPosition.add(rightShift)
@@ -75,5 +85,5 @@ class PlayerWeaponPositionUpdater:
         return aimPoint
 
 
-def makePlayerWeaponPositionUpdater(resolver):
-    return PlayerWeaponPositionUpdater(resolver.resolve(GameData))
+def makePersonWeaponPositionUpdater(resolver):
+    return PersonWeaponPositionUpdater(resolver.resolve(GameData))

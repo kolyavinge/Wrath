@@ -34,12 +34,12 @@ from game.engine.PersonMovingTimeCalculator import *
 from game.engine.PersonPositionUpdater import *
 from game.engine.PersonTurnLogic import *
 from game.engine.PersonVelocityCalculator import *
+from game.engine.PersonWeaponPositionUpdater import *
 from game.engine.PersonZUpdater import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerMovingSwingLogic import *
 from game.engine.PlayerWeaponPositionSwingLogic import *
-from game.engine.PlayerWeaponPositionUpdater import *
 from game.engine.PowerupPositionGenerator import *
 from game.engine.PowerupUpdater import *
 from game.engine.TorchUpdater import *
@@ -91,12 +91,12 @@ class EngineModule:
         binder.bindSingleton(PersonPositionUpdater, makePersonPositionUpdater)
         binder.bindSingleton(PersonTurnLogic, makePersonTurnLogic)
         binder.bindSingleton(PersonVelocityCalculator, makePersonVelocityCalculator)
+        binder.bindSingleton(PersonWeaponPositionUpdater, makePersonWeaponPositionUpdater)
         binder.bindSingleton(PersonZUpdater, makePersonZUpdater)
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMovingSwingLogic, makePlayerMovingSwingLogic)
         binder.bindSingleton(PlayerWeaponPositionSwingLogic, makePlayerWeaponPositionSwingLogic)
-        binder.bindSingleton(PlayerWeaponPositionUpdater, makePlayerWeaponPositionUpdater)
         binder.bindSingleton(PowerupPositionGenerator, makePowerupPositionGenerator)
         binder.bindSingleton(PowerupUpdater, makePowerupUpdater)
         binder.bindSingleton(TorchUpdater, makeTorchUpdater)
