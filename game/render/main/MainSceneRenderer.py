@@ -2,15 +2,15 @@ from OpenGL.GL import *
 
 from game.render.level.LevelSegmentRenderer import LevelSegmentRenderer
 from game.render.main.ShadowedObjectRenderer import ShadowedObjectRenderer
-from game.render.weapon.PlayerWeaponRenderer import PlayerWeaponRenderer
+from game.render.weapon.WeaponRenderer import WeaponRenderer
 
 
 class MainSceneRenderer:
 
-    def __init__(self, shadowedObjectRenderer, levelSegmentRenderer, playerWeaponRenderer):
+    def __init__(self, shadowedObjectRenderer, levelSegmentRenderer, weaponRenderer):
         self.shadowedObjectRenderer = shadowedObjectRenderer
         self.levelSegmentRenderer = levelSegmentRenderer
-        self.playerWeaponRenderer = playerWeaponRenderer
+        self.weaponRenderer = weaponRenderer
 
     def renderDefaultAimState(self):
         self.shadowedObjectRenderer.render(self.defaultAimStateFunc, self.levelSegmentRenderer.renderShadowCasters)
@@ -20,7 +20,7 @@ class MainSceneRenderer:
 
     def defaultAimStateFunc(self, shader):
         self.levelSegmentRenderer.render(shader)
-        self.playerWeaponRenderer.render(shader)
+        self.weaponRenderer.render(shader)
 
     def sniperAimStateFunc(self, shader):
         self.levelSegmentRenderer.render(shader)
@@ -30,5 +30,5 @@ def makeMainSceneRenderer(resolver):
     return MainSceneRenderer(
         resolver.resolve(ShadowedObjectRenderer),
         resolver.resolve(LevelSegmentRenderer),
-        resolver.resolve(PlayerWeaponRenderer),
+        resolver.resolve(WeaponRenderer),
     )

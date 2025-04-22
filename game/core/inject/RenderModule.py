@@ -54,7 +54,6 @@ from game.render.weapon.BulletRenderCollection import *
 from game.render.weapon.BulletRenderer import *
 from game.render.weapon.BulletTraceRenderer import *
 from game.render.weapon.CrosshairRenderer import *
-from game.render.weapon.PlayerWeaponRenderer import *
 from game.render.weapon.shine.PlasmaShineBulletRenderer import *
 from game.render.weapon.ShineBulletRenderer import *
 from game.render.weapon.SniperCrosshairRenderer import *
@@ -64,6 +63,7 @@ from game.render.weapon.WeaponFlashRenderer import *
 from game.render.weapon.WeaponFlashRenderMeshFactory import *
 from game.render.weapon.WeaponModel3dFactory import *
 from game.render.weapon.WeaponRenderCollection import *
+from game.render.weapon.WeaponRenderer import *
 
 
 class RenderModule:
@@ -125,7 +125,6 @@ class RenderModule:
         binder.bindSingleton(BulletRenderer, makeBulletRenderer)
         binder.bindSingleton(BulletTraceRenderer, makeBulletTraceRenderer)
         binder.bindSingleton(CrosshairRenderer, makeCrosshairRenderer)
-        binder.bindSingleton(PlayerWeaponRenderer, makePlayerWeaponRenderer)
         binder.bindSingleton(PlasmaShineBulletRenderer, makePlasmaShineBulletRenderer)
         binder.bindSingleton(ShineBulletRenderer, makeShineBulletRenderer)
         binder.bindSingleton(SniperCrosshairRenderer, makeSniperCrosshairRenderer)
@@ -135,3 +134,4 @@ class RenderModule:
         binder.bindSingleton(WeaponFlashRenderMeshFactory, makeWeaponFlashRenderMeshFactory)
         binder.bindSingleton(WeaponModel3dFactory, makeWeaponModel3dFactory)
         binder.bindSingleton(WeaponRenderCollection, makeWeaponRenderCollection)
+        binder.bindSingleton(WeaponRenderer, makeWeaponRenderer)

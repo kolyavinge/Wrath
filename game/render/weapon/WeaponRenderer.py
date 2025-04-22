@@ -5,7 +5,7 @@ from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection
 
 
-class PlayerWeaponRenderer:
+class WeaponRenderer:
 
     def __init__(self, gameData, renderCollection, model3dRenderer):
         self.gameData = gameData
@@ -13,10 +13,10 @@ class PlayerWeaponRenderer:
         self.model3dRenderer = model3dRenderer
 
     def render(self, shader):
-        playerItems = self.gameData.playerItems
-        self.renderWeapon(shader, playerItems.rightHandWeapon)
-        if playerItems.leftHandWeapon is not None:
-            self.renderWeapon(shader, playerItems.leftHandWeapon)
+        for personItems in self.gameData.allPersonItems.values():
+            self.renderWeapon(shader, personItems.rightHandWeapon)
+            if personItems.leftHandWeapon is not None:
+                self.renderWeapon(shader, personItems.leftHandWeapon)
 
     def renderWeapon(self, shader, weapon):
         shader.setModelMatrix(weapon.getModelMatrix())
@@ -24,5 +24,5 @@ class PlayerWeaponRenderer:
         self.model3dRenderer.render(model, shader)
 
 
-def makePlayerWeaponRenderer(resolver):
-    return PlayerWeaponRenderer(resolver.resolve(GameData), resolver.resolve(WeaponRenderCollection), resolver.resolve(Model3dRenderer))
+def makeWeaponRenderer(resolver):
+    return WeaponRenderer(resolver.resolve(GameData), resolver.resolve(WeaponRenderCollection), resolver.resolve(Model3dRenderer))
