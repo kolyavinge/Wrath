@@ -20,6 +20,7 @@ class Bullet:
         self.nextLevelSegment = None
         self.currentVisibilityLevelSegment = None
         self.holeInfo = None
+        self.ownerPerson = None
 
     def commitNextPosition(self):
         self.currentPosition = self.nextPosition.copy()

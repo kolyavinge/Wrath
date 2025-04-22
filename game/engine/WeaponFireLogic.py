@@ -21,18 +21,18 @@ class WeaponFireLogic:
 
     def processWeapon(self, person, inputData, weapon):
         if inputData.fire and self.canFire(weapon):
-            self.fire(weapon)
+            self.fire(person, weapon)
             self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
 
     def canFire(self, weapon):
         return weapon.bulletsCount > 0 and weapon.delayRemain == 0
 
-    def fire(self, weapon):
+    def fire(self, person, weapon):
         weapon.bulletsCount -= 1
         weapon.delayRemain = weapon.delay
         self.weaponFeedbackLogic.applyFeedback(weapon)
 
-        bullet = weapon.makeBullet()
+        bullet = weapon.makeBullet(person)
         self.gameData.bullets.append(bullet)
         bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, bullet.currentPosition)
 

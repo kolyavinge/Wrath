@@ -29,7 +29,7 @@ class Weapon:
         self.feedbackLength = 0
         self.playerShift = Vector3()
 
-    def makeBullet(self):
+    def makeBullet(self, ownerPerson):
         bullet = self.bulletType()
         bullet.currentPosition = self.barrelPosition.copy()
         bullet.nextPosition = bullet.currentPosition.copy()
@@ -37,6 +37,7 @@ class Weapon:
         bullet.pitchRadians = self.pitchRadians
         bullet.velocity = self.direction.copy()
         bullet.velocity.setLength(bullet.velocityValue)
+        bullet.ownerPerson = ownerPerson
 
         return bullet
 

@@ -28,11 +28,11 @@ class BulletCollisionDetector:
             bullet.nextLevelSegment,
             bullet.currentPosition,
             bullet.nextPosition,
-            self.getTotalCollisionResultOrNone,
+            lambda segment, start, end: self.getTotalCollisionResultOrNone(bullet, segment, start, end),
         )
 
-    def getTotalCollisionResultOrNone(self, levelSegment, startPoint, endPoint):
-        collisionResult = self.getPersonCollisionResultOrNone(levelSegment, startPoint, endPoint)
+    def getTotalCollisionResultOrNone(self, bullet, levelSegment, startPoint, endPoint):
+        collisionResult = self.getPersonCollisionResultOrNone(bullet, levelSegment, startPoint, endPoint)
         if collisionResult is not None:
             return (BulletCollisionTarget.person, collisionResult)
 
@@ -56,10 +56,12 @@ class BulletCollisionDetector:
 
         return result
 
-    def getPersonCollisionResultOrNone(self, levelSegment, startPoint, endPoint):
+    def getPersonCollisionResultOrNone(self, bullet, levelSegment, startPoint, endPoint):
         result = None
         nearestLength = CommonConstants.maxLevelSize
         for person in levelSegment.allPerson:
+            if person == bullet.ownerPerson:
+                continue
             # check two cross planes
             border = person.currentBorder
             plane = RectPlane(self.xNormal, border.bottom.middleBottom, border.bottom.middleTop, border.top.middleBottom, border.top.middleTop)
