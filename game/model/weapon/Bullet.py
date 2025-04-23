@@ -10,8 +10,9 @@ class Bullet:
         self.isVisible = False
         self.currentPosition = Vector3()
         self.nextPosition = Vector3()
-        self.yawRadians = 0
         self.pitchRadians = 0
+        self.rollRadians = 0
+        self.yawRadians = 0
         self.velocity = Vector3()
         self.velocityValue = 0
         self.damagePercent = 0
@@ -48,5 +49,6 @@ class Bullet:
             .translate(self.currentPosition.x, self.currentPosition.y, self.currentPosition.z)
             .rotate(self.yawRadians, CommonConstants.zAxis)
             .rotate(self.pitchRadians, CommonConstants.xAxis)
+            .rotate(self.rollRadians, CommonConstants.yAxis)
             .resultMatrix
         )

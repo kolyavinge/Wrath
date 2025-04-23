@@ -1,3 +1,4 @@
+from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
@@ -23,12 +24,15 @@ class LauncherBullet(Bullet):
         self.damagePercent = 0.5
         self.holeInfo = BulletHoleInfo.explosionHole
 
+    def update(self):
+        self.rollRadians = Geometry.normalizeRadians(self.rollRadians + 0.25)
+
 
 class Launcher(Weapon):
 
     def __init__(self):
         super().__init__(LauncherBullet, LauncherFlash)
-        self.barrelPoint = Vector3(0, 0, 0.018)
+        self.barrelPoint = Vector3(0, 0, 0.05)
         self.bulletsCount = 5
         self.maxBulletsCount = 5
         self.delay = 40
