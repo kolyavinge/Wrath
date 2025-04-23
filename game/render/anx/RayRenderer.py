@@ -84,7 +84,7 @@ class RayRenderer:
         return [p1, p2, p3, p4]
 
     def getPlane(self, startPosition, endPosition, mainAxis):
-        rotatedCameraPosition = Geometry.rotatePoint(self.gameData.camera.position, mainAxis, CommonConstants.axisOrigin, Math.piHalf)
+        rotatedCameraPosition = Geometry.rotatePoint(self.gameData.camera.position, mainAxis, startPosition, Math.piHalf)
         plane = Plane.makeByThreePoints(rotatedCameraPosition, startPosition, endPosition)
 
         return plane
