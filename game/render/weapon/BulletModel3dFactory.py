@@ -10,7 +10,7 @@ class BulletModel3dFactory:
 
     def makePlasmaBullet(self):
         model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("plasmaBullet"))
-        model.setScale(0.01)
+        model.setScale(0.05)
 
         return model
 

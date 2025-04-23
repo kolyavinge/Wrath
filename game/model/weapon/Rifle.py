@@ -24,7 +24,7 @@ class Rifle(Weapon):
 
     def __init__(self):
         super().__init__(RifleBullet, RifleFlash)
-        self.barrelPoint = Vector3(0, 0.3, 0.03)
+        self.barrelPoint = Vector3(0, 0.4, 0.04)
         self.bulletsCount = 50
         self.maxBulletsCount = 50
         self.delay = 8
@@ -32,5 +32,5 @@ class Rifle(Weapon):
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6
         self.feedbackLength = 0.05
-        self.playerShift = Vector3(0.08, 0.2, -0.1)
+        self.playerShift = Vector3(0.1, 0.2, -0.11)
         self.enemyShift = Vector3(0.15, 0.3, -0.1)

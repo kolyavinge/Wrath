@@ -34,10 +34,10 @@ class Sniper(Weapon):
         self.setPositionForDefaultAimState()
 
     def setPositionForDefaultAimState(self):
-        self.barrelPoint = Vector3(0, 0.3, 0.03)
-        self.playerShift = Vector3(0.1, 0.25, -0.08)
+        self.barrelPoint = Vector3(0, 0.6, 0.04)
+        self.playerShift = Vector3(0.12, 0.4, -0.12)
         self.enemyShift = Vector3(0.18, 0.4, -0.08)
 
     def setPositionForSniperAimState(self):
-        self.barrelPoint = Vector3()
+        self.barrelPoint = Vector3(0, 0, 0.027)
         self.playerShift = Vector3(0.0025, 0.25, -0.06)

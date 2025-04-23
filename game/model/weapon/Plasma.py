@@ -28,7 +28,7 @@ class Plasma(Weapon):
 
     def __init__(self):
         super().__init__(PlasmaBullet)
-        self.barrelPoint = Vector3(0, 0, 0)
+        self.barrelPoint = Vector3(0, 0.3, 0)
         self.bulletsCount = 50
         self.maxBulletsCount = 50
         self.delay = 15
@@ -36,5 +36,5 @@ class Plasma(Weapon):
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6
         self.feedbackLength = 0.05
-        self.playerShift = Vector3(0.06, 0.15, -0.05)
+        self.playerShift = Vector3(0.1, 0.3, -0.12)
         self.enemyShift = Vector3(0.15, 0.4, -0.1)

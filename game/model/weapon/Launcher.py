@@ -36,5 +36,5 @@ class Launcher(Weapon):
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6
         self.feedbackLength = 0.05
-        self.playerShift = Vector3(0.08, 0.1, -0.04)
+        self.playerShift = Vector3(0.15, 0.1, -0.06)
         self.enemyShift = Vector3(0.2, 0.2, -0.04)

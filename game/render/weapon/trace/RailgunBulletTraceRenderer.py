@@ -9,7 +9,7 @@ class RailgunBulletTraceRenderer:
     def __init__(self, rayRenderer):
         self.rayRenderer = rayRenderer
         self.rayParams = RayParams()
-        self.rayParams.rayHeight = 0.001
+        self.rayParams.rayHeight = 0.008
         self.rayParams.rayColor = ColorVector3(3, 252, 115)
         self.rayParams.rayColor.normalize()
         self.rayParams.shineStrength = 0.002

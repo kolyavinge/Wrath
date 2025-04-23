@@ -26,7 +26,7 @@ class Railgun(Weapon):
 
     def __init__(self):
         super().__init__(RailgunBullet)
-        self.barrelPoint = Vector3(0.003, -0.02, 0.008)
+        self.barrelPoint = Vector3(0.003, -0.02, 0.01)
         self.bulletsCount = 10
         self.maxBulletsCount = 10
         self.delay = 50
@@ -34,5 +34,5 @@ class Railgun(Weapon):
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6
         self.feedbackLength = 0.05
-        self.playerShift = Vector3(0.09, 0.25, -0.1)
+        self.playerShift = Vector3(0.1, 0.3, -0.11)
         self.enemyShift = Vector3(0.16, 0.5, -0.1)
