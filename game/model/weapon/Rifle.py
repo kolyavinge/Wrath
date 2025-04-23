@@ -33,3 +33,4 @@ class Rifle(Weapon):
         self.feedbackFade = 0.6
         self.feedbackLength = 0.05
         self.playerShift = Vector3(0.08, 0.2, -0.1)
+        self.enemyShift = Vector3(0.15, 0.3, -0.1)

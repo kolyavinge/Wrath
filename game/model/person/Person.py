@@ -45,6 +45,7 @@ class Person:
         self.fallingFunc = FallingFunc()
         self.currentFloor = Floor()
         self.health = PersonConstants.maxPersonHealth
+        self.isPlayer = False
 
     def moveNextPositionBy(self, vector):
         self.nextCenterPoint.add(vector)

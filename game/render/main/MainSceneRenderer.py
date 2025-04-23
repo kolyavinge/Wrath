@@ -20,10 +20,11 @@ class MainSceneRenderer:
 
     def defaultAimStateFunc(self, shader):
         self.levelSegmentRenderer.render(shader)
-        self.weaponRenderer.render(shader)
+        self.weaponRenderer.renderAllWeapons(shader)
 
     def sniperAimStateFunc(self, shader):
         self.levelSegmentRenderer.render(shader)
+        self.weaponRenderer.renderEnemyWeapons(shader)
 
 
 def makeMainSceneRenderer(resolver):

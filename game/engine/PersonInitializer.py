@@ -1,4 +1,3 @@
-from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 from game.engine.PersonTurnLogic import PersonTurnLogic
 from game.model.person.Enemy import Enemy

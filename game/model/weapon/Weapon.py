@@ -28,6 +28,7 @@ class Weapon:
         self.feedbackFade = 0
         self.feedbackLength = 0
         self.playerShift = Vector3()
+        self.enemyShift = Vector3()
 
     def makeBullet(self, ownerPerson):
         bullet = self.bulletType()

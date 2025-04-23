@@ -37,3 +37,4 @@ class Plasma(Weapon):
         self.feedbackFade = 0.6
         self.feedbackLength = 0.05
         self.playerShift = Vector3(0.06, 0.15, -0.05)
+        self.enemyShift = Vector3(0.15, 0.4, -0.1)

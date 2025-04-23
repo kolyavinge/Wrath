@@ -25,8 +25,9 @@ class PersonWeaponPositionUpdater:
             self.updateWeapon(person, personItems.leftHandWeapon, rightHand=False)
 
     def updateWeapon(self, person, weapon, rightHand):
-        weaponPosition = self.getWeaponPosition(person, weapon, rightHand)
-        barrelPosition = self.getBarrelPosition(person, weapon, weaponPosition, rightHand)
+        personShift = weapon.playerShift if person.isPlayer else weapon.enemyShift
+        weaponPosition = self.getWeaponPosition(person, personShift, weapon.feedback, rightHand)
+        barrelPosition = self.getBarrelPosition(person, weapon.barrelPoint, weaponPosition, rightHand)
         aimPoint = self.getAimPoint(person, barrelPosition)
 
         weapon.position = weaponPosition
@@ -44,32 +45,32 @@ class PersonWeaponPositionUpdater:
         if not weapon.feedback.isZero():
             weapon.feedback.mul(weapon.feedbackFade)
 
-    def getWeaponPosition(self, person, weapon, rightHand):
+    def getWeaponPosition(self, person, personShift, feedback, rightHand):
         rightShift = person.rightNormal.copy()
-        rightShift.mul(weapon.playerShift.x)
+        rightShift.mul(personShift.x)
         if not rightHand:
             rightShift.mul(-1)
         frontShift = person.lookDirection.copy()
-        frontShift.mul(weapon.playerShift.y)
+        frontShift.mul(personShift.y)
         topShift = person.lookDirectionNormal.copy()
-        topShift.mul(weapon.playerShift.z)
+        topShift.mul(personShift.z)
         weaponPosition = person.eyePosition.copy()
         weaponPosition.add(rightShift)
         weaponPosition.add(frontShift)
         weaponPosition.add(topShift)
-        weaponPosition.add(weapon.feedback)
+        weaponPosition.add(feedback)
 
         return weaponPosition
 
-    def getBarrelPosition(self, person, weapon, weaponPosition, rightHand):
+    def getBarrelPosition(self, person, barrelPoint, weaponPosition, rightHand):
         rightShift = person.rightNormal.copy()
-        rightShift.mul(weapon.barrelPoint.x)
+        rightShift.mul(barrelPoint.x)
         if not rightHand:
             rightShift.mul(-1)
         frontShift = person.lookDirection.copy()
-        frontShift.mul(weapon.barrelPoint.y)
+        frontShift.mul(barrelPoint.y)
         topShift = person.lookDirectionNormal.copy()
-        topShift.mul(weapon.barrelPoint.z)
+        topShift.mul(barrelPoint.z)
         barrelPosition = weaponPosition.copy()
         barrelPosition.add(rightShift)
         barrelPosition.add(frontShift)
@@ -77,8 +78,8 @@ class PersonWeaponPositionUpdater:
 
         return barrelPosition
 
-    def getAimPoint(self, player, barrelPosition):
-        aimPoint = player.lookDirection.copy()
+    def getAimPoint(self, person, barrelPosition):
+        aimPoint = person.lookDirection.copy()
         aimPoint.setLength(PersonConstants.aimLength)
         aimPoint.add(barrelPosition)
 

@@ -35,3 +35,4 @@ class Railgun(Weapon):
         self.feedbackFade = 0.6
         self.feedbackLength = 0.05
         self.playerShift = Vector3(0.09, 0.25, -0.1)
+        self.enemyShift = Vector3(0.16, 0.5, -0.1)
