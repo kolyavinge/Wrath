@@ -43,6 +43,7 @@ class GameData:
         self.aimState = DefaultAimState()
         self.backgroundVisibility = BackgroundVisibilityData()
         self.isDebug = False
+        self.noEnemies = False
 
 
 def makeGameData(resolver):

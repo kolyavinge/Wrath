@@ -24,6 +24,9 @@ class PersonInitializer:
         self.gameData.player.commitNextPosition()
 
     def initEnemies(self):
+        if self.gameData.noEnemies:
+            return
+
         for position, frontNormal in self.gameData.level.getEnemyPositions():
             self.initEnemy(position, frontNormal)
 

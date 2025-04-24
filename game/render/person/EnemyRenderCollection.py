@@ -1,3 +1,4 @@
+from game.engine.GameData import GameData
 from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.render.person.EnemyModel3dFactory import EnemyModel3dFactory
@@ -5,12 +6,16 @@ from game.render.person.EnemyModel3dFactory import EnemyModel3dFactory
 
 class EnemyRenderCollection:
 
-    def __init__(self, enemyModel3dFactory, renderModel3dLoader):
+    def __init__(self, gameData, enemyModel3dFactory, renderModel3dLoader):
+        self.gameData = gameData
         self.enemyModel3dFactory = enemyModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.enemyModel = None
 
     def init(self):
+        if self.gameData.noEnemies:
+            return
+
         if self.enemyModel is not None:
             self.enemyModel.release()
 
@@ -22,4 +27,4 @@ class EnemyRenderCollection:
 
 
 def makeEnemyRenderCollection(resolver):
-    return EnemyRenderCollection(resolver.resolve(EnemyModel3dFactory), resolver.resolve(RenderModel3dLoader))
+    return EnemyRenderCollection(resolver.resolve(GameData), resolver.resolve(EnemyModel3dFactory), resolver.resolve(RenderModel3dLoader))
