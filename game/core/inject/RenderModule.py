@@ -1,7 +1,6 @@
 from game.gl.AdjacencyFormatConverter import *
 from game.gl.model3d.AnimationLoader import *
 from game.gl.model3d.AnimationPlayer import *
-from game.gl.model3d.AsyncModel3dLoader import *
 from game.gl.model3d.FrameInterpolator import *
 from game.gl.model3d.FrameLoader import *
 from game.gl.model3d.Model3dLoader import *
@@ -18,7 +17,6 @@ from game.render.anx.BackgroundRenderer import *
 from game.render.anx.RayRenderer import *
 from game.render.anx.ShineCircleRenderer import *
 from game.render.common.MaterialTextureCollection import *
-from game.render.common.Model3dCollection import *
 from game.render.common.Model3dDirectory import *
 from game.render.common.ShaderCollection import *
 from game.render.common.ShaderProgramCollection import *
@@ -72,7 +70,6 @@ class RenderModule:
         binder.bindSingleton(AdjacencyFormatConverter, makeAdjacencyFormatConverter)
         binder.bindSingleton(AnimationLoader, makeAnimationLoader)
         binder.bindSingleton(AnimationPlayer, makeAnimationPlayer)
-        # binder.bindSingleton(AsyncModel3dLoader, makeAsyncModel3dLoader)
         binder.bindSingleton(FrameInterpolator, makeFrameInterpolator)
         binder.bindSingleton(FrameLoader, makeFrameLoader)
         binder.bindSingleton(Model3dLoader, makeModel3dLoader)
@@ -89,7 +86,6 @@ class RenderModule:
         binder.bindSingleton(RayRenderer, makeRayRenderer)
         binder.bindSingleton(ShineCircleRenderer, makeShineCircleRenderer)
         binder.bindSingleton(MaterialTextureCollection, makeMaterialTextureCollection)
-        # binder.bindSingleton(Model3dCollection, makeModel3dCollection)
         binder.bindSingleton(Model3dDirectory, makeModel3dDirectory)
         binder.bindSingleton(ShaderCollection, makeShaderCollection)
         binder.bindSingleton(ShaderProgramCollection, makeShaderProgramCollection)
