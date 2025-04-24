@@ -16,7 +16,7 @@ class BulletModel3dFactory:
 
     def makeLauncherBullet(self):
         model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("launcherBullet"))
-        model.setScale(0.25)
+        model.setScale(0.1)
 
         return model
 

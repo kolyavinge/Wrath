@@ -66,10 +66,8 @@ class AnimationPlayer:
     def getFrame(self, frameRoot, currentTime):
         node = frameRoot
 
-        while True:
-            if node is None:
-                break
-            elif currentTime == node.time:
+        while node is not None:
+            if currentTime == node.time:
                 resultFrame = node
                 break
             elif currentTime < node.time:
