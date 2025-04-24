@@ -1,5 +1,3 @@
-import time
-
 from game.engine.ai.EnemyAILogic import EnemyAILogic
 from game.engine.BackgroundVisibilityDetector import BackgroundVisibilityDetector
 from game.engine.BulletPositionUpdater import BulletPositionUpdater
@@ -28,6 +26,7 @@ from game.engine.WeaponDelayUpdater import WeaponDelayUpdater
 from game.engine.WeaponFireLogic import WeaponFireLogic
 from game.engine.WeaponFlashUpdater import WeaponFlashUpdater
 from game.engine.WeaponSelector import WeaponSelector
+from game.lib.Stopwatch import Stopwatch
 
 
 class GameUpdater:
@@ -93,7 +92,8 @@ class GameUpdater:
         self.enemyAILogic = enemyAILogic
 
     def update(self):
-        # start = time.time()
+        # sw = Stopwatch()
+        # sw.start()
 
         self.personTurnLogic.process()
         self.personMovingTimeCalculator.calculate()
@@ -128,8 +128,8 @@ class GameUpdater:
         self.personPositionUpdater.resetMovedAndTurned()
         self.personPositionUpdater.commitPersonState()
 
-        # end = time.time()
-        # print(f"Game updated {end-start:.8f}")
+        # sw.stop()
+        # sw.printElapsed()
 
 
 def makeGameUpdater(resolver):

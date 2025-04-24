@@ -1,6 +1,5 @@
-import time
-
 from game.engine.GameData import GameData
+from game.lib.Stopwatch import Stopwatch
 from game.render.level.LevelItemRenderCollection import LevelItemRenderCollection
 from game.render.level.ShadowCasterRenderCollection import ShadowCasterRenderCollection
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
@@ -38,7 +37,8 @@ class GameScreenInitializer:
     def init(self):
         allLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
 
-        start = time.time()
+        sw = Stopwatch()
+        sw.start()
 
         self.levelItemRenderCollection.init(allLevelSegments)
         self.bulletHoleRenderCollection.init(allLevelSegments)
@@ -49,8 +49,8 @@ class GameScreenInitializer:
         self.weaponFlashRenderCollection.init()
         self.enemyRenderCollection.init()
 
-        end = time.time()
-        print(f"GameScreenInitializer: {end-start:.8f}")
+        sw.stop()
+        print(f"GameScreenInitializer: {sw.elapsed:.8f}")
 
 
 def makeGameScreenInitializer(resolver):

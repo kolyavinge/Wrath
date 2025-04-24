@@ -1,5 +1,3 @@
-import time
-
 import numpy
 import pyassimp
 from pyassimp import postprocess
@@ -9,6 +7,7 @@ from game.gl.model3d.Model3d import Mesh, Model3d
 from game.gl.TextureLoader import TextureLoader
 from game.lib.FileSystem import FileSystem
 from game.lib.Query import Query
+from game.lib.Stopwatch import Stopwatch
 from game.render.common.TextureCollection import TextureCollection
 
 
@@ -22,18 +21,20 @@ class Model3dLoader:
 
     def load(self, modelFilePath):
         directoryName = self.fileSystem.getDirectoryName(modelFilePath)
-        loadStart = time.time()
+        loadSw = Stopwatch()
+        loadSw.start()
         with pyassimp.load(modelFilePath, processing=postprocess.aiProcess_Triangulate | postprocess.aiProcess_LimitBoneWeights) as aiScene:
-            loadEnd = time.time()
-            procStart = time.time()
+            loadSw.stop()
+            procSw = Stopwatch()
+            procSw.start()
             model3d = Model3d()
             textures = self.getTextures(directoryName)
             self.loadMeshes(model3d, aiScene, textures, directoryName)
             if len(aiScene.animations) > 0:
                 self.animationLoader.loadAnimations(model3d, aiScene)
-            procEnd = time.time()
+            procSw.stop()
 
-        print(f"Load model {modelFilePath} {loadEnd-loadStart:.8f} (process {procEnd-procStart:.8f})")
+        print(f"Load model {modelFilePath} {loadSw.elapsed:.8f} (process {procSw.elapsed:.8f})")
 
         return model3d
 
