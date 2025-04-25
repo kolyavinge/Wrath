@@ -56,6 +56,8 @@ from game.render.weapon.shine.PlasmaShineBulletRenderer import *
 from game.render.weapon.ShineBulletRenderer import *
 from game.render.weapon.SniperCrosshairRenderer import *
 from game.render.weapon.trace.RailgunBulletTraceRenderer import *
+from game.render.weapon.trace.RifleBulletTraceRenderer import *
+from game.render.weapon.trace.SniperBulletTraceRenderer import *
 from game.render.weapon.WeaponFlashRenderCollection import *
 from game.render.weapon.WeaponFlashRenderer import *
 from game.render.weapon.WeaponFlashRenderMeshFactory import *
@@ -125,6 +127,8 @@ class RenderModule:
         binder.bindSingleton(ShineBulletRenderer, makeShineBulletRenderer)
         binder.bindSingleton(SniperCrosshairRenderer, makeSniperCrosshairRenderer)
         binder.bindSingleton(RailgunBulletTraceRenderer, makeRailgunBulletTraceRenderer)
+        binder.bindSingleton(RifleBulletTraceRenderer, makeRifleBulletTraceRenderer)
+        binder.bindSingleton(SniperBulletTraceRenderer, makeSniperBulletTraceRenderer)
         binder.bindSingleton(WeaponFlashRenderCollection, makeWeaponFlashRenderCollection)
         binder.bindSingleton(WeaponFlashRenderer, makeWeaponFlashRenderer)
         binder.bindSingleton(WeaponFlashRenderMeshFactory, makeWeaponFlashRenderMeshFactory)

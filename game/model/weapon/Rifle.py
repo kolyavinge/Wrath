@@ -1,6 +1,8 @@
 from game.calc.Vector3 import Vector3
+from game.model.Material import Material
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
+from game.model.weapon.BulletTrace import BulletTrace
 from game.model.weapon.SimpleFlash import SimpleFlash
 from game.model.weapon.Weapon import Weapon
 
@@ -11,10 +13,18 @@ class RifleFlash(SimpleFlash):
         super().__init__()
 
 
-class RifleBullet(Bullet):
+class RifleBulletTrace(BulletTrace):
 
     def __init__(self):
         super().__init__()
+        self.fade = 0.1
+        self.material = Material.commonBulletTrace
+
+
+class RifleBullet(Bullet):
+
+    def __init__(self):
+        super().__init__(RifleBulletTrace)
         self.velocityValue = 5
         self.damagePercent = 0.2
         self.holeInfo = BulletHoleInfo.smallHole
