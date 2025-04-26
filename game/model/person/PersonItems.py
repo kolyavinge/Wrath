@@ -1,3 +1,4 @@
+from game.lib.Query import Query
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma
@@ -25,10 +26,17 @@ class PersonItems:
         self.weapons.add(launcher)
         self.weapons.add(railgun)
         self.weapons.add(sniper)
-        self.rightHandWeapon = rifle
-        self.leftHandWeapon = None
+        self.rightHandWeapon = pistol1
+        self.leftHandWeapon = pistol2
         self.currentWeapon = self.rightHandWeapon
         self.vest = 0
 
     def setFullVest(self):
         self.vest = 100
+
+    def setWeaponByType(self, weaponType):
+        self.rightHandWeapon = Query(self.weapons).first(lambda x: type(x) == weaponType)
+        self.currentWeapon = self.rightHandWeapon
+        if self.rightHandWeapon.defaultCount == 2:
+            self.leftHandWeapon = Query(self.weapons).first(lambda x: type(x) == weaponType and x != self.rightHandWeapon)
+            assert self.leftHandWeapon != self.rightHandWeapon

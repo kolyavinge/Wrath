@@ -8,7 +8,7 @@ class Query:
             if condition == None or condition(item):
                 return item
 
-        raise Exception("Collection has no elements.")
+        raise Exception("Element was not found.")
 
     def firstOrNone(self, condition=None):
         for item in self.result:

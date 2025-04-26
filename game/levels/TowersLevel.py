@@ -14,6 +14,10 @@ from game.model.level.Level import Level
 from game.model.level.LevelSegmentJoinLine import LevelSegmentJoinLine
 from game.model.level.PowerupArea import PowerupArea
 from game.model.Material import Material
+from game.model.weapon.Launcher import Launcher
+from game.model.weapon.Pistol import Pistol
+from game.model.weapon.Plasma import Plasma
+from game.model.weapon.Rifle import Rifle
 
 
 class TowersLevel(Level):
@@ -116,8 +120,11 @@ class TowersLevel(Level):
         yield SplitPlane(Vector3(120, 0, 0), Vector3(1, 0, 0))
         yield SplitPlane(Vector3(0, 100, 0), Vector3(0, 1, 0))
 
-    def getPlayerPosition(self):
-        return (Vector3(18, 18, self.minZ), Vector3(-1, -1, 0).getNormalized())
+    def getPlayerInitInfo(self):
+        return (Vector3(18, 18, self.minZ), Vector3(-1, -1, 0).getNormalized(), Pistol)
 
-    def getEnemyPositions(self):
-        return [(Vector3(15, 15, self.minZ), Vector3(1, 1, 0).getNormalized()), (Vector3(25, 25, self.minZ), Vector3(1, 0, 0).getNormalized())]
+    def getEnemyInitInfo(self):
+        return [
+            (Vector3(15, 15, self.minZ), Vector3(1, 1, 0).getNormalized(), Plasma),
+            (Vector3(25, 25, self.minZ), Vector3(1, 0, 0).getNormalized(), Launcher),
+        ]
