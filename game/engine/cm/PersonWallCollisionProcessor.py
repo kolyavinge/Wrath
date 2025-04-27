@@ -14,7 +14,8 @@ class PersonWallCollisionProcessor:
 
     def process(self):
         for person in self.gameData.allPerson:
-            self.processPersonCollisions(person)
+            if person.hasMoved:
+                self.processPersonCollisions(person)
 
     def processPersonCollisions(self, person):
         collidedWalls = self.personWallCollisionDetector.getCollidedWalls(person)

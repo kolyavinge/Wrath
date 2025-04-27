@@ -17,6 +17,7 @@ from game.engine.cm.PersonWallCollisionProcessor import *
 from game.engine.cm.PlaneCollisionDetector import *
 from game.engine.cm.PowerupCollisionDetector import *
 from game.engine.cm.PowerupCollisionProcessor import *
+from game.engine.cm.WallCollisionDetector import *
 from game.engine.EnemyLevelSegmentsUpdater import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
@@ -74,6 +75,7 @@ class EngineModule:
         binder.bindSingleton(PlaneCollisionDetector, makePlaneCollisionDetector)
         binder.bindSingleton(PowerupCollisionDetector, makePowerupCollisionDetector)
         binder.bindSingleton(PowerupCollisionProcessor, makePowerupCollisionProcessor)
+        binder.bindSingleton(WallCollisionDetector, makeWallCollisionDetector)
         binder.bindSingleton(EnemyLevelSegmentsUpdater, makeEnemyLevelSegmentsUpdater)
         binder.bindSingleton(GameData, makeGameData)
         binder.bindSingleton(GameUpdater, makeGameUpdater)
