@@ -37,6 +37,8 @@ class PersonItems:
     def setWeaponByType(self, weaponType):
         self.rightHandWeapon = Query(self.weapons).first(lambda x: type(x) == weaponType)
         self.currentWeapon = self.rightHandWeapon
-        if self.rightHandWeapon.defaultCount == 2:
+        if self.rightHandWeapon.defaultCount == 1:
+            self.leftHandWeapon = None
+        elif self.rightHandWeapon.defaultCount == 2:
             self.leftHandWeapon = Query(self.weapons).first(lambda x: type(x) == weaponType and x != self.rightHandWeapon)
             assert self.leftHandWeapon != self.rightHandWeapon
