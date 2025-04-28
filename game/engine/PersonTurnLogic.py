@@ -64,7 +64,7 @@ class PersonTurnLogic:
             vectorProduct.vectorProduct(frontNormal)
             if vectorProduct.z < 0.0:
                 radians *= -1.0
-            person.yawRadians += radians
+            person.yawRadians = Geometry.normalizeRadians(person.yawRadians + radians)
             self.calculateDirectionVectors(person)
 
     def calculateDirectionVectors(self, person):

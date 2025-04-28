@@ -5,8 +5,8 @@ from game.lib.Numeric import Numeric
 
 class Geometry:
 
-    degToRad = Math.pi / 180
-    radToDeg = 180 / Math.pi
+    degToRad = Math.pi / 180.0
+    radToDeg = 180.0 / Math.pi
 
     @staticmethod
     def normalizeRadians(radians):
