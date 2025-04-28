@@ -3,6 +3,7 @@ from game.anx.PersonConstants import PersonConstants
 from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
 from game.lib.Math import Math
+from game.lib.Numeric import Numeric
 
 
 class PersonTurnLogic:
@@ -54,13 +55,17 @@ class PersonTurnLogic:
         self.calculateDirectionVectors(person)
 
     def orientByFrontNormal(self, person, frontNormal):
-        radians = Math.arccos(person.frontNormal.dotProduct(frontNormal))
-        vectorProduct = person.frontNormal.copy()
-        vectorProduct.vectorProduct(frontNormal)
-        if vectorProduct.z < 0:
-            radians *= -1
-        person.yawRadians = radians
-        self.calculateDirectionVectors(person)
+        dotProduct = person.frontNormal.dotProduct(frontNormal)
+        dotProduct = Numeric.limitBy(dotProduct, -1.0, 1.0)
+        radians = Math.arccos(dotProduct)
+        if not Numeric.floatEquals(radians, 0.0):
+            person.hasTurned = True
+            vectorProduct = person.frontNormal.copy()
+            vectorProduct.vectorProduct(frontNormal)
+            if vectorProduct.z < 0.0:
+                radians *= -1.0
+            person.yawRadians += radians
+            self.calculateDirectionVectors(person)
 
     def calculateDirectionVectors(self, person):
         person.frontNormal = Geometry.rotatePoint(CommonConstants.yAxis, CommonConstants.zAxis, CommonConstants.axisOrigin, person.yawRadians)

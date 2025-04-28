@@ -27,7 +27,7 @@ class Vector3:
         self.mul(newLength / length)
 
     def isZero(self):
-        return Numeric.floatEquals(self.x, 0) and Numeric.floatEquals(self.y, 0) and Numeric.floatEquals(self.z, 0)
+        return Numeric.floatEquals(self.x, 0.0) and Numeric.floatEquals(self.y, 0.0) and Numeric.floatEquals(self.z, 0.0)
 
     def add(self, vector):
         self.x += vector.x
