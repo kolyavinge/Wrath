@@ -1,12 +1,14 @@
+from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.engine.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
 
 
 class EnemyLevelSegmentsUpdater:
 
-    def __init__(self, gameData, personLevelSegmentsUpdater):
+    def __init__(self, gameData, personLevelSegmentsUpdater, traversal):
         self.gameData = gameData
         self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
+        self.traversal = traversal
 
     def updateIfMoved(self):
         for enemy in self.gameData.enemies:
@@ -21,6 +23,7 @@ class EnemyLevelSegmentsUpdater:
         self.removeEnemyFromLevelSegments(enemy)
         self.personLevelSegmentsUpdater.updatePerson(enemy)
         self.addEnemyToLevelSegments(enemy)
+        self.updateCurrentCenterPointLevelSegment(enemy)
 
     def removeEnemyFromLevelSegments(self, enemy):
         for segment in enemy.collisionLevelSegments:
@@ -39,6 +42,10 @@ class EnemyLevelSegmentsUpdater:
         enemy.visibilityLevelSegment.enemies.append(enemy)
         enemy.visibilityLevelSegment.allPerson.append(enemy)
 
+    def updateCurrentCenterPointLevelSegment(self, enemy):
+        bspTree = self.gameData.collisionTree
+        enemy.currentCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, enemy.currentCenterPoint)
+
 
 def makeEnemyLevelSegmentsUpdater(resolver):
-    return EnemyLevelSegmentsUpdater(resolver.resolve(GameData), resolver.resolve(PersonLevelSegmentsUpdater))
+    return EnemyLevelSegmentsUpdater(resolver.resolve(GameData), resolver.resolve(PersonLevelSegmentsUpdater), resolver.resolve(BSPTreeTraversal))

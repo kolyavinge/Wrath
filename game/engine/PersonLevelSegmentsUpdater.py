@@ -15,8 +15,8 @@ class PersonLevelSegmentsUpdater:
     def updateCollisionLevelSegments(self, person):
         person.collisionLevelSegments = set()
         bspTree = self.gameData.collisionTree
-        self.updateForBorder(person, bspTree, person.nextBorder.bottom)
-        self.updateForBorder(person, bspTree, person.nextBorder.top)
+        self.updateForBorder(person, bspTree, person.currentBorder.bottom)
+        self.updateForBorder(person, bspTree, person.currentBorder.top)
 
     def updateForBorder(self, person, bspTree, border):
         levelSegment = self.traversal.findLevelSegmentOrNone(bspTree, border.downLeft)
