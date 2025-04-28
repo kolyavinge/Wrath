@@ -1,5 +1,6 @@
 from game.calc.SphereSegmentCalculator import *
 from game.engine.ai.EnemyAILogic import *
+from game.engine.ai.ObstacleAvoidanceLogic import *
 from game.engine.AimStateSwitcher import *
 from game.engine.BackgroundVisibilityDetector import *
 from game.engine.bsp.BSPTreeBuilder import *
@@ -57,6 +58,7 @@ class EngineModule:
     def init(self, binder):
         binder.bindSingleton(SphereSegmentCalculator, makeSphereSegmentCalculator)
         binder.bindSingleton(EnemyAILogic, makeEnemyAILogic)
+        binder.bindSingleton(ObstacleAvoidanceLogic, makeObstacleAvoidanceLogic)
         binder.bindSingleton(AimStateSwitcher, makeAimStateSwitcher)
         binder.bindSingleton(BackgroundVisibilityDetector, makeBackgroundVisibilityDetector)
         binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
