@@ -1,6 +1,7 @@
 from game.engine.ai.ObstacleAvoidanceLogic import ObstacleAvoidanceLogic
 from game.engine.GameData import GameData
 from game.engine.PersonTurnLogic import PersonTurnLogic
+from game.lib.Numeric import Numeric
 
 
 class EnemyAILogic:
@@ -16,9 +17,12 @@ class EnemyAILogic:
             self.applyForEnemy(enemy, inputData)
 
     def applyForEnemy(self, enemy, inputData):
-        frontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(enemy)
-        assert not frontNormal.isZero()
-        self.personTurnLogic.orientByFrontNormal(enemy, frontNormal)
+        nextFrontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(enemy)
+        if nextFrontNormal.isZero():
+            nextFrontNormal = enemy.frontNormal.copy()
+            nextFrontNormal.mul(-1)
+        if not Numeric.floatEquals(nextFrontNormal.dotProduct(enemy.frontNormal), 1.0, 0.01):
+            self.personTurnLogic.orientByFrontNormal(enemy, nextFrontNormal)
         inputData.goForward = True
 
 
