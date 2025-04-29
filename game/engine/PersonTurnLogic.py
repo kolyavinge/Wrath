@@ -54,7 +54,7 @@ class PersonTurnLogic:
             person.pitchRadians = -PersonConstants.maxPitchRadians
         self.calculateDirectionVectors(person)
 
-    def orientByFrontNormal(self, person, frontNormal):
+    def orientToFrontNormal(self, person, frontNormal):
         dotProduct = person.frontNormal.dotProduct(frontNormal)
         dotProduct = Numeric.limitBy(dotProduct, -1.0, 1.0)
         radians = Math.arccos(dotProduct)

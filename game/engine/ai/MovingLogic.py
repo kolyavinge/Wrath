@@ -14,7 +14,7 @@ class MovingLogic:
             nextFrontNormal = enemy.frontNormal.copy()
             nextFrontNormal.mul(-1)
         if not enemy.frontNormal.isParallel(nextFrontNormal):
-            self.personTurnLogic.orientByFrontNormal(enemy, nextFrontNormal)
+            self.personTurnLogic.orientToFrontNormal(enemy, nextFrontNormal)
 
 
 def makeMovingLogic(resolver):

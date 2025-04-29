@@ -45,7 +45,7 @@ class FireLogic:
 
     def orientToTargetPerson(self, enemy):
         frontNormal = enemy.currentCenterPoint.getDirectionTo(enemy.aiData.targetPerson.currentCenterPoint).getNormalized()
-        self.personTurnLogic.orientByFrontNormal(enemy, frontNormal)
+        self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
 
 
 def makeFireLogic(resolver):

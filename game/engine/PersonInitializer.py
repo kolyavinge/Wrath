@@ -20,7 +20,7 @@ class PersonInitializer:
         level = self.gameData.level
         position, frontNormal, weaponType = level.getPlayerInitInfo()
         self.gameData.player.moveNextPositionTo(position)
-        self.personTurnLogic.orientByFrontNormal(self.gameData.player, frontNormal)
+        self.personTurnLogic.orientToFrontNormal(self.gameData.player, frontNormal)
         self.gameData.player.commitNextPosition()
         self.gameData.playerItems.setWeaponByType(weaponType)
 
@@ -34,7 +34,7 @@ class PersonInitializer:
     def initEnemy(self, position, frontNormal, weaponType):
         enemy = Enemy()
         enemy.moveNextPositionTo(position)
-        self.personTurnLogic.orientByFrontNormal(enemy, frontNormal)
+        self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
         enemy.commitNextPosition()
         self.gameData.enemies.append(enemy)
         self.gameData.allPerson.append(enemy)
