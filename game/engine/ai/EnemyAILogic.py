@@ -1,15 +1,16 @@
+from game.engine.ai.FireLogic import FireLogic
 from game.engine.ai.ObstacleAvoidanceLogic import ObstacleAvoidanceLogic
 from game.engine.GameData import GameData
 from game.engine.PersonTurnLogic import PersonTurnLogic
-from game.lib.Numeric import Numeric
 
 
 class EnemyAILogic:
 
-    def __init__(self, gameData, obstacleAvoidanceLogic, personTurnLogic):
+    def __init__(self, gameData, personTurnLogic, obstacleAvoidanceLogic, fireLogic):
         self.gameData = gameData
-        self.obstacleAvoidanceLogic = obstacleAvoidanceLogic
         self.personTurnLogic = personTurnLogic
+        self.obstacleAvoidanceLogic = obstacleAvoidanceLogic
+        self.fireLogic = fireLogic
 
     def apply(self):
         for enemy in self.gameData.enemies:
@@ -17,14 +18,22 @@ class EnemyAILogic:
             self.applyForEnemy(enemy, inputData)
 
     def applyForEnemy(self, enemy, inputData):
-        nextFrontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(enemy)
-        if nextFrontNormal.isZero():
-            nextFrontNormal = enemy.frontNormal.copy()
-            nextFrontNormal.mul(-1)
-        if not Numeric.floatEquals(nextFrontNormal.dotProduct(enemy.frontNormal), 1.0, 0.01):
-            self.personTurnLogic.orientByFrontNormal(enemy, nextFrontNormal)
-        inputData.goForward = True
+        inputData.clear()
+
+        if self.fireLogic.targetExists(enemy):
+            self.fireLogic.orientToTargetPerson(enemy)
+            inputData.fire = True
+        else:
+            nextFrontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(enemy)
+            if nextFrontNormal.isZero():
+                nextFrontNormal = enemy.frontNormal.copy()
+                nextFrontNormal.mul(-1)
+            if not enemy.frontNormal.isParallel(nextFrontNormal):
+                self.personTurnLogic.orientByFrontNormal(enemy, nextFrontNormal)
+            inputData.goForward = True
 
 
 def makeEnemyAILogic(resolver):
-    return EnemyAILogic(resolver.resolve(GameData), resolver.resolve(ObstacleAvoidanceLogic), resolver.resolve(PersonTurnLogic))
+    return EnemyAILogic(
+        resolver.resolve(GameData), resolver.resolve(PersonTurnLogic), resolver.resolve(ObstacleAvoidanceLogic), resolver.resolve(FireLogic)
+    )

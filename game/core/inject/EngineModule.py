@@ -1,6 +1,7 @@
 from game.calc.SphereSegmentCalculator import *
 from game.engine.ai.CollisionDetector import *
 from game.engine.ai.EnemyAILogic import *
+from game.engine.ai.FireLogic import *
 from game.engine.ai.ObstacleAvoidanceLogic import *
 from game.engine.AIDataInitializer import *
 from game.engine.AimStateSwitcher import *
@@ -62,6 +63,7 @@ class EngineModule:
         binder.bindSingleton(SphereSegmentCalculator, makeSphereSegmentCalculator)
         binder.bindSingleton(CollisionDetector, makeCollisionDetector)
         binder.bindSingleton(EnemyAILogic, makeEnemyAILogic)
+        binder.bindSingleton(FireLogic, makeFireLogic)
         binder.bindSingleton(ObstacleAvoidanceLogic, makeObstacleAvoidanceLogic)
         binder.bindSingleton(AIDataInitializer, makeAIDataInitializer)
         binder.bindSingleton(AimStateSwitcher, makeAimStateSwitcher)
