@@ -1,15 +1,13 @@
 from game.engine.ai.FireLogic import FireLogic
-from game.engine.ai.ObstacleAvoidanceLogic import ObstacleAvoidanceLogic
+from game.engine.ai.MovingLogic import MovingLogic
 from game.engine.GameData import GameData
-from game.engine.PersonTurnLogic import PersonTurnLogic
 
 
 class EnemyAILogic:
 
-    def __init__(self, gameData, personTurnLogic, obstacleAvoidanceLogic, fireLogic):
+    def __init__(self, gameData, movingLogic, fireLogic):
         self.gameData = gameData
-        self.personTurnLogic = personTurnLogic
-        self.obstacleAvoidanceLogic = obstacleAvoidanceLogic
+        self.movingLogic = movingLogic
         self.fireLogic = fireLogic
 
     def apply(self):
@@ -24,16 +22,9 @@ class EnemyAILogic:
             self.fireLogic.orientToTargetPerson(enemy)
             inputData.fire = True
         else:
-            nextFrontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(enemy)
-            if nextFrontNormal.isZero():
-                nextFrontNormal = enemy.frontNormal.copy()
-                nextFrontNormal.mul(-1)
-            if not enemy.frontNormal.isParallel(nextFrontNormal):
-                self.personTurnLogic.orientByFrontNormal(enemy, nextFrontNormal)
+            self.movingLogic.orientToNextDirection(enemy)
             inputData.goForward = True
 
 
 def makeEnemyAILogic(resolver):
-    return EnemyAILogic(
-        resolver.resolve(GameData), resolver.resolve(PersonTurnLogic), resolver.resolve(ObstacleAvoidanceLogic), resolver.resolve(FireLogic)
-    )
+    return EnemyAILogic(resolver.resolve(GameData), resolver.resolve(MovingLogic), resolver.resolve(FireLogic))
