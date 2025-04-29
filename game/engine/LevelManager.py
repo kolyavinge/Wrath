@@ -1,3 +1,4 @@
+from game.engine.AIDataInitializer import AIDataInitializer
 from game.engine.BackgroundVisibilityDetector import BackgroundVisibilityDetector
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.CameraUpdater import CameraUpdater
@@ -25,6 +26,7 @@ class LevelManager:
         lightAnalyzer,
         levelValidator,
         personInitializer,
+        aiDataInitializer,
         playerLevelSegmentsUpdater,
         enemyLevelSegmentsUpdater,
         levelSegmentVisibilityUpdater,
@@ -40,6 +42,7 @@ class LevelManager:
         self.lightAnalyzer = lightAnalyzer
         self.levelValidator = levelValidator
         self.personInitializer = personInitializer
+        self.aiDataInitializer = aiDataInitializer
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
@@ -57,6 +60,7 @@ class LevelManager:
         self.levelValidator.validate(level, self.gameData.visibilityTree)
         self.lightAnalyzer.analyzeLights(level, self.gameData.visibilityTree)
         self.personInitializer.init()
+        self.aiDataInitializer.init()
         self.playerLevelSegmentsUpdater.update()
         self.enemyLevelSegmentsUpdater.update()
         self.cameraUpdater.update()
@@ -75,6 +79,7 @@ def makeLevelManager(resolver):
         resolver.resolve(LevelSegmentLightAnalyzer),
         resolver.resolve(LevelValidator),
         resolver.resolve(PersonInitializer),
+        resolver.resolve(AIDataInitializer),
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(EnemyLevelSegmentsUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),

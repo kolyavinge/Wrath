@@ -1,14 +1,16 @@
-from game.calc.Geometry import Geometry
 from game.model.person.Person import Person
 
 
 class AIData:
 
     def __init__(self):
-        self.horizontalFieldViewRadians = Geometry.degreesToRadians(45.0)
-        self.checkCollisionLength = 3.0
-        self.checkCollisionDirectionsCount = 8
+        self.horizontalFieldViewRadians = 0
+        self.checkCollisionLength = 0
+        self.checkCollisionDirectionsCount = 0
+
+    def commit(self):
         self.checkCollisionRadianStep = self.horizontalFieldViewRadians / self.checkCollisionDirectionsCount
+        self.horizontalFieldViewRadiansHalf = self.horizontalFieldViewRadians / 2.0
 
 
 class Enemy(Person):
