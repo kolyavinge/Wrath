@@ -12,7 +12,7 @@ class PlasmaBullet(Bullet):
     def __init__(self):
         super().__init__()
         self.isVisible = True
-        self.velocityValue = 0.5
+        self.velocityValue = 2.5
         self.damagePercent = 0.25
         self.holeInfo = BulletHoleInfo.plasmaHole
         rand = Random()

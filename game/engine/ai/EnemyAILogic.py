@@ -20,7 +20,7 @@ class EnemyAILogic:
 
         if self.fireLogic.targetExists(enemy):
             self.fireLogic.orientToTargetPerson(enemy)
-            inputData.fire = True
+            inputData.fire = self.fireLogic.fire()
         else:
             self.movingLogic.orientToNextDirection(enemy)
             inputData.goForward = True

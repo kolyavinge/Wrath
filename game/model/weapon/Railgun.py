@@ -17,7 +17,7 @@ class RailgunBulletTrace(BulletTrace):
 class RailgunBullet(Bullet):
     def __init__(self):
         super().__init__(RailgunBulletTrace)
-        self.velocityValue = 1
+        self.velocityValue = 3
         self.damagePercent = 0.8
         self.holeInfo = BulletHoleInfo.railgunHole
 

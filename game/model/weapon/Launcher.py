@@ -20,7 +20,7 @@ class LauncherBullet(Bullet):
     def __init__(self):
         super().__init__()
         self.isVisible = True
-        self.velocityValue = 0.5
+        self.velocityValue = 1.0
         self.damagePercent = 0.5
         self.holeInfo = BulletHoleInfo.explosionHole
 

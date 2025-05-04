@@ -1,3 +1,4 @@
+from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
 from game.engine.PersonTurnLogic import PersonTurnLogic
 
@@ -44,8 +45,20 @@ class FireLogic:
         return True
 
     def orientToTargetPerson(self, enemy):
-        frontNormal = enemy.currentCenterPoint.getDirectionTo(enemy.aiData.targetPerson.currentCenterPoint).getNormalized()
+        targetPerson = enemy.aiData.targetPerson
+        assert targetPerson is not None
+        # целится на опережение
+        if targetPerson.velocityValue > 0:
+            targetPersonPosition = targetPerson.velocityVector.copy()
+            targetPersonPosition.setLength(PersonConstants.xyLengthHalf)
+            targetPersonPosition.add(targetPerson.currentCenterPoint)
+        else:
+            targetPersonPosition = targetPerson.currentCenterPoint
+        frontNormal = enemy.currentCenterPoint.getDirectionTo(targetPersonPosition).getNormalized()
         self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
+
+    def fire(self):
+        return True
 
 
 def makeFireLogic(resolver):
