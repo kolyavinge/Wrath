@@ -5,7 +5,9 @@ from game.model.person.Person import Person
 class EnemyState:
 
     patrolling = 1
-    fireing = 2
+    attack = 2
+    healthSearch = 3
+    weaponSearch = 4
 
 
 class AIData:

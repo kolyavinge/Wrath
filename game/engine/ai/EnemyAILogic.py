@@ -1,30 +1,38 @@
-from game.engine.ai.FireLogic import FireLogic
-from game.engine.ai.MovingLogic import MovingLogic
+from game.engine.ai.AttackState import AttackState
+from game.engine.ai.HealthSearchState import HealthSearchState
+from game.engine.ai.PatrollingState import PatrollingState
+from game.engine.ai.WeaponSearchState import WeaponSearchState
 from game.engine.GameData import GameData
+from game.model.person.Enemy import EnemyState
 
 
 class EnemyAILogic:
 
-    def __init__(self, gameData, movingLogic, fireLogic):
+    def __init__(self, gameData, patrollingState, attackState, healthSearchState, weaponSearchState):
         self.gameData = gameData
-        self.movingLogic = movingLogic
-        self.fireLogic = fireLogic
+        self.states = {}
+        self.states[EnemyState.patrolling] = patrollingState
+        self.states[EnemyState.attack] = attackState
+        self.states[EnemyState.healthSearch] = healthSearchState
+        self.states[EnemyState.weaponSearch] = weaponSearchState
 
     def apply(self):
         for enemy in self.gameData.enemies:
             inputData = self.gameData.enemyInputData[enemy]
-            self.applyForEnemy(enemy, inputData)
-
-    def applyForEnemy(self, enemy, inputData):
-        inputData.clear()
-
-        if self.fireLogic.targetExists(enemy):
-            self.fireLogic.orientToTargetPerson(enemy)
-            inputData.fire = self.fireLogic.fire()
-        else:
-            self.movingLogic.orientToNextDirection(enemy)
-            inputData.goForward = True
+            inputData.clear()
+            aiData = enemy.aiData
+            state = self.states[aiData.state]
+            state.process(enemy, inputData)
+            newState = state.getNewStateOrNone(enemy)
+            if newState is not None:
+                aiData.state = newState
 
 
 def makeEnemyAILogic(resolver):
-    return EnemyAILogic(resolver.resolve(GameData), resolver.resolve(MovingLogic), resolver.resolve(FireLogic))
+    return EnemyAILogic(
+        resolver.resolve(GameData),
+        resolver.resolve(PatrollingState),
+        resolver.resolve(AttackState),
+        resolver.resolve(HealthSearchState),
+        resolver.resolve(WeaponSearchState),
+    )
