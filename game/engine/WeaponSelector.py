@@ -40,7 +40,12 @@ class WeaponSelector:
             if len(findedWeapons) == 2:
                 playerItems.rightHandWeapon = findedWeapons[0]
                 playerItems.leftHandWeapon = findedWeapons[1]
-                playerItems.currentWeapon = playerItems.rightHandWeapon
+                # в левом стволе может быть на одну пулю больше, если последний раз кол-во выстрелов было непарным
+                playerItems.currentWeapon = (
+                    playerItems.rightHandWeapon
+                    if playerItems.rightHandWeapon.bulletsCount == playerItems.leftHandWeapon.bulletsCount
+                    else playerItems.leftHandWeapon
+                )
 
 
 def makeWeaponSelector(resolver):
