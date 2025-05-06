@@ -3,7 +3,7 @@ from game.engine.ai.MovingLogic import MovingLogic
 from game.model.person.Enemy import EnemyState
 
 
-class HealthSearchState:
+class WeaponSearchStateHandler:
 
     def __init__(self, movingLogic, fireLogic):
         self.movingLogic = movingLogic
@@ -16,5 +16,5 @@ class HealthSearchState:
         return None
 
 
-def makeHealthSearchState(resolver):
-    return HealthSearchState(resolver.resolve(MovingLogic), resolver.resolve(FireLogic))
+def makeWeaponSearchStateHandler(resolver):
+    return WeaponSearchStateHandler(resolver.resolve(MovingLogic), resolver.resolve(FireLogic))

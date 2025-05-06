@@ -3,7 +3,7 @@ from game.engine.ai.MovingLogic import MovingLogic
 from game.model.person.Enemy import EnemyState
 
 
-class PatrollingState:
+class PatrollingStateHandler:
 
     def __init__(self, movingLogic, fireLogic):
         self.movingLogic = movingLogic
@@ -20,5 +20,5 @@ class PatrollingState:
         return None
 
 
-def makePatrollingState(resolver):
-    return PatrollingState(resolver.resolve(MovingLogic), resolver.resolve(FireLogic))
+def makePatrollingStateHandler(resolver):
+    return PatrollingStateHandler(resolver.resolve(MovingLogic), resolver.resolve(FireLogic))

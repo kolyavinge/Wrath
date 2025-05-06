@@ -3,22 +3,18 @@ from game.engine.ai.MovingLogic import MovingLogic
 from game.model.person.Enemy import EnemyState
 
 
-class AttackState:
+class HealthSearchStateHandler:
 
     def __init__(self, movingLogic, fireLogic):
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
 
     def process(self, enemy, inputData):
-        self.fireLogic.orientToTargetPerson(enemy)
-        inputData.fire = self.fireLogic.fire(enemy)
+        pass
 
     def getNewStateOrNone(self, enemy):
-        if not self.fireLogic.targetExists(enemy):
-            return EnemyState.patrolling
-
         return None
 
 
-def makeAttackState(resolver):
-    return AttackState(resolver.resolve(MovingLogic), resolver.resolve(FireLogic))
+def makeHealthSearchStateHandler(resolver):
+    return HealthSearchStateHandler(resolver.resolve(MovingLogic), resolver.resolve(FireLogic))
