@@ -21,8 +21,11 @@ class WeaponFireLogic:
 
     def processWeapon(self, person, inputData, weapon):
         if inputData.fire and self.canFire(weapon):
+            weapon.isFiring = True
             self.fire(person, weapon)
             self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
+        else:
+            weapon.isFiring = False
 
     def canFire(self, weapon):
         return weapon.bulletsCount > 0 and weapon.delayRemain == 0
