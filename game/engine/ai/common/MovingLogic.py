@@ -1,4 +1,4 @@
-from game.engine.ai.ObstacleAvoidanceLogic import ObstacleAvoidanceLogic
+from game.engine.ai.common.ObstacleAvoidanceLogic import ObstacleAvoidanceLogic
 from game.engine.PersonTurnLogic import PersonTurnLogic
 
 

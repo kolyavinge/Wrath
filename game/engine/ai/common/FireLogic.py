@@ -1,5 +1,5 @@
 from game.anx.PersonConstants import PersonConstants
-from game.engine.ai.BurstFireLogic import BurstFireLogic
+from game.engine.ai.common.BurstFireLogic import BurstFireLogic
 from game.engine.GameData import GameData
 from game.engine.PersonTurnLogic import PersonTurnLogic
 

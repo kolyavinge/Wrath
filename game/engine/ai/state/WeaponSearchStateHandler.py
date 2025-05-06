@@ -1,5 +1,5 @@
-from game.engine.ai.FireLogic import FireLogic
-from game.engine.ai.MovingLogic import MovingLogic
+from game.engine.ai.common.FireLogic import FireLogic
+from game.engine.ai.common.MovingLogic import MovingLogic
 from game.model.person.Enemy import EnemyState
 
 
