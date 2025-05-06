@@ -13,7 +13,7 @@ class PowerupPositionGenerator:
 
     def getPosition(self):
         powerupAreas = self.gameData.level.powerupAreas
-        powerupArea = powerupAreas[self.rand.getInt(0, len(powerupAreas))]
+        powerupArea = powerupAreas[self.rand.getInt(0, len(powerupAreas) - 1)]
 
         if powerupArea.startPoint != powerupArea.endPoint:
             position = powerupArea.startPoint.getDirectionTo(powerupArea.endPoint)
