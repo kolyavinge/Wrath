@@ -29,6 +29,9 @@ class Plasma(Weapon):
     def __init__(self):
         super().__init__(PlasmaBullet)
         self.barrelPoint = Vector3(0, 0.3, 0)
+        self.isBurstModeEnabled = True
+        self.minBurstCount = 1
+        self.maxBurstCount = 5
         self.bulletsCount = 50
         self.maxBulletsCount = 50
         self.delay = 15

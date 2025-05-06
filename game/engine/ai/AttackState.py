@@ -11,7 +11,7 @@ class AttackState:
 
     def process(self, enemy, inputData):
         self.fireLogic.orientToTargetPerson(enemy)
-        inputData.fire = self.fireLogic.fire()
+        inputData.fire = self.fireLogic.fire(enemy)
 
     def getNewStateOrNone(self, enemy):
         if not self.fireLogic.targetExists(enemy):

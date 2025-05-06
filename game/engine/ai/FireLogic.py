@@ -1,6 +1,7 @@
 from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
 from game.engine.PersonTurnLogic import PersonTurnLogic
+from game.lib.Random import Random
 
 
 class FireLogic:
@@ -8,6 +9,7 @@ class FireLogic:
     def __init__(self, gameData, personTurnLogic):
         self.gameData = gameData
         self.personTurnLogic = personTurnLogic
+        self.rand = Random()
 
     def targetExists(self, enemy):
         return self.isCurrentTargetAvailable(enemy) or self.isNewTargetFound(enemy)
@@ -33,12 +35,12 @@ class FireLogic:
 
     def canFireToOtherEnemy(self, enemy, otherEnemy):
         otherEnemyDirection = enemy.currentCenterPoint.getDirectionTo(otherEnemy.currentCenterPoint)
-        otherEnemyDirectionLength = otherEnemyDirection.getLength()
+        otherEnemyDistance = otherEnemyDirection.getLength()
 
-        if otherEnemyDirectionLength > enemy.aiData.lengthForFire:
+        if otherEnemyDistance > enemy.aiData.fireDistance:
             return False
 
-        dotProduct = enemy.frontNormal.dotProduct(otherEnemyDirection) / otherEnemyDirectionLength
+        dotProduct = enemy.frontNormal.dotProduct(otherEnemyDirection) / otherEnemyDistance
         if dotProduct < enemy.aiData.horizontalFieldViewHalfCos:
             return False
 
@@ -46,9 +48,7 @@ class FireLogic:
 
     def orientToTargetPerson(self, enemy):
         targetPerson = enemy.aiData.targetPerson
-        assert targetPerson is not None
-        # целится на опережение
-        if targetPerson.velocityValue > 0:
+        if targetPerson.velocityValue > 0:  # цель двигается - целится на опережение
             targetPersonPosition = targetPerson.velocityVector.copy()
             targetPersonPosition.setLength(PersonConstants.xyLengthHalf)
             targetPersonPosition.add(targetPerson.currentCenterPoint)
@@ -57,7 +57,29 @@ class FireLogic:
         frontNormal = enemy.currentCenterPoint.getDirectionTo(targetPersonPosition).getNormalized()
         self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
 
-    def fire(self):
+    def fire(self, enemy):
+        enemyItems = self.gameData.allPersonItems[enemy]
+        if enemyItems.currentWeapon.isBurstModeEnabled:
+            return self.fireBurstMode(enemy, enemyItems)
+        else:
+            return True
+
+    def fireBurstMode(self, enemy, enemyItems):
+        aiData = enemy.aiData
+        if aiData.fireDelayRemain == 0 and aiData.fireBurstRemain == 0:
+            weapon = enemyItems.currentWeapon
+            aiData.fireBurstRemain = self.rand.getInt(weapon.minBurstCount, weapon.maxBurstCount)
+            return True
+
+        if aiData.fireDelayRemain > 0:
+            aiData.fireDelayRemain -= 1
+            return False
+
+        if enemyItems.currentWeapon.isFiring:
+            aiData.fireBurstRemain -= 1
+            if aiData.fireBurstRemain == 0:
+                aiData.fireDelayRemain = self.rand.getInt(10, 50)
+
         return True
 
 

@@ -35,6 +35,9 @@ class Rifle(Weapon):
     def __init__(self):
         super().__init__(RifleBullet, RifleFlash)
         self.barrelPoint = Vector3(0, 0.4, 0.04)
+        self.isBurstModeEnabled = True
+        self.minBurstCount = 1
+        self.maxBurstCount = 4
         self.bulletsCount = 50
         self.maxBulletsCount = 50
         self.delay = 8

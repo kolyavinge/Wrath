@@ -17,8 +17,10 @@ class AIData:
         self.horizontalFieldViewRadians = 0
         self.checkCollisionLength = 0
         self.checkCollisionDirectionsCount = 0
-        self.lengthForFire = 0
+        self.fireDistance = 0
         self.targetPerson = None
+        self.fireBurstRemain = 0
+        self.fireDelayRemain = 0
 
     def commit(self):
         self.checkCollisionRadianStep = self.horizontalFieldViewRadians / self.checkCollisionDirectionsCount

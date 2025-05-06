@@ -16,6 +16,7 @@ class Weapon:
         self.barrelPoint = Vector3()
         self.barrelPosition = Vector3()
         self.isFiring = False
+        self.isBurstModeEnabled = False
         self.yawRadians = 0
         self.pitchRadians = 0
         self.bulletsCount = 0

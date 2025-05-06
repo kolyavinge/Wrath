@@ -17,7 +17,7 @@ class AIDataInitializer:
         aiData.horizontalFieldViewRadians = Geometry.degreesToRadians(45.0 + rand.getFloat(0.0, 15.0))
         aiData.checkCollisionLength = 2.0 + rand.getFloat(0.0, 2.0)
         aiData.checkCollisionDirectionsCount = 4 + rand.getInt(0, 6)
-        aiData.lengthForFire = 10 + rand.getInt(0, 10)
+        aiData.fireDistance = 10 + rand.getInt(0, 10)
         aiData.commit()
 
 

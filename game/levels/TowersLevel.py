@@ -19,6 +19,7 @@ from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.Railgun import Railgun
 from game.model.weapon.Rifle import Rifle
+from game.model.weapon.Sniper import Sniper
 
 
 class TowersLevel(Level):
@@ -126,6 +127,6 @@ class TowersLevel(Level):
 
     def getEnemyInitInfo(self):
         return [
-            (Vector3(10, 10, self.minZ), Vector3(1, 1, 0).getNormalized(), Plasma),
+            (Vector3(10, 10, self.minZ), Vector3(1, 1, 0).getNormalized(), Rifle),
             # (Vector3(25, 25, self.minZ), Vector3(1, 0, 0).getNormalized(), Launcher),
         ]
