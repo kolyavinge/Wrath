@@ -1,15 +1,15 @@
 from game.calc.SphereSegmentCalculator import *
-from game.engine.ai.AttackStateHandler import *
 from game.engine.ai.BurstFireLogic import *
 from game.engine.ai.CollisionDetector import *
 from game.engine.ai.EnemyAILogic import *
 from game.engine.ai.FireLogic import *
-from game.engine.ai.HealthSearchStateHandler import *
 from game.engine.ai.MovingLogic import *
 from game.engine.ai.ObstacleAvoidanceLogic import *
-from game.engine.ai.PatrollingStateHandler import *
-from game.engine.ai.StateHandlerCollection import *
-from game.engine.ai.WeaponSearchStateHandler import *
+from game.engine.ai.state.AttackStateHandler import *
+from game.engine.ai.state.HealthSearchStateHandler import *
+from game.engine.ai.state.PatrollingStateHandler import *
+from game.engine.ai.state.StateHandlerCollection import *
+from game.engine.ai.state.WeaponSearchStateHandler import *
 from game.engine.AIDataInitializer import *
 from game.engine.AimStateSwitcher import *
 from game.engine.BackgroundVisibilityDetector import *
@@ -68,14 +68,14 @@ class EngineModule:
 
     def init(self, binder):
         binder.bindSingleton(SphereSegmentCalculator, makeSphereSegmentCalculator)
-        binder.bindSingleton(AttackStateHandler, makeAttackStateHandler)
         binder.bindSingleton(BurstFireLogic, makeBurstFireLogic)
         binder.bindSingleton(CollisionDetector, makeCollisionDetector)
         binder.bindSingleton(EnemyAILogic, makeEnemyAILogic)
         binder.bindSingleton(FireLogic, makeFireLogic)
-        binder.bindSingleton(HealthSearchStateHandler, makeHealthSearchStateHandler)
         binder.bindSingleton(MovingLogic, makeMovingLogic)
         binder.bindSingleton(ObstacleAvoidanceLogic, makeObstacleAvoidanceLogic)
+        binder.bindSingleton(AttackStateHandler, makeAttackStateHandler)
+        binder.bindSingleton(HealthSearchStateHandler, makeHealthSearchStateHandler)
         binder.bindSingleton(PatrollingStateHandler, makePatrollingStateHandler)
         binder.bindSingleton(StateHandlerCollection, makeStateHandlerCollection)
         binder.bindSingleton(WeaponSearchStateHandler, makeWeaponSearchStateHandler)

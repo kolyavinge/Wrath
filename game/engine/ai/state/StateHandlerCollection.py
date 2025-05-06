@@ -1,7 +1,7 @@
-from game.engine.ai.AttackStateHandler import AttackStateHandler
-from game.engine.ai.HealthSearchStateHandler import HealthSearchStateHandler
-from game.engine.ai.PatrollingStateHandler import PatrollingStateHandler
-from game.engine.ai.WeaponSearchStateHandler import WeaponSearchStateHandler
+from game.engine.ai.state.AttackStateHandler import AttackStateHandler
+from game.engine.ai.state.HealthSearchStateHandler import HealthSearchStateHandler
+from game.engine.ai.state.PatrollingStateHandler import PatrollingStateHandler
+from game.engine.ai.state.WeaponSearchStateHandler import WeaponSearchStateHandler
 from game.model.person.Enemy import EnemyState
 
 

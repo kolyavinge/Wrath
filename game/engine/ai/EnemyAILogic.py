@@ -1,4 +1,4 @@
-from game.engine.ai.StateHandlerCollection import StateHandlerCollection
+from game.engine.ai.state.StateHandlerCollection import StateHandlerCollection
 from game.engine.GameData import GameData
 
 
