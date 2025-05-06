@@ -7,6 +7,7 @@ from game.engine.ai.HealthSearchState import *
 from game.engine.ai.MovingLogic import *
 from game.engine.ai.ObstacleAvoidanceLogic import *
 from game.engine.ai.PatrollingState import *
+from game.engine.ai.StateCollection import *
 from game.engine.ai.WeaponSearchState import *
 from game.engine.AIDataInitializer import *
 from game.engine.AimStateSwitcher import *
@@ -74,6 +75,7 @@ class EngineModule:
         binder.bindSingleton(MovingLogic, makeMovingLogic)
         binder.bindSingleton(ObstacleAvoidanceLogic, makeObstacleAvoidanceLogic)
         binder.bindSingleton(PatrollingState, makePatrollingState)
+        binder.bindSingleton(StateCollection, makeStateCollection)
         binder.bindSingleton(WeaponSearchState, makeWeaponSearchState)
         binder.bindSingleton(AIDataInitializer, makeAIDataInitializer)
         binder.bindSingleton(AimStateSwitcher, makeAimStateSwitcher)
