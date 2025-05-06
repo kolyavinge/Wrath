@@ -1,15 +1,15 @@
 from game.anx.PersonConstants import PersonConstants
+from game.engine.ai.BurstFireLogic import BurstFireLogic
 from game.engine.GameData import GameData
 from game.engine.PersonTurnLogic import PersonTurnLogic
-from game.lib.Random import Random
 
 
 class FireLogic:
 
-    def __init__(self, gameData, personTurnLogic):
+    def __init__(self, gameData, personTurnLogic, burstFireLogic):
         self.gameData = gameData
         self.personTurnLogic = personTurnLogic
-        self.rand = Random()
+        self.burstFireLogic = burstFireLogic
 
     def targetExists(self, enemy):
         return self.isCurrentTargetAvailable(enemy) or self.isNewTargetFound(enemy)
@@ -60,28 +60,10 @@ class FireLogic:
     def fire(self, enemy):
         enemyItems = self.gameData.allPersonItems[enemy]
         if enemyItems.currentWeapon.isBurstModeEnabled:
-            return self.fireBurstMode(enemy, enemyItems)
+            return self.burstFireLogic.fire(enemy, enemyItems)
         else:
             return True
 
-    def fireBurstMode(self, enemy, enemyItems):
-        aiData = enemy.aiData
-        if aiData.fireDelayRemain == 0 and aiData.fireBurstRemain == 0:
-            weapon = enemyItems.currentWeapon
-            aiData.fireBurstRemain = self.rand.getInt(weapon.minBurstCount, weapon.maxBurstCount)
-            return True
-
-        if aiData.fireDelayRemain > 0:
-            aiData.fireDelayRemain -= 1
-            return False
-
-        if enemyItems.currentWeapon.isFiring:
-            aiData.fireBurstRemain -= 1
-            if aiData.fireBurstRemain == 0:
-                aiData.fireDelayRemain = self.rand.getInt(10, 50)
-
-        return True
-
 
 def makeFireLogic(resolver):
-    return FireLogic(resolver.resolve(GameData), resolver.resolve(PersonTurnLogic))
+    return FireLogic(resolver.resolve(GameData), resolver.resolve(PersonTurnLogic), resolver.resolve(BurstFireLogic))
