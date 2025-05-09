@@ -1,3 +1,5 @@
+from game.anx.PersonConstants import PersonConstants
+from game.lib.Math import Math
 from game.lib.Query import Query
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
@@ -32,7 +34,13 @@ class PersonItems:
         self.vest = 0
 
     def setFullVest(self):
-        self.vest = 100
+        self.vest = PersonConstants.maxVest
+
+    def damageVest(self, value):
+        if value < 0:
+            raise Exception("value cannot be negative.")
+
+        self.vest = int(Math.max(self.vest - value, 0))
 
     def setWeaponByType(self, weaponType):
         self.rightHandWeapon = Query(self.weapons).first(lambda x: type(x) == weaponType)

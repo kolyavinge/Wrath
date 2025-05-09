@@ -1,19 +1,20 @@
 from game.anx.Events import Events
-from game.anx.PersonConstants import PersonConstants
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.BulletHoleFactory import BulletHoleFactory
 from game.engine.cm.BulletCollisionDetector import *
 from game.engine.GameData import GameData
+from game.engine.PersonDamageLogic import PersonDamageLogic
 from game.lib.EventManager import EventManager
 
 
 class BulletCollisionProcessor:
 
-    def __init__(self, gameData, traversal, bulletCollisionDetector, bulletHoleFactory, eventManager):
+    def __init__(self, gameData, traversal, bulletCollisionDetector, bulletHoleFactory, personDamageLogic, eventManager):
         self.gameData = gameData
         self.traversal = traversal
         self.bulletCollisionDetector = bulletCollisionDetector
         self.bulletHoleFactory = bulletHoleFactory
+        self.personDamageLogic = personDamageLogic
         self.eventManager = eventManager
 
     def process(self):
@@ -42,7 +43,7 @@ class BulletCollisionProcessor:
         self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
 
     def processPersonCollision(self, bullet, person):
-        person.damage(bullet.damagePercent * PersonConstants.maxPersonHealth)
+        self.personDamageLogic.damageByBullet(person, bullet)
         print(f"{person} health: {person.health}")
 
 
@@ -52,5 +53,6 @@ def makeBulletCollisionProcessor(resolver):
         resolver.resolve(BSPTreeTraversal),
         resolver.resolve(BulletCollisionDetector),
         resolver.resolve(BulletHoleFactory),
+        resolver.resolve(PersonDamageLogic),
         resolver.resolve(EventManager),
     )

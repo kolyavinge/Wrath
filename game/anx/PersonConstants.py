@@ -10,3 +10,4 @@ class PersonConstants:
     aimLength = 20.0
     maxPersonHealth = 100
     maxPitchRadians = Math.piHalf - 0.1
+    maxVest = 100
