@@ -10,6 +10,7 @@ from game.engine.cm.PersonWallCollisionProcessor import PersonWallCollisionProce
 from game.engine.cm.PowerupCollisionProcessor import PowerupCollisionProcessor
 from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
+from game.engine.NonStandardBulletMovingLogic import NonStandardBulletMovingLogic
 from game.engine.PersonDoStepLogic import PersonDoStepLogic
 from game.engine.PersonMovingTimeCalculator import PersonMovingTimeCalculator
 from game.engine.PersonPositionUpdater import PersonPositionUpdater
@@ -52,6 +53,7 @@ class GameUpdater:
         weaponFireLogic,
         playerWeaponPositionSwingLogic,
         bulletUpdater,
+        nonStandardBulletMovingLogic,
         bulletPositionUpdater,
         bulletCollisionProcessor,
         powerupCollisionProcessor,
@@ -82,6 +84,7 @@ class GameUpdater:
         self.weaponFireLogic = weaponFireLogic
         self.playerWeaponPositionSwingLogic = playerWeaponPositionSwingLogic
         self.bulletUpdater = bulletUpdater
+        self.nonStandardBulletMovingLogic = nonStandardBulletMovingLogic
         self.bulletPositionUpdater = bulletPositionUpdater
         self.bulletCollisionProcessor = bulletCollisionProcessor
         self.powerupCollisionProcessor = powerupCollisionProcessor
@@ -115,6 +118,7 @@ class GameUpdater:
         self.weaponFireLogic.process()
         self.playerWeaponPositionSwingLogic.updateSwing()
         self.bulletUpdater.update()
+        self.nonStandardBulletMovingLogic.apply()
         self.bulletPositionUpdater.moveNextPosition()
         self.bulletCollisionProcessor.process()
         self.bulletPositionUpdater.commitNextPosition()
@@ -153,6 +157,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(WeaponFireLogic),
         resolver.resolve(PlayerWeaponPositionSwingLogic),
         resolver.resolve(BulletUpdater),
+        resolver.resolve(NonStandardBulletMovingLogic),
         resolver.resolve(BulletPositionUpdater),
         resolver.resolve(BulletCollisionProcessor),
         resolver.resolve(PowerupCollisionProcessor),

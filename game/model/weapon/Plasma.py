@@ -12,12 +12,17 @@ class PlasmaBullet(Bullet):
     def __init__(self):
         super().__init__()
         self.isVisible = True
-        self.velocityValue = 2.5
+        self.velocityValue = 0.8
         self.damagePercent = 0.25
         self.holeInfo = BulletHoleInfo.plasmaHole
         rand = Random()
         self.pitchRadians = rand.getFloat(0, Math.piDouble)
         self.yawRadians = rand.getFloat(0, Math.piDouble)
+        self.targetPerson = None
+        self.homingDistance = 20.0
+        self.homingFieldViewRadians = Geometry.degreesToRadians(10.0)
+        self.homingFieldViewRadiansCos = Math.cos(self.homingFieldViewRadians)
+        self.homingRadians = Geometry.degreesToRadians(0.5)
 
     def update(self):
         self.pitchRadians = Geometry.normalizeRadians(self.pitchRadians + 0.1)

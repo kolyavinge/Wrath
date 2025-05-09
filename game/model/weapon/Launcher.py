@@ -21,7 +21,7 @@ class LauncherBullet(Bullet):
         super().__init__()
         self.isVisible = True
         self.velocityValue = 1.0
-        self.damagePercent = 0.5
+        self.damagePercent = 0.75
         self.holeInfo = BulletHoleInfo.explosionHole
 
     def update(self):

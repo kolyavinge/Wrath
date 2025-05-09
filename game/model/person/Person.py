@@ -19,6 +19,7 @@ class Person:
         self.currentCenterPoint = Vector3()
         self.nextCenterPoint = self.currentCenterPoint.copy()
         self.middleCenterPoint = Vector3()
+        self.chestCenterPoint = Vector3()
         self.collisionLevelSegments = set()
         self.visibilityLevelSegment = LevelSegment()
         self.currentBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)
@@ -70,6 +71,8 @@ class Person:
         self.eyePosition.z += PersonConstants.eyeLength
         self.middleCenterPoint = self.currentCenterPoint.copy()
         self.middleCenterPoint.z += PersonConstants.zLengthHalf
+        self.chestCenterPoint = self.currentCenterPoint.copy()
+        self.chestCenterPoint.z += PersonConstants.zLength34
 
     def addHealth(self, health):
         if health < 0:

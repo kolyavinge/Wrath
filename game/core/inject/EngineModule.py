@@ -40,6 +40,7 @@ from game.engine.LevelSegmentJoinLineAnalyzer import *
 from game.engine.LevelSegmentLightAnalyzer import *
 from game.engine.LevelSegmentVisibilityUpdater import *
 from game.engine.LevelValidator import *
+from game.engine.NonStandardBulletMovingLogic import *
 from game.engine.PersonDamageLogic import *
 from game.engine.PersonDoStepLogic import *
 from game.engine.PersonInitializer import *
@@ -50,6 +51,7 @@ from game.engine.PersonTurnLogic import *
 from game.engine.PersonVelocityCalculator import *
 from game.engine.PersonWeaponPositionUpdater import *
 from game.engine.PersonZUpdater import *
+from game.engine.PlasmaBulletMovingLogic import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerMovingSwingLogic import *
@@ -111,6 +113,7 @@ class EngineModule:
         binder.bindSingleton(LevelSegmentLightAnalyzer, makeLevelSegmentLightAnalyzer)
         binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
         binder.bindSingleton(LevelValidator, makeLevelValidator)
+        binder.bindSingleton(NonStandardBulletMovingLogic, makeNonStandardBulletMovingLogic)
         binder.bindSingleton(PersonDamageLogic, makePersonDamageLogic)
         binder.bindSingleton(PersonDoStepLogic, makePersonDoStepLogic)
         binder.bindSingleton(PersonInitializer, makePersonInitializer)
@@ -121,6 +124,7 @@ class EngineModule:
         binder.bindSingleton(PersonVelocityCalculator, makePersonVelocityCalculator)
         binder.bindSingleton(PersonWeaponPositionUpdater, makePersonWeaponPositionUpdater)
         binder.bindSingleton(PersonZUpdater, makePersonZUpdater)
+        binder.bindSingleton(PlasmaBulletMovingLogic, makePlasmaBulletMovingLogic)
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMovingSwingLogic, makePlayerMovingSwingLogic)
