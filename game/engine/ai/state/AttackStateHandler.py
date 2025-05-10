@@ -10,8 +10,10 @@ class AttackStateHandler:
         self.fireLogic = fireLogic
 
     def process(self, enemy, inputData):
+        self.movingLogic.updateMoveDirection(enemy)
+        self.movingLogic.applyInputData(enemy, inputData)
         self.fireLogic.orientToTargetPerson(enemy)
-        inputData.fire = self.fireLogic.fire(enemy)
+        self.fireLogic.applyInputData(enemy, inputData)
 
     def getNewStateOrNone(self, enemy):
         if not self.fireLogic.targetExists(enemy):

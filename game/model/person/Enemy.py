@@ -10,6 +10,20 @@ class EnemyState:
     weaponSearch = 4
 
 
+class MoveDirections:
+
+    idle = 0
+    forward = 1
+    backward = 2
+    left = 3
+    right = 4
+    forwardLeft = 5
+    forwardRight = 6
+    backwardLeft = 7
+    backwardRight = 8
+    count = 9
+
+
 class AIData:
 
     def __init__(self):
@@ -21,6 +35,8 @@ class AIData:
         self.targetPerson = None
         self.fireBurstRemain = 0
         self.fireDelayRemain = 0
+        self.moveDirection = MoveDirections.idle
+        self.moveDirectionRemain = 0
 
     def commit(self):
         self.checkCollisionRadianStep = self.horizontalFieldViewRadians / self.checkCollisionDirectionsCount

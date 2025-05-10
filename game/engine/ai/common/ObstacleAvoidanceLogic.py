@@ -50,7 +50,7 @@ class ObstacleAvoidanceLogic:
         elif leftDirectionsCount < rightDirectionsCount:
             resultFrontNormal.add(rightDirectionResult)
         else:  # leftDirectionsCount == rightDirectionsCount
-            if self.rand.getInt(-100, 100) % 2 == 0:
+            if self.rand.getBool():
                 resultFrontNormal.add(leftDirectionResult)
             else:
                 resultFrontNormal.add(rightDirectionResult)

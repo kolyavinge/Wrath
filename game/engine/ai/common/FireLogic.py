@@ -57,12 +57,12 @@ class FireLogic:
         frontNormal = enemy.currentCenterPoint.getDirectionTo(targetPersonPosition).getNormalized()
         self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
 
-    def fire(self, enemy):
+    def applyInputData(self, enemy, inputData):
         enemyItems = self.gameData.allPersonItems[enemy]
         if enemyItems.currentWeapon.isBurstModeEnabled:
-            return self.burstFireLogic.fire(enemy, enemyItems)
+            inputData.fire = self.burstFireLogic.fire(enemy, enemyItems)
         else:
-            return True
+            inputData.fire = True
 
 
 def makeFireLogic(resolver):

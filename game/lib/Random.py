@@ -8,3 +8,6 @@ class Random:
 
     def getFloat(self, left, right):
         return random.uniform(left, right)
+
+    def getBool(self):
+        return self.getInt(1, 100) % 2 == 0
