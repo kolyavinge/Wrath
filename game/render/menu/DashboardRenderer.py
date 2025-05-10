@@ -16,18 +16,19 @@ class DashboardRenderer:
 
     def render(self):
         viewportWidth, viewportHeight = glGetViewportSize()
+        model = TransformMatrix4()
+        model.scale(0.8, 1.0, 1.0)
         projection = TransformMatrix4()
         projection.ortho(0, viewportWidth, 0, viewportHeight, -1, 1)
         shader = self.shaderProgramCollection.mesh
         shader.use()
-        shader.setModelMatrix(TransformMatrix4.identity)
+        shader.setModelMatrix(model)
         shader.setViewMatrix(TransformMatrix4.identity)
         shader.setProjectionMatrix(projection)
         shader.setAlpha(1.0)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
-        # self.textRenderer.render([("0123456789", 10, 100), ("qwertyuiopasdfghjklzxcvbnm", 10, 200), ("!@#$%^&*()+-*/[]{}<>", 10, 300)], shader)
 
         self.renderInfo(viewportWidth, viewportHeight)
 
@@ -38,18 +39,28 @@ class DashboardRenderer:
     def renderInfo(self, viewportWidth, viewportHeight):
         textItems = []
 
-        health = self.gameData.player.health
-        textItems.append((str(health), 10, 10))
-
-        vest = self.gameData.playerItems.vest
-        textItems.append((str(vest), 200, 10))
+        textItems.append((self.getAlignedNumber(self.gameData.player.health), 10, 10))
+        textItems.append((self.getAlignedNumber(self.gameData.playerItems.vest), 200, 10))
 
         bulletsCount = self.gameData.playerItems.rightHandWeapon.bulletsCount
+        maxBulletsCount = self.gameData.playerItems.rightHandWeapon.maxBulletsCount
         if self.gameData.playerItems.leftHandWeapon is not None:
             bulletsCount += self.gameData.playerItems.leftHandWeapon.bulletsCount
-        textItems.append((str(bulletsCount), viewportWidth - 110, 10))
+            maxBulletsCount *= 2
+        bulletsCount = f"{self.getAlignedNumber(bulletsCount)}/{maxBulletsCount}"
+        textItems.append((bulletsCount, viewportWidth + 220, 10))
 
         self.textRenderer.render(textItems)
+
+    def getAlignedNumber(self, number):
+        if number < 9:
+            number = "  " + str(number)
+        elif number < 99:
+            number = " " + str(number)
+        else:
+            number = str(number)
+
+        return number
 
 
 def makeDashboardRenderer(resolver):
