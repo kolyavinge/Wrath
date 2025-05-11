@@ -1,11 +1,13 @@
 from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
+from game.engine.GameData import GameData
 from game.model.person.Enemy import EnemyState
 
 
 class PatrollingStateHandler:
 
-    def __init__(self, movingLogic, fireLogic):
+    def __init__(self, gameData, movingLogic, fireLogic):
+        self.gameData = gameData
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
 
@@ -14,6 +16,12 @@ class PatrollingStateHandler:
         inputData.goForward = True
 
     def getNewStateOrNone(self, enemy):
+        if enemy.isWounded:
+            bullet = self.gameData.woundedPerson[enemy]
+            if self.fireLogic.withinFireDistance(enemy, bullet.ownerPerson):
+                enemy.aiData.targetPerson = bullet.ownerPerson
+                return EnemyState.attack
+
         if self.fireLogic.targetExists(enemy):
             return EnemyState.attack
 
@@ -21,4 +29,8 @@ class PatrollingStateHandler:
 
 
 def makePatrollingStateHandler(resolver):
-    return PatrollingStateHandler(resolver.resolve(MovingLogic), resolver.resolve(FireLogic))
+    return PatrollingStateHandler(
+        resolver.resolve(GameData),
+        resolver.resolve(MovingLogic),
+        resolver.resolve(FireLogic),
+    )

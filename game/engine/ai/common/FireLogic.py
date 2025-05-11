@@ -46,6 +46,9 @@ class FireLogic:
 
         return True
 
+    def withinFireDistance(self, enemy, otherEnemy):
+        return enemy.currentCenterPoint.getLengthTo(otherEnemy.currentCenterPoint) < enemy.aiData.fireDistance
+
     def orientToTargetPerson(self, enemy):
         targetPerson = enemy.aiData.targetPerson
         if targetPerson.velocityValue > 0:  # цель двигается - целится на опережение
