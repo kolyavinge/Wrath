@@ -42,6 +42,8 @@ class GameData:
         self.camera = Camera()
         self.aimState = DefaultAimState()
         self.backgroundVisibility = BackgroundVisibilityData()
+        self.woundedPerson = {}
+        # for debug
         self.isDebug = False
         self.noEnemies = False
 

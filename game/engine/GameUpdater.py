@@ -15,6 +15,7 @@ from game.engine.PersonDoStepLogic import PersonDoStepLogic
 from game.engine.PersonMovingTimeCalculator import PersonMovingTimeCalculator
 from game.engine.PersonPositionUpdater import PersonPositionUpdater
 from game.engine.PersonTurnLogic import PersonTurnLogic
+from game.engine.PersonUpdater import PersonUpdater
 from game.engine.PersonVelocityCalculator import PersonVelocityCalculator
 from game.engine.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.PersonZUpdater import PersonZUpdater
@@ -46,6 +47,7 @@ class GameUpdater:
         playerMovingSwingLogic,
         backgroundVisibilityDetector,
         personPositionUpdater,
+        personUpdater,
         levelSegmentVisibilityUpdater,
         cameraUpdater,
         personWeaponPositionUpdater,
@@ -77,6 +79,7 @@ class GameUpdater:
         self.playerMovingSwingLogic = playerMovingSwingLogic
         self.backgroundVisibilityDetector = backgroundVisibilityDetector
         self.personPositionUpdater = personPositionUpdater
+        self.personUpdater = personUpdater
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
         self.cameraUpdater = cameraUpdater
         self.personWeaponPositionUpdater = personWeaponPositionUpdater
@@ -130,7 +133,8 @@ class GameUpdater:
         self.bulletTraceUpdater.update()
         self.enemyAILogic.apply()
         self.personPositionUpdater.resetMovedAndTurned()
-        self.personPositionUpdater.commitPersonState()
+        self.personUpdater.commitState()
+        self.personUpdater.resetWounded()
 
         # sw.stop()
         # sw.printElapsed()
@@ -150,6 +154,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PlayerMovingSwingLogic),
         resolver.resolve(BackgroundVisibilityDetector),
         resolver.resolve(PersonPositionUpdater),
+        resolver.resolve(PersonUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
         resolver.resolve(PersonWeaponPositionUpdater),

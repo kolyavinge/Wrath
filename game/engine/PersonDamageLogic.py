@@ -8,6 +8,8 @@ class PersonDamageLogic:
         self.gameData = gameData
 
     def damageByBullet(self, person, bullet):
+        person.isWounded = True
+        self.gameData.woundedPerson[person] = bullet
         personItems = self.gameData.allPersonItems[person]
         if personItems.vest > 0:
             personItems.damageVest(bullet.damagePercent * PersonConstants.maxVest)
