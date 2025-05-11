@@ -18,8 +18,21 @@ class LevelSegmentItemFinder:
                 middlePoint = startPoint.copy()
                 middlePoint.add(direction)
                 middleSegment = self.traversal.findLevelSegmentOrNone(bspTree, middlePoint)
-                return self.findItemOrNone(bspTree, startSegment, middleSegment, startPoint, middlePoint, getFindItemResult) or self.findItemOrNone(
-                    bspTree, middleSegment, endSegment, middlePoint, endPoint, getFindItemResult
+                assert middleSegment is not None
+                return self.findItemOrNone(
+                    bspTree,
+                    startSegment,
+                    middleSegment,
+                    startPoint,
+                    middlePoint,
+                    getFindItemResult,
+                ) or self.findItemOrNone(
+                    bspTree,
+                    middleSegment,
+                    endSegment,
+                    middlePoint,
+                    endPoint,
+                    getFindItemResult,
                 )
 
 
