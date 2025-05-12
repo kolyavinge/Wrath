@@ -44,7 +44,7 @@ from game.engine.NonStandardBulletMovingLogic import *
 from game.engine.PersonDamageLogic import *
 from game.engine.PersonInitializer import *
 from game.engine.PersonLevelSegmentsUpdater import *
-from game.engine.PersonMovingTimeCalculator import *
+from game.engine.PersonMovingTimeUpdater import *
 from game.engine.PersonPositionUpdater import *
 from game.engine.PersonStepUpdater import *
 from game.engine.PersonTurnLogic import *
@@ -119,7 +119,7 @@ class EngineModule:
         binder.bindSingleton(PersonDamageLogic, makePersonDamageLogic)
         binder.bindSingleton(PersonInitializer, makePersonInitializer)
         binder.bindSingleton(PersonLevelSegmentsUpdater, makePersonLevelSegmentsUpdater)
-        binder.bindSingleton(PersonMovingTimeCalculator, makePersonMovingTimeCalculator)
+        binder.bindSingleton(PersonMovingTimeUpdater, makePersonMovingTimeUpdater)
         binder.bindSingleton(PersonPositionUpdater, makePersonPositionUpdater)
         binder.bindSingleton(PersonStepUpdater, makePersonStepUpdater)
         binder.bindSingleton(PersonTurnLogic, makePersonTurnLogic)

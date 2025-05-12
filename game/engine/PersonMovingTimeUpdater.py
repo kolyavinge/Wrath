@@ -2,16 +2,16 @@ from game.engine.GameData import GameData
 from game.model.person.PersonState import PersonState
 
 
-class PersonMovingTimeCalculator:
+class PersonMovingTimeUpdater:
 
     def __init__(self, gameData):
         self.gameData = gameData
 
-    def calculate(self):
+    def update(self):
         for person, inputData in self.gameData.allPersonInputData.items():
-            self.calculateForPerson(person, inputData)
+            self.updateForPerson(person, inputData)
 
-    def calculateForPerson(self, person, inputData):
+    def updateForPerson(self, person, inputData):
         personStand = person.state == PersonState.standing
 
         if inputData.goForward and personStand:
@@ -47,5 +47,5 @@ class PersonMovingTimeCalculator:
             return value
 
 
-def makePersonMovingTimeCalculator(resolver):
-    return PersonMovingTimeCalculator(resolver.resolve(GameData))
+def makePersonMovingTimeUpdater(resolver):
+    return PersonMovingTimeUpdater(resolver.resolve(GameData))
