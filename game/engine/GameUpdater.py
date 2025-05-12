@@ -4,7 +4,7 @@ from game.engine.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.BulletUpdater import BulletUpdater
 from game.engine.CameraUpdater import CameraUpdater
-from game.engine.cm.BulletCollisionProcessor import BulletCollisionProcessor
+from game.engine.cm.BulletCollisionUpdater import BulletCollisionUpdater
 from game.engine.cm.PersonCollisionProcessor import PersonCollisionProcessor
 from game.engine.cm.PersonWallCollisionProcessor import PersonWallCollisionProcessor
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
@@ -57,7 +57,7 @@ class GameUpdater:
         bulletUpdater,
         nonStandardBulletMovingUpdater,
         bulletPositionUpdater,
-        bulletCollisionProcessor,
+        bulletCollisionUpdater,
         powerupCollisionUpdater,
         torchUpdater,
         powerupUpdater,
@@ -89,7 +89,7 @@ class GameUpdater:
         self.bulletUpdater = bulletUpdater
         self.nonStandardBulletMovingUpdater = nonStandardBulletMovingUpdater
         self.bulletPositionUpdater = bulletPositionUpdater
-        self.bulletCollisionProcessor = bulletCollisionProcessor
+        self.bulletCollisionUpdater = bulletCollisionUpdater
         self.powerupCollisionUpdater = powerupCollisionUpdater
         self.torchUpdater = torchUpdater
         self.powerupUpdater = powerupUpdater
@@ -123,7 +123,7 @@ class GameUpdater:
         self.bulletUpdater.update()
         self.nonStandardBulletMovingUpdater.update()
         self.bulletPositionUpdater.moveNextPosition()
-        self.bulletCollisionProcessor.process()
+        self.bulletCollisionUpdater.update()
         self.bulletPositionUpdater.commitNextPosition()
         self.powerupCollisionUpdater.update()
         self.torchUpdater.update()
@@ -164,7 +164,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(BulletUpdater),
         resolver.resolve(NonStandardBulletMovingUpdater),
         resolver.resolve(BulletPositionUpdater),
-        resolver.resolve(BulletCollisionProcessor),
+        resolver.resolve(BulletCollisionUpdater),
         resolver.resolve(PowerupCollisionUpdater),
         resolver.resolve(TorchUpdater),
         resolver.resolve(PowerupUpdater),

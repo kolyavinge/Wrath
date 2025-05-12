@@ -7,7 +7,7 @@ from game.engine.PersonDamageLogic import PersonDamageLogic
 from game.lib.EventManager import EventManager
 
 
-class BulletCollisionProcessor:
+class BulletCollisionUpdater:
 
     def __init__(self, gameData, traversal, bulletCollisionDetector, bulletHoleFactory, personDamageLogic, eventManager):
         self.gameData = gameData
@@ -17,7 +17,7 @@ class BulletCollisionProcessor:
         self.personDamageLogic = personDamageLogic
         self.eventManager = eventManager
 
-    def process(self):
+    def update(self):
         for bullet in self.gameData.bullets:
             collisionResult = self.bulletCollisionDetector.getCollisionResultOrNone(bullet)
             if collisionResult is not None:
@@ -47,8 +47,8 @@ class BulletCollisionProcessor:
         print(f"{person} health: {person.health}")
 
 
-def makeBulletCollisionProcessor(resolver):
-    return BulletCollisionProcessor(
+def makeBulletCollisionUpdater(resolver):
+    return BulletCollisionUpdater(
         resolver.resolve(GameData),
         resolver.resolve(BSPTreeTraversal),
         resolver.resolve(BulletCollisionDetector),
