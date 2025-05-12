@@ -3,13 +3,13 @@ from game.lib.Math import Math
 from game.model.person.PersonState import PersonState
 
 
-class PlayerMovingSwingLogic:
+class PlayerMovingSwingUpdater:
 
     def __init__(self, gameData):
         self.gameData = gameData
         self.movingParam = 0
 
-    def updateSwing(self):
+    def update(self):
         self.commitCurrentSwingValue()
         self.calculateSwingValue()
         self.updateLookSwing()
@@ -44,5 +44,5 @@ class PlayerMovingSwingLogic:
             player.eyePosition.z += swingValue
 
 
-def makePlayerMovingSwingLogic(resolver):
-    return PlayerMovingSwingLogic(resolver.resolve(GameData))
+def makePlayerMovingSwingUpdater(resolver):
+    return PlayerMovingSwingUpdater(resolver.resolve(GameData))

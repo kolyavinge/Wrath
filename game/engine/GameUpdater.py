@@ -20,7 +20,7 @@ from game.engine.PersonVelocityUpdater import PersonVelocityUpdater
 from game.engine.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.PersonZUpdater import PersonZUpdater
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
-from game.engine.PlayerMovingSwingLogic import PlayerMovingSwingLogic
+from game.engine.PlayerMovingSwingUpdater import PlayerMovingSwingUpdater
 from game.engine.PlayerWeaponSwingUpdater import PlayerWeaponSwingUpdater
 from game.engine.PowerupUpdater import PowerupUpdater
 from game.engine.TorchUpdater import TorchUpdater
@@ -44,7 +44,7 @@ class GameUpdater:
         personStepUpdater,
         playerLevelSegmentsUpdater,
         enemyLevelSegmentsUpdater,
-        playerMovingSwingLogic,
+        playerMovingSwingUpdater,
         backgroundVisibilityDetector,
         personPositionUpdater,
         personUpdater,
@@ -76,7 +76,7 @@ class GameUpdater:
         self.personStepUpdater = personStepUpdater
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
-        self.playerMovingSwingLogic = playerMovingSwingLogic
+        self.playerMovingSwingUpdater = playerMovingSwingUpdater
         self.backgroundVisibilityDetector = backgroundVisibilityDetector
         self.personPositionUpdater = personPositionUpdater
         self.personUpdater = personUpdater
@@ -113,7 +113,7 @@ class GameUpdater:
         self.enemyLevelSegmentsUpdater.updateIfMoved()
         self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
         self.personPositionUpdater.commitNextPosition()
-        self.playerMovingSwingLogic.updateSwing()
+        self.playerMovingSwingUpdater.update()
         self.cameraUpdater.update()
         self.backgroundVisibilityDetector.updateIfPlayerMovedOrTurned()
         self.personWeaponPositionUpdater.update()
@@ -151,7 +151,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PersonStepUpdater),
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(EnemyLevelSegmentsUpdater),
-        resolver.resolve(PlayerMovingSwingLogic),
+        resolver.resolve(PlayerMovingSwingUpdater),
         resolver.resolve(BackgroundVisibilityDetector),
         resolver.resolve(PersonPositionUpdater),
         resolver.resolve(PersonUpdater),
