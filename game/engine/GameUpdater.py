@@ -10,7 +10,7 @@ from game.engine.cm.PersonWallCollisionProcessor import PersonWallCollisionProce
 from game.engine.cm.PowerupCollisionProcessor import PowerupCollisionProcessor
 from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
-from game.engine.NonStandardBulletMovingLogic import NonStandardBulletMovingLogic
+from game.engine.NonStandardBulletMovingUpdater import NonStandardBulletMovingUpdater
 from game.engine.PersonMovingTimeUpdater import PersonMovingTimeUpdater
 from game.engine.PersonPositionUpdater import PersonPositionUpdater
 from game.engine.PersonStepUpdater import PersonStepUpdater
@@ -55,7 +55,7 @@ class GameUpdater:
         weaponFireUpdater,
         playerWeaponSwingUpdater,
         bulletUpdater,
-        nonStandardBulletMovingLogic,
+        nonStandardBulletMovingUpdater,
         bulletPositionUpdater,
         bulletCollisionProcessor,
         powerupCollisionProcessor,
@@ -87,7 +87,7 @@ class GameUpdater:
         self.weaponFireUpdater = weaponFireUpdater
         self.playerWeaponSwingUpdater = playerWeaponSwingUpdater
         self.bulletUpdater = bulletUpdater
-        self.nonStandardBulletMovingLogic = nonStandardBulletMovingLogic
+        self.nonStandardBulletMovingUpdater = nonStandardBulletMovingUpdater
         self.bulletPositionUpdater = bulletPositionUpdater
         self.bulletCollisionProcessor = bulletCollisionProcessor
         self.powerupCollisionProcessor = powerupCollisionProcessor
@@ -121,7 +121,7 @@ class GameUpdater:
         self.weaponFireUpdater.update()
         self.playerWeaponSwingUpdater.update()
         self.bulletUpdater.update()
-        self.nonStandardBulletMovingLogic.apply()
+        self.nonStandardBulletMovingUpdater.update()
         self.bulletPositionUpdater.moveNextPosition()
         self.bulletCollisionProcessor.process()
         self.bulletPositionUpdater.commitNextPosition()
@@ -162,7 +162,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(WeaponFireUpdater),
         resolver.resolve(PlayerWeaponSwingUpdater),
         resolver.resolve(BulletUpdater),
-        resolver.resolve(NonStandardBulletMovingLogic),
+        resolver.resolve(NonStandardBulletMovingUpdater),
         resolver.resolve(BulletPositionUpdater),
         resolver.resolve(BulletCollisionProcessor),
         resolver.resolve(PowerupCollisionProcessor),

@@ -40,7 +40,7 @@ from game.engine.LevelSegmentJoinLineAnalyzer import *
 from game.engine.LevelSegmentLightAnalyzer import *
 from game.engine.LevelSegmentVisibilityUpdater import *
 from game.engine.LevelValidator import *
-from game.engine.NonStandardBulletMovingLogic import *
+from game.engine.NonStandardBulletMovingUpdater import *
 from game.engine.PersonDamageLogic import *
 from game.engine.PersonInitializer import *
 from game.engine.PersonLevelSegmentsUpdater import *
@@ -115,7 +115,7 @@ class EngineModule:
         binder.bindSingleton(LevelSegmentLightAnalyzer, makeLevelSegmentLightAnalyzer)
         binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
         binder.bindSingleton(LevelValidator, makeLevelValidator)
-        binder.bindSingleton(NonStandardBulletMovingLogic, makeNonStandardBulletMovingLogic)
+        binder.bindSingleton(NonStandardBulletMovingUpdater, makeNonStandardBulletMovingUpdater)
         binder.bindSingleton(PersonDamageLogic, makePersonDamageLogic)
         binder.bindSingleton(PersonInitializer, makePersonInitializer)
         binder.bindSingleton(PersonLevelSegmentsUpdater, makePersonLevelSegmentsUpdater)
