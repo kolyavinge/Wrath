@@ -6,7 +6,7 @@ from game.lib.mirrorRange import mirrorRange
 from game.model.person.PersonState import PersonState
 
 
-class PlayerWeaponPositionSwingLogic:
+class PlayerWeaponSwingUpdater:
 
     def __init__(self, gameData):
         self.gameData = gameData
@@ -15,7 +15,7 @@ class PlayerWeaponPositionSwingLogic:
         self.steps = [v for v in mirrorRange(stepValue, stepsCount)]
         self.lastStep = 0
 
-    def updateSwing(self):
+    def update(self):
         self.updateMovingSwing()
         self.updateLandingSwing()
 
@@ -47,5 +47,5 @@ class PlayerWeaponPositionSwingLogic:
                 self.gameData.playerItems.leftHandWeapon.position.z -= swingValue
 
 
-def makePlayerWeaponPositionSwingLogic(resolver):
-    return PlayerWeaponPositionSwingLogic(resolver.resolve(GameData))
+def makePlayerWeaponSwingUpdater(resolver):
+    return PlayerWeaponSwingUpdater(resolver.resolve(GameData))

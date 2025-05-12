@@ -21,7 +21,7 @@ from game.engine.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.PersonZUpdater import PersonZUpdater
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.PlayerMovingSwingLogic import PlayerMovingSwingLogic
-from game.engine.PlayerWeaponPositionSwingLogic import PlayerWeaponPositionSwingLogic
+from game.engine.PlayerWeaponSwingUpdater import PlayerWeaponSwingUpdater
 from game.engine.PowerupUpdater import PowerupUpdater
 from game.engine.TorchUpdater import TorchUpdater
 from game.engine.WeaponDelayUpdater import WeaponDelayUpdater
@@ -53,7 +53,7 @@ class GameUpdater:
         personWeaponPositionUpdater,
         weaponDelayUpdater,
         weaponFireLogic,
-        playerWeaponPositionSwingLogic,
+        playerWeaponSwingUpdater,
         bulletUpdater,
         nonStandardBulletMovingLogic,
         bulletPositionUpdater,
@@ -85,7 +85,7 @@ class GameUpdater:
         self.personWeaponPositionUpdater = personWeaponPositionUpdater
         self.weaponDelayUpdater = weaponDelayUpdater
         self.weaponFireLogic = weaponFireLogic
-        self.playerWeaponPositionSwingLogic = playerWeaponPositionSwingLogic
+        self.playerWeaponSwingUpdater = playerWeaponSwingUpdater
         self.bulletUpdater = bulletUpdater
         self.nonStandardBulletMovingLogic = nonStandardBulletMovingLogic
         self.bulletPositionUpdater = bulletPositionUpdater
@@ -119,7 +119,7 @@ class GameUpdater:
         self.personWeaponPositionUpdater.update()
         self.weaponDelayUpdater.update()
         self.weaponFireLogic.process()
-        self.playerWeaponPositionSwingLogic.updateSwing()
+        self.playerWeaponSwingUpdater.update()
         self.bulletUpdater.update()
         self.nonStandardBulletMovingLogic.apply()
         self.bulletPositionUpdater.moveNextPosition()
@@ -160,7 +160,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PersonWeaponPositionUpdater),
         resolver.resolve(WeaponDelayUpdater),
         resolver.resolve(WeaponFireLogic),
-        resolver.resolve(PlayerWeaponPositionSwingLogic),
+        resolver.resolve(PlayerWeaponSwingUpdater),
         resolver.resolve(BulletUpdater),
         resolver.resolve(NonStandardBulletMovingLogic),
         resolver.resolve(BulletPositionUpdater),

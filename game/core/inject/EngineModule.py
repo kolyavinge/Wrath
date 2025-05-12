@@ -57,7 +57,7 @@ from game.engine.PlasmaBulletMovingLogic import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerMovingSwingLogic import *
-from game.engine.PlayerWeaponPositionSwingLogic import *
+from game.engine.PlayerWeaponSwingUpdater import *
 from game.engine.PowerupPositionGenerator import *
 from game.engine.PowerupUpdater import *
 from game.engine.TorchUpdater import *
@@ -132,7 +132,7 @@ class EngineModule:
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMovingSwingLogic, makePlayerMovingSwingLogic)
-        binder.bindSingleton(PlayerWeaponPositionSwingLogic, makePlayerWeaponPositionSwingLogic)
+        binder.bindSingleton(PlayerWeaponSwingUpdater, makePlayerWeaponSwingUpdater)
         binder.bindSingleton(PowerupPositionGenerator, makePowerupPositionGenerator)
         binder.bindSingleton(PowerupUpdater, makePowerupUpdater)
         binder.bindSingleton(TorchUpdater, makeTorchUpdater)
