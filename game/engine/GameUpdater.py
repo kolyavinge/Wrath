@@ -11,9 +11,9 @@ from game.engine.cm.PowerupCollisionProcessor import PowerupCollisionProcessor
 from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
 from game.engine.NonStandardBulletMovingLogic import NonStandardBulletMovingLogic
-from game.engine.PersonDoStepLogic import PersonDoStepLogic
 from game.engine.PersonMovingTimeCalculator import PersonMovingTimeCalculator
 from game.engine.PersonPositionUpdater import PersonPositionUpdater
+from game.engine.PersonStepUpdater import PersonStepUpdater
 from game.engine.PersonTurnUpdater import PersonTurnUpdater
 from game.engine.PersonUpdater import PersonUpdater
 from game.engine.PersonVelocityCalculator import PersonVelocityCalculator
@@ -41,7 +41,7 @@ class GameUpdater:
         personZUpdater,
         personWallCollisionProcessor,
         personCollisionProcessor,
-        personDoStepLogic,
+        personStepUpdater,
         playerLevelSegmentsUpdater,
         enemyLevelSegmentsUpdater,
         playerMovingSwingLogic,
@@ -73,7 +73,7 @@ class GameUpdater:
         self.personZUpdater = personZUpdater
         self.personWallCollisionProcessor = personWallCollisionProcessor
         self.personCollisionProcessor = personCollisionProcessor
-        self.personDoStepLogic = personDoStepLogic
+        self.personStepUpdater = personStepUpdater
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
         self.playerMovingSwingLogic = playerMovingSwingLogic
@@ -108,7 +108,7 @@ class GameUpdater:
         self.personWallCollisionProcessor.process()
         self.personCollisionProcessor.process()
         self.personZUpdater.updateIfMoved()
-        self.personDoStepLogic.updateDoStep()
+        self.personStepUpdater.update()
         self.playerLevelSegmentsUpdater.updateIfMoved()
         self.enemyLevelSegmentsUpdater.updateIfMoved()
         self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
@@ -148,7 +148,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PersonZUpdater),
         resolver.resolve(PersonWallCollisionProcessor),
         resolver.resolve(PersonCollisionProcessor),
-        resolver.resolve(PersonDoStepLogic),
+        resolver.resolve(PersonStepUpdater),
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(EnemyLevelSegmentsUpdater),
         resolver.resolve(PlayerMovingSwingLogic),

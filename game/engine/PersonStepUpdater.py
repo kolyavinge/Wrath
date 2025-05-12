@@ -4,13 +4,13 @@ from game.lib.EventManager import EventManager
 from game.model.level.Stair import Stair
 
 
-class PersonDoStepLogic:
+class PersonStepUpdater:
 
     def __init__(self, gameData, eventManager):
         self.gameData = gameData
         self.eventManager = eventManager
 
-    def updateDoStep(self):
+    def update(self):
         doStep = False
         player = self.gameData.player
         if isinstance(player.currentFloor, Stair):
@@ -28,5 +28,5 @@ class PersonDoStepLogic:
             self.eventManager.raiseEvent(Events.personStepDone, player)
 
 
-def makePersonDoStepLogic(resolver):
-    return PersonDoStepLogic(resolver.resolve(GameData), resolver.resolve(EventManager))
+def makePersonStepUpdater(resolver):
+    return PersonStepUpdater(resolver.resolve(GameData), resolver.resolve(EventManager))
