@@ -50,7 +50,7 @@ from game.engine.PersonStepUpdater import *
 from game.engine.PersonTurnLogic import *
 from game.engine.PersonTurnUpdater import *
 from game.engine.PersonUpdater import *
-from game.engine.PersonVelocityCalculator import *
+from game.engine.PersonVelocityUpdater import *
 from game.engine.PersonWeaponPositionUpdater import *
 from game.engine.PersonZUpdater import *
 from game.engine.PlasmaBulletMovingLogic import *
@@ -125,7 +125,7 @@ class EngineModule:
         binder.bindSingleton(PersonTurnLogic, makePersonTurnLogic)
         binder.bindSingleton(PersonTurnUpdater, makePersonTurnUpdater)
         binder.bindSingleton(PersonUpdater, makePersonUpdater)
-        binder.bindSingleton(PersonVelocityCalculator, makePersonVelocityCalculator)
+        binder.bindSingleton(PersonVelocityUpdater, makePersonVelocityUpdater)
         binder.bindSingleton(PersonWeaponPositionUpdater, makePersonWeaponPositionUpdater)
         binder.bindSingleton(PersonZUpdater, makePersonZUpdater)
         binder.bindSingleton(PlasmaBulletMovingLogic, makePlasmaBulletMovingLogic)

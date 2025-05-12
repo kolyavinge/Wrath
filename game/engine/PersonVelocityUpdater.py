@@ -5,16 +5,16 @@ from game.lib.Math import Math
 from game.model.level.Stair import Stair
 
 
-class PersonVelocityCalculator:
+class PersonVelocityUpdater:
 
     def __init__(self, gameData):
         self.gameData = gameData
 
-    def calculate(self):
+    def update(self):
         for person in self.gameData.allPerson:
-            self.calculateForPerson(person)
+            self.updateForPerson(person)
 
-    def calculateForPerson(self, person):
+    def updateForPerson(self, person):
         person.prevVelocityValue = person.velocityValue
         if person.forwardMovingTime > 0 or person.backwardMovingTime > 0:
             self.processForwardBackward(person)
@@ -62,5 +62,5 @@ class PersonVelocityCalculator:
             person.velocityValue = Math.min(person.velocityValue, 0.05)
 
 
-def makePersonVelocityCalculator(resolver):
-    return PersonVelocityCalculator(resolver.resolve(GameData))
+def makePersonVelocityUpdater(resolver):
+    return PersonVelocityUpdater(resolver.resolve(GameData))

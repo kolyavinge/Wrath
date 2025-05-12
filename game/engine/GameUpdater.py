@@ -16,7 +16,7 @@ from game.engine.PersonPositionUpdater import PersonPositionUpdater
 from game.engine.PersonStepUpdater import PersonStepUpdater
 from game.engine.PersonTurnUpdater import PersonTurnUpdater
 from game.engine.PersonUpdater import PersonUpdater
-from game.engine.PersonVelocityCalculator import PersonVelocityCalculator
+from game.engine.PersonVelocityUpdater import PersonVelocityUpdater
 from game.engine.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.PersonZUpdater import PersonZUpdater
 from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
@@ -37,7 +37,7 @@ class GameUpdater:
         self,
         personTurnUpdater,
         personMovingTimeUpdater,
-        personVelocityCalculator,
+        personVelocityUpdater,
         personZUpdater,
         personWallCollisionProcessor,
         personCollisionProcessor,
@@ -69,7 +69,7 @@ class GameUpdater:
     ):
         self.personTurnUpdater = personTurnUpdater
         self.personMovingTimeUpdater = personMovingTimeUpdater
-        self.personVelocityCalculator = personVelocityCalculator
+        self.personVelocityUpdater = personVelocityUpdater
         self.personZUpdater = personZUpdater
         self.personWallCollisionProcessor = personWallCollisionProcessor
         self.personCollisionProcessor = personCollisionProcessor
@@ -103,7 +103,7 @@ class GameUpdater:
 
         self.personTurnUpdater.update()
         self.personMovingTimeUpdater.update()
-        self.personVelocityCalculator.calculate()
+        self.personVelocityUpdater.update()
         self.personPositionUpdater.moveNextPosition()
         self.personWallCollisionProcessor.process()
         self.personCollisionProcessor.process()
@@ -144,7 +144,7 @@ def makeGameUpdater(resolver):
     return GameUpdater(
         resolver.resolve(PersonTurnUpdater),
         resolver.resolve(PersonMovingTimeUpdater),
-        resolver.resolve(PersonVelocityCalculator),
+        resolver.resolve(PersonVelocityUpdater),
         resolver.resolve(PersonZUpdater),
         resolver.resolve(PersonWallCollisionProcessor),
         resolver.resolve(PersonCollisionProcessor),
