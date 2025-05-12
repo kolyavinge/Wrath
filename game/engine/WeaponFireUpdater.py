@@ -5,7 +5,7 @@ from game.engine.WeaponFeedbackLogic import WeaponFeedbackLogic
 from game.lib.EventManager import EventManager
 
 
-class WeaponFireLogic:
+class WeaponFireUpdater:
 
     def __init__(self, gameData, weaponFeedbackLogic, traversal, eventManager):
         self.gameData = gameData
@@ -13,13 +13,13 @@ class WeaponFireLogic:
         self.traversal = traversal
         self.eventManager = eventManager
 
-    def process(self):
+    def update(self):
         for person, inputData in self.gameData.allPersonInputData.items():
             personItems = self.gameData.allPersonItems[person]
             weapon = personItems.currentWeapon
-            self.processWeapon(person, inputData, weapon)
+            self.updateForWeapon(person, inputData, weapon)
 
-    def processWeapon(self, person, inputData, weapon):
+    def updateForWeapon(self, person, inputData, weapon):
         if inputData.fire and self.canFire(weapon):
             weapon.isFiring = True
             self.fire(person, weapon)
@@ -57,7 +57,10 @@ class WeaponFireLogic:
             trace.visibilityLevelSegments.add(visibilityLevelSegment)
 
 
-def makeWeaponFireLogic(resolver):
-    return WeaponFireLogic(
-        resolver.resolve(GameData), resolver.resolve(WeaponFeedbackLogic), resolver.resolve(BSPTreeTraversal), resolver.resolve(EventManager)
+def makeWeaponFireUpdater(resolver):
+    return WeaponFireUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(WeaponFeedbackLogic),
+        resolver.resolve(BSPTreeTraversal),
+        resolver.resolve(EventManager),
     )
