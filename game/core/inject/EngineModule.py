@@ -48,6 +48,7 @@ from game.engine.PersonLevelSegmentsUpdater import *
 from game.engine.PersonMovingTimeCalculator import *
 from game.engine.PersonPositionUpdater import *
 from game.engine.PersonTurnLogic import *
+from game.engine.PersonTurnUpdater import *
 from game.engine.PersonUpdater import *
 from game.engine.PersonVelocityCalculator import *
 from game.engine.PersonWeaponPositionUpdater import *
@@ -122,6 +123,7 @@ class EngineModule:
         binder.bindSingleton(PersonMovingTimeCalculator, makePersonMovingTimeCalculator)
         binder.bindSingleton(PersonPositionUpdater, makePersonPositionUpdater)
         binder.bindSingleton(PersonTurnLogic, makePersonTurnLogic)
+        binder.bindSingleton(PersonTurnUpdater, makePersonTurnUpdater)
         binder.bindSingleton(PersonUpdater, makePersonUpdater)
         binder.bindSingleton(PersonVelocityCalculator, makePersonVelocityCalculator)
         binder.bindSingleton(PersonWeaponPositionUpdater, makePersonWeaponPositionUpdater)

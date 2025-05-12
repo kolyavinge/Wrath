@@ -14,7 +14,7 @@ from game.engine.NonStandardBulletMovingLogic import NonStandardBulletMovingLogi
 from game.engine.PersonDoStepLogic import PersonDoStepLogic
 from game.engine.PersonMovingTimeCalculator import PersonMovingTimeCalculator
 from game.engine.PersonPositionUpdater import PersonPositionUpdater
-from game.engine.PersonTurnLogic import PersonTurnLogic
+from game.engine.PersonTurnUpdater import PersonTurnUpdater
 from game.engine.PersonUpdater import PersonUpdater
 from game.engine.PersonVelocityCalculator import PersonVelocityCalculator
 from game.engine.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
@@ -35,7 +35,7 @@ class GameUpdater:
 
     def __init__(
         self,
-        personTurnLogic,
+        personTurnUpdater,
         personMovingTimeCalculator,
         personVelocityCalculator,
         personZUpdater,
@@ -67,7 +67,7 @@ class GameUpdater:
         # event listeners
         weaponSelector,
     ):
-        self.personTurnLogic = personTurnLogic
+        self.personTurnUpdater = personTurnUpdater
         self.personMovingTimeCalculator = personMovingTimeCalculator
         self.personVelocityCalculator = personVelocityCalculator
         self.personZUpdater = personZUpdater
@@ -101,7 +101,7 @@ class GameUpdater:
         # sw = Stopwatch()
         # sw.start()
 
-        self.personTurnLogic.process()
+        self.personTurnUpdater.update()
         self.personMovingTimeCalculator.calculate()
         self.personVelocityCalculator.calculate()
         self.personPositionUpdater.moveNextPosition()
@@ -142,7 +142,7 @@ class GameUpdater:
 
 def makeGameUpdater(resolver):
     return GameUpdater(
-        resolver.resolve(PersonTurnLogic),
+        resolver.resolve(PersonTurnUpdater),
         resolver.resolve(PersonMovingTimeCalculator),
         resolver.resolve(PersonVelocityCalculator),
         resolver.resolve(PersonZUpdater),
