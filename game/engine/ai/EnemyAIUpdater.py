@@ -2,13 +2,13 @@ from game.engine.ai.state.StateHandlerCollection import StateHandlerCollection
 from game.engine.GameData import GameData
 
 
-class EnemyAILogic:
+class EnemyAIUpdater:
 
     def __init__(self, gameData, stateHandlerCollection):
         self.gameData = gameData
         self.stateHandlerCollection = stateHandlerCollection
 
-    def apply(self):
+    def update(self):
         for enemy in self.gameData.enemies:
             inputData = self.gameData.enemyInputData[enemy]
             inputData.clear()
@@ -20,5 +20,5 @@ class EnemyAILogic:
                 aiData.state = newState
 
 
-def makeEnemyAILogic(resolver):
-    return EnemyAILogic(resolver.resolve(GameData), resolver.resolve(StateHandlerCollection))
+def makeEnemyAIUpdater(resolver):
+    return EnemyAIUpdater(resolver.resolve(GameData), resolver.resolve(StateHandlerCollection))

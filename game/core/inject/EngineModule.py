@@ -4,7 +4,7 @@ from game.engine.ai.common.CollisionDetector import *
 from game.engine.ai.common.FireLogic import *
 from game.engine.ai.common.MovingLogic import *
 from game.engine.ai.common.ObstacleAvoidanceLogic import *
-from game.engine.ai.EnemyAILogic import *
+from game.engine.ai.EnemyAIUpdater import *
 from game.engine.ai.state.AttackStateHandler import *
 from game.engine.ai.state.HealthSearchStateHandler import *
 from game.engine.ai.state.PatrollingStateHandler import *
@@ -78,7 +78,7 @@ class EngineModule:
         binder.bindSingleton(FireLogic, makeFireLogic)
         binder.bindSingleton(MovingLogic, makeMovingLogic)
         binder.bindSingleton(ObstacleAvoidanceLogic, makeObstacleAvoidanceLogic)
-        binder.bindSingleton(EnemyAILogic, makeEnemyAILogic)
+        binder.bindSingleton(EnemyAIUpdater, makeEnemyAIUpdater)
         binder.bindSingleton(AttackStateHandler, makeAttackStateHandler)
         binder.bindSingleton(HealthSearchStateHandler, makeHealthSearchStateHandler)
         binder.bindSingleton(PatrollingStateHandler, makePatrollingStateHandler)
