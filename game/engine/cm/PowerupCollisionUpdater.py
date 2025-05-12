@@ -9,7 +9,7 @@ from game.model.powerup.VestPowerup import VestPowerup
 from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 
-class PowerupCollisionProcessor:
+class PowerupCollisionUpdater:
 
     def __init__(self, gameData, powerupCollisionDetector, eventManager):
         self.gameData = gameData
@@ -21,10 +21,11 @@ class PowerupCollisionProcessor:
         self.actions[SmallHealthPowerup] = self.processHealthPowerup
         self.actions[VestPowerup] = self.processVestPowerup
 
-    def process(self):
-        self.processPerson(self.gameData.player)
+    def update(self):
+        for person in self.gameData.allPerson:
+            self.updateForPerson(person)
 
-    def processPerson(self, person):
+    def updateForPerson(self, person):
         powerup = self.powerupCollisionDetector.getCollisionResultOrNone(person)
         if powerup is not None:
             self.actions[type(powerup)](person, powerup)
@@ -50,5 +51,5 @@ class PowerupCollisionProcessor:
         self.gameData.allPersonItems[person].setFullVest()
 
 
-def makePowerupCollisionProcessor(resolver):
-    return PowerupCollisionProcessor(resolver.resolve(GameData), resolver.resolve(PowerupCollisionDetector), resolver.resolve(EventManager))
+def makePowerupCollisionUpdater(resolver):
+    return PowerupCollisionUpdater(resolver.resolve(GameData), resolver.resolve(PowerupCollisionDetector), resolver.resolve(EventManager))
