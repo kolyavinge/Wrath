@@ -4,7 +4,7 @@ from game.calc.SphereSegmentCalculator import SphereSegmentCalculator
 from game.engine.GameData import GameData
 
 
-class BackgroundVisibilityDetector:
+class BackgroundVisibilityUpdater:
 
     def __init__(self, gameData, sphereSegmentCalculator):
         self.sphereRadius = CommonConstants.maxLevelSize
@@ -45,5 +45,5 @@ class BackgroundVisibilityDetector:
         )
 
 
-def makeBackgroundVisibilityDetector(resolver):
-    return BackgroundVisibilityDetector(resolver.resolve(GameData), resolver.resolve(SphereSegmentCalculator))
+def makeBackgroundVisibilityUpdater(resolver):
+    return BackgroundVisibilityUpdater(resolver.resolve(GameData), resolver.resolve(SphereSegmentCalculator))

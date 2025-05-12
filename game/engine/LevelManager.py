@@ -1,5 +1,5 @@
 from game.engine.AIDataInitializer import AIDataInitializer
-from game.engine.BackgroundVisibilityDetector import BackgroundVisibilityDetector
+from game.engine.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
@@ -84,7 +84,7 @@ def makeLevelManager(resolver):
         resolver.resolve(EnemyLevelSegmentsUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),
         resolver.resolve(CameraUpdater),
-        resolver.resolve(BackgroundVisibilityDetector),
+        resolver.resolve(BackgroundVisibilityUpdater),
         resolver.resolve(PersonWeaponPositionUpdater),
         resolver.resolve(WeaponFlashUpdater),
     )

@@ -1,5 +1,5 @@
 from game.engine.ai.EnemyAILogic import EnemyAILogic
-from game.engine.BackgroundVisibilityDetector import BackgroundVisibilityDetector
+from game.engine.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.BulletUpdater import BulletUpdater
@@ -45,7 +45,7 @@ class GameUpdater:
         playerLevelSegmentsUpdater,
         enemyLevelSegmentsUpdater,
         playerMovingSwingUpdater,
-        backgroundVisibilityDetector,
+        backgroundVisibilityUpdater,
         personPositionUpdater,
         personUpdater,
         levelSegmentVisibilityUpdater,
@@ -77,7 +77,7 @@ class GameUpdater:
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
         self.playerMovingSwingUpdater = playerMovingSwingUpdater
-        self.backgroundVisibilityDetector = backgroundVisibilityDetector
+        self.backgroundVisibilityUpdater = backgroundVisibilityUpdater
         self.personPositionUpdater = personPositionUpdater
         self.personUpdater = personUpdater
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
@@ -115,7 +115,7 @@ class GameUpdater:
         self.personPositionUpdater.commitNextPosition()
         self.playerMovingSwingUpdater.update()
         self.cameraUpdater.update()
-        self.backgroundVisibilityDetector.updateIfPlayerMovedOrTurned()
+        self.backgroundVisibilityUpdater.updateIfPlayerMovedOrTurned()
         self.personWeaponPositionUpdater.update()
         self.weaponDelayUpdater.update()
         self.weaponFireLogic.process()
@@ -152,7 +152,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(EnemyLevelSegmentsUpdater),
         resolver.resolve(PlayerMovingSwingUpdater),
-        resolver.resolve(BackgroundVisibilityDetector),
+        resolver.resolve(BackgroundVisibilityUpdater),
         resolver.resolve(PersonPositionUpdater),
         resolver.resolve(PersonUpdater),
         resolver.resolve(LevelSegmentVisibilityUpdater),

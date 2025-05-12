@@ -12,7 +12,7 @@ from game.engine.ai.state.StateHandlerCollection import *
 from game.engine.ai.state.WeaponSearchStateHandler import *
 from game.engine.AIDataInitializer import *
 from game.engine.AimStateSwitcher import *
-from game.engine.BackgroundVisibilityDetector import *
+from game.engine.BackgroundVisibilityUpdater import *
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
 from game.engine.BulletHoleFactory import *
@@ -86,7 +86,7 @@ class EngineModule:
         binder.bindSingleton(WeaponSearchStateHandler, makeWeaponSearchStateHandler)
         binder.bindSingleton(AIDataInitializer, makeAIDataInitializer)
         binder.bindSingleton(AimStateSwitcher, makeAimStateSwitcher)
-        binder.bindSingleton(BackgroundVisibilityDetector, makeBackgroundVisibilityDetector)
+        binder.bindSingleton(BackgroundVisibilityUpdater, makeBackgroundVisibilityUpdater)
         binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)
         binder.bindSingleton(BulletHoleFactory, makeBulletHoleFactory)
