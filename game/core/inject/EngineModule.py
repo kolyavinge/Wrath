@@ -10,12 +10,9 @@ from game.engine.ai.state.HealthSearchStateHandler import *
 from game.engine.ai.state.PatrollingStateHandler import *
 from game.engine.ai.state.StateHandlerCollection import *
 from game.engine.ai.state.WeaponSearchStateHandler import *
-from game.engine.AIDataInitializer import *
-from game.engine.AimStateSwitcher import *
 from game.engine.BackgroundVisibilityUpdater import *
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
-from game.engine.BulletHoleFactory import *
 from game.engine.BulletPositionUpdater import *
 from game.engine.BulletTraceUpdater import *
 from game.engine.BulletUpdater import *
@@ -33,39 +30,42 @@ from game.engine.cm.WallCollisionDetector import *
 from game.engine.EnemyLevelSegmentsUpdater import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
-from game.engine.LevelLoader import *
 from game.engine.LevelManager import *
-from game.engine.LevelSegmentItemFinder import *
-from game.engine.LevelSegmentJoinLineAnalyzer import *
-from game.engine.LevelSegmentLightAnalyzer import *
 from game.engine.LevelSegmentVisibilityUpdater import *
-from game.engine.LevelValidator import *
+from game.engine.logic.AIDataInitializer import *
+from game.engine.logic.AimStateSwitcher import *
+from game.engine.logic.BulletHoleFactory import *
+from game.engine.logic.LevelLoader import *
+from game.engine.logic.LevelSegmentItemFinder import *
+from game.engine.logic.LevelSegmentJoinLineAnalyzer import *
+from game.engine.logic.LevelSegmentLightAnalyzer import *
+from game.engine.logic.LevelValidator import *
+from game.engine.logic.PersonDamageLogic import *
+from game.engine.logic.PersonInitializer import *
+from game.engine.logic.PersonTurnLogic import *
+from game.engine.logic.PlasmaBulletMovingLogic import *
+from game.engine.logic.PowerupPositionGenerator import *
+from game.engine.logic.WeaponFeedbackLogic import *
+from game.engine.logic.WeaponSelector import *
 from game.engine.NonStandardBulletMovingUpdater import *
-from game.engine.PersonDamageLogic import *
-from game.engine.PersonInitializer import *
 from game.engine.PersonLevelSegmentsUpdater import *
 from game.engine.PersonMovingTimeUpdater import *
 from game.engine.PersonPositionUpdater import *
 from game.engine.PersonStepUpdater import *
-from game.engine.PersonTurnLogic import *
 from game.engine.PersonTurnUpdater import *
 from game.engine.PersonUpdater import *
 from game.engine.PersonVelocityUpdater import *
 from game.engine.PersonWeaponPositionUpdater import *
 from game.engine.PersonZUpdater import *
-from game.engine.PlasmaBulletMovingLogic import *
 from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerMovingSwingUpdater import *
 from game.engine.PlayerWeaponSwingUpdater import *
-from game.engine.PowerupPositionGenerator import *
 from game.engine.PowerupUpdater import *
 from game.engine.TorchUpdater import *
 from game.engine.WeaponDelayUpdater import *
-from game.engine.WeaponFeedbackLogic import *
 from game.engine.WeaponFireUpdater import *
 from game.engine.WeaponFlashUpdater import *
-from game.engine.WeaponSelector import *
 from game.input.InputManager import *
 
 
@@ -84,12 +84,9 @@ class EngineModule:
         binder.bindSingleton(PatrollingStateHandler, makePatrollingStateHandler)
         binder.bindSingleton(StateHandlerCollection, makeStateHandlerCollection)
         binder.bindSingleton(WeaponSearchStateHandler, makeWeaponSearchStateHandler)
-        binder.bindSingleton(AIDataInitializer, makeAIDataInitializer)
-        binder.bindSingleton(AimStateSwitcher, makeAimStateSwitcher)
         binder.bindSingleton(BackgroundVisibilityUpdater, makeBackgroundVisibilityUpdater)
         binder.bindSingleton(BSPTreeBuilder, makeBSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal, makeBSPTreeTraversal)
-        binder.bindSingleton(BulletHoleFactory, makeBulletHoleFactory)
         binder.bindSingleton(BulletPositionUpdater, makeBulletPositionUpdater)
         binder.bindSingleton(BulletTraceUpdater, makeBulletTraceUpdater)
         binder.bindSingleton(BulletUpdater, makeBulletUpdater)
@@ -108,37 +105,40 @@ class EngineModule:
         binder.bindSingleton(EnemyLevelSegmentsUpdater, makeEnemyLevelSegmentsUpdater)
         binder.bindSingleton(GameData, makeGameData)
         binder.bindSingleton(GameUpdater, makeGameUpdater)
-        binder.bindSingleton(LevelLoader, makeLevelLoader)
         binder.bindSingleton(LevelManager, makeLevelManager)
+        binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
+        binder.bindSingleton(AIDataInitializer, makeAIDataInitializer)
+        binder.bindSingleton(AimStateSwitcher, makeAimStateSwitcher)
+        binder.bindSingleton(BulletHoleFactory, makeBulletHoleFactory)
+        binder.bindSingleton(LevelLoader, makeLevelLoader)
         binder.bindSingleton(LevelSegmentItemFinder, makeLevelSegmentItemFinder)
         binder.bindSingleton(LevelSegmentJoinLineAnalyzer, makeLevelSegmentJoinLineAnalyzer)
         binder.bindSingleton(LevelSegmentLightAnalyzer, makeLevelSegmentLightAnalyzer)
-        binder.bindSingleton(LevelSegmentVisibilityUpdater, makeLevelSegmentVisibilityUpdater)
         binder.bindSingleton(LevelValidator, makeLevelValidator)
-        binder.bindSingleton(NonStandardBulletMovingUpdater, makeNonStandardBulletMovingUpdater)
         binder.bindSingleton(PersonDamageLogic, makePersonDamageLogic)
         binder.bindSingleton(PersonInitializer, makePersonInitializer)
+        binder.bindSingleton(PersonTurnLogic, makePersonTurnLogic)
+        binder.bindSingleton(PlasmaBulletMovingLogic, makePlasmaBulletMovingLogic)
+        binder.bindSingleton(PowerupPositionGenerator, makePowerupPositionGenerator)
+        binder.bindSingleton(WeaponFeedbackLogic, makeWeaponFeedbackLogic)
+        binder.bindSingleton(WeaponSelector, makeWeaponSelector)
+        binder.bindSingleton(NonStandardBulletMovingUpdater, makeNonStandardBulletMovingUpdater)
         binder.bindSingleton(PersonLevelSegmentsUpdater, makePersonLevelSegmentsUpdater)
         binder.bindSingleton(PersonMovingTimeUpdater, makePersonMovingTimeUpdater)
         binder.bindSingleton(PersonPositionUpdater, makePersonPositionUpdater)
         binder.bindSingleton(PersonStepUpdater, makePersonStepUpdater)
-        binder.bindSingleton(PersonTurnLogic, makePersonTurnLogic)
         binder.bindSingleton(PersonTurnUpdater, makePersonTurnUpdater)
         binder.bindSingleton(PersonUpdater, makePersonUpdater)
         binder.bindSingleton(PersonVelocityUpdater, makePersonVelocityUpdater)
         binder.bindSingleton(PersonWeaponPositionUpdater, makePersonWeaponPositionUpdater)
         binder.bindSingleton(PersonZUpdater, makePersonZUpdater)
-        binder.bindSingleton(PlasmaBulletMovingLogic, makePlasmaBulletMovingLogic)
         binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMovingSwingUpdater, makePlayerMovingSwingUpdater)
         binder.bindSingleton(PlayerWeaponSwingUpdater, makePlayerWeaponSwingUpdater)
-        binder.bindSingleton(PowerupPositionGenerator, makePowerupPositionGenerator)
         binder.bindSingleton(PowerupUpdater, makePowerupUpdater)
         binder.bindSingleton(TorchUpdater, makeTorchUpdater)
         binder.bindSingleton(WeaponDelayUpdater, makeWeaponDelayUpdater)
-        binder.bindSingleton(WeaponFeedbackLogic, makeWeaponFeedbackLogic)
         binder.bindSingleton(WeaponFireUpdater, makeWeaponFireUpdater)
         binder.bindSingleton(WeaponFlashUpdater, makeWeaponFlashUpdater)
-        binder.bindSingleton(WeaponSelector, makeWeaponSelector)
         binder.bindSingleton(InputManager, makeInputManager)

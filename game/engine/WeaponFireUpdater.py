@@ -1,7 +1,7 @@
 from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
-from game.engine.WeaponFeedbackLogic import WeaponFeedbackLogic
+from game.engine.logic.WeaponFeedbackLogic import WeaponFeedbackLogic
 from game.lib.EventManager import EventManager
 
 

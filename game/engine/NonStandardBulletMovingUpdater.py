@@ -1,5 +1,5 @@
 from game.engine.GameData import GameData
-from game.engine.PlasmaBulletMovingLogic import PlasmaBulletMovingLogic
+from game.engine.logic.PlasmaBulletMovingLogic import PlasmaBulletMovingLogic
 from game.model.weapon.Plasma import PlasmaBullet
 
 

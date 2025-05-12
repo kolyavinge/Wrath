@@ -5,8 +5,8 @@ from OpenGL.GLUT import *
 
 import game.engine.bsp.BSPTreeTraversal as BSPTreeTraversal
 import game.engine.GameUpdater as GameUpdater
-import game.engine.LevelSegmentItemFinder as LevelSegmentItemFinder
 import game.engine.LevelSegmentVisibilityUpdater as LevelSegmentVisibilityUpdater
+import game.engine.logic.LevelSegmentItemFinder as LevelSegmentItemFinder
 import game.engine.PersonLevelSegmentsUpdater as PersonLevelSegmentsUpdater
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.model3d.AnimationPlayer import AnimationPlayer

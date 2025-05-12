@@ -1,5 +1,5 @@
 from game.engine.GameData import GameData
-from game.engine.PersonTurnLogic import PersonTurnLogic
+from game.engine.logic.PersonTurnLogic import PersonTurnLogic
 from game.model.person.Enemy import Enemy
 from game.model.person.PersonInputData import PersonInputData
 from game.model.person.PersonItems import PersonItems

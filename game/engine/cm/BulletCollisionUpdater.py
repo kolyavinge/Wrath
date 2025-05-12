@@ -1,9 +1,9 @@
 from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
-from game.engine.BulletHoleFactory import BulletHoleFactory
 from game.engine.cm.BulletCollisionDetector import *
 from game.engine.GameData import GameData
-from game.engine.PersonDamageLogic import PersonDamageLogic
+from game.engine.logic.BulletHoleFactory import BulletHoleFactory
+from game.engine.logic.PersonDamageLogic import PersonDamageLogic
 from game.lib.EventManager import EventManager
 
 

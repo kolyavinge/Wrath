@@ -10,6 +10,7 @@ from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
 from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
+from game.engine.logic.WeaponSelector import WeaponSelector
 from game.engine.NonStandardBulletMovingUpdater import NonStandardBulletMovingUpdater
 from game.engine.PersonMovingTimeUpdater import PersonMovingTimeUpdater
 from game.engine.PersonPositionUpdater import PersonPositionUpdater
@@ -27,7 +28,6 @@ from game.engine.TorchUpdater import TorchUpdater
 from game.engine.WeaponDelayUpdater import WeaponDelayUpdater
 from game.engine.WeaponFireUpdater import WeaponFireUpdater
 from game.engine.WeaponFlashUpdater import WeaponFlashUpdater
-from game.engine.WeaponSelector import WeaponSelector
 from game.lib.Stopwatch import Stopwatch
 
 

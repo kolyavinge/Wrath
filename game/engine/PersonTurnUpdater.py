@@ -1,7 +1,7 @@
 from game.anx.PersonConstants import PersonConstants
 from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
-from game.engine.PersonTurnLogic import PersonTurnLogic
+from game.engine.logic.PersonTurnLogic import PersonTurnLogic
 
 
 class PersonTurnUpdater:
