@@ -23,7 +23,7 @@ from game.engine.CameraUpdater import *
 from game.engine.cm.BulletCollisionDetector import *
 from game.engine.cm.BulletCollisionUpdater import *
 from game.engine.cm.PersonCollisionDetector import *
-from game.engine.cm.PersonCollisionProcessor import *
+from game.engine.cm.PersonCollisionUpdater import *
 from game.engine.cm.PersonWallCollisionDetector import *
 from game.engine.cm.PersonWallCollisionProcessor import *
 from game.engine.cm.PlaneCollisionDetector import *
@@ -98,7 +98,7 @@ class EngineModule:
         binder.bindSingleton(BulletCollisionUpdater, makeBulletCollisionUpdater)
         # binder.bindSingleton(ConstructionCollisionDetector, makeConstructionCollisionDetector)
         binder.bindSingleton(PersonCollisionDetector, makePersonCollisionDetector)
-        binder.bindSingleton(PersonCollisionProcessor, makePersonCollisionProcessor)
+        binder.bindSingleton(PersonCollisionUpdater, makePersonCollisionUpdater)
         binder.bindSingleton(PersonWallCollisionDetector, makePersonWallCollisionDetector)
         binder.bindSingleton(PersonWallCollisionProcessor, makePersonWallCollisionProcessor)
         binder.bindSingleton(PlaneCollisionDetector, makePlaneCollisionDetector)

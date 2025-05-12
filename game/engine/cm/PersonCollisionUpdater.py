@@ -2,18 +2,18 @@ from game.engine.cm.PersonCollisionDetector import PersonCollisionDetector
 from game.engine.GameData import GameData
 
 
-class PersonCollisionProcessor:
+class PersonCollisionUpdater:
 
     def __init__(self, gameData, personCollisionDetector):
         self.gameData = gameData
         self.personCollisionDetector = personCollisionDetector
 
-    def process(self):
+    def update(self):
         for person1, person2 in self.gameData.allPersonPairs:
             if person1.hasMoved or person2.hasMoved:
-                self.processPerson(person1, person2)
+                self.updateForPerson(person1, person2)
 
-    def processPerson(self, person1, person2):
+    def updateForPerson(self, person1, person2):
         collisionLength = self.personCollisionDetector.getCollisionLengthOrNone(person1, person2)
         if collisionLength is not None:
             velocitySum = person1.velocityValue + person2.velocityValue
@@ -29,5 +29,5 @@ class PersonCollisionProcessor:
             person.moveNextPositionBy(collisionVelocity)
 
 
-def makePersonCollisionProcessor(resolver):
-    return PersonCollisionProcessor(resolver.resolve(GameData), resolver.resolve(PersonCollisionDetector))
+def makePersonCollisionUpdater(resolver):
+    return PersonCollisionUpdater(resolver.resolve(GameData), resolver.resolve(PersonCollisionDetector))

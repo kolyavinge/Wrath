@@ -5,7 +5,7 @@ from game.engine.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.BulletUpdater import BulletUpdater
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.BulletCollisionUpdater import BulletCollisionUpdater
-from game.engine.cm.PersonCollisionProcessor import PersonCollisionProcessor
+from game.engine.cm.PersonCollisionUpdater import PersonCollisionUpdater
 from game.engine.cm.PersonWallCollisionProcessor import PersonWallCollisionProcessor
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
 from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
@@ -40,7 +40,7 @@ class GameUpdater:
         personVelocityUpdater,
         personZUpdater,
         personWallCollisionProcessor,
-        personCollisionProcessor,
+        personCollisionUpdater,
         personStepUpdater,
         playerLevelSegmentsUpdater,
         enemyLevelSegmentsUpdater,
@@ -72,7 +72,7 @@ class GameUpdater:
         self.personVelocityUpdater = personVelocityUpdater
         self.personZUpdater = personZUpdater
         self.personWallCollisionProcessor = personWallCollisionProcessor
-        self.personCollisionProcessor = personCollisionProcessor
+        self.personCollisionUpdater = personCollisionUpdater
         self.personStepUpdater = personStepUpdater
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
@@ -106,7 +106,7 @@ class GameUpdater:
         self.personVelocityUpdater.update()
         self.personPositionUpdater.moveNextPosition()
         self.personWallCollisionProcessor.process()
-        self.personCollisionProcessor.process()
+        self.personCollisionUpdater.update()
         self.personZUpdater.updateIfMoved()
         self.personStepUpdater.update()
         self.playerLevelSegmentsUpdater.updateIfMoved()
@@ -147,7 +147,7 @@ def makeGameUpdater(resolver):
         resolver.resolve(PersonVelocityUpdater),
         resolver.resolve(PersonZUpdater),
         resolver.resolve(PersonWallCollisionProcessor),
-        resolver.resolve(PersonCollisionProcessor),
+        resolver.resolve(PersonCollisionUpdater),
         resolver.resolve(PersonStepUpdater),
         resolver.resolve(PlayerLevelSegmentsUpdater),
         resolver.resolve(EnemyLevelSegmentsUpdater),
