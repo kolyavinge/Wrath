@@ -6,18 +6,18 @@ from game.lib.Math import Math
 from game.model.Orientation import Orientation
 
 
-class PersonWallCollisionProcessor:
+class PersonWallCollisionUpdater:
 
     def __init__(self, gameData, personWallCollisionDetector):
         self.gameData = gameData
         self.personWallCollisionDetector = personWallCollisionDetector
 
-    def process(self):
+    def update(self):
         for person in self.gameData.allPerson:
             if person.hasMoved:
-                self.processPersonCollisions(person)
+                self.updatePersonCollisions(person)
 
-    def processPersonCollisions(self, person):
+    def updatePersonCollisions(self, person):
         collidedWalls = self.personWallCollisionDetector.getCollidedWalls(person)
         if len(collidedWalls) == 0:
             return
@@ -49,5 +49,5 @@ class PersonWallCollisionProcessor:
             raise Exception("Wrong wall orientation.")
 
 
-def makePersonWallCollisionProcessor(resolver):
-    return PersonWallCollisionProcessor(resolver.resolve(GameData), resolver.resolve(PersonWallCollisionDetector))
+def makePersonWallCollisionUpdater(resolver):
+    return PersonWallCollisionUpdater(resolver.resolve(GameData), resolver.resolve(PersonWallCollisionDetector))
