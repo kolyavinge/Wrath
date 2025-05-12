@@ -57,7 +57,6 @@ from game.engine.PersonUpdater import *
 from game.engine.PersonVelocityUpdater import *
 from game.engine.PersonWeaponPositionUpdater import *
 from game.engine.PersonZUpdater import *
-from game.engine.PlayerInputManager import *
 from game.engine.PlayerLevelSegmentsUpdater import *
 from game.engine.PlayerMovingSwingUpdater import *
 from game.engine.PlayerWeaponSwingUpdater import *
@@ -67,6 +66,7 @@ from game.engine.WeaponDelayUpdater import *
 from game.engine.WeaponFireUpdater import *
 from game.engine.WeaponFlashUpdater import *
 from game.input.InputManager import *
+from game.input.PlayerInputManager import *
 
 
 class EngineModule:
@@ -132,7 +132,6 @@ class EngineModule:
         binder.bindSingleton(PersonVelocityUpdater, makePersonVelocityUpdater)
         binder.bindSingleton(PersonWeaponPositionUpdater, makePersonWeaponPositionUpdater)
         binder.bindSingleton(PersonZUpdater, makePersonZUpdater)
-        binder.bindSingleton(PlayerInputManager, makePlayerInputManager)
         binder.bindSingleton(PlayerLevelSegmentsUpdater, makePlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMovingSwingUpdater, makePlayerMovingSwingUpdater)
         binder.bindSingleton(PlayerWeaponSwingUpdater, makePlayerWeaponSwingUpdater)
@@ -142,3 +141,4 @@ class EngineModule:
         binder.bindSingleton(WeaponFireUpdater, makeWeaponFireUpdater)
         binder.bindSingleton(WeaponFlashUpdater, makeWeaponFlashUpdater)
         binder.bindSingleton(InputManager, makeInputManager)
+        binder.bindSingleton(PlayerInputManager, makePlayerInputManager)

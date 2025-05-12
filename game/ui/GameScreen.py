@@ -1,6 +1,6 @@
 from game.engine.GameUpdater import GameUpdater
-from game.engine.PlayerInputManager import PlayerInputManager
 from game.input.InputManager import InputManager
+from game.input.PlayerInputManager import PlayerInputManager
 
 
 class GameScreen:
