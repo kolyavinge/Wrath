@@ -1,5 +1,5 @@
 from game.engine.GameData import GameData
-from game.engine.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
+from game.engine.person.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
 
 
 class PlayerLevelSegmentsUpdater:

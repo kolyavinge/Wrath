@@ -1,6 +1,6 @@
 from game.core.GameInitializer import GameInitializer
 from game.core.ScreenManager import ScreenManager
-from game.engine.LevelManager import LevelManager
+from game.engine.level.LevelManager import LevelManager
 from game.input.InputManager import InputManager
 from game.lib.EventManager import EventManager
 

@@ -3,7 +3,7 @@ from game.calc.RectPlane import RectPlane
 from game.calc.Vector3 import Vector3
 from game.engine.cm.PlaneCollisionDetector import PlaneCollisionDetector
 from game.engine.GameData import GameData
-from game.engine.logic.LevelSegmentItemFinder import LevelSegmentItemFinder
+from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
 
 
 class BulletCollisionTarget:

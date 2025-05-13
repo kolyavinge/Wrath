@@ -1,11 +1,11 @@
 from game.anx.Events import Events
 from game.engine.GameData import GameData
-from game.engine.logic.AimStateSwitcher import AimStateSwitcher
+from game.engine.person.AimStateSwitcher import AimStateSwitcher
 from game.input.InputManager import InputManager
 from game.input.Keys import Keys
 from game.lib.EventManager import EventManager
 from game.lib.Math import Math
-from game.model.AimState import SniperAimState
+from game.model.person.AimState import SniperAimState
 from game.model.weapon.Sniper import Sniper
 
 

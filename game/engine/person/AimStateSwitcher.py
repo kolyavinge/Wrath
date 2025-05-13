@@ -1,7 +1,7 @@
 from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
-from game.model.AimState import DefaultAimState, SniperAimState
+from game.model.person.AimState import DefaultAimState, SniperAimState
 
 
 class AimStateSwitcher:

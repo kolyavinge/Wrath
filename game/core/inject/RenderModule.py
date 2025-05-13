@@ -13,7 +13,6 @@ from game.gl.vbo.ScreenQuadVBO import *
 from game.gl.vbo.VBOBuilderFactory import *
 from game.gl.vbo.VBORenderer import *
 from game.gl.vbo.VBOUpdaterFactory import *
-from game.render.anx.BackgroundRenderer import *
 from game.render.anx.RayRenderer import *
 from game.render.anx.ShineCircleRenderer import *
 from game.render.common.MaterialTextureCollection import *
@@ -22,6 +21,7 @@ from game.render.common.ShaderCollection import *
 from game.render.common.ShaderProgramCollection import *
 from game.render.common.TextureCollection import *
 from game.render.debug.DebugRenderer import *
+from game.render.level.BackgroundRenderer import *
 from game.render.level.ConstructionVBOBuilder import *
 from game.render.level.LampVBOBuilder import *
 from game.render.level.LevelItemRenderCollection import *

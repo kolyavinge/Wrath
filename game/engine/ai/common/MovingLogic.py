@@ -1,5 +1,5 @@
 from game.engine.ai.common.ObstacleAvoidanceLogic import ObstacleAvoidanceLogic
-from game.engine.logic.PersonTurnLogic import PersonTurnLogic
+from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.lib.Random import Random
 from game.model.person.Enemy import MoveDirections
 

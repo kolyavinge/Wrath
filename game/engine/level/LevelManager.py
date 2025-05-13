@@ -1,18 +1,18 @@
-from game.engine.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.CameraUpdater import CameraUpdater
-from game.engine.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.GameData import GameData
-from game.engine.LevelSegmentVisibilityUpdater import LevelSegmentVisibilityUpdater
-from game.engine.logic.AIDataInitializer import AIDataInitializer
-from game.engine.logic.LevelLoader import LevelLoader
-from game.engine.logic.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyzer
-from game.engine.logic.LevelSegmentLightAnalyzer import LevelSegmentLightAnalyzer
-from game.engine.logic.LevelValidator import LevelValidator
-from game.engine.logic.PersonInitializer import PersonInitializer
-from game.engine.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
-from game.engine.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
-from game.engine.WeaponFlashUpdater import WeaponFlashUpdater
+from game.engine.level.LevelLoader import LevelLoader
+from game.engine.level.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyzer
+from game.engine.level.LevelSegmentLightAnalyzer import LevelSegmentLightAnalyzer
+from game.engine.level.LevelValidator import LevelValidator
+from game.engine.level.PersonInitializer import PersonInitializer
+from game.engine.person.AIDataInitializer import AIDataInitializer
+from game.engine.person.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
+from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
+from game.engine.person.LevelSegmentVisibilityUpdater import *
+from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
+from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
+from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 
 
 class LevelManager:
