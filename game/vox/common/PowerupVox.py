@@ -29,12 +29,3 @@ class PowerupVox:
         person, powerup = args
         if person == self.gameData.player:
             self.audioPlayer.play(self.source.powerups[type(powerup)])
-
-
-def makePowerupVox(resolver):
-    return PowerupVox(
-        resolver.resolve(GameData),
-        resolver.resolve(AudioSourceFactory),
-        resolver.resolve(AudioPlayer),
-        resolver.resolve(EventManager),
-    )

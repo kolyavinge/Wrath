@@ -138,38 +138,3 @@ class GameUpdater:
 
         # sw.stop()
         # sw.printElapsed()
-
-
-def makeGameUpdater(resolver):
-    return GameUpdater(
-        resolver.resolve(PersonTurnUpdater),
-        resolver.resolve(PersonMovingTimeUpdater),
-        resolver.resolve(PersonVelocityUpdater),
-        resolver.resolve(PersonZUpdater),
-        resolver.resolve(PersonWallCollisionUpdater),
-        resolver.resolve(PersonCollisionUpdater),
-        resolver.resolve(PersonStepUpdater),
-        resolver.resolve(PlayerLevelSegmentsUpdater),
-        resolver.resolve(EnemyLevelSegmentsUpdater),
-        resolver.resolve(PlayerMovingSwingUpdater),
-        resolver.resolve(BackgroundVisibilityUpdater),
-        resolver.resolve(PersonPositionUpdater),
-        resolver.resolve(PersonUpdater),
-        resolver.resolve(LevelSegmentVisibilityUpdater),
-        resolver.resolve(CameraUpdater),
-        resolver.resolve(PersonWeaponPositionUpdater),
-        resolver.resolve(WeaponDelayUpdater),
-        resolver.resolve(WeaponFireUpdater),
-        resolver.resolve(PlayerWeaponSwingUpdater),
-        resolver.resolve(BulletUpdater),
-        resolver.resolve(NonStandardBulletMovingUpdater),
-        resolver.resolve(BulletPositionUpdater),
-        resolver.resolve(BulletCollisionUpdater),
-        resolver.resolve(PowerupCollisionUpdater),
-        resolver.resolve(TorchUpdater),
-        resolver.resolve(PowerupUpdater),
-        resolver.resolve(WeaponFlashUpdater),
-        resolver.resolve(BulletTraceUpdater),
-        resolver.resolve(EnemyAIUpdater),
-        resolver.resolve(WeaponSelector),
-    )

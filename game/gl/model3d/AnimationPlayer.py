@@ -79,7 +79,3 @@ class AnimationPlayer:
         assert resultFrame is not None
 
         return resultFrame
-
-
-def makeAnimationPlayer(resolver):
-    return AnimationPlayer(resolver.resolve(FrameInterpolator))

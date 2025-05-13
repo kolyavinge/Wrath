@@ -51,7 +51,3 @@ class StairVBOBuilder:
     def addFaces(self, vboBuilder, vertexCount):
         vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 1)
         vboBuilder.addFace(vertexCount, vertexCount + 2, vertexCount + 3)
-
-
-def makeStairVBOBuilder(resolver):
-    return StairVBOBuilder()

@@ -77,13 +77,3 @@ class BackgroundRenderer:
                 self.vboUpdater.addFace(upLeft, downLeft, downRight)
                 self.vboUpdater.addFace(upLeft, downRight, upRight)
                 vertexIndex += 1
-
-
-def makeBackgroundRenderer(resolver):
-    return BackgroundRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(VBOUpdaterFactory),
-        resolver.resolve(ShaderProgramCollection),
-        resolver.resolve(VBORenderer),
-        resolver.resolve(TextureCollection),
-    )

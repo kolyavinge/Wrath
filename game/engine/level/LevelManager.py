@@ -68,23 +68,3 @@ class LevelManager:
         self.backgroundVisibilityDetector.update()
         self.personWeaponPositionUpdater.update()
         self.weaponFlashUpdater.init()
-
-
-def makeLevelManager(resolver):
-    return LevelManager(
-        resolver.resolve(GameData),
-        resolver.resolve(LevelLoader),
-        resolver.resolve(BSPTreeBuilder),
-        resolver.resolve(LevelSegmentJoinLineAnalyzer),
-        resolver.resolve(LevelSegmentLightAnalyzer),
-        resolver.resolve(LevelValidator),
-        resolver.resolve(PersonInitializer),
-        resolver.resolve(AIDataInitializer),
-        resolver.resolve(PlayerLevelSegmentsUpdater),
-        resolver.resolve(EnemyLevelSegmentsUpdater),
-        resolver.resolve(LevelSegmentVisibilityUpdater),
-        resolver.resolve(CameraUpdater),
-        resolver.resolve(BackgroundVisibilityUpdater),
-        resolver.resolve(PersonWeaponPositionUpdater),
-        resolver.resolve(WeaponFlashUpdater),
-    )

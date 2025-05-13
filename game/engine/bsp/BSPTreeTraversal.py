@@ -25,7 +25,3 @@ class BSPTreeTraversal:
         dotProduct = x * node.frontNormal.x + y * node.frontNormal.y + z * node.frontNormal.z
 
         return dotProduct >= 0
-
-
-def makeBSPTreeTraversal(resolver):
-    return BSPTreeTraversal()

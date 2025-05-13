@@ -42,15 +42,3 @@ class LevelSegmentRenderer:
         for levelSegment in self.gameData.visibleLevelSegments:
             shader.setLight(levelSegment.lights, self.gameData.playerTorch)
             self.shadowCasterRenderer.render(levelSegment)
-
-
-def makeLevelSegmentRenderer(resolver):
-    return LevelSegmentRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(LevelItemRenderer),
-        resolver.resolve(BulletRenderer),
-        resolver.resolve(BulletHoleRenderer),
-        resolver.resolve(PowerupRenderer),
-        resolver.resolve(EnemyRenderer),
-        resolver.resolve(ShadowCasterRenderer),
-    )

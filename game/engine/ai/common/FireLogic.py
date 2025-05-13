@@ -71,11 +71,3 @@ class FireLogic:
             inputData.fire = self.burstFireLogic.fire(enemy, enemyItems)
         else:
             inputData.fire = True
-
-
-def makeFireLogic(resolver):
-    return FireLogic(
-        resolver.resolve(GameData),
-        resolver.resolve(PersonTurnLogic),
-        resolver.resolve(BurstFireLogic),
-    )

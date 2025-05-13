@@ -31,7 +31,3 @@ class LevelSegmentJoinLineAnalyzer:
 
     def removeEmptyJoinLines(self, level):
         level.joinLines = [x for x in level.joinLines if x.frontLevelSegment is not None and x.backLevelSegment is not None]
-
-
-def makeLevelSegmentJoinLineAnalyzer(resolver):
-    return LevelSegmentJoinLineAnalyzer(resolver.resolve(BSPTreeTraversal))

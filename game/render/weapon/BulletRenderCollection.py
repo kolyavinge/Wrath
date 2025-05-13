@@ -40,11 +40,3 @@ class BulletRenderCollection:
 
     def getRenderModel3d(self, bulletType):
         return self.models[bulletType]
-
-
-def makeBulletRenderCollection(resolver):
-    return BulletRenderCollection(
-        resolver.resolve(GameData),
-        resolver.resolve(BulletModel3dFactory),
-        resolver.resolve(RenderModel3dLoader),
-    )

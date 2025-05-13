@@ -19,7 +19,3 @@ class LevelItemRenderCollection:
 
     def getRenderModel3d(self, levelSegment):
         return self.models3d[levelSegment]
-
-
-def makeLevelItemRenderCollection(resolver):
-    return LevelItemRenderCollection(resolver.resolve(LevelItemRenderModel3dBuilder))

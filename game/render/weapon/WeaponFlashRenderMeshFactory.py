@@ -43,10 +43,3 @@ class WeaponFlashRenderMeshFactory:
         vbo = vboBuilder.build()
 
         return vbo
-
-
-def makeWeaponFlashRenderMeshFactory(resolver):
-    return WeaponFlashRenderMeshFactory(
-        resolver.resolve(VBOBuilderFactory),
-        resolver.resolve(TextureCollection),
-    )

@@ -29,10 +29,3 @@ class PlasmaShineBulletRenderer:
             .resultMatrix
         )
         self.shineCircleRenderer.render(modelMatrix, self.shineCircleParams)
-
-
-def makePlasmaShineBulletRenderer(resolver):
-    return PlasmaShineBulletRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(ShineCircleRenderer),
-    )

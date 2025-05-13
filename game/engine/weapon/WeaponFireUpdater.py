@@ -61,12 +61,3 @@ class WeaponFireUpdater:
             self.gameData.bulletTraces.append(trace)
             visibilityLevelSegment.bulletTraces.append(trace)
             trace.visibilityLevelSegments.add(visibilityLevelSegment)
-
-
-def makeWeaponFireUpdater(resolver):
-    return WeaponFireUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(WeaponFeedbackLogic),
-        resolver.resolve(BSPTreeTraversal),
-        resolver.resolve(EventManager),
-    )

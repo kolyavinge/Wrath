@@ -15,7 +15,3 @@ class WeaponFlashUpdater:
                 flash.update()
                 if not flash.isVisible:
                     levelSegment.weaponFlashes.remove(flash)
-
-
-def makeWeaponFlashUpdater(resolver):
-    return WeaponFlashUpdater(resolver.resolve(GameData))

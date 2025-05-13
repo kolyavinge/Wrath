@@ -33,7 +33,3 @@ class FrameInterpolator:
         scaleFactor = midWayLength / framesDiff
 
         return scaleFactor
-
-
-def makeFrameInterpolator(resolver):
-    return FrameInterpolator()

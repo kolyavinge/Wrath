@@ -48,10 +48,3 @@ class BulletPositionUpdater:
         if oldLevelSegment != newLevelSegment:
             oldLevelSegment.bullets.remove(bullet)
             newLevelSegment.bullets.append(bullet)
-
-
-def makeBulletPositionUpdater(resolver):
-    return BulletPositionUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(BSPTreeTraversal),
-    )

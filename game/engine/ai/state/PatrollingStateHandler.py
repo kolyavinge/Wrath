@@ -31,11 +31,3 @@ class PatrollingStateHandler:
             return EnemyState.attack
 
         return None
-
-
-def makePatrollingStateHandler(resolver):
-    return PatrollingStateHandler(
-        resolver.resolve(GameData),
-        resolver.resolve(MovingLogic),
-        resolver.resolve(FireLogic),
-    )

@@ -36,7 +36,3 @@ class ShadowedObjectFramebuffer:
         glDrawBuffers(2, [GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1])
         glBindFramebuffer(GL_FRAMEBUFFER, 0)
         glBindTexture(GL_TEXTURE_2D, 0)
-
-
-def makeShadowedObjectFramebuffer(resolver):
-    return ShadowedObjectFramebuffer()

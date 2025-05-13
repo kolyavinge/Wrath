@@ -16,7 +16,3 @@ class PersonDamageLogic:
             person.damage((bullet.damagePercent * PersonConstants.maxPersonHealth) / 2.0)
         else:
             person.damage(bullet.damagePercent * PersonConstants.maxPersonHealth)
-
-
-def makePersonDamageLogic(resolver):
-    return PersonDamageLogic(resolver.resolve(GameData))

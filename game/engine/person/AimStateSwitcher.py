@@ -29,10 +29,3 @@ class AimStateSwitcher:
             self.gameData.playerItems.currentWeapon.setPositionForDefaultAimState()
 
         self.eventManager.raiseEvent(Events.aimStateSwitched, self.gameData.aimState)
-
-
-def makeAimStateSwitcher(resolver):
-    return AimStateSwitcher(
-        resolver.resolve(GameData),
-        resolver.resolve(EventManager),
-    )

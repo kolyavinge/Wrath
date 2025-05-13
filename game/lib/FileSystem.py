@@ -29,7 +29,3 @@ class FileSystem:
             raise Exception("Extension cannot be empty.")
 
         return [f"{path}\\{file}" for file in os.listdir(path) if file.endswith(extension)]
-
-
-def makeFileSystem(resolver):
-    return FileSystem()

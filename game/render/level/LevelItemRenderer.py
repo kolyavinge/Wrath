@@ -19,10 +19,3 @@ class LevelItemRenderer:
         shader.setModelMatrix(TransformMatrix4.identity)
         model = self.renderCollection.getRenderModel3d(levelSegment)
         self.model3dRenderer.render(model, shader)
-
-
-def makeLevelItemRenderer(resolver):
-    return LevelItemRenderer(
-        resolver.resolve(LevelItemRenderCollection),
-        resolver.resolve(Model3dRenderer),
-    )

@@ -24,10 +24,3 @@ class AttackStateHandler:
             return EnemyState.patrolling
 
         return None
-
-
-def makeAttackStateHandler(resolver):
-    return AttackStateHandler(
-        resolver.resolve(MovingLogic),
-        resolver.resolve(FireLogic),
-    )

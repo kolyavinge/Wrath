@@ -26,12 +26,3 @@ class PlayerItemsVox:
 
     def onTorchSwitched(self, _):
         self.audioPlayer.play(self.source.switchTorch)
-
-
-def makePlayerItemsVox(resolver):
-    return PlayerItemsVox(
-        resolver.resolve(GameData),
-        resolver.resolve(AudioSourceFactory),
-        resolver.resolve(AudioPlayer),
-        resolver.resolve(EventManager),
-    )

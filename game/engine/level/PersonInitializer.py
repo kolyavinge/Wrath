@@ -55,10 +55,3 @@ class PersonInitializer:
                 person1 = self.gameData.allPerson[i]
                 person2 = self.gameData.allPerson[j]
                 self.gameData.allPersonPairs.append((person1, person2))
-
-
-def makePersonInitializer(resolver):
-    return PersonInitializer(
-        resolver.resolve(GameData),
-        resolver.resolve(PersonTurnLogic),
-    )

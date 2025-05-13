@@ -30,10 +30,3 @@ class PersonStepUpdater:
 
         if doStep:
             self.eventManager.raiseEvent(Events.personStepDone, player)
-
-
-def makePersonStepUpdater(resolver):
-    return PersonStepUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(EventManager),
-    )

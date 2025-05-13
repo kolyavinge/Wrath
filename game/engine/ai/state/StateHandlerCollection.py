@@ -22,12 +22,3 @@ class StateHandlerCollection:
 
     def getStateHandler(self, enemyState):
         return self.states[enemyState]
-
-
-def makeStateHandlerCollection(resolver):
-    return StateHandlerCollection(
-        resolver.resolve(PatrollingStateHandler),
-        resolver.resolve(AttackStateHandler),
-        resolver.resolve(HealthSearchStateHandler),
-        resolver.resolve(WeaponSearchStateHandler),
-    )

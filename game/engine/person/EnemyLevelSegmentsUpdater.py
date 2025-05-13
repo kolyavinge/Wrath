@@ -50,11 +50,3 @@ class EnemyLevelSegmentsUpdater:
     def updateCurrentCenterPointLevelSegment(self, enemy):
         bspTree = self.gameData.collisionTree
         enemy.currentCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, enemy.currentCenterPoint)
-
-
-def makeEnemyLevelSegmentsUpdater(resolver):
-    return EnemyLevelSegmentsUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(PersonLevelSegmentsUpdater),
-        resolver.resolve(BSPTreeTraversal),
-    )

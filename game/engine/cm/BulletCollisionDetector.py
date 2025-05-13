@@ -82,11 +82,3 @@ class BulletCollisionDetector:
                     nearestLength = length
 
         return result
-
-
-def makeBulletCollisionDetector(resolver):
-    return BulletCollisionDetector(
-        resolver.resolve(GameData),
-        resolver.resolve(LevelSegmentItemFinder),
-        resolver.resolve(PlaneCollisionDetector),
-    )

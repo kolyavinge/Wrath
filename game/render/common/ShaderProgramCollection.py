@@ -40,7 +40,3 @@ class ShaderProgramCollection:
         self.ray = RayShaderProgram([self.shaderCollection.rayVertex, self.shaderCollection.rayFragment])
 
         self.plainColor = PlainColorShaderProgram([self.shaderCollection.plainColorVertex, self.shaderCollection.plainColorFragment])
-
-
-def makeShaderProgramCollection(resolver):
-    return ShaderProgramCollection(resolver.resolve(ShaderCollection))

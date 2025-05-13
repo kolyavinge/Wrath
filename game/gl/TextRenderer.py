@@ -65,11 +65,3 @@ class TextRenderer:
                 result[symb] = (row, col)
 
         return result
-
-
-def makeTextRenderer(resolver):
-    return TextRenderer(
-        resolver.resolve(TextureLoader),
-        resolver.resolve(VBOUpdaterFactory),
-        resolver.resolve(VBORenderer),
-    )

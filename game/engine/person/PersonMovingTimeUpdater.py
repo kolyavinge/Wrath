@@ -45,7 +45,3 @@ class PersonMovingTimeUpdater:
             return limitedValue
         else:
             return value
-
-
-def makePersonMovingTimeUpdater(resolver):
-    return PersonMovingTimeUpdater(resolver.resolve(GameData))

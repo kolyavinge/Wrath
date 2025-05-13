@@ -42,12 +42,3 @@ class WeaponFlashRenderer:
         glDisable(GL_ALPHA_TEST)
         glDisable(GL_BLEND)
         shader.unuse()
-
-
-def makeWeaponFlashRenderer(resolver):
-    return WeaponFlashRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(WeaponFlashRenderCollection),
-        resolver.resolve(ShaderProgramCollection),
-        resolver.resolve(VBORenderer),
-    )

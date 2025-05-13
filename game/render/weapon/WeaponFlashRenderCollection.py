@@ -19,7 +19,3 @@ class WeaponFlashRenderCollection:
 
     def getRenderMesh(self, weaponType):
         return self.meshes[weaponType]
-
-
-def makeWeaponFlashRenderCollection(resolver):
-    return WeaponFlashRenderCollection(resolver.resolve(WeaponFlashRenderMeshFactory))

@@ -16,7 +16,3 @@ class AudioSourceLoader:
         alSourceQueueBuffers(sourceId, 1, audioBuffer.id)
 
         return AudioSource(sourceId)
-
-
-def makeAudioSourceLoader(resolver):
-    return AudioSourceLoader()

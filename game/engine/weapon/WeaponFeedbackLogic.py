@@ -27,7 +27,3 @@ class WeaponFeedbackLogic:
         newFeedback.mul(-1)
 
         return newFeedback
-
-
-def makeWeaponFeedbackLogic(resolver):
-    return WeaponFeedbackLogic()

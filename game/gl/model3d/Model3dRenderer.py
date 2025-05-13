@@ -13,7 +13,3 @@ class Model3dRenderer:
             shader.setMaterial(mesh.material)
             mesh.texture.bind(GL_TEXTURE0)
             self.vboRenderer.render(mesh.vbo)
-
-
-def makeModel3dRenderer(resolver):
-    return Model3dRenderer(resolver.resolve(VBORenderer))

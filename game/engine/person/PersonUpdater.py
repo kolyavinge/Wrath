@@ -14,7 +14,3 @@ class PersonUpdater:
         self.gameData.woundedPerson.clear()
         for person in self.gameData.allPerson:
             person.isWounded = False
-
-
-def makePersonUpdater(resolver):
-    return PersonUpdater(resolver.resolve(GameData))

@@ -56,10 +56,3 @@ class PersonTurnUpdater:
         if person.pitchRadians <= -PersonConstants.maxPitchRadians:
             person.pitchRadians = -PersonConstants.maxPitchRadians
         self.personTurnLogic.calculateDirectionVectors(person)
-
-
-def makePersonTurnUpdater(resolver):
-    return PersonTurnUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(PersonTurnLogic),
-    )

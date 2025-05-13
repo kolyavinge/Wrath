@@ -81,12 +81,3 @@ class Model3dLoader:
                 return textures[fileName]
 
         return self.textureCollection.blank
-
-
-def makeModel3dLoader(resolver):
-    return Model3dLoader(
-        resolver.resolve(TextureLoader),
-        resolver.resolve(TextureCollection),
-        resolver.resolve(AnimationLoader),
-        resolver.resolve(FileSystem),
-    )

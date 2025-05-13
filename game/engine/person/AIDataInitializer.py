@@ -19,7 +19,3 @@ class AIDataInitializer:
         aiData.checkCollisionDirectionsCount = 4 + rand.getInt(0, 6)
         aiData.fireDistance = 10 + rand.getInt(0, 10)
         aiData.commit()
-
-
-def makeAIDataInitializer(resolver):
-    return AIDataInitializer(resolver.resolve(GameData))

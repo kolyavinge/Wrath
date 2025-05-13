@@ -66,11 +66,3 @@ class DashboardRenderer:
             number = str(number)
 
         return number
-
-
-def makeDashboardRenderer(resolver):
-    return DashboardRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(ShaderProgramCollection),
-        resolver.resolve(TextRenderer),
-    )

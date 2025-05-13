@@ -57,12 +57,3 @@ class CollisionDetector:
 
     def anyVoidCollisions(self, nextCenterPointLevelSegment):
         return len(nextCenterPointLevelSegment.floors) == 0
-
-
-def makeCollisionDetector(resolver):
-    return CollisionDetector(
-        resolver.resolve(GameData),
-        resolver.resolve(WallCollisionDetector),
-        resolver.resolve(PersonCollisionDetector),
-        resolver.resolve(BSPTreeTraversal),
-    )

@@ -51,10 +51,3 @@ class PersonWallCollisionUpdater:
             return (projected.x, projected.y)
         else:
             raise Exception("Wrong wall orientation.")
-
-
-def makePersonWallCollisionUpdater(resolver):
-    return PersonWallCollisionUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(PersonWallCollisionDetector),
-    )

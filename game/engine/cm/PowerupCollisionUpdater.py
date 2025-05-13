@@ -54,11 +54,3 @@ class PowerupCollisionUpdater:
 
     def processVestPowerup(self, person, powerup):
         self.gameData.allPersonItems[person].setFullVest()
-
-
-def makePowerupCollisionUpdater(resolver):
-    return PowerupCollisionUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(PowerupCollisionDetector),
-        resolver.resolve(EventManager),
-    )

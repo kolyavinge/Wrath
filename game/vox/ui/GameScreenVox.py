@@ -39,14 +39,3 @@ class GameScreenVox:
         self.audioPlayer.setListenerPosition(self.gameData.player.currentCenterPoint)
         for source in self.allSources:
             source.updatePosition()
-
-
-def makeGameScreenVox(resolver):
-    return GameScreenVox(
-        resolver.resolve(GameData),
-        resolver.resolve(AudioPlayer),
-        resolver.resolve(PersonVox),
-        resolver.resolve(PlayerItemsVox),
-        resolver.resolve(WeaponVox),
-        resolver.resolve(PowerupVox),
-    )

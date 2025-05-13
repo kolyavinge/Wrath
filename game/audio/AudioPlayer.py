@@ -24,7 +24,3 @@ class AudioPlayer:
     def release(self):
         alcDestroyContext(self.context)
         alcCloseDevice(self.device)
-
-
-def makeAudioPlayer(resolver):
-    return AudioPlayer()

@@ -73,11 +73,3 @@ class WeaponRenderCollection:
 
     def getRenderModel3d(self, weaponType):
         return self.models[weaponType]
-
-
-def makeWeaponRenderCollection(resolver):
-    return WeaponRenderCollection(
-        resolver.resolve(GameData),
-        resolver.resolve(WeaponModel3dFactory),
-        resolver.resolve(RenderModel3dLoader),
-    )

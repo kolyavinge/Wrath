@@ -18,10 +18,3 @@ class WeaponSearchStateHandler:
 
     def getNewStateOrNone(self, enemy):
         return None
-
-
-def makeWeaponSearchStateHandler(resolver):
-    return WeaponSearchStateHandler(
-        resolver.resolve(MovingLogic),
-        resolver.resolve(FireLogic),
-    )

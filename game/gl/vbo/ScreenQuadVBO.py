@@ -16,7 +16,3 @@ class ScreenQuadVBO:
         vboBuilder.addFace(0, 2, 3)
 
         self.vbo = vboBuilder.build()
-
-
-def makeScreenQuadVBO(resolver):
-    return ScreenQuadVBO(resolver.resolve(VBOBuilderFactory))

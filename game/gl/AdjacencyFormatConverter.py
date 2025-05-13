@@ -81,7 +81,3 @@ class AdjacencyFormatConverter:
                 adjacency[i + 5] = adjacency[i + 2]
 
         return adjacency
-
-
-def makeAdjacencyFormatConverter(resolver):
-    return AdjacencyFormatConverter()

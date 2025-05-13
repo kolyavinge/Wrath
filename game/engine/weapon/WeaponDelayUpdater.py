@@ -22,7 +22,3 @@ class WeaponDelayUpdater:
                 personItems.currentWeapon = personItems.leftHandWeapon
             else:
                 personItems.currentWeapon = personItems.rightHandWeapon
-
-
-def makeWeaponDelayUpdater(resolver):
-    return WeaponDelayUpdater(resolver.resolve(GameData))

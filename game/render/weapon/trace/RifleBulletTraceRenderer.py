@@ -15,7 +15,3 @@ class RifleBulletTraceRenderer:
 
     def renderTrace(self, trace):
         self.rayBulletTraceRenderer.renderTrace(trace, self.rayParams)
-
-
-def makeRifleBulletTraceRenderer(resolver):
-    return RifleBulletTraceRenderer(resolver.resolve(RayBulletTraceRenderer))

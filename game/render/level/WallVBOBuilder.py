@@ -20,7 +20,3 @@ class WallVBOBuilder(ConstructionVBOBuilder):
             upRight = downRight.copy()
             upRight.z += wall.height
             self.addVertices(vboBuilder, wall, downLeft, downRight, upLeft, upRight)
-
-
-def makeWallVBOBuilder(resolver):
-    return WallVBOBuilder()

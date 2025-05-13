@@ -84,12 +84,3 @@ class PlayerInputManager:
                 aimState.zoomIn()
             elif mouse.getScrollDelta() < 0:
                 aimState.zoomOut()
-
-
-def makePlayerInputManager(resolver):
-    return PlayerInputManager(
-        resolver.resolve(GameData),
-        resolver.resolve(InputManager),
-        resolver.resolve(AimStateSwitcher),
-        resolver.resolve(EventManager),
-    )

@@ -10,7 +10,3 @@ class PersonCollisionDetector:
         # пересечение окружностей
         collisionLength = PersonConstants.xyLength - point1.getLengthTo(point2)
         return collisionLength if collisionLength > 0 else None
-
-
-def makePersonCollisionDetector(resolver):
-    return PersonCollisionDetector()

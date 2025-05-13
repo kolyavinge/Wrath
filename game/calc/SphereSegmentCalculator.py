@@ -52,7 +52,3 @@ class SphereSegmentCalculator:
             raise Exception("horizontalPoints must be an odd number.")
         if not Numeric.isOdd(verticalPoints):
             raise Exception("verticalPoints must be an odd number.")
-
-
-def makeSphereSegmentCalculator(resolver):
-    return SphereSegmentCalculator()

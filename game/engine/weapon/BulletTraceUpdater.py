@@ -27,10 +27,3 @@ class BulletTraceUpdater:
                 self.gameData.bulletTraces.remove(trace)
                 for levelSegment in trace.visibilityLevelSegments:
                     levelSegment.bulletTraces.remove(trace)
-
-
-def makeBulletTraceUpdater(resolver):
-    return BulletTraceUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(BSPTreeTraversal),
-    )

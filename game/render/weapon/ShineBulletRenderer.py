@@ -23,10 +23,3 @@ class ShineBulletRenderer:
                 renderer = self.renderers[type(bullet)]
                 renderer.renderBullet(bullet)
         glDisable(GL_DEPTH_TEST)
-
-
-def makeShineBulletRenderer(resolver):
-    return ShineBulletRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(PlasmaShineBulletRenderer),
-    )

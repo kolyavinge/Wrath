@@ -9,7 +9,3 @@ class RayBulletTraceRenderer:
     def renderTrace(self, trace, rayParams):
         rayParams.rayBrightness = trace.brightness
         self.rayRenderer.render(trace.startPosition, trace.currentPosition, rayParams)
-
-
-def makeRayBulletTraceRenderer(resolver):
-    return RayBulletTraceRenderer(resolver.resolve(RayRenderer))

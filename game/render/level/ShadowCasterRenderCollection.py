@@ -19,7 +19,3 @@ class ShadowCasterRenderCollection:
 
     def getShadowCastersVBO(self, levelSegment):
         return self.shadowCastersVbos[levelSegment]
-
-
-def makeShadowCasterRenderCollection(resolver):
-    return ShadowCasterRenderCollection(resolver.resolve(ShadowCasterBuilder))

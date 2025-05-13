@@ -14,7 +14,3 @@ class LevelSegmentLightAnalyzer:
                 for joinedLight in groupedLights[joinGroup]:
                     if joinedLight not in levelSegment.lightsWithJoined:
                         levelSegment.lightsWithJoined.append(joinedLight)
-
-
-def makeLevelSegmentLightAnalyzer(resolver):
-    return LevelSegmentLightAnalyzer()

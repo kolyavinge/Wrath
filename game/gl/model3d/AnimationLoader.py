@@ -83,7 +83,3 @@ class AnimationLoader:
                 self.frameLoader.loadFrames(channel, aiChannel)
                 animation.channels[nodeName] = channel
             model3d.animations[animation.name] = animation
-
-
-def makeAnimationLoader(resolver):
-    return AnimationLoader(resolver.resolve(FrameLoader))

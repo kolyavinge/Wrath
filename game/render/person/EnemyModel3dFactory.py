@@ -16,10 +16,3 @@ class EnemyModel3dFactory:
         model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("enemy"))
 
         return model
-
-
-def makeEnemyModel3dFactory(resolver):
-    return EnemyModel3dFactory(
-        resolver.resolve(Model3dLoader),
-        resolver.resolve(Model3dDirectory),
-    )

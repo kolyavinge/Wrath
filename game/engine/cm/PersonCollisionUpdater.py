@@ -31,10 +31,3 @@ class PersonCollisionUpdater:
             collisionVelocity.setLength(personCollisionLength)
             collisionVelocity.mul(-1)
             person.moveNextPositionBy(collisionVelocity)
-
-
-def makePersonCollisionUpdater(resolver):
-    return PersonCollisionUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(PersonCollisionDetector),
-    )

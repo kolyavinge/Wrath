@@ -58,14 +58,3 @@ class LevelItemRenderModel3dBuilder:
 
     def getLevelItemsGroupedByMaterial(self, levelSegment):
         return Query(levelSegment.getAllVisibleItems()).groupby(lambda item: item.material).result
-
-
-def makeLevelItemRenderModel3dBuilder(resolver):
-    return LevelItemRenderModel3dBuilder(
-        resolver.resolve(VBOBuilderFactory),
-        resolver.resolve(WallVBOBuilder),
-        resolver.resolve(ConstructionVBOBuilder),
-        resolver.resolve(StairVBOBuilder),
-        resolver.resolve(LampVBOBuilder),
-        resolver.resolve(MaterialTextureCollection),
-    )

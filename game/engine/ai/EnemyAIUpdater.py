@@ -22,10 +22,3 @@ class EnemyAIUpdater:
             newState = state.getNewStateOrNone(enemy)
             if newState is not None:
                 aiData.state = newState
-
-
-def makeEnemyAIUpdater(resolver):
-    return EnemyAIUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(StateHandlerCollection),
-    )

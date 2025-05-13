@@ -65,11 +65,3 @@ class BulletHoleRenderCollection:
         self.vboUpdater.addFace(0, 2, 3)
 
         self.vboUpdater.endUpdate()
-
-
-def makeBulletHoleRenderCollection(resolver):
-    return BulletHoleRenderCollection(
-        resolver.resolve(VBOUpdaterFactory),
-        resolver.resolve(MaterialTextureCollection),
-        resolver.resolve(EventManager),
-    )

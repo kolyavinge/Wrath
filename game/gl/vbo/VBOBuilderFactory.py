@@ -13,7 +13,3 @@ class VBOBuilderFactory:
 
     def makeModel3dVBOBuilder(self):
         return Model3dVBOBuilder(self.adjacencyFormatConverter)
-
-
-def makeVBOBuilderFactory(resolver):
-    return VBOBuilderFactory(resolver.resolve(AdjacencyFormatConverter))

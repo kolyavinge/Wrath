@@ -35,7 +35,3 @@ class ShaderCollection:
 
         self.plainColorVertex = self.shaderCompiler.compile(path + "plainColor.vert", ShaderType.vertex)
         self.plainColorFragment = self.shaderCompiler.compile(path + "plainColor.frag", ShaderType.fragment)
-
-
-def makeShaderCollection(resolver):
-    return ShaderCollection(resolver.resolve(ShaderCompiler))

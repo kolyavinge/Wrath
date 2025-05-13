@@ -19,10 +19,3 @@ class BulletRenderer:
             shader.setModelMatrix(bullet.getModelMatrix())
             model = self.renderCollection.getRenderModel3d(type(bullet))
             self.model3dRenderer.render(model, shader)
-
-
-def makeBulletRenderer(resolver):
-    return BulletRenderer(
-        resolver.resolve(BulletRenderCollection),
-        resolver.resolve(Model3dRenderer),
-    )

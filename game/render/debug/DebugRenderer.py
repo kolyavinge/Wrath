@@ -317,7 +317,3 @@ class DebugRenderer:
             glBegin(GL_POINTS)
             glVertex3f(v.x, v.y, v.z)
             glEnd()
-
-
-def makeDebugRenderer(resolver):
-    return DebugRenderer(resolver.resolve(GameData))

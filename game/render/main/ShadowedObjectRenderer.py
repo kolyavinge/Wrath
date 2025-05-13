@@ -102,14 +102,3 @@ class ShadowedObjectRenderer:
         glDisable(GL_TEXTURE_2D)
         glDisable(GL_BLEND)
         glDisable(GL_STENCIL_TEST)
-
-
-def makeShadowedObjectRenderer(resolver):
-    return ShadowedObjectRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(ShadowedObjectFramebuffer),
-        resolver.resolve(VBORenderer),
-        resolver.resolve(ShaderProgramCollection),
-        resolver.resolve(ScreenQuadVBO),
-        resolver.resolve(EventManager),
-    )

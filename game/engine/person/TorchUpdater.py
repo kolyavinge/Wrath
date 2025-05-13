@@ -24,10 +24,3 @@ class TorchUpdater:
         torch = self.gameData.playerTorch
         torch.switch()
         self.eventManager.raiseEvent(Events.torchSwitched)
-
-
-def makeTorchUpdater(resolver):
-    return TorchUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(EventManager),
-    )

@@ -62,11 +62,3 @@ class PowerupUpdater:
         powerup.visibilityLevelSegment = levelSegment
 
         return powerup
-
-
-def makePowerupUpdater(resolver):
-    return PowerupUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(PowerupPositionGenerator),
-        resolver.resolve(BSPTreeTraversal),
-    )

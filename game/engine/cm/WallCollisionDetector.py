@@ -46,7 +46,3 @@ class WallCollisionDetector:
             return Geometry.lineContainsPoint(wall.startPoint.x, wall.startPoint.y, wall.endPoint.x, wall.endPoint.y, x, y)
         else:
             raise Exception("Wrong wall orientation.")
-
-
-def makeWallCollisionDetector(resolver):
-    return WallCollisionDetector()

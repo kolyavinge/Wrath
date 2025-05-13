@@ -29,11 +29,3 @@ class PowerupRenderer:
             return self.weaponRenderCollection.getRenderModel3d(powerup.weaponType)
         else:
             return self.powerupRenderCollection.getRenderModel3d(type(powerup))
-
-
-def makePowerupRenderer(resolver):
-    return PowerupRenderer(
-        resolver.resolve(PowerupRenderCollection),
-        resolver.resolve(WeaponRenderCollection),
-        resolver.resolve(Model3dRenderer),
-    )

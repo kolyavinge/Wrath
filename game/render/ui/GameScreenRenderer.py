@@ -71,19 +71,3 @@ class GameScreenRenderer:
             self.renderFunc = self.renderDefaultAimState
         else:
             self.renderFunc = self.renderSniperAimState
-
-
-def makeGameScreenRenderer(resolver):
-    return GameScreenRenderer(
-        resolver.resolve(GameScreenInitializer),
-        resolver.resolve(DebugRenderer),
-        resolver.resolve(BackgroundRenderer),
-        resolver.resolve(MainSceneRenderer),
-        resolver.resolve(ShineBulletRenderer),
-        resolver.resolve(WeaponFlashRenderer),
-        resolver.resolve(BulletTraceRenderer),
-        resolver.resolve(CrosshairRenderer),
-        resolver.resolve(SniperCrosshairRenderer),
-        resolver.resolve(DashboardRenderer),
-        resolver.resolve(EventManager),
-    )

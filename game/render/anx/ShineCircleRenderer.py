@@ -61,12 +61,3 @@ class ShineCircleRenderer:
         vboBuilder.addFace(0, 1, 2)
         vboBuilder.addFace(0, 2, 3)
         self.quadVBO = vboBuilder.build()
-
-
-def makeShineCircleRenderer(resolver):
-    return ShineCircleRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(ShaderProgramCollection),
-        resolver.resolve(VBOBuilderFactory),
-        resolver.resolve(VBORenderer),
-    )

@@ -110,7 +110,3 @@ class BSPTreeBuilder:
             return SplitPlanePosition.back
         else:
             return SplitPlanePosition.on
-
-
-def makeBSPTreeBuilder(resolver):
-    return BSPTreeBuilder()

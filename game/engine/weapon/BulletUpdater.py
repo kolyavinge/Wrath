@@ -9,7 +9,3 @@ class BulletUpdater:
     def update(self):
         for bullet in self.gameData.bullets:
             bullet.update()
-
-
-def makeBulletUpdater(resolver):
-    return BulletUpdater(resolver.resolve(GameData))

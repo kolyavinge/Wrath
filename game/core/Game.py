@@ -34,13 +34,3 @@ class Game:
 
     def voxCurrentScreen(self):
         self.screenManager.currentScreenVox.update()
-
-
-def makeGame(resolver):
-    return Game(
-        resolver.resolve(GameInitializer),
-        resolver.resolve(LevelManager),
-        resolver.resolve(InputManager),
-        resolver.resolve(ScreenManager),
-        resolver.resolve(EventManager),
-    )

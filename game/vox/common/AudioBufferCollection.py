@@ -23,7 +23,3 @@ class AudioBufferCollection:
         self.weaponPickup = self.audioBufferLoader.load(path + "weaponPickup.wav")
         self.healthPickup = self.audioBufferLoader.load(path + "healthPickup.wav")
         self.vestPickup = self.audioBufferLoader.load(path + "vestPickup.wav")
-
-
-def makeAudioBufferCollection(resolver):
-    return AudioBufferCollection(resolver.resolve(AudioBufferLoader))

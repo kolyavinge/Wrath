@@ -42,7 +42,3 @@ class PlayerMovingSwingUpdater:
         if player.state == PersonState.landing:
             swingValue = 0.5 * player.landingTime * Math.sin(4.0 * player.landingTime)
             player.eyePosition.z += swingValue
-
-
-def makePlayerMovingSwingUpdater(resolver):
-    return PlayerMovingSwingUpdater(resolver.resolve(GameData))

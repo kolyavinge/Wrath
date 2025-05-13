@@ -51,7 +51,3 @@ class FrameLoader:
 
     def makeRootFrameNode(self, frames):
         return Tree.makeBinaryTreeFromSortedList(frames)
-
-
-def makeFrameLoader(resolver):
-    return FrameLoader()

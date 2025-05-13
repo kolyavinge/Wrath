@@ -26,7 +26,3 @@ class BulletHoleFactory:
         bulletHole.levelSegment = levelSegment
 
         return bulletHole
-
-
-def makeBulletHoleFactory(resolver):
-    return BulletHoleFactory()

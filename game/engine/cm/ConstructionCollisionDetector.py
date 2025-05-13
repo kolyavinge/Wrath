@@ -20,7 +20,3 @@ class ConstructionCollisionDetector:
                     nearestLength = length
 
         return resultCollisionPoint
-
-
-def makeConstructionCollisionDetector(resolver):
-    return ConstructionCollisionDetector(resolver.resolve(PlaneCollisionDetector))

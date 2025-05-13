@@ -29,11 +29,3 @@ class ScreenManager:
         self.currentScreen.activate()
         self.currentScreenRenderer = self.screenRenderers[screenType]
         self.currentScreenVox = self.screenVoxes[screenType]
-
-
-def makeScreenManager(resolver):
-    return ScreenManager(
-        resolver.resolve(GameScreen),
-        resolver.resolve(GameScreenRenderer),
-        resolver.resolve(GameScreenVox),
-    )

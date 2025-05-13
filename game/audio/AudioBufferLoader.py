@@ -25,7 +25,3 @@ class AudioBufferLoader:
         }
 
         return formats[(audioFile.channelsCount, audioFile.bitsPerSample)]
-
-
-def makeAudioBufferLoader(resolver):
-    return AudioBufferLoader()

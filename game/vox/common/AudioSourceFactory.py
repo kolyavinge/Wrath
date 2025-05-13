@@ -53,10 +53,3 @@ class AudioSourceFactory:
 
     def makeVestPickup(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.vestPickup)
-
-
-def makeAudioSourceFactory(resolver):
-    return AudioSourceFactory(
-        resolver.resolve(AudioSourceLoader),
-        resolver.resolve(AudioBufferCollection),
-    )

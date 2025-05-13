@@ -36,7 +36,3 @@ class PlaneCollisionDetector:
             middlePoint = startPoint.getMiddleTo(endPoint)
 
         return middlePoint
-
-
-def makePlaneCollisionDetector(resolver):
-    return PlaneCollisionDetector()

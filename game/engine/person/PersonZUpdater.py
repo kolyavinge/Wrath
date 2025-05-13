@@ -68,11 +68,3 @@ class PersonZUpdater:
     def processPersonFall(self, person):
         person.fallingTime += 0.1
         person.setZ(person.getZ() - person.fallingFunc.getValue(person.fallingTime))
-
-
-def makePersonZUpdater(resolver):
-    return PersonZUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(BSPTreeTraversal),
-        resolver.resolve(EventManager),
-    )

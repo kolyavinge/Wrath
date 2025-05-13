@@ -23,7 +23,3 @@ class PersonPositionUpdater:
             person.hasTurned = False
             if person.hasMoved and person.state == PersonState.standing:
                 person.hasMoved = False
-
-
-def makePersonPositionUpdater(resolver):
-    return PersonPositionUpdater(resolver.resolve(GameData))

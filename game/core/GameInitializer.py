@@ -31,14 +31,3 @@ class GameInitializer:
         self.shaderProgramCollection.init()
         self.audioPlayer.init()
         self.audioBufferCollection.init()
-
-
-def makeGameInitializer(resolver):
-    return GameInitializer(
-        resolver.resolve(TextureCollection),
-        resolver.resolve(MaterialTextureCollection),
-        resolver.resolve(ShaderCollection),
-        resolver.resolve(ShaderProgramCollection),
-        resolver.resolve(AudioPlayer),
-        resolver.resolve(AudioBufferCollection),
-    )

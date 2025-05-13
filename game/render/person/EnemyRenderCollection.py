@@ -29,11 +29,3 @@ class EnemyRenderCollection:
     def makeEnemy(self):
         model = self.enemyModel3dFactory.makeEnemy()
         self.enemyModel = self.renderModel3dLoader.make(model, Material.person)
-
-
-def makeEnemyRenderCollection(resolver):
-    return EnemyRenderCollection(
-        resolver.resolve(GameData),
-        resolver.resolve(EnemyModel3dFactory),
-        resolver.resolve(RenderModel3dLoader),
-    )

@@ -104,12 +104,3 @@ class SniperCrosshairRenderer:
         vbo = vboBuilder.build()
 
         return vbo
-
-
-def makeSniperCrosshairRenderer(resolver):
-    return SniperCrosshairRenderer(
-        resolver.resolve(ShaderProgramCollection),
-        resolver.resolve(VBORenderer),
-        resolver.resolve(VBOBuilderFactory),
-        resolver.resolve(TextureCollection),
-    )

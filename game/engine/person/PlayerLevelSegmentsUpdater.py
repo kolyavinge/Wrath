@@ -30,10 +30,3 @@ class PlayerLevelSegmentsUpdater:
         for segment in player.collisionLevelSegments:
             segment.enemies.append(player)
             segment.allPerson.append(player)
-
-
-def makePlayerLevelSegmentsUpdater(resolver):
-    return PlayerLevelSegmentsUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(PersonLevelSegmentsUpdater),
-    )

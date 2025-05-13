@@ -42,10 +42,3 @@ class PersonLevelSegmentsUpdater:
     def updateVisibilityLevelSegment(self, person):
         person.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, person.currentCenterPoint)
         assert person.visibilityLevelSegment is not None
-
-
-def makePersonLevelSegmentsUpdater(resolver):
-    return PersonLevelSegmentsUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(BSPTreeTraversal),
-    )

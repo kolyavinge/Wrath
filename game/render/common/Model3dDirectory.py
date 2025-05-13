@@ -19,7 +19,3 @@ class Model3dDirectory:
                 return modelFiles[0]
 
         raise Exception(f"No model files in {path}.")
-
-
-def makeModel3dDirectory(resolver):
-    return Model3dDirectory(resolver.resolve(FileSystem))

@@ -34,7 +34,3 @@ class LevelSegmentItemFinder:
                     endPoint,
                     getFindItemResult,
                 )
-
-
-def makeLevelSegmentItemFinder(resolver):
-    return LevelSegmentItemFinder(resolver.resolve(BSPTreeTraversal))

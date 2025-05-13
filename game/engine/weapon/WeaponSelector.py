@@ -51,11 +51,3 @@ class WeaponSelector:
                     if playerItems.rightHandWeapon.bulletsCount == playerItems.leftHandWeapon.bulletsCount
                     else playerItems.leftHandWeapon
                 )
-
-
-def makeWeaponSelector(resolver):
-    return WeaponSelector(
-        resolver.resolve(GameData),
-        resolver.resolve(AimStateSwitcher),
-        resolver.resolve(EventManager),
-    )

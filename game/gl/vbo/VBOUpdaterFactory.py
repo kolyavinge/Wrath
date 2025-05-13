@@ -5,7 +5,3 @@ class VBOUpdaterFactory:
 
     def makeVBOUpdater(self):
         return VBOUpdater()
-
-
-def makeVBOUpdaterFactory(resolver):
-    return VBOUpdaterFactory()

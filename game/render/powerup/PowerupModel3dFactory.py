@@ -28,10 +28,3 @@ class PowerupModel3dFactory:
         model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("vest"))
 
         return model
-
-
-def makePowerupModel3dFactory(resolver):
-    return PowerupModel3dFactory(
-        resolver.resolve(Model3dLoader),
-        resolver.resolve(Model3dDirectory),
-    )

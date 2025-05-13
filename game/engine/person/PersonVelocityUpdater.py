@@ -60,7 +60,3 @@ class PersonVelocityUpdater:
     def slowdownOnStair(self, person):
         if isinstance(person.currentFloor, Stair):
             person.velocityValue = Math.min(person.velocityValue, 0.05)
-
-
-def makePersonVelocityUpdater(resolver):
-    return PersonVelocityUpdater(resolver.resolve(GameData))

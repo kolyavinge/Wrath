@@ -24,7 +24,3 @@ class TextureLoader:
             glBindTexture(GL_TEXTURE_2D, 0)
 
         return Texture(textureId, image.width, image.height)
-
-
-def makeTextureLoader(resolver):
-    return TextureLoader()

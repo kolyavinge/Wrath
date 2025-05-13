@@ -52,12 +52,3 @@ class BulletTraceRenderer:
                 result.add(trace)
 
         return result
-
-
-def makeBulletTraceRenderer(resolver):
-    return BulletTraceRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(RifleBulletTraceRenderer),
-        resolver.resolve(RailgunBulletTraceRenderer),
-        resolver.resolve(SniperBulletTraceRenderer),
-    )

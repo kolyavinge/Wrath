@@ -23,10 +23,3 @@ class BulletModel3dFactory:
         model.setScale(0.1)
 
         return model
-
-
-def makeBulletModel3dFactory(resolver):
-    return BulletModel3dFactory(
-        resolver.resolve(Model3dLoader),
-        resolver.resolve(Model3dDirectory),
-    )

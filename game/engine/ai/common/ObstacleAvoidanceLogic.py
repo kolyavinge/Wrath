@@ -59,7 +59,3 @@ class ObstacleAvoidanceLogic:
             resultFrontNormal.normalize()
 
         return resultFrontNormal
-
-
-def makeObstacleAvoidanceLogic(resolver):
-    return ObstacleAvoidanceLogic(resolver.resolve(CollisionDetector))

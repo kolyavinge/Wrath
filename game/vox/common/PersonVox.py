@@ -40,12 +40,3 @@ class PersonVox:
         self.onPersonStepDone(person)
         source = self.sources[person]
         self.audioPlayer.play(source.landing)
-
-
-def makePersonVox(resolver):
-    return PersonVox(
-        resolver.resolve(GameData),
-        resolver.resolve(AudioSourceFactory),
-        resolver.resolve(AudioPlayer),
-        resolver.resolve(EventManager),
-    )

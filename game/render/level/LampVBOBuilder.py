@@ -79,7 +79,3 @@ class LampVBOBuilder:
             result.append((texX, texY))
 
         return result
-
-
-def makeLampVBOBuilder(resolver):
-    return LampVBOBuilder()

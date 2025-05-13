@@ -33,7 +33,3 @@ class ShadowCasterBuilder:
 
         vboBuilder.addFace(vertexCount, vertexCount + 3, vertexCount + 1)
         vboBuilder.addFace(vertexCount, vertexCount + 2, vertexCount + 3)
-
-
-def makeShadowCasterBuilder(resolver):
-    return ShadowCasterBuilder(resolver.resolve(VBOBuilderFactory))

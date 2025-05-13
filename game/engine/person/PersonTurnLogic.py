@@ -24,7 +24,3 @@ class PersonTurnLogic:
         person.rightNormal = Geometry.rotatePoint(person.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, -Math.piHalf)
         person.lookDirection = Geometry.rotatePoint(person.frontNormal, person.rightNormal, CommonConstants.axisOrigin, person.pitchRadians)
         person.lookDirectionNormal = Geometry.rotatePoint(person.lookDirection, person.rightNormal, CommonConstants.axisOrigin, Math.piHalf)
-
-
-def makePersonTurnLogic(resolver):
-    return PersonTurnLogic()

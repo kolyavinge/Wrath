@@ -46,7 +46,3 @@ class GameData:
         # for debug
         self.isDebug = False
         self.noEnemies = False
-
-
-def makeGameData(resolver):
-    return GameData()

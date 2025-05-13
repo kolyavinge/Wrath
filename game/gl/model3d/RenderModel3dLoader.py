@@ -13,7 +13,3 @@ class RenderModel3dLoader:
         meshes = [RenderMesh(vbo, mesh.texture, material) for mesh, vbo in vbos]
 
         return RenderModel3d(meshes, model3d.animations)
-
-
-def makeRenderModel3dLoader(resolver):
-    return RenderModel3dLoader(resolver.resolve(VBOBuilderFactory))

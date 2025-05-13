@@ -45,11 +45,3 @@ class EnemyRenderer:
         self.animations[enemy] = animation
 
         return animation
-
-
-def makeEnemyRenderer(resolver):
-    return EnemyRenderer(
-        resolver.resolve(EnemyRenderCollection),
-        resolver.resolve(Model3dRenderer),
-        resolver.resolve(AnimationPlayer),
-    )

@@ -15,7 +15,3 @@ class InputManager:
         if Screen.isFocused():
             self.mouse.update()
             self.keyboard.update()
-
-
-def makeInputManager(resolver):
-    return InputManager()

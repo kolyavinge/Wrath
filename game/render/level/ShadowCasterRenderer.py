@@ -18,10 +18,3 @@ class ShadowCasterRenderer:
         vbo = self.renderCollection.getShadowCastersVBO(levelSegment)
         if vbo is not None:
             self.vboRenderer.render(vbo)
-
-
-def makeShadowCasterRenderer(resolver):
-    return ShadowCasterRenderer(
-        resolver.resolve(ShadowCasterRenderCollection),
-        resolver.resolve(VBORenderer),
-    )

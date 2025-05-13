@@ -51,17 +51,3 @@ class GameScreenInitializer:
 
         sw.stop()
         print(f"GameScreenInitializer: {sw.elapsed:.8f}")
-
-
-def makeGameScreenInitializer(resolver):
-    return GameScreenInitializer(
-        resolver.resolve(GameData),
-        resolver.resolve(LevelItemRenderCollection),
-        resolver.resolve(BulletHoleRenderCollection),
-        resolver.resolve(ShadowCasterRenderCollection),
-        resolver.resolve(BulletRenderCollection),
-        resolver.resolve(WeaponRenderCollection),
-        resolver.resolve(PowerupRenderCollection),
-        resolver.resolve(WeaponFlashRenderCollection),
-        resolver.resolve(EnemyRenderCollection),
-    )

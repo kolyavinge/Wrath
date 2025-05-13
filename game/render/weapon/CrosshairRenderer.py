@@ -32,11 +32,3 @@ class CrosshairRenderer:
 
         glDisable(GL_ALPHA_TEST)
         glDisable(GL_BLEND)
-
-
-def makeCrosshairRenderer(resolver):
-    return CrosshairRenderer(
-        resolver.resolve(ShaderProgramCollection),
-        resolver.resolve(VBORenderer),
-        resolver.resolve(ScreenQuadVBO),
-    )

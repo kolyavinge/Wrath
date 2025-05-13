@@ -33,11 +33,3 @@ class WeaponRenderer:
         shader.setModelMatrix(weapon.getModelMatrix())
         model = self.renderCollection.getRenderModel3d(type(weapon))
         self.model3dRenderer.render(model, shader)
-
-
-def makeWeaponRenderer(resolver):
-    return WeaponRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(WeaponRenderCollection),
-        resolver.resolve(Model3dRenderer),
-    )

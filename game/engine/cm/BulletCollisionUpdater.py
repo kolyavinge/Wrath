@@ -53,14 +53,3 @@ class BulletCollisionUpdater:
     def processPersonCollision(self, bullet, person):
         self.personDamageLogic.damageByBullet(person, bullet)
         print(f"{person} health: {person.health}")
-
-
-def makeBulletCollisionUpdater(resolver):
-    return BulletCollisionUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(BSPTreeTraversal),
-        resolver.resolve(BulletCollisionDetector),
-        resolver.resolve(BulletHoleFactory),
-        resolver.resolve(PersonDamageLogic),
-        resolver.resolve(EventManager),
-    )

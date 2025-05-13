@@ -29,10 +29,3 @@ class BulletHoleRenderer:
 
         glDisable(GL_ALPHA_TEST)
         glDisable(GL_BLEND)
-
-
-def makeBulletHoleRenderer(resolver):
-    return BulletHoleRenderer(
-        resolver.resolve(BulletHoleRenderCollection),
-        resolver.resolve(VBORenderer),
-    )

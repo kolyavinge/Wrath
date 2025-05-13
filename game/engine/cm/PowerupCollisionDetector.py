@@ -7,7 +7,3 @@ class PowerupCollisionDetector:
                     return powerup
 
         return None
-
-
-def makePowerupCollisionDetector(resolver):
-    return PowerupCollisionDetector()

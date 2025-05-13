@@ -26,7 +26,3 @@ class ShaderCompiler:
             error = glGetShaderInfoLog(shaderId)
             glDeleteShader(shaderId)
             raise Exception(error)
-
-
-def makeShaderCompiler(resolver):
-    return ShaderCompiler(resolver.resolve(FileSystem))

@@ -57,10 +57,3 @@ class MovingLogic:
             inputData.stepRight = True
         else:
             assert "Wrong MoveDirection"
-
-
-def makeMovingLogic(resolver):
-    return MovingLogic(
-        resolver.resolve(PersonTurnLogic),
-        resolver.resolve(ObstacleAvoidanceLogic),
-    )

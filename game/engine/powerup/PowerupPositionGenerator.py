@@ -41,10 +41,3 @@ class PowerupPositionGenerator:
         position.z = floor.getZ(position.x, position.y)
 
         return position
-
-
-def makePowerupPositionGenerator(resolver):
-    return PowerupPositionGenerator(
-        resolver.resolve(GameData),
-        resolver.resolve(BSPTreeTraversal),
-    )

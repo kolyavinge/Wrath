@@ -19,10 +19,3 @@ class NonStandardBulletMovingUpdater:
             bulletType = type(bullet)
             if bulletType in self.bulletMovingLogic:
                 self.bulletMovingLogic[bulletType].apply(bullet)
-
-
-def makeNonStandardBulletMovingUpdater(resolver):
-    return NonStandardBulletMovingUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(PlasmaBulletMovingLogic),
-    )

@@ -41,7 +41,3 @@ class PlasmaBulletMovingLogic:
             if personDistance < targetPersonDistance:
                 bullet.targetPerson = person
                 targetPersonDistance = personDistance
-
-
-def makePlasmaBulletMovingLogic(resolver):
-    return PlasmaBulletMovingLogic()

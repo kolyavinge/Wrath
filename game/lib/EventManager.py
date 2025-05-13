@@ -13,7 +13,3 @@ class EventManager:
             self.handlers[event].append(handler)
         else:
             self.handlers[event] = [handler]
-
-
-def makeEventManager(resolver):
-    return EventManager()

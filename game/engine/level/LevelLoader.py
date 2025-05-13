@@ -9,7 +9,3 @@ class LevelLoader:
         level.validate()
 
         return level
-
-
-def makeLevelLoader(resolver):
-    return LevelLoader()

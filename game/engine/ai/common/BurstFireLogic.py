@@ -23,7 +23,3 @@ class BurstFireLogic:
                 aiData.fireDelayRemain = self.rand.getInt(10, 50)
 
         return True
-
-
-def makeBurstFireLogic(resolver):
-    return BurstFireLogic()

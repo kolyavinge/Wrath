@@ -18,10 +18,3 @@ class HealthSearchStateHandler:
 
     def getNewStateOrNone(self, enemy):
         return None
-
-
-def makeHealthSearchStateHandler(resolver):
-    return HealthSearchStateHandler(
-        resolver.resolve(MovingLogic),
-        resolver.resolve(FireLogic),
-    )

@@ -23,11 +23,3 @@ class GameScreen:
 
     def processInput(self):
         self.playerInputManager.processInput()
-
-
-def makeGameScreen(resolver):
-    return GameScreen(
-        resolver.resolve(GameUpdater),
-        resolver.resolve(PlayerInputManager),
-        resolver.resolve(InputManager),
-    )

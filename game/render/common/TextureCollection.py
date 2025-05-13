@@ -39,7 +39,3 @@ class TextureCollection:
         self.sniperFlash = self.textureLoader.load(path + "sniperFlash.png")
         self.sniperCrosshair = self.textureLoader.load(path + "sniperCrosshair.png")
         self.background1 = self.textureLoader.load(path + "background1.jpg")
-
-
-def makeTextureCollection(resolver):
-    return TextureCollection(resolver.resolve(TextureLoader))

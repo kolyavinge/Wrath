@@ -45,7 +45,3 @@ class PlayerWeaponSwingUpdater:
             self.gameData.playerItems.rightHandWeapon.position.z -= swingValue
             if self.gameData.playerItems.leftHandWeapon is not None:
                 self.gameData.playerItems.leftHandWeapon.position.z -= swingValue
-
-
-def makePlayerWeaponSwingUpdater(resolver):
-    return PlayerWeaponSwingUpdater(resolver.resolve(GameData))

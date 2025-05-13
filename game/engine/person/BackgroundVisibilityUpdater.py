@@ -47,10 +47,3 @@ class BackgroundVisibilityUpdater:
             self.gameData.backgroundVisibility.horizontalPointsCount,
             self.gameData.backgroundVisibility.verticalPointsCount,
         )
-
-
-def makeBackgroundVisibilityUpdater(resolver):
-    return BackgroundVisibilityUpdater(
-        resolver.resolve(GameData),
-        resolver.resolve(SphereSegmentCalculator),
-    )

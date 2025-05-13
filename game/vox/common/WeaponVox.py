@@ -31,12 +31,3 @@ class WeaponVox:
         person, weapon = args
         source = self.sources[person]
         self.audioPlayer.play(source.weapons[type(weapon)])
-
-
-def makeWeaponVox(resolver):
-    return WeaponVox(
-        resolver.resolve(GameData),
-        resolver.resolve(AudioSourceFactory),
-        resolver.resolve(AudioPlayer),
-        resolver.resolve(EventManager),
-    )

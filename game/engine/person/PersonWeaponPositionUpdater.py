@@ -84,7 +84,3 @@ class PersonWeaponPositionUpdater:
         aimPoint.add(barrelPosition)
 
         return aimPoint
-
-
-def makePersonWeaponPositionUpdater(resolver):
-    return PersonWeaponPositionUpdater(resolver.resolve(GameData))

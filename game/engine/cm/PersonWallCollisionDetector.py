@@ -41,7 +41,3 @@ class PersonWallCollisionDetector:
 
     def personLineIntersectsWall(self, personPointFrom, personPointTo, wall):
         return self.wallCollisionDetector.lineIntersectsWall(personPointFrom, personPointTo, wall)
-
-
-def makePersonWallCollisionDetector(resolver):
-    return PersonWallCollisionDetector(resolver.resolve(WallCollisionDetector))

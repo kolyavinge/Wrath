@@ -37,7 +37,3 @@ class MaterialTextureCollection:
 
     def getTextureForMaterial(self, material):
         return self.materials[material]
-
-
-def makeMaterialTextureCollection(resolver):
-    return MaterialTextureCollection(resolver.resolve(TextureCollection))

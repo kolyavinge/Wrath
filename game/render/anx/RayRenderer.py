@@ -103,12 +103,3 @@ class RayRenderer:
         self.vboUpdater.endUpdate()
 
         return vbo
-
-
-def makeRayRenderer(resolver):
-    return RayRenderer(
-        resolver.resolve(GameData),
-        resolver.resolve(VBOUpdaterFactory),
-        resolver.resolve(ShaderProgramCollection),
-        resolver.resolve(VBORenderer),
-    )

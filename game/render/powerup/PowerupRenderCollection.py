@@ -52,11 +52,3 @@ class PowerupRenderCollection:
 
     def getRenderModel3d(self, powerupType):
         return self.models[powerupType]
-
-
-def makePowerupRenderCollection(resolver):
-    return PowerupRenderCollection(
-        resolver.resolve(GameData),
-        resolver.resolve(PowerupModel3dFactory),
-        resolver.resolve(RenderModel3dLoader),
-    )
