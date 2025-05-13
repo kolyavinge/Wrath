@@ -7,7 +7,11 @@ from game.render.common.TextureCollection import TextureCollection
 
 class WeaponFlashRenderMeshFactory:
 
-    def __init__(self, vboBuilderFactory, textureCollection):
+    def __init__(
+        self,
+        vboBuilderFactory: VBOBuilderFactory,
+        textureCollection: TextureCollection,
+    ):
         self.vboBuilderFactory = vboBuilderFactory
         self.textureCollection = textureCollection
 
@@ -42,4 +46,7 @@ class WeaponFlashRenderMeshFactory:
 
 
 def makeWeaponFlashRenderMeshFactory(resolver):
-    return WeaponFlashRenderMeshFactory(resolver.resolve(VBOBuilderFactory), resolver.resolve(TextureCollection))
+    return WeaponFlashRenderMeshFactory(
+        resolver.resolve(VBOBuilderFactory),
+        resolver.resolve(TextureCollection),
+    )

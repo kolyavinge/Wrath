@@ -13,7 +13,15 @@ from game.render.main.ShadowedObjectFramebuffer import ShadowedObjectFramebuffer
 
 class ShadowedObjectRenderer:
 
-    def __init__(self, gameData, shadowedObjectFramebuffer, vboRenderer, shaderProgramCollection, screenQuadVBO, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        shadowedObjectFramebuffer: ShadowedObjectFramebuffer,
+        vboRenderer: VBORenderer,
+        shaderProgramCollection: ShaderProgramCollection,
+        screenQuadVBO: ScreenQuadVBO,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.shadowedObjectFramebuffer = shadowedObjectFramebuffer
         self.vboRenderer = vboRenderer

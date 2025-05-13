@@ -9,7 +9,13 @@ from game.vox.sources.PersonAudioSources import PersonAudioSources
 
 class PersonVox:
 
-    def __init__(self, gameData, audioSourceFactory, audioPlayer, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        audioSourceFactory: AudioSourceFactory,
+        audioPlayer: AudioPlayer,
+        eventManager: EventManager,
+    ):
         self.sources = {}
         self.gameData = gameData
         self.audioSourceFactory = audioSourceFactory

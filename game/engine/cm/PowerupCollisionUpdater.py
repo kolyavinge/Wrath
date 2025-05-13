@@ -11,7 +11,12 @@ from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 class PowerupCollisionUpdater:
 
-    def __init__(self, gameData, powerupCollisionDetector, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        powerupCollisionDetector: PowerupCollisionDetector,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.powerupCollisionDetector = powerupCollisionDetector
         self.eventManager = eventManager
@@ -52,4 +57,8 @@ class PowerupCollisionUpdater:
 
 
 def makePowerupCollisionUpdater(resolver):
-    return PowerupCollisionUpdater(resolver.resolve(GameData), resolver.resolve(PowerupCollisionDetector), resolver.resolve(EventManager))
+    return PowerupCollisionUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(PowerupCollisionDetector),
+        resolver.resolve(EventManager),
+    )

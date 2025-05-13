@@ -4,7 +4,7 @@ from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 
 class ScreenQuadVBO:
 
-    def __init__(self, vboBuilderFactory):
+    def __init__(self, vboBuilderFactory: VBOBuilderFactory):
         vboBuilder = vboBuilderFactory.makeVBOBuilder()
 
         vboBuilder.addVertex(Vector3(-1, -1, 0))

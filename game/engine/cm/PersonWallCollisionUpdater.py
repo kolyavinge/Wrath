@@ -8,7 +8,11 @@ from game.model.Orientation import Orientation
 
 class PersonWallCollisionUpdater:
 
-    def __init__(self, gameData, personWallCollisionDetector):
+    def __init__(
+        self,
+        gameData: GameData,
+        personWallCollisionDetector: PersonWallCollisionDetector,
+    ):
         self.gameData = gameData
         self.personWallCollisionDetector = personWallCollisionDetector
 
@@ -50,4 +54,7 @@ class PersonWallCollisionUpdater:
 
 
 def makePersonWallCollisionUpdater(resolver):
-    return PersonWallCollisionUpdater(resolver.resolve(GameData), resolver.resolve(PersonWallCollisionDetector))
+    return PersonWallCollisionUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(PersonWallCollisionDetector),
+    )

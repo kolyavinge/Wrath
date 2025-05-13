@@ -8,7 +8,15 @@ from game.vox.common.WeaponVox import WeaponVox
 
 class GameScreenVox:
 
-    def __init__(self, gameData, audioPlayer, personVox, playerItemsVox, weaponVox, powerupVox):
+    def __init__(
+        self,
+        gameData: GameData,
+        audioPlayer: AudioPlayer,
+        personVox: PersonVox,
+        playerItemsVox: PlayerItemsVox,
+        weaponVox: WeaponVox,
+        powerupVox: PowerupVox,
+    ):
         self.allSources = []
         self.gameData = gameData
         self.audioPlayer = audioPlayer

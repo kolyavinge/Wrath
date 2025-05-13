@@ -5,7 +5,12 @@ from game.input.PlayerInputManager import PlayerInputManager
 
 class GameScreen:
 
-    def __init__(self, gameUpdater, playerInputManager, inputManager):
+    def __init__(
+        self,
+        gameUpdater: GameUpdater,
+        playerInputManager: PlayerInputManager,
+        inputManager: InputManager,
+    ):
         self.gameUpdater = gameUpdater
         self.playerInputManager = playerInputManager
         self.inputManager = inputManager
@@ -21,4 +26,8 @@ class GameScreen:
 
 
 def makeGameScreen(resolver):
-    return GameScreen(resolver.resolve(GameUpdater), resolver.resolve(PlayerInputManager), resolver.resolve(InputManager))
+    return GameScreen(
+        resolver.resolve(GameUpdater),
+        resolver.resolve(PlayerInputManager),
+        resolver.resolve(InputManager),
+    )

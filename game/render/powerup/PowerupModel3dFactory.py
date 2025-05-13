@@ -4,7 +4,11 @@ from game.render.common.Model3dDirectory import Model3dDirectory
 
 class PowerupModel3dFactory:
 
-    def __init__(self, model3dLoader, model3dDirectory):
+    def __init__(
+        self,
+        model3dLoader: Model3dLoader,
+        model3dDirectory: Model3dDirectory,
+    ):
         self.model3dLoader = model3dLoader
         self.model3dDirectory = model3dDirectory
 
@@ -27,4 +31,7 @@ class PowerupModel3dFactory:
 
 
 def makePowerupModel3dFactory(resolver):
-    return PowerupModel3dFactory(resolver.resolve(Model3dLoader), resolver.resolve(Model3dDirectory))
+    return PowerupModel3dFactory(
+        resolver.resolve(Model3dLoader),
+        resolver.resolve(Model3dDirectory),
+    )

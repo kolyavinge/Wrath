@@ -3,7 +3,7 @@ from game.render.level.LevelItemRenderModel3dBuilder import *
 
 class LevelItemRenderCollection:
 
-    def __init__(self, levelItemRenderModel3dBuilder):
+    def __init__(self, levelItemRenderModel3dBuilder: LevelItemRenderModel3dBuilder):
         self.levelItemRenderModel3dBuilder = levelItemRenderModel3dBuilder
         self.models3d = {}
 

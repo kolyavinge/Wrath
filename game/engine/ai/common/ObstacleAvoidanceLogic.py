@@ -7,7 +7,7 @@ from game.lib.Random import Random
 
 class ObstacleAvoidanceLogic:
 
-    def __init__(self, collisionDetector):
+    def __init__(self, collisionDetector: CollisionDetector):
         self.collisionDetector = collisionDetector
         self.rand = Random()
 

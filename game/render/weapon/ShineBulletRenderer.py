@@ -7,7 +7,11 @@ from game.render.weapon.shine.PlasmaShineBulletRenderer import PlasmaShineBullet
 
 class ShineBulletRenderer:
 
-    def __init__(self, gameData, plasmaShineBulletRenderer):
+    def __init__(
+        self,
+        gameData: GameData,
+        plasmaShineBulletRenderer: PlasmaShineBulletRenderer,
+    ):
         self.gameData = gameData
         self.renderers = {}
         self.renderers[PlasmaBullet] = plasmaShineBulletRenderer

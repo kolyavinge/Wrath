@@ -4,7 +4,11 @@ from game.engine.GameData import GameData
 
 class BulletTraceUpdater:
 
-    def __init__(self, gameData, traversal):
+    def __init__(
+        self,
+        gameData: GameData,
+        traversal: BSPTreeTraversal,
+    ):
         self.gameData = gameData
         self.traversal = traversal
 
@@ -26,4 +30,7 @@ class BulletTraceUpdater:
 
 
 def makeBulletTraceUpdater(resolver):
-    return BulletTraceUpdater(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal))
+    return BulletTraceUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(BSPTreeTraversal),
+    )

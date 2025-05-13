@@ -5,7 +5,11 @@ from game.lib.EventManager import EventManager
 
 class TorchUpdater:
 
-    def __init__(self, gameData, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.eventManager = eventManager
         self.eventManager.attachToEvent(Events.torchSwitchRequested, self.switchTorch)
@@ -23,4 +27,7 @@ class TorchUpdater:
 
 
 def makeTorchUpdater(resolver):
-    return TorchUpdater(resolver.resolve(GameData), resolver.resolve(EventManager))
+    return TorchUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(EventManager),
+    )

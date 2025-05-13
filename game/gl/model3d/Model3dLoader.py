@@ -13,7 +13,13 @@ from game.render.common.TextureCollection import TextureCollection
 
 class Model3dLoader:
 
-    def __init__(self, textureLoader, textureCollection, animationLoader, fileSystem):
+    def __init__(
+        self,
+        textureLoader: TextureLoader,
+        textureCollection: TextureCollection,
+        animationLoader: AnimationLoader,
+        fileSystem: FileSystem,
+    ):
         self.textureLoader = textureLoader
         self.textureCollection = textureCollection
         self.animationLoader = animationLoader
@@ -79,5 +85,8 @@ class Model3dLoader:
 
 def makeModel3dLoader(resolver):
     return Model3dLoader(
-        resolver.resolve(TextureLoader), resolver.resolve(TextureCollection), resolver.resolve(AnimationLoader), resolver.resolve(FileSystem)
+        resolver.resolve(TextureLoader),
+        resolver.resolve(TextureCollection),
+        resolver.resolve(AnimationLoader),
+        resolver.resolve(FileSystem),
     )

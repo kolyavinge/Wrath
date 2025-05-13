@@ -6,7 +6,11 @@ from game.render.weapon.BulletRenderCollection import BulletRenderCollection
 
 class BulletRenderer:
 
-    def __init__(self, renderCollection, model3dRenderer):
+    def __init__(
+        self,
+        renderCollection: BulletRenderCollection,
+        model3dRenderer: Model3dRenderer,
+    ):
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
 
@@ -18,4 +22,7 @@ class BulletRenderer:
 
 
 def makeBulletRenderer(resolver):
-    return BulletRenderer(resolver.resolve(BulletRenderCollection), resolver.resolve(Model3dRenderer))
+    return BulletRenderer(
+        resolver.resolve(BulletRenderCollection),
+        resolver.resolve(Model3dRenderer),
+    )

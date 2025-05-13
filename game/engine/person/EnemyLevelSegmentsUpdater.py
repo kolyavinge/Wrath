@@ -5,7 +5,12 @@ from game.engine.person.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpd
 
 class EnemyLevelSegmentsUpdater:
 
-    def __init__(self, gameData, personLevelSegmentsUpdater, traversal):
+    def __init__(
+        self,
+        gameData: GameData,
+        personLevelSegmentsUpdater: PersonLevelSegmentsUpdater,
+        traversal: BSPTreeTraversal,
+    ):
         self.gameData = gameData
         self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
         self.traversal = traversal
@@ -48,4 +53,8 @@ class EnemyLevelSegmentsUpdater:
 
 
 def makeEnemyLevelSegmentsUpdater(resolver):
-    return EnemyLevelSegmentsUpdater(resolver.resolve(GameData), resolver.resolve(PersonLevelSegmentsUpdater), resolver.resolve(BSPTreeTraversal))
+    return EnemyLevelSegmentsUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(PersonLevelSegmentsUpdater),
+        resolver.resolve(BSPTreeTraversal),
+    )

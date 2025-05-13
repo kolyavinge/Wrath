@@ -4,7 +4,7 @@ from game.lib.Environment import Environment
 
 class TextureCollection:
 
-    def __init__(self, textureLoader):
+    def __init__(self, textureLoader: TextureLoader):
         self.textureLoader = textureLoader
 
     def init(self):

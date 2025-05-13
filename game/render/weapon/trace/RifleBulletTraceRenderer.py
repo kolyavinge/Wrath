@@ -5,7 +5,7 @@ from game.render.weapon.trace.RayBulletTraceRenderer import RayBulletTraceRender
 
 class RifleBulletTraceRenderer:
 
-    def __init__(self, rayBulletTraceRenderer):
+    def __init__(self, rayBulletTraceRenderer: RayBulletTraceRenderer):
         self.rayBulletTraceRenderer = rayBulletTraceRenderer
         self.rayParams = RayParams()
         self.rayParams.rayHeight = 0.002

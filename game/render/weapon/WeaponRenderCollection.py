@@ -12,7 +12,12 @@ from game.render.weapon.WeaponModel3dFactory import WeaponModel3dFactory
 
 class WeaponRenderCollection:
 
-    def __init__(self, gameData, weaponModel3dFactory, renderModel3dLoader):
+    def __init__(
+        self,
+        gameData: GameData,
+        weaponModel3dFactory: WeaponModel3dFactory,
+        renderModel3dLoader: RenderModel3dLoader,
+    ):
         self.gameData = gameData
         self.weaponModel3dFactory = weaponModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
@@ -71,4 +76,8 @@ class WeaponRenderCollection:
 
 
 def makeWeaponRenderCollection(resolver):
-    return WeaponRenderCollection(resolver.resolve(GameData), resolver.resolve(WeaponModel3dFactory), resolver.resolve(RenderModel3dLoader))
+    return WeaponRenderCollection(
+        resolver.resolve(GameData),
+        resolver.resolve(WeaponModel3dFactory),
+        resolver.resolve(RenderModel3dLoader),
+    )

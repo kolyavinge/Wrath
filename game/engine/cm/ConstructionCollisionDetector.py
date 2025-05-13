@@ -4,7 +4,7 @@ from game.engine.cm.PlaneCollisionDetector import PlaneCollisionDetector
 
 class ConstructionCollisionDetector:
 
-    def __init__(self, planeCollisionDetector):
+    def __init__(self, planeCollisionDetector: PlaneCollisionDetector):
         self.planeCollisionDetector = planeCollisionDetector
 
     def getCollisionResultOrNone(self, levelSegment, startPoint, endPoint):

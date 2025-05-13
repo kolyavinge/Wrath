@@ -11,7 +11,13 @@ from game.render.common.TextureCollection import TextureCollection
 
 class SniperCrosshairRenderer:
 
-    def __init__(self, shaderProgramCollection, vboRenderer, vboBuilderFactory, textureCollection):
+    def __init__(
+        self,
+        shaderProgramCollection: ShaderProgramCollection,
+        vboRenderer: VBORenderer,
+        vboBuilderFactory: VBOBuilderFactory,
+        textureCollection: TextureCollection,
+    ):
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
         self.vboBuilderFactory = vboBuilderFactory

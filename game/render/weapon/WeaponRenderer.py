@@ -7,7 +7,12 @@ from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection
 
 class WeaponRenderer:
 
-    def __init__(self, gameData, renderCollection, model3dRenderer):
+    def __init__(
+        self,
+        gameData: GameData,
+        renderCollection: WeaponRenderCollection,
+        model3dRenderer: Model3dRenderer,
+    ):
         self.gameData = gameData
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
@@ -31,4 +36,8 @@ class WeaponRenderer:
 
 
 def makeWeaponRenderer(resolver):
-    return WeaponRenderer(resolver.resolve(GameData), resolver.resolve(WeaponRenderCollection), resolver.resolve(Model3dRenderer))
+    return WeaponRenderer(
+        resolver.resolve(GameData),
+        resolver.resolve(WeaponRenderCollection),
+        resolver.resolve(Model3dRenderer),
+    )

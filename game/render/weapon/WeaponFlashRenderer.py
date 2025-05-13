@@ -8,7 +8,13 @@ from game.render.weapon.WeaponFlashRenderCollection import WeaponFlashRenderColl
 
 class WeaponFlashRenderer:
 
-    def __init__(self, gameData, renderCollection, shaderProgramCollection, vboRenderer):
+    def __init__(
+        self,
+        gameData: GameData,
+        renderCollection: WeaponFlashRenderCollection,
+        shaderProgramCollection: ShaderProgramCollection,
+        vboRenderer: VBORenderer,
+    ):
         self.gameData = gameData
         self.renderCollection = renderCollection
         self.shaderProgramCollection = shaderProgramCollection

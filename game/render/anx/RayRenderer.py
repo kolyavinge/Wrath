@@ -23,7 +23,13 @@ class RayParams:
 
 class RayRenderer:
 
-    def __init__(self, gameData, vboUpdaterFactory, shaderProgramCollection, vboRenderer):
+    def __init__(
+        self,
+        gameData: GameData,
+        vboUpdaterFactory: VBOUpdaterFactory,
+        shaderProgramCollection: ShaderProgramCollection,
+        vboRenderer: VBORenderer,
+    ):
         self.gameData = gameData
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.shaderProgramCollection = shaderProgramCollection
@@ -101,5 +107,8 @@ class RayRenderer:
 
 def makeRayRenderer(resolver):
     return RayRenderer(
-        resolver.resolve(GameData), resolver.resolve(VBOUpdaterFactory), resolver.resolve(ShaderProgramCollection), resolver.resolve(VBORenderer)
+        resolver.resolve(GameData),
+        resolver.resolve(VBOUpdaterFactory),
+        resolver.resolve(ShaderProgramCollection),
+        resolver.resolve(VBORenderer),
     )

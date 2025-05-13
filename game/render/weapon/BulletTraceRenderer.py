@@ -12,7 +12,13 @@ from game.render.weapon.trace.SniperBulletTraceRenderer import SniperBulletTrace
 
 class BulletTraceRenderer:
 
-    def __init__(self, gameData, rifleBulletTraceRenderer, railgunBulletTraceRenderer, sniperBulletTraceRenderer):
+    def __init__(
+        self,
+        gameData: GameData,
+        rifleBulletTraceRenderer: RifleBulletTraceRenderer,
+        railgunBulletTraceRenderer: RailgunBulletTraceRenderer,
+        sniperBulletTraceRenderer: SniperBulletTraceRenderer,
+    ):
         self.gameData = gameData
         self.renderers = {}
         self.renderers[PistolBulletTrace] = rifleBulletTraceRenderer

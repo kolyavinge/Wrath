@@ -11,7 +11,13 @@ from game.model.weapon.Sniper import Sniper
 
 class PlayerInputManager:
 
-    def __init__(self, gameData, inputManager, aimStateSwitcher, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        inputManager: InputManager,
+        aimStateSwitcher: AimStateSwitcher,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.inputManager = inputManager
         self.aimStateSwitcher = aimStateSwitcher
@@ -82,5 +88,8 @@ class PlayerInputManager:
 
 def makePlayerInputManager(resolver):
     return PlayerInputManager(
-        resolver.resolve(GameData), resolver.resolve(InputManager), resolver.resolve(AimStateSwitcher), resolver.resolve(EventManager)
+        resolver.resolve(GameData),
+        resolver.resolve(InputManager),
+        resolver.resolve(AimStateSwitcher),
+        resolver.resolve(EventManager),
     )

@@ -11,7 +11,7 @@ from game.render.common.ShineCircleShaderProgram import ShineCircleShaderProgram
 
 class ShaderProgramCollection:
 
-    def __init__(self, shaderCollection):
+    def __init__(self, shaderCollection: ShaderCollection):
         self.shaderCollection = shaderCollection
 
     def init(self):

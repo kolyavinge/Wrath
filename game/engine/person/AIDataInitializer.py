@@ -5,7 +5,7 @@ from game.lib.Random import Random
 
 class AIDataInitializer:
 
-    def __init__(self, gameData):
+    def __init__(self, gameData: GameData):
         self.gameData = gameData
 
     def init(self):

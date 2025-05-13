@@ -5,7 +5,11 @@ from game.model.weapon.Plasma import PlasmaBullet
 
 class NonStandardBulletMovingUpdater:
 
-    def __init__(self, gameData, plasmaBulletMovingLogic):
+    def __init__(
+        self,
+        gameData: GameData,
+        plasmaBulletMovingLogic: PlasmaBulletMovingLogic,
+    ):
         self.gameData = gameData
         self.bulletMovingLogic = {}
         self.bulletMovingLogic[PlasmaBullet] = plasmaBulletMovingLogic
@@ -18,4 +22,7 @@ class NonStandardBulletMovingUpdater:
 
 
 def makeNonStandardBulletMovingUpdater(resolver):
-    return NonStandardBulletMovingUpdater(resolver.resolve(GameData), resolver.resolve(PlasmaBulletMovingLogic))
+    return NonStandardBulletMovingUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(PlasmaBulletMovingLogic),
+    )

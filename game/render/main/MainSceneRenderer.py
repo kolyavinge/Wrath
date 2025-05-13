@@ -7,7 +7,12 @@ from game.render.weapon.WeaponRenderer import WeaponRenderer
 
 class MainSceneRenderer:
 
-    def __init__(self, shadowedObjectRenderer, levelSegmentRenderer, weaponRenderer):
+    def __init__(
+        self,
+        shadowedObjectRenderer: ShadowedObjectRenderer,
+        levelSegmentRenderer: LevelSegmentRenderer,
+        weaponRenderer: WeaponRenderer,
+    ):
         self.shadowedObjectRenderer = shadowedObjectRenderer
         self.levelSegmentRenderer = levelSegmentRenderer
         self.weaponRenderer = weaponRenderer

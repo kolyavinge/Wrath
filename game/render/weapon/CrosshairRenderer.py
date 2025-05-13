@@ -8,7 +8,12 @@ from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 class CrosshairRenderer:
 
-    def __init__(self, shaderProgramCollection, vboRenderer, screenQuadVBO):
+    def __init__(
+        self,
+        shaderProgramCollection: ShaderProgramCollection,
+        vboRenderer: VBORenderer,
+        screenQuadVBO: ScreenQuadVBO,
+    ):
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
         self.screenQuadVBO = screenQuadVBO
@@ -30,4 +35,8 @@ class CrosshairRenderer:
 
 
 def makeCrosshairRenderer(resolver):
-    return CrosshairRenderer(resolver.resolve(ShaderProgramCollection), resolver.resolve(VBORenderer), resolver.resolve(ScreenQuadVBO))
+    return CrosshairRenderer(
+        resolver.resolve(ShaderProgramCollection),
+        resolver.resolve(VBORenderer),
+        resolver.resolve(ScreenQuadVBO),
+    )

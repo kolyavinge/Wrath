@@ -7,7 +7,11 @@ from game.render.level.LevelItemRenderCollection import *
 
 class LevelItemRenderer:
 
-    def __init__(self, renderCollection, model3dRenderer):
+    def __init__(
+        self,
+        renderCollection: LevelItemRenderCollection,
+        model3dRenderer: Model3dRenderer,
+    ):
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
 
@@ -18,4 +22,7 @@ class LevelItemRenderer:
 
 
 def makeLevelItemRenderer(resolver):
-    return LevelItemRenderer(resolver.resolve(LevelItemRenderCollection), resolver.resolve(Model3dRenderer))
+    return LevelItemRenderer(
+        resolver.resolve(LevelItemRenderCollection),
+        resolver.resolve(Model3dRenderer),
+    )

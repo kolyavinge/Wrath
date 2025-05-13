@@ -9,7 +9,15 @@ from game.lib.EventManager import EventManager
 
 class BulletCollisionUpdater:
 
-    def __init__(self, gameData, traversal, bulletCollisionDetector, bulletHoleFactory, personDamageLogic, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        traversal: BSPTreeTraversal,
+        bulletCollisionDetector: BulletCollisionDetector,
+        bulletHoleFactory: BulletHoleFactory,
+        personDamageLogic: PersonDamageLogic,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.traversal = traversal
         self.bulletCollisionDetector = bulletCollisionDetector

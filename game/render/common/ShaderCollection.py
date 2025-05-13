@@ -5,7 +5,7 @@ from game.lib.Environment import Environment
 
 class ShaderCollection:
 
-    def __init__(self, shaderCompiler):
+    def __init__(self, shaderCompiler: ShaderCompiler):
         self.shaderCompiler = shaderCompiler
 
     def init(self):

@@ -10,12 +10,12 @@ class GameInitializer:
 
     def __init__(
         self,
-        textureCollection,
-        materialTextureCollection,
-        shaderCollection,
-        shaderProgramCollection,
-        audioPlayer,
-        audioBufferCollection,
+        textureCollection: TextureCollection,
+        materialTextureCollection: MaterialTextureCollection,
+        shaderCollection: ShaderCollection,
+        shaderProgramCollection: ShaderProgramCollection,
+        audioPlayer: AudioPlayer,
+        audioBufferCollection: AudioBufferCollection,
     ):
         self.textureCollection = textureCollection
         self.materialTextureCollection = materialTextureCollection

@@ -3,7 +3,7 @@ from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 
 class LevelSegmentItemFinder:
 
-    def __init__(self, traversal):
+    def __init__(self, traversal: BSPTreeTraversal):
         self.traversal = traversal
 
     def findItemOrNone(self, bspTree, startSegment, endSegment, startPoint, endPoint, getFindItemResult):

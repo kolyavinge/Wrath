@@ -7,7 +7,11 @@ from game.render.anx.ShineCircleRenderer import ShineCircleParams, ShineCircleRe
 
 class PlasmaShineBulletRenderer:
 
-    def __init__(self, gameData, shineCircleRenderer):
+    def __init__(
+        self,
+        gameData: GameData,
+        shineCircleRenderer: ShineCircleRenderer,
+    ):
         self.gameData = gameData
         self.shineCircleRenderer = shineCircleRenderer
         self.shineCircleParams = ShineCircleParams()

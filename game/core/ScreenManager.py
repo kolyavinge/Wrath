@@ -5,7 +5,12 @@ from game.vox.ui.GameScreenVox import GameScreenVox
 
 class ScreenManager:
 
-    def __init__(self, gameScreen, gameScreenRenderer, gameScreenVox):
+    def __init__(
+        self,
+        gameScreen: GameScreen,
+        gameScreenRenderer: GameScreenRenderer,
+        gameScreenVox: GameScreenVox,
+    ):
         self.screens = {}
         self.screens[GameScreen] = gameScreen
         for screen in self.screens.values():
@@ -27,4 +32,8 @@ class ScreenManager:
 
 
 def makeScreenManager(resolver):
-    return ScreenManager(resolver.resolve(GameScreen), resolver.resolve(GameScreenRenderer), resolver.resolve(GameScreenVox))
+    return ScreenManager(
+        resolver.resolve(GameScreen),
+        resolver.resolve(GameScreenRenderer),
+        resolver.resolve(GameScreenVox),
+    )

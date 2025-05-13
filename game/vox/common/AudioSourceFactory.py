@@ -4,7 +4,11 @@ from game.vox.common.AudioBufferCollection import AudioBufferCollection
 
 class AudioSourceFactory:
 
-    def __init__(self, audioSourceLoader, audioBufferCollection):
+    def __init__(
+        self,
+        audioSourceLoader: AudioSourceLoader,
+        audioBufferCollection: AudioBufferCollection,
+    ):
         self.audioSourceLoader = audioSourceLoader
         self.audioBufferCollection = audioBufferCollection
 
@@ -52,4 +56,7 @@ class AudioSourceFactory:
 
 
 def makeAudioSourceFactory(resolver):
-    return AudioSourceFactory(resolver.resolve(AudioSourceLoader), resolver.resolve(AudioBufferCollection))
+    return AudioSourceFactory(
+        resolver.resolve(AudioSourceLoader),
+        resolver.resolve(AudioBufferCollection),
+    )

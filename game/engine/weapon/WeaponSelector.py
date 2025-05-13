@@ -13,7 +13,12 @@ from game.model.weapon.Sniper import Sniper
 
 class WeaponSelector:
 
-    def __init__(self, gameData, aimStateSwitcher, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        aimStateSwitcher: AimStateSwitcher,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.aimStateSwitcher = aimStateSwitcher
         self.weapons = {}
@@ -49,4 +54,8 @@ class WeaponSelector:
 
 
 def makeWeaponSelector(resolver):
-    return WeaponSelector(resolver.resolve(GameData), resolver.resolve(AimStateSwitcher), resolver.resolve(EventManager))
+    return WeaponSelector(
+        resolver.resolve(GameData),
+        resolver.resolve(AimStateSwitcher),
+        resolver.resolve(EventManager),
+    )

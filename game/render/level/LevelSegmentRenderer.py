@@ -11,7 +11,16 @@ from game.render.weapon.BulletRenderer import BulletRenderer
 
 class LevelSegmentRenderer:
 
-    def __init__(self, gameData, levelItemRenderer, bulletRenderer, bulletHoleRenderer, powerupRenderer, enemyRenderer, shadowCasterRenderer):
+    def __init__(
+        self,
+        gameData: GameData,
+        levelItemRenderer: LevelItemRenderer,
+        bulletRenderer: BulletRenderer,
+        bulletHoleRenderer: BulletHoleRenderer,
+        powerupRenderer: PowerupRenderer,
+        enemyRenderer: EnemyRenderer,
+        shadowCasterRenderer: ShadowCasterRenderer,
+    ):
         self.gameData = gameData
         self.levelItemRenderer = levelItemRenderer
         self.bulletRenderer = bulletRenderer

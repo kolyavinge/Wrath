@@ -6,7 +6,11 @@ from game.model.person.AimState import DefaultAimState, SniperAimState
 
 class AimStateSwitcher:
 
-    def __init__(self, gameData, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.eventManager = eventManager
 
@@ -28,4 +32,7 @@ class AimStateSwitcher:
 
 
 def makeAimStateSwitcher(resolver):
-    return AimStateSwitcher(resolver.resolve(GameData), resolver.resolve(EventManager))
+    return AimStateSwitcher(
+        resolver.resolve(GameData),
+        resolver.resolve(EventManager),
+    )

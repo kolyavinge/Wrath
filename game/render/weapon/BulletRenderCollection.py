@@ -8,7 +8,12 @@ from game.render.weapon.BulletModel3dFactory import BulletModel3dFactory
 
 class BulletRenderCollection:
 
-    def __init__(self, gameData, bulletModel3dFactory, renderModel3dLoader):
+    def __init__(
+        self,
+        gameData: GameData,
+        bulletModel3dFactory: BulletModel3dFactory,
+        renderModel3dLoader: RenderModel3dLoader,
+    ):
         self.gameData = gameData
         self.bulletModel3dFactory = bulletModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
@@ -38,4 +43,8 @@ class BulletRenderCollection:
 
 
 def makeBulletRenderCollection(resolver):
-    return BulletRenderCollection(resolver.resolve(GameData), resolver.resolve(BulletModel3dFactory), resolver.resolve(RenderModel3dLoader))
+    return BulletRenderCollection(
+        resolver.resolve(GameData),
+        resolver.resolve(BulletModel3dFactory),
+        resolver.resolve(RenderModel3dLoader),
+    )

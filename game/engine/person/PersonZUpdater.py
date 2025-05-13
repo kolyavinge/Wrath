@@ -7,7 +7,12 @@ from game.model.person.PersonState import PersonState
 
 class PersonZUpdater:
 
-    def __init__(self, gameData, traversal, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        traversal: BSPTreeTraversal,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.traversal = traversal
         self.eventManager = eventManager
@@ -66,4 +71,8 @@ class PersonZUpdater:
 
 
 def makePersonZUpdater(resolver):
-    return PersonZUpdater(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal), resolver.resolve(EventManager))
+    return PersonZUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(BSPTreeTraversal),
+        resolver.resolve(EventManager),
+    )

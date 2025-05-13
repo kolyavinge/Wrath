@@ -8,7 +8,7 @@ from game.model.person.PersonState import PersonState
 
 class PlayerWeaponSwingUpdater:
 
-    def __init__(self, gameData):
+    def __init__(self, gameData: GameData):
         self.gameData = gameData
         stepsCount = 15
         stepValue = Math.pi / stepsCount

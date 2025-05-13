@@ -6,7 +6,11 @@ from game.lib.Random import Random
 
 class PowerupPositionGenerator:
 
-    def __init__(self, gameData, traversal):
+    def __init__(
+        self,
+        gameData: GameData,
+        traversal: BSPTreeTraversal,
+    ):
         self.gameData = gameData
         self.traversal = traversal
         self.rand = Random()
@@ -40,4 +44,7 @@ class PowerupPositionGenerator:
 
 
 def makePowerupPositionGenerator(resolver):
-    return PowerupPositionGenerator(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal))
+    return PowerupPositionGenerator(
+        resolver.resolve(GameData),
+        resolver.resolve(BSPTreeTraversal),
+    )

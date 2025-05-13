@@ -9,7 +9,12 @@ from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 class DashboardRenderer:
 
-    def __init__(self, gameData, shaderProgramCollection, textRenderer):
+    def __init__(
+        self,
+        gameData: GameData,
+        shaderProgramCollection: ShaderProgramCollection,
+        textRenderer: TextRenderer,
+    ):
         self.gameData = gameData
         self.shaderProgramCollection = shaderProgramCollection
         self.textRenderer = textRenderer
@@ -64,4 +69,8 @@ class DashboardRenderer:
 
 
 def makeDashboardRenderer(resolver):
-    return DashboardRenderer(resolver.resolve(GameData), resolver.resolve(ShaderProgramCollection), resolver.resolve(TextRenderer))
+    return DashboardRenderer(
+        resolver.resolve(GameData),
+        resolver.resolve(ShaderProgramCollection),
+        resolver.resolve(TextRenderer),
+    )

@@ -7,7 +7,13 @@ from game.lib.EventManager import EventManager
 
 class WeaponFireUpdater:
 
-    def __init__(self, gameData, weaponFeedbackLogic, traversal, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        weaponFeedbackLogic: WeaponFeedbackLogic,
+        traversal: BSPTreeTraversal,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.weaponFeedbackLogic = weaponFeedbackLogic
         self.traversal = traversal

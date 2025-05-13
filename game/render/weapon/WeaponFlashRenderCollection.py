@@ -7,7 +7,7 @@ from game.render.weapon.WeaponFlashRenderMeshFactory import WeaponFlashRenderMes
 
 class WeaponFlashRenderCollection:
 
-    def __init__(self, renderMeshFactory):
+    def __init__(self, renderMeshFactory: WeaponFlashRenderMeshFactory):
         self.renderMeshFactory = renderMeshFactory
 
     def init(self):

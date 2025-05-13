@@ -6,7 +6,11 @@ from game.model.person.Enemy import MoveDirections
 
 class MovingLogic:
 
-    def __init__(self, personTurnLogic, obstacleAvoidanceLogic):
+    def __init__(
+        self,
+        personTurnLogic: PersonTurnLogic,
+        obstacleAvoidanceLogic: ObstacleAvoidanceLogic,
+    ):
         self.personTurnLogic = personTurnLogic
         self.obstacleAvoidanceLogic = obstacleAvoidanceLogic
         self.rand = Random()
@@ -56,4 +60,7 @@ class MovingLogic:
 
 
 def makeMovingLogic(resolver):
-    return MovingLogic(resolver.resolve(PersonTurnLogic), resolver.resolve(ObstacleAvoidanceLogic))
+    return MovingLogic(
+        resolver.resolve(PersonTurnLogic),
+        resolver.resolve(ObstacleAvoidanceLogic),
+    )

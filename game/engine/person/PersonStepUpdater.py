@@ -6,7 +6,11 @@ from game.model.level.Stair import Stair
 
 class PersonStepUpdater:
 
-    def __init__(self, gameData, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.eventManager = eventManager
 
@@ -29,4 +33,7 @@ class PersonStepUpdater:
 
 
 def makePersonStepUpdater(resolver):
-    return PersonStepUpdater(resolver.resolve(GameData), resolver.resolve(EventManager))
+    return PersonStepUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(EventManager),
+    )

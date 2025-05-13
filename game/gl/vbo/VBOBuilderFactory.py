@@ -5,7 +5,7 @@ from game.gl.vbo.VBOBuilder import VBOBuilder
 
 class VBOBuilderFactory:
 
-    def __init__(self, adjacencyFormatConverter):
+    def __init__(self, adjacencyFormatConverter: AdjacencyFormatConverter):
         self.adjacencyFormatConverter = adjacencyFormatConverter
 
     def makeVBOBuilder(self):

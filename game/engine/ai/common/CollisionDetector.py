@@ -6,7 +6,13 @@ from game.engine.GameData import GameData
 
 class CollisionDetector:
 
-    def __init__(self, gameData, wallCollisionDetector, personCollisionDetector, traversal):
+    def __init__(
+        self,
+        gameData: GameData,
+        wallCollisionDetector: WallCollisionDetector,
+        personCollisionDetector: PersonCollisionDetector,
+        traversal: BSPTreeTraversal,
+    ):
         self.gameData = gameData
         self.wallCollisionDetector = wallCollisionDetector
         self.personCollisionDetector = personCollisionDetector

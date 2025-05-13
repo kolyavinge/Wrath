@@ -8,7 +8,12 @@ from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 
 class EnemyRenderer:
 
-    def __init__(self, renderCollection, model3dRenderer, animationPlayer):
+    def __init__(
+        self,
+        renderCollection: EnemyRenderCollection,
+        model3dRenderer: Model3dRenderer,
+        animationPlayer: AnimationPlayer,
+    ):
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
         self.animationPlayer = animationPlayer
@@ -43,4 +48,8 @@ class EnemyRenderer:
 
 
 def makeEnemyRenderer(resolver):
-    return EnemyRenderer(resolver.resolve(EnemyRenderCollection), resolver.resolve(Model3dRenderer), resolver.resolve(AnimationPlayer))
+    return EnemyRenderer(
+        resolver.resolve(EnemyRenderCollection),
+        resolver.resolve(Model3dRenderer),
+        resolver.resolve(AnimationPlayer),
+    )

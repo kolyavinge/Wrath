@@ -4,7 +4,11 @@ from game.engine.GameData import GameData
 
 class EnemyAIUpdater:
 
-    def __init__(self, gameData, stateHandlerCollection):
+    def __init__(
+        self,
+        gameData: GameData,
+        stateHandlerCollection: StateHandlerCollection,
+    ):
         self.gameData = gameData
         self.stateHandlerCollection = stateHandlerCollection
 
@@ -21,4 +25,7 @@ class EnemyAIUpdater:
 
 
 def makeEnemyAIUpdater(resolver):
-    return EnemyAIUpdater(resolver.resolve(GameData), resolver.resolve(StateHandlerCollection))
+    return EnemyAIUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(StateHandlerCollection),
+    )

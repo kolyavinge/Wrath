@@ -6,7 +6,11 @@ from game.engine.person.PersonTurnLogic import PersonTurnLogic
 
 class PersonTurnUpdater:
 
-    def __init__(self, gameData, personTurnLogic):
+    def __init__(
+        self,
+        gameData: GameData,
+        personTurnLogic: PersonTurnLogic,
+    ):
         self.gameData = gameData
         self.personTurnLogic = personTurnLogic
 
@@ -55,4 +59,7 @@ class PersonTurnUpdater:
 
 
 def makePersonTurnUpdater(resolver):
-    return PersonTurnUpdater(resolver.resolve(GameData), resolver.resolve(PersonTurnLogic))
+    return PersonTurnUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(PersonTurnLogic),
+    )

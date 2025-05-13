@@ -4,7 +4,7 @@ from game.model.person.PersonState import PersonState
 
 class PersonPositionUpdater:
 
-    def __init__(self, gameData):
+    def __init__(self, gameData: GameData):
         self.gameData = gameData
 
     def moveNextPosition(self):

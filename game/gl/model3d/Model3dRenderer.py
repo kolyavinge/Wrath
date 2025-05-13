@@ -5,7 +5,7 @@ from game.gl.vbo.VBORenderer import VBORenderer
 
 class Model3dRenderer:
 
-    def __init__(self, vboRenderer):
+    def __init__(self, vboRenderer: VBORenderer):
         self.vboRenderer = vboRenderer
 
     def render(self, model, shader):

@@ -4,7 +4,7 @@ from game.lib.FileSystem import FileSystem
 
 class Model3dDirectory:
 
-    def __init__(self, fileSystem):
+    def __init__(self, fileSystem: FileSystem):
         self.fileSystem = fileSystem
         self.extensions = [".obj", ".fbx", ".glb"]
 

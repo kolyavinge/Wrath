@@ -9,7 +9,12 @@ from game.render.powerup.PowerupModel3dFactory import PowerupModel3dFactory
 
 class PowerupRenderCollection:
 
-    def __init__(self, gameData, powerupModel3dFactory, renderModel3dLoader):
+    def __init__(
+        self,
+        gameData: GameData,
+        powerupModel3dFactory: PowerupModel3dFactory,
+        renderModel3dLoader: RenderModel3dLoader,
+    ):
         self.gameData = gameData
         self.powerupModel3dFactory = powerupModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
@@ -50,4 +55,8 @@ class PowerupRenderCollection:
 
 
 def makePowerupRenderCollection(resolver):
-    return PowerupRenderCollection(resolver.resolve(GameData), resolver.resolve(PowerupModel3dFactory), resolver.resolve(RenderModel3dLoader))
+    return PowerupRenderCollection(
+        resolver.resolve(GameData),
+        resolver.resolve(PowerupModel3dFactory),
+        resolver.resolve(RenderModel3dLoader),
+    )

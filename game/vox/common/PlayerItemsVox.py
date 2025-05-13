@@ -8,7 +8,13 @@ from game.vox.sources.PlayertemsAudioSources import PlayertemsAudioSources
 
 class PlayerItemsVox:
 
-    def __init__(self, gameData, audioSourceFactory, audioPlayer, eventManager):
+    def __init__(
+        self,
+        gameData: GameData,
+        audioSourceFactory: AudioSourceFactory,
+        audioPlayer: AudioPlayer,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer

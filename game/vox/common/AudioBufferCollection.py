@@ -4,7 +4,7 @@ from game.lib.Environment import Environment
 
 class AudioBufferCollection:
 
-    def __init__(self, audioBufferLoader):
+    def __init__(self, audioBufferLoader: AudioBufferLoader):
         self.audioBufferLoader = audioBufferLoader
 
     def init(self):

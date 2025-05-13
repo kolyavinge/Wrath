@@ -6,7 +6,12 @@ from game.engine.person.PersonTurnLogic import PersonTurnLogic
 
 class FireLogic:
 
-    def __init__(self, gameData, personTurnLogic, burstFireLogic):
+    def __init__(
+        self,
+        gameData: GameData,
+        personTurnLogic: PersonTurnLogic,
+        burstFireLogic: BurstFireLogic,
+    ):
         self.gameData = gameData
         self.personTurnLogic = personTurnLogic
         self.burstFireLogic = burstFireLogic
@@ -69,4 +74,8 @@ class FireLogic:
 
 
 def makeFireLogic(resolver):
-    return FireLogic(resolver.resolve(GameData), resolver.resolve(PersonTurnLogic), resolver.resolve(BurstFireLogic))
+    return FireLogic(
+        resolver.resolve(GameData),
+        resolver.resolve(PersonTurnLogic),
+        resolver.resolve(BurstFireLogic),
+    )

@@ -4,7 +4,11 @@ from game.engine.person.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpd
 
 class PlayerLevelSegmentsUpdater:
 
-    def __init__(self, gameData, personLevelSegmentsUpdater):
+    def __init__(
+        self,
+        gameData: GameData,
+        personLevelSegmentsUpdater: PersonLevelSegmentsUpdater,
+    ):
         self.gameData = gameData
         self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
 
@@ -29,4 +33,7 @@ class PlayerLevelSegmentsUpdater:
 
 
 def makePlayerLevelSegmentsUpdater(resolver):
-    return PlayerLevelSegmentsUpdater(resolver.resolve(GameData), resolver.resolve(PersonLevelSegmentsUpdater))
+    return PlayerLevelSegmentsUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(PersonLevelSegmentsUpdater),
+    )

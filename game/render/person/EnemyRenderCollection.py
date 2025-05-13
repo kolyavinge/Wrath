@@ -6,7 +6,12 @@ from game.render.person.EnemyModel3dFactory import EnemyModel3dFactory
 
 class EnemyRenderCollection:
 
-    def __init__(self, gameData, enemyModel3dFactory, renderModel3dLoader):
+    def __init__(
+        self,
+        gameData: GameData,
+        enemyModel3dFactory: EnemyModel3dFactory,
+        renderModel3dLoader: RenderModel3dLoader,
+    ):
         self.gameData = gameData
         self.enemyModel3dFactory = enemyModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
@@ -27,4 +32,8 @@ class EnemyRenderCollection:
 
 
 def makeEnemyRenderCollection(resolver):
-    return EnemyRenderCollection(resolver.resolve(GameData), resolver.resolve(EnemyModel3dFactory), resolver.resolve(RenderModel3dLoader))
+    return EnemyRenderCollection(
+        resolver.resolve(GameData),
+        resolver.resolve(EnemyModel3dFactory),
+        resolver.resolve(RenderModel3dLoader),
+    )

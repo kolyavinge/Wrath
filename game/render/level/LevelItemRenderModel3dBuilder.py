@@ -14,7 +14,15 @@ from game.render.level.WallVBOBuilder import WallVBOBuilder
 
 class LevelItemRenderModel3dBuilder:
 
-    def __init__(self, vboBuilderFactory, wallVBOBuilder, constructionVBOBuilder, stairVBOBuilder, lampVBOBuilder, materialTextureCollection):
+    def __init__(
+        self,
+        vboBuilderFactory: VBOBuilderFactory,
+        wallVBOBuilder: WallVBOBuilder,
+        constructionVBOBuilder: ConstructionVBOBuilder,
+        stairVBOBuilder: StairVBOBuilder,
+        lampVBOBuilder: LampVBOBuilder,
+        materialTextureCollection: MaterialTextureCollection,
+    ):
         self.vboBuilderFactory = vboBuilderFactory
         self.wallVBOBuilder = wallVBOBuilder
         self.constructionVBOBuilder = constructionVBOBuilder

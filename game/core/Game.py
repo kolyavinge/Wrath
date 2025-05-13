@@ -7,7 +7,14 @@ from game.lib.EventManager import EventManager
 
 class Game:
 
-    def __init__(self, gameInitializer, levelManager, inputManager, screenManager, eventManager):
+    def __init__(
+        self,
+        gameInitializer: GameInitializer,
+        levelManager: LevelManager,
+        inputManager: InputManager,
+        screenManager: ScreenManager,
+        eventManager: EventManager,
+    ):
         gameInitializer.init()
         self.levelManager = levelManager
         self.inputManager = inputManager

@@ -12,7 +12,7 @@ class PlayableAnimation:
 
 class AnimationPlayer:
 
-    def __init__(self, frameInterpolator):
+    def __init__(self, frameInterpolator: FrameInterpolator):
         self.frameInterpolator = frameInterpolator
 
     def update(self, playableAnimation, deltaTime=0.025):

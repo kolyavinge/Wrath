@@ -4,7 +4,7 @@ from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 
 class RenderModel3dLoader:
 
-    def __init__(self, vboBuilderFactory):
+    def __init__(self, vboBuilderFactory: VBOBuilderFactory):
         self.vboBuilderFactory = vboBuilderFactory
 
     def make(self, model3d, material):

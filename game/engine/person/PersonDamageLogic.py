@@ -4,7 +4,7 @@ from game.engine.GameData import GameData
 
 class PersonDamageLogic:
 
-    def __init__(self, gameData):
+    def __init__(self, gameData: GameData):
         self.gameData = gameData
 
     def damageByBullet(self, person, bullet):

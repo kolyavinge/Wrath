@@ -6,7 +6,12 @@ from game.model.person.Enemy import EnemyState
 
 class PatrollingStateHandler:
 
-    def __init__(self, gameData, movingLogic, fireLogic):
+    def __init__(
+        self,
+        gameData: GameData,
+        movingLogic: MovingLogic,
+        fireLogic: FireLogic,
+    ):
         self.gameData = gameData
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic

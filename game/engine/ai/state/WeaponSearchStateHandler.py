@@ -5,7 +5,11 @@ from game.model.person.Enemy import EnemyState
 
 class WeaponSearchStateHandler:
 
-    def __init__(self, movingLogic, fireLogic):
+    def __init__(
+        self,
+        movingLogic: MovingLogic,
+        fireLogic: FireLogic,
+    ):
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
 
@@ -17,4 +21,7 @@ class WeaponSearchStateHandler:
 
 
 def makeWeaponSearchStateHandler(resolver):
-    return WeaponSearchStateHandler(resolver.resolve(MovingLogic), resolver.resolve(FireLogic))
+    return WeaponSearchStateHandler(
+        resolver.resolve(MovingLogic),
+        resolver.resolve(FireLogic),
+    )

@@ -4,7 +4,7 @@ from game.render.common.TextureCollection import TextureCollection
 
 class MaterialTextureCollection:
 
-    def __init__(self, textureCollection):
+    def __init__(self, textureCollection: TextureCollection):
         self.textureCollection = textureCollection
 
     def init(self):

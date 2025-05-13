@@ -5,7 +5,11 @@ from game.model.person.Enemy import EnemyState
 
 class AttackStateHandler:
 
-    def __init__(self, movingLogic, fireLogic):
+    def __init__(
+        self,
+        movingLogic: MovingLogic,
+        fireLogic: FireLogic,
+    ):
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
 
@@ -23,4 +27,7 @@ class AttackStateHandler:
 
 
 def makeAttackStateHandler(resolver):
-    return AttackStateHandler(resolver.resolve(MovingLogic), resolver.resolve(FireLogic))
+    return AttackStateHandler(
+        resolver.resolve(MovingLogic),
+        resolver.resolve(FireLogic),
+    )

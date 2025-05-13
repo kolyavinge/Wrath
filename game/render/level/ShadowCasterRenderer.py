@@ -6,7 +6,11 @@ from game.render.level.ShadowCasterRenderCollection import *
 
 class ShadowCasterRenderer:
 
-    def __init__(self, renderCollection, vboRenderer):
+    def __init__(
+        self,
+        renderCollection: ShadowCasterRenderCollection,
+        vboRenderer: VBORenderer,
+    ):
         self.renderCollection = renderCollection
         self.vboRenderer = vboRenderer
 

@@ -7,7 +7,7 @@ from game.lib.sys import warn
 
 class ShaderCompiler:
 
-    def __init__(self, fileSystem):
+    def __init__(self, fileSystem: FileSystem):
         self.fileSystem = fileSystem
 
     def compile(self, shaderFileFullPath, shaderType):

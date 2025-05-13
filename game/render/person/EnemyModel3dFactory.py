@@ -4,7 +4,11 @@ from game.render.common.Model3dDirectory import Model3dDirectory
 
 class EnemyModel3dFactory:
 
-    def __init__(self, model3dLoader, model3dDirectory):
+    def __init__(
+        self,
+        model3dLoader: Model3dLoader,
+        model3dDirectory: Model3dDirectory,
+    ):
         self.model3dLoader = model3dLoader
         self.model3dDirectory = model3dDirectory
 
@@ -15,4 +19,7 @@ class EnemyModel3dFactory:
 
 
 def makeEnemyModel3dFactory(resolver):
-    return EnemyModel3dFactory(resolver.resolve(Model3dLoader), resolver.resolve(Model3dDirectory))
+    return EnemyModel3dFactory(
+        resolver.resolve(Model3dLoader),
+        resolver.resolve(Model3dDirectory),
+    )

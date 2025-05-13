@@ -9,7 +9,12 @@ from game.render.common.MaterialTextureCollection import MaterialTextureCollecti
 
 class BulletHoleRenderCollection:
 
-    def __init__(self, vboUpdaterFactory, materialTextureCollection, eventManager):
+    def __init__(
+        self,
+        vboUpdaterFactory: VBOUpdaterFactory,
+        materialTextureCollection: MaterialTextureCollection,
+        eventManager: EventManager,
+    ):
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.materialTextureCollection = materialTextureCollection
         self.meshes = {}
@@ -64,5 +69,7 @@ class BulletHoleRenderCollection:
 
 def makeBulletHoleRenderCollection(resolver):
     return BulletHoleRenderCollection(
-        resolver.resolve(VBOUpdaterFactory), resolver.resolve(MaterialTextureCollection), resolver.resolve(EventManager)
+        resolver.resolve(VBOUpdaterFactory),
+        resolver.resolve(MaterialTextureCollection),
+        resolver.resolve(EventManager),
     )

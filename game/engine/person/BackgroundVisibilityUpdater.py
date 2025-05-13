@@ -6,7 +6,11 @@ from game.engine.GameData import GameData
 
 class BackgroundVisibilityUpdater:
 
-    def __init__(self, gameData, sphereSegmentCalculator):
+    def __init__(
+        self,
+        gameData: GameData,
+        sphereSegmentCalculator: SphereSegmentCalculator,
+    ):
         self.sphereRadius = CommonConstants.maxLevelSize
         self.gameData = gameData
         self.gameData.backgroundVisibility.horizontalPointsCount = 17
@@ -46,4 +50,7 @@ class BackgroundVisibilityUpdater:
 
 
 def makeBackgroundVisibilityUpdater(resolver):
-    return BackgroundVisibilityUpdater(resolver.resolve(GameData), resolver.resolve(SphereSegmentCalculator))
+    return BackgroundVisibilityUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(SphereSegmentCalculator),
+    )

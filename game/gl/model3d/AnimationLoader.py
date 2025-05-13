@@ -10,7 +10,7 @@ from game.lib.Tree import Tree
 
 class AnimationLoader:
 
-    def __init__(self, frameLoader):
+    def __init__(self, frameLoader: FrameLoader):
         self.frameLoader = frameLoader
 
     def loadAnimations(self, model3d, aiScene):

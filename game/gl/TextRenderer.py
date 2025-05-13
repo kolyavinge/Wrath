@@ -10,7 +10,12 @@ from game.lib.Environment import Environment
 
 class TextRenderer:
 
-    def __init__(self, textureLoader, vboUpdaterFactory, vboRenderer):
+    def __init__(
+        self,
+        textureLoader: TextureLoader,
+        vboUpdaterFactory: VBOUpdaterFactory,
+        vboRenderer: VBORenderer,
+    ):
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.vboRenderer = vboRenderer
         self.symbolCoordinates = self.getSymbolCoordinates()
@@ -63,4 +68,8 @@ class TextRenderer:
 
 
 def makeTextRenderer(resolver):
-    return TextRenderer(resolver.resolve(TextureLoader), resolver.resolve(VBOUpdaterFactory), resolver.resolve(VBORenderer))
+    return TextRenderer(
+        resolver.resolve(TextureLoader),
+        resolver.resolve(VBOUpdaterFactory),
+        resolver.resolve(VBORenderer),
+    )

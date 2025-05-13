@@ -11,7 +11,14 @@ from game.render.common.TextureCollection import TextureCollection
 
 class BackgroundRenderer:
 
-    def __init__(self, gameData, vboUpdaterFactory, shaderProgramCollection, vboRenderer, textureCollection):
+    def __init__(
+        self,
+        gameData: GameData,
+        vboUpdaterFactory: VBOUpdaterFactory,
+        shaderProgramCollection: ShaderProgramCollection,
+        vboRenderer: VBORenderer,
+        textureCollection: TextureCollection,
+    ):
         self.gameData = gameData
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.shaderProgramCollection = shaderProgramCollection

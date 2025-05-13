@@ -21,7 +21,13 @@ class ShineCircleParams:
 
 class ShineCircleRenderer:
 
-    def __init__(self, gameData, shaderProgramCollection, vboBuilderFactory, vboRenderer):
+    def __init__(
+        self,
+        gameData: GameData,
+        shaderProgramCollection: ShaderProgramCollection,
+        vboBuilderFactory: VBOBuilderFactory,
+        vboRenderer: VBORenderer,
+    ):
         self.gameData = gameData
         self.shaderProgramCollection = shaderProgramCollection
         self.vboBuilderFactory = vboBuilderFactory
@@ -59,5 +65,8 @@ class ShineCircleRenderer:
 
 def makeShineCircleRenderer(resolver):
     return ShineCircleRenderer(
-        resolver.resolve(GameData), resolver.resolve(ShaderProgramCollection), resolver.resolve(VBOBuilderFactory), resolver.resolve(VBORenderer)
+        resolver.resolve(GameData),
+        resolver.resolve(ShaderProgramCollection),
+        resolver.resolve(VBOBuilderFactory),
+        resolver.resolve(VBORenderer),
     )

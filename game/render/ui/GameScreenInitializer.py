@@ -14,15 +14,15 @@ class GameScreenInitializer:
 
     def __init__(
         self,
-        gameData,
-        levelItemRenderCollection,
-        bulletHoleRenderCollection,
-        shadowCasterRenderCollection,
-        bulletRenderCollection,
-        weaponRenderCollection,
-        powerupRenderCollection,
-        weaponFlashRenderCollection,
-        enemyRenderCollection,
+        gameData: GameData,
+        levelItemRenderCollection: LevelItemRenderCollection,
+        bulletHoleRenderCollection: BulletHoleRenderCollection,
+        shadowCasterRenderCollection: ShadowCasterRenderCollection,
+        bulletRenderCollection: BulletRenderCollection,
+        weaponRenderCollection: WeaponRenderCollection,
+        powerupRenderCollection: PowerupRenderCollection,
+        weaponFlashRenderCollection: WeaponFlashRenderCollection,
+        enemyRenderCollection: EnemyRenderCollection,
     ):
         self.gameData = gameData
         self.levelItemRenderCollection = levelItemRenderCollection

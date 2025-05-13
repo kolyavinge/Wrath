@@ -5,7 +5,7 @@ from game.model.person.PersonState import PersonState
 
 class PlayerMovingSwingUpdater:
 
-    def __init__(self, gameData):
+    def __init__(self, gameData: GameData):
         self.gameData = gameData
         self.movingParam = 0
 

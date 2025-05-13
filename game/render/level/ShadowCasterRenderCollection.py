@@ -3,7 +3,7 @@ from game.render.level.ShadowCasterBuilder import ShadowCasterBuilder
 
 class ShadowCasterRenderCollection:
 
-    def __init__(self, shadowCasterBuilder):
+    def __init__(self, shadowCasterBuilder: ShadowCasterBuilder):
         self.shadowCasterBuilder = shadowCasterBuilder
         self.shadowCastersVbos = {}
 

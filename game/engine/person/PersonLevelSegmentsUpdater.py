@@ -4,7 +4,11 @@ from game.engine.GameData import GameData
 
 class PersonLevelSegmentsUpdater:
 
-    def __init__(self, gameData, traversal):
+    def __init__(
+        self,
+        gameData: GameData,
+        traversal: BSPTreeTraversal,
+    ):
         self.gameData = gameData
         self.traversal = traversal
 
@@ -41,4 +45,7 @@ class PersonLevelSegmentsUpdater:
 
 
 def makePersonLevelSegmentsUpdater(resolver):
-    return PersonLevelSegmentsUpdater(resolver.resolve(GameData), resolver.resolve(BSPTreeTraversal))
+    return PersonLevelSegmentsUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(BSPTreeTraversal),
+    )

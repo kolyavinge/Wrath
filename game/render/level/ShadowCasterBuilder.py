@@ -3,7 +3,7 @@ from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 
 class ShadowCasterBuilder:
 
-    def __init__(self, vboBuilderFactory):
+    def __init__(self, vboBuilderFactory: VBOBuilderFactory):
         self.vboBuilderFactory = vboBuilderFactory
 
     def buildForLevelSegment(self, levelSegment):

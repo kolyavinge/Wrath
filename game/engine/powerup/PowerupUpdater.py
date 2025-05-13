@@ -12,7 +12,12 @@ from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 class PowerupUpdater:
 
-    def __init__(self, gameData, positionGenerator, traversal):
+    def __init__(
+        self,
+        gameData: GameData,
+        positionGenerator: PowerupPositionGenerator,
+        traversal: BSPTreeTraversal,
+    ):
         self.gameData = gameData
         self.positionGenerator = positionGenerator
         self.traversal = traversal
@@ -60,4 +65,8 @@ class PowerupUpdater:
 
 
 def makePowerupUpdater(resolver):
-    return PowerupUpdater(resolver.resolve(GameData), resolver.resolve(PowerupPositionGenerator), resolver.resolve(BSPTreeTraversal))
+    return PowerupUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(PowerupPositionGenerator),
+        resolver.resolve(BSPTreeTraversal),
+    )

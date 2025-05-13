@@ -7,7 +7,11 @@ from game.model.person.PersonItems import PersonItems
 
 class PersonInitializer:
 
-    def __init__(self, gameData, personTurnLogic):
+    def __init__(
+        self,
+        gameData: GameData,
+        personTurnLogic: PersonTurnLogic,
+    ):
         self.gameData = gameData
         self.personTurnLogic = personTurnLogic
 
@@ -54,4 +58,7 @@ class PersonInitializer:
 
 
 def makePersonInitializer(resolver):
-    return PersonInitializer(resolver.resolve(GameData), resolver.resolve(PersonTurnLogic))
+    return PersonInitializer(
+        resolver.resolve(GameData),
+        resolver.resolve(PersonTurnLogic),
+    )

@@ -14,7 +14,12 @@ class BulletCollisionTarget:
 
 class BulletCollisionDetector:
 
-    def __init__(self, gameData, levelSegmentItemFinder, planeCollisionDetector):
+    def __init__(
+        self,
+        gameData: GameData,
+        levelSegmentItemFinder: LevelSegmentItemFinder,
+        planeCollisionDetector: PlaneCollisionDetector,
+    ):
         self.gameData = gameData
         self.levelSegmentItemFinder = levelSegmentItemFinder
         self.planeCollisionDetector = planeCollisionDetector

@@ -7,7 +7,11 @@ from game.render.weapon.BulletHoleRenderCollection import BulletHoleRenderCollec
 
 class BulletHoleRenderer:
 
-    def __init__(self, bulletHoleRenderCollection, vboRenderer):
+    def __init__(
+        self,
+        bulletHoleRenderCollection: BulletHoleRenderCollection,
+        vboRenderer: VBORenderer,
+    ):
         self.bulletHoleRenderCollection = bulletHoleRenderCollection
         self.vboRenderer = vboRenderer
 
@@ -28,4 +32,7 @@ class BulletHoleRenderer:
 
 
 def makeBulletHoleRenderer(resolver):
-    return BulletHoleRenderer(resolver.resolve(BulletHoleRenderCollection), resolver.resolve(VBORenderer))
+    return BulletHoleRenderer(
+        resolver.resolve(BulletHoleRenderCollection),
+        resolver.resolve(VBORenderer),
+    )

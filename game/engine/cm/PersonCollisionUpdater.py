@@ -4,7 +4,11 @@ from game.engine.GameData import GameData
 
 class PersonCollisionUpdater:
 
-    def __init__(self, gameData, personCollisionDetector):
+    def __init__(
+        self,
+        gameData: GameData,
+        personCollisionDetector: PersonCollisionDetector,
+    ):
         self.gameData = gameData
         self.personCollisionDetector = personCollisionDetector
 
@@ -30,4 +34,7 @@ class PersonCollisionUpdater:
 
 
 def makePersonCollisionUpdater(resolver):
-    return PersonCollisionUpdater(resolver.resolve(GameData), resolver.resolve(PersonCollisionDetector))
+    return PersonCollisionUpdater(
+        resolver.resolve(GameData),
+        resolver.resolve(PersonCollisionDetector),
+    )

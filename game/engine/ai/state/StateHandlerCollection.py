@@ -7,7 +7,13 @@ from game.model.person.Enemy import EnemyState
 
 class StateHandlerCollection:
 
-    def __init__(self, patrollingState, attackState, healthSearchState, weaponSearchState):
+    def __init__(
+        self,
+        patrollingState: PatrollingStateHandler,
+        attackState: AttackStateHandler,
+        healthSearchState: HealthSearchStateHandler,
+        weaponSearchState: WeaponSearchStateHandler,
+    ):
         self.states = {}
         self.states[EnemyState.patrolling] = patrollingState
         self.states[EnemyState.attack] = attackState

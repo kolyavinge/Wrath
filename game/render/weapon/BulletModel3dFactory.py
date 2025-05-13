@@ -4,7 +4,11 @@ from game.render.common.Model3dDirectory import Model3dDirectory
 
 class BulletModel3dFactory:
 
-    def __init__(self, model3dLoader, model3dDirectory):
+    def __init__(
+        self,
+        model3dLoader: Model3dLoader,
+        model3dDirectory: Model3dDirectory,
+    ):
         self.model3dLoader = model3dLoader
         self.model3dDirectory = model3dDirectory
 
@@ -22,4 +26,7 @@ class BulletModel3dFactory:
 
 
 def makeBulletModel3dFactory(resolver):
-    return BulletModel3dFactory(resolver.resolve(Model3dLoader), resolver.resolve(Model3dDirectory))
+    return BulletModel3dFactory(
+        resolver.resolve(Model3dLoader),
+        resolver.resolve(Model3dDirectory),
+    )

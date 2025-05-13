@@ -3,7 +3,7 @@ from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 
 class LevelSegmentJoinLineAnalyzer:
 
-    def __init__(self, traversal):
+    def __init__(self, traversal: BSPTreeTraversal):
         self.traversal = traversal
 
     def analyzeJoinLines(self, level, bspTree):

@@ -8,7 +8,12 @@ from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection
 
 class PowerupRenderer:
 
-    def __init__(self, powerupRenderCollection, weaponRenderCollection, model3dRenderer):
+    def __init__(
+        self,
+        powerupRenderCollection: PowerupRenderCollection,
+        weaponRenderCollection: WeaponRenderCollection,
+        model3dRenderer: Model3dRenderer,
+    ):
         self.powerupRenderCollection = powerupRenderCollection
         self.weaponRenderCollection = weaponRenderCollection
         self.model3dRenderer = model3dRenderer
@@ -27,4 +32,8 @@ class PowerupRenderer:
 
 
 def makePowerupRenderer(resolver):
-    return PowerupRenderer(resolver.resolve(PowerupRenderCollection), resolver.resolve(WeaponRenderCollection), resolver.resolve(Model3dRenderer))
+    return PowerupRenderer(
+        resolver.resolve(PowerupRenderCollection),
+        resolver.resolve(WeaponRenderCollection),
+        resolver.resolve(Model3dRenderer),
+    )

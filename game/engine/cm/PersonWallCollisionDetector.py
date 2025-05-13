@@ -3,7 +3,7 @@ from game.engine.cm.WallCollisionDetector import WallCollisionDetector
 
 class PersonWallCollisionDetector:
 
-    def __init__(self, wallCollisionDetector):
+    def __init__(self, wallCollisionDetector: WallCollisionDetector):
         self.wallCollisionDetector = wallCollisionDetector
 
     def getCollidedWalls(self, person):

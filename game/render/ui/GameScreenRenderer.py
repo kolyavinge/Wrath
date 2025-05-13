@@ -17,17 +17,17 @@ class GameScreenRenderer:
 
     def __init__(
         self,
-        gameScreenInitializer,
-        debugRenderer,
-        backgroundRenderer,
-        mainSceneRenderer,
-        shineBulletRenderer,
-        weaponFlashRenderer,
-        bulletTraceRenderer,
-        crosshairRenderer,
-        sniperCrosshairRenderer,
-        dashboardRenderer,
-        eventManager,
+        gameScreenInitializer: GameScreenInitializer,
+        debugRenderer: DebugRenderer,
+        backgroundRenderer: BackgroundRenderer,
+        mainSceneRenderer: MainSceneRenderer,
+        shineBulletRenderer: ShineBulletRenderer,
+        weaponFlashRenderer: WeaponFlashRenderer,
+        bulletTraceRenderer: BulletTraceRenderer,
+        crosshairRenderer: CrosshairRenderer,
+        sniperCrosshairRenderer: SniperCrosshairRenderer,
+        dashboardRenderer: DashboardRenderer,
+        eventManager: EventManager,
     ):
         self.gameScreenInitializer = gameScreenInitializer
         self.debugRenderer = debugRenderer
