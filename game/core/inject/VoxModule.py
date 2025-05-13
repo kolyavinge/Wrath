@@ -13,13 +13,13 @@ from game.vox.ui.GameScreenVox import *
 class VoxModule:
 
     def init(self, binder):
-        binder.bindSingleton(AudioBufferLoader, makeAudioBufferLoader)
-        binder.bindSingleton(AudioPlayer, makeAudioPlayer)
-        binder.bindSingleton(AudioSourceLoader, makeAudioSourceLoader)
-        binder.bindSingleton(AudioBufferCollection, makeAudioBufferCollection)
-        binder.bindSingleton(AudioSourceFactory, makeAudioSourceFactory)
-        binder.bindSingleton(PersonVox, makePersonVox)
-        binder.bindSingleton(PlayerItemsVox, makePlayerItemsVox)
-        binder.bindSingleton(PowerupVox, makePowerupVox)
-        binder.bindSingleton(WeaponVox, makeWeaponVox)
-        binder.bindSingleton(GameScreenVox, makeGameScreenVox)
+        binder.bindSingleton(AudioBufferLoader)
+        binder.bindSingleton(AudioPlayer)
+        binder.bindSingleton(AudioSourceLoader)
+        binder.bindSingleton(AudioBufferCollection)
+        binder.bindSingleton(AudioSourceFactory)
+        binder.bindSingleton(PersonVox)
+        binder.bindSingleton(PlayerItemsVox)
+        binder.bindSingleton(PowerupVox)
+        binder.bindSingleton(WeaponVox)
+        binder.bindSingleton(GameScreenVox)
