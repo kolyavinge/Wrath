@@ -2,7 +2,7 @@ from game.engine.ai.state.AttackStateHandler import AttackStateHandler
 from game.engine.ai.state.HealthSearchStateHandler import HealthSearchStateHandler
 from game.engine.ai.state.PatrollingStateHandler import PatrollingStateHandler
 from game.engine.ai.state.WeaponSearchStateHandler import WeaponSearchStateHandler
-from game.model.person.Enemy import EnemyState
+from game.model.ai.AIData import EnemyState
 
 
 class StateHandlerCollection:

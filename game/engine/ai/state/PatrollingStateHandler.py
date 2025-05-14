@@ -1,7 +1,7 @@
 from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
 from game.engine.GameData import GameData
-from game.model.person.Enemy import EnemyState
+from game.model.ai.AIData import EnemyState
 
 
 class PatrollingStateHandler:

@@ -1,6 +1,6 @@
 from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
-from game.model.person.Enemy import EnemyState
+from game.model.ai.EnemyState import EnemyState
 
 
 class HealthSearchStateHandler:

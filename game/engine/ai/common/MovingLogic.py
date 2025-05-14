@@ -1,7 +1,7 @@
 from game.engine.ai.common.ObstacleAvoidanceLogic import ObstacleAvoidanceLogic
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.lib.Random import Random
-from game.model.person.Enemy import MoveDirections
+from game.model.ai.MoveDirection import MoveDirection
 
 
 class MovingLogic:
@@ -28,31 +28,31 @@ class MovingLogic:
         if aiData.moveDirectionRemain > 0:
             aiData.moveDirectionRemain -= 1
         if aiData.moveDirectionRemain == 0:
-            aiData.moveDirection = self.rand.getInt(0, MoveDirections.count)
+            aiData.moveDirection = self.rand.getInt(0, MoveDirection.count)
             aiData.moveDirectionRemain = self.rand.getInt(0, 100)
 
     def applyInputData(self, enemy, inputData):
         moveDirection = enemy.aiData.moveDirection
-        if moveDirection == MoveDirections.idle:
+        if moveDirection == MoveDirection.idle:
             return
-        elif moveDirection == MoveDirections.forward:
+        elif moveDirection == MoveDirection.forward:
             inputData.goForward = True
-        elif moveDirection == MoveDirections.backward:
+        elif moveDirection == MoveDirection.backward:
             inputData.goBackward = True
-        elif moveDirection == MoveDirections.left:
+        elif moveDirection == MoveDirection.left:
             inputData.stepLeft = True
-        elif moveDirection == MoveDirections.right:
+        elif moveDirection == MoveDirection.right:
             inputData.stepRight = True
-        elif moveDirection == MoveDirections.forwardLeft:
+        elif moveDirection == MoveDirection.forwardLeft:
             inputData.goForward = True
             inputData.stepLeft = True
-        elif moveDirection == MoveDirections.forwardRight:
+        elif moveDirection == MoveDirection.forwardRight:
             inputData.goForward = True
             inputData.stepRight = True
-        elif moveDirection == MoveDirections.backwardLeft:
+        elif moveDirection == MoveDirection.backwardLeft:
             inputData.goBackward = True
             inputData.stepLeft = True
-        elif moveDirection == MoveDirections.backwardRight:
+        elif moveDirection == MoveDirection.backwardRight:
             inputData.goBackward = True
             inputData.stepRight = True
         else:
