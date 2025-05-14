@@ -23,6 +23,8 @@ class PersonCollisionUpdater:
             velocitySum = person1.velocityValue + person2.velocityValue
             self.movePerson(person1, collisionLength, velocitySum)
             self.movePerson(person2, collisionLength, velocitySum)
+            self.gameData.collisionData.personPerson[person1] = person2
+            self.gameData.collisionData.personPerson[person2] = person1
 
     def movePerson(self, person, collisionLength, velocitySum):
         if person.hasMoved:

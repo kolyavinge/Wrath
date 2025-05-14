@@ -11,9 +11,11 @@ class CollisionData:
 
     def __init__(self):
         self.personBullet = {}
+        self.personPerson = {}
 
     def clear(self):
         self.personBullet.clear()
+        self.personPerson.clear()
 
 
 class BackgroundVisibilityData:
