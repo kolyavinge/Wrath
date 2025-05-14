@@ -33,6 +33,7 @@ from game.lib.Stopwatch import Stopwatch
 
 class GameUpdater:
 
+    gameData: GameData
     personTurnUpdater: PersonTurnUpdater
     personMovingTimeUpdater: PersonMovingTimeUpdater
     personVelocityUpdater: PersonVelocityUpdater
@@ -102,7 +103,7 @@ class GameUpdater:
         self.enemyAIUpdater.update()
         self.personPositionUpdater.resetMovedAndTurned()
         self.personUpdater.commitState()
-        self.personUpdater.resetWounded()
+        self.gameData.collisionData.clear()
 
         # sw.stop()
         # sw.printElapsed()

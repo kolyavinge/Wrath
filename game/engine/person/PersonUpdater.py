@@ -9,8 +9,3 @@ class PersonUpdater:
     def commitState(self):
         for person in self.gameData.allPerson:
             person.prevState = person.state
-
-    def resetWounded(self):
-        self.gameData.woundedPerson.clear()
-        for person in self.gameData.allPerson:
-            person.isWounded = False

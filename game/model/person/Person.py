@@ -48,7 +48,6 @@ class Person:
         self.currentFloor = Floor()
         self.stepTime = 0
         self.health = PersonConstants.maxPersonHealth
-        self.isWounded = False
         self.isPlayer = False
 
     def moveNextPositionBy(self, vector):

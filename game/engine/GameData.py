@@ -7,6 +7,15 @@ from game.model.person.PersonItems import PersonItems
 from game.model.person.Player import Player
 
 
+class CollisionData:
+
+    def __init__(self):
+        self.personBullet = {}
+
+    def clear(self):
+        self.personBullet.clear()
+
+
 class BackgroundVisibilityData:
 
     def __init__(self):
@@ -41,8 +50,8 @@ class GameData:
         self.powerups = []
         self.camera = Camera()
         self.aimState = DefaultAimState()
+        self.collisionData = CollisionData()
         self.backgroundVisibility = BackgroundVisibilityData()
-        self.woundedPerson = {}
         # for debug
         self.isDebug = False
         self.noEnemies = False

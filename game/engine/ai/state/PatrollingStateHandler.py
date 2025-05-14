@@ -21,8 +21,8 @@ class PatrollingStateHandler:
         inputData.goForward = True
 
     def getNewStateOrNone(self, enemy):
-        if enemy.isWounded:
-            bullet = self.gameData.woundedPerson[enemy]
+        if enemy in self.gameData.collisionData.personBullet:
+            bullet = self.gameData.collisionData.personBullet[enemy]
             if self.fireLogic.withinFireDistance(enemy, bullet.ownerPerson):
                 enemy.aiData.targetPerson = bullet.ownerPerson
                 return EnemyState.attack
