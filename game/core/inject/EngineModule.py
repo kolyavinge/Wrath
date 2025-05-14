@@ -98,7 +98,7 @@ class EngineModule:
         binder.bindSingleton(PowerupCollisionUpdater)
         binder.bindSingleton(WallCollisionDetector)
         binder.bindSingleton(GameData)
-        binder.bindSingleton(GameUpdater)
+        binder.bindSingleton(GameUpdater, resolveByFields=True)
         binder.bindSingleton(LevelLoader)
         binder.bindSingleton(LevelManager)
         binder.bindSingleton(LevelSegmentItemFinder)

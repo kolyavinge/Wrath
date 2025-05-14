@@ -33,69 +33,37 @@ from game.lib.Stopwatch import Stopwatch
 
 class GameUpdater:
 
-    def __init__(
-        self,
-        personTurnUpdater: PersonTurnUpdater,
-        personMovingTimeUpdater: PersonMovingTimeUpdater,
-        personVelocityUpdater: PersonVelocityUpdater,
-        personZUpdater: PersonZUpdater,
-        personWallCollisionUpdater: PersonWallCollisionUpdater,
-        personCollisionUpdater: PersonCollisionUpdater,
-        personStepUpdater: PersonStepUpdater,
-        playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater,
-        enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater,
-        playerMovingSwingUpdater: PlayerMovingSwingUpdater,
-        backgroundVisibilityUpdater: BackgroundVisibilityUpdater,
-        personPositionUpdater: PersonPositionUpdater,
-        personUpdater: PersonUpdater,
-        levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater,
-        cameraUpdater: CameraUpdater,
-        personWeaponPositionUpdater: PersonWeaponPositionUpdater,
-        weaponDelayUpdater: WeaponDelayUpdater,
-        weaponFireUpdater: WeaponFireUpdater,
-        playerWeaponSwingUpdater: PlayerWeaponSwingUpdater,
-        bulletUpdater: BulletUpdater,
-        nonStandardBulletMovingUpdater: NonStandardBulletMovingUpdater,
-        bulletPositionUpdater: BulletPositionUpdater,
-        bulletCollisionUpdater: BulletCollisionUpdater,
-        powerupCollisionUpdater: PowerupCollisionUpdater,
-        torchUpdater: TorchUpdater,
-        powerupUpdater: PowerupUpdater,
-        weaponFlashUpdater: WeaponFlashUpdater,
-        bulletTraceUpdater: BulletTraceUpdater,
-        enemyAIUpdater: EnemyAIUpdater,
-        # event listeners
-        weaponSelector: WeaponSelector,
-    ):
-        self.personTurnUpdater = personTurnUpdater
-        self.personMovingTimeUpdater = personMovingTimeUpdater
-        self.personVelocityUpdater = personVelocityUpdater
-        self.personZUpdater = personZUpdater
-        self.personWallCollisionUpdater = personWallCollisionUpdater
-        self.personCollisionUpdater = personCollisionUpdater
-        self.personStepUpdater = personStepUpdater
-        self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
-        self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
-        self.playerMovingSwingUpdater = playerMovingSwingUpdater
-        self.backgroundVisibilityUpdater = backgroundVisibilityUpdater
-        self.personPositionUpdater = personPositionUpdater
-        self.personUpdater = personUpdater
-        self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
-        self.cameraUpdater = cameraUpdater
-        self.personWeaponPositionUpdater = personWeaponPositionUpdater
-        self.weaponDelayUpdater = weaponDelayUpdater
-        self.weaponFireUpdater = weaponFireUpdater
-        self.playerWeaponSwingUpdater = playerWeaponSwingUpdater
-        self.bulletUpdater = bulletUpdater
-        self.nonStandardBulletMovingUpdater = nonStandardBulletMovingUpdater
-        self.bulletPositionUpdater = bulletPositionUpdater
-        self.bulletCollisionUpdater = bulletCollisionUpdater
-        self.powerupCollisionUpdater = powerupCollisionUpdater
-        self.torchUpdater = torchUpdater
-        self.powerupUpdater = powerupUpdater
-        self.weaponFlashUpdater = weaponFlashUpdater
-        self.bulletTraceUpdater = bulletTraceUpdater
-        self.enemyAIUpdater = enemyAIUpdater
+    personTurnUpdater: PersonTurnUpdater
+    personMovingTimeUpdater: PersonMovingTimeUpdater
+    personVelocityUpdater: PersonVelocityUpdater
+    personZUpdater: PersonZUpdater
+    personWallCollisionUpdater: PersonWallCollisionUpdater
+    personCollisionUpdater: PersonCollisionUpdater
+    personStepUpdater: PersonStepUpdater
+    playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater
+    enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater
+    playerMovingSwingUpdater: PlayerMovingSwingUpdater
+    backgroundVisibilityUpdater: BackgroundVisibilityUpdater
+    personPositionUpdater: PersonPositionUpdater
+    personUpdater: PersonUpdater
+    levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater
+    cameraUpdater: CameraUpdater
+    personWeaponPositionUpdater: PersonWeaponPositionUpdater
+    weaponDelayUpdater: WeaponDelayUpdater
+    weaponFireUpdater: WeaponFireUpdater
+    playerWeaponSwingUpdater: PlayerWeaponSwingUpdater
+    bulletUpdater: BulletUpdater
+    nonStandardBulletMovingUpdater: NonStandardBulletMovingUpdater
+    bulletPositionUpdater: BulletPositionUpdater
+    bulletCollisionUpdater: BulletCollisionUpdater
+    powerupCollisionUpdater: PowerupCollisionUpdater
+    torchUpdater: TorchUpdater
+    powerupUpdater: PowerupUpdater
+    weaponFlashUpdater: WeaponFlashUpdater
+    bulletTraceUpdater: BulletTraceUpdater
+    enemyAIUpdater: EnemyAIUpdater
+    # event listeners
+    weaponSelector: WeaponSelector
 
     def update(self):
         # sw = Stopwatch()
