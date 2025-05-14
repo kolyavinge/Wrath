@@ -41,11 +41,12 @@ class Person:
         self.prevVelocityValue = 0
         self.velocityValue = 0
         self.velocityVector = Vector3()
+        self.velocityFunc = VelocityFunc()
         self.fallingTime = 0
         self.landingTime = 0
-        self.velocityFunc = VelocityFunc()
         self.fallingFunc = FallingFunc()
         self.currentFloor = Floor()
+        self.stepTime = 0
         self.health = PersonConstants.maxPersonHealth
         self.isWounded = False
         self.isPlayer = False

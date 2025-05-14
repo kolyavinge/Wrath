@@ -1,4 +1,5 @@
 from game.anx.Events import Events
+from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
 from game.model.level.Stair import Stair
@@ -15,18 +16,18 @@ class PersonStepUpdater:
         self.eventManager = eventManager
 
     def update(self):
+        for person in self.gameData.allPerson:
+            if person.hasMoved:
+                self.updateForPerson(person)
+
+    def updateForPerson(self, person):
         doStep = False
-        player = self.gameData.player
-        if isinstance(player.currentFloor, Stair):
-            doStep = player.currentCenterPoint.z != player.nextCenterPoint.z
+        person.stepTime += 1
+        if isinstance(person.currentFloor, Stair):
+            doStep = person.currentCenterPoint.z != person.nextCenterPoint.z
         else:
-            doStep = (
-                player.prevPrevSwingValue < 0
-                and player.prevSwingValue < 0
-                and player.currentSwingValue < 0
-                and player.prevPrevSwingValue > player.prevSwingValue
-                and player.currentSwingValue > player.prevSwingValue
-            )
+            doStep = person.stepTime > PersonConstants.stepTimeLimit
 
         if doStep:
-            self.eventManager.raiseEvent(Events.personStepDone, player)
+            person.stepTime = 0
+            self.eventManager.raiseEvent(Events.personStepDone, person)

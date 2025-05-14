@@ -6,6 +6,4 @@ class Player(Person):
     def __init__(self):
         super().__init__()
         self.isPlayer = True
-        self.prevPrevSwingValue = 0
-        self.prevSwingValue = 0
-        self.currentSwingValue = 0
+        self.swingValue = 0

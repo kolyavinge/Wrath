@@ -10,15 +10,9 @@ class PlayerMovingSwingUpdater:
         self.movingParam = 0
 
     def update(self):
-        self.commitCurrentSwingValue()
         self.calculateSwingValue()
         self.updateLookSwing()
         self.updateLandingSwing()
-
-    def commitCurrentSwingValue(self):
-        player = self.gameData.player
-        player.prevPrevSwingValue = player.prevSwingValue
-        player.prevSwingValue = player.currentSwingValue
 
     def calculateSwingValue(self):
         player = self.gameData.player
@@ -28,13 +22,13 @@ class PlayerMovingSwingUpdater:
             self.movingParam = 0
         else:
             self.movingParam += 0.1
-        player.currentSwingValue = 0.2 * player.velocityValue * Math.sin(4.0 * self.movingParam)
+        player.swingValue = 0.2 * player.velocityValue * Math.sin(4.0 * self.movingParam)
 
     def updateLookSwing(self):
         player = self.gameData.player
-        if player.currentSwingValue != 0:
+        if player.swingValue != 0:
             swingDirection = player.lookDirectionNormal.copy()
-            swingDirection.mul(player.currentSwingValue)
+            swingDirection.mul(player.swingValue)
             player.eyePosition.add(swingDirection)
 
     def updateLandingSwing(self):
