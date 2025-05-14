@@ -25,8 +25,8 @@ class PersonVox:
 
     def init(self, allSources):
         self.sources = {}
-        self.sources[self.gameData.player] = PersonAudioSources(self.gameData.player, self.audioSourceFactory)
-        # other enemies
+        for person in self.gameData.allPerson:
+            self.sources[person] = PersonAudioSources(person, self.audioSourceFactory)
         allSources.extend(self.sources.values())
 
     def onPersonStepDone(self, person):
