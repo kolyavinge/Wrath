@@ -52,4 +52,3 @@ class BulletCollisionUpdater:
 
     def processPersonCollision(self, bullet, person):
         self.personDamageLogic.damageByBullet(person, bullet)
-        print(f"{person} health: {person.health}")

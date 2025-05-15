@@ -16,6 +16,7 @@ class AIData:
         self.fireDelayRemain = 0
         self.moveDirection = MoveDirection.idle
         self.moveDirectionRemain = 0
+        self.runAwayFromObstacle = False
 
     def commit(self):
         self.checkCollisionRadianStep = self.horizontalFieldViewRadians / self.checkCollisionDirectionsCount
