@@ -20,9 +20,11 @@ class AttackStateHandler:
         self.movingLogic.updateMoveDirection(enemy)
 
         if not enemy.aiData.runAwayFromObstacle and enemy in self.gameData.collisionData.personPerson:
+            enemy.aiData.runAwayFromObstacle = True
             otherEnemy = self.gameData.collisionData.personPerson[enemy]
-            if otherEnemy.velocityValue > 0:
-                self.movingLogic.setOppositeOtherEnemyDirection(enemy, otherEnemy.velocityVector)
+            if enemy.velocityValue > 0 and otherEnemy.velocityValue > 0:
+                if not enemy.velocityVector.isParallel(otherEnemy.velocityVector, 0.1):
+                    self.movingLogic.setOppositeDirection(enemy)
             else:
                 self.movingLogic.setOppositeDirection(enemy)
 
@@ -33,5 +35,8 @@ class AttackStateHandler:
     def getNewStateOrNone(self, enemy):
         if not self.fireLogic.targetExists(enemy):
             return EnemyState.patrolling
+
+        if enemy.health < enemy.aiData.criticalHealth:
+            return EnemyState.healthSearch
 
         return None

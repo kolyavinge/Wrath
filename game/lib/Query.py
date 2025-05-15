@@ -54,12 +54,22 @@ class Query:
         return self
 
     def count(self, condition=None):
+        if condition is None:
+            return len(self.result)
+
         result = 0
         for item in self.result:
-            if condition is not None:
-                if condition(item):
-                    result += 1
-            else:
+            if condition(item):
                 result += 1
 
         return result
+
+    def any(self, condition=None):
+        if condition is None:
+            return len(self.result) > 0
+
+        for item in self.result:
+            if condition(item):
+                return True
+
+        return False
