@@ -26,6 +26,8 @@ class PersonWallCollisionUpdater:
         if len(collidedWalls) == 0:
             return
 
+        self.gameData.collisionData.personWalls[person] = collidedWalls
+
         self.processWall(person, collidedWalls[0])
 
         for i in range(1, len(collidedWalls)):
