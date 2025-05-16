@@ -4,6 +4,7 @@ from game.engine.person.AimStateSwitcher import AimStateSwitcher
 from game.lib.EventManager import EventManager
 from game.lib.Query import Query
 from game.model.weapon.Launcher import Launcher
+from game.model.weapon.NullWeapon import NullWeapon
 from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.Railgun import Railgun
@@ -22,19 +23,27 @@ class WeaponSelector:
         self.gameData = gameData
         self.aimStateSwitcher = aimStateSwitcher
 
-        self.weaponNumbers = {}
-        self.weaponNumbers[1] = Pistol
-        self.weaponNumbers[2] = Rifle
-        self.weaponNumbers[3] = Plasma
-        self.weaponNumbers[4] = Launcher
-        self.weaponNumbers[5] = Railgun
-        self.weaponNumbers[6] = Sniper
+        self.weaponByNumbers = {}
+        self.weaponByNumbers[1] = Pistol
+        self.weaponByNumbers[2] = Rifle
+        self.weaponByNumbers[3] = Plasma
+        self.weaponByNumbers[4] = Launcher
+        self.weaponByNumbers[5] = Railgun
+        self.weaponByNumbers[6] = Sniper
+
+        self.nextWeapons = {}
+        self.nextWeapons[Pistol] = Rifle
+        self.nextWeapons[Rifle] = Plasma
+        self.nextWeapons[Plasma] = Launcher
+        self.nextWeapons[Launcher] = Railgun
+        self.nextWeapons[Railgun] = Sniper
+        self.nextWeapons[Sniper] = Pistol
 
         eventManager.attachToEvent(Events.selectWeaponRequested, self.onSelectWeaponRequested)
 
     def onSelectWeaponRequested(self, args):
         person, weaponNumber = args
-        requestedWeaponType = self.weaponNumbers[weaponNumber]
+        requestedWeaponType = self.weaponByNumbers[weaponNumber]
         self.selectWeaponByType(person, requestedWeaponType)
 
     def selectWeaponByType(self, person, weaponType):
@@ -58,3 +67,19 @@ class WeaponSelector:
                     if personItems.rightHandWeapon.bulletsCount == personItems.leftHandWeapon.bulletsCount
                     else personItems.leftHandWeapon
                 )
+
+    def selectNextWeapon(self, person, weapon):
+        personItems = self.gameData.allPersonItems[person]
+        if len(personItems.weapons) > 0:
+            weaponType = type(weapon)
+            nextWeaponType = self.nextWeapons[weaponType]
+            for _ in range(1, len(self.weaponByNumbers)):
+                if personItems.hasWeaponByType(nextWeaponType):
+                    self.selectWeaponByType(person, nextWeaponType)
+                    return
+                else:
+                    nextWeaponType = self.nextWeapons[nextWeaponType]
+        else:
+            personItems.rightHandWeapon = NullWeapon.instance
+            personItems.leftHandWeapon = None
+            personItems.currentWeapon = personItems.rightHandWeapon

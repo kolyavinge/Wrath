@@ -2,6 +2,7 @@ from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.engine.weapon.WeaponFeedbackLogic import WeaponFeedbackLogic
+from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.EventManager import EventManager
 
 
@@ -11,24 +12,26 @@ class WeaponFireUpdater:
         self,
         gameData: GameData,
         weaponFeedbackLogic: WeaponFeedbackLogic,
+        weaponSelector: WeaponSelector,
         traversal: BSPTreeTraversal,
         eventManager: EventManager,
     ):
         self.gameData = gameData
         self.weaponFeedbackLogic = weaponFeedbackLogic
+        self.weaponSelector = weaponSelector
         self.traversal = traversal
         self.eventManager = eventManager
 
     def update(self):
         for person, inputData in self.gameData.allPersonInputData.items():
             personItems = self.gameData.allPersonItems[person]
-            weapon = personItems.currentWeapon
-            self.updateForWeapon(person, inputData, weapon)
+            self.updateForWeapon(person, personItems, inputData)
 
-    def updateForWeapon(self, person, inputData, weapon):
+    def updateForWeapon(self, person, personItems, inputData):
+        weapon = personItems.currentWeapon
         if inputData.fire and self.canFire(weapon):
             weapon.isFiring = True
-            self.fire(person, weapon)
+            self.fire(person, personItems, weapon)
             self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
         else:
             weapon.isFiring = False
@@ -36,8 +39,12 @@ class WeaponFireUpdater:
     def canFire(self, weapon):
         return weapon.bulletsCount > 0 and weapon.delayRemain == 0
 
-    def fire(self, person, weapon):
+    def fire(self, person, personItems, weapon):
         weapon.bulletsCount -= 1
+        if weapon.bulletsCount == 0:
+            personItems.removeWeaponByType(type(weapon))
+            self.weaponSelector.selectNextWeapon(person, weapon)
+
         weapon.delayRemain = weapon.delay
         self.weaponFeedbackLogic.applyFeedback(weapon)
 

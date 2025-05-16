@@ -28,9 +28,9 @@ class PersonItems:
         self.weapons.add(launcher)
         self.weapons.add(railgun)
         self.weapons.add(sniper)
-        self.rightHandWeapon = pistol1
-        self.leftHandWeapon = pistol2
-        self.currentWeapon = self.rightHandWeapon
+        self.rightHandWeapon = None
+        self.leftHandWeapon = None
+        self.currentWeapon = None
         self.vest = 0
 
     def setFullVest(self):
@@ -42,11 +42,10 @@ class PersonItems:
 
         self.vest = int(Math.max(self.vest - value, 0))
 
-    def setWeaponByType(self, weaponType):
-        self.rightHandWeapon = Query(self.weapons).first(lambda x: type(x) == weaponType)
-        self.currentWeapon = self.rightHandWeapon
-        if self.rightHandWeapon.defaultCount == 1:
-            self.leftHandWeapon = None
-        elif self.rightHandWeapon.defaultCount == 2:
-            self.leftHandWeapon = Query(self.weapons).first(lambda x: type(x) == weaponType and x != self.rightHandWeapon)
-            assert self.leftHandWeapon != self.rightHandWeapon
+    def hasWeaponByType(self, weaponType):
+        return Query(self.weapons).any(lambda x: type(x) == weaponType)
+
+    def removeWeaponByType(self, weaponType):
+        weapons = Query(self.weapons).where(lambda x: type(x) == weaponType).result
+        for weapon in weapons:
+            self.weapons.remove(weapon)

@@ -1,6 +1,7 @@
 from game.anx.Events import Events
 from game.engine.cm.PowerupCollisionDetector import PowerupCollisionDetector
 from game.engine.GameData import GameData
+from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.EventManager import EventManager
 from game.lib.Query import Query
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
@@ -15,10 +16,12 @@ class PowerupCollisionUpdater:
         self,
         gameData: GameData,
         powerupCollisionDetector: PowerupCollisionDetector,
+        weaponSelector: WeaponSelector,
         eventManager: EventManager,
     ):
         self.gameData = gameData
         self.powerupCollisionDetector = powerupCollisionDetector
+        self.weaponSelector = weaponSelector
         self.eventManager = eventManager
         self.actions = {}
         self.actions[WeaponPowerup] = self.processWeaponPowerup
@@ -46,8 +49,11 @@ class PowerupCollisionUpdater:
             for findedWeapon in findedWeapons:
                 findedWeapon.addBullets(findedWeapon.maxBulletsCount)
         else:
+            selectThisWeapon = len(personWeapons) == 0
             for _ in range(0, powerup.count):
                 personWeapons.add(powerup.weaponType())
+            if selectThisWeapon:
+                self.weaponSelector.selectWeaponByType(person, powerup.weaponType)
 
     def processHealthPowerup(self, person, powerup):
         person.addHealth(powerup.value)
