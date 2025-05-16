@@ -58,9 +58,9 @@ class DashboardRenderer:
         self.textRenderer.render(textItems)
 
     def getAlignedNumber(self, number):
-        if number < 9:
+        if number < 10:
             number = "  " + str(number)
-        elif number < 99:
+        elif number < 100:
             number = " " + str(number)
         else:
             number = str(number)
