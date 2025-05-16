@@ -47,26 +47,19 @@ class WeaponSelector:
         self.selectWeaponByType(person, requestedWeaponType)
 
     def selectWeaponByType(self, person, weaponType):
-        if person.isPlayer:
-            self.aimStateSwitcher.setToDefaultIfNeeded()
         personItems = self.gameData.allPersonItems[person]
         if weaponType.defaultCount == 1:
             findedWeapon = Query(personItems.weapons).firstOrNone(lambda x: type(x) == weaponType)
             if findedWeapon is not None:
-                personItems.rightHandWeapon = findedWeapon
-                personItems.leftHandWeapon = None
-                personItems.currentWeapon = personItems.rightHandWeapon
+                self.setWeapons(person, personItems, findedWeapon, None, findedWeapon)
         elif weaponType.defaultCount == 2:
             findedWeapons = Query(personItems.weapons).where(lambda x: type(x) == weaponType).result
             if len(findedWeapons) == 2:
-                personItems.rightHandWeapon = findedWeapons[0]
-                personItems.leftHandWeapon = findedWeapons[1]
+                rightHandWeapon = findedWeapons[0]
+                leftHandWeapon = findedWeapons[1]
                 # в левом стволе может быть на одну пулю больше, если последний раз кол-во выстрелов было непарным
-                personItems.currentWeapon = (
-                    personItems.rightHandWeapon
-                    if personItems.rightHandWeapon.bulletsCount == personItems.leftHandWeapon.bulletsCount
-                    else personItems.leftHandWeapon
-                )
+                currentWeapon = rightHandWeapon if rightHandWeapon.bulletsCount == leftHandWeapon.bulletsCount else leftHandWeapon
+                self.setWeapons(person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon)
 
     def selectNextWeapon(self, person, weapon):
         personItems = self.gameData.allPersonItems[person]
@@ -80,6 +73,11 @@ class WeaponSelector:
                 else:
                     nextWeaponType = self.nextWeapons[nextWeaponType]
         else:
-            personItems.rightHandWeapon = NullWeapon.instance
-            personItems.leftHandWeapon = None
-            personItems.currentWeapon = personItems.rightHandWeapon
+            self.setWeapons(person, personItems, NullWeapon.instance, None, NullWeapon.instance)
+
+    def setWeapons(self, person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon):
+        if person.isPlayer:
+            self.aimStateSwitcher.setToDefaultIfNeeded()
+        personItems.rightHandWeapon = rightHandWeapon
+        personItems.leftHandWeapon = leftHandWeapon
+        personItems.currentWeapon = currentWeapon

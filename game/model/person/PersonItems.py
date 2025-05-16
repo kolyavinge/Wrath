@@ -49,3 +49,13 @@ class PersonItems:
         weapons = Query(self.weapons).where(lambda x: type(x) == weaponType).result
         for weapon in weapons:
             self.weapons.remove(weapon)
+
+    def isCurrentWeaponEmpty(self):
+        return (self.rightHandWeapon.bulletsCount == 0) and (self.leftHandWeapon is None or self.leftHandWeapon.bulletsCount == 0)
+
+    def switchTwoHandedWeaponIfNeeded(self):
+        if self.leftHandWeapon is not None:
+            if self.rightHandWeapon == self.currentWeapon:
+                self.currentWeapon = self.leftHandWeapon
+            else:
+                self.currentWeapon = self.rightHandWeapon

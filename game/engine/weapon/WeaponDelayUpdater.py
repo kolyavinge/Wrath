@@ -14,11 +14,4 @@ class WeaponDelayUpdater:
         if weapon.delayRemain > 0:
             weapon.delayRemain -= 1
             if weapon.delayRemain == 0:
-                self.switchTwoHandedWeaponIfNeeded(personItems)
-
-    def switchTwoHandedWeaponIfNeeded(self, personItems):
-        if personItems.leftHandWeapon is not None:
-            if personItems.rightHandWeapon == personItems.currentWeapon:
-                personItems.currentWeapon = personItems.leftHandWeapon
-            else:
-                personItems.currentWeapon = personItems.rightHandWeapon
+                personItems.switchTwoHandedWeaponIfNeeded()

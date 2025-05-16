@@ -41,7 +41,7 @@ class WeaponFireUpdater:
 
     def fire(self, person, personItems, weapon):
         weapon.bulletsCount -= 1
-        if weapon.bulletsCount == 0:
+        if personItems.isCurrentWeaponEmpty():
             personItems.removeWeaponByType(type(weapon))
             self.weaponSelector.selectNextWeapon(person, weapon)
 
