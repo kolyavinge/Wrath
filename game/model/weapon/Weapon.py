@@ -65,7 +65,3 @@ class Weapon:
             .rotate(self.pitchRadians, CommonConstants.xAxis)
             .resultMatrix
         )
-
-    @staticmethod
-    def getAllWeaponTypes():
-        return Weapon.__subclasses__()

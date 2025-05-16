@@ -17,6 +17,9 @@ class TransformMatrix4:
     def setIdentity(self):
         self.items = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
 
+    def setZero(self):
+        self.items = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
     def get(self, row, col):
         return self.items[4 * col + row]
 
