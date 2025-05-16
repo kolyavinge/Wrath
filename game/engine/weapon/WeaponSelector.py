@@ -2,7 +2,6 @@ from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
 from game.lib.EventManager import EventManager
-from game.lib.Query import Query
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.NullWeapon import NullWeapon
 from game.model.weapon.Pistol import Pistol
@@ -49,11 +48,11 @@ class WeaponSelector:
     def selectWeaponByType(self, person, weaponType):
         personItems = self.gameData.allPersonItems[person]
         if weaponType.defaultCount == 1:
-            findedWeapon = Query(personItems.weapons).firstOrNone(lambda x: type(x) == weaponType)
+            findedWeapon = personItems.getWeaponByTypeOrNone(weaponType)
             if findedWeapon is not None:
                 self.setWeapons(person, personItems, findedWeapon, None, findedWeapon)
         elif weaponType.defaultCount == 2:
-            findedWeapons = Query(personItems.weapons).where(lambda x: type(x) == weaponType).result
+            findedWeapons = personItems.getWeaponsByType(weaponType)
             if len(findedWeapons) == 2:
                 rightHandWeapon = findedWeapons[0]
                 leftHandWeapon = findedWeapons[1]
@@ -63,7 +62,7 @@ class WeaponSelector:
 
     def selectNextWeapon(self, person, weapon):
         personItems = self.gameData.allPersonItems[person]
-        if len(personItems.weapons) > 0:
+        if personItems.hasWeapons():
             weaponType = type(weapon)
             nextWeaponType = self.nextWeapons[weaponType]
             for _ in range(1, len(self.weaponByNumbers)):

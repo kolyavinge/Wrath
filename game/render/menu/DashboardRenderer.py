@@ -47,11 +47,8 @@ class DashboardRenderer:
         textItems.append((self.getAlignedNumber(self.gameData.player.health), 10, 10))
         textItems.append((self.getAlignedNumber(self.gameData.playerItems.vest), 200, 10))
 
-        bulletsCount = self.gameData.playerItems.rightHandWeapon.bulletsCount
-        maxBulletsCount = self.gameData.playerItems.rightHandWeapon.maxBulletsCount
-        if self.gameData.playerItems.leftHandWeapon is not None:
-            bulletsCount += self.gameData.playerItems.leftHandWeapon.bulletsCount
-            maxBulletsCount *= 2
+        bulletsCount = self.gameData.playerItems.getLeftRightWeaponBulletsCount()
+        maxBulletsCount = self.gameData.playerItems.getLeftRightWeaponMaxBulletsCount()
         bulletsCount = f"{self.getAlignedNumber(bulletsCount)}/{maxBulletsCount}"
         textItems.append((bulletsCount, viewportWidth + 220, 10))
 

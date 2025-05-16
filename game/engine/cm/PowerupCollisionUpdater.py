@@ -3,7 +3,6 @@ from game.engine.cm.PowerupCollisionDetector import PowerupCollisionDetector
 from game.engine.GameData import GameData
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.EventManager import EventManager
-from game.lib.Query import Query
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
 from game.model.powerup.VestPowerup import VestPowerup
@@ -43,15 +42,15 @@ class PowerupCollisionUpdater:
             self.eventManager.raiseEvent(Events.powerupPickedUp, (person, powerup))
 
     def processWeaponPowerup(self, person, powerup):
-        personWeapons = self.gameData.allPersonItems[person].weapons
-        findedWeapons = Query(personWeapons).where(lambda w: type(w) == powerup.weaponType).result
+        personItems = self.gameData.allPersonItems[person]
+        findedWeapons = personItems.getWeaponsByType(powerup.weaponType)
         if len(findedWeapons) > 0:
             for findedWeapon in findedWeapons:
                 findedWeapon.addBullets(findedWeapon.maxBulletsCount)
         else:
-            selectThisWeapon = len(personWeapons) == 0
+            selectThisWeapon = not personItems.hasWeapons()
             for _ in range(0, powerup.count):
-                personWeapons.add(powerup.weaponType())
+                personItems.weapons.add(powerup.weaponType())
             if selectThisWeapon:
                 self.weaponSelector.selectWeaponByType(person, powerup.weaponType)
 

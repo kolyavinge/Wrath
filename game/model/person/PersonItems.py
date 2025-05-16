@@ -42,8 +42,17 @@ class PersonItems:
 
         self.vest = int(Math.max(self.vest - value, 0))
 
+    def hasWeapons(self):
+        return len(self.weapons) > 0
+
     def hasWeaponByType(self, weaponType):
         return Query(self.weapons).any(lambda x: type(x) == weaponType)
+
+    def getWeaponByTypeOrNone(self, weaponType):
+        return Query(self.weapons).firstOrNone(lambda x: type(x) == weaponType)
+
+    def getWeaponsByType(self, weaponType):
+        return Query(self.weapons).where(lambda w: type(w) == weaponType).result
 
     def removeWeaponByType(self, weaponType):
         weapons = Query(self.weapons).where(lambda x: type(x) == weaponType).result
@@ -52,6 +61,20 @@ class PersonItems:
 
     def isCurrentWeaponEmpty(self):
         return (self.rightHandWeapon.bulletsCount == 0) and (self.leftHandWeapon is None or self.leftHandWeapon.bulletsCount == 0)
+
+    def getLeftRightWeaponBulletsCount(self):
+        bulletsCount = self.rightHandWeapon.bulletsCount
+        if self.leftHandWeapon is not None:
+            bulletsCount += self.leftHandWeapon.bulletsCount
+
+        return bulletsCount
+
+    def getLeftRightWeaponMaxBulletsCount(self):
+        maxBulletsCount = self.rightHandWeapon.maxBulletsCount
+        if self.leftHandWeapon is not None:
+            maxBulletsCount += self.leftHandWeapon.maxBulletsCount
+
+        return maxBulletsCount
 
     def switchTwoHandedWeaponIfNeeded(self):
         if self.leftHandWeapon is not None:
