@@ -33,17 +33,17 @@ class PlayerInputManager:
         keyboard = self.inputManager.keyboard
 
         if keyboard.isPressed(Keys.d1):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, 1)
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 1))
         elif keyboard.isPressed(Keys.d2):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, 2)
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 2))
         elif keyboard.isPressed(Keys.d3):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, 3)
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 3))
         elif keyboard.isPressed(Keys.d4):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, 4)
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 4))
         elif keyboard.isPressed(Keys.d5):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, 5)
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 5))
         elif keyboard.isPressed(Keys.d6):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, 6)
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 6))
 
         if keyboard.isPressedOrHeld(Keys.w):
             inputData.goForward = True

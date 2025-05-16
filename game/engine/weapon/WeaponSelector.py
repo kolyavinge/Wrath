@@ -21,33 +21,40 @@ class WeaponSelector:
     ):
         self.gameData = gameData
         self.aimStateSwitcher = aimStateSwitcher
-        self.weapons = {}
-        self.weapons[1] = Pistol
-        self.weapons[2] = Rifle
-        self.weapons[3] = Plasma
-        self.weapons[4] = Launcher
-        self.weapons[5] = Railgun
-        self.weapons[6] = Sniper
-        eventManager.attachToEvent(Events.selectWeaponRequested, self.selectWeapon)
 
-    def selectWeapon(self, weaponNumber):
-        self.aimStateSwitcher.setToDefaultIfNeeded()
-        requestedWeaponType = self.weapons[weaponNumber]
-        playerItems = self.gameData.playerItems
-        if requestedWeaponType.defaultCount == 1:
-            findedWeapon = Query(playerItems.weapons).firstOrNone(lambda x: type(x) == requestedWeaponType)
+        self.weaponNumbers = {}
+        self.weaponNumbers[1] = Pistol
+        self.weaponNumbers[2] = Rifle
+        self.weaponNumbers[3] = Plasma
+        self.weaponNumbers[4] = Launcher
+        self.weaponNumbers[5] = Railgun
+        self.weaponNumbers[6] = Sniper
+
+        eventManager.attachToEvent(Events.selectWeaponRequested, self.onSelectWeaponRequested)
+
+    def onSelectWeaponRequested(self, args):
+        person, weaponNumber = args
+        requestedWeaponType = self.weaponNumbers[weaponNumber]
+        self.selectWeaponByType(person, requestedWeaponType)
+
+    def selectWeaponByType(self, person, weaponType):
+        if person.isPlayer:
+            self.aimStateSwitcher.setToDefaultIfNeeded()
+        personItems = self.gameData.allPersonItems[person]
+        if weaponType.defaultCount == 1:
+            findedWeapon = Query(personItems.weapons).firstOrNone(lambda x: type(x) == weaponType)
             if findedWeapon is not None:
-                playerItems.rightHandWeapon = findedWeapon
-                playerItems.leftHandWeapon = None
-                playerItems.currentWeapon = playerItems.rightHandWeapon
-        elif requestedWeaponType.defaultCount == 2:
-            findedWeapons = Query(playerItems.weapons).where(lambda x: type(x) == requestedWeaponType).result
+                personItems.rightHandWeapon = findedWeapon
+                personItems.leftHandWeapon = None
+                personItems.currentWeapon = personItems.rightHandWeapon
+        elif weaponType.defaultCount == 2:
+            findedWeapons = Query(personItems.weapons).where(lambda x: type(x) == weaponType).result
             if len(findedWeapons) == 2:
-                playerItems.rightHandWeapon = findedWeapons[0]
-                playerItems.leftHandWeapon = findedWeapons[1]
+                personItems.rightHandWeapon = findedWeapons[0]
+                personItems.leftHandWeapon = findedWeapons[1]
                 # в левом стволе может быть на одну пулю больше, если последний раз кол-во выстрелов было непарным
-                playerItems.currentWeapon = (
-                    playerItems.rightHandWeapon
-                    if playerItems.rightHandWeapon.bulletsCount == playerItems.leftHandWeapon.bulletsCount
-                    else playerItems.leftHandWeapon
+                personItems.currentWeapon = (
+                    personItems.rightHandWeapon
+                    if personItems.rightHandWeapon.bulletsCount == personItems.leftHandWeapon.bulletsCount
+                    else personItems.leftHandWeapon
                 )

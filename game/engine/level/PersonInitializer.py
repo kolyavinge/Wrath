@@ -1,5 +1,6 @@
 from game.engine.GameData import GameData
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
+from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.model.person.Enemy import Enemy
 from game.model.person.PersonInputData import PersonInputData
 from game.model.person.PersonItems import PersonItems
@@ -7,13 +8,10 @@ from game.model.person.PersonItems import PersonItems
 
 class PersonInitializer:
 
-    def __init__(
-        self,
-        gameData: GameData,
-        personTurnLogic: PersonTurnLogic,
-    ):
+    def __init__(self, gameData: GameData, personTurnLogic: PersonTurnLogic, weaponSelector: WeaponSelector):
         self.gameData = gameData
         self.personTurnLogic = personTurnLogic
+        self.weaponSelector = weaponSelector
 
     def init(self):
         self.initPlayer()
@@ -26,7 +24,7 @@ class PersonInitializer:
         self.gameData.player.moveNextPositionTo(position)
         self.personTurnLogic.orientToFrontNormal(self.gameData.player, frontNormal)
         self.gameData.player.commitNextPosition()
-        self.gameData.playerItems.setWeaponByType(weaponType)
+        self.weaponSelector.selectWeaponByType(self.gameData.player, weaponType)
 
     def initEnemies(self):
         if self.gameData.noEnemies:
@@ -43,11 +41,11 @@ class PersonInitializer:
         self.gameData.enemies.append(enemy)
         self.gameData.allPerson.append(enemy)
         personItems = PersonItems()
-        personItems.setWeaponByType(weaponType)
         self.gameData.enemyItems[enemy] = personItems
         self.gameData.enemyInputData[enemy] = PersonInputData()
         self.gameData.allPersonItems[enemy] = self.gameData.enemyItems[enemy]
         self.gameData.allPersonInputData[enemy] = self.gameData.enemyInputData[enemy]
+        self.weaponSelector.selectWeaponByType(enemy, weaponType)
 
     def initAllPersonPairs(self):
         for i in range(0, len(self.gameData.allPerson) - 1):
