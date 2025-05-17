@@ -57,6 +57,7 @@ from game.engine.powerup.PowerupProcessor import *
 from game.engine.powerup.PowerupUpdater import *
 from game.engine.powerup.PowerupValidator import *
 from game.engine.weapon.BulletHoleFactory import *
+from game.engine.weapon.BulletLogic import *
 from game.engine.weapon.BulletPositionUpdater import *
 from game.engine.weapon.BulletTraceUpdater import *
 from game.engine.weapon.BulletUpdater import *
@@ -133,6 +134,7 @@ class EngineModule:
         binder.bindSingleton(PowerupUpdater)
         binder.bindSingleton(PowerupValidator)
         binder.bindSingleton(BulletHoleFactory)
+        binder.bindSingleton(BulletLogic)
         binder.bindSingleton(BulletPositionUpdater)
         binder.bindSingleton(BulletTraceUpdater)
         binder.bindSingleton(BulletUpdater)

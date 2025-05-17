@@ -74,6 +74,11 @@ class WeaponSelector:
         else:
             self.setWeapons(person, personItems, NullWeapon.instance, None, NullWeapon.instance)
 
+    def selectNextWeaponIfCurrentEmpty(self, person, personItems, weapon):
+        if personItems.isCurrentWeaponEmpty():
+            personItems.removeWeaponByType(type(weapon))
+            self.selectNextWeapon(person, weapon)
+
     def setWeapons(self, person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon):
         if person.isPlayer:
             self.aimStateSwitcher.setToDefaultIfNeeded()

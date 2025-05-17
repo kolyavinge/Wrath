@@ -1,6 +1,6 @@
 from game.anx.Events import Events
-from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
+from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.WeaponFeedbackLogic import WeaponFeedbackLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.EventManager import EventManager
@@ -12,14 +12,14 @@ class WeaponFireUpdater:
         self,
         gameData: GameData,
         weaponFeedbackLogic: WeaponFeedbackLogic,
+        bulletLogic: BulletLogic,
         weaponSelector: WeaponSelector,
-        traversal: BSPTreeTraversal,
         eventManager: EventManager,
     ):
         self.gameData = gameData
         self.weaponFeedbackLogic = weaponFeedbackLogic
+        self.bulletLogic = bulletLogic
         self.weaponSelector = weaponSelector
-        self.traversal = traversal
         self.eventManager = eventManager
 
     def update(self):
@@ -41,30 +41,7 @@ class WeaponFireUpdater:
 
     def fire(self, person, personItems, weapon):
         weapon.bulletsCount -= 1
-        if personItems.isCurrentWeaponEmpty():
-            personItems.removeWeaponByType(type(weapon))
-            self.weaponSelector.selectNextWeapon(person, weapon)
-
         weapon.delayRemain = weapon.delay
         self.weaponFeedbackLogic.applyFeedback(weapon)
-
-        bullet = weapon.makeBullet(person)
-        self.gameData.bullets.append(bullet)
-        bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, bullet.currentPosition)
-        bullet.nextLevelSegment = bullet.currentLevelSegment
-
-        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, bullet.currentPosition)
-        if bullet.isVisible:
-            bullet.currentVisibilityLevelSegment = visibilityLevelSegment
-            visibilityLevelSegment.bullets.append(bullet)
-
-        if visibilityLevelSegment in self.gameData.visibleLevelSegments:
-            flash = weapon.makeFlash()
-            if flash is not None:
-                visibilityLevelSegment.weaponFlashes.append(flash)
-
-        trace = bullet.makeTrace()
-        if trace is not None:
-            self.gameData.bulletTraces.append(trace)
-            visibilityLevelSegment.bulletTraces.append(trace)
-            trace.visibilityLevelSegments.add(visibilityLevelSegment)
+        self.bulletLogic.makeBullet(person, weapon)
+        self.weaponSelector.selectNextWeaponIfCurrentEmpty(person, personItems, weapon)
