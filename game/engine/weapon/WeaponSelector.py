@@ -1,7 +1,5 @@
-from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
-from game.lib.EventManager import EventManager
 from game.model.weapon.NullWeapon import NullWeapon
 from game.model.weapon.WeaponCollection import WeaponCollection
 
@@ -12,16 +10,9 @@ class WeaponSelector:
         self,
         gameData: GameData,
         aimStateSwitcher: AimStateSwitcher,
-        eventManager: EventManager,
     ):
         self.gameData = gameData
         self.aimStateSwitcher = aimStateSwitcher
-        eventManager.attachToEvent(Events.selectWeaponRequested, self.onSelectWeaponRequested)
-
-    def onSelectWeaponRequested(self, args):
-        person, weaponNumber = args
-        requestedWeaponType = WeaponCollection.getWeaponTypeByNumber(weaponNumber)
-        self.selectWeaponByType(person, requestedWeaponType)
 
     def selectWeaponByType(self, person, weaponType):
         personItems = self.gameData.allPersonItems[person]

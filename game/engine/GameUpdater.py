@@ -24,10 +24,10 @@ from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.weapon.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.weapon.BulletUpdater import BulletUpdater
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
+from game.engine.weapon.SelectWeaponRequestListener import SelectWeaponRequestListener
 from game.engine.weapon.WeaponDelayUpdater import WeaponDelayUpdater
 from game.engine.weapon.WeaponFireUpdater import WeaponFireUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
-from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.Stopwatch import Stopwatch
 
 
@@ -64,7 +64,7 @@ class GameUpdater:
     bulletTraceUpdater: BulletTraceUpdater
     enemyAIUpdater: EnemyAIUpdater
     # event listeners
-    weaponSelector: WeaponSelector
+    selectWeaponRequestListener: SelectWeaponRequestListener
 
     def update(self):
         # sw = Stopwatch()
