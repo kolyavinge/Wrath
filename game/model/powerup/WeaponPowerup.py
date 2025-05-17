@@ -3,7 +3,7 @@ from game.calc.Geometry import Geometry
 from game.lib.CircularIterator import CircularIterator
 from game.lib.Random import Random
 from game.model.powerup.Powerup import Powerup
-from game.model.weapon.AllWeaponTypes import AllWeaponTypes
+from game.model.weapon.WeaponCollection import WeaponCollection
 
 
 class WeaponPowerup(Powerup):
@@ -17,8 +17,7 @@ class WeaponPowerup(Powerup):
 
     def setWeaponType(self):
         rand = Random()
-        weaponTypes = AllWeaponTypes.getList()
-        self.weaponType = weaponTypes[rand.getInt(0, len(weaponTypes) - 1)]
+        self.weaponType = WeaponCollection.allWeaponTypes[rand.getInt(0, WeaponCollection.weaponTypesCount - 1)]
 
     def setZShift(self):
         shift = 0.002
