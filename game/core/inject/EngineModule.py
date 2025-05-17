@@ -54,6 +54,7 @@ from game.engine.person.PlayerWeaponSwingUpdater import *
 from game.engine.person.TorchUpdater import *
 from game.engine.powerup.PowerupPositionGenerator import *
 from game.engine.powerup.PowerupUpdater import *
+from game.engine.powerup.PowerupValidator import *
 from game.engine.weapon.BulletHoleFactory import *
 from game.engine.weapon.BulletPositionUpdater import *
 from game.engine.weapon.BulletTraceUpdater import *
@@ -128,6 +129,7 @@ class EngineModule:
         binder.bindSingleton(TorchUpdater)
         binder.bindSingleton(PowerupPositionGenerator)
         binder.bindSingleton(PowerupUpdater)
+        binder.bindSingleton(PowerupValidator)
         binder.bindSingleton(BulletHoleFactory)
         binder.bindSingleton(BulletPositionUpdater)
         binder.bindSingleton(BulletTraceUpdater)
