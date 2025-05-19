@@ -19,4 +19,5 @@ class AIDataInitializer:
         aiData.checkCollisionDirectionsCount = 4 + rand.getInt(0, 6)
         aiData.fireDistance = 10 + rand.getInt(0, 10)
         aiData.criticalHealth = rand.getInt(10, 50)
+        aiData.patrollingTimeLimit = rand.getInt(500, 2000)
         aiData.commit()

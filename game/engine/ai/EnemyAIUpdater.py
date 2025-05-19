@@ -17,8 +17,11 @@ class EnemyAIUpdater:
             inputData = self.gameData.enemyInputData[enemy]
             inputData.clear()
             aiData = enemy.aiData
-            state = self.stateHandlerCollection.getStateHandler(aiData.state)
-            state.process(enemy, inputData)
-            newState = state.getNewStateOrNone(enemy)
+            stateHandler = self.stateHandlerCollection.getStateHandler(aiData.state)
+            stateHandler.process(enemy, inputData)
+            aiData.stateTime += 1
+            newState = stateHandler.getNewStateOrNone(enemy)
             if newState is not None:
                 aiData.state = newState
+                aiData.stateTime = 0
+                self.stateHandlerCollection.getStateHandler(newState).init(enemy)

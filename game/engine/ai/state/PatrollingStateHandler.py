@@ -1,6 +1,7 @@
 from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
 from game.engine.GameData import GameData
+from game.lib.Random import Random
 from game.model.ai.AIData import EnemyState
 
 
@@ -15,12 +16,19 @@ class PatrollingStateHandler:
         self.gameData = gameData
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
+        self.rand = Random()
+
+    def init(self, enemy):
+        enemy.aiData.patrollingTimeLimit = self.rand.getInt(500, 2000)
 
     def process(self, enemy, inputData):
         self.movingLogic.orientToNextDirection(enemy)
         inputData.goForward = True
 
     def getNewStateOrNone(self, enemy):
+        if enemy.aiData.stateTime > enemy.aiData.patrollingTimeLimit:
+            return EnemyState.idle
+
         if enemy in self.gameData.collisionData.personBullet:
             bullet = self.gameData.collisionData.personBullet[enemy]
             if self.fireLogic.withinFireDistance(enemy, bullet.ownerPerson):

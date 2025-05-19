@@ -7,6 +7,7 @@ class AIData:
 
     def __init__(self):
         self.state = EnemyState.patrolling
+        self.stateTime = 0
         self.horizontalFieldViewRadians = 0
         self.checkCollisionLength = 0
         self.checkCollisionDirectionsCount = 0
@@ -18,6 +19,9 @@ class AIData:
         self.moveDirectionRemain = 0
         self.runAwayFromObstacle = False
         self.criticalHealth = 0
+        self.idleTimeLimit = 0
+        self.patrollingTimeLimit = 0
+        self.idleTurnTimeLimit = 0
 
     def commit(self):
         self.checkCollisionRadianStep = self.horizontalFieldViewRadians / self.checkCollisionDirectionsCount

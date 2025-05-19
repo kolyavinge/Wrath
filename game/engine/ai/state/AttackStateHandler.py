@@ -16,6 +16,9 @@ class AttackStateHandler:
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
 
+    def init(self, enemy):
+        pass
+
     def process(self, enemy, inputData):
         self.movingLogic.updateMoveDirection(enemy)
 

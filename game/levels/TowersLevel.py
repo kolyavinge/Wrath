@@ -123,10 +123,9 @@ class TowersLevel(Level):
         yield SplitPlane(Vector3(0, 100, 0), Vector3(0, 1, 0))
 
     def getPlayerInitInfo(self):
-        return (Vector3(50, 50, self.minZ), Vector3(-1, -1, 0).getNormalized(), Plasma)
+        return (Vector3(10, 10, self.minZ), Vector3(1, 1, 0).getNormalized(), Plasma)
 
     def getEnemyInitInfo(self):
         return [
-            (Vector3(45, 45, self.minZ), Vector3(1, 1, 0).getNormalized(), Rifle),
-            # (Vector3(25, 25, self.minZ), Vector3(1, 0, 0).getNormalized(), Launcher),
+            (Vector3(30, 30, self.minZ), Vector3(1, 1, 0).getNormalized(), Rifle),
         ]

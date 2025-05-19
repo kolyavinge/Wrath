@@ -13,6 +13,9 @@ class HealthSearchStateHandler:
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
 
+    def init(self, enemy):
+        pass
+
     def process(self, enemy, inputData):
         pass
 

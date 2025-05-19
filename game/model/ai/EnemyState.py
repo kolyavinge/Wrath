@@ -1,6 +1,7 @@
 class EnemyState:
 
-    patrolling = 1
-    attack = 2
-    healthSearch = 3
-    weaponSearch = 4
+    idle = 1
+    patrolling = 2
+    attack = 3
+    healthSearch = 4
+    weaponSearch = 5
