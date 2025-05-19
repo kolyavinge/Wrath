@@ -14,7 +14,7 @@ class AIData:
         self.targetPerson = None
         self.fireBurstRemain = 0
         self.fireDelayRemain = 0
-        self.moveDirection = MoveDirection.idle
+        self.moveDirection = MoveDirection.stay
         self.moveDirectionRemain = 0
         self.runAwayFromObstacle = False
         self.criticalHealth = 0

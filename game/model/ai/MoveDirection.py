@@ -1,6 +1,6 @@
 class MoveDirection:
 
-    idle = "idle"
+    stay = "stay"
     forward = "forward"
     backward = "backward"
     left = "left"
@@ -10,10 +10,10 @@ class MoveDirection:
     backwardLeft = "backwardLeft"
     backwardRight = "backwardRight"
 
-    all = [idle, forward, backward, left, right, forwardLeft, forwardRight, backwardLeft, backwardRight]
+    all = [stay, forward, backward, left, right, forwardLeft, forwardRight, backwardLeft, backwardRight]
 
     opposite = {
-        idle: idle,
+        stay: stay,
         forward: backward,
         backward: forward,
         left: right,

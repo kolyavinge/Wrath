@@ -48,7 +48,7 @@ class MovingLogic:
 
     def applyInputData(self, enemy, inputData):
         moveDirection = enemy.aiData.moveDirection
-        if moveDirection == MoveDirection.idle:
+        if moveDirection == MoveDirection.stay:
             return
         elif moveDirection == MoveDirection.forward:
             inputData.goForward = True

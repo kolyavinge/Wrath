@@ -2,6 +2,7 @@ from game.calc.TransformMatrix4 import TransformMatrix4
 from game.model.weapon.Weapon import Weapon
 
 
+# используется когда у персонажа закончилось все оружие
 class NullWeapon(Weapon):
 
     def __init__(self):
