@@ -1,7 +1,7 @@
 from game.engine.ai.common.ObstacleAvoidanceLogic import ObstacleAvoidanceLogic
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.lib.Random import Random
-from game.model.ai.MoveDirection import MoveDirection
+from game.model.ai.MoveDirections import MoveDirections
 
 
 class MovingLogic:
@@ -34,41 +34,17 @@ class MovingLogic:
 
     def setOppositeOtherEnemyDirection(self, enemy, otherEnemy):
         aiData = enemy.aiData
-        otherEnemyOppositeDirection = MoveDirection.getOpposite(MoveDirection.fromVector(otherEnemy.velocityVector))
-        aiData.moveDirection = otherEnemyOppositeDirection
-        aiData.moveDirectionRemain = self.rand.getInt(50, 200)
+        # otherEnemyOppositeDirection = MoveDirection.fromVector(otherEnemy.velocityVector)
+        # aiData.moveDirection = otherEnemyOppositeDirection
+        # aiData.moveDirectionRemain = self.rand.getInt(50, 200)
 
     def setOppositeDirection(self, enemy):
         aiData = enemy.aiData
-        aiData.moveDirection = MoveDirection.getOpposite(aiData.moveDirection)
+        aiData.moveDirection = aiData.moveDirection.opposite
         aiData.moveDirectionRemain = self.rand.getInt(50, 200)
 
     def getRandomMoveDirection(self):
-        return MoveDirection.all[self.rand.getInt(0, len(MoveDirection.all) - 1)]
+        return MoveDirections.all[self.rand.getInt(0, len(MoveDirections.all) - 1)]
 
     def applyInputData(self, enemy, inputData):
-        moveDirection = enemy.aiData.moveDirection
-        if moveDirection == MoveDirection.stay:
-            return
-        elif moveDirection == MoveDirection.forward:
-            inputData.goForward = True
-        elif moveDirection == MoveDirection.backward:
-            inputData.goBackward = True
-        elif moveDirection == MoveDirection.left:
-            inputData.stepLeft = True
-        elif moveDirection == MoveDirection.right:
-            inputData.stepRight = True
-        elif moveDirection == MoveDirection.forwardLeft:
-            inputData.goForward = True
-            inputData.stepLeft = True
-        elif moveDirection == MoveDirection.forwardRight:
-            inputData.goForward = True
-            inputData.stepRight = True
-        elif moveDirection == MoveDirection.backwardLeft:
-            inputData.goBackward = True
-            inputData.stepLeft = True
-        elif moveDirection == MoveDirection.backwardRight:
-            inputData.goBackward = True
-            inputData.stepRight = True
-        else:
-            assert "Wrong MoveDirection"
+        enemy.aiData.moveDirection.applyInputData(inputData)

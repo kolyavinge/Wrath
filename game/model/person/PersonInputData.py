@@ -13,3 +13,19 @@ class PersonInputData:
         self.lookUpRadians = 0
         self.lookDownRadians = 0
         self.fire = False
+
+    def setGoForward(self):
+        self.goForward = True
+        return self
+
+    def setGoBackward(self):
+        self.goBackward = True
+        return self
+
+    def setStepLeft(self):
+        self.stepLeft = True
+        return self
+
+    def setStepRight(self):
+        self.stepRight = True
+        return self
