@@ -1,3 +1,4 @@
+from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.GameData import GameData
@@ -34,6 +35,7 @@ class LevelManager:
         backgroundVisibilityDetector: BackgroundVisibilityUpdater,
         personWeaponPositionUpdater: PersonWeaponPositionUpdater,
         weaponFlashUpdater: WeaponFlashUpdater,
+        enemyAIUpdater: EnemyAIUpdater,
     ):
         self.gameData = gameData
         self.levelLoader = levelLoader
@@ -50,6 +52,7 @@ class LevelManager:
         self.backgroundVisibilityDetector = backgroundVisibilityDetector
         self.personWeaponPositionUpdater = personWeaponPositionUpdater
         self.weaponFlashUpdater = weaponFlashUpdater
+        self.enemyAIUpdater = enemyAIUpdater
 
     def loadFirstLevel(self):
         level = self.levelLoader.load()
@@ -68,3 +71,4 @@ class LevelManager:
         self.backgroundVisibilityDetector.update()
         self.personWeaponPositionUpdater.update()
         self.weaponFlashUpdater.init()
+        self.enemyAIUpdater.init()

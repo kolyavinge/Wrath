@@ -12,6 +12,10 @@ class EnemyAIUpdater:
         self.gameData = gameData
         self.stateHandlerCollection = stateHandlerCollection
 
+    def init(self):
+        for enemy in self.gameData.enemies:
+            self.stateHandlerCollection.getStateHandler(enemy.aiData.state).init(enemy)
+
     def update(self):
         for enemy in self.gameData.enemies:
             inputData = self.gameData.enemyInputData[enemy]
