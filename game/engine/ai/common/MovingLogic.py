@@ -31,12 +31,6 @@ class MovingLogic:
             aiData.moveDirectionRemain = Random.getInt(50, 200)
             aiData.runAwayFromObstacle = False
 
-    def setOppositeOtherEnemyDirection(self, enemy, otherEnemy):
-        aiData = enemy.aiData
-        # otherEnemyOppositeDirection = MoveDirection.fromVector(otherEnemy.velocityVector)
-        # aiData.moveDirection = otherEnemyOppositeDirection
-        # aiData.moveDirectionRemain = Random.getInt(50, 200)
-
     def setOppositeDirection(self, enemy):
         aiData = enemy.aiData
         aiData.moveDirection = aiData.moveDirection.opposite

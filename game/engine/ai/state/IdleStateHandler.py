@@ -37,6 +37,14 @@ class IdleStateHandler:
         if enemy.aiData.stateTime > enemy.aiData.idleTimeLimit:
             return EnemyState.patrolling
 
+        if enemy.health < enemy.aiData.criticalHealth:
+            return EnemyState.healthSearch
+
+        otherEnemy = self.fireLogic.getEnemyWithinFireDistanceWhoFiringTo(enemy)
+        if otherEnemy is not None:
+            enemy.aiData.targetPerson = otherEnemy
+            return EnemyState.attack
+
         if self.fireLogic.targetExists(enemy):
             return EnemyState.attack
 

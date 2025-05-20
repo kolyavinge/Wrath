@@ -65,6 +65,14 @@ class FireLogic:
         frontNormal = enemy.currentCenterPoint.getDirectionTo(targetPersonPosition).getNormalized()
         self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
 
+    def getEnemyWithinFireDistanceWhoFiringTo(self, enemy):
+        if enemy in self.gameData.collisionData.personBullet:
+            bullet = self.gameData.collisionData.personBullet[enemy]
+            if self.withinFireDistance(enemy, bullet.ownerPerson):
+                return bullet.ownerPerson
+
+        return None
+
     def applyInputData(self, enemy, inputData):
         enemyItems = self.gameData.allPersonItems[enemy]
         if enemyItems.currentWeapon.isBurstModeEnabled:

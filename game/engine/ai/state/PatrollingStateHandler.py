@@ -28,11 +28,13 @@ class PatrollingStateHandler:
         if enemy.aiData.stateTime > enemy.aiData.patrollingTimeLimit:
             return EnemyState.idle
 
-        if enemy in self.gameData.collisionData.personBullet:
-            bullet = self.gameData.collisionData.personBullet[enemy]
-            if self.fireLogic.withinFireDistance(enemy, bullet.ownerPerson):
-                enemy.aiData.targetPerson = bullet.ownerPerson
-                return EnemyState.attack
+        if enemy.health < enemy.aiData.criticalHealth:
+            return EnemyState.healthSearch
+
+        otherEnemy = self.fireLogic.getEnemyWithinFireDistanceWhoFiringTo(enemy)
+        if otherEnemy is not None:
+            enemy.aiData.targetPerson = otherEnemy
+            return EnemyState.attack
 
         if self.fireLogic.targetExists(enemy):
             return EnemyState.attack

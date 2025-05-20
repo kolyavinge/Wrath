@@ -36,10 +36,10 @@ class AttackStateHandler:
         self.fireLogic.applyInputData(enemy, inputData)
 
     def getNewStateOrNone(self, enemy):
-        if not self.fireLogic.targetExists(enemy):
-            return EnemyState.patrolling
-
         if enemy.health < enemy.aiData.criticalHealth:
             return EnemyState.healthSearch
+
+        if not self.fireLogic.targetExists(enemy):
+            return EnemyState.patrolling
 
         return None
