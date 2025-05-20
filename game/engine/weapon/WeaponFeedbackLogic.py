@@ -4,9 +4,6 @@ from game.lib.Random import Random
 
 class WeaponFeedbackLogic:
 
-    def __init__(self):
-        self.rand = Random()
-
     def applyFeedback(self, weapon):
         newJitter = self.getNewJitter(weapon)
         newFeedback = self.getNewFeedback(newJitter, weapon)
@@ -14,9 +11,9 @@ class WeaponFeedbackLogic:
         weapon.feedback.add(newFeedback)
 
     def getNewJitter(self, weapon):
-        x = self.rand.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
-        y = self.rand.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
-        z = self.rand.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
+        x = Random.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
+        y = Random.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
+        z = Random.getFloat(-weapon.jitterDelta, weapon.jitterDelta)
 
         return Vector3(x, y, z)
 

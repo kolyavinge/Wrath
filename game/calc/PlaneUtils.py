@@ -6,9 +6,8 @@ class PlaneUtils:
 
     @staticmethod
     def getRandomPointOnPlane(plane):
-        rand = Random()
-        a = rand.getFloat(-100, 100)
-        b = rand.getFloat(-100, 100)
+        a = Random.getFloat(-100, 100)
+        b = Random.getFloat(-100, 100)
 
         x = plane.getX(a, b)
         if x is not None:

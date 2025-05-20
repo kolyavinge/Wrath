@@ -20,11 +20,10 @@ class IdleStateHandler:
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
         self.personTurnLogic = personTurnLogic
-        self.rand = Random()
 
     def init(self, enemy):
-        enemy.aiData.idleTimeLimit = self.rand.getInt(100, 400)
-        enemy.aiData.idleTurnTimeLimit = self.rand.getInt(50, 200)
+        enemy.aiData.idleTimeLimit = Random.getInt(100, 400)
+        enemy.aiData.idleTurnTimeLimit = Random.getInt(50, 200)
 
     def process(self, enemy, inputData):
         aiData = enemy.aiData

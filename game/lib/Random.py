@@ -3,11 +3,14 @@ import random
 
 class Random:
 
-    def getInt(self, left, right):
+    @staticmethod
+    def getInt(left, right):
         return random.randint(left, right)
 
-    def getFloat(self, left, right):
+    @staticmethod
+    def getFloat(left, right):
         return random.uniform(left, right)
 
-    def getBool(self):
-        return self.getInt(1, 100) % 2 == 0
+    @staticmethod
+    def getBool():
+        return Random.getInt(1, 100) % 2 == 0

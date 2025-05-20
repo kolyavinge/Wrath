@@ -16,10 +16,9 @@ class PatrollingStateHandler:
         self.gameData = gameData
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
-        self.rand = Random()
 
     def init(self, enemy):
-        enemy.aiData.patrollingTimeLimit = self.rand.getInt(500, 2000)
+        enemy.aiData.patrollingTimeLimit = Random.getInt(500, 2000)
 
     def process(self, enemy, inputData):
         self.movingLogic.orientToNextDirection(enemy)

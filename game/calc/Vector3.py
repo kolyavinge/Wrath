@@ -121,10 +121,9 @@ class Vector3:
 
     @staticmethod
     def getRandomNormalVector():
-        rand = Random()
-        x = rand.getFloat(-1.0, 1.0)
-        y = rand.getFloat(-1.0, 1.0)
-        z = rand.getFloat(-1.0, 1.0)
+        x = Random.getFloat(-1.0, 1.0)
+        y = Random.getFloat(-1.0, 1.0)
+        z = Random.getFloat(-1.0, 1.0)
         result = Vector3(x, y, z)
         result.normalize()
 

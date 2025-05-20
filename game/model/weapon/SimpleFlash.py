@@ -11,7 +11,6 @@ class SimpleFlash(WeaponFlash):
         self.alphaSteps = [0.8, 1.0, 0.8, 0.5, 0.25, 0.1]
         self.alphaStep = 0
         self.alpha = 0.5
-        self.rand = Random()
 
     def update(self):
         self.alphaStep += 1
@@ -26,7 +25,7 @@ class SimpleFlash(WeaponFlash):
             TransformMatrix4Builder()
             .translate(position.x, position.y, position.z)
             .rotate(yawRadians, CommonConstants.zAxis)
-            .rotate(self.rand.getFloat(-0.5, 0.5), CommonConstants.yAxis)
+            .rotate(Random.getFloat(-0.5, 0.5), CommonConstants.yAxis)
             .rotate(pitchRadians, CommonConstants.xAxis)
             .resultMatrix
         )

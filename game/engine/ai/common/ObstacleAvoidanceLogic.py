@@ -9,7 +9,6 @@ class ObstacleAvoidanceLogic:
 
     def __init__(self, collisionDetector: CollisionDetector):
         self.collisionDetector = collisionDetector
-        self.rand = Random()
 
     def getFrontNormalForNextStep(self, enemy):
         resultFrontNormal = Vector3()
@@ -50,7 +49,7 @@ class ObstacleAvoidanceLogic:
         elif leftDirectionsCount < rightDirectionsCount:
             resultFrontNormal.add(rightDirectionResult)
         else:  # leftDirectionsCount == rightDirectionsCount
-            if self.rand.getBool():
+            if Random.getBool():
                 resultFrontNormal.add(leftDirectionResult)
             else:
                 resultFrontNormal.add(rightDirectionResult)

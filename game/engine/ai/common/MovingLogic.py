@@ -13,7 +13,6 @@ class MovingLogic:
     ):
         self.personTurnLogic = personTurnLogic
         self.obstacleAvoidanceLogic = obstacleAvoidanceLogic
-        self.rand = Random()
 
     def orientToNextDirection(self, enemy):
         nextFrontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(enemy)
@@ -29,22 +28,22 @@ class MovingLogic:
             aiData.moveDirectionRemain -= 1
         if aiData.moveDirectionRemain == 0:
             aiData.moveDirection = self.getRandomMoveDirection()
-            aiData.moveDirectionRemain = self.rand.getInt(50, 200)
+            aiData.moveDirectionRemain = Random.getInt(50, 200)
             aiData.runAwayFromObstacle = False
 
     def setOppositeOtherEnemyDirection(self, enemy, otherEnemy):
         aiData = enemy.aiData
         # otherEnemyOppositeDirection = MoveDirection.fromVector(otherEnemy.velocityVector)
         # aiData.moveDirection = otherEnemyOppositeDirection
-        # aiData.moveDirectionRemain = self.rand.getInt(50, 200)
+        # aiData.moveDirectionRemain = Random.getInt(50, 200)
 
     def setOppositeDirection(self, enemy):
         aiData = enemy.aiData
         aiData.moveDirection = aiData.moveDirection.opposite
-        aiData.moveDirectionRemain = self.rand.getInt(50, 200)
+        aiData.moveDirectionRemain = Random.getInt(50, 200)
 
     def getRandomMoveDirection(self):
-        return MoveDirections.all[self.rand.getInt(0, len(MoveDirections.all) - 1)]
+        return MoveDirections.all[Random.getInt(0, len(MoveDirections.all) - 1)]
 
     def applyInputData(self, enemy, inputData):
         enemy.aiData.moveDirection.applyInputData(inputData)

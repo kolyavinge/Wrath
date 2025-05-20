@@ -8,14 +8,11 @@ from game.model.weapon.BulletHole import BulletHole
 
 class BulletHoleFactory:
 
-    def __init__(self):
-        self.rand = Random()
-
     def make(self, collisionPoint, frontNormal, levelSegment, bulletHoleInfo):
         bulletHole = BulletHole(bulletHoleInfo)
         plane = Plane(frontNormal, collisionPoint)
         point1 = plane.getAnyVector()
-        point1 = Geometry.rotatePoint(point1, frontNormal, CommonConstants.axisOrigin, self.rand.getFloat(0, Math.piDouble))
+        point1 = Geometry.rotatePoint(point1, frontNormal, CommonConstants.axisOrigin, Random.getFloat(0, Math.piDouble))
         point1.setLength(bulletHole.halfSize)
         point1.add(collisionPoint)
         bulletHole.frontNormal = frontNormal

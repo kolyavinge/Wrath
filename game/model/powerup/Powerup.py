@@ -30,5 +30,4 @@ class Powerup:
         return modelMatrix
 
     def setRandomRotate(self):
-        rand = Random()
-        self.rotateRadians = rand.getFloat(0, Math.piDouble)
+        self.rotateRadians = Random.getFloat(0, Math.piDouble)

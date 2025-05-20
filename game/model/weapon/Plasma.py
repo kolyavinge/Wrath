@@ -15,9 +15,8 @@ class PlasmaBullet(Bullet):
         self.velocityValue = 0.8
         self.damagePercent = 0.25
         self.holeInfo = BulletHoleInfo.plasmaHole
-        rand = Random()
-        self.pitchRadians = rand.getFloat(0, Math.piDouble)
-        self.yawRadians = rand.getFloat(0, Math.piDouble)
+        self.pitchRadians = Random.getFloat(0, Math.piDouble)
+        self.yawRadians = Random.getFloat(0, Math.piDouble)
         self.targetPerson = None
         self.homingDistance = 20.0
         self.homingFieldViewRadians = Geometry.degreesToRadians(10.0)

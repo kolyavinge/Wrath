@@ -13,22 +13,21 @@ class PowerupPositionGenerator:
     ):
         self.gameData = gameData
         self.traversal = traversal
-        self.rand = Random()
 
     def getPosition(self):
         powerupAreas = self.gameData.level.powerupAreas
-        powerupArea = powerupAreas[self.rand.getInt(0, len(powerupAreas) - 1)]
+        powerupArea = powerupAreas[Random.getInt(0, len(powerupAreas) - 1)]
 
         if powerupArea.startPoint != powerupArea.endPoint:
             position = powerupArea.startPoint.getDirectionTo(powerupArea.endPoint)
-            position.setLength(self.rand.getFloat(0, position.getLength()))
+            position.setLength(Random.getFloat(0, position.getLength()))
             position.add(powerupArea.startPoint)
         else:
             position = powerupArea.startPoint.copy()
 
         if powerupArea.radius != 0:
-            radius = self.rand.getFloat(0, powerupArea.radius)
-            radians = self.rand.getFloat(0, Math.piDouble)
+            radius = Random.getFloat(0, powerupArea.radius)
+            radians = Random.getFloat(0, Math.piDouble)
             x = radius * Math.cos(radians)
             y = radius * Math.sin(radians)
             position.x += x
