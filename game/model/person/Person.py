@@ -6,6 +6,7 @@ from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.model.level.Floor import Floor
 from game.model.level.LevelSegment import LevelSegment
+from game.model.person.BreathFunc import BreathFunc
 from game.model.person.FallingFunc import FallingFunc
 from game.model.person.PersonState import PersonState
 from game.model.person.VelocityFunc import VelocityFunc
@@ -46,8 +47,10 @@ class Person:
         self.landingTime = 0
         self.fallingFunc = FallingFunc()
         self.currentFloor = Floor()
-        self.stepTime = 0
         self.health = PersonConstants.maxPersonHealth
+        self.stepTime = 0
+        self.breathTime = 0
+        self.breathFunc = BreathFunc()
         self.isPlayer = False
 
     def moveNextPositionBy(self, vector):

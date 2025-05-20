@@ -38,6 +38,7 @@ from game.engine.person.AimStateSwitcher import *
 from game.engine.person.BackgroundVisibilityUpdater import *
 from game.engine.person.EnemyLevelSegmentsUpdater import *
 from game.engine.person.LevelSegmentVisibilityUpdater import *
+from game.engine.person.PersonBreathUpdater import *
 from game.engine.person.PersonDamageLogic import *
 from game.engine.person.PersonLevelSegmentsUpdater import *
 from game.engine.person.PersonMovingTimeUpdater import *
@@ -117,6 +118,7 @@ class EngineModule:
         binder.bindSingleton(BackgroundVisibilityUpdater)
         binder.bindSingleton(EnemyLevelSegmentsUpdater)
         binder.bindSingleton(LevelSegmentVisibilityUpdater)
+        binder.bindSingleton(PersonBreathUpdater)
         binder.bindSingleton(PersonDamageLogic)
         binder.bindSingleton(PersonLevelSegmentsUpdater)
         binder.bindSingleton(PersonMovingTimeUpdater)

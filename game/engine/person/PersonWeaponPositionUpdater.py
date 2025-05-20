@@ -54,11 +54,15 @@ class PersonWeaponPositionUpdater:
         frontShift.mul(personShift.y)
         topShift = person.lookDirectionNormal.copy()
         topShift.mul(personShift.z)
+        breathShift = person.lookDirectionNormal.copy()
+        breathShift.mul(person.breathFunc.getValue(person.breathTime))
+
         weaponPosition = person.eyePosition.copy()
         weaponPosition.add(rightShift)
         weaponPosition.add(frontShift)
         weaponPosition.add(topShift)
         weaponPosition.add(feedback)
+        weaponPosition.add(breathShift)
 
         return weaponPosition
 
