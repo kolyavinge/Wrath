@@ -23,15 +23,11 @@ class IdleStateHandler:
 
     def init(self, enemy):
         enemy.aiData.idleTimeLimit = Random.getInt(100, 400)
-        enemy.aiData.idleTurnTimeLimit = Random.getInt(50, 200)
+        enemy.aiData.turnTimeLimit = Random.getInt(50, 200)
 
     def process(self, enemy, inputData):
-        aiData = enemy.aiData
-        if aiData.idleTurnTimeLimit > 0:
-            aiData.idleTurnTimeLimit -= 1
-            if aiData.idleTurnTimeLimit == 0:
-                newFrontNormal = Vector3.getRandomNormalVector()
-                self.personTurnLogic.orientToFrontNormal(enemy, newFrontNormal)
+        if self.movingLogic.isTurnTimeLimited(enemy):
+            self.personTurnLogic.orientToFrontNormal(enemy, Vector3.getRandomNormalVector())
 
     def getNewStateOrNone(self, enemy):
         if enemy.aiData.stateTime > enemy.aiData.idleTimeLimit:

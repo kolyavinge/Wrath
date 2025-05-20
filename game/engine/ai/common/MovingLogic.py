@@ -1,3 +1,4 @@
+from game.calc.Vector3 import Vector3
 from game.engine.ai.common.ObstacleAvoidanceLogic import ObstacleAvoidanceLogic
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.lib.Random import Random
@@ -35,6 +36,15 @@ class MovingLogic:
         aiData = enemy.aiData
         aiData.moveDirection = aiData.moveDirection.opposite
         aiData.moveDirectionRemain = Random.getInt(50, 200)
+
+    def isTurnTimeLimited(self, enemy):
+        aiData = enemy.aiData
+        if aiData.turnTimeLimit > 0:
+            aiData.turnTimeLimit -= 1
+            if aiData.turnTimeLimit == 0:
+                return True
+
+        return False
 
     def applyInputData(self, enemy, inputData):
         enemy.aiData.moveDirection.applyInputData(inputData)
