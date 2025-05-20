@@ -1,20 +1,31 @@
+from game.lib.Random import Random
+
+
 class MoveDirection:
-    pass
+
+    def __init__(self, name):
+        self.name = name
+        self.opposite = None
+        self.applyInputData = None
 
 
 class MoveDirections:
 
-    stay = MoveDirection()
-    forward = MoveDirection()
-    backward = MoveDirection()
-    left = MoveDirection()
-    right = MoveDirection()
-    forwardLeft = MoveDirection()
-    forwardRight = MoveDirection()
-    backwardLeft = MoveDirection()
-    backwardRight = MoveDirection()
+    stay = MoveDirection("stay")
+    forward = MoveDirection("forward")
+    backward = MoveDirection("backward")
+    left = MoveDirection("left")
+    right = MoveDirection("right")
+    forwardLeft = MoveDirection("forwardLeft")
+    forwardRight = MoveDirection("forwardRight")
+    backwardLeft = MoveDirection("backwardLeft")
+    backwardRight = MoveDirection("backwardRight")
 
     all = [stay, forward, backward, left, right, forwardLeft, forwardRight, backwardLeft, backwardRight]
+
+    @staticmethod
+    def getRandomMoveDirection():
+        return MoveDirections.all[Random.getInt(0, len(MoveDirections.all) - 1)]
 
 
 MoveDirections.stay.opposite = MoveDirections.stay

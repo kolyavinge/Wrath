@@ -27,7 +27,7 @@ class MovingLogic:
         if aiData.moveDirectionRemain > 0:
             aiData.moveDirectionRemain -= 1
         if aiData.moveDirectionRemain == 0:
-            aiData.moveDirection = self.getRandomMoveDirection()
+            aiData.moveDirection = MoveDirections.getRandomMoveDirection()
             aiData.moveDirectionRemain = Random.getInt(50, 200)
             aiData.runAwayFromObstacle = False
 
@@ -41,9 +41,6 @@ class MovingLogic:
         aiData = enemy.aiData
         aiData.moveDirection = aiData.moveDirection.opposite
         aiData.moveDirectionRemain = Random.getInt(50, 200)
-
-    def getRandomMoveDirection(self):
-        return MoveDirections.all[Random.getInt(0, len(MoveDirections.all) - 1)]
 
     def applyInputData(self, enemy, inputData):
         enemy.aiData.moveDirection.applyInputData(inputData)
