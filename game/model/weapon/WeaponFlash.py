@@ -5,6 +5,7 @@ from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 class WeaponFlash:
 
     def __init__(self):
+        self.weapon = None
         self.weaponType = None
         self.alpha = 0
         self.isVisible = True
@@ -12,14 +13,11 @@ class WeaponFlash:
     def update(self):
         pass
 
-    def calculateModelMatrix(self, position, yawRadians, pitchRadians):
-        self.modelMatrix = (
+    def getModelMatrix(self):
+        return (
             TransformMatrix4Builder()
-            .translate(position.x, position.y, position.z)
-            .rotate(yawRadians, CommonConstants.zAxis)
-            .rotate(pitchRadians, CommonConstants.xAxis)
+            .translate(self.weapon.barrelPosition.x, self.weapon.barrelPosition.y, self.weapon.barrelPosition.z)
+            .rotate(self.weapon.yawRadians, CommonConstants.zAxis)
+            .rotate(self.weapon.pitchRadians, CommonConstants.xAxis)
             .resultMatrix
         )
-
-    def getModelMatrix(self):
-        return self.modelMatrix

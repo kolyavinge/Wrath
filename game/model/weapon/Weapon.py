@@ -49,8 +49,8 @@ class Weapon:
             return None
 
         flash = self.flashType()
+        flash.weapon = self
         flash.weaponType = type(self)
-        flash.calculateModelMatrix(self.barrelPosition, self.yawRadians, self.pitchRadians)
 
         return flash
 

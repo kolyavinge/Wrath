@@ -8,7 +8,7 @@ class SimpleFlash(WeaponFlash):
 
     def __init__(self):
         super().__init__()
-        self.alphaSteps = [0.8, 1.0, 0.8, 0.5, 0.25, 0.1]
+        self.alphaSteps = [0.5, 0.8, 1.0, 0.8, 0.5, 0.25, 0.15, 0.1]
         self.alphaStep = 0
         self.alpha = 0.5
 
@@ -20,15 +20,12 @@ class SimpleFlash(WeaponFlash):
             self.isVisible = False
             self.alpha = 0
 
-    def calculateModelMatrix(self, position, yawRadians, pitchRadians):
-        self.modelMatrix = (
+    def getModelMatrix(self):
+        return (
             TransformMatrix4Builder()
-            .translate(position.x, position.y, position.z)
-            .rotate(yawRadians, CommonConstants.zAxis)
-            .rotate(Random.getFloat(-0.5, 0.5), CommonConstants.yAxis)
-            .rotate(pitchRadians, CommonConstants.xAxis)
+            .translate(self.weapon.barrelPosition.x, self.weapon.barrelPosition.y, self.weapon.barrelPosition.z)
+            .rotate(self.weapon.yawRadians, CommonConstants.zAxis)
+            .rotate(Random.getFloat(-0.2, 0.2), CommonConstants.yAxis)
+            .rotate(self.weapon.pitchRadians, CommonConstants.xAxis)
             .resultMatrix
         )
-
-    def getModelMatrix(self):
-        return self.modelMatrix
