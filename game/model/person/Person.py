@@ -6,10 +6,8 @@ from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.model.level.Floor import Floor
 from game.model.level.LevelSegment import LevelSegment
-from game.model.person.BreathFunc import BreathFunc
-from game.model.person.FallingFunc import FallingFunc
+from game.model.person.PersonFuncs import *
 from game.model.person.PersonState import PersonState
-from game.model.person.VelocityFunc import VelocityFunc
 
 
 class Person:
