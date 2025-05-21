@@ -28,7 +28,7 @@ class MovingLogic:
         if aiData.moveDirectionRemain > 0:
             aiData.moveDirectionRemain -= 1
         if aiData.moveDirectionRemain == 0:
-            aiData.moveDirection = MoveDirections.getRandomMoveDirection()
+            aiData.moveDirection = Random.getListItem(MoveDirections.all)
             aiData.moveDirectionRemain = Random.getInt(50, 200)
             aiData.runAwayFromObstacle = False
 

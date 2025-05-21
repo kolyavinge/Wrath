@@ -15,8 +15,7 @@ class PowerupPositionGenerator:
         self.traversal = traversal
 
     def getPosition(self):
-        powerupAreas = self.gameData.level.powerupAreas
-        powerupArea = powerupAreas[Random.getInt(0, len(powerupAreas) - 1)]
+        powerupArea = Random.getListItem(self.gameData.level.powerupAreas)
 
         if powerupArea.startPoint != powerupArea.endPoint:
             position = powerupArea.startPoint.getDirectionTo(powerupArea.endPoint)

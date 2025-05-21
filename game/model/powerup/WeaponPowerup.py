@@ -16,7 +16,7 @@ class WeaponPowerup(Powerup):
         self.setZShift()
 
     def setWeaponType(self):
-        self.weaponType = WeaponCollection.allWeaponTypes[Random.getInt(0, WeaponCollection.weaponTypesCount - 1)]
+        self.weaponType = Random.getListItem(WeaponCollection.allWeaponTypes)
 
     def setZShift(self):
         shift = 0.002

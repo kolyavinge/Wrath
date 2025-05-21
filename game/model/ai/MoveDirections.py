@@ -1,6 +1,3 @@
-from game.lib.Random import Random
-
-
 class MoveDirection:
 
     def __init__(self, name):
@@ -22,10 +19,6 @@ class MoveDirections:
     backwardRight = MoveDirection("backwardRight")
 
     all = [stay, forward, backward, left, right, forwardLeft, forwardRight, backwardLeft, backwardRight]
-
-    @staticmethod
-    def getRandomMoveDirection():
-        return MoveDirections.all[Random.getInt(0, len(MoveDirections.all) - 1)]
 
 
 MoveDirections.stay.opposite = MoveDirections.stay

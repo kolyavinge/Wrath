@@ -72,6 +72,8 @@ class GameUpdater:
         # sw = Stopwatch()
         # sw.start()
 
+        # --- main game loop ---
+
         self.personTurnUpdater.update()
         self.personMovingTimeUpdater.update()
         self.personVelocityUpdater.update()
