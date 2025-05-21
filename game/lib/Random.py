@@ -18,3 +18,7 @@ class Random:
     @staticmethod
     def getListItem(lst):
         return lst[Random.getInt(0, len(lst) - 1)]
+
+    @staticmethod
+    def getOneOrMinusOne():
+        return 1.0 if Random.getBool() else -1.0

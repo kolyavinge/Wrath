@@ -66,6 +66,7 @@ from game.engine.weapon.BulletUpdater import *
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
 from game.engine.weapon.PlasmaBulletMovingLogic import *
 from game.engine.weapon.SelectWeaponRequestListener import *
+from game.engine.weapon.SniperAimFloatingUpdater import *
 from game.engine.weapon.WeaponDelayUpdater import *
 from game.engine.weapon.WeaponFeedbackLogic import *
 from game.engine.weapon.WeaponFireUpdater import *
@@ -146,6 +147,7 @@ class EngineModule:
         binder.bindSingleton(NonStandardBulletMovingUpdater)
         binder.bindSingleton(PlasmaBulletMovingLogic)
         binder.bindSingleton(SelectWeaponRequestListener)
+        binder.bindSingleton(SniperAimFloatingUpdater)
         binder.bindSingleton(WeaponDelayUpdater)
         binder.bindSingleton(WeaponFeedbackLogic)
         binder.bindSingleton(WeaponFireUpdater)

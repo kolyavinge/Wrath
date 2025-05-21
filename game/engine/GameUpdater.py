@@ -26,6 +26,7 @@ from game.engine.weapon.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.weapon.BulletUpdater import BulletUpdater
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
 from game.engine.weapon.SelectWeaponRequestListener import SelectWeaponRequestListener
+from game.engine.weapon.SniperAimFloatingUpdater import SniperAimFloatingUpdater
 from game.engine.weapon.WeaponDelayUpdater import WeaponDelayUpdater
 from game.engine.weapon.WeaponFireUpdater import WeaponFireUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
@@ -51,6 +52,7 @@ class GameUpdater:
     levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater
     cameraUpdater: CameraUpdater
     personBreathUpdater: PersonBreathUpdater
+    sniperAimFloatingUpdater: SniperAimFloatingUpdater
     personWeaponPositionUpdater: PersonWeaponPositionUpdater
     weaponDelayUpdater: WeaponDelayUpdater
     weaponFireUpdater: WeaponFireUpdater
@@ -108,6 +110,7 @@ class GameUpdater:
         self.enemyAIUpdater.update()
         self.personPositionUpdater.resetMovedAndTurned()
         self.personUpdater.commitState()
+        self.sniperAimFloatingUpdater.update()
         self.gameData.collisionData.clear()
 
         # sw.stop()
