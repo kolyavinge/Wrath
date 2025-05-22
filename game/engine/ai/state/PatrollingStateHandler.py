@@ -30,7 +30,7 @@ class PatrollingStateHandler:
             enemy.aiData.turnTimeLimit = Random.getInt(100, 1000)
             self.personTurnLogic.orientToFrontNormal(enemy, Vector3.getRandomNormalVector())
 
-        self.movingLogic.orientToNextDirection(enemy)
+        self.movingLogic.orientToFreeDirection(enemy)
         inputData.goForward = True
 
     def getNewStateOrNone(self, enemy):

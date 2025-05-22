@@ -1,4 +1,3 @@
-from game.calc.Vector3 import Vector3
 from game.engine.ai.common.ObstacleAvoidanceLogic import ObstacleAvoidanceLogic
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.lib.Random import Random
@@ -15,13 +14,25 @@ class MovingLogic:
         self.personTurnLogic = personTurnLogic
         self.obstacleAvoidanceLogic = obstacleAvoidanceLogic
 
-    def orientToNextDirection(self, enemy):
+    def orientToFreeDirection(self, enemy):
         nextFrontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(enemy)
         if nextFrontNormal.isZero():
             nextFrontNormal = enemy.frontNormal.copy()
             nextFrontNormal.mul(-1)
         if not enemy.frontNormal.isParallel(nextFrontNormal):
             self.personTurnLogic.orientToFrontNormal(enemy, nextFrontNormal)
+
+    def followByRoute(self, enemy):
+        route = enemy.aiData.route
+        routePoint = route.getCurrentPoint()
+        direction = enemy.currentCenterPoint.getDirectionTo(routePoint)
+        directionLength = direction.getLength()
+        if directionLength > 1.0:
+            direction.div(directionLength)  # normalize
+            if not enemy.frontNormal.isParallel(direction):
+                self.personTurnLogic.orientToFrontNormal(enemy, direction)
+        else:
+            route.removeCurrentPoint()
 
     def updateMoveDirection(self, enemy):
         aiData = enemy.aiData
@@ -32,7 +43,7 @@ class MovingLogic:
             aiData.moveDirectionRemain = Random.getInt(50, 200)
             aiData.runAwayFromObstacle = False
 
-    def setOppositeDirection(self, enemy):
+    def setOppositeMoveDirection(self, enemy):
         aiData = enemy.aiData
         aiData.moveDirection = aiData.moveDirection.opposite
         aiData.moveDirectionRemain = Random.getInt(50, 200)
@@ -46,5 +57,5 @@ class MovingLogic:
 
         return False
 
-    def applyInputData(self, enemy, inputData):
+    def applyMoveDirectionInputData(self, enemy, inputData):
         enemy.aiData.moveDirection.applyInputData(inputData)

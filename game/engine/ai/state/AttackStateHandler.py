@@ -27,11 +27,12 @@ class AttackStateHandler:
             otherEnemy = self.gameData.collisionData.personPerson[enemy]
             if enemy.velocityValue > 0 and otherEnemy.velocityValue > 0:
                 if not enemy.velocityVector.isParallel(otherEnemy.velocityVector, 0.1):
-                    self.movingLogic.setOppositeDirection(enemy)
+                    self.movingLogic.setOppositeMoveDirection(enemy)
             else:
-                self.movingLogic.setOppositeDirection(enemy)
+                self.movingLogic.setOppositeMoveDirection(enemy)
 
-        self.movingLogic.applyInputData(enemy, inputData)
+        self.movingLogic.applyMoveDirectionInputData(enemy, inputData)
+
         self.fireLogic.orientToTargetPerson(enemy)
         self.fireLogic.applyInputData(enemy, inputData)
 

@@ -17,6 +17,7 @@ class AIData:
         self.fireDelayRemain = 0
         self.moveDirection = MoveDirections.stay
         self.moveDirectionRemain = 0
+        self.route = None
         self.runAwayFromObstacle = False
         self.criticalHealth = 0
         self.turnTimeLimit = 0
