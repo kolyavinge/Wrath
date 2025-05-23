@@ -16,6 +16,7 @@ from game.engine.bsp.BSPTreeTraversal import *
 from game.engine.CameraUpdater import *
 from game.engine.cm.BulletCollisionDetector import *
 from game.engine.cm.BulletCollisionUpdater import *
+from game.engine.cm.ConstructionCollisionDetector import *
 from game.engine.cm.PersonCollisionDetector import *
 from game.engine.cm.PersonCollisionUpdater import *
 from game.engine.cm.PersonWallCollisionDetector import *
@@ -97,6 +98,7 @@ class EngineModule:
         binder.bindSingleton(CameraUpdater)
         binder.bindSingleton(BulletCollisionDetector)
         binder.bindSingleton(BulletCollisionUpdater)
+        binder.bindSingleton(ConstructionCollisionDetector)
         binder.bindSingleton(PersonCollisionDetector)
         binder.bindSingleton(PersonCollisionUpdater)
         binder.bindSingleton(PersonWallCollisionDetector)
