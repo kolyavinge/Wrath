@@ -6,6 +6,9 @@ class Route:
     def addPoint(self, point):
         self.points.append(point)
 
+    def addPointToStart(self, point):
+        self.points.insert(0, point)
+
     def getCurrentPoint(self):
         return self.points[0]
 
