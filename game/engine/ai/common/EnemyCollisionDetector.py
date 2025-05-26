@@ -4,7 +4,7 @@ from game.engine.cm.WallCollisionDetector import WallCollisionDetector
 from game.engine.GameData import GameData
 
 
-class CollisionDetector:
+class EnemyCollisionDetector:
 
     def __init__(
         self,

@@ -1,6 +1,6 @@
 from game.calc.SphereSegmentCalculator import *
 from game.engine.ai.common.BurstFireLogic import *
-from game.engine.ai.common.CollisionDetector import *
+from game.engine.ai.common.EnemyCollisionDetector import *
 from game.engine.ai.common.FireLogic import *
 from game.engine.ai.common.MovingLogic import *
 from game.engine.ai.common.ObstacleAvoidanceLogic import *
@@ -82,7 +82,7 @@ class EngineModule:
     def init(self, binder):
         binder.bindSingleton(SphereSegmentCalculator)
         binder.bindSingleton(BurstFireLogic)
-        binder.bindSingleton(CollisionDetector)
+        binder.bindSingleton(EnemyCollisionDetector)
         binder.bindSingleton(FireLogic)
         binder.bindSingleton(MovingLogic)
         binder.bindSingleton(ObstacleAvoidanceLogic)

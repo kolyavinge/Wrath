@@ -1,13 +1,13 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
-from game.engine.ai.common.CollisionDetector import CollisionDetector
+from game.engine.ai.common.EnemyCollisionDetector import EnemyCollisionDetector
 from game.lib.Random import Random
 
 
 class ObstacleAvoidanceLogic:
 
-    def __init__(self, collisionDetector: CollisionDetector):
+    def __init__(self, collisionDetector: EnemyCollisionDetector):
         self.collisionDetector = collisionDetector
 
     def getFrontNormalForNextStep(self, enemy):
