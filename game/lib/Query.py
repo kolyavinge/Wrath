@@ -4,15 +4,23 @@ class Query:
         self.result = lst
 
     def first(self, condition=None):
-        for item in self.result:
-            if condition == None or condition(item):
+        if condition is not None:
+            for item in self.result:
+                if condition(item):
+                    return item
+        else:
+            for item in self.result:
                 return item
 
         raise Exception("Element was not found.")
 
     def firstOrNone(self, condition=None):
-        for item in self.result:
-            if condition == None or condition(item):
+        if condition is not None:
+            for item in self.result:
+                if condition(item):
+                    return item
+        else:
+            for item in self.result:
                 return item
 
         return None
@@ -73,3 +81,43 @@ class Query:
                 return True
 
         return False
+
+    def min(self, minFunc=None):
+        if len(self.result) == 0:
+            raise Exception("Collection could not be empty.")
+
+        if minFunc is None:
+            currentMinValue = self.result[0]
+            for item in self.result:
+                if item < currentMinValue:
+                    currentMinValue = item
+
+            return currentMinValue
+        else:
+            currentMinValue = minFunc(self.result[0])
+            for item in self.result:
+                minValue = minFunc(item)
+                if minValue < currentMinValue:
+                    currentMinValue = minValue
+
+            return currentMinValue
+
+    def max(self, maxFunc=None):
+        if len(self.result) == 0:
+            raise Exception("Collection could not be empty.")
+
+        if maxFunc is None:
+            currentMaxValue = self.result[0]
+            for item in self.result:
+                if item > currentMaxValue:
+                    currentMaxValue = item
+
+            return currentMaxValue
+        else:
+            currentMaxValue = maxFunc(self.result[0])
+            for item in self.result:
+                maxValue = maxFunc(item)
+                if maxValue > currentMaxValue:
+                    currentMaxValue = maxValue
+
+            return currentMaxValue
