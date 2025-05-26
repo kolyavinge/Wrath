@@ -27,7 +27,7 @@ class SniperAimState:
         self.verticalViewRadiansMin = Geometry.degreesToRadians(2.0)
         self.radiansStep = Geometry.degreesToRadians(2.0)
         self.verticalViewRadians = self.verticalViewRadiansMax
-        self.mouseSensibility = 0.0005
+        self.mouseSensibility = 0.0003
         self.aFloatingFunc = SniperAimFloatingFunc(Random.getOneOrMinusOne() * 0.0025, Random.getOneOrMinusOne() * 0.04)
         self.bFloatingFunc = SniperAimFloatingFunc(Random.getOneOrMinusOne() * 0.002, Random.getOneOrMinusOne() * 0.05)
         self.aFloatingParam = 0

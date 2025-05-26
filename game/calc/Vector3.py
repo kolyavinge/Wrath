@@ -97,6 +97,9 @@ class Vector3:
     def __eq__(self, vector):
         return self.x == vector.x and self.y == vector.y and self.z == vector.z
 
+    def __hash__(self):
+        return hash((self.x, self.y, self.z))
+
     def __str__(self):
         return f"{self.x:.2f} : {self.y:.2f} : {self.z:.2f}"
 
