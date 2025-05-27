@@ -121,3 +121,11 @@ class Query:
                     currentMaxValue = maxValue
 
             return currentMaxValue
+
+    def orderBy(self, orderFunc):
+        self.result.sort(key=orderFunc)
+        return self
+
+    def orderByDesc(self, orderFunc):
+        self.result.sort(key=orderFunc, reverse=True)
+        return self
