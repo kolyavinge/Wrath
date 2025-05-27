@@ -1,6 +1,7 @@
 from game.lib.Math import Math
 from game.model.ai.EnemyState import EnemyState
 from game.model.ai.MoveDirections import MoveDirections
+from game.model.ai.Route import NullRoute
 
 
 class AIData:
@@ -17,7 +18,7 @@ class AIData:
         self.fireDelayRemain = 0
         self.moveDirection = MoveDirections.stay
         self.moveDirectionRemain = 0
-        self.route = None
+        self.route = NullRoute.instance
         self.runAwayFromObstacle = False
         self.criticalHealth = 0
         self.turnTimeLimit = 0

@@ -17,3 +17,24 @@ class Route:
 
     def hasPoints(self):
         return len(self.points) > 0
+
+
+class NullRoute:
+
+    def addPoint(self, point):
+        raise Exception("Operation is not available.")
+
+    def addPointToStart(self, point):
+        raise Exception("Operation is not available.")
+
+    def getCurrentPoint(self):
+        raise Exception("Operation is not available.")
+
+    def removeCurrentPoint(self):
+        raise Exception("Operation is not available.")
+
+    def hasPoints(self):
+        return False
+
+
+NullRoute.instance = NullRoute()
