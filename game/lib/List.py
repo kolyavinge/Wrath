@@ -12,3 +12,8 @@ class List:
                 return False
 
         return True
+
+    @staticmethod
+    def removeItemsBetween(lst, startIndex, endIndex):
+        for _ in range(startIndex + 1, endIndex):
+            lst.remove(lst[startIndex + 1])

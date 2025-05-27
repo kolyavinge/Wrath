@@ -1,7 +1,7 @@
 from game.calc.Vector3 import Vector3
 from game.engine.ai.common.RouteCollisionDetector import RouteCollisionDetector
 from game.engine.ai.common.RouteGraph import RouteGraph, Vertex
-from game.engine.GameData import GameData
+from game.engine.ai.common.RouteOptimizer import RouteOptimizer
 from game.lib.Query import Query
 from game.model.ai.Route import NullRoute, Route
 
@@ -10,11 +10,11 @@ class RouteFinder:
 
     def __init__(
         self,
-        gameData: GameData,
         collisionDetector: RouteCollisionDetector,
+        routeOptimizer: RouteOptimizer,
     ):
-        self.gameData = gameData
         self.collisionDetector = collisionDetector
+        self.routeOptimizer = routeOptimizer
         self.stepLength = 2.0
         self.availableDirections = [
             Vector3(0, self.stepLength, 0),
@@ -24,13 +24,18 @@ class RouteFinder:
         ]
 
     def getRoute(self, startPoint, endPoint):
-        startVertex = Vertex(startPoint, 0)
-        endVertex = Vertex(endPoint, None)
-        route = NullRoute.instance
-        if self.calculateRouteGraph(startVertex, endVertex):
-            route = self.collectRoute(startVertex, endVertex)
+        if not self.collisionDetector.anyCollisions(startPoint, endPoint):
+            return Route([endPoint])
+        else:
+            startVertex = Vertex(startPoint, 0)
+            endVertex = Vertex(endPoint, None)
+            route = NullRoute.instance
+            if self.calculateRouteGraph(startVertex, endVertex):
+                routePoints = self.getRoutePoints(startVertex, endVertex)
+                self.routeOptimizer.optimizeRoutePoints(routePoints)
+                route = Route(routePoints)
 
-        return route
+            return route
 
     def calculateRouteGraph(self, startVertex, endVertex):
         # поиск в ширину
@@ -71,20 +76,16 @@ class RouteFinder:
 
         return False
 
-    def collectRoute(self, startVertex, endVertex):
+    def getRoutePoints(self, startVertex, endVertex):
         # собираем маршрут от конечной точки к начальной
         assert endVertex.generationNumber is not None
-        route = Route()
-        route.addPoint(endVertex.point)
+        routePoints = [endVertex.point]
         currentVertex = endVertex
         while currentVertex != startVertex:
             currentVertex = Query(currentVertex.connectedVertices).orderBy(lambda x: x.generationNumber).first()
-            route.addPointToStart(currentVertex.point)
+            routePoints.insert(0, currentVertex.point)
 
-        # начальную точку можно удалить. с нее и так начнет свое движение персонаж
-        route.removeCurrentPoint()
-
-        return route
+        return routePoints
 
     def isEndPoint(self, point, endPoint):
         return point.getLengthTo(endPoint) <= self.stepLength

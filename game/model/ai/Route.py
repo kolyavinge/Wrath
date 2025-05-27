@@ -1,7 +1,7 @@
 class Route:
 
-    def __init__(self):
-        self.points = []
+    def __init__(self, points):
+        self.points = points
 
     def addPoint(self, point):
         self.points.append(point)

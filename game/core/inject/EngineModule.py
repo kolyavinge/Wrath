@@ -7,6 +7,7 @@ from game.engine.ai.common.ObstacleAvoidanceLogic import *
 from game.engine.ai.common.PowerupFinder import *
 from game.engine.ai.common.RouteCollisionDetector import *
 from game.engine.ai.common.RouteFinder import *
+from game.engine.ai.common.RouteOptimizer import *
 from game.engine.ai.EnemyAIUpdater import *
 from game.engine.ai.state.AttackStateHandler import *
 from game.engine.ai.state.HealthSearchStateHandler import *
@@ -92,6 +93,7 @@ class EngineModule:
         binder.bindSingleton(PowerupFinder)
         binder.bindSingleton(RouteCollisionDetector)
         binder.bindSingleton(RouteFinder)
+        binder.bindSingleton(RouteOptimizer)
         binder.bindSingleton(EnemyAIUpdater)
         binder.bindSingleton(AttackStateHandler)
         binder.bindSingleton(HealthSearchStateHandler)
