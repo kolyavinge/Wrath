@@ -4,6 +4,7 @@ from game.engine.ai.common.EnemyCollisionDetector import *
 from game.engine.ai.common.FireLogic import *
 from game.engine.ai.common.MovingLogic import *
 from game.engine.ai.common.ObstacleAvoidanceLogic import *
+from game.engine.ai.common.PowerupFinder import *
 from game.engine.ai.common.RouteCollisionDetector import *
 from game.engine.ai.common.RouteFinder import *
 from game.engine.ai.EnemyAIUpdater import *
@@ -88,6 +89,7 @@ class EngineModule:
         binder.bindSingleton(FireLogic)
         binder.bindSingleton(MovingLogic)
         binder.bindSingleton(ObstacleAvoidanceLogic)
+        binder.bindSingleton(PowerupFinder)
         binder.bindSingleton(RouteCollisionDetector)
         binder.bindSingleton(RouteFinder)
         binder.bindSingleton(EnemyAIUpdater)
