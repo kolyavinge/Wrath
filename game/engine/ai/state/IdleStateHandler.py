@@ -22,18 +22,20 @@ class IdleStateHandler:
         self.personTurnLogic = personTurnLogic
 
     def init(self, enemy):
-        enemy.aiData.idleTimeLimit = Random.getInt(100, 400)
-        enemy.aiData.turnTimeLimit = Random.getInt(50, 200)
+        enemy.aiData.idleTimeLimit.set(Random.getInt(100, 400))
+        enemy.aiData.turnTimeLimit.set(Random.getInt(50, 200))
 
     def process(self, enemy, inputData):
+        enemy.aiData.healthPowerupDelay.decrease()
+
         if self.movingLogic.isTurnTimeLimited(enemy):
             self.personTurnLogic.orientToFrontNormal(enemy, Vector3.getRandomNormalVector())
 
     def getNewStateOrNone(self, enemy):
-        if enemy.aiData.stateTime > enemy.aiData.idleTimeLimit:
+        if enemy.aiData.stateTime > enemy.aiData.idleTimeLimit.value:
             return EnemyState.patrolling
 
-        if enemy.health < enemy.aiData.criticalHealth:
+        if enemy.health < enemy.aiData.criticalHealth and enemy.aiData.healthPowerupDelay.isExpired():
             return EnemyState.healthSearch
 
         otherEnemy = self.fireLogic.getEnemyWithinFireDistanceWhoFiringTo(enemy)

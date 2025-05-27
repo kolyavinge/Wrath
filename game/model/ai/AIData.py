@@ -1,3 +1,4 @@
+from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Math import Math
 from game.model.ai.EnemyState import EnemyState
 from game.model.ai.MoveDirections import MoveDirections
@@ -14,17 +15,17 @@ class AIData:
         self.checkCollisionDirectionsCount = 0
         self.fireDistance = 0
         self.targetPerson = None
-        self.fireBurstRemain = 0
-        self.fireDelayRemain = 0
+        self.fireBurstRemain = DecrementCounter()
+        self.fireDelayRemain = DecrementCounter()
         self.moveDirection = MoveDirections.stay
-        self.moveDirectionRemain = 0
+        self.moveDirectionRemain = DecrementCounter()
         self.route = NullRoute.instance
         self.runAwayFromObstacle = False
         self.criticalHealth = 0
-        self.turnTimeLimit = 0
-        self.idleTimeLimit = 0
-        self.patrollingTimeLimit = 0
-        self.healthPowerupDelay = 0
+        self.turnTimeLimit = DecrementCounter()
+        self.idleTimeLimit = DecrementCounter()
+        self.patrollingTimeLimit = DecrementCounter()
+        self.healthPowerupDelay = DecrementCounter()
 
     def commit(self):
         self.checkCollisionRadianStep = self.horizontalFieldViewRadians / self.checkCollisionDirectionsCount

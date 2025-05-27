@@ -26,7 +26,7 @@ class HealthSearchStateHandler:
 
     def init(self, enemy):
         if not self.tryFindNearestHealthOrVest(enemy):
-            enemy.aiData.healthPowerupDelay = Random.getInt(200, 500)
+            enemy.aiData.healthPowerupDelay.set(Random.getInt(200, 500))
 
     def process(self, enemy, inputData):
         if enemy.aiData.route.hasPoints():

@@ -20,8 +20,7 @@ class AttackStateHandler:
         pass
 
     def process(self, enemy, inputData):
-        if enemy.aiData.healthPowerupDelay > 0:
-            enemy.aiData.healthPowerupDelay -= 1
+        enemy.aiData.healthPowerupDelay.decrease()
 
         self.movingLogic.updateMoveDirection(enemy)
 
@@ -40,7 +39,7 @@ class AttackStateHandler:
         self.fireLogic.applyInputData(enemy, inputData)
 
     def getNewStateOrNone(self, enemy):
-        if enemy.health < enemy.aiData.criticalHealth and enemy.aiData.healthPowerupDelay == 0:
+        if enemy.health < enemy.aiData.criticalHealth and enemy.aiData.healthPowerupDelay.isExpired():
             return EnemyState.healthSearch
 
         if not self.fireLogic.targetExists(enemy):

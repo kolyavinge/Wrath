@@ -36,26 +36,20 @@ class MovingLogic:
 
     def updateMoveDirection(self, enemy):
         aiData = enemy.aiData
-        if aiData.moveDirectionRemain > 0:
-            aiData.moveDirectionRemain -= 1
-        if aiData.moveDirectionRemain == 0:
+        aiData.moveDirectionRemain.decrease()
+        if aiData.moveDirectionRemain.isExpired():
             aiData.moveDirection = Random.getListItem(MoveDirections.all)
-            aiData.moveDirectionRemain = Random.getInt(50, 200)
+            aiData.moveDirectionRemain.set(Random.getInt(50, 200))
             aiData.runAwayFromObstacle = False
 
     def setOppositeMoveDirection(self, enemy):
         aiData = enemy.aiData
         aiData.moveDirection = aiData.moveDirection.opposite
-        aiData.moveDirectionRemain = Random.getInt(50, 200)
+        aiData.moveDirectionRemain.set(Random.getInt(50, 200))
 
     def isTurnTimeLimited(self, enemy):
-        aiData = enemy.aiData
-        if aiData.turnTimeLimit > 0:
-            aiData.turnTimeLimit -= 1
-            if aiData.turnTimeLimit == 0:
-                return True
-
-        return False
+        enemy.aiData.turnTimeLimit.decrease()
+        return enemy.aiData.turnTimeLimit.isExpired()
 
     def applyMoveDirectionInputData(self, enemy, inputData):
         enemy.aiData.moveDirection.applyInputData(inputData)
