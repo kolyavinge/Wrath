@@ -15,7 +15,7 @@ class RouteFinder:
     ):
         self.gameData = gameData
         self.collisionDetector = collisionDetector
-        self.stepLength = 3.0
+        self.stepLength = 2.0
         self.availableDirections = [
             Vector3(0, self.stepLength, 0),
             Vector3(0, -self.stepLength, 0),
@@ -76,12 +76,13 @@ class RouteFinder:
         assert endVertex.generationNumber is not None
         route = Route()
         route.addPoint(endVertex.point)
-        generationNumber = endVertex.generationNumber - 1
         currentVertex = endVertex
         while currentVertex != startVertex:
-            currentVertex = Query(currentVertex.connectedVertices).first(lambda x: x.generationNumber == generationNumber)
+            currentVertex = Query(currentVertex.connectedVertices).orderBy(lambda x: x.generationNumber).first()
             route.addPointToStart(currentVertex.point)
-            generationNumber -= 1
+
+        # начальную точку можно удалить. с нее и так начнет свое движение персонаж
+        route.removeCurrentPoint()
 
         return route
 
