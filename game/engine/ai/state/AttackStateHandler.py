@@ -46,7 +46,9 @@ class AttackStateHandler:
         if not self.fireLogic.targetExists(enemy):
             return EnemyState.patrolling
 
-        if not self.gameData.enemyItems[enemy].hasWeapons() and enemy.aiData.weaponPowerupDelay.isExpired():
+        enemyItems = self.gameData.enemyItems[enemy]
+
+        if not enemyItems.hasWeapons() and enemy.aiData.weaponPowerupDelay.isExpired():
             return EnemyState.weaponSearch
 
         return None

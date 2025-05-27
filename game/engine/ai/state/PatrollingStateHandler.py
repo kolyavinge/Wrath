@@ -43,15 +43,18 @@ class PatrollingStateHandler:
         if enemy.health < enemy.aiData.criticalHealth and enemy.aiData.healthPowerupDelay.isExpired():
             return EnemyState.healthSearch
 
-        otherEnemy = self.fireLogic.getEnemyWithinFireDistanceWhoFiringTo(enemy)
-        if otherEnemy is not None:
-            enemy.aiData.targetPerson = otherEnemy
+        enemyItems = self.gameData.enemyItems[enemy]
+
+        if enemyItems.hasWeapons():
+            otherEnemy = self.fireLogic.getEnemyWithinFireDistanceWhoFiringTo(enemy)
+            if otherEnemy is not None:
+                enemy.aiData.targetPerson = otherEnemy
+                return EnemyState.attack
+
+        if enemyItems.hasWeapons() and self.fireLogic.targetExists(enemy):
             return EnemyState.attack
 
-        if self.fireLogic.targetExists(enemy):
-            return EnemyState.attack
-
-        if not self.gameData.enemyItems[enemy].hasWeapons() and enemy.aiData.weaponPowerupDelay.isExpired():
+        if not enemyItems.hasWeapons() and enemy.aiData.weaponPowerupDelay.isExpired():
             return EnemyState.weaponSearch
 
         return None
