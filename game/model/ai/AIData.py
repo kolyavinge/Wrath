@@ -26,6 +26,7 @@ class AIData:
         self.idleTimeLimit = DecrementCounter()
         self.patrollingTimeLimit = DecrementCounter()
         self.healthPowerupDelay = DecrementCounter()
+        self.weaponPowerupDelay = DecrementCounter()
 
     def commit(self):
         self.checkCollisionRadianStep = self.horizontalFieldViewRadians / self.checkCollisionDirectionsCount

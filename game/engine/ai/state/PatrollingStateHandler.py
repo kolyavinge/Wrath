@@ -27,6 +27,7 @@ class PatrollingStateHandler:
 
     def process(self, enemy, inputData):
         enemy.aiData.healthPowerupDelay.decrease()
+        enemy.aiData.weaponPowerupDelay.decrease()
 
         if self.movingLogic.isTurnTimeLimited(enemy):
             enemy.aiData.turnTimeLimit.set(Random.getInt(100, 1000))
@@ -49,5 +50,8 @@ class PatrollingStateHandler:
 
         if self.fireLogic.targetExists(enemy):
             return EnemyState.attack
+
+        if not self.gameData.enemyItems[enemy].hasWeapons() and enemy.aiData.weaponPowerupDelay.isExpired():
+            return EnemyState.weaponSearch
 
         return None

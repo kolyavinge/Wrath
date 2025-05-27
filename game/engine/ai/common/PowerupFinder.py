@@ -4,6 +4,7 @@ from game.lib.Query import Query
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
 from game.model.powerup.VestPowerup import VestPowerup
+from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 
 class PowerupFinder:
@@ -38,6 +39,21 @@ class PowerupFinder:
 
         for vest in vests:
             enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, vest.pickupPosition)
+            if enemy.aiData.route.hasPoints():
+                return True
+
+        return False
+
+    def tryFindNearestWeapon(self, enemy):
+        weapons = (
+            Query(self.gameData.powerups)
+            .where(lambda x: isinstance(x, WeaponPowerup))
+            .orderBy(lambda x: x.pickupPosition.getLengthTo(enemy.currentCenterPoint))
+            .result
+        )
+
+        for weapon in weapons:
+            enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, weapon.pickupPosition)
             if enemy.aiData.route.hasPoints():
                 return True
 

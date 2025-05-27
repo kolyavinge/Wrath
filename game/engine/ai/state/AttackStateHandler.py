@@ -21,6 +21,7 @@ class AttackStateHandler:
 
     def process(self, enemy, inputData):
         enemy.aiData.healthPowerupDelay.decrease()
+        enemy.aiData.weaponPowerupDelay.decrease()
 
         self.movingLogic.updateMoveDirection(enemy)
 
@@ -44,5 +45,8 @@ class AttackStateHandler:
 
         if not self.fireLogic.targetExists(enemy):
             return EnemyState.patrolling
+
+        if not self.gameData.enemyItems[enemy].hasWeapons() and enemy.aiData.weaponPowerupDelay.isExpired():
+            return EnemyState.weaponSearch
 
         return None
