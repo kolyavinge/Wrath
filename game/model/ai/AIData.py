@@ -24,6 +24,7 @@ class AIData:
         self.turnTimeLimit = 0
         self.idleTimeLimit = 0
         self.patrollingTimeLimit = 0
+        self.healthPowerupDelay = 0
 
     def commit(self):
         self.checkCollisionRadianStep = self.horizontalFieldViewRadians / self.checkCollisionDirectionsCount

@@ -26,6 +26,9 @@ class PatrollingStateHandler:
         enemy.aiData.turnTimeLimit = Random.getInt(100, 1000)
 
     def process(self, enemy, inputData):
+        if enemy.aiData.healthPowerupDelay > 0:
+            enemy.aiData.healthPowerupDelay -= 1
+
         if self.movingLogic.isTurnTimeLimited(enemy):
             enemy.aiData.turnTimeLimit = Random.getInt(100, 1000)
             self.personTurnLogic.orientToFrontNormal(enemy, Vector3.getRandomNormalVector())
@@ -37,7 +40,7 @@ class PatrollingStateHandler:
         if enemy.aiData.stateTime > enemy.aiData.patrollingTimeLimit:
             return EnemyState.idle
 
-        if enemy.health < enemy.aiData.criticalHealth:
+        if enemy.health < enemy.aiData.criticalHealth and enemy.aiData.healthPowerupDelay == 0:
             return EnemyState.healthSearch
 
         otherEnemy = self.fireLogic.getEnemyWithinFireDistanceWhoFiringTo(enemy)
