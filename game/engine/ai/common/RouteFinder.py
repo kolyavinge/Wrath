@@ -3,7 +3,7 @@ from game.engine.ai.common.RouteCollisionDetector import RouteCollisionDetector
 from game.engine.ai.common.RouteGraph import RouteGraph, Vertex
 from game.engine.GameData import GameData
 from game.lib.Query import Query
-from game.model.ai.Route import Route
+from game.model.ai.Route import NullRoute, Route
 
 
 class RouteFinder:
@@ -16,7 +16,7 @@ class RouteFinder:
         self.gameData = gameData
         self.collisionDetector = collisionDetector
         self.stepLength = 3.0
-        self.directions = [
+        self.availableDirections = [
             Vector3(0, self.stepLength, 0),
             Vector3(0, -self.stepLength, 0),
             Vector3(-self.stepLength, 0, 0),
@@ -26,33 +26,37 @@ class RouteFinder:
     def getRoute(self, startPoint, endPoint):
         startVertex = Vertex(startPoint, 0)
         endVertex = Vertex(endPoint, None)
-        self.calculateRouteGraph(startVertex, endVertex)
-        route = self.collectRoute(startVertex, endVertex)
+        route = NullRoute.instance
+        if self.calculateRouteGraph(startVertex, endVertex):
+            route = self.collectRoute(startVertex, endVertex)
 
         return route
 
     def calculateRouteGraph(self, startVertex, endVertex):
+        # поиск в ширину
+        # идем во всех доступных направлениях из каждой точки
+        # проверяем точки на соударение с препятствиями
+        # как только дошли до конечной точки - заканчиваем поиск
+
         routeGraph = RouteGraph()
         routeGraph.addVertex(startVertex)
         routeGraph.addVertex(endVertex)
         endPoint = endVertex.point
-        generationNumber = 1
+        generationNumber = startVertex.generationNumber + 1
         currentVertices = [startVertex]
         nextVertices = []
 
         while len(currentVertices) > 0:
             currentVertex = currentVertices.pop()
-            if not self.collisionDetector.anyCollisions(currentVertex.point, endPoint):
-                routeGraph.connectVertices(currentVertex, endVertex)
-                return
-            for direction in self.directions:
+            for direction in self.availableDirections:
                 nextPoint = currentVertex.point.copy()
                 nextPoint.add(direction)
                 if self.collisionDetector.anyCollisions(currentVertex.point, nextPoint):
                     continue
                 if self.isEndPoint(nextPoint, endPoint):
+                    endVertex.generationNumber = generationNumber
                     routeGraph.connectVertices(currentVertex, endVertex)
-                    return
+                    return True
                 else:
                     nextVertex = routeGraph.getVertexWithPointOrNone(nextPoint)
                     if nextVertex is None:
@@ -65,10 +69,14 @@ class RouteFinder:
             nextVertices = []
             generationNumber += 1
 
+        return False
+
     def collectRoute(self, startVertex, endVertex):
+        # собираем маршрут от конечной точки к начальной
+        assert endVertex.generationNumber is not None
         route = Route()
         route.addPoint(endVertex.point)
-        generationNumber = Query(endVertex.connectedVertices).min(lambda x: x.generationNumber)
+        generationNumber = endVertex.generationNumber - 1
         currentVertex = endVertex
         while currentVertex != startVertex:
             currentVertex = Query(currentVertex.connectedVertices).first(lambda x: x.generationNumber == generationNumber)
