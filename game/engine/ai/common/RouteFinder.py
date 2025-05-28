@@ -2,6 +2,8 @@ from game.calc.Vector3 import Vector3
 from game.engine.ai.common.RouteCollisionDetector import RouteCollisionDetector
 from game.engine.ai.common.RouteGraph import RouteGraph, Vertex
 from game.engine.ai.common.RouteOptimizer import RouteOptimizer
+from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.engine.GameData import GameData
 from game.lib.Query import Query
 from game.model.ai.Route import NullRoute, Route
 
@@ -10,11 +12,15 @@ class RouteFinder:
 
     def __init__(
         self,
+        gameData: GameData,
         collisionDetector: RouteCollisionDetector,
         routeOptimizer: RouteOptimizer,
+        traversal: BSPTreeTraversal,
     ):
+        self.gameData = gameData
         self.collisionDetector = collisionDetector
         self.routeOptimizer = routeOptimizer
+        self.traversal = traversal
         self.stepLength = 2.0
         self.forward = Vector3(0, self.stepLength, 0)
         self.backward = Vector3(0, -self.stepLength, 0)
@@ -63,6 +69,7 @@ class RouteFinder:
                 nextPoint.add(direction)
                 if self.collisionDetector.anyCollisions(currentVertex.point, nextPoint):
                     continue
+                nextPoint.z = self.getPointZ(nextPoint)
                 if self.isEndPoint(nextPoint, endPoint):
                     endVertex.generationNumber = generationNumber
                     routeGraph.connectVertices(currentVertex, endVertex)
@@ -91,6 +98,12 @@ class RouteFinder:
             routePoints.insert(0, currentVertex.point)
 
         return routePoints
+
+    def getPointZ(self, point):
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, point)
+        z = levelSegment.floors[0].getZ(point.x, point.y)
+
+        return z
 
     def isEndPoint(self, point, endPoint):
         return point.getLengthTo(endPoint) <= self.stepLength

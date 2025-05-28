@@ -23,11 +23,11 @@ class PersonItems:
         self.weapons = set()
         self.weapons.add(pistol1)
         self.weapons.add(pistol2)
-        self.weapons.add(rifle)
-        self.weapons.add(plasma)
-        self.weapons.add(launcher)
-        self.weapons.add(railgun)
-        self.weapons.add(sniper)
+        # self.weapons.add(rifle)
+        # self.weapons.add(plasma)
+        # self.weapons.add(launcher)
+        # self.weapons.add(railgun)
+        # self.weapons.add(sniper)
         self.rightHandWeapon = None
         self.leftHandWeapon = None
         self.currentWeapon = None
