@@ -16,12 +16,17 @@ class RouteFinder:
         self.collisionDetector = collisionDetector
         self.routeOptimizer = routeOptimizer
         self.stepLength = 2.0
-        self.availableDirections = [
-            Vector3(0, self.stepLength, 0),
-            Vector3(0, -self.stepLength, 0),
-            Vector3(-self.stepLength, 0, 0),
-            Vector3(self.stepLength, 0, 0),
-        ]
+        self.forward = Vector3(0, self.stepLength, 0)
+        self.backward = Vector3(0, -self.stepLength, 0)
+        self.left = Vector3(-self.stepLength, 0, 0)
+        self.right = Vector3(self.stepLength, 0, 0)
+        self.availableDirectionsFrom = {
+            None: {self.forward, self.backward, self.left, self.right},
+            self.forward: {self.backward, self.left, self.right},
+            self.backward: {self.forward, self.left, self.right},
+            self.left: {self.forward, self.backward, self.right},
+            self.right: {self.forward, self.backward, self.left},
+        }
 
     def getRoute(self, startPoint, endPoint):
         if not self.collisionDetector.anyCollisions(startPoint, endPoint):
@@ -48,12 +53,12 @@ class RouteFinder:
         routeGraph.addVertex(endVertex)
         endPoint = endVertex.point
         generationNumber = startVertex.generationNumber + 1
-        currentVertices = [startVertex]
+        currentVertices = [(startVertex, None)]
         nextVertices = []
 
         while len(currentVertices) > 0:
-            currentVertex = currentVertices.pop()
-            for direction in self.availableDirections:
+            currentVertex, lastDirection = currentVertices.pop()
+            for direction in self.availableDirectionsFrom[lastDirection]:
                 nextPoint = currentVertex.point.copy()
                 nextPoint.add(direction)
                 if self.collisionDetector.anyCollisions(currentVertex.point, nextPoint):
@@ -67,7 +72,7 @@ class RouteFinder:
                     if nextVertex is None:
                         nextVertex = Vertex(nextPoint, generationNumber)
                         routeGraph.addVertex(nextVertex)
-                        nextVertices.append(nextVertex)
+                        nextVertices.append((nextVertex, direction))
                     routeGraph.connectVertices(currentVertex, nextVertex)
 
             currentVertices = nextVertices
