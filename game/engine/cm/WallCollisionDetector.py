@@ -15,20 +15,23 @@ class WallCollisionDetector:
         self.gameData = gameData
         self.levelSegmentItemFinder = levelSegmentItemFinder
 
-    def getCollisionResultOrNone(self, linePointFrom, linePointTo, fromLevelSegment, toLevelSegment):
-        return self.levelSegmentItemFinder.findItemOrNone(
-            self.gameData.collisionTree,
-            fromLevelSegment,
-            toLevelSegment,
-            linePointFrom,
-            linePointTo,
-            lambda segment, start, end: self.getCollidedWallOrNone(start, end, segment.walls),
+    def anyCollisions(self, linePointFrom, linePointTo, fromLevelSegment, toLevelSegment):
+        return (
+            self.levelSegmentItemFinder.findItemOrNone(
+                self.gameData.collisionTree,
+                fromLevelSegment,
+                toLevelSegment,
+                linePointFrom,
+                linePointTo,
+                lambda segment, start, end: self.checkCollisionOrNone(start, end, segment.walls),
+            )
+            or False
         )
 
-    def getCollidedWallOrNone(self, linePointFrom, linePointTo, walls):
+    def checkCollisionOrNone(self, linePointFrom, linePointTo, walls):
         for wall in walls:
             if self.lineIntersectsWall(linePointFrom, linePointTo, wall):
-                return wall
+                return True
 
         return None
 

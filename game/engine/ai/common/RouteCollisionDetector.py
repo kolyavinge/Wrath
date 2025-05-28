@@ -27,8 +27,7 @@ class RouteCollisionDetector:
         )
 
     def anyWallCollisions(self, pointFrom, pointTo, fromLevelSegment, toLevelSegment):
-        result = self.wallCollisionDetector.getCollisionResultOrNone(pointFrom, pointTo, fromLevelSegment, toLevelSegment)
-        return result is not None
+        return self.wallCollisionDetector.anyCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment)
 
     def anyVoidCollisions(self, pointFrom, pointTo, fromLevelSegment, toLevelSegment):
-        return self.voidCollisionDetector.hasCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment)
+        return self.voidCollisionDetector.anyCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment)

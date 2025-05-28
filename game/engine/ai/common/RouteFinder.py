@@ -22,16 +22,16 @@ class RouteFinder:
         self.routeOptimizer = routeOptimizer
         self.traversal = traversal
         self.stepLength = 2.0
-        self.forward = Vector3(0, self.stepLength, 0)
-        self.backward = Vector3(0, -self.stepLength, 0)
-        self.left = Vector3(-self.stepLength, 0, 0)
-        self.right = Vector3(self.stepLength, 0, 0)
+        forward = Vector3(0, self.stepLength, 0)
+        backward = Vector3(0, -self.stepLength, 0)
+        left = Vector3(-self.stepLength, 0, 0)
+        right = Vector3(self.stepLength, 0, 0)
         self.availableDirectionsFrom = {
-            None: {self.forward, self.backward, self.left, self.right},
-            self.forward: {self.backward, self.left, self.right},
-            self.backward: {self.forward, self.left, self.right},
-            self.left: {self.forward, self.backward, self.right},
-            self.right: {self.forward, self.backward, self.left},
+            None: {forward, backward, left, right},
+            forward: {backward, left, right},
+            backward: {forward, left, right},
+            left: {forward, backward, right},
+            right: {forward, backward, left},
         }
 
     def getRoute(self, startPoint, endPoint):
