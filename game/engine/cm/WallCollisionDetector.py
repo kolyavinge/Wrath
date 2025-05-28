@@ -1,9 +1,36 @@
 from game.calc.Geometry import Geometry
+from game.engine.GameData import GameData
+from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
 from game.lib.Numeric import Numeric
 from game.model.Orientation import Orientation
 
 
 class WallCollisionDetector:
+
+    def __init__(
+        self,
+        gameData: GameData,
+        levelSegmentItemFinder: LevelSegmentItemFinder,
+    ):
+        self.gameData = gameData
+        self.levelSegmentItemFinder = levelSegmentItemFinder
+
+    def getCollisionResultOrNone(self, linePointFrom, linePointTo, fromLevelSegment, toLevelSegment):
+        return self.levelSegmentItemFinder.findItemOrNone(
+            self.gameData.collisionTree,
+            fromLevelSegment,
+            toLevelSegment,
+            linePointFrom,
+            linePointTo,
+            lambda segment, start, end: self.getCollidedWallOrNone(start, end, segment.walls),
+        )
+
+    def getCollidedWallOrNone(self, linePointFrom, linePointTo, walls):
+        for wall in walls:
+            if self.lineIntersectsWall(linePointFrom, linePointTo, wall):
+                return wall
+
+        return None
 
     def lineIntersectsWall(self, linePointFrom, linePointTo, wall):
         if self.isLinePointToBehindWall(linePointTo, wall):

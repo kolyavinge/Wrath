@@ -28,6 +28,7 @@ from game.engine.cm.PersonWallCollisionUpdater import *
 from game.engine.cm.PlaneCollisionDetector import *
 from game.engine.cm.PowerupCollisionDetector import *
 from game.engine.cm.PowerupCollisionUpdater import *
+from game.engine.cm.VoidCollisionDetector import *
 from game.engine.cm.WallCollisionDetector import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
@@ -114,6 +115,7 @@ class EngineModule:
         binder.bindSingleton(PlaneCollisionDetector)
         binder.bindSingleton(PowerupCollisionDetector)
         binder.bindSingleton(PowerupCollisionUpdater)
+        binder.bindSingleton(VoidCollisionDetector)
         binder.bindSingleton(WallCollisionDetector)
         binder.bindSingleton(GameData)
         binder.bindSingleton(GameUpdater, resolveByFields=True)

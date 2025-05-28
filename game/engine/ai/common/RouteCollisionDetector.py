@@ -1,4 +1,5 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.engine.cm.VoidCollisionDetector import VoidCollisionDetector
 from game.engine.cm.WallCollisionDetector import WallCollisionDetector
 from game.engine.GameData import GameData
 
@@ -9,29 +10,25 @@ class RouteCollisionDetector:
         self,
         gameData: GameData,
         wallCollisionDetector: WallCollisionDetector,
+        voidCollisionDetector: VoidCollisionDetector,
         traversal: BSPTreeTraversal,
     ):
         self.gameData = gameData
         self.wallCollisionDetector = wallCollisionDetector
+        self.voidCollisionDetector = voidCollisionDetector
         self.traversal = traversal
 
     def anyCollisions(self, pointFrom, pointTo):
-        pointFromLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, pointFrom)
-        pointToLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, pointTo)
+        fromLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, pointFrom)
+        toLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, pointTo)
 
-        return self.anyWallCollisions(pointFrom, pointTo, pointFromLevelSegment, pointToLevelSegment) or self.anyVoidCollisions(pointToLevelSegment)
+        return self.anyWallCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment) or self.anyVoidCollisions(
+            pointFrom, pointTo, fromLevelSegment, toLevelSegment
+        )
 
-    def anyWallCollisions(self, pointFrom, pointTo, pointFromLevelSegment, pointToLevelSegment):
-        for wall in pointFromLevelSegment.walls:
-            if self.wallCollisionDetector.lineIntersectsWall(pointFrom, pointTo, wall):
-                return True
+    def anyWallCollisions(self, pointFrom, pointTo, fromLevelSegment, toLevelSegment):
+        result = self.wallCollisionDetector.getCollisionResultOrNone(pointFrom, pointTo, fromLevelSegment, toLevelSegment)
+        return result is not None
 
-        if pointFromLevelSegment != pointToLevelSegment:
-            for wall in pointToLevelSegment.walls:
-                if self.wallCollisionDetector.lineIntersectsWall(pointFrom, pointTo, wall):
-                    return True
-
-        return False
-
-    def anyVoidCollisions(self, pointToLevelSegment):
-        return len(pointToLevelSegment.floors) == 0
+    def anyVoidCollisions(self, pointFrom, pointTo, fromLevelSegment, toLevelSegment):
+        return self.voidCollisionDetector.hasCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment)
