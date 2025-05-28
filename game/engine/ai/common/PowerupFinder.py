@@ -18,25 +18,13 @@ class PowerupFinder:
         self.routeFinder = routeFinder
 
     def tryFindNearestHealthOrVest(self, enemy):
-        healthes = (
-            Query(self.gameData.powerups)
-            .where(lambda x: isinstance(x, SmallHealthPowerup) or isinstance(x, LargeHealthPowerup))
-            .orderBy(lambda x: x.pickupPosition.getLengthTo(enemy.currentCenterPoint))
-            .result
-        )
-
+        healthes = self.getNearestPowerups(enemy, lambda x: isinstance(x, SmallHealthPowerup) or isinstance(x, LargeHealthPowerup))
         for health in healthes:
             enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, health.pickupPosition)
             if enemy.aiData.route.hasPoints():
                 return True
 
-        vests = (
-            Query(self.gameData.powerups)
-            .where(lambda x: isinstance(x, VestPowerup))
-            .orderBy(lambda x: x.pickupPosition.getLengthTo(enemy.currentCenterPoint))
-            .result
-        )
-
+        vests = self.getNearestPowerups(enemy, lambda x: isinstance(x, VestPowerup))
         for vest in vests:
             enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, vest.pickupPosition)
             if enemy.aiData.route.hasPoints():
@@ -45,16 +33,13 @@ class PowerupFinder:
         return False
 
     def tryFindNearestWeapon(self, enemy):
-        weapons = (
-            Query(self.gameData.powerups)
-            .where(lambda x: isinstance(x, WeaponPowerup))
-            .orderBy(lambda x: x.pickupPosition.getLengthTo(enemy.currentCenterPoint))
-            .result
-        )
-
+        weapons = self.getNearestPowerups(enemy, lambda x: isinstance(x, WeaponPowerup))
         for weapon in weapons:
             enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, weapon.pickupPosition)
             if enemy.aiData.route.hasPoints():
                 return True
 
         return False
+
+    def getNearestPowerups(self, enemy, conditionFunc):
+        return Query(self.gameData.powerups).where(conditionFunc).orderBy(lambda x: x.pickupPosition.getLengthTo(enemy.currentCenterPoint)).result
