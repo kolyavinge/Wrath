@@ -50,5 +50,8 @@ class BulletCollisionUpdater:
         bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, visibilityLevelSegment, bullet.holeInfo)
         self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
 
-    def processPersonCollision(self, bullet, person):
+    def processPersonCollision(self, bullet, collisionResult):
+        collisionPoint, person = collisionResult
+        bullet.currentPosition = collisionPoint
+        bullet.nextPosition = collisionPoint
         self.personDamageLogic.damageByBullet(person, bullet)

@@ -37,7 +37,7 @@ class PersonCollisionDetector:
             if collisionPoint is not None:
                 length = startPoint.getLengthTo(collisionPoint)
                 if length < nearestLength:
-                    result = person
+                    result = (collisionPoint, person)
                     nearestLength = length
 
         return result
