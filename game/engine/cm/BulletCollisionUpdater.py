@@ -35,17 +35,15 @@ class BulletCollisionUpdater:
                 self.processCollision(bullet, collisionResult)
 
     def processCollision(self, bullet, collisionResult):
-        self.gameData.bullets.remove(bullet)
-        self.explosionLogic.makeExplosion(bullet)
-        if bullet.isVisible:
-            bullet.currentVisibilityLevelSegment.bullets.remove(bullet)
         target, collisionResultData = collisionResult
         if target == BulletCollisionTarget.construction:
             self.processConstructionCollision(bullet, collisionResultData)
         elif target == BulletCollisionTarget.person:
             self.processPersonCollision(bullet, collisionResultData)
+        self.explosionLogic.makeExplosion(bullet)
 
     def processConstructionCollision(self, bullet, collisionResult):
+        self.removeBullet(bullet)
         collisionPoint, frontNormal = collisionResult
         bspTree = self.gameData.visibilityTree
         visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
@@ -56,6 +54,17 @@ class BulletCollisionUpdater:
 
     def processPersonCollision(self, bullet, collisionResult):
         collisionPoint, person = collisionResult
-        bullet.currentPosition = collisionPoint
-        bullet.nextPosition = collisionPoint
-        self.personDamageLogic.damageByBullet(person, bullet)
+        if bullet.goThroughPerson:
+            if person not in bullet.damagedPersonSet:
+                self.personDamageLogic.damageByBullet(person, bullet)
+                bullet.damagedPersonSet.add(person)  # one person damaged only once
+        else:
+            self.removeBullet(bullet)
+            bullet.currentPosition = collisionPoint
+            bullet.nextPosition = collisionPoint
+            self.personDamageLogic.damageByBullet(person, bullet)
+
+    def removeBullet(self, bullet):
+        self.gameData.bullets.remove(bullet)
+        if bullet.isVisible:
+            bullet.currentVisibilityLevelSegment.bullets.remove(bullet)
