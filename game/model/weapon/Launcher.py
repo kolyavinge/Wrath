@@ -2,6 +2,7 @@ from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
+from game.model.weapon.Explosion import Explosion
 from game.model.weapon.Weapon import Weapon
 from game.model.weapon.WeaponFlash import WeaponFlash
 
@@ -15,10 +16,19 @@ class LauncherFlash(WeaponFlash):
         pass
 
 
-class LauncherBullet(Bullet):
+class LauncherExplosion(Explosion):
 
     def __init__(self):
         super().__init__()
+        self.maxRadius = 5
+        self.velocityValue = 0.1
+        self.damagePercent = 0.5
+
+
+class LauncherBullet(Bullet):
+
+    def __init__(self):
+        super().__init__(None, LauncherExplosion)
         self.isVisible = True
         self.velocityValue = 1.0
         self.damagePercent = 0.75

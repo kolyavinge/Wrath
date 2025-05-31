@@ -24,6 +24,7 @@ from game.engine.powerup.PowerupUpdater import PowerupUpdater
 from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.weapon.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.weapon.BulletUpdater import BulletUpdater
+from game.engine.weapon.ExplosionUpdater import ExplosionUpdater
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
 from game.engine.weapon.SelectWeaponRequestListener import SelectWeaponRequestListener
 from game.engine.weapon.SniperAimFloatingUpdater import SniperAimFloatingUpdater
@@ -58,6 +59,7 @@ class GameUpdater:
     weaponFireUpdater: WeaponFireUpdater
     playerWeaponSwingUpdater: PlayerWeaponSwingUpdater
     bulletUpdater: BulletUpdater
+    explosionUpdater: ExplosionUpdater
     nonStandardBulletMovingUpdater: NonStandardBulletMovingUpdater
     bulletPositionUpdater: BulletPositionUpdater
     bulletCollisionUpdater: BulletCollisionUpdater
@@ -97,6 +99,7 @@ class GameUpdater:
         self.weaponFireUpdater.update()
         self.playerWeaponSwingUpdater.update()
         self.bulletUpdater.update()
+        self.explosionUpdater.update()
         self.nonStandardBulletMovingUpdater.update()
         self.bulletPositionUpdater.moveNextPosition()
         self.bulletCollisionUpdater.update()

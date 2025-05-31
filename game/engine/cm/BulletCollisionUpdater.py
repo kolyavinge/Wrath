@@ -4,6 +4,7 @@ from game.engine.cm.BulletCollisionDetector import *
 from game.engine.GameData import GameData
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.engine.weapon.BulletHoleFactory import BulletHoleFactory
+from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.lib.EventManager import EventManager
 
 
@@ -16,6 +17,7 @@ class BulletCollisionUpdater:
         bulletCollisionDetector: BulletCollisionDetector,
         bulletHoleFactory: BulletHoleFactory,
         personDamageLogic: PersonDamageLogic,
+        explosionLogic: ExplosionLogic,
         eventManager: EventManager,
     ):
         self.gameData = gameData
@@ -23,6 +25,7 @@ class BulletCollisionUpdater:
         self.bulletCollisionDetector = bulletCollisionDetector
         self.bulletHoleFactory = bulletHoleFactory
         self.personDamageLogic = personDamageLogic
+        self.explosionLogic = explosionLogic
         self.eventManager = eventManager
 
     def update(self):
@@ -33,6 +36,7 @@ class BulletCollisionUpdater:
 
     def processCollision(self, bullet, collisionResult):
         self.gameData.bullets.remove(bullet)
+        self.explosionLogic.makeExplosion(bullet)
         if bullet.isVisible:
             bullet.currentVisibilityLevelSegment.bullets.remove(bullet)
         target, collisionResultData = collisionResult

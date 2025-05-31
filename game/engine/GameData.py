@@ -51,6 +51,7 @@ class GameData:
         self.playerTorch = Torch()
         self.bullets = []
         self.bulletTraces = []
+        self.explosions = []
         self.powerups = []
         self.camera = Camera()
         self.aimState = DefaultAimState()

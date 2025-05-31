@@ -17,6 +17,7 @@ class LevelSegment:
         self.bullets = []
         self.bulletTraces = []
         self.weaponFlashes = []
+        self.explosions = []
         self.enemies = []
         self.allPerson = []
 

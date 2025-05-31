@@ -5,8 +5,9 @@ from game.calc.Vector3 import Vector3
 
 class Bullet:
 
-    def __init__(self, traceType=None):
+    def __init__(self, traceType=None, explosionType=None):
         self.traceType = traceType
+        self.explosionType = explosionType
         self.isVisible = False
         self.currentPosition = Vector3()
         self.nextPosition = Vector3()
@@ -42,6 +43,15 @@ class Bullet:
         trace.startPosition.sub(minTraceLength)
 
         return trace
+
+    def makeExplosion(self):
+        if self.explosionType is None:
+            return None
+
+        explosion = self.explosionType()
+        explosion.position = self.currentPosition.copy()
+
+        return explosion
 
     def getModelMatrix(self):
         return (
