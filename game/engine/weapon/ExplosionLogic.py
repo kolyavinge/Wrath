@@ -9,7 +9,13 @@ class ExplosionLogic:
     def makeExplosion(self, bullet):
         explosion = bullet.makeExplosion()
         if explosion is not None:
-            explosion.levelSegment = bullet.currentLevelSegment
+            explosion.collisionLevelSegment = bullet.currentLevelSegment
             explosion.visibilityLevelSegment = bullet.currentVisibilityLevelSegment
-            self.gameData.explosions.append(explosion)
+            explosion.collisionLevelSegment.explosions.append(explosion)
             explosion.visibilityLevelSegment.explosions.append(explosion)
+            self.gameData.explosions.append(explosion)
+
+    def removeExplosion(self, explosion):
+        explosion.collisionLevelSegment.explosions.remove(explosion)
+        explosion.visibilityLevelSegment.explosions.remove(explosion)
+        self.gameData.explosions.remove(explosion)
