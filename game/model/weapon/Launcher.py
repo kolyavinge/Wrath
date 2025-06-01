@@ -20,9 +20,9 @@ class LauncherExplosion(Explosion):
 
     def __init__(self):
         super().__init__()
-        self.maxRadius = 5
-        self.velocityValue = 0.1
-        self.damagePercent = 0.5
+        self.maxRadius = 8
+        self.velocityValue = 0.5
+        self.damagePercent = 0.02
 
 
 class LauncherBullet(Bullet):
@@ -31,7 +31,7 @@ class LauncherBullet(Bullet):
         super().__init__(None, LauncherExplosion)
         self.isVisible = True
         self.velocityValue = 1.0
-        self.damagePercent = 0.75
+        self.damagePercent = 0.5
         self.holeInfo = BulletHoleInfo.explosionHole
 
     def update(self):

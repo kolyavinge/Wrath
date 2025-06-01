@@ -1,6 +1,7 @@
 from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.BulletCollisionUpdater import BulletCollisionUpdater
+from game.engine.cm.ExplosionCollisionUpdater import ExplosionCollisionUpdater
 from game.engine.cm.PersonCollisionUpdater import PersonCollisionUpdater
 from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
@@ -64,6 +65,7 @@ class GameUpdater:
     bulletPositionUpdater: BulletPositionUpdater
     bulletCollisionUpdater: BulletCollisionUpdater
     powerupCollisionUpdater: PowerupCollisionUpdater
+    explosionCollisionUpdater: ExplosionCollisionUpdater
     torchUpdater: TorchUpdater
     powerupUpdater: PowerupUpdater
     weaponFlashUpdater: WeaponFlashUpdater
@@ -105,6 +107,7 @@ class GameUpdater:
         self.bulletCollisionUpdater.update()
         self.bulletPositionUpdater.commitNextPosition()
         self.powerupCollisionUpdater.update()
+        self.explosionCollisionUpdater.update()
         self.torchUpdater.update()
         self.powerupUpdater.update()
         self.powerupUpdater.generateNew()

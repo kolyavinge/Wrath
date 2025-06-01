@@ -10,7 +10,7 @@ class Explosion:
         self.position = Vector3()
         self.damagePercent = 0
         self.isVisible = True
-        self.levelSegment = None
+        self.collisionLevelSegment = None
         self.visibilityLevelSegment = None
 
     def update(self):
