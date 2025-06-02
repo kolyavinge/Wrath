@@ -1,6 +1,7 @@
 from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.cm.BulletCollisionDetector import *
+from game.engine.cm.PersonCollisionDetector import PersonCollisionTarget
 from game.engine.GameData import GameData
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.engine.weapon.BulletHoleFactory import BulletHoleFactory
@@ -53,7 +54,7 @@ class BulletCollisionUpdater:
         self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
 
     def processPersonCollision(self, bullet, collisionResult):
-        collisionPoint, person = collisionResult
+        collisionPoint, person, target = collisionResult
         if bullet.goThroughPerson:
             if person not in bullet.damagedPersonSet:
                 self.personDamageLogic.damageByBullet(person, bullet)
@@ -62,7 +63,10 @@ class BulletCollisionUpdater:
             self.removeBullet(bullet)
             bullet.currentPosition = collisionPoint
             bullet.nextPosition = collisionPoint
-            self.personDamageLogic.damageByBullet(person, bullet)
+            if bullet.isHeadshotEnabled and target == PersonCollisionTarget.head:
+                self.personDamageLogic.damageByHeadshot(person)
+            else:
+                self.personDamageLogic.damageByBullet(person, bullet)
 
     def removeBullet(self, bullet):
         self.gameData.bullets.remove(bullet)

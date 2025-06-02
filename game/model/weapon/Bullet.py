@@ -22,6 +22,7 @@ class Bullet:
         self.nextLevelSegment = None
         self.currentVisibilityLevelSegment = None
         self.goThroughPerson = False
+        self.isHeadshotEnabled = False
         self.holeInfo = None
         self.ownerPerson = None
 

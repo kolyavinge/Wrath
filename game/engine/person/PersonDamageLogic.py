@@ -16,6 +16,9 @@ class PersonDamageLogic:
         else:
             person.damage(bullet.damagePercent * PersonConstants.maxPersonHealth)
 
+    def damageByHeadshot(self, person):
+        person.damage(PersonConstants.maxPersonHealth)
+
     def damageByExplosion(self, person, explosion):
         personItems = self.gameData.allPersonItems[person]
         if personItems.vest > 0:

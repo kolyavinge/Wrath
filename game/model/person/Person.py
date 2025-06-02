@@ -23,6 +23,7 @@ class Person:
         self.visibilityLevelSegment = LevelSegment()
         self.currentBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)
         self.nextBorder = self.currentBorder.copy()
+        self.bodyBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zChestLength)
         self.pitchRadians = 0
         self.yawRadians = 0
         self.eyePosition = Vector3()
@@ -54,10 +55,12 @@ class Person:
     def moveNextPositionBy(self, vector):
         self.nextCenterPoint.add(vector)
         self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
+        self.bodyBorder.calculatePointsByCenter(self.nextCenterPoint)
 
     def moveNextPositionTo(self, vector):
         self.nextCenterPoint = vector
         self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
+        self.bodyBorder.calculatePointsByCenter(self.nextCenterPoint)
 
     def getZ(self):
         return self.nextCenterPoint.z
@@ -65,6 +68,7 @@ class Person:
     def setZ(self, z):
         self.nextCenterPoint.z = z
         self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
+        self.bodyBorder.calculatePointsByCenter(self.nextCenterPoint)
 
     def commitNextPosition(self):
         self.currentCenterPoint = self.nextCenterPoint.copy()
@@ -75,6 +79,8 @@ class Person:
         self.middleCenterPoint.z += PersonConstants.zLengthHalf
         self.chestCenterPoint = self.currentCenterPoint.copy()
         self.chestCenterPoint.z += PersonConstants.zLength34
+        self.headCenterPoint = self.currentCenterPoint.copy()
+        self.headCenterPoint.z += PersonConstants.zChestLength + (PersonConstants.headSizeHalf)
 
     def addHealth(self, health):
         if health < 0:

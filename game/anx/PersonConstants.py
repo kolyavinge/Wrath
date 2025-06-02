@@ -4,10 +4,13 @@ from game.lib.Math import Math
 class PersonConstants:
 
     xyLength = 0.7
-    xyLengthHalf = xyLength / 2
+    xyLengthHalf = xyLength / 2.0
     zLength = 1.8
     zLengthHalf = zLength / 2
     zLength34 = (3.0 / 4.0) * zLength
+    headSize = 0.24
+    headSizeHalf = headSize / 2.0
+    zChestLength = zLength - headSize
     eyeLength = 1.6
     aimLength = 20.0
     maxPersonHealth = 100
