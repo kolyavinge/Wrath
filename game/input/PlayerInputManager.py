@@ -55,6 +55,9 @@ class PlayerInputManager:
         elif keyboard.isPressedOrHeld(Keys.d):
             inputData.stepRight = True
 
+        if keyboard.isPressedOrHeld(Keys.space):
+            inputData.jump = True
+
         if keyboard.isPressed(Keys.f):
             self.eventManager.raiseEvent(Events.torchSwitchRequested)
 
