@@ -2,7 +2,8 @@ from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
-from game.model.person.PersonState import PersonState
+from game.lib.Math import Math
+from game.model.person.PersonZState import PersonZState
 
 
 class PersonZUpdater:
@@ -39,32 +40,35 @@ class PersonZUpdater:
     def processFloor(self, person, levelSegment):
         floor = levelSegment.floors[0]
         person.currentFloor = floor
-        z = floor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
-        playerOnFloor = person.getZ() - z < 1 or person.getZ() < z
-        if playerOnFloor:
-            if person.state == PersonState.standing:
-                person.setZ(z)
-            elif person.state == PersonState.falling:
-                person.setZ(z)
-                person.fallingTime = 0
-                person.state = PersonState.landing
-                person.landingTime = 10 * 0.1
-                self.eventManager.raiseEvent(Events.personLanded, person)
-            elif person.state == PersonState.landing:
-                person.landingTime -= 0.1
-                if person.landingTime <= 0:
-                    person.state = PersonState.standing
-                    person.landingTime = 0
-            else:
-                raise Exception("Wrong player state.")
+        floorZ = floor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
+        personOnFloor = person.getZ() - floorZ <= 0.5
+        if personOnFloor and person.zState == PersonZState.onFloor:
+            person.setZ(floorZ)
+        elif personOnFloor and person.zState == PersonZState.falling:
+            person.setZ(floorZ)
+            person.fallingTime = 0
+            person.zState = PersonZState.landing
+            person.landingTime = 10 * 0.1
+            self.eventManager.raiseEvent(Events.personLanded, person)
+        elif personOnFloor and person.zState == PersonZState.landing:
+            person.landingTime -= 0.1
+            if person.landingTime <= 0:
+                person.zState = PersonZState.onFloor
+                person.landingTime = 0
+        elif not personOnFloor:
+            person.zState = PersonZState.falling
+            self.processPersonFall(person, floorZ)
         else:
-            person.state = PersonState.falling
-            self.processPersonFall(person)
+            raise Exception("Wrong person state.")
 
     def processHole(self, person):
-        person.state = PersonState.falling
+        person.zState = PersonZState.falling
         self.processPersonFall(person)
 
-    def processPersonFall(self, person):
+    def processPersonFall(self, person, floorZ=None):
         person.fallingTime += 0.1
-        person.setZ(person.getZ() - person.fallingFunc.getValue(person.fallingTime))
+        personZ = person.getZ() - person.fallingFunc.getValue(person.fallingTime)
+        if floorZ is not None:
+            person.setZ(Math.max(personZ, floorZ))
+        else:
+            person.setZ(personZ)

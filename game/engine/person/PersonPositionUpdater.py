@@ -1,5 +1,5 @@
 from game.engine.GameData import GameData
-from game.model.person.PersonState import PersonState
+from game.model.person.PersonZState import PersonZState
 
 
 class PersonPositionUpdater:
@@ -21,5 +21,5 @@ class PersonPositionUpdater:
     def resetMovedAndTurned(self):
         for person in self.gameData.allPerson:
             person.hasTurned = False
-            if person.hasMoved and person.state == PersonState.standing:
+            if person.hasMoved and person.zState == PersonZState.onFloor:
                 person.hasMoved = False

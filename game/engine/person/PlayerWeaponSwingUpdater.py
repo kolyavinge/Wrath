@@ -3,7 +3,7 @@ from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
 from game.lib.Math import Math
 from game.lib.mirrorRange import mirrorRange
-from game.model.person.PersonState import PersonState
+from game.model.person.PersonZState import PersonZState
 
 
 class PlayerWeaponSwingUpdater:
@@ -21,7 +21,7 @@ class PlayerWeaponSwingUpdater:
 
     def updateMovingSwing(self):
         player = self.gameData.player
-        if player.state != PersonState.standing:
+        if player.zState != PersonZState.onFloor:
             self.lastStep = 0
         elif player.velocityValue == 0:
             self.lastStep = 0
@@ -40,7 +40,7 @@ class PlayerWeaponSwingUpdater:
 
     def updateLandingSwing(self):
         player = self.gameData.player
-        if player.state == PersonState.landing:
+        if player.zState == PersonZState.landing:
             swingValue = 0.05 * player.landingTime * Math.sin(player.landingTime)
             self.gameData.playerItems.rightHandWeapon.position.z -= swingValue
             if self.gameData.playerItems.leftHandWeapon is not None:

@@ -7,13 +7,13 @@ from game.lib.Math import Math
 from game.model.level.Floor import Floor
 from game.model.level.LevelSegment import LevelSegment
 from game.model.person.PersonFuncs import *
-from game.model.person.PersonState import PersonState
+from game.model.person.PersonZState import PersonZState
 
 
 class Person:
 
     def __init__(self):
-        self.state = PersonState.standing
+        self.zState = PersonZState.onFloor
         self.prevState = None
         self.currentCenterPoint = Vector3()
         self.nextCenterPoint = self.currentCenterPoint.copy()

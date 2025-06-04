@@ -2,7 +2,7 @@ from OpenGL.GL import *
 
 from game.gl.model3d.AnimationPlayer import AnimationPlayer, PlayableAnimation
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
-from game.model.person.PersonState import PersonState
+from game.model.person.PersonZState import PersonZState
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 
 
@@ -18,7 +18,7 @@ class EnemyRenderer:
         self.model3dRenderer = model3dRenderer
         self.animationPlayer = animationPlayer
         self.animationNames = {}
-        self.animationNames[PersonState.standing] = "group|Take 001|BaseLayer"
+        self.animationNames[PersonZState.onFloor] = "group|Take 001|BaseLayer"
         self.animations = {}
 
     def render(self, shader, levelSegment):
@@ -34,11 +34,11 @@ class EnemyRenderer:
             shader.hasAnimation(False)
 
     def getPlayableAnimationOrNone(self, enemy, model):
-        if enemy.state == enemy.prevState:
+        if enemy.zState == enemy.prevState:
             return self.animations[enemy]
 
-        if enemy.state in self.animationNames:
-            animation = PlayableAnimation(model.animations[self.animationNames[enemy.state]])
+        if enemy.zState in self.animationNames:
+            animation = PlayableAnimation(model.animations[self.animationNames[enemy.zState]])
         else:
             animation = None
 

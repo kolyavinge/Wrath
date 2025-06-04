@@ -1,6 +1,6 @@
 from game.engine.GameData import GameData
 from game.lib.Math import Math
-from game.model.person.PersonState import PersonState
+from game.model.person.PersonZState import PersonZState
 
 
 class PlayerMovingSwingUpdater:
@@ -16,7 +16,7 @@ class PlayerMovingSwingUpdater:
 
     def calculateSwingValue(self):
         player = self.gameData.player
-        if player.state != PersonState.standing:
+        if player.zState != PersonZState.onFloor:
             self.movingParam = 0
         elif player.velocityValue == 0:
             self.movingParam = 0
@@ -33,6 +33,6 @@ class PlayerMovingSwingUpdater:
 
     def updateLandingSwing(self):
         player = self.gameData.player
-        if player.state == PersonState.landing:
+        if player.zState == PersonZState.landing:
             swingValue = 0.5 * player.landingTime * Math.sin(4.0 * player.landingTime)
             player.eyePosition.z += swingValue

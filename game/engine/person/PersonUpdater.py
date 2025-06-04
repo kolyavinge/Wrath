@@ -8,4 +8,4 @@ class PersonUpdater:
 
     def commitState(self):
         for person in self.gameData.allPerson:
-            person.prevState = person.state
+            person.prevState = person.zState

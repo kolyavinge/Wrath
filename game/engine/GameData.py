@@ -59,4 +59,4 @@ class GameData:
         self.backgroundVisibility = BackgroundVisibilityData()
         # for debug
         self.isDebug = False
-        self.noEnemies = False
+        self.noEnemies = True
