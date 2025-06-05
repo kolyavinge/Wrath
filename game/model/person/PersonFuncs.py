@@ -4,13 +4,19 @@ from game.lib.Math import Math
 class VelocityFunc:
 
     def getValue(self, time):
-        return Math.ln(time + 1.0) / 5.0
+        return Math.ln(time + 1.0) / 2.5
+
+
+class JumpingFunc:
+
+    def getValue(self, x):
+        return 0.5 * x
 
 
 class FallingFunc:
 
     def getValue(self, x):
-        return 2.0 * x
+        return 0.2 * x
 
 
 class BreathFunc:

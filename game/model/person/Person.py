@@ -24,6 +24,7 @@ class Person:
         self.currentBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)
         self.nextBorder = self.currentBorder.copy()
         self.bodyBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zChestLength)
+        self.currentFloor = Floor()
         self.pitchRadians = 0
         self.yawRadians = 0
         self.eyePosition = Vector3()
@@ -42,14 +43,16 @@ class Person:
         self.velocityValue = 0
         self.velocityVector = Vector3()
         self.velocityFunc = VelocityFunc()
+        self.jumpingTime = 0
+        self.jumpingValue = 0
+        self.jumpingFunc = JumpingFunc()
         self.fallingTime = 0
-        self.landingTime = 0
         self.fallingFunc = FallingFunc()
-        self.currentFloor = Floor()
+        self.landingTime = 0
         self.health = PersonConstants.maxPersonHealth
-        self.stepTime = 0
         self.breathTime = 0
         self.breathFunc = BreathFunc()
+        self.stepTime = 0
         self.isPlayer = False
 
     def moveNextPositionBy(self, vector):

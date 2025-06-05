@@ -3,6 +3,7 @@ from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
 from game.lib.Math import Math
 from game.model.level.Stair import Stair
+from game.model.person.PersonZState import PersonZState
 
 
 class PersonVelocityUpdater:
@@ -58,5 +59,5 @@ class PersonVelocityUpdater:
             person.velocityVector.mul(-1)
 
     def slowdownOnStair(self, person):
-        if isinstance(person.currentFloor, Stair):
+        if person.zState == PersonZState.onFloor and isinstance(person.currentFloor, Stair):
             person.velocityValue = Math.min(person.velocityValue, 0.05)

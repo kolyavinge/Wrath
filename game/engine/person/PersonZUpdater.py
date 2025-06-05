@@ -42,8 +42,14 @@ class PersonZUpdater:
         person.currentFloor = floor
         floorZ = floor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
         personOnFloor = person.getZ() - floorZ <= 0.5
-        if personOnFloor and person.zState == PersonZState.onFloor:
+        if personOnFloor and person.zState == PersonZState.onFloor and person.jumpingValue == 0:
             person.setZ(floorZ)
+        elif personOnFloor and person.zState == PersonZState.onFloor and person.jumpingValue > 0:
+            person.zState = PersonZState.jumping
+        elif person.zState == PersonZState.jumping and person.jumpingValue > 0:
+            person.setZ(person.getZ() + person.jumpingValue)
+        elif person.zState == PersonZState.jumping and person.jumpingValue == 0:
+            person.zState = PersonZState.falling
         elif personOnFloor and person.zState == PersonZState.falling:
             person.setZ(floorZ)
             person.fallingTime = 0

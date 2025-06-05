@@ -9,6 +9,7 @@ from game.engine.person.BackgroundVisibilityUpdater import BackgroundVisibilityU
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonBreathUpdater import PersonBreathUpdater
+from game.engine.person.PersonJumpUpdater import PersonJumpUpdater
 from game.engine.person.PersonMovingTimeUpdater import PersonMovingTimeUpdater
 from game.engine.person.PersonPositionUpdater import PersonPositionUpdater
 from game.engine.person.PersonStepUpdater import PersonStepUpdater
@@ -50,6 +51,7 @@ class GameUpdater:
     playerMovingSwingUpdater: PlayerMovingSwingUpdater
     backgroundVisibilityUpdater: BackgroundVisibilityUpdater
     personPositionUpdater: PersonPositionUpdater
+    personJumpUpdater: PersonJumpUpdater
     personUpdater: PersonUpdater
     levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater
     cameraUpdater: CameraUpdater
@@ -84,6 +86,7 @@ class GameUpdater:
         self.personMovingTimeUpdater.update()
         self.personVelocityUpdater.update()
         self.personPositionUpdater.moveNextPosition()
+        self.personJumpUpdater.update()
         self.personWallCollisionUpdater.update()
         self.personCollisionUpdater.update()
         self.personZUpdater.updateIfMoved()
