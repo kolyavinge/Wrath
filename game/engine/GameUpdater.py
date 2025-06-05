@@ -2,6 +2,7 @@ from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.BulletCollisionUpdater import BulletCollisionUpdater
 from game.engine.cm.ExplosionCollisionUpdater import ExplosionCollisionUpdater
+from game.engine.cm.PersonCeilingCollisionUpdater import PersonCeilingCollisionUpdater
 from game.engine.cm.PersonCollisionUpdater import PersonCollisionUpdater
 from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
@@ -45,6 +46,7 @@ class GameUpdater:
     personZUpdater: PersonZUpdater
     personWallCollisionUpdater: PersonWallCollisionUpdater
     personCollisionUpdater: PersonCollisionUpdater
+    personCeilingCollisionUpdater: PersonCeilingCollisionUpdater
     personStepUpdater: PersonStepUpdater
     playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater
     enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater
@@ -90,6 +92,7 @@ class GameUpdater:
         self.personWallCollisionUpdater.update()
         self.personCollisionUpdater.update()
         self.personZUpdater.updateIfMoved()
+        self.personCeilingCollisionUpdater.update()
         self.personStepUpdater.update()
         self.playerLevelSegmentsUpdater.updateIfMoved()
         self.enemyLevelSegmentsUpdater.updateIfMoved()
