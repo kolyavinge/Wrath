@@ -9,6 +9,7 @@ class Rect2d:
         self.yLength = yLength
         self.xLengthHalf = xLength / 2
         self.yLengthHalf = yLength / 2
+        self.center = Vector3()
         self.downLeft = Vector3()
         self.downRight = Vector3()
         self.upLeft = Vector3()
@@ -19,6 +20,7 @@ class Rect2d:
         self.middleBottom = Vector3()
 
     def calculatePointsByCenter(self, center):
+        self.center = center.copy()
         # corners
         self.downLeft.set(center.x - self.xLengthHalf, center.y - self.yLengthHalf, center.z)
         self.downRight.set(center.x + self.xLengthHalf, center.y - self.yLengthHalf, center.z)
@@ -35,6 +37,7 @@ class Rect2d:
 
     def copy(self):
         copy = Rect2d(self.xLength, self.yLength)
+        copy.center = self.center.copy()
         copy.downLeft = self.downLeft.copy()
         copy.downRight = self.downRight.copy()
         copy.upLeft = self.upLeft.copy()

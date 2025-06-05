@@ -11,6 +11,7 @@ class Box3d:
     def calculatePointsByCenter(self, center):
         self.bottom.calculatePointsByCenter(center)
         self.top = self.bottom.copy()
+        self.top.center.z += self.zLength
         self.top.downLeft.z += self.zLength
         self.top.downRight.z += self.zLength
         self.top.upLeft.z += self.zLength
