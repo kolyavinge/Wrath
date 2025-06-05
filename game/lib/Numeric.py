@@ -36,3 +36,17 @@ class Numeric:
             return rightLimit
         else:
             return value
+
+    @staticmethod
+    def limitMin(value, threshold, minValue):
+        if value < threshold:
+            return minValue
+        else:
+            return value
+
+    @staticmethod
+    def limitMax(value, threshold, maxValue):
+        if value > threshold:
+            return maxValue
+        else:
+            return value
