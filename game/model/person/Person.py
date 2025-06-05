@@ -14,7 +14,7 @@ class Person:
 
     def __init__(self):
         self.zState = PersonZState.onFloor
-        self.prevState = None
+        self.prevZState = None
         self.currentCenterPoint = Vector3()
         self.nextCenterPoint = self.currentCenterPoint.copy()
         self.middleCenterPoint = Vector3()

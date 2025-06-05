@@ -34,7 +34,7 @@ class EnemyRenderer:
             shader.hasAnimation(False)
 
     def getPlayableAnimationOrNone(self, enemy, model):
-        if enemy.zState == enemy.prevState:
+        if enemy.zState == enemy.prevZState:
             return self.animations[enemy]
 
         if enemy.zState in self.animationNames:

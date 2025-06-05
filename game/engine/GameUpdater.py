@@ -118,7 +118,7 @@ class GameUpdater:
         self.bulletTraceUpdater.update()
         self.enemyAIUpdater.update()
         self.personPositionUpdater.resetMovedAndTurned()
-        self.personUpdater.commitState()
+        self.personUpdater.commitZState()
         self.sniperAimFloatingUpdater.update()
         self.gameData.collisionData.clear()
 
