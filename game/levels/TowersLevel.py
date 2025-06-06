@@ -40,14 +40,14 @@ class TowersLevel(Level):
         # tower
         x = 40
         y = 40
-        material = Material.ceilingMetal1
+        material = Material.construction1
         edgeMaterial = Material.edgeMetal3
         builder.buildRectSlab(Vector3(x, y, self.minZ + 4), 20, 20, 0.5, material, edgeMaterial)
         builder.buildRectSlab(Vector3(x + 2, y + 2, self.minZ + 7), 16, 16, 0.5, material, edgeMaterial)
         builder.buildRectSlab(Vector3(x + 4, y + 4, self.minZ + 10), 12, 12, 0.5, material, edgeMaterial)
         builder.buildRectSlab(Vector3(x + 6, y + 6, self.minZ + 13), 8, 8, 0.5, material, edgeMaterial)
 
-        material = Material.ceilingMetal1
+        material = Material.construction1
         builder.buildPillar(Vector3(x + 1, y + 1, self.minZ), 1, 3.5, material)
         builder.buildPillar(Vector3(x + 18, y + 1, self.minZ), 1, 3.5, material)
         builder.buildPillar(Vector3(x + 1, y + 18, self.minZ), 1, 3.5, material)
@@ -127,7 +127,7 @@ class TowersLevel(Level):
         yield SplitPlane(Vector3(0, 100, 0), Vector3(0, 1, 0))
 
     def getPlayerInitInfo(self):
-        return (Vector3(50, 50, self.minZ + 4), Vector3(-1, 0, 0).getNormalized(), Pistol)
+        return (Vector3(20, 20, self.minZ), Vector3(1, 1, 0).getNormalized(), Pistol)
 
     def getEnemyInitInfo(self):
         return [
