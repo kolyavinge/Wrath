@@ -7,7 +7,7 @@
 
 3. pip install mouse
 
-4. pip install line_profiler
+4. pip install gprof2dot
 
 5. pip install numpy
 

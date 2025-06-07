@@ -16,6 +16,7 @@ class AnimationPlayer:
         self.frameInterpolator = frameInterpolator
 
     def update(self, playableAnimation, deltaTime=0.025):
+        # TODO не обновлять анимацию если персонажа не видно на экране
         self.calculateBoneTransformMatrices(playableAnimation, playableAnimation.animation.rootNode, TransformMatrix4.identity)
         playableAnimation.currentTime += playableAnimation.animation.ticksPerSecond * deltaTime
         playableAnimation.currentTime = playableAnimation.currentTime % playableAnimation.animation.duration

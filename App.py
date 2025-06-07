@@ -4,13 +4,13 @@ import sys
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 
-from BenchmarkRunner import BenchmarkRunner
 from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.core.GameFactory import GameFactory
 from game.input.Keys import Keys
 from game.lib.Environment import Environment
 from game.lib.Screen import Screen
+from game.tools.CpuProfiler import CpuProfiler
 
 
 class App:
@@ -75,8 +75,7 @@ class App:
 
 
 print("\r\nProgram start")
+# CpuProfiler.init()
 app = App()
 app.run()
-
-benchmarkRunner = BenchmarkRunner()
-# benchmarkRunner.run(app)
+# CpuProfiler.makeResult()
