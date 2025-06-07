@@ -45,8 +45,10 @@ class WallCollisionDetector:
         return False
 
     def isLinePointToBehindWall(self, linePointTo, wall):
-        behindDirection = wall.startPoint.getDirectionTo(linePointTo)
-        dotProduct = behindDirection.dotProduct(wall.frontNormal)
+        x = linePointTo.x - wall.startPoint.x
+        y = linePointTo.y - wall.startPoint.y
+        z = linePointTo.z - wall.startPoint.z
+        dotProduct = wall.frontNormal.x * x + wall.frontNormal.y * y + wall.frontNormal.z * z
 
         return dotProduct < 0
 
