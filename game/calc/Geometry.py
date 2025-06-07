@@ -79,19 +79,31 @@ class Geometry:
 
     @staticmethod
     def lineContainsPoint(fromX, fromY, toX, toY, pointX, pointY):
-        intersect = Vector3(pointX - toX, pointY - toY, 0)
-        intersectLength = intersect.getLength()
-        if intersectLength < 0.1:
+        x = pointX - toX
+        y = pointY - toY
+        pointLengthSqr = x * x + y * y
+        if pointLengthSqr < 0.01:
             return True
 
-        intersect = Vector3(pointX - fromX, pointY - fromY, 0)
-        intersectLength = intersect.getLength()
-        if intersectLength < 0.1:
+        x = pointX - fromX
+        y = pointY - fromY
+        lineX = toX - fromX
+        lineY = toY - fromY
+        pointLengthSqr = x * x + y * y
+        if pointLengthSqr < 0.01:
             return True
 
-        line = Vector3(toX - fromX, toY - fromY, 0)
+        lineLengthSqr = lineX * lineX + lineY * lineY
+        if pointLengthSqr > lineLengthSqr:
+            return False
 
-        return line.isParallel(intersect) and intersectLength <= line.getLength()
+        vectorsLength = Math.sqrt(pointLengthSqr) * Math.sqrt(lineLengthSqr)
+        if vectorsLength == 0:
+            return False
+
+        dot = (x * lineX + y * lineY) / vectorsLength
+
+        return 0.999 <= dot and dot <= 1.001
 
     @staticmethod
     def getProjectedVector(vector, projectionAxis):
