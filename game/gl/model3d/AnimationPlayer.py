@@ -1,4 +1,5 @@
 from game.calc.TransformMatrix4 import TransformMatrix4
+from game.engine.GameData import GameData
 from game.gl.model3d.FrameInterpolator import FrameInterpolator
 
 
@@ -7,19 +8,27 @@ class PlayableAnimation:
     def __init__(self, animation):
         self.animation = animation
         self.currentTime = 0.0
+        self.lastGlobalTimeMsec = 0.0
         self.boneTransformMatrices = [TransformMatrix4.identity] * animation.allBonesCount
 
 
 class AnimationPlayer:
 
-    def __init__(self, frameInterpolator: FrameInterpolator):
+    def __init__(
+        self,
+        gameData: GameData,
+        frameInterpolator: FrameInterpolator,
+    ):
+        self.gameData = gameData
         self.frameInterpolator = frameInterpolator
 
-    def update(self, playableAnimation, deltaTime=0.025):
+    def update(self, playableAnimation, deltaTimeFactor=0.001):
         # TODO не обновлять анимацию если персонажа не видно на экране
         self.calculateBoneTransformMatrices(playableAnimation, playableAnimation.animation.rootNode, TransformMatrix4.identity)
-        playableAnimation.currentTime += playableAnimation.animation.ticksPerSecond * deltaTime
-        playableAnimation.currentTime = playableAnimation.currentTime % playableAnimation.animation.duration
+        deltaTime = self.gameData.globalTimeMsec - playableAnimation.lastGlobalTimeMsec
+        playableAnimation.currentTime += playableAnimation.animation.ticksPerSecond * (deltaTime * deltaTimeFactor)
+        playableAnimation.currentTime %= playableAnimation.animation.duration
+        playableAnimation.lastGlobalTimeMsec = self.gameData.globalTimeMsec
 
     def calculateBoneTransformMatrices(self, playableAnimation, node, parentTransformMatrix):
         bone = None
