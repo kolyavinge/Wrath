@@ -124,6 +124,7 @@ class GameUpdater:
         self.personUpdater.commitZState()
         self.sniperAimFloatingUpdater.update()
         self.gameData.collisionData.clear()
+        self.gameData.updateGlobalTime()
 
         # sw.stop()
         # sw.printElapsed()

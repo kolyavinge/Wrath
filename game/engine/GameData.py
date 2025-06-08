@@ -1,3 +1,4 @@
+from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTree import BSPTree
 from game.model.Camera import Camera
 from game.model.light.Torch import Torch
@@ -32,6 +33,7 @@ class BackgroundVisibilityData:
 class GameData:
 
     def __init__(self):
+        self.globalTimeMsec = 0
         self.level = None
         self.collisionTree = BSPTree()
         self.visibilityTree = BSPTree()
@@ -60,3 +62,6 @@ class GameData:
         # for debug
         self.isDebug = False
         self.noEnemies = False
+
+    def updateGlobalTime(self):
+        self.globalTimeMsec += CommonConstants.mainTimerMsec
