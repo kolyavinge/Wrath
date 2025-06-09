@@ -2,6 +2,7 @@ from game.engine.GameData import GameData
 from game.lib.Stopwatch import Stopwatch
 from game.render.level.LevelItemRenderCollection import LevelItemRenderCollection
 from game.render.level.ShadowCasterRenderCollection import ShadowCasterRenderCollection
+from game.render.person.EnemyAnimationCollection import EnemyAnimationCollection
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 from game.render.powerup.PowerupRenderCollection import PowerupRenderCollection
 from game.render.weapon.BulletHoleRenderCollection import BulletHoleRenderCollection
@@ -23,6 +24,7 @@ class GameScreenInitializer:
         powerupRenderCollection: PowerupRenderCollection,
         weaponFlashRenderCollection: WeaponFlashRenderCollection,
         enemyRenderCollection: EnemyRenderCollection,
+        enemyAnimationCollection: EnemyAnimationCollection,
     ):
         self.gameData = gameData
         self.levelItemRenderCollection = levelItemRenderCollection
@@ -33,6 +35,7 @@ class GameScreenInitializer:
         self.powerupRenderCollection = powerupRenderCollection
         self.weaponFlashRenderCollection = weaponFlashRenderCollection
         self.enemyRenderCollection = enemyRenderCollection
+        self.enemyAnimationCollection = enemyAnimationCollection
 
     def init(self):
         allLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
@@ -48,6 +51,7 @@ class GameScreenInitializer:
         self.powerupRenderCollection.init()
         self.weaponFlashRenderCollection.init()
         self.enemyRenderCollection.init()
+        self.enemyAnimationCollection.init()
 
         sw.stop()
         print(f"GameScreenInitializer: {sw.elapsed:.8f}")

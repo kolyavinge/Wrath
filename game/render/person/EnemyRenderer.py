@@ -1,9 +1,12 @@
 from OpenGL.GL import *
 
+from game.anx.CommonConstants import CommonConstants
+from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
-from game.gl.model3d.AnimationPlayer import AnimationPlayer, PlayableAnimation
+from game.gl.model3d.AnimationPlayer import AnimationPlayer
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
-from game.model.person.PersonZState import PersonZState
+from game.model.person.AimState import SniperAimState
+from game.render.person.EnemyAnimationCollection import EnemyAnimationCollection
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 
 
@@ -14,51 +17,43 @@ class EnemyRenderer:
         gameData: GameData,
         renderCollection: EnemyRenderCollection,
         model3dRenderer: Model3dRenderer,
+        enemyAnimationCollection: EnemyAnimationCollection,
         animationPlayer: AnimationPlayer,
     ):
         self.gameData = gameData
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
+        self.enemyAnimationCollection = enemyAnimationCollection
         self.animationPlayer = animationPlayer
-        self.animationNames = {}
-        self.animationNames[PersonZState.onFloor] = "group|Take 001|BaseLayer"
-        self.animations = {}
 
     def render(self, shader, levelSegment):
         for enemy in levelSegment.enemies:
-            if self.isEnemyVisible(enemy):
-                self.renderEnemy(enemy, shader)
+            self.renderEnemy(enemy, shader)
 
     def renderEnemy(self, enemy, shader):
-        model = self.renderCollection.enemyModel
+        enemyDirection = self.gameData.camera.position.getDirectionTo(enemy.middleCenterPoint)
+        enemyDirectionLength = enemyDirection.getLength()
+        if not self.isEnemyVisible(enemyDirection, enemyDirectionLength):
+            return
         shader.setModelMatrix(enemy.getModelMatrix())
-        animation = self.getPlayableAnimationOrNone(enemy, model)
-        if animation is not None:
-            self.animationPlayer.update(animation)
-            shader.hasAnimation(True)
-            shader.setBoneTransformMatrices(animation.boneTransformMatrices)
-        self.model3dRenderer.render(model, shader)
+        if enemyDirectionLength < CommonConstants.maxEnemyAnimationDistance or type(self.gameData.aimState) == SniperAimState:
+            animation = self.enemyAnimationCollection.getPlayableAnimationOrNone(enemy)
+            if animation is not None:
+                self.animationPlayer.update(animation)
+                shader.hasAnimation(True)
+                shader.setBoneTransformMatrices(animation.boneTransformMatrices)
+        self.model3dRenderer.render(self.renderCollection.enemyModel, shader)
         shader.hasAnimation(False)
 
-    def isEnemyVisible(self, enemy):
-        enemyDirection = self.gameData.camera.position.getDirectionTo(enemy.middleCenterPoint)
+    def isEnemyVisible(self, enemyDirection, enemyDirectionLength):
         dotProduct = self.gameData.camera.lookDirection.dotProduct(enemyDirection)
         if dotProduct < 0:
             return False
-        dotProduct /= enemyDirection.getLength()
+
+        if enemyDirectionLength < PersonConstants.zLength:
+            return True
+
+        dotProduct /= enemyDirectionLength
         isVisible = self.gameData.camera.horizontalViewRadiansHalfCos < dotProduct
 
         return isVisible
-
-    def getPlayableAnimationOrNone(self, enemy, model):
-        if enemy.zState == enemy.prevZState:
-            return self.animations[enemy]
-
-        if enemy.zState in self.animationNames:
-            animation = PlayableAnimation(model.animations[self.animationNames[enemy.zState]])
-        else:
-            animation = None
-
-        self.animations[enemy] = animation
-
-        return animation
