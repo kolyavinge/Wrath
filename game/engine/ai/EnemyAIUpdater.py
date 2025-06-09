@@ -11,6 +11,8 @@ class EnemyAIUpdater:
     ):
         self.gameData = gameData
         self.stateHandlerCollection = stateHandlerCollection
+        if self.gameData.enemyFreeze:
+            self.update = lambda: None
 
     def init(self):
         for enemy in self.gameData.enemies:

@@ -62,6 +62,7 @@ class GameData:
         # for debug
         self.isDebug = False
         self.noEnemies = False
+        self.enemyFreeze = True
 
     def updateGlobalTime(self):
         self.globalTimeMsec += CommonConstants.mainTimerMsec
