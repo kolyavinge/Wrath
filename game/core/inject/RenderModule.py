@@ -20,7 +20,6 @@ from game.render.common.Model3dDirectory import *
 from game.render.common.ShaderCollection import *
 from game.render.common.ShaderProgramCollection import *
 from game.render.common.TextureCollection import *
-from game.render.debug.DebugRenderer import *
 from game.render.level.BackgroundRenderer import *
 from game.render.level.ConstructionVBOBuilder import *
 from game.render.level.LampVBOBuilder import *
@@ -93,7 +92,6 @@ class RenderModule:
         binder.bindSingleton(ShaderCollection)
         binder.bindSingleton(ShaderProgramCollection)
         binder.bindSingleton(TextureCollection)
-        binder.bindSingleton(DebugRenderer)
         binder.bindSingleton(BackgroundRenderer)
         binder.bindSingleton(ConstructionVBOBuilder)
         binder.bindSingleton(LampVBOBuilder)

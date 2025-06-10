@@ -1,7 +1,6 @@
 from game.anx.Events import Events
 from game.lib.EventManager import EventManager
 from game.model.person.AimState import DefaultAimState
-from game.render.debug.DebugRenderer import DebugRenderer
 from game.render.level.BackgroundRenderer import BackgroundRenderer
 from game.render.main.MainSceneRenderer import MainSceneRenderer
 from game.render.menu.DashboardRenderer import DashboardRenderer
@@ -18,7 +17,6 @@ class GameScreenRenderer:
     def __init__(
         self,
         gameScreenInitializer: GameScreenInitializer,
-        debugRenderer: DebugRenderer,
         backgroundRenderer: BackgroundRenderer,
         mainSceneRenderer: MainSceneRenderer,
         shineBulletRenderer: ShineBulletRenderer,
@@ -30,7 +28,6 @@ class GameScreenRenderer:
         eventManager: EventManager,
     ):
         self.gameScreenInitializer = gameScreenInitializer
-        self.debugRenderer = debugRenderer
         self.backgroundRenderer = backgroundRenderer
         self.mainSceneRenderer = mainSceneRenderer
         self.shineBulletRenderer = shineBulletRenderer
@@ -56,7 +53,6 @@ class GameScreenRenderer:
         self.bulletTraceRenderer.render()
         self.crosshairRenderer.render()
         self.dashboardRenderer.render()
-        # self.debugRenderer.render()
 
     def renderSniperAimState(self):
         self.mainSceneRenderer.renderSniperAimState()
