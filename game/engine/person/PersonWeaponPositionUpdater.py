@@ -1,5 +1,6 @@
 from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
+from game.model.person.Player import Player
 
 
 class PersonWeaponPositionUpdater:
@@ -25,7 +26,7 @@ class PersonWeaponPositionUpdater:
             self.updateWeapon(person, personItems.leftHandWeapon, rightHand=False)
 
     def updateWeapon(self, person, weapon, rightHand):
-        personShift = weapon.playerShift if person.isPlayer else weapon.enemyShift
+        personShift = weapon.playerShift if type(person) == Player else weapon.enemyShift
         weaponPosition = self.getWeaponPosition(person, personShift, weapon.feedback, rightHand)
         barrelPosition = self.getBarrelPosition(person, weapon.barrelPoint, weaponPosition, rightHand)
         aimPoint = self.getAimPoint(person, barrelPosition)

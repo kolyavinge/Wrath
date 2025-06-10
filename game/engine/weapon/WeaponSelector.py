@@ -1,5 +1,6 @@
 from game.engine.GameData import GameData
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
+from game.model.person.Player import Player
 from game.model.weapon.NullWeapon import NullWeapon
 from game.model.weapon.WeaponCollection import WeaponCollection
 
@@ -49,7 +50,7 @@ class WeaponSelector:
             self.selectNextWeapon(person, weapon)
 
     def setWeapons(self, person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon):
-        if person.isPlayer:
+        if type(person) == Player:
             self.aimStateSwitcher.setToDefaultIfNeeded()
         personItems.rightHandWeapon = rightHandWeapon
         personItems.leftHandWeapon = leftHandWeapon

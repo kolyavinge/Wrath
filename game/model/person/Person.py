@@ -53,7 +53,6 @@ class Person:
         self.breathTime = 0
         self.breathFunc = BreathFunc()
         self.stepTime = 0
-        self.isPlayer = False
 
     def moveNextPositionBy(self, vector):
         self.nextCenterPoint.add(vector)
