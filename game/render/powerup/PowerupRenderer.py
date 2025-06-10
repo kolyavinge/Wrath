@@ -25,7 +25,7 @@ class PowerupRenderer:
             self.model3dRenderer.render(model, shader)
 
     def getModel(self, powerup):
-        if isinstance(powerup, WeaponPowerup):
+        if type(powerup) == WeaponPowerup:
             return self.weaponRenderCollection.getRenderModel3d(powerup.weaponType)
         else:
             return self.powerupRenderCollection.getRenderModel3d(type(powerup))

@@ -40,7 +40,7 @@ class PowerupUpdater:
         currentPowerups = self.gameData.powerups
         newPowerups = []
         for powerupType, powerupCount in self.powerupCount.items():
-            count = Query(currentPowerups).count(lambda x: isinstance(x, powerupType))
+            count = Query(currentPowerups).count(lambda x: type(x) == powerupType)
             while count < powerupCount:
                 powerup = self.makeNewPowerup(powerupType)
                 newPowerups.append(powerup)

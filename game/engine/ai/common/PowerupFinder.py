@@ -18,13 +18,13 @@ class PowerupFinder:
         self.routeFinder = routeFinder
 
     def tryFindNearestHealthOrVest(self, enemy):
-        healthes = self.getNearestPowerups(enemy, lambda x: isinstance(x, SmallHealthPowerup) or isinstance(x, LargeHealthPowerup))
+        healthes = self.getNearestPowerups(enemy, lambda x: type(x) == SmallHealthPowerup or type(x) == LargeHealthPowerup)
         for health in healthes:
             enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, health.pickupPosition)
             if enemy.aiData.route.hasPoints():
                 return True
 
-        vests = self.getNearestPowerups(enemy, lambda x: isinstance(x, VestPowerup))
+        vests = self.getNearestPowerups(enemy, lambda x: type(x) == VestPowerup)
         for vest in vests:
             enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, vest.pickupPosition)
             if enemy.aiData.route.hasPoints():
@@ -33,7 +33,7 @@ class PowerupFinder:
         return False
 
     def tryFindNearestWeapon(self, enemy):
-        weapons = self.getNearestPowerups(enemy, lambda x: isinstance(x, WeaponPowerup))
+        weapons = self.getNearestPowerups(enemy, lambda x: type(x) == WeaponPowerup)
         for weapon in weapons:
             enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, weapon.pickupPosition)
             if enemy.aiData.route.hasPoints():
