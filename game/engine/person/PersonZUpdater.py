@@ -3,6 +3,7 @@ from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
 from game.lib.Math import Math
+from game.lib.Numeric import Numeric
 from game.model.person.PersonZState import PersonZState
 
 
@@ -35,13 +36,13 @@ class PersonZUpdater:
         elif len(levelSegment.floors) == 0:
             self.processHole(person)
         else:
-            raise Exception("Wrong floors count in segment.")
+            raise Exception("Wrong floors count in segment. Segment can contain zero or one floor.")
 
     def processFloor(self, person, levelSegment):
         floor = levelSegment.floors[0]
         person.currentFloor = floor
         floorZ = floor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
-        personOnFloor = person.getZ() - floorZ <= 0.5
+        personOnFloor = Numeric.between(person.getZ() - floorZ, 0, 0.5)
         if personOnFloor and person.zState == PersonZState.onFloor and person.jumpingValue == 0:
             person.setZ(floorZ)
         elif personOnFloor and person.zState == PersonZState.onFloor and person.jumpingValue > 0:

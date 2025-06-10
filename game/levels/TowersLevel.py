@@ -99,6 +99,8 @@ class TowersLevel(Level):
         for sp in self.getVisibilitySplitPlanes():
             yield sp
 
+        yield SplitPlane(Vector3(0, 0, 0), Vector3(0, 0, 1))
+
         # area1
         yield SplitPlane(Vector3(0, 0, self.minZ + 4), Vector3(0, 0, 1))
         yield SplitPlane(Vector3(45, 10, self.minZ), Vector3(0, 1, 0))

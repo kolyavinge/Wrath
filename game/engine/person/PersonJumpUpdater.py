@@ -8,8 +8,7 @@ class PersonJumpUpdater:
         self.gameData = gameData
 
     def update(self):
-        for person in self.gameData.allPerson:
-            inputData = self.gameData.allPersonInputData[person]
+        for person, inputData in self.gameData.allPersonInputData.items():
             self.updateForPerson(person, inputData)
 
     def updateForPerson(self, person, inputData):
