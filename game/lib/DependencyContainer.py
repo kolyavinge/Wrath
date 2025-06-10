@@ -22,13 +22,14 @@ class FieldResolver:
 
 class SingletonInstanceHolder:
 
-    def __init__(self, resolver):
+    def __init__(self, type, resolver):
+        self.type = type
         self.resolver = resolver
         self.instance = None
 
-    def getInstance(self, type, dc):
+    def getInstance(self, dc):
         if self.instance is None:
-            self.instance = self.resolver.resolve(type, dc)
+            self.instance = self.resolver.resolve(self.type, dc)
 
         return self.instance
 
@@ -41,15 +42,19 @@ class DependencyContainer:
     def initFromModule(self, module):
         module.init(self)
 
-    def bindSingleton(self, type, resolveByFields=False):
+    def bindSingleton(self, type, sameTypes=None, resolveByFields=False):
         resolver = FieldResolver() if resolveByFields else ConstructorResolver()
-        self.instanceHolders[type] = SingletonInstanceHolder(resolver)
+        holder = SingletonInstanceHolder(type, resolver)
+        self.instanceHolders[type] = holder
+        if sameTypes is not None:
+            for sameType in sameTypes:
+                self.instanceHolders[sameType] = holder
 
     def resolve(self, type):
         if type not in self.instanceHolders:
             raise Exception(f"No dependency for {type} in container.")
 
-        return self.instanceHolders[type].getInstance(type, self)
+        return self.instanceHolders[type].getInstance(self)
 
     def errorIfUnusedInstances(self):
         for type, holder in self.instanceHolders.items():
