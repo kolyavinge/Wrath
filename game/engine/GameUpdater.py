@@ -6,6 +6,7 @@ from game.engine.cm.PersonCeilingCollisionUpdater import PersonCeilingCollisionU
 from game.engine.cm.PersonCollisionUpdater import PersonCollisionUpdater
 from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
+from game.engine.GameData import GameData
 from game.engine.person.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
