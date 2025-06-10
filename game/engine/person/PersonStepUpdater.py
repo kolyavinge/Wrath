@@ -3,6 +3,7 @@ from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
 from game.model.level.Stair import Stair
+from game.model.person.PersonZState import PersonZState
 
 
 class PersonStepUpdater:
@@ -22,11 +23,12 @@ class PersonStepUpdater:
 
     def updateForPerson(self, person):
         doStep = False
-        person.stepTime += 1
-        if isinstance(person.currentFloor, Stair):
-            doStep = person.currentCenterPoint.z != person.nextCenterPoint.z
-        else:
-            doStep = person.stepTime > PersonConstants.stepTimeLimit
+        if person.zState == PersonZState.onFloor:
+            person.stepTime += 1
+            if isinstance(person.currentFloor, Stair):
+                doStep = person.currentCenterPoint.z != person.nextCenterPoint.z
+            else:
+                doStep = person.stepTime > PersonConstants.stepTimeLimit
 
         if doStep:
             person.stepTime = 0
