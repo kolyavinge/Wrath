@@ -48,6 +48,7 @@ class Person:
         self.jumpingFunc = JumpingFunc()
         self.fallingTime = 0
         self.fallingFunc = FallingFunc()
+        self.fallingDamageFunc = FallingDamageFunc()
         self.landingTime = 0
         self.health = PersonConstants.maxPersonHealth
         self.breathTime = 0

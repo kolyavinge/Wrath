@@ -9,14 +9,23 @@ class VelocityFunc:
 
 class JumpingFunc:
 
-    def getValue(self, x):
-        return 0.5 * x
+    def getValue(self, time):
+        return 0.5 * time
 
 
 class FallingFunc:
 
-    def getValue(self, x):
-        return 0.2 * x
+    def getValue(self, time):
+        return 0.2 * time
+
+
+class FallingDamageFunc:
+
+    def getValue(self, time):
+        if time < 2.0:
+            return 0.0
+        else:
+            return 0.025 * time
 
 
 class BreathFunc:

@@ -26,3 +26,7 @@ class PersonDamageLogic:
             person.damage((explosion.damagePercent * PersonConstants.maxPersonHealth) / 2.0)
         else:
             person.damage(explosion.damagePercent * PersonConstants.maxPersonHealth)
+
+    def damageByFalling(self, person):
+        damagePercent = person.fallingDamageFunc.getValue(person.fallingTime)
+        person.damage(damagePercent * PersonConstants.maxPersonHealth)

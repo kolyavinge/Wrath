@@ -1,6 +1,7 @@
 from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
+from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.lib.EventManager import EventManager
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
@@ -13,10 +14,12 @@ class PersonZUpdater:
         self,
         gameData: GameData,
         traversal: BSPTreeTraversal,
+        personDamageLogic: PersonDamageLogic,
         eventManager: EventManager,
     ):
         self.gameData = gameData
         self.traversal = traversal
+        self.personDamageLogic = personDamageLogic
         self.eventManager = eventManager
 
     def updateIfMoved(self):
@@ -53,6 +56,7 @@ class PersonZUpdater:
             person.zState = PersonZState.falling
         elif personOnFloor and person.zState == PersonZState.falling:
             person.setZ(floorZ)
+            self.personDamageLogic.damageByFalling(person)
             person.fallingTime = 0
             person.zState = PersonZState.landing
             person.landingTime = 10 * 0.1

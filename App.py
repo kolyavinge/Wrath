@@ -42,7 +42,7 @@ class App:
         glutKeyboardUpFunc(self.keyup)
         glutSetCursor(GLUT_CURSOR_NONE)
         self.game = GameFactory.makeGame()
-        # self.game = GameFactory.makeGame(levelDebugMode=True)
+        # self.game = GameFactory.makeGame(levelDebugMode=True)  # отладочный режим для рисования местности
         glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
         glutMainLoop()
 
