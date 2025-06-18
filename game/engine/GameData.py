@@ -55,6 +55,7 @@ class GameData:
         self.bulletTraces = []
         self.explosions = []
         self.powerups = []
+        self.bloodStains = []
         self.camera = Camera()
         self.aimState = DefaultAimState()
         self.collisionData = CollisionData()

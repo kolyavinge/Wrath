@@ -62,6 +62,7 @@ from game.engine.person.PersonUpdater import *
 from game.engine.person.PersonVelocityUpdater import *
 from game.engine.person.PersonWeaponPositionUpdater import *
 from game.engine.person.PersonZUpdater import *
+from game.engine.person.PlayerBloodStainUpdater import *
 from game.engine.person.PlayerLevelSegmentsUpdater import *
 from game.engine.person.PlayerMovingSwingUpdater import *
 from game.engine.person.PlayerWeaponSwingUpdater import *
@@ -157,6 +158,7 @@ class EngineModule:
         binder.bindSingleton(PersonVelocityUpdater)
         binder.bindSingleton(PersonWeaponPositionUpdater)
         binder.bindSingleton(PersonZUpdater)
+        binder.bindSingleton(PlayerBloodStainUpdater)
         binder.bindSingleton(PlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMovingSwingUpdater)
         binder.bindSingleton(PlayerWeaponSwingUpdater)
