@@ -1,11 +1,18 @@
+from game.anx.Events import Events
 from game.engine.GameData import GameData
+from game.lib.EventManager import EventManager
 from game.model.person.PersonZState import PersonZState
 
 
 class PersonJumpUpdater:
 
-    def __init__(self, gameData: GameData):
+    def __init__(
+        self,
+        gameData: GameData,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
+        self.eventManager = eventManager
 
     def update(self):
         for person, inputData in self.gameData.allPersonInputData.items():
@@ -21,6 +28,8 @@ class PersonJumpUpdater:
 
         if person.jumpingTime <= 1.0:
             person.jumpingTime += 0.1
+            if person.jumpingTime == 0.5:
+                self.eventManager.raiseEvent(Events.personJumped, person)
         else:
             person.jumpingTime = 0
 

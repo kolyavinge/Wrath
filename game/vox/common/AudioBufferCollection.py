@@ -13,6 +13,7 @@ class AudioBufferCollection:
         self.stepConcrete = self.audioBufferLoader.load(path + "stepConcrete.wav")
         self.stepMetal = self.audioBufferLoader.load(path + "stepMetal.wav")
         self.switchTorch = self.audioBufferLoader.load(path + "switchTorch.wav")
+        self.jumping = self.audioBufferLoader.load(path + "jumping.wav")
         self.landing = self.audioBufferLoader.load(path + "landing.wav")
         self.pistolShot = self.audioBufferLoader.load(path + "pistolShot.wav")
         self.rifleShot = self.audioBufferLoader.load(path + "rifleShot.wav")

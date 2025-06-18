@@ -2,6 +2,7 @@ class Events:
 
     personStepDone = "personStepDone"
     torchSwitched = "torchSwitched"
+    personJumped = "personJumped"
     personLanded = "personLanded"
 
     weaponFired = "weaponFired"

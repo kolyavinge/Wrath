@@ -21,6 +21,7 @@ class PersonVox:
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer
         eventManager.attachToEvent(Events.personStepDone, self.onPersonStepDone)
+        eventManager.attachToEvent(Events.personJumped, self.onPersonJumped)
         eventManager.attachToEvent(Events.personLanded, self.onPersonLanded)
 
     def init(self, allSources):
@@ -35,6 +36,10 @@ class PersonVox:
             self.audioPlayer.play(source.stepConcrete)
         elif person.currentFloor.material.kind == MaterialKind.metal:
             self.audioPlayer.play(source.stepMetal)
+
+    def onPersonJumped(self, person):
+        source = self.sources[person]
+        self.audioPlayer.play(source.jumping)
 
     def onPersonLanded(self, person):
         self.onPersonStepDone(person)
