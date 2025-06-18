@@ -4,6 +4,7 @@ from game.model.person.AimState import DefaultAimState
 from game.render.level.BackgroundRenderer import BackgroundRenderer
 from game.render.main.MainSceneRenderer import MainSceneRenderer
 from game.render.menu.DashboardRenderer import DashboardRenderer
+from game.render.person.PlayerBloodStainRenderer import PlayerBloodStainRenderer
 from game.render.ui.GameScreenInitializer import GameScreenInitializer
 from game.render.weapon.BulletTraceRenderer import BulletTraceRenderer
 from game.render.weapon.CrosshairRenderer import CrosshairRenderer
@@ -23,6 +24,7 @@ class GameScreenRenderer:
         weaponFlashRenderer: WeaponFlashRenderer,
         bulletTraceRenderer: BulletTraceRenderer,
         crosshairRenderer: CrosshairRenderer,
+        playerBloodStainRenderer: PlayerBloodStainRenderer,
         sniperCrosshairRenderer: SniperCrosshairRenderer,
         dashboardRenderer: DashboardRenderer,
         eventManager: EventManager,
@@ -34,6 +36,7 @@ class GameScreenRenderer:
         self.weaponFlashRenderer = weaponFlashRenderer
         self.bulletTraceRenderer = bulletTraceRenderer
         self.crosshairRenderer = crosshairRenderer
+        self.playerBloodStainRenderer = playerBloodStainRenderer
         self.sniperCrosshairRenderer = sniperCrosshairRenderer
         self.dashboardRenderer = dashboardRenderer
         self.renderFunc = self.renderDefaultAimState
@@ -52,6 +55,7 @@ class GameScreenRenderer:
         self.weaponFlashRenderer.render()
         self.bulletTraceRenderer.render()
         self.crosshairRenderer.render()
+        self.playerBloodStainRenderer.render()
         self.dashboardRenderer.render()
 
     def renderSniperAimState(self):

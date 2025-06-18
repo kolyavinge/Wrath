@@ -4,6 +4,7 @@ from game.render.level.LevelItemRenderCollection import LevelItemRenderCollectio
 from game.render.level.ShadowCasterRenderCollection import ShadowCasterRenderCollection
 from game.render.person.EnemyAnimationCollection import EnemyAnimationCollection
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
+from game.render.person.PlayerBloodStainRenderCollection import *
 from game.render.powerup.PowerupRenderCollection import PowerupRenderCollection
 from game.render.weapon.BulletHoleRenderCollection import BulletHoleRenderCollection
 from game.render.weapon.BulletRenderCollection import BulletRenderCollection
@@ -23,6 +24,7 @@ class GameScreenInitializer:
         weaponRenderCollection: WeaponRenderCollection,
         powerupRenderCollection: PowerupRenderCollection,
         weaponFlashRenderCollection: WeaponFlashRenderCollection,
+        playerBloodStainRenderCollection: PlayerBloodStainRenderCollection,
         enemyRenderCollection: EnemyRenderCollection,
         enemyAnimationCollection: EnemyAnimationCollection,
     ):
@@ -34,6 +36,7 @@ class GameScreenInitializer:
         self.weaponRenderCollection = weaponRenderCollection
         self.powerupRenderCollection = powerupRenderCollection
         self.weaponFlashRenderCollection = weaponFlashRenderCollection
+        self.playerBloodStainRenderCollection = playerBloodStainRenderCollection
         self.enemyRenderCollection = enemyRenderCollection
         self.enemyAnimationCollection = enemyAnimationCollection
 
@@ -50,6 +53,7 @@ class GameScreenInitializer:
         self.weaponRenderCollection.init()
         self.powerupRenderCollection.init()
         self.weaponFlashRenderCollection.init()
+        self.playerBloodStainRenderCollection.init()
         self.enemyRenderCollection.init()
         self.enemyAnimationCollection.init()
 

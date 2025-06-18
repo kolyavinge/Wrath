@@ -40,6 +40,9 @@ from game.render.person.EnemyAnimationCollection import *
 from game.render.person.EnemyModel3dFactory import *
 from game.render.person.EnemyRenderCollection import *
 from game.render.person.EnemyRenderer import *
+from game.render.person.PlayerBloodStainRenderCollection import *
+from game.render.person.PlayerBloodStainRenderer import *
+from game.render.person.PlayerBloodStainRenderMeshFactory import *
 from game.render.powerup.PowerupModel3dFactory import *
 from game.render.powerup.PowerupRenderCollection import *
 from game.render.powerup.PowerupRenderer import *
@@ -112,6 +115,9 @@ class RenderModule:
         binder.bindSingleton(EnemyModel3dFactory)
         binder.bindSingleton(EnemyRenderCollection)
         binder.bindSingleton(EnemyRenderer)
+        binder.bindSingleton(PlayerBloodStainRenderCollection)
+        binder.bindSingleton(PlayerBloodStainRenderer)
+        binder.bindSingleton(PlayerBloodStainRenderMeshFactory)
         binder.bindSingleton(PowerupModel3dFactory)
         binder.bindSingleton(PowerupRenderCollection)
         binder.bindSingleton(PowerupRenderer)
