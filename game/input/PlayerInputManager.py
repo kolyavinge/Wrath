@@ -5,7 +5,7 @@ from game.input.InputManager import InputManager
 from game.input.Keys import Keys
 from game.lib.EventManager import EventManager
 from game.lib.Math import Math
-from game.model.person.AimState import SniperAimState
+from game.model.person.AimState import DefaultAimState, SniperAimState
 from game.model.weapon.Sniper import Sniper
 
 
@@ -82,8 +82,14 @@ class PlayerInputManager:
         if mouse.isRightButtonClicked() and type(self.gameData.playerItems.currentWeapon) == Sniper:
             self.aimStateSwitcher.switchDefaultOrSniper()
 
-        if mouse.getScrollDelta() != 0 and type(aimState) == SniperAimState:
-            if mouse.getScrollDelta() > 0:
-                aimState.zoomIn()
-            elif mouse.getScrollDelta() < 0:
-                aimState.zoomOut()
+        if mouse.getScrollDelta() != 0:
+            if type(aimState) == DefaultAimState:
+                if mouse.getScrollDelta() > 0:
+                    self.eventManager.raiseEvent(Events.selectNextWeaponRequested, self.gameData.player)
+                elif mouse.getScrollDelta() < 0:
+                    self.eventManager.raiseEvent(Events.selectPrevWeaponRequested, self.gameData.player)
+            elif type(aimState) == SniperAimState:
+                if mouse.getScrollDelta() > 0:
+                    aimState.zoomIn()
+                elif mouse.getScrollDelta() < 0:
+                    aimState.zoomOut()

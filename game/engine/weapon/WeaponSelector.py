@@ -30,10 +30,10 @@ class WeaponSelector:
                 currentWeapon = rightHandWeapon if rightHandWeapon.bulletsCount == leftHandWeapon.bulletsCount else leftHandWeapon
                 self.setWeapons(person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon)
 
-    def selectNextWeapon(self, person, weapon):
+    def selectNextWeapon(self, person):
         personItems = self.gameData.allPersonItems[person]
         if personItems.hasWeapons():
-            weaponType = type(weapon)
+            weaponType = personItems.getCurrentWeaponType()
             nextWeaponType = WeaponCollection.getNextWeaponTypeFor(weaponType)
             for _ in range(1, WeaponCollection.weaponTypesCount):
                 if personItems.hasWeaponByType(nextWeaponType):
@@ -44,10 +44,24 @@ class WeaponSelector:
         else:
             self.setWeapons(person, personItems, NullWeapon.instance, None, NullWeapon.instance)
 
-    def selectNextWeaponIfCurrentEmpty(self, person, personItems, weapon):
+    def selectPrevWeapon(self, person):
+        personItems = self.gameData.allPersonItems[person]
+        if personItems.hasWeapons():
+            weaponType = personItems.getCurrentWeaponType()
+            prevWeaponType = WeaponCollection.getPrevWeaponTypeFor(weaponType)
+            for _ in range(1, WeaponCollection.weaponTypesCount):
+                if personItems.hasWeaponByType(prevWeaponType):
+                    self.selectWeaponByType(person, prevWeaponType)
+                    return
+                else:
+                    prevWeaponType = WeaponCollection.getPrevWeaponTypeFor(prevWeaponType)
+        else:
+            self.setWeapons(person, personItems, NullWeapon.instance, None, NullWeapon.instance)
+
+    def selectNextWeaponIfCurrentEmpty(self, person, personItems):
         if personItems.isCurrentWeaponEmpty():
-            personItems.removeWeaponByType(type(weapon))
-            self.selectNextWeapon(person, weapon)
+            personItems.removeWeaponByType(personItems.getCurrentWeaponType())
+            self.selectNextWeapon(person)
 
     def setWeapons(self, person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon):
         if type(person) == Player:

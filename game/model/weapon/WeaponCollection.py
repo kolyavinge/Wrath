@@ -27,6 +27,14 @@ class WeaponCollection:
     nextWeapons[Railgun] = Sniper
     nextWeapons[Sniper] = Pistol
 
+    prevWeapons = {}
+    prevWeapons[Pistol] = Sniper
+    prevWeapons[Rifle] = Pistol
+    prevWeapons[Plasma] = Rifle
+    prevWeapons[Launcher] = Plasma
+    prevWeapons[Railgun] = Launcher
+    prevWeapons[Sniper] = Railgun
+
     @staticmethod
     def getWeaponTypeByNumber(number):
         return WeaponCollection.weaponByNumbers[number]
@@ -34,3 +42,7 @@ class WeaponCollection:
     @staticmethod
     def getNextWeaponTypeFor(weapon):
         return WeaponCollection.nextWeapons[weapon]
+
+    @staticmethod
+    def getPrevWeaponTypeFor(weapon):
+        return WeaponCollection.prevWeapons[weapon]

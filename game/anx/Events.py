@@ -12,6 +12,8 @@ class Events:
 
     torchSwitchRequested = "torchSwitchRequested"
     selectWeaponRequested = "selectWeaponRequested"
+    selectNextWeaponRequested = "selectNextWeaponRequested"
+    selectPrevWeaponRequested = "selectPrevWeaponRequested"
 
     viewportSizeChanged = "viewportSizeChanged"
 

@@ -44,4 +44,4 @@ class WeaponFireUpdater:
         weapon.delayRemain = weapon.delay
         self.weaponFeedbackLogic.applyFeedback(weapon)
         self.bulletLogic.makeBullet(person, weapon)
-        self.weaponSelector.selectNextWeaponIfCurrentEmpty(person, personItems, weapon)
+        self.weaponSelector.selectNextWeaponIfCurrentEmpty(person, personItems)
