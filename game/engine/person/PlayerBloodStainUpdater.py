@@ -18,7 +18,7 @@ class PlayerBloodStainUpdater:
     def updateBloodStains(self):
         for bloodStain in self.gameData.bloodStains:
             bloodStain.brightness *= bloodStain.fade
-            if bloodStain.brightness <= 0:
+            if bloodStain.brightness < 0.1:
                 self.gameData.bloodStains.remove(bloodStain)
 
     def addNewBloodStain(self):
