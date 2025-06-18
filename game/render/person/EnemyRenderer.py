@@ -1,5 +1,3 @@
-from OpenGL.GL import *
-
 from game.anx.CommonConstants import CommonConstants
 from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
