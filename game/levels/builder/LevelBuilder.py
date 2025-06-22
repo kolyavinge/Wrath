@@ -34,7 +34,6 @@ class LevelBuilder:
         wall.frontNormal = Vector3(0, -1, 0)
         wall.height = height
         wall.material = material
-        wall.canCastShadow = True
         self.level.addWall(wall)
 
         wall = Wall()
@@ -43,7 +42,6 @@ class LevelBuilder:
         wall.frontNormal = Vector3(-1, 0, 0)
         wall.height = height
         wall.material = material
-        wall.canCastShadow = True
         self.level.addWall(wall)
 
         wall = Wall()
@@ -52,7 +50,6 @@ class LevelBuilder:
         wall.frontNormal = Vector3(1, 0, 0)
         wall.height = height
         wall.material = material
-        wall.canCastShadow = True
         self.level.addWall(wall)
 
         wall = Wall()
@@ -61,7 +58,6 @@ class LevelBuilder:
         wall.frontNormal = Vector3(0, 1, 0)
         wall.height = height
         wall.material = material
-        wall.canCastShadow = True
         self.level.addWall(wall)
 
     def buildFlatFloor(self, downLeft, xLength, yLength, material, visualSize=1):
@@ -105,7 +101,6 @@ class LevelBuilder:
         floor.upLeft = upLeft
         floor.upRight = upRight
         floor.material = topBottomMaterial
-        floor.canCastShadow = True
         self.level.addFloor(floor)
 
         ceiling = Ceiling()

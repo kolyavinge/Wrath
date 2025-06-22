@@ -20,6 +20,7 @@ class Construction(Visible):
         self.frontUpLeft = Vector3()
         self.frontUpRight = Vector3()
         self.visualSize = 1.0
+        self.canCastShadow = True
 
     def commit(self):
         self.faceDirection = self.getFaceDirection()
