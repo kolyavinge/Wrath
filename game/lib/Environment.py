@@ -1,4 +1,5 @@
 import ctypes
+import os
 
 
 class Environment:
@@ -8,3 +9,6 @@ class Environment:
     @staticmethod
     def shutdown():
         ctypes.windll.user32.PostQuitMessage(0)
+
+
+Environment.programRootPath = os.getcwd()

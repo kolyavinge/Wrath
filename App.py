@@ -1,4 +1,3 @@
-import os
 import sys
 
 from OpenGL.GL import *
@@ -8,7 +7,6 @@ from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.core.GameFactory import GameFactory
 from game.input.Keys import Keys
-from game.lib.Environment import Environment
 from game.lib.Screen import Screen
 from game.tools.CpuProfiler import CpuProfiler
 
@@ -16,9 +14,8 @@ from game.tools.CpuProfiler import CpuProfiler
 class App:
 
     def __init__(self):
-        Environment.programRootPath = os.getcwd()
         self.isFullscreen = False
-        self.windowWidth = 1200
+        self.windowWidth = 1600
         self.windowHeight = (int)(self.windowWidth / CommonConstants.screenAspect)
 
     def resize(self, width, height):
