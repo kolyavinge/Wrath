@@ -1,3 +1,4 @@
+from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
 from game.model.person.Player import Player
@@ -69,3 +70,4 @@ class WeaponSelector:
         personItems.rightHandWeapon = rightHandWeapon
         personItems.leftHandWeapon = leftHandWeapon
         personItems.currentWeapon = currentWeapon
+        person.selectWeaponDelay.set(PersonConstants.selectWeaponDelay)

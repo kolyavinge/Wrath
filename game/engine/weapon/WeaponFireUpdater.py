@@ -29,15 +29,15 @@ class WeaponFireUpdater:
 
     def updateForWeapon(self, person, personItems, inputData):
         weapon = personItems.currentWeapon
-        if inputData.fire and self.canFire(weapon):
+        if inputData.fire and self.canFire(person, weapon):
             weapon.isFiring = True
             self.fire(person, personItems, weapon)
             self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
         else:
             weapon.isFiring = False
 
-    def canFire(self, weapon):
-        return weapon.bulletsCount > 0 and weapon.delayRemain == 0
+    def canFire(self, person, weapon):
+        return person.selectWeaponDelay.isExpired() and weapon.bulletsCount > 0 and weapon.delayRemain == 0
 
     def fire(self, person, personItems, weapon):
         weapon.bulletsCount -= 1

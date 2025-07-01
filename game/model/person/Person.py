@@ -3,6 +3,7 @@ from game.anx.PersonConstants import PersonConstants
 from game.calc.Box3d import Box3d
 from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.calc.Vector3 import Vector3
+from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Math import Math
 from game.model.level.Floor import Floor
 from game.model.level.LevelSegment import LevelSegment
@@ -54,6 +55,7 @@ class Person:
         self.breathTime = 0
         self.breathFunc = BreathFunc()
         self.stepTime = 0
+        self.selectWeaponDelay = DecrementCounter()
 
     def moveNextPositionBy(self, vector):
         self.nextCenterPoint.add(vector)

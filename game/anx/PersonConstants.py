@@ -17,3 +17,4 @@ class PersonConstants:
     maxPitchRadians = Math.piHalf - 0.1
     maxVest = 100
     stepTimeLimit = 15
+    selectWeaponDelay = 30

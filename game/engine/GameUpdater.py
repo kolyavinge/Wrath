@@ -126,6 +126,7 @@ class GameUpdater:
         self.enemyAIUpdater.update()
         self.personPositionUpdater.resetMovedAndTurned()
         self.personUpdater.commitZState()
+        self.personUpdater.updateDelays()
         self.sniperAimFloatingUpdater.update()
         self.gameData.collisionData.clear()
         self.gameData.updateGlobalTime()
