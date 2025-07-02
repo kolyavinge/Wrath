@@ -19,10 +19,11 @@ class Weapon:
         self.isBurstModeEnabled = False
         self.yawRadians = 0
         self.pitchRadians = 0
+        self.selectionPitchRadians = 0
         self.bulletsCount = 0
         self.maxBulletsCount = 0
         self.delay = 0
-        self.delayRemain = 0
+        self.delayRemain = 0  # TODO DecrementCounter
         self.jitter = Vector3()
         self.jitterFade = 0
         self.jitterDelta = 0
@@ -31,6 +32,7 @@ class Weapon:
         self.feedbackLength = 0
         self.playerShift = Vector3()
         self.enemyShift = Vector3()
+        self.selectionShift = Vector3()
 
     def makeBullet(self, ownerPerson):
         bullet = self.bulletType()
@@ -58,10 +60,22 @@ class Weapon:
         self.bulletsCount = Math.min(self.bulletsCount + count, self.maxBulletsCount)
 
     def getModelMatrix(self):
-        return (
-            TransformMatrix4Builder()
-            .translate(self.position.x, self.position.y, self.position.z)
-            .rotate(self.yawRadians, CommonConstants.zAxis)
-            .rotate(self.pitchRadians, CommonConstants.xAxis)
-            .resultMatrix
-        )
+        if self.selectionPitchRadians == 0:
+            return (
+                TransformMatrix4Builder()
+                .translate(self.position.x, self.position.y, self.position.z)
+                .rotate(self.yawRadians, CommonConstants.zAxis)
+                .rotate(self.pitchRadians, CommonConstants.xAxis)
+                .resultMatrix
+            )
+        else:
+            return (
+                TransformMatrix4Builder()
+                .translate(self.position.x, self.position.y, self.position.z)
+                .rotate(self.yawRadians, CommonConstants.zAxis)
+                .rotate(self.pitchRadians, CommonConstants.xAxis)
+                .translate(self.selectionShift.x, self.selectionShift.y, self.selectionShift.z)
+                .rotate(self.selectionPitchRadians, CommonConstants.xAxis)
+                .translate(-self.selectionShift.x, -self.selectionShift.y, -self.selectionShift.z)
+                .resultMatrix
+            )

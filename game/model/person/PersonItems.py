@@ -31,6 +31,9 @@ class PersonItems:
         self.rightHandWeapon = None
         self.leftHandWeapon = None
         self.currentWeapon = None
+        self.selectedRightHandWeapon = None
+        self.selectedLeftHandWeapon = None
+        self.selectedCurrentWeapon = None
         self.vest = 0
 
     def setFullVest(self):

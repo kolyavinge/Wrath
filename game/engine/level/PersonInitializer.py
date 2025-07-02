@@ -8,7 +8,12 @@ from game.model.person.PersonItems import PersonItems
 
 class PersonInitializer:
 
-    def __init__(self, gameData: GameData, personTurnLogic: PersonTurnLogic, weaponSelector: WeaponSelector):
+    def __init__(
+        self,
+        gameData: GameData,
+        personTurnLogic: PersonTurnLogic,
+        weaponSelector: WeaponSelector,
+    ):
         self.gameData = gameData
         self.personTurnLogic = personTurnLogic
         self.weaponSelector = weaponSelector
@@ -24,7 +29,7 @@ class PersonInitializer:
         self.gameData.player.moveNextPositionTo(position)
         self.personTurnLogic.orientToFrontNormal(self.gameData.player, frontNormal)
         self.gameData.player.commitNextPosition()
-        self.weaponSelector.selectWeaponByType(self.gameData.player, weaponType)
+        self.weaponSelector.initWeaponByType(self.gameData.player, weaponType)
 
     def initEnemies(self):
         if self.gameData.noEnemies:
@@ -45,7 +50,7 @@ class PersonInitializer:
         self.gameData.enemyInputData[enemy] = PersonInputData()
         self.gameData.allPersonItems[enemy] = self.gameData.enemyItems[enemy]
         self.gameData.allPersonInputData[enemy] = self.gameData.enemyInputData[enemy]
-        self.weaponSelector.selectWeaponByType(enemy, weaponType)
+        self.weaponSelector.initWeaponByType(enemy, weaponType)
 
     def initAllPersonPairs(self):
         for i in range(0, len(self.gameData.allPerson) - 1):

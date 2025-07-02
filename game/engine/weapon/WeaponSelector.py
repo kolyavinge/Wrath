@@ -16,12 +16,30 @@ class WeaponSelector:
         self.gameData = gameData
         self.aimStateSwitcher = aimStateSwitcher
 
+    def initWeaponByType(self, person, weaponType):
+        personItems = self.gameData.allPersonItems[person]
+        if weaponType.defaultCount == 1:
+            findedWeapon = personItems.getWeaponByTypeOrNone(weaponType)
+            assert findedWeapon is not None
+            personItems.rightHandWeapon = findedWeapon
+            personItems.leftHandWeapon = None
+            personItems.currentWeapon = findedWeapon
+        elif weaponType.defaultCount == 2:
+            findedWeapons = personItems.getWeaponsByType(weaponType)
+            assert len(findedWeapons) == 2
+            rightHandWeapon = findedWeapons[0]
+            leftHandWeapon = findedWeapons[1]
+            currentWeapon = rightHandWeapon
+            personItems.rightHandWeapon = rightHandWeapon
+            personItems.leftHandWeapon = leftHandWeapon
+            personItems.currentWeapon = currentWeapon
+
     def selectWeaponByType(self, person, weaponType):
         personItems = self.gameData.allPersonItems[person]
         if weaponType.defaultCount == 1:
             findedWeapon = personItems.getWeaponByTypeOrNone(weaponType)
             if findedWeapon is not None:
-                self.setWeapons(person, personItems, findedWeapon, None, findedWeapon)
+                self.selectWeapons(person, personItems, findedWeapon, None, findedWeapon)
         elif weaponType.defaultCount == 2:
             findedWeapons = personItems.getWeaponsByType(weaponType)
             if len(findedWeapons) == 2:
@@ -29,7 +47,7 @@ class WeaponSelector:
                 leftHandWeapon = findedWeapons[1]
                 # в левом стволе может быть на одну пулю больше, если последний раз кол-во выстрелов было непарным
                 currentWeapon = rightHandWeapon if rightHandWeapon.bulletsCount == leftHandWeapon.bulletsCount else leftHandWeapon
-                self.setWeapons(person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon)
+                self.selectWeapons(person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon)
 
     def selectNextWeapon(self, person):
         personItems = self.gameData.allPersonItems[person]
@@ -43,7 +61,7 @@ class WeaponSelector:
                 else:
                     nextWeaponType = WeaponCollection.getNextWeaponTypeFor(nextWeaponType)
         else:
-            self.setWeapons(person, personItems, NullWeapon.instance, None, NullWeapon.instance)
+            self.selectWeapons(person, personItems, NullWeapon.instance, None, NullWeapon.instance)
 
     def selectPrevWeapon(self, person):
         personItems = self.gameData.allPersonItems[person]
@@ -57,17 +75,21 @@ class WeaponSelector:
                 else:
                     prevWeaponType = WeaponCollection.getPrevWeaponTypeFor(prevWeaponType)
         else:
-            self.setWeapons(person, personItems, NullWeapon.instance, None, NullWeapon.instance)
+            self.selectWeapons(person, personItems, NullWeapon.instance, None, NullWeapon.instance)
 
     def selectNextWeaponIfCurrentEmpty(self, person, personItems):
         if personItems.isCurrentWeaponEmpty():
             personItems.removeWeaponByType(personItems.getCurrentWeaponType())
             self.selectNextWeapon(person)
 
-    def setWeapons(self, person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon):
+    def selectWeapons(self, person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon):
+        if personItems.currentWeapon == currentWeapon:
+            return
         if type(person) == Player:
             self.aimStateSwitcher.setToDefaultIfNeeded()
-        personItems.rightHandWeapon = rightHandWeapon
-        personItems.leftHandWeapon = leftHandWeapon
-        personItems.currentWeapon = currentWeapon
-        person.selectWeaponDelay.set(PersonConstants.selectWeaponDelay)
+        personItems.selectedRightHandWeapon = rightHandWeapon
+        personItems.selectedLeftHandWeapon = leftHandWeapon
+        personItems.selectedCurrentWeapon = currentWeapon
+        # при быстром переключении оружия задержка все равно активируется один раз
+        if person.selectWeaponDelay.isExpired():
+            person.selectWeaponDelay.set(PersonConstants.selectWeaponDelay)

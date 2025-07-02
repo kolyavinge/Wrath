@@ -23,6 +23,7 @@ from game.engine.person.PersonZUpdater import PersonZUpdater
 from game.engine.person.PlayerBloodStainUpdater import PlayerBloodStainUpdater
 from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.person.PlayerMovingSwingUpdater import PlayerMovingSwingUpdater
+from game.engine.person.PlayerSelectedWeaponPositionUpdater import *
 from game.engine.person.PlayerWeaponSwingUpdater import PlayerWeaponSwingUpdater
 from game.engine.person.TorchUpdater import TorchUpdater
 from game.engine.powerup.PowerupUpdater import PowerupUpdater
@@ -76,6 +77,7 @@ class GameUpdater:
     powerupUpdater: PowerupUpdater
     weaponFlashUpdater: WeaponFlashUpdater
     bulletTraceUpdater: BulletTraceUpdater
+    playerSelectedWeaponPositionUpdater: PlayerSelectedWeaponPositionUpdater
     playerBloodStainUpdater: PlayerBloodStainUpdater
     enemyAIUpdater: EnemyAIUpdater
     # event listeners
@@ -122,6 +124,7 @@ class GameUpdater:
         self.powerupUpdater.generateNew()
         self.weaponFlashUpdater.update()
         self.bulletTraceUpdater.update()
+        self.playerSelectedWeaponPositionUpdater.update()
         self.playerBloodStainUpdater.update()
         self.enemyAIUpdater.update()
         self.personPositionUpdater.resetMovedAndTurned()

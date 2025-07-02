@@ -38,3 +38,4 @@ class Railgun(Weapon):
         self.feedbackLength = 0.05
         self.playerShift = Vector3(0.1, 0.3, -0.11)
         self.enemyShift = Vector3(0.16, 0.5, -0.1)
+        self.selectionShift = Vector3(0, -0.25, 0)
