@@ -8,6 +8,7 @@ from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
 from game.engine.GameData import GameData
 from game.engine.person.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
+from game.engine.person.CowboyEasterEggUpdater import CowboyEasterEggUpdater
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonBreathUpdater import PersonBreathUpdater
@@ -79,6 +80,7 @@ class GameUpdater:
     bulletTraceUpdater: BulletTraceUpdater
     playerSelectedWeaponPositionUpdater: PlayerSelectedWeaponPositionUpdater
     playerBloodStainUpdater: PlayerBloodStainUpdater
+    cowboyEasterEggUpdater: CowboyEasterEggUpdater
     enemyAIUpdater: EnemyAIUpdater
     # event listeners
     selectWeaponRequestListener: SelectWeaponRequestListener
@@ -126,6 +128,7 @@ class GameUpdater:
         self.bulletTraceUpdater.update()
         self.playerSelectedWeaponPositionUpdater.update()
         self.playerBloodStainUpdater.update()
+        self.cowboyEasterEggUpdater.update()
         self.enemyAIUpdater.update()
         self.personPositionUpdater.resetMovedAndTurned()
         self.personUpdater.commitZState()

@@ -47,6 +47,7 @@ from game.engine.level.PersonInitializer import *
 from game.engine.person.AIDataInitializer import *
 from game.engine.person.AimStateSwitcher import *
 from game.engine.person.BackgroundVisibilityUpdater import *
+from game.engine.person.CowboyEasterEggUpdater import *
 from game.engine.person.EnemyLevelSegmentsUpdater import *
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonBreathUpdater import *
@@ -144,6 +145,7 @@ class EngineModule:
         binder.bindSingleton(AIDataInitializer)
         binder.bindSingleton(AimStateSwitcher)
         binder.bindSingleton(BackgroundVisibilityUpdater)
+        binder.bindSingleton(CowboyEasterEggUpdater)
         binder.bindSingleton(EnemyLevelSegmentsUpdater)
         binder.bindSingleton(LevelSegmentVisibilityUpdater)
         binder.bindSingleton(PersonBreathUpdater)

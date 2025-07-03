@@ -30,3 +30,17 @@ class PersonInputData:
     def setStepRight(self):
         self.stepRight = True
         return self
+
+    def anyActions(self):
+        return (
+            self.goForward
+            or self.goBackward
+            or self.stepLeft
+            or self.stepRight
+            or self.turnLeftRadians > 0
+            or self.turnRightRadians > 0
+            or self.lookUpRadians > 0
+            or self.lookDownRadians > 0
+            or self.fire
+            or self.jump
+        )
