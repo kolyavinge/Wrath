@@ -48,6 +48,9 @@ class AudioSourceFactory:
     def makeSniperShot(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.sniperShot)
 
+    def makeSniperReload(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.sniperReload)
+
     def makeWeaponPickup(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.weaponPickup)
 

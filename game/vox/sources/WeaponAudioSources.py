@@ -10,21 +10,30 @@ class WeaponAudioSources:
 
     def __init__(self, person, audioSourceFactory):
         self.person = person
-        self.weapons = {}
-        self.weapons[Pistol] = audioSourceFactory.makePistolShot()
-        self.weapons[Pistol].setGain(0.8)
-        self.weapons[Rifle] = audioSourceFactory.makeRifleShot()
-        self.weapons[Plasma] = audioSourceFactory.makePlasmaShot()
-        self.weapons[Launcher] = audioSourceFactory.makeLauncherShot()
-        self.weapons[Railgun] = audioSourceFactory.makeRailgunShot()
-        self.weapons[Sniper] = audioSourceFactory.makeSniperShot()
-        self.weapons[Sniper].setGain(0.8)
+
+        self.shots = {}
+        self.shots[Pistol] = audioSourceFactory.makePistolShot()
+        self.shots[Pistol].setGain(0.8)
+        self.shots[Rifle] = audioSourceFactory.makeRifleShot()
+        self.shots[Plasma] = audioSourceFactory.makePlasmaShot()
+        self.shots[Launcher] = audioSourceFactory.makeLauncherShot()
+        self.shots[Railgun] = audioSourceFactory.makeRailgunShot()
+        self.shots[Sniper] = audioSourceFactory.makeSniperShot()
+        self.shots[Sniper].setGain(0.8)
+
+        self.reloads = {}
+        self.reloads[Sniper] = audioSourceFactory.makeSniperReload()
+        self.reloads[Sniper].setGain(0.5)
 
     def updatePosition(self):
         position = self.person.currentCenterPoint
-        for weapon in self.weapons.values():
-            weapon.setPosition(position)
+        for shot in self.shots.values():
+            shot.setPosition(position)
+        for reload in self.reloads.values():
+            reload.setPosition(position)
 
     def release(self):
-        for weapon in self.weapons.values():
-            weapon.release()
+        for shot in self.shots.values():
+            shot.release()
+        for reload in self.reloads.values():
+            reload.release()

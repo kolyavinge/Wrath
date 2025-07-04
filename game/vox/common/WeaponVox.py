@@ -20,6 +20,7 @@ class WeaponVox:
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer
         eventManager.attachToEvent(Events.weaponFired, self.onWeaponFired)
+        eventManager.attachToEvent(Events.weaponReloaded, self.onWeaponReloaded)
 
     def init(self, allSources):
         self.sources = {}
@@ -30,4 +31,9 @@ class WeaponVox:
     def onWeaponFired(self, args):
         person, weapon = args
         source = self.sources[person]
-        self.audioPlayer.play(source.weapons[type(weapon)])
+        self.audioPlayer.play(source.shots[type(weapon)])
+
+    def onWeaponReloaded(self, args):
+        person, weapon = args
+        source = self.sources[person]
+        self.audioPlayer.play(source.reloads[type(weapon)])
