@@ -1,6 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.calc.Vector3 import Vector3
+from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Math import Math
 
 
@@ -23,7 +24,7 @@ class Weapon:
         self.bulletsCount = 0
         self.maxBulletsCount = 0
         self.delay = 0
-        self.delayRemain = 0  # TODO DecrementCounter
+        self.delayRemain = DecrementCounter()
         self.jitter = Vector3()
         self.jitterFade = 0
         self.jitterDelta = 0

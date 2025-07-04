@@ -11,7 +11,7 @@ class WeaponDelayUpdater:
             self.updateWeapon(personItems, personItems.currentWeapon)
 
     def updateWeapon(self, personItems, weapon):
-        if weapon.delayRemain > 0:
-            weapon.delayRemain -= 1
-            if weapon.delayRemain == 0:
+        if not weapon.delayRemain.isExpired():
+            weapon.delayRemain.decrease()
+            if weapon.delayRemain.isExpired():
                 personItems.switchTwoHandedWeaponIfNeeded()
