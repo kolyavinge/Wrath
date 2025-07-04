@@ -42,6 +42,8 @@ class WeaponFireUpdater:
     def fire(self, person, personItems, weapon):
         weapon.bulletsCount -= 1
         weapon.delayRemain.set(weapon.delay)
+        if weapon.needReload:
+            weapon.reloadDelayRemain.set(weapon.reloadDelay)
         self.weaponFeedbackLogic.applyFeedback(weapon)
         self.bulletLogic.makeBullet(person, weapon)
         self.weaponSelector.selectNextWeaponIfCurrentEmpty(person, personItems)

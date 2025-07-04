@@ -25,6 +25,7 @@ class Weapon:
         self.maxBulletsCount = 0
         self.delay = 0
         self.delayRemain = DecrementCounter()
+        self.needReload = False
         self.jitter = Vector3()
         self.jitterFade = 0
         self.jitterDelta = 0

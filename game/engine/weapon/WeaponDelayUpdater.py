@@ -1,17 +1,29 @@
+from game.anx.Events import Events
 from game.engine.GameData import GameData
+from game.lib.EventManager import EventManager
 
 
 class WeaponDelayUpdater:
 
-    def __init__(self, gameData: GameData):
+    def __init__(
+        self,
+        gameData: GameData,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
+        self.eventManager = eventManager
 
     def update(self):
-        for personItems in self.gameData.allPersonItems.values():
-            self.updateWeapon(personItems, personItems.currentWeapon)
+        for person, personItems in self.gameData.allPersonItems.items():
+            self.updateWeapon(person, personItems, personItems.currentWeapon)
 
-    def updateWeapon(self, personItems, weapon):
+    def updateWeapon(self, person, personItems, weapon):
         if not weapon.delayRemain.isExpired():
             weapon.delayRemain.decrease()
             if weapon.delayRemain.isExpired():
                 personItems.switchTwoHandedWeaponIfNeeded()
+
+        if weapon.needReload and not weapon.reloadDelayRemain.isExpired():
+            weapon.reloadDelayRemain.decrease()
+            if weapon.reloadDelayRemain.isExpired():
+                self.eventManager.raiseEvent(Events.weaponReloaded, (person, weapon))

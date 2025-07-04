@@ -6,6 +6,7 @@ class Events:
     personLanded = "personLanded"
 
     weaponFired = "weaponFired"
+    weaponReloaded = "weaponReloaded"
     bulletHoleAdded = "bulletHoleAdded"
 
     powerupPickedUp = "powerupPicked"

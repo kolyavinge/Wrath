@@ -1,4 +1,5 @@
 from game.calc.Vector3 import Vector3
+from game.lib.DecrementCounter import DecrementCounter
 from game.model.Material import Material
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
@@ -38,6 +39,9 @@ class Sniper(Weapon):
         self.bulletsCount = 8
         self.maxBulletsCount = 8
         self.delay = 80
+        self.needReload = True
+        self.reloadDelay = 15
+        self.reloadDelayRemain = DecrementCounter()
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.9
