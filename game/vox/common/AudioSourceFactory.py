@@ -30,6 +30,24 @@ class AudioSourceFactory:
     def makeLanding(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.landing)
 
+    def makePistolRaise(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.pistolRaise)
+
+    def makeRifleRaise(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.rifleRaise)
+
+    def makePlasmaRaise(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.plasmaRaise)
+
+    def makeLauncherRaise(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.launcherRaise)
+
+    def makeRailgunRaise(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.railgunRaise)
+
+    def makeSniperRaise(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.sniperRaise)
+
     def makePistolShot(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.pistolShot)
 
@@ -50,6 +68,9 @@ class AudioSourceFactory:
 
     def makeSniperReload(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.sniperReload)
+
+    def makeWeaponPutdown(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.weaponPutdown)
 
     def makeWeaponPickup(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.weaponPickup)
