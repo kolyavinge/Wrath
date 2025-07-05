@@ -1,13 +1,20 @@
+from game.anx.Events import Events
 from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
+from game.lib.EventManager import EventManager
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 
 
 class PlayerSelectedWeaponPositionUpdater:
 
-    def __init__(self, gameData: GameData):
+    def __init__(
+        self,
+        gameData: GameData,
+        eventManager: EventManager,
+    ):
         self.gameData = gameData
+        self.eventManager = eventManager
         self.radianStep = Math.piHalf / PersonConstants.selectWeaponDelayHalf
 
     def update(self):
@@ -17,10 +24,13 @@ class PlayerSelectedWeaponPositionUpdater:
         # -1 чтобы на последнем шаге delay равнялся нулю и следовательно значение radians в raiseWeapon() тоже равнялось нулю
         delay = player.selectWeaponDelay.value - 1
         personItems = self.gameData.playerItems
-        if Numeric.between(delay, PersonConstants.selectWeaponDelayHalf + 1, PersonConstants.selectWeaponDelay):
+        if player.selectWeaponDelay.value == PersonConstants.selectWeaponDelay:
+            self.eventManager.raiseEvent(Events.weaponPutDown, (player, personItems.currentWeapon))
+        elif Numeric.between(delay, PersonConstants.selectWeaponDelayHalf + 1, PersonConstants.selectWeaponDelay):
             self.putWeaponDown(delay, personItems)
         elif delay == PersonConstants.selectWeaponDelayHalf:
             self.setSelectedWeaponAsCurrent(personItems)
+            self.eventManager.raiseEvent(Events.weaponRaised, (player, personItems.currentWeapon))
         else:
             self.raiseWeapon(delay, personItems)
 
