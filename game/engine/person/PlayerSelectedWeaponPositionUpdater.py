@@ -4,6 +4,7 @@ from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
+from game.model.weapon.NullWeapon import NullWeapon
 
 
 class PlayerSelectedWeaponPositionUpdater:
@@ -24,13 +25,14 @@ class PlayerSelectedWeaponPositionUpdater:
         # -1 чтобы на последнем шаге delay равнялся нулю и следовательно значение radians в raiseWeapon() тоже равнялось нулю
         delay = player.selectWeaponDelay.value - 1
         personItems = self.gameData.playerItems
-        if player.selectWeaponDelay.value == PersonConstants.selectWeaponDelay:
+        if player.selectWeaponDelay.value == PersonConstants.selectWeaponDelay and type(personItems.currentWeapon) != NullWeapon:
             self.eventManager.raiseEvent(Events.weaponPutDown, (player, personItems.currentWeapon))
         elif Numeric.between(delay, PersonConstants.selectWeaponDelayHalf + 1, PersonConstants.selectWeaponDelay):
             self.putWeaponDown(delay, personItems)
         elif delay == PersonConstants.selectWeaponDelayHalf:
             self.setSelectedWeaponAsCurrent(personItems)
-            self.eventManager.raiseEvent(Events.weaponRaised, (player, personItems.currentWeapon))
+            if type(personItems.currentWeapon) != NullWeapon:
+                self.eventManager.raiseEvent(Events.weaponRaised, (player, personItems.currentWeapon))
         else:
             self.raiseWeapon(delay, personItems)
 
