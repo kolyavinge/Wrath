@@ -29,7 +29,7 @@ class BackgroundRenderer:
 
     def render(self):
         self.updateVBOIfNeeded()
-        glEnable(GL_DEPTH_TEST)
+        glEnable(GL_DEPTH_TEST)  # TODO по хорошему тест глубины тут не нужен, но сейчас из-за постороения теней в MainSceneRenderer приходется его тут включать
         shader = self.shaderProgramCollection.mesh
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
