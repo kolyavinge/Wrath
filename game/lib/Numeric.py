@@ -50,3 +50,8 @@ class Numeric:
             return maxValue
         else:
             return value
+
+    @staticmethod
+    def moreThanNFloatDigits(x, digits):
+        p = x * Math.power(10.0, digits)
+        return p > int(p)

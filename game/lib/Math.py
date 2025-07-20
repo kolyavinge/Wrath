@@ -55,3 +55,11 @@ class Math:
     @staticmethod
     def round(x, digits):
         return round(x, digits)
+
+    @staticmethod
+    def floor(x):
+        return math.floor(x)
+
+    @staticmethod
+    def power(x, pow):
+        return math.pow(x, pow)
