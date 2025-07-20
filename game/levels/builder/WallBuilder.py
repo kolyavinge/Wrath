@@ -16,19 +16,37 @@ class WallBuilder:
         for info in wallBuildInfoList:
             if info.doorway is not None:
                 self.makeSolidWall(
-                    startPoint, info.doorway.startPosition, info.frontNormal, info.height, info.material, info.bottomBorder, info.topBorder
+                    startPoint,
+                    info.doorway.startPosition,
+                    info.frontNormal,
+                    info.height,
+                    info.material,
+                    info.bottomBorder,
+                    info.topBorder,
+                    info.visualSize,
                 )
                 doorwayEndPosition = self.getDoorwayEndPosition(startPoint, info.doorway)
                 self.makeWallAboveDoorway(doorwayEndPosition, info)
-                self.makeSolidWall(doorwayEndPosition, info.position, info.frontNormal, info.height, info.material, info.bottomBorder, info.topBorder)
+                self.makeSolidWall(
+                    doorwayEndPosition,
+                    info.position,
+                    info.frontNormal,
+                    info.height,
+                    info.material,
+                    info.bottomBorder,
+                    info.topBorder,
+                    info.visualSize,
+                )
                 if info.doorway.border is not None:
                     self.doorwayBorderBuilder.makeDoorwayBorder(info.frontNormal, doorwayEndPosition, info.doorway)
             else:
-                self.makeSolidWall(startPoint, info.position, info.frontNormal, info.height, info.material, info.bottomBorder, info.topBorder)
+                self.makeSolidWall(
+                    startPoint, info.position, info.frontNormal, info.height, info.material, info.bottomBorder, info.topBorder, info.visualSize
+                )
 
             startPoint = info.position
 
-    def makeSolidWall(self, startPoint, endPoint, frontNormal, height, material, bottomBorder=None, topBorder=None):
+    def makeSolidWall(self, startPoint, endPoint, frontNormal, height, material, bottomBorder=None, topBorder=None, visualSize=2.0):
         if bottomBorder is not None:
             startPoint = startPoint.copy()
             endPoint = endPoint.copy()
@@ -39,7 +57,7 @@ class WallBuilder:
         if topBorder is not None:
             height -= topBorder.height
 
-        wall = self.makeWall(startPoint, endPoint, frontNormal, height, material)
+        wall = self.makeWall(startPoint, endPoint, frontNormal, height, material, visualSize)
 
         if bottomBorder is not None:
             self.makeBottomBorder(wall, bottomBorder)
@@ -49,13 +67,14 @@ class WallBuilder:
             self.makeTopBorder(wall, topBorder)
             self.zFightingDelta += 0.0001
 
-    def makeWall(self, startPoint, endPoint, frontNormal, height, material):
+    def makeWall(self, startPoint, endPoint, frontNormal, height, material, visualSize):
         wall = Wall()
         wall.startPoint = startPoint.copy()
         wall.endPoint = endPoint.copy()
         wall.frontNormal = frontNormal
         wall.height = height
         wall.material = material
+        wall.visualSize = visualSize
         self.level.addWall(wall)
 
         return wall

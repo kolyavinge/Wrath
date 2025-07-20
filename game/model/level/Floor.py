@@ -7,6 +7,7 @@ class Floor(Construction):
     def __init__(self):
         super().__init__()
         self.frontNormal = CommonConstants.up
+        self.visualSize = 2.0
 
     def commit(self):
         super().commit()
