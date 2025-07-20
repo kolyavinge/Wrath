@@ -1,5 +1,7 @@
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
+from game.lib.Numeric import Numeric
+from game.lib.sys import warn
 
 
 class ConstructionVBOBuilder:
@@ -14,15 +16,15 @@ class ConstructionVBOBuilder:
         leftDirectionLength = item.frontDownLeft.getLengthTo(item.frontUpLeft)
         rightDirectionLength = item.frontDownRight.getLengthTo(item.frontUpRight)
         stepLength = item.visualSize
-        if leftDirectionLength > rightDirectionLength:
-            leftStepLength = stepLength
-            rightStepLength = stepLength * rightDirectionLength / leftDirectionLength
-        elif rightDirectionLength > leftDirectionLength:
-            leftStepLength = stepLength * leftDirectionLength / rightDirectionLength
-            rightStepLength = stepLength
-        else:
+        if Numeric.floatEquals(leftDirectionLength, rightDirectionLength):
             leftStepLength = Math.min(leftDirectionLength, stepLength)
             rightStepLength = Math.min(rightDirectionLength, stepLength)
+        elif leftDirectionLength > rightDirectionLength:
+            leftStepLength = stepLength
+            rightStepLength = stepLength * rightDirectionLength / leftDirectionLength
+        else:
+            leftStepLength = stepLength * leftDirectionLength / rightDirectionLength
+            rightStepLength = stepLength
 
         leftPoints = Vector3.splitFromStartToEnd(item.frontDownLeft, item.frontUpLeft, leftStepLength)
         rightPoints = Vector3.splitFromStartToEnd(item.frontDownRight, item.frontUpRight, rightStepLength)
@@ -32,6 +34,9 @@ class ConstructionVBOBuilder:
             downPoints = Vector3.splitFromStartToEnd(leftPoints[i - 1], rightPoints[i - 1], stepLength)
             assert len(downPoints) > 1
             stepLength = leftPoints[i].getLengthTo(rightPoints[i]) / (len(downPoints) - 1)
+            if Numeric.moreThanNFloatDigits(stepLength, 5):
+                msg = f"stepLength in ConstructionVBOBuilder has too many float digits ({stepLength}). Problems with texture alignment can occur."
+                warn(msg)
             upPoints = Vector3.splitFromStartToEnd(leftPoints[i], rightPoints[i], stepLength)
             assert len(downPoints) == len(upPoints)
             for j in range(1, len(downPoints)):
