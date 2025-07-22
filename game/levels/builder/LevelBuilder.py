@@ -94,13 +94,14 @@ class LevelBuilder:
         stair.material = material
         self.level.addFloor(stair)
 
-    def buildSlab(self, downLeft, downRight, upLeft, upRight, height, topBottomMaterial, edgeMaterial):
+    def buildSlab(self, downLeft, downRight, upLeft, upRight, height, topBottomMaterial, edgeMaterial, visualSize=2.0):
         floor = Floor()
         floor.downLeft = downLeft
         floor.downRight = downRight
         floor.upLeft = upLeft
         floor.upRight = upRight
         floor.material = topBottomMaterial
+        floor.visualSize = visualSize
         self.level.addFloor(floor)
 
         ceiling = Ceiling()
@@ -113,6 +114,7 @@ class LevelBuilder:
         ceiling.upLeft.z -= height
         ceiling.upRight.z -= height
         ceiling.material = topBottomMaterial
+        ceiling.visualSize = visualSize
         self.level.addCeiling(ceiling)
 
         edge = Construction()
@@ -155,11 +157,11 @@ class LevelBuilder:
         edge.material = edgeMaterial
         self.level.addConstruction(edge)
 
-    def buildRectSlab(self, downLeft, xLength, yLength, height, topBottomMaterial, edgeMaterial):
+    def buildRectSlab(self, downLeft, xLength, yLength, height, topBottomMaterial, edgeMaterial, visualSize=2.0):
         downRight = Vector3(downLeft.x + xLength, downLeft.y, downLeft.z)
         upLeft = Vector3(downLeft.x, downLeft.y + yLength, downLeft.z)
         upRight = Vector3(downLeft.x + xLength, downLeft.y + yLength, downLeft.z)
-        self.buildSlab(downLeft, downRight, upLeft, upRight, height, topBottomMaterial, edgeMaterial)
+        self.buildSlab(downLeft, downRight, upLeft, upRight, height, topBottomMaterial, edgeMaterial, visualSize)
 
     def buildCeiling(self, downLeft, xLength, yLength, material, hole=None):
         self.ceilingBuilder.buildCeiling(downLeft, xLength, yLength, material, hole)
