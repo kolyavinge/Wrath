@@ -2,6 +2,7 @@ from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.GameData import GameData
+from game.engine.level.LevelFloorCorrector import LevelFloorCorrector
 from game.engine.level.LevelLoader import LevelLoader
 from game.engine.level.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyzer
 from game.engine.level.LevelSegmentLightAnalyzer import LevelSegmentLightAnalyzer
@@ -23,6 +24,7 @@ class LevelManager:
     bspTreeBuilder: BSPTreeBuilder
     joinLineAnalyzer: LevelSegmentJoinLineAnalyzer
     lightAnalyzer: LevelSegmentLightAnalyzer
+    levelFloorCorrector: LevelFloorCorrector
     levelValidator: LevelValidator
     personInitializer: PersonInitializer
     aiDataInitializer: AIDataInitializer
@@ -41,6 +43,7 @@ class LevelManager:
         self.bspTreeBuilder.build(self.gameData.collisionTree, level, list(level.getCollisionSplitPlanes()))
         self.bspTreeBuilder.build(self.gameData.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
         self.joinLineAnalyzer.analyzeJoinLines(level, self.gameData.visibilityTree)
+        self.levelFloorCorrector.correct(self.gameData.collisionTree)
         self.levelValidator.validate(level, self.gameData.visibilityTree)
         self.lightAnalyzer.analyzeLights(level, self.gameData.visibilityTree)
         self.personInitializer.init()
