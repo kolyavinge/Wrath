@@ -15,7 +15,7 @@ class App:
 
     def __init__(self):
         self.isFullscreen = False
-        self.windowWidth = 1600
+        self.windowWidth = 1400
         self.windowHeight = (int)(self.windowWidth / CommonConstants.screenAspect)
 
     def resize(self, width, height):
