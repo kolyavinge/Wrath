@@ -311,19 +311,52 @@ class NebulaLevel(Level):
         for sp in self.getVisibilitySplitPlanes():
             yield sp
 
+        # first floor
         yield SplitPlane(Vector3(90, 50, self.firstFloorZ), Vector3(-1, 0, 0))
-
         yield SplitPlane(Vector3(92, 50, self.firstFloorZ), Vector3(0, 1, 0))
         yield SplitPlane(Vector3(92, 55, self.firstFloorZ), Vector3(0, -1, 0))
         yield SplitPlane(Vector3(95, 52, self.firstFloorZ), Vector3(1, 0, 0))
-        yield SplitPlane(Vector3(96, 52, self.firstFloorZ + self.firstFloorHeight / 2), Vector3(0, 0, 1))
+        yield SplitPlane(Vector3(96, 52, self.firstFloorZ + 1.0), Vector3(0, 0, 1))
+
+        # second floor
+        yield SplitPlane(Vector3(20, 50, self.secondFloorZ), Vector3(1, 0, 0))
+        yield SplitPlane(Vector3(15, 25, self.secondFloorZ), Vector3(0, -1, 0))
+        yield SplitPlane(Vector3(15, 15, self.secondFloorZ), Vector3(0, 1, 0))
+        yield SplitPlane(Vector3(10, 20, self.secondFloorZ), Vector3(1, 0, 0))
+
+        yield SplitPlane(Vector3(80, 50, self.secondFloorZ), Vector3(-1, 0, 0))
+        yield SplitPlane(Vector3(90, 50, self.secondFloorZ), Vector3(-1, 0, 0))
+        yield SplitPlane(Vector3(95, 80, self.secondFloorZ), Vector3(0, -1, 0))
+        yield SplitPlane(Vector3(85, 80, self.secondFloorZ), Vector3(0, -1, 0))
+        yield SplitPlane(Vector3(95, 60, self.secondFloorZ), Vector3(0, -1, 0))
+        yield SplitPlane(Vector3(95, 45, self.secondFloorZ), Vector3(0, 1, 0))
+        yield SplitPlane(Vector3(95, 25, self.secondFloorZ), Vector3(0, 1, 0))
+        yield SplitPlane(Vector3(85, 25, self.secondFloorZ), Vector3(0, 1, 0))
+        yield SplitPlane(Vector3(80, 20, self.secondFloorZ), Vector3(-1, 0, 0))
+        yield SplitPlane(Vector3(95, 15, self.secondFloorZ), Vector3(0, 1, 0))
+        yield SplitPlane(Vector3(85, 15, self.secondFloorZ), Vector3(0, 1, 0))
+        yield SplitPlane(Vector3(85, 25, self.secondFloorZ), Vector3(0, 1, 0))
+
+        yield SplitPlane(Vector3(50, 15, self.secondFloorZ), Vector3(0, 1, 0))
+
+        yield SplitPlane(Vector3(50, 80, self.secondFloorZ), Vector3(0, -1, 0))
+        yield SplitPlane(Vector3(30, 90, self.secondFloorZ), Vector3(-1, 0, 0))
+        yield SplitPlane(Vector3(25, 90, self.secondFloorZ), Vector3(0, -1, 0))
+
+        # bridge
+        yield SplitPlane(Vector3(35, 50, self.secondFloorZ), Vector3(-1, 0, 0))
+        yield SplitPlane(Vector3(69, 50, self.secondFloorZ), Vector3(1, 0, 0))
+        yield SplitPlane(Vector3(50, 55, self.secondFloorZ), Vector3(0, 1, 0))
+        yield SplitPlane(Vector3(50, 47, self.secondFloorZ), Vector3(0, -1, 0))
+        yield SplitPlane(Vector3(43, 30, self.secondFloorZ), Vector3(1, 0, 0))
+        yield SplitPlane(Vector3(61, 70, self.secondFloorZ), Vector3(-1, 0, 0))
 
     def getVisibilitySplitPlanes(self):
         yield SplitPlane(Vector3(50, 50, self.firstFloorZ), Vector3(0, 0, 1))
         yield SplitPlane(Vector3(50, 50, self.secondFloorZ), Vector3(0, 0, 1))
 
     def getPlayerInitInfo(self):
-        return (Vector3(85, 52, self.firstFloorZ), Vector3(1, 0, 0).getNormalized(), Pistol)
+        return (Vector3(95, 40, self.secondFloorZ), Vector3(0, -1, 0).getNormalized(), Pistol)
 
     def getEnemyInitInfo(self):
         return [
