@@ -60,4 +60,4 @@ class PersonVelocityUpdater:
 
     def slowdownOnStair(self, person):
         if person.zState == PersonZState.onFloor and isinstance(person.currentFloor, Stair):
-            person.velocityValue = Math.min(person.velocityValue, 0.05)
+            person.velocityValue = Math.min(person.velocityValue, 0.25)

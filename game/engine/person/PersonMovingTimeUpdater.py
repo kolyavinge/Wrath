@@ -1,6 +1,5 @@
 from game.engine.GameData import GameData
 from game.lib.Numeric import Numeric
-from game.model.person.PersonZState import PersonZState
 
 
 class PersonMovingTimeUpdater:
@@ -17,11 +16,10 @@ class PersonMovingTimeUpdater:
             self.updateForPerson(person, inputData)
 
     def updateForPerson(self, person, inputData):
-        if person.zState == PersonZState.onFloor:
-            self.updateForwardMovingTime(person, inputData)
-            self.updateBackwardMovingTime(person, inputData)
-            self.updateLeftStepMovingTime(person, inputData)
-            self.updateRightStepMovingTime(person, inputData)
+        self.updateForwardMovingTime(person, inputData)
+        self.updateBackwardMovingTime(person, inputData)
+        self.updateLeftStepMovingTime(person, inputData)
+        self.updateRightStepMovingTime(person, inputData)
 
     def updateForwardMovingTime(self, person, inputData):
         if inputData.goForward:

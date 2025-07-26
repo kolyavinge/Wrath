@@ -42,10 +42,9 @@ class PersonZUpdater:
             raise Exception("Wrong floors count in segment. Segment can contain zero or one floor.")
 
     def processFloor(self, person, levelSegment):
-        floor = levelSegment.floors[0]
-        person.currentFloor = floor
-        floorZ = floor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
-        personOnFloor = Numeric.between(person.getZ() - floorZ, 0, 0.5)
+        person.currentFloor = levelSegment.floors[0]
+        floorZ = person.currentFloor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
+        personOnFloor = Numeric.between(person.getZ() - floorZ, -0.4, 0.4)
         if personOnFloor and person.zState == PersonZState.onFloor and person.jumpingValue == 0:
             person.setZ(floorZ)
         elif personOnFloor and person.zState == PersonZState.onFloor and person.jumpingValue > 0:
