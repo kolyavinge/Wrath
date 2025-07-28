@@ -251,7 +251,8 @@ class NebulaLevel(Level):
         )
 
         builder.buildLight(Vector3(50, 50, self.firstFloorHeight - 0.1), 1.0, "global")
-        self.addPowerupArea(PowerupArea(Vector3(22, 14, self.firstFloorZ), Vector3(22, 14, self.firstFloorZ), 1))
+
+        self.addPowerupArea(PowerupArea(Vector3(50, 50, self.firstFloorZ), Vector3(50, 50, self.firstFloorZ), 50))
 
     def makeSecondFloor(self, builder):
         builder.buildRectSlab(Vector3(0, 0, self.secondFloorZ), 100, 15, self.secondFloorSlabHeight, Material.construction3, Material.edgeMetal2)
@@ -303,9 +304,20 @@ class NebulaLevel(Level):
 
         builder.buildLight(Vector3(50, 50, self.secondFloorZ + self.secondFloorHeight), 2.0, "global")
 
+        self.addPowerupArea(PowerupArea(Vector3(10, 7, self.secondFloorZ), Vector3(90, 7, self.secondFloorZ), 7))
+        self.addPowerupArea(PowerupArea(Vector3(5, 20, self.secondFloorZ), Vector3(5, 20, self.secondFloorZ), 5))
+        self.addPowerupArea(PowerupArea(Vector3(10, 35, self.secondFloorZ), Vector3(10, 90, self.secondFloorZ), 10))
+        self.addPowerupArea(PowerupArea(Vector3(25, 95, self.secondFloorZ), Vector3(25, 95, self.secondFloorZ), 5))
+        self.addPowerupArea(PowerupArea(Vector3(40, 90, self.secondFloorZ), Vector3(90, 90, self.secondFloorZ), 10))
+        self.addPowerupArea(PowerupArea(Vector3(95, 75, self.secondFloorZ), Vector3(95, 65, self.secondFloorZ), 5))
+        self.addPowerupArea(PowerupArea(Vector3(95, 40, self.secondFloorZ), Vector3(90, 30, self.secondFloorZ), 5))
+        self.addPowerupArea(PowerupArea(Vector3(85, 20, self.secondFloorZ), Vector3(95, 20, self.secondFloorZ), 5))
+
     def makeJoinLines(self):
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(90, 0, self.firstFloorZ), Vector3(90, 100, self.firstFloorZ)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 50, self.secondFloorZ), Vector3(50, 50, self.secondFloorZ)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 15, self.secondFloorZ), Vector3(100, 15, self.secondFloorZ)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 15, self.secondFloorZ), Vector3(20, 100, self.secondFloorZ)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, self.secondFloorZ), Vector3(90, 80, self.secondFloorZ)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(90, 15, self.secondFloorZ), Vector3(90, 80, self.secondFloorZ)))
 
     def getCollisionSplitPlanes(self):
         for sp in self.getVisibilitySplitPlanes():
