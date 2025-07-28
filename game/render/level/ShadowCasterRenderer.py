@@ -1,5 +1,3 @@
-from OpenGL.GL import *
-
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.level.ShadowCasterRenderCollection import *
 

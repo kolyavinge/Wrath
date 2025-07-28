@@ -1,5 +1,3 @@
-from OpenGL.GL import *
-
 from game.render.level.LevelSegmentRenderer import LevelSegmentRenderer
 from game.render.main.ShadowedObjectRenderer import ShadowedObjectRenderer
 

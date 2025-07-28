@@ -1,5 +1,3 @@
-from OpenGL.GL import *
-
 from game.engine.GameData import GameData
 from game.render.level.LevelItemRenderer import LevelItemRenderer
 from game.render.level.ShadowCasterRenderer import ShadowCasterRenderer

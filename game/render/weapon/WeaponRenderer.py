@@ -1,5 +1,3 @@
-from OpenGL.GL import *
-
 from game.engine.GameData import GameData
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection

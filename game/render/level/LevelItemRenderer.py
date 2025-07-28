@@ -1,5 +1,3 @@
-from OpenGL.GL import *
-
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.render.level.LevelItemRenderCollection import *

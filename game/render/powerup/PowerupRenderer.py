@@ -1,5 +1,3 @@
-from OpenGL.GL import *
-
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.model.powerup.WeaponPowerup import WeaponPowerup
 from game.render.powerup.PowerupRenderCollection import PowerupRenderCollection
