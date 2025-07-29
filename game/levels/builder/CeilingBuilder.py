@@ -1,6 +1,7 @@
 from game.calc.Vector3 import Vector3
 from game.model.level.Ceiling import Ceiling
 from game.model.level.Construction import Construction
+from game.model.level.Floor import Floor
 
 
 class CeilingHole:
@@ -30,7 +31,7 @@ class CeilingBuilder:
         ceiling.material = material
         self.level.addCeiling(ceiling)
 
-    def buildCeilingWithHole(self, downLeft, xLength, yLength, material, hole):
+    def buildCeilingWithHole(self, downLeft, xLength, yLength, material, hole, edgeHeight=0.2):
         xLengthHalf = (xLength - hole.xLength) / 2
         yLengthHalf = (yLength - hole.yLength) / 2
 
@@ -71,8 +72,8 @@ class CeilingBuilder:
         edge.downRight = left.upRight
         edge.upLeft = edge.downLeft.copy()
         edge.upRight = edge.downRight.copy()
-        edge.upLeft.z += 0.2
-        edge.upRight.z += 0.2
+        edge.upLeft.z += edgeHeight
+        edge.upRight.z += edgeHeight
         edge.frontNormal = left.downLeft.getDirectionTo(left.downRight)
         edge.frontNormal.normalize()
         edge.material = material
@@ -83,8 +84,8 @@ class CeilingBuilder:
         edge.downRight = right.downLeft
         edge.upLeft = edge.downLeft.copy()
         edge.upRight = edge.downRight.copy()
-        edge.upLeft.z += 0.2
-        edge.upRight.z += 0.2
+        edge.upLeft.z += edgeHeight
+        edge.upRight.z += edgeHeight
         edge.frontNormal = right.downRight.getDirectionTo(right.downLeft)
         edge.frontNormal.normalize()
         edge.material = material
@@ -95,8 +96,8 @@ class CeilingBuilder:
         edge.downRight = right.downLeft
         edge.upLeft = edge.downLeft.copy()
         edge.upRight = edge.downRight.copy()
-        edge.upLeft.z += 0.2
-        edge.upRight.z += 0.2
+        edge.upLeft.z += edgeHeight
+        edge.upRight.z += edgeHeight
         edge.frontNormal = left.downRight.getDirectionTo(left.upRight)
         edge.frontNormal.normalize()
         edge.material = material
@@ -107,9 +108,57 @@ class CeilingBuilder:
         edge.downRight = right.upLeft
         edge.upLeft = edge.downLeft.copy()
         edge.upRight = edge.downRight.copy()
-        edge.upLeft.z += 0.2
-        edge.upRight.z += 0.2
+        edge.upLeft.z += edgeHeight
+        edge.upRight.z += edgeHeight
         edge.frontNormal = left.upRight.getDirectionTo(left.downRight)
         edge.frontNormal.normalize()
         edge.material = material
         self.level.addConstruction(edge)
+
+        bottomFloor = Floor()
+        bottomFloor.downLeft = bottom.downLeft.copy()
+        bottomFloor.downRight = bottom.downRight.copy()
+        bottomFloor.upLeft = bottom.upLeft.copy()
+        bottomFloor.upRight = bottom.upRight.copy()
+        bottomFloor.downLeft.z += edgeHeight
+        bottomFloor.downRight.z += edgeHeight
+        bottomFloor.upLeft.z += edgeHeight
+        bottomFloor.upRight.z += edgeHeight
+        bottomFloor.material = material
+        self.level.addFloor(bottomFloor)
+
+        topFloor = Floor()
+        topFloor.downLeft = top.downLeft.copy()
+        topFloor.downRight = top.downRight.copy()
+        topFloor.upLeft = top.upLeft.copy()
+        topFloor.upRight = top.upRight.copy()
+        topFloor.downLeft.z += edgeHeight
+        topFloor.downRight.z += edgeHeight
+        topFloor.upLeft.z += edgeHeight
+        topFloor.upRight.z += edgeHeight
+        topFloor.material = material
+        self.level.addFloor(topFloor)
+
+        leftFloor = Floor()
+        leftFloor.downLeft = left.downLeft.copy()
+        leftFloor.downRight = left.downRight.copy()
+        leftFloor.upLeft = left.upLeft.copy()
+        leftFloor.upRight = left.upRight.copy()
+        leftFloor.downLeft.z += edgeHeight
+        leftFloor.downRight.z += edgeHeight
+        leftFloor.upLeft.z += edgeHeight
+        leftFloor.upRight.z += edgeHeight
+        leftFloor.material = material
+        self.level.addFloor(leftFloor)
+
+        rightFloor = Floor()
+        rightFloor.downLeft = right.downLeft.copy()
+        rightFloor.downRight = right.downRight.copy()
+        rightFloor.upLeft = right.upLeft.copy()
+        rightFloor.upRight = right.upRight.copy()
+        rightFloor.downLeft.z += edgeHeight
+        rightFloor.downRight.z += edgeHeight
+        rightFloor.upLeft.z += edgeHeight
+        rightFloor.upRight.z += edgeHeight
+        rightFloor.material = material
+        self.level.addFloor(rightFloor)
