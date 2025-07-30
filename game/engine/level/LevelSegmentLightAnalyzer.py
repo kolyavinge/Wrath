@@ -1,16 +1,49 @@
-from game.lib.Dictionary import Dictionary
+from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.engine.cm.ConstructionCollisionDetector import ConstructionCollisionDetector
+from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
 
 
 class LevelSegmentLightAnalyzer:
 
+    def __init__(
+        self,
+        levelSegmentItemFinder: LevelSegmentItemFinder,
+        constructionCollisionDetector: ConstructionCollisionDetector,
+        traversal: BSPTreeTraversal,
+    ):
+        self.levelSegmentItemFinder = levelSegmentItemFinder
+        self.constructionCollisionDetector = constructionCollisionDetector
+        self.traversal = traversal
+
     def analyzeLights(self, level, bspTree):
         # чтобы свет из одного сегмента действовал и на соседние
-        groupedLights = Dictionary.groupby(level.lights, lambda x: x.joinGroup)
-        allLevelSegments = bspTree.getAllLevelSegments()
+        self.bspTree = bspTree
+        allLevelSegments = self.bspTree.getAllLevelSegments()
         for levelSegment in allLevelSegments:
             levelSegment.lightsWithJoined = levelSegment.lights.copy()
-            joinGroups = set([light.joinGroup for light in levelSegment.lights if light.joinGroup is not None])
-            for joinGroup in joinGroups:
-                for joinedLight in groupedLights[joinGroup]:
-                    if joinedLight not in levelSegment.lightsWithJoined:
-                        levelSegment.lightsWithJoined.append(joinedLight)
+            for light in level.lights:
+                lightLevelSegment = self.traversal.findLevelSegmentOrNone(self.bspTree, light.position)
+                assert lightLevelSegment is not None
+                if lightLevelSegment != levelSegment:
+                    if self.isLightJoinedToSegment(light, lightLevelSegment, levelSegment):
+                        levelSegment.lightsWithJoined.append(light)
+
+    def isLightJoinedToSegment(self, light, lightLevelSegment, joinedLevelSegment):
+        for joinLine in joinedLevelSegment.joinLines:
+            for joinLinePoint in joinLine.points:
+                if self.isJoinLinePointVisible(light, lightLevelSegment, joinedLevelSegment, joinLinePoint):
+                    return True
+
+        return False
+
+    def isJoinLinePointVisible(self, light, lightLevelSegment, joinedLevelSegment, joinLinePoint):
+        collidedConstruction = self.levelSegmentItemFinder.findItemOrNone(
+            self.bspTree,
+            lightLevelSegment,
+            joinedLevelSegment,
+            light.position,
+            joinLinePoint,
+            lambda segment, start, end: self.constructionCollisionDetector.getCollidedConstructionOrNone(segment.allConstructions, start, end),
+        )
+
+        return collidedConstruction is None

@@ -6,14 +6,16 @@ from game.model.Visible import Visible
 class LevelSegment:
 
     def __init__(self):
+        # статичные обьекты
         self.constructions = []
         self.walls = []
         self.floors = []
         self.ceilings = []
         self.lights = []
-        self.powerups = []
         self.lightsWithJoined = []
         self.joinLines = []
+        # динамичные обьекты
+        self.powerups = []
         self.bullets = []
         self.bulletTraces = []
         self.weaponFlashes = []
@@ -21,7 +23,7 @@ class LevelSegment:
         self.enemies = []
         self.allPerson = []
 
-    def getAllItems(self):
+    def getAllItems(self):  # TODO придумать название по точнее
         return self.constructions + self.walls + self.floors + self.ceilings + self.lights
 
     def getAllVisibleItems(self):
