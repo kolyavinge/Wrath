@@ -34,6 +34,7 @@ class NebulaLevel(Level):
         builder = LevelBuilder(self)
         self.makeFirstFloor(builder)
         self.makeSecondFloor(builder)
+        self.makeLights(builder)
         self.makeJoinLines()
         self.makePowerups()
 
@@ -251,8 +252,6 @@ class NebulaLevel(Level):
             Material.construction17,
         )
 
-        builder.buildLight(Vector3(50, 50, self.firstFloorHeight - 0.1), 1.0, "global")
-
     def makeSecondFloor(self, builder):
         builder.buildRectSlab(Vector3(0, 0, self.secondFloorZ), 100, 15, self.secondFloorSlabHeight, Material.construction3, Material.edgeMetal2)
         builder.buildRectSlab(Vector3(0, 15, self.secondFloorZ), 10, 10, self.secondFloorSlabHeight, Material.construction3, Material.edgeMetal2)
@@ -301,7 +300,8 @@ class NebulaLevel(Level):
 
         builder.buildCeiling(Vector3(0, 0, self.secondFloorZ + self.secondFloorHeight), 100, 100, Material.construction7, CeilingHole(80, 80))
 
-        builder.buildLight(Vector3(50, 50, self.secondFloorZ + self.secondFloorHeight), 2.0, "global")
+    def makeLights(self, builder):
+        builder.buildLight(Vector3(50, 50, self.secondFloorZ + self.secondFloorHeight + 10), 2.0)
 
     def makeJoinLines(self):
         self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 15, self.secondFloorZ), Vector3(100, 15, self.secondFloorZ)))
