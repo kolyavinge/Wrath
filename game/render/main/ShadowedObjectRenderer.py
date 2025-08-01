@@ -4,6 +4,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
+from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager
@@ -37,6 +38,7 @@ class ShadowedObjectRenderer:
         self.calculateLightComponents(renderObjectFunc)
         self.calculateShadowVolumes(renderShadowCastersFunc)
         self.composeScene()
+        self.copySceneToDefaultFBO()
 
     def calculateLightComponents(self, renderObjectFunc):
         glBindFramebuffer(GL_FRAMEBUFFER, self.shadowedObjectFramebuffer.id)
@@ -59,11 +61,6 @@ class ShadowedObjectRenderer:
         glDisable(GL_DEPTH_TEST)
 
     def calculateShadowVolumes(self, renderShadowCastersFunc):
-        # copy depth and color buffers from shadowed FBO to default FBO
-        glBindFramebuffer(GL_READ_FRAMEBUFFER, self.shadowedObjectFramebuffer.id)
-        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0)
-        glBlitFramebuffer(0, 0, self.width, self.height, 0, 0, self.width, self.height, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT, GL_NEAREST)
-        glBindFramebuffer(GL_FRAMEBUFFER, 0)
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE)
         glDepthMask(GL_FALSE)
         glEnable(GL_DEPTH_CLAMP)
@@ -102,3 +99,10 @@ class ShadowedObjectRenderer:
         glDisable(GL_TEXTURE_2D)
         glDisable(GL_BLEND)
         glDisable(GL_STENCIL_TEST)
+
+    def copySceneToDefaultFBO(self):
+        # copy depth and color buffers from shadowed FBO to default FBO
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, self.shadowedObjectFramebuffer.id)
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
+        glBlitFramebuffer(0, 0, self.width, self.height, 0, 0, self.width, self.height, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT, GL_NEAREST)
+        glBindFramebuffer(GL_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)

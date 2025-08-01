@@ -1,5 +1,7 @@
 from OpenGL.GL import *
 
+GL_DEFAULT_FRAMEBUFFER_ID = 0
+
 
 def glGetViewportSize():
     viewport = glGetIntegerv(GL_VIEWPORT)
