@@ -1,6 +1,7 @@
 from OpenGL.GL import *
 
 from game.gl.ext import *
+from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
 
 
 class ShadowedObjectFramebuffer:
@@ -9,11 +10,12 @@ class ShadowedObjectFramebuffer:
         self.depthBuffer = 0
         self.ambientBuffer = 0
         self.diffuseSpecularTexture = 0
+        self.stencilMaskTexture = 0
         self.id = 0
 
     def init(self):
         glDeleteRenderbuffers(2, [self.depthBuffer, self.ambientBuffer])
-        glDeleteTextures(1, [self.diffuseSpecularTexture])
+        glDeleteTextures(2, [self.diffuseSpecularTexture, self.stencilMaskTexture])
         glDeleteFramebuffers(1, [self.id])
 
         self.viewportWidth, self.viewportHeight = glGetViewportSize()
@@ -33,12 +35,20 @@ class ShadowedObjectFramebuffer:
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 
+        self.stencilMaskTexture = glGenTextures(1)
+        glActiveTexture(GL_TEXTURE1)
+        glBindTexture(GL_TEXTURE_2D, self.stencilMaskTexture)
+        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB8, self.viewportWidth, self.viewportHeight)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+
         self.id = glGenFramebuffers(1)
         glBindFramebuffer(GL_FRAMEBUFFER, self.id)
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, self.depthBuffer)
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, self.ambientBuffer)
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, self.diffuseSpecularTexture, 0)
-        glDrawBuffers(2, [GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1])
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, self.stencilMaskTexture, 0)
+        glDrawBuffers(3, [GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2])
 
-        glBindFramebuffer(GL_FRAMEBUFFER, 0)
         glBindTexture(GL_TEXTURE_2D, 0)
+        glBindFramebuffer(GL_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)

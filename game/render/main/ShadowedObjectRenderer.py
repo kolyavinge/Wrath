@@ -37,6 +37,7 @@ class ShadowedObjectRenderer:
     def render(self, renderObjectFunc, renderShadowCastersFunc):
         self.calculateLightComponents(renderObjectFunc)
         self.calculateShadowVolumes(renderShadowCastersFunc)
+        self.calculateStencilMask()
         self.composeScene()
         self.copySceneToDefaultFBO()
 
@@ -45,7 +46,6 @@ class ShadowedObjectRenderer:
         glDepthMask(GL_TRUE)
         glDisable(GL_STENCIL_TEST)
         glEnable(GL_DEPTH_TEST)
-        glEnable(GL_TEXTURE_2D)
         glEnable(GL_CULL_FACE)
         glCullFace(GL_BACK)
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT)
@@ -57,7 +57,6 @@ class ShadowedObjectRenderer:
         renderObjectFunc(shader)
         shader.unuse()
         glDisable(GL_CULL_FACE)
-        glDisable(GL_TEXTURE_2D)
         glDisable(GL_DEPTH_TEST)
 
     def calculateShadowVolumes(self, renderShadowCastersFunc):
@@ -83,22 +82,30 @@ class ShadowedObjectRenderer:
         glDisable(GL_DEPTH_CLAMP)
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)
 
-    def composeScene(self):
+    def calculateStencilMask(self):
         glEnable(GL_STENCIL_TEST)
+        glStencilFunc(GL_EQUAL, 0, 0xFFFF)  # render pixels that have a stencil value 0
+        glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP)
+        shader = self.shaderProgramCollection.mainSceneStencilMask
+        shader.use()
+        self.vboRenderer.render(self.screenQuadVBO.vbo)
+        shader.unuse()
+        glDisable(GL_STENCIL_TEST)
+
+    def composeScene(self):
         glEnable(GL_BLEND)
         glEnable(GL_TEXTURE_2D)
         glBlendFunc(GL_ONE, GL_ONE)
-        glStencilFunc(GL_EQUAL, 0, 0xFFFF)  # render pixels that have a stencil value 0
-        glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP)
         shader = self.shaderProgramCollection.mainSceneCompose
         shader.use()
         glActiveTexture(GL_TEXTURE0)
         glBindTexture(GL_TEXTURE_2D, self.shadowedObjectFramebuffer.diffuseSpecularTexture)
+        glActiveTexture(GL_TEXTURE1)
+        glBindTexture(GL_TEXTURE_2D, self.shadowedObjectFramebuffer.stencilMaskTexture)
         self.vboRenderer.render(self.screenQuadVBO.vbo)
         shader.unuse()
         glDisable(GL_TEXTURE_2D)
         glDisable(GL_BLEND)
-        glDisable(GL_STENCIL_TEST)
 
     def copySceneToDefaultFBO(self):
         # copy depth and color buffers from shadowed FBO to default FBO

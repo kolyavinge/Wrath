@@ -2,6 +2,7 @@ from game.render.common.CrossshairShaderProgram import CrossshairShaderProgram
 from game.render.common.MainSceneComposeShaderProgram import *
 from game.render.common.MainSceneLightComponentsShaderProgram import *
 from game.render.common.MainSceneShadowVolumesShaderProgram import *
+from game.render.common.MainSceneStencilMaskShaderProgram import *
 from game.render.common.MeshShaderProgram import MeshShaderProgram
 from game.render.common.PlainColorShaderProgram import PlainColorShaderProgram
 from game.render.common.RayShaderProgram import RayShaderProgram
@@ -24,6 +25,13 @@ class ShaderProgramCollection:
                 self.shaderCollection.mainSceneShadowVolumesVertex,
                 self.shaderCollection.mainSceneShadowVolumesGeometry,
                 self.shaderCollection.mainSceneShadowVolumesFragment,
+            ]
+        )
+
+        self.mainSceneStencilMask = MainSceneStencilMaskShaderProgram(
+            [
+                self.shaderCollection.mainSceneStencilMaskVertex,
+                self.shaderCollection.mainSceneStencilMaskFragment,
             ]
         )
 

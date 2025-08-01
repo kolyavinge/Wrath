@@ -18,6 +18,9 @@ class ShaderCollection:
         self.mainSceneShadowVolumesGeometry = self.shaderCompiler.compile(path + "mainSceneShadowVolumes.geom", ShaderType.geometry)
         self.mainSceneShadowVolumesFragment = self.shaderCompiler.compile(path + "mainSceneShadowVolumes.frag", ShaderType.fragment)
 
+        self.mainSceneStencilMaskVertex = self.shaderCompiler.compile(path + "mainSceneStencilMask.vert", ShaderType.vertex)
+        self.mainSceneStencilMaskFragment = self.shaderCompiler.compile(path + "mainSceneStencilMask.frag", ShaderType.fragment)
+
         self.mainSceneComposeVertex = self.shaderCompiler.compile(path + "mainSceneCompose.vert", ShaderType.vertex)
         self.mainSceneComposeFragment = self.shaderCompiler.compile(path + "mainSceneCompose.frag", ShaderType.fragment)
 
