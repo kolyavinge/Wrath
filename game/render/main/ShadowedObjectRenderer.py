@@ -39,13 +39,13 @@ class ShadowedObjectRenderer:
         self.composeScene()
 
     def calculateLightComponents(self, renderObjectFunc):
+        glBindFramebuffer(GL_FRAMEBUFFER, self.shadowedObjectFramebuffer.id)
         glDepthMask(GL_TRUE)
         glDisable(GL_STENCIL_TEST)
         glEnable(GL_DEPTH_TEST)
         glEnable(GL_TEXTURE_2D)
         glEnable(GL_CULL_FACE)
         glCullFace(GL_BACK)
-        glBindFramebuffer(GL_FRAMEBUFFER, self.shadowedObjectFramebuffer.colorDepthFBO)
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT)
         shader = self.shaderProgramCollection.mainSceneLightComponents
         shader.use()
@@ -59,14 +59,14 @@ class ShadowedObjectRenderer:
         glDisable(GL_DEPTH_TEST)
 
     def calculateShadowVolumes(self, renderShadowCastersFunc):
-        # copy depth and color buffers from colorDepthFBO to default FBO
-        glBindFramebuffer(GL_READ_FRAMEBUFFER, self.shadowedObjectFramebuffer.colorDepthFBO)
+        # copy depth and color buffers from shadowed FBO to default FBO
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, self.shadowedObjectFramebuffer.id)
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0)
         glBlitFramebuffer(0, 0, self.width, self.height, 0, 0, self.width, self.height, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT, GL_NEAREST)
+        glBindFramebuffer(GL_FRAMEBUFFER, 0)
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE)
         glDepthMask(GL_FALSE)
         glEnable(GL_DEPTH_CLAMP)
-        glBindFramebuffer(GL_FRAMEBUFFER, 0)
         glClear(GL_STENCIL_BUFFER_BIT)
         glEnable(GL_STENCIL_TEST)
         glEnable(GL_DEPTH_TEST)
@@ -81,10 +81,10 @@ class ShadowedObjectRenderer:
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         renderShadowCastersFunc(shader)
         shader.unuse()
-        glDisable(GL_DEPTH_CLAMP)
-        glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)
         glDisable(GL_DEPTH_TEST)
         glDisable(GL_STENCIL_TEST)
+        glDisable(GL_DEPTH_CLAMP)
+        glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)
 
     def composeScene(self):
         glEnable(GL_STENCIL_TEST)
