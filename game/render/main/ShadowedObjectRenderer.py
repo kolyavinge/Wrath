@@ -42,6 +42,9 @@ class ShadowedObjectRenderer:
         self.copySceneToDefaultFBO()
 
     def calculateLightComponents(self, renderObjectFunc):
+        # calculate light components and write them in shadowedObjectFramebuffer
+        # ambient light in ambientBuffer, diffuse + specular in diffuseSpecularTexture
+        # draw scene normaly
         glBindFramebuffer(GL_FRAMEBUFFER, self.shadowedObjectFramebuffer.id)
         glDepthMask(GL_TRUE)
         glDisable(GL_STENCIL_TEST)
@@ -60,13 +63,15 @@ class ShadowedObjectRenderer:
         glDisable(GL_DEPTH_TEST)
 
     def calculateShadowVolumes(self, renderShadowCastersFunc):
+        # calculate shadow volumes by z-fail method
+        # draw only shadow caster objects
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE)
         glDepthMask(GL_FALSE)
         glEnable(GL_DEPTH_CLAMP)
         glClear(GL_STENCIL_BUFFER_BIT)
         glEnable(GL_STENCIL_TEST)
         glEnable(GL_DEPTH_TEST)
-        # stencil test always succeeds, increments for front faces and decrements for back
+        # stencil test always succeeds, decrements for front faces and increments for back
         glStencilFunc(GL_ALWAYS, 0, 0xFFFF)
         glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP)
         glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP)
@@ -83,6 +88,7 @@ class ShadowedObjectRenderer:
         glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE)
 
     def calculateStencilMask(self):
+        # calculate stencil mask and write it in shadowedObjectFramebuffer.stencilMaskTexture
         glEnable(GL_STENCIL_TEST)
         glStencilFunc(GL_EQUAL, 0, 0xFFFF)  # render pixels that have a stencil value 0
         glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP)
@@ -93,6 +99,7 @@ class ShadowedObjectRenderer:
         glDisable(GL_STENCIL_TEST)
 
     def composeScene(self):
+        # compose scene by calculating light + stencil mask
         glEnable(GL_BLEND)
         glEnable(GL_TEXTURE_2D)
         glBlendFunc(GL_ONE, GL_ONE)
