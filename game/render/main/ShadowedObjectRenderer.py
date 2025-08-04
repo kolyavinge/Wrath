@@ -101,17 +101,16 @@ class ShadowedObjectRenderer:
     def composeScene(self):
         # compose scene by calculating light + stencil mask
         glEnable(GL_BLEND)
-        glEnable(GL_TEXTURE_2D)
         glBlendFunc(GL_ONE, GL_ONE)
-        shader = self.shaderProgramCollection.mainSceneCompose
-        shader.use()
         glActiveTexture(GL_TEXTURE0)
         glBindTexture(GL_TEXTURE_2D, self.shadowedObjectFramebuffer.diffuseSpecularTexture)
         glActiveTexture(GL_TEXTURE1)
         glBindTexture(GL_TEXTURE_2D, self.shadowedObjectFramebuffer.stencilMaskTexture)
+        shader = self.shaderProgramCollection.mainSceneCompose
+        shader.use()
+        shader.setResolution(self.width, self.height)
         self.vboRenderer.render(self.screenQuadVBO.vbo)
         shader.unuse()
-        glDisable(GL_TEXTURE_2D)
         glDisable(GL_BLEND)
 
     def copySceneToDefaultFBO(self):
