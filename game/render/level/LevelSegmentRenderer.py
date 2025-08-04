@@ -38,5 +38,5 @@ class LevelSegmentRenderer:
 
     def renderShadowCasters(self, shader):
         for levelSegment in self.gameData.visibleLevelSegments:
-            shader.setLight(levelSegment.lights, self.gameData.playerTorch)
+            shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerTorch)
             self.shadowCasterRenderer.render(levelSegment)
