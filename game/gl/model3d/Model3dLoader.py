@@ -58,10 +58,10 @@ class Model3dLoader:
             mesh = Mesh()
             aiMesh.id = meshId
             mesh.id = meshId
-            mesh.vertices = numpy.array(aiMesh.vertices, dtype=numpy.float32)
-            mesh.normals = numpy.array(aiMesh.normals, dtype=numpy.float32)
-            mesh.texCoords = numpy.array(aiMesh.texturecoords[0], dtype=numpy.float32)
-            mesh.faces = numpy.array(aiMesh.faces, dtype=numpy.uint32)
+            mesh.vertices = numpy.array(aiMesh.vertices, dtype=numpy.float32).flatten()
+            mesh.normals = numpy.array(aiMesh.normals, dtype=numpy.float32).flatten()
+            mesh.texCoords = numpy.array(aiMesh.texturecoords[0], dtype=numpy.float32).flatten()
+            mesh.faces = numpy.array(aiMesh.faces, dtype=numpy.uint32).flatten()
             mesh.texture = self.getDiffuseTexture(aiMesh.material, textures, directoryName)
             model3d.meshes.append(mesh)
             meshId += 1
