@@ -22,6 +22,13 @@ class PowerupRenderer:
             model = self.getModel(powerup)
             self.model3dRenderer.render(model, shader)
 
+    def renderForShadow(self, shader, levelSegment):
+        for powerup in levelSegment.powerups:
+            if powerup.canCastShadow:
+                shader.setModelMatrix(powerup.getModelMatrix())
+                model = self.getModel(powerup)
+                self.model3dRenderer.renderForShadow(model)
+
     def getModel(self, powerup):
         if type(powerup) == WeaponPowerup:
             return self.weaponRenderCollection.getRenderModel3d(powerup.weaponType)

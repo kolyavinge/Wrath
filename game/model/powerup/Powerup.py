@@ -14,6 +14,7 @@ class Powerup:
         self.rotateRadians = 0
         self.collisionLevelSegment = None
         self.visibilityLevelSegment = None
+        self.canCastShadow = False
 
     def setPosition(self, position):
         self.pickupPosition = position

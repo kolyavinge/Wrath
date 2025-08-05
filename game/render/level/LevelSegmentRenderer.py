@@ -40,3 +40,4 @@ class LevelSegmentRenderer:
         for levelSegment in self.gameData.visibleLevelSegments:
             shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerTorch)
             self.shadowCasterRenderer.render(levelSegment)
+            self.powerupRenderer.renderForShadow(shader, levelSegment)

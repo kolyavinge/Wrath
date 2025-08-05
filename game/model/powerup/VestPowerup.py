@@ -6,3 +6,4 @@ class VestPowerup(Powerup):
     def __init__(self):
         super().__init__()
         self.setRandomRotate()
+        self.canCastShadow = True

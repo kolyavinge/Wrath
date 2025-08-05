@@ -8,3 +8,4 @@ class SmallHealthPowerup(Powerup):
         super().__init__()
         self.value = int(PersonConstants.maxPersonHealth / 4)
         self.setRandomRotate()
+        self.canCastShadow = True

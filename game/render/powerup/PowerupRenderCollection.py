@@ -19,6 +19,7 @@ class PowerupRenderCollection:
         self.powerupModel3dFactory = powerupModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.models = {}
+        self.withAdjacency = True
 
     def init(self):
         for vbo in self.models:
@@ -35,15 +36,15 @@ class PowerupRenderCollection:
 
     def makeSmallHealth(self):
         model = self.powerupModel3dFactory.makeSmallHealth()
-        self.models[SmallHealthPowerup] = self.renderModel3dLoader.make(model, Material.powerup)
+        self.models[SmallHealthPowerup] = self.renderModel3dLoader.make(model, Material.powerup, self.withAdjacency)
 
     def makeLargeHealth(self):
         model = self.powerupModel3dFactory.makeLargeHealth()
-        self.models[LargeHealthPowerup] = self.renderModel3dLoader.make(model, Material.powerup)
+        self.models[LargeHealthPowerup] = self.renderModel3dLoader.make(model, Material.powerup, self.withAdjacency)
 
     def makeVest(self):
         model = self.powerupModel3dFactory.makeVest()
-        self.models[VestPowerup] = self.renderModel3dLoader.make(model, Material.powerup)
+        self.models[VestPowerup] = self.renderModel3dLoader.make(model, Material.powerup, self.withAdjacency)
 
     def debugLoading(self):
         self.makeSmallHealth()
