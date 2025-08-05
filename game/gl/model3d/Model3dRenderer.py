@@ -13,3 +13,7 @@ class Model3dRenderer:
             shader.setMaterial(mesh.material)
             mesh.texture.bind(GL_TEXTURE0)
             self.vboRenderer.render(mesh.vbo)
+
+    def renderForShadow(self, model):
+        for mesh in model.meshes:
+            self.vboRenderer.render(mesh.vbo)
