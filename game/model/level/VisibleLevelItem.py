@@ -1,8 +1,7 @@
 from game.model.Material import Material
 
 
-# TODO унаследовать все видимые обьекты от этого класса
-class Visible:
+class VisibleLevelItem:
 
     def __init__(self):
         self.material = Material.blank

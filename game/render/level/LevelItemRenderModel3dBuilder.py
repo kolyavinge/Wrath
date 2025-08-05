@@ -57,4 +57,4 @@ class LevelItemRenderModel3dBuilder:
         return vboBuilder.build()
 
     def getLevelItemsGroupedByMaterial(self, levelSegment):
-        return Query(levelSegment.getAllVisibleItems()).groupby(lambda item: item.material).result
+        return Query(levelSegment.getAllVisibleStaticItems()).groupby(lambda item: item.material).result

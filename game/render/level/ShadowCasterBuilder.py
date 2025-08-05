@@ -7,8 +7,7 @@ class ShadowCasterBuilder:
         self.vboBuilderFactory = vboBuilderFactory
 
     def buildForLevelSegment(self, levelSegment):
-        # TODO не работают тени от персонажей, оружия и паверапов
-        shadowCasters = [item for item in levelSegment.getAllVisibleItems() if item.canCastShadow]
+        shadowCasters = [item for item in levelSegment.getAllVisibleStaticItems() if item.canCastShadow]
         if len(shadowCasters) > 0:
             vboBuilder = self.vboBuilderFactory.makeVBOBuilder()
             for item in shadowCasters:

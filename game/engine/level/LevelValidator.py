@@ -10,7 +10,7 @@ class LevelValidator:
         # из-за этого может неправильно обрабатываться свет
         allLevelItems = set()
         for levelSegment in allLevelSegments:
-            for levelItem in levelSegment.getAllItems():
+            for levelItem in levelSegment.getAllVisibleStaticItems():
                 if levelItem not in allLevelItems:
                     allLevelItems.add(levelItem)
                 else:

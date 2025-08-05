@@ -1,6 +1,6 @@
 from game.lib.Query import Query
+from game.model.level.VisibleLevelItem import VisibleLevelItem
 from game.model.Orientation import Orientation
-from game.model.Visible import Visible
 
 
 class LevelSegment:
@@ -26,11 +26,11 @@ class LevelSegment:
         self.enemies = []
         self.allPerson = []
 
-    def getAllItems(self):  # TODO придумать название по точнее
+    def getAllStaticItems(self):
         return self.constructions + self.walls + self.floors + self.ceilings + self.lights
 
-    def getAllVisibleItems(self):
-        return Query(self.getAllItems()).where(lambda item: isinstance(item, Visible)).result
+    def getAllVisibleStaticItems(self):
+        return Query(self.getAllStaticItems()).where(lambda item: isinstance(item, VisibleLevelItem)).result
 
     def commit(self):
         self.horizontalVerticalWalls = [w for w in self.walls if w.orientation == Orientation.horizontal or w.orientation == Orientation.vertical]

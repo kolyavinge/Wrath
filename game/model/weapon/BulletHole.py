@@ -1,8 +1,7 @@
 from game.calc.Vector3 import Vector3
-from game.model.Visible import Visible
 
 
-class BulletHole(Visible):
+class BulletHole:
 
     def __init__(self, bulletHoleInfo):
         super().__init__()

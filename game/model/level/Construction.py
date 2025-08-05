@@ -1,10 +1,10 @@
 from game.calc.RectPlane import RectPlane
 from game.calc.Vector3 import Vector3
 from game.model.FaceDirection import FaceDirection
-from game.model.Visible import Visible
+from game.model.level.VisibleLevelItem import VisibleLevelItem
 
 
-class Construction(Visible):
+class Construction(VisibleLevelItem):
 
     def __init__(self):
         super().__init__()

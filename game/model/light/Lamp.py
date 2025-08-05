@@ -1,13 +1,13 @@
 from game.calc.Vector3 import Vector3
+from game.model.level.VisibleLevelItem import VisibleLevelItem
 from game.model.light.Light import Light
-from game.model.Visible import Visible
 
 
-class Lamp(Light, Visible):
+class Lamp(Light, VisibleLevelItem):
 
     def __init__(self):
         Light.__init__(self)
-        Visible.__init__(self)
+        VisibleLevelItem.__init__(self)
         self.frontNormal = Vector3()
 
     def commit(self):
