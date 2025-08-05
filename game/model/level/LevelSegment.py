@@ -12,8 +12,11 @@ class LevelSegment:
         self.floors = []
         self.ceilings = []
         self.lights = []
+
+        # дополнительные статичные обьекты
         self.lightsWithJoined = []
         self.joinLines = []
+
         # динамичные обьекты
         self.powerups = []
         self.bullets = []

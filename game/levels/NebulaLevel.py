@@ -309,6 +309,17 @@ class NebulaLevel(Level):
         self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, self.secondFloorZ), Vector3(90, 80, self.secondFloorZ)))
         self.addJoinLine(LevelSegmentJoinLine(Vector3(90, 15, self.secondFloorZ), Vector3(90, 80, self.secondFloorZ)))
 
+        z = self.secondFloorZ + self.secondFloorHeight
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 0, z), Vector3(100, 0, z)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 0, z), Vector3(0, 100, z)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(100, 0, z), Vector3(100, 100, z)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 100, z), Vector3(100, 100, z)))
+
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 20, z), Vector3(80, 20, z)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 20, z), Vector3(20, 80, z)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(80, 20, z), Vector3(80, 80, z)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, z), Vector3(80, 80, z)))
+
     def makePowerups(self):
         self.addPowerupArea(PowerupArea(Vector3(50, 50, self.firstFloorZ), Vector3(50, 50, self.firstFloorZ), 50))
 
@@ -368,9 +379,10 @@ class NebulaLevel(Level):
     def getVisibilitySplitPlanes(self):
         yield SplitPlane(Vector3(50, 50, self.firstFloorZ), Vector3(0, 0, 1))
         yield SplitPlane(Vector3(50, 50, self.secondFloorZ), Vector3(0, 0, 1))
+        yield SplitPlane(Vector3(50, 50, self.secondFloorZ + self.secondFloorHeight), Vector3(0, 0, 1))
 
     def getPlayerInitInfo(self):
-        return (Vector3(95, 40, self.secondFloorZ), Vector3(0, -1, 0).getNormalized(), Pistol)
+        return (Vector3(95, 40, self.secondFloorZ), Vector3(-1, 0, 0).getNormalized(), Pistol)
 
     def getEnemyInitInfo(self):
         return [
