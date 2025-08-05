@@ -2,7 +2,6 @@ from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
-from game.calc.TransformMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
@@ -77,7 +76,6 @@ class ShadowedObjectRenderer:
         glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP)
         shader = self.shaderProgramCollection.mainSceneShadowVolumes
         shader.use()
-        shader.setModelMatrix(TransformMatrix4.identity)
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         renderShadowCastersFunc(shader)

@@ -1,3 +1,4 @@
+from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.level.ShadowCasterRenderCollection import *
 
@@ -12,7 +13,8 @@ class ShadowCasterRenderer:
         self.renderCollection = renderCollection
         self.vboRenderer = vboRenderer
 
-    def render(self, levelSegment):
+    def render(self, shader, levelSegment):
+        shader.setModelMatrix(TransformMatrix4.identity)
         vbo = self.renderCollection.getShadowCastersVBO(levelSegment)
         if vbo is not None:
             self.vboRenderer.render(vbo)
