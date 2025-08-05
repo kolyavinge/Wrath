@@ -7,9 +7,9 @@ class RenderModel3dLoader:
     def __init__(self, vboBuilderFactory: VBOBuilderFactory):
         self.vboBuilderFactory = vboBuilderFactory
 
-    def make(self, model3d, material):
+    def make(self, model3d, material, withAdjacency=False):
         vboBuilder = self.vboBuilderFactory.makeModel3dVBOBuilder()
-        vbos = vboBuilder.build(model3d)
+        vbos = vboBuilder.build(model3d, withAdjacency)
         meshes = [RenderMesh(vbo, mesh.texture, material) for mesh, vbo in vbos]
 
         return RenderModel3d(meshes, model3d.animations)

@@ -10,7 +10,7 @@ uniform vec2 resolution;
 const float piDouble = 6.28318530718;
 const float directions = 8.0;
 const float quality = 4.0;
-const float blurSize = 4.0;
+const float blurSize = 2.0;
 const float piDoubleDivDirections = piDouble / directions;
 const float inverseQuality = 1.0 / quality;
 
