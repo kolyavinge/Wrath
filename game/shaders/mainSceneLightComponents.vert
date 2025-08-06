@@ -3,8 +3,8 @@
 layout (location = 0) in vec3 in_Position;
 layout (location = 1) in vec3 in_Normal;
 layout (location = 2) in vec2 in_TexCoord;
-layout (location = 4) in ivec4 boneIds;
-layout (location = 5) in vec4 weights;
+layout (location = 4) in ivec4 in_BoneIds;
+layout (location = 5) in vec4 in_Weights;
 
 out vec3 PositionView;
 out vec3 NormalView;
@@ -28,9 +28,9 @@ void processWithAnimation()
     mat4 boneTransform = mat4(0.0);
     for (int i = 0; i < maxBonesCountInfluence; i++)
     {
-        if (weights[i] > 0.0)
+        if (in_Weights[i] > 0.0)
         {
-            boneTransform += boneTransformMatrices[boneIds[i]] * weights[i];
+            boneTransform += boneTransformMatrices[in_BoneIds[i]] * in_Weights[i];
         }
     }
     PositionView = vec3(modelViewMatrix * boneTransform * vec4(in_Position, 1.0));
