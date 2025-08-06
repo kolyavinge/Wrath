@@ -9,12 +9,10 @@ layout (location = 1) out vec4 out_DiffuseSpecular;
 
 uniform sampler2D ourTexture;
 
-uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform float maxDepth;
 
-mat4 modelViewMatrix = viewMatrix * modelMatrix;
-mat3 normalMatrix = mat3(modelViewMatrix);
+mat3 normalMatrix = mat3(viewMatrix);
 
 uniform struct Material
 {
