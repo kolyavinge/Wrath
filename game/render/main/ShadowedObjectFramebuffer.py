@@ -37,8 +37,8 @@ class ShadowedObjectFramebuffer:
         self.stencilMaskTexture = glGenTextures(1)
         glBindTexture(GL_TEXTURE_2D, self.stencilMaskTexture)
         glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB8, self.viewportWidth, self.viewportHeight)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 
         self.id = glGenFramebuffers(1)
         glBindFramebuffer(GL_FRAMEBUFFER, self.id)

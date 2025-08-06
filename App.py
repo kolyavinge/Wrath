@@ -1,6 +1,6 @@
 import sys
 
-from OpenGL.GL import *
+from OpenGL.GL import glViewport
 from OpenGL.GLUT import *
 
 from game.anx.CommonConstants import CommonConstants
