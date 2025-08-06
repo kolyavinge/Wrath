@@ -50,7 +50,7 @@ vec4 getTextureColor()
 void getLightColor(int lightIndex, inout vec3 ambient, inout vec3 diffuseSpecular)
 {
     vec3 n = normalize(NormalView);
-    vec3 positionView = vec3(modelViewMatrix * vec4(lights[lightIndex].position, 1.0));
+    vec3 positionView = vec3(viewMatrix * vec4(lights[lightIndex].position, 1.0));
     vec3 s = normalize(positionView - PositionView);
     float sDotN = max(dot(s, n), 0.0);
     float diffuse = material.diffuse * sDotN;
@@ -68,7 +68,7 @@ void getSpotColor(int spotIndex, inout vec3 ambient, inout vec3 diffuseSpecular)
     vec3 n = normalize(NormalView);
     float diffuse = 0.0;
     float specular = 0.0;
-    vec3 positionView = vec3(modelViewMatrix * vec4(spots[spotIndex].position, 1.0));
+    vec3 positionView = vec3(viewMatrix * vec4(spots[spotIndex].position, 1.0));
     vec3 directionView = normalMatrix * spots[spotIndex].direction;
     vec3 s = normalize(positionView - PositionView);
     float cosAngle = dot(-s, directionView);
