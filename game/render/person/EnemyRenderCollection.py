@@ -16,6 +16,7 @@ class EnemyRenderCollection:
         self.enemyModel3dFactory = enemyModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.enemyModel = None
+        self.withAdjacency = False
 
     def init(self):
         if self.gameData.noEnemies:
@@ -28,4 +29,4 @@ class EnemyRenderCollection:
 
     def makeEnemy(self):
         model = self.enemyModel3dFactory.makeEnemy()
-        self.enemyModel = self.renderModel3dLoader.make(model, Material.person)
+        self.enemyModel = self.renderModel3dLoader.make(model, Material.person, self.withAdjacency)

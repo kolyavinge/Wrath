@@ -23,6 +23,7 @@ class WeaponRenderCollection:
         self.weaponModel3dFactory = weaponModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.models = {}
+        self.withAdjacency = False
 
     def init(self):
         for vbo in self.models:
@@ -44,27 +45,27 @@ class WeaponRenderCollection:
 
     def makePistol(self):
         model = self.weaponModel3dFactory.makePistol()
-        self.models[Pistol] = self.renderModel3dLoader.make(model, Material.weapon)
+        self.models[Pistol] = self.renderModel3dLoader.make(model, Material.weapon, self.withAdjacency)
 
     def makeRifle(self):
         model = self.weaponModel3dFactory.makeRifle()
-        self.models[Rifle] = self.renderModel3dLoader.make(model, Material.weapon)
+        self.models[Rifle] = self.renderModel3dLoader.make(model, Material.weapon, self.withAdjacency)
 
     def makePlasma(self):
         model = self.weaponModel3dFactory.makePlasma()
-        self.models[Plasma] = self.renderModel3dLoader.make(model, Material.weapon)
+        self.models[Plasma] = self.renderModel3dLoader.make(model, Material.weapon, self.withAdjacency)
 
     def makeLauncher(self):
         model = self.weaponModel3dFactory.makeLauncher()
-        self.models[Launcher] = self.renderModel3dLoader.make(model, Material.weapon)
+        self.models[Launcher] = self.renderModel3dLoader.make(model, Material.weapon, self.withAdjacency)
 
     def makeRailgun(self):
         model = self.weaponModel3dFactory.makeRailgun()
-        self.models[Railgun] = self.renderModel3dLoader.make(model, Material.weapon)
+        self.models[Railgun] = self.renderModel3dLoader.make(model, Material.weapon, self.withAdjacency)
 
     def makeSniper(self):
         model = self.weaponModel3dFactory.makeSniper()
-        self.models[Sniper] = self.renderModel3dLoader.make(model, Material.weapon)
+        self.models[Sniper] = self.renderModel3dLoader.make(model, Material.weapon, self.withAdjacency)
 
     def makeNullWeapon(self):
         self.models[NullWeapon] = self.models[Pistol]
