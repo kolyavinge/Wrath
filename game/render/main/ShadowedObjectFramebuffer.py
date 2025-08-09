@@ -1,7 +1,6 @@
 from OpenGL.GL import *
 
-from game.gl.ext import *
-from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
+from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, glGetViewportSize
 
 
 class ShadowedObjectFramebuffer:

@@ -60,6 +60,17 @@ class LevelBuilder:
         wall.material = material
         self.level.addWall(wall)
 
+    def buildPillarWithTop(self, downLeft, size, height, material):
+        self.buildPillar(downLeft, size, height, material)
+
+        floor = Floor()
+        floor.downLeft = Vector3(downLeft.x, downLeft.y, downLeft.z + height)
+        floor.downRight = Vector3(downLeft.x + size, downLeft.y, downLeft.z + height)
+        floor.upLeft = Vector3(downLeft.x, downLeft.y + size, downLeft.z + height)
+        floor.upRight = Vector3(downLeft.x + size, downLeft.y + size, downLeft.z + height)
+        floor.material = material
+        self.level.addFloor(floor)
+
     def buildFlatFloor(self, downLeft, xLength, yLength, material, visualSize=1):
         floor = Floor()
         floor.downLeft = downLeft
