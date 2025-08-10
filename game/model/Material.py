@@ -7,7 +7,7 @@ class MaterialKind:
 
 class Material:
 
-    def __init__(self, kind, ambient=0.1, diffuse=0.8, specular=0.8, shininess=8.0):
+    def __init__(self, kind, ambient=0.25, diffuse=0.6, specular=0.6, shininess=32.0):
         self.kind = kind
         self.ambient = ambient
         self.diffuse = diffuse
@@ -26,11 +26,11 @@ Material.construction6 = Material(MaterialKind.metal)
 Material.construction7 = Material(MaterialKind.metal)
 Material.construction8 = Material(MaterialKind.metal)
 Material.construction9 = Material(MaterialKind.metal)
-Material.construction10 = Material(MaterialKind.metal, 0.2, 0.5, 0.5, 8.0)
-Material.construction11 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
-Material.construction12 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
-Material.construction13 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
-Material.construction14 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
+Material.construction10 = Material(MaterialKind.metal)
+Material.construction11 = Material(MaterialKind.metal)
+Material.construction12 = Material(MaterialKind.metal)
+Material.construction13 = Material(MaterialKind.metal)
+Material.construction14 = Material(MaterialKind.metal)
 Material.construction15 = Material(MaterialKind.metal)
 Material.construction16 = Material(MaterialKind.metal)
 Material.construction17 = Material(MaterialKind.metal)

@@ -427,7 +427,7 @@ class NebulaLevel(Level):
         self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, z), Vector3(80, 80, z)))
 
     def makePowerups(self):
-        self.addPowerupArea(PowerupArea(Vector3(50, 50, self.firstFloorZ), Vector3(50, 50, self.firstFloorZ), 50))
+        self.addPowerupArea(PowerupArea(Vector3(50, 50, self.firstFloorZ), Vector3(50, 50, self.firstFloorZ), 40))
 
         self.addPowerupArea(PowerupArea(Vector3(10, 7, self.secondFloorZ), Vector3(90, 7, self.secondFloorZ), 7))
         self.addPowerupArea(PowerupArea(Vector3(5, 20, self.secondFloorZ), Vector3(5, 20, self.secondFloorZ), 5))
