@@ -57,7 +57,7 @@ class WallBuilder:
         if topBorder is not None:
             height -= topBorder.height
 
-        wall = self.makeWall(startPoint, endPoint, frontNormal, height, material, visualSize)
+        wall = self.buildWall(startPoint, endPoint, frontNormal, height, height, material, visualSize)
 
         if bottomBorder is not None:
             self.makeBottomBorder(wall, bottomBorder)
@@ -67,12 +67,13 @@ class WallBuilder:
             self.makeTopBorder(wall, topBorder)
             self.zFightingDelta += 0.0001
 
-    def makeWall(self, startPoint, endPoint, frontNormal, height, material, visualSize):
+    def buildWall(self, startPoint, endPoint, frontNormal, startPointHeight, endPointHeight, material, visualSize=2.0):
         wall = Wall()
         wall.startPoint = startPoint.copy()
         wall.endPoint = endPoint.copy()
         wall.frontNormal = frontNormal
-        wall.height = height
+        wall.startPointHeight = startPointHeight
+        wall.endPointHeight = endPointHeight
         wall.material = material
         wall.visualSize = visualSize
         self.level.addWall(wall)
@@ -91,7 +92,8 @@ class WallBuilder:
         front.startPoint.add(depthDirection)
         front.endPoint.add(depthDirection)
         front.frontNormal = wall.frontNormal
-        front.height = bottomBorder.height
+        front.startPointHeight = bottomBorder.height
+        front.endPointHeight = bottomBorder.height
         front.material = bottomBorder.frontMaterial
         self.level.addWall(front)
 

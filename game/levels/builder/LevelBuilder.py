@@ -19,6 +19,9 @@ class LevelBuilder:
         self.wallBuilder = WallBuilder(self.level)
         self.ceilingBuilder = CeilingBuilder(self.level)
 
+    def buildWall(self, startPoint, endPoint, frontNormal, startPointHeight, endPointHeight, material, visualSize=2.0):
+        self.wallBuilder.buildWall(startPoint, endPoint, frontNormal, startPointHeight, endPointHeight, material, visualSize)
+
     def buildWalls(self, startPoint, *wallBuildInfoList):
         self.wallBuilder.buildWalls(startPoint, *wallBuildInfoList)
 
@@ -32,7 +35,8 @@ class LevelBuilder:
         wall.startPoint = downLeft
         wall.endPoint = downRight
         wall.frontNormal = Vector3(0, -1, 0)
-        wall.height = height
+        wall.startPointHeight = height
+        wall.endPointHeight = height
         wall.material = material
         self.level.addWall(wall)
 
@@ -40,7 +44,8 @@ class LevelBuilder:
         wall.startPoint = downLeft
         wall.endPoint = upLeft
         wall.frontNormal = Vector3(-1, 0, 0)
-        wall.height = height
+        wall.startPointHeight = height
+        wall.endPointHeight = height
         wall.material = material
         self.level.addWall(wall)
 
@@ -48,7 +53,8 @@ class LevelBuilder:
         wall.startPoint = downRight
         wall.endPoint = upRight
         wall.frontNormal = Vector3(1, 0, 0)
-        wall.height = height
+        wall.startPointHeight = height
+        wall.endPointHeight = height
         wall.material = material
         self.level.addWall(wall)
 
@@ -56,7 +62,8 @@ class LevelBuilder:
         wall.startPoint = upLeft
         wall.endPoint = upRight
         wall.frontNormal = Vector3(0, 1, 0)
-        wall.height = height
+        wall.startPointHeight = height
+        wall.endPointHeight = height
         wall.material = material
         self.level.addWall(wall)
 

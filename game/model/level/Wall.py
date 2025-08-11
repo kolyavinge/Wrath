@@ -14,10 +14,11 @@ class Wall(Construction):
         self.orientation = None
         self.startPoint = Vector3()
         self.endPoint = Vector3()
+        self.startPointHeight = 3.0
+        self.endPointHeight = 3.0
         self.direction = Vector3()
         self.limitLine = Line()
         self.limitLineDirection = Vector3()
-        self.height = 3
         self.info = ""
         self.visualSize = 2.0
 
@@ -25,9 +26,9 @@ class Wall(Construction):
         self.downLeft = self.startPoint
         self.downRight = self.endPoint
         self.upLeft = self.startPoint.copy()
-        self.upLeft.z += self.height
+        self.upLeft.z += self.startPointHeight
         self.upRight = self.endPoint.copy()
-        self.upRight.z += self.height
+        self.upRight.z += self.endPointHeight
         super().commit()
         self.direction = self.startPoint.getDirectionTo(self.endPoint)
         self.calculateOrientation()
