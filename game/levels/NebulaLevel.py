@@ -216,13 +216,14 @@ class NebulaLevel(Level):
         builder.buildPillar(Vector3(40, 50, self.firstFloorZ), 1, self.firstFloorHeight, Material.construction3)
         builder.buildPillar(Vector3(65, 50, self.firstFloorZ), 1, self.firstFloorHeight, Material.construction3)
 
+        centerStairZ = self.firstFloorZ + self.firstFloorHeight / 2
         # центральная лестница
         builder.buildStair(
             Vector3(90, 50, self.firstFloorZ),
             5,
             5,
             Vector3(90, 55, self.firstFloorZ),
-            Vector3(95, 55, self.firstFloorZ + self.firstFloorHeight / 2),
+            Vector3(95, 55, centerStairZ),
             10,
             5,
             Material.construction17,
@@ -230,10 +231,10 @@ class NebulaLevel(Level):
 
         builder.buildPillarWithTop(Vector3(90, 49.5, self.firstFloorZ), 0.5, 1.0, Material.construction3)
         builder.buildPillarWithTop(Vector3(90, 55, self.firstFloorZ), 0.5, 1.0, Material.construction3)
-        builder.buildPillarWithTop(Vector3(94.5, 49.5, self.firstFloorZ), 0.5, 2.0, Material.construction3)
-        builder.buildPillarWithTop(Vector3(94.5, 55, self.firstFloorZ), 0.5, 2.0, Material.construction3)
-        builder.buildPillarWithTop(Vector3(94.5, 45, self.firstFloorZ), 0.5, 3.0, Material.construction3)
-        builder.buildPillarWithTop(Vector3(94.5, 59.5, self.firstFloorZ), 0.5, 3.0, Material.construction3)
+        builder.buildPillarWithTop(Vector3(94.5, 49.5, self.firstFloorZ), 0.5, centerStairZ + 1.0, Material.construction3)
+        builder.buildPillarWithTop(Vector3(94.5, 55, self.firstFloorZ), 0.5, centerStairZ + 1.0, Material.construction3)
+        builder.buildPillarWithTop(Vector3(94.5, 45, self.firstFloorZ), 0.5, self.secondFloorZ + 1.0, Material.construction3)
+        builder.buildPillarWithTop(Vector3(94.5, 59.5, self.firstFloorZ), 0.5, self.secondFloorZ + 1.0, Material.construction3)
 
         builder.buildWalls(
             Vector3(95, 45, self.firstFloorZ),
@@ -241,7 +242,7 @@ class NebulaLevel(Level):
                 Vector3(100, 45, self.firstFloorZ),
                 Vector3(0, -1, 0),
                 self.firstFloorHeight,
-                Material.construction7,
+                Material.construction3,
             ),
         )
         builder.buildWalls(
@@ -250,84 +251,104 @@ class NebulaLevel(Level):
                 Vector3(100, 60, self.firstFloorZ),
                 Vector3(0, 1, 0),
                 self.firstFloorHeight,
-                Material.construction7,
+                Material.construction3,
             ),
         )
 
-        builder.buildWalls(
+        builder.buildWall(
             Vector3(90.5, 49.5, self.firstFloorZ),
-            WallInfo(
-                Vector3(94.5, 49.5, self.firstFloorZ),
-                Vector3(0, -1, 0),
-                2.0,
-                Material.construction7,
-            ),
-        )
-        builder.buildWalls(
-            Vector3(90.5, 50, self.firstFloorZ),
-            WallInfo(
-                Vector3(94.5, 50, self.firstFloorZ),
-                Vector3(0, 1, 0),
-                2.0,
-                Material.construction7,
-            ),
-        )
-
-        builder.buildWalls(
-            Vector3(90.5, 55, self.firstFloorZ),
-            WallInfo(
-                Vector3(94.5, 55, self.firstFloorZ),
-                Vector3(0, -1, 0),
-                2.0,
-                Material.construction7,
-            ),
-        )
-        builder.buildWalls(
-            Vector3(90.5, 55.5, self.firstFloorZ),
-            WallInfo(
-                Vector3(94.5, 55.5, self.firstFloorZ),
-                Vector3(0, 1, 0),
-                2.0,
-                Material.construction7,
-            ),
-        )
-
-        builder.buildWalls(
-            Vector3(95, 49.5, self.firstFloorZ),
-            WallInfo(
-                Vector3(95, 45.5, self.firstFloorZ),
-                Vector3(1, 0, 0),
-                2.0,
-                Material.construction7,
-            ),
-        )
-        builder.buildWalls(
             Vector3(94.5, 49.5, self.firstFloorZ),
-            WallInfo(
-                Vector3(94.5, 45.5, self.firstFloorZ),
-                Vector3(-1, 0, 0),
-                2.0,
-                Material.construction7,
-            ),
+            Vector3(0, -1, 0),
+            1.0,
+            centerStairZ + 1.0,
+            Material.construction3,
+        )
+        builder.buildWall(
+            Vector3(90.5, 50, self.firstFloorZ),
+            Vector3(94.5, 50, self.firstFloorZ),
+            Vector3(0, 1, 0),
+            1.0,
+            centerStairZ + 1.0,
+            Material.construction3,
+        )
+        builder.buildFloor(
+            Vector3(90.5, 50, 1.0),
+            Vector3(90.5, 49.5, 1.0),
+            Vector3(94.5, 50, centerStairZ + 1.0),
+            Vector3(94.5, 49.5, centerStairZ + 1.0),
+            Material.construction3,
         )
 
-        builder.buildWalls(
-            Vector3(95, 59.5, self.firstFloorZ),
-            WallInfo(
-                Vector3(95, 55.5, self.firstFloorZ),
-                Vector3(1, 0, 0),
-                2.0,
-                Material.construction7,
-            ),
+        builder.buildWall(
+            Vector3(90.5, 55, self.firstFloorZ),
+            Vector3(94.5, 55, self.firstFloorZ),
+            Vector3(0, -1, 0),
+            1.0,
+            centerStairZ + 1.0,
+            Material.construction3,
         )
-        builder.buildWalls(
+        builder.buildWall(
+            Vector3(90.5, 55.5, self.firstFloorZ),
+            Vector3(94.5, 55.5, self.firstFloorZ),
+            Vector3(0, 1, 0),
+            1.0,
+            centerStairZ + 1.0,
+            Material.construction3,
+        )
+        builder.buildFloor(
+            Vector3(90.5, 55.5, 1.0),
+            Vector3(90.5, 55, 1.0),
+            Vector3(94.5, 55.5, centerStairZ + 1.0),
+            Vector3(94.5, 55, centerStairZ + 1.0),
+            Material.construction3,
+        )
+
+        builder.buildWall(
+            Vector3(95, 49.5, self.firstFloorZ),
+            Vector3(95, 45.5, self.firstFloorZ),
+            Vector3(1, 0, 0),
+            centerStairZ + 1.0,
+            self.secondFloorZ + 1.0,
+            Material.construction3,
+        )
+        builder.buildWall(
+            Vector3(94.5, 49.5, self.firstFloorZ),
+            Vector3(94.5, 45.5, self.firstFloorZ),
+            Vector3(-1, 0, 0),
+            centerStairZ + 1.0,
+            self.secondFloorZ + 1.0,
+            Material.construction3,
+        )
+        builder.buildFloor(
+            Vector3(95, 49.5, centerStairZ + 1.0),
+            Vector3(94.5, 49.5, centerStairZ + 1.0),
+            Vector3(95, 45.5, self.secondFloorZ + 1.0),
+            Vector3(94.5, 45.5, self.secondFloorZ + 1.0),
+            Material.construction3,
+        )
+
+        builder.buildWall(
+            Vector3(95, 55.5, self.firstFloorZ),
+            Vector3(95, 59.5, self.firstFloorZ),
+            Vector3(1, 0, 0),
+            centerStairZ + 1.0,
+            self.secondFloorZ + 1.0,
+            Material.construction3,
+        )
+        builder.buildWall(
+            Vector3(94.5, 55.5, self.firstFloorZ),
             Vector3(94.5, 59.5, self.firstFloorZ),
-            WallInfo(
-                Vector3(94.5, 55.5, self.firstFloorZ),
-                Vector3(-1, 0, 0),
-                2.0,
-                Material.construction7,
-            ),
+            Vector3(-1, 0, 0),
+            centerStairZ + 1.0,
+            self.secondFloorZ + 1.0,
+            Material.construction3,
+        )
+        builder.buildFloor(
+            Vector3(94.5, 55.5, centerStairZ + 1.0),
+            Vector3(95, 55.5, centerStairZ + 1.0),
+            Vector3(94.5, 59.5, self.secondFloorZ + 1.0),
+            Vector3(95, 59.5, self.secondFloorZ + 1.0),
+            Material.construction3,
         )
 
         builder.buildRectSlab(
