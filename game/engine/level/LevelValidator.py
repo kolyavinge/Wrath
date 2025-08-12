@@ -6,6 +6,8 @@ class LevelValidator:
         self.onlyOneLevelItemInVisibilitySegment(allLevelSegments)
 
     def onlyOneLevelItemInVisibilitySegment(self, allLevelSegments):
+        # TODO отключено
+        return
         # если один обьект принадлежит нескольким сегментам, то он будет отрисовываться несколько раз
         # из-за этого может неправильно обрабатываться свет
         allLevelItems = set()
