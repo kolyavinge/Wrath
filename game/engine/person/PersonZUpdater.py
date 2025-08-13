@@ -4,6 +4,7 @@ from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.lib.EventManager import EventManager
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
+from game.model.level.NullFloor import NullFloor
 from game.model.person.PersonZState import PersonZState
 
 
@@ -29,7 +30,7 @@ class PersonZUpdater:
             self.updatePerson(person)
 
     def updatePerson(self, person):
-        if person.nextFloor is not None:
+        if person.nextFloor != NullFloor.instance:
             self.processFloor(person)
         else:
             self.processHole(person)

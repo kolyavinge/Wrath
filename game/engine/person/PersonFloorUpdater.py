@@ -1,5 +1,7 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
+from game.lib.Query import Query
+from game.model.level.NullFloor import NullFloor
 
 
 class PersonFloorUpdater:
@@ -13,14 +15,23 @@ class PersonFloorUpdater:
             self.updateForPerson(person)
 
     def updateForPerson(self, person):
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, person.nextCenterPoint)
+        personPosition = person.nextCenterPoint
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, personPosition)
         assert levelSegment is not None
         if len(levelSegment.floors) == 0:
-            person.nextFloor = None
+            person.nextFloor = NullFloor.instance
         elif len(levelSegment.floors) == 1:
-            person.nextFloor = levelSegment.floors[0]
+            if levelSegment.floors[0].plane.withinBorder(personPosition):
+                person.nextFloor = levelSegment.floors[0]
+            else:
+                person.nextFloor = NullFloor.instance
         else:
-            raise Exception("Wrong floors count in segment. Segment can contain zero or one floor.")
+            person.nextFloor = (
+                Query(levelSegment.floors)
+                .where(lambda floor: floor.plane.withinBorder(personPosition))
+                .orderByDesc(lambda floor: floor.getZ(personPosition.x, personPosition.y))
+                .firstOrNone()
+            ) or NullFloor.instance
 
     def commitNextFloor(self):
         for person in self.gameData.allPerson:

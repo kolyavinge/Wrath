@@ -23,8 +23,7 @@ class Stair(Floor):
         self.stepDirection2d.normalize()
         self.stepHeight = (self.endBasePoint.z - self.startBasePoint.z) / self.stepsCount
         self.stepLength = self.stepsLength / self.stepsCount
-        self.frontNormal = self.stepDirection2d.copy()
-        self.frontNormal.mul(-1.0)
+        self.frontNormal = CommonConstants.zAxis
         self.topNormal = Geometry.rotatePoint(self.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, Math.piHalf)
         self.topNormal.normalize()
         super().commit()

@@ -16,7 +16,10 @@ class RectPlane(Plane):
         self.calculateSideNormals()
 
     def containsPoint(self, point, eps):
-        return super().containsPoint(point, eps) and (
+        return super().containsPoint(point, eps) and self.withinBorder(point)
+
+    def withinBorder(self, point):
+        return (
             self.leftSideNormal.dotProduct(self.downLeft.getDirectionTo(point)) >= 0
             and self.rightSideNormal.dotProduct(self.downRight.getDirectionTo(point)) >= 0
             and self.topSideNormal.dotProduct(self.upLeft.getDirectionTo(point)) >= 0
