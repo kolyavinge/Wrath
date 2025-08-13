@@ -33,9 +33,11 @@ class PowerupPositionGenerator:
             position.y += y
 
         levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, position)
-        if len(levelSegment.floors) != 1:
-            raise Exception(f"Generated powerup position is out of segment floor: {position}. PowerupArea is {powerupArea}.")
-        floor = levelSegment.floors[0]
-        position.z = floor.getZ(position.x, position.y)
+        if len(levelSegment.floors) == 0:
+            raise Exception(f"No floors in segment. Cannot generate powerup position: {position}. PowerupArea is {powerupArea}.")
+
+        position.z = 0
+        for floor in levelSegment.floors:
+            position.z = Math.max(floor.getZ(position.x, position.y), position.z)
 
         return position
