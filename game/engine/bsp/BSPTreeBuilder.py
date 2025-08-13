@@ -94,10 +94,8 @@ class BSPTreeBuilder:
                 positionSet.add(SplitPlanePosition.front)
             elif position == SplitPlanePosition.back:
                 positionSet.add(SplitPlanePosition.back)
-            # ignore SplitPlanePosition.on
-
-        if len(positionSet) == 0:
-            positionSet.add(SplitPlanePosition.front)
+            else:  # SplitPlanePosition.on
+                positionSet.add(SplitPlanePosition.front)
 
         return positionSet
 

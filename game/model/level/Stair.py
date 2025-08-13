@@ -31,6 +31,18 @@ class Stair(Floor):
     def getFaceDirection(self):
         return FaceDirection.counterClockwise
 
+    def getBorderPoints(self):
+        return [
+            self.downLeft,
+            self.downRight,
+            self.upLeft,
+            self.upRight,
+            Vector3(self.downLeft.x, self.downLeft.y, self.maxZ),
+            Vector3(self.downRight.x, self.downRight.y, self.maxZ),
+            Vector3(self.upLeft.x, self.upLeft.y, self.maxZ),
+            Vector3(self.upRight.x, self.upRight.y, self.maxZ),
+        ]
+
     def getZ(self, x, y):
         position = Vector3(x, y, 0)
         position.sub(self.startBasePoint)
