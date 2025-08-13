@@ -1,6 +1,7 @@
 from game.anx.Events import Events
 from game.lib.EventManager import EventManager
 from game.model.person.AimState import DefaultAimState
+from game.render.debug.PlayerSegmentItemsRenderer import PlayerSegmentItemsRenderer
 from game.render.level.BackgroundRenderer import BackgroundRenderer
 from game.render.main.MainSceneRenderer import MainSceneRenderer
 from game.render.menu.DashboardRenderer import DashboardRenderer
@@ -27,6 +28,7 @@ class GameScreenRenderer:
         playerBloodStainRenderer: PlayerBloodStainRenderer,
         sniperCrosshairRenderer: SniperCrosshairRenderer,
         dashboardRenderer: DashboardRenderer,
+        playerSegmentItemsRenderer: PlayerSegmentItemsRenderer,
         eventManager: EventManager,
     ):
         self.gameScreenInitializer = gameScreenInitializer
@@ -39,6 +41,7 @@ class GameScreenRenderer:
         self.playerBloodStainRenderer = playerBloodStainRenderer
         self.sniperCrosshairRenderer = sniperCrosshairRenderer
         self.dashboardRenderer = dashboardRenderer
+        self.playerSegmentItemsRenderer = playerSegmentItemsRenderer
         self.renderFunc = self.renderDefaultAimState
         eventManager.attachToEvent(Events.aimStateSwitched, self.onAimStateSwitched)
 
@@ -50,6 +53,7 @@ class GameScreenRenderer:
 
     def renderDefaultAimState(self):
         self.mainSceneRenderer.renderDefaultAimState()
+        self.playerSegmentItemsRenderer.render()
         self.backgroundRenderer.render()
         self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()
