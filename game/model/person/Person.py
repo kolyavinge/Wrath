@@ -26,6 +26,7 @@ class Person:
         self.nextBorder = self.currentBorder.copy()
         self.bodyBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zChestLength)
         self.currentFloor = Floor()
+        self.nextFloor = Floor()
         self.pitchRadians = 0
         self.yawRadians = 0
         self.eyePosition = Vector3()

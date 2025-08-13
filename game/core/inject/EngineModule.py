@@ -53,6 +53,7 @@ from game.engine.person.EnemyLevelSegmentsUpdater import *
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonBreathUpdater import *
 from game.engine.person.PersonDamageLogic import *
+from game.engine.person.PersonFloorUpdater import *
 from game.engine.person.PersonJumpUpdater import *
 from game.engine.person.PersonLevelSegmentsUpdater import *
 from game.engine.person.PersonMovingTimeUpdater import *
@@ -152,6 +153,7 @@ class EngineModule:
         binder.bindSingleton(LevelSegmentVisibilityUpdater)
         binder.bindSingleton(PersonBreathUpdater)
         binder.bindSingleton(PersonDamageLogic)
+        binder.bindSingleton(PersonFloorUpdater)
         binder.bindSingleton(PersonJumpUpdater)
         binder.bindSingleton(PersonLevelSegmentsUpdater)
         binder.bindSingleton(PersonMovingTimeUpdater)

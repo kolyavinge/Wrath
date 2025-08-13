@@ -25,7 +25,7 @@ class PersonStepUpdater:
         doStep = False
         if person.zState == PersonZState.onFloor:
             person.stepTime += 1
-            if isinstance(person.currentFloor, Stair):
+            if isinstance(person.nextFloor, Stair):
                 doStep = person.currentCenterPoint.z != person.nextCenterPoint.z
             else:
                 doStep = person.stepTime > PersonConstants.stepTimeLimit

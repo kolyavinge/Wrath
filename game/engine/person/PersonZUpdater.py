@@ -1,5 +1,4 @@
 from game.anx.Events import Events
-from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.lib.EventManager import EventManager
@@ -13,12 +12,10 @@ class PersonZUpdater:
     def __init__(
         self,
         gameData: GameData,
-        traversal: BSPTreeTraversal,
         personDamageLogic: PersonDamageLogic,
         eventManager: EventManager,
     ):
         self.gameData = gameData
-        self.traversal = traversal
         self.personDamageLogic = personDamageLogic
         self.eventManager = eventManager
 
@@ -32,18 +29,13 @@ class PersonZUpdater:
             self.updatePerson(person)
 
     def updatePerson(self, person):
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, person.nextCenterPoint)
-        assert levelSegment is not None
-        if len(levelSegment.floors) == 1:
-            self.processFloor(person, levelSegment)
-        elif len(levelSegment.floors) == 0:
-            self.processHole(person)
+        if person.nextFloor is not None:
+            self.processFloor(person)
         else:
-            raise Exception("Wrong floors count in segment. Segment can contain zero or one floor.")
+            self.processHole(person)
 
-    def processFloor(self, person, levelSegment):
-        person.currentFloor = levelSegment.floors[0]
-        floorZ = person.currentFloor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
+    def processFloor(self, person):
+        floorZ = person.nextFloor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
         personOnFloor = Numeric.between(person.getZ() - floorZ, -0.4, 0.4)
         if personOnFloor and person.zState == PersonZState.onFloor and person.jumpingValue == 0:
             person.setZ(floorZ)

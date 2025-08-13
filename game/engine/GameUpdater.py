@@ -12,6 +12,7 @@ from game.engine.person.CowboyEasterEggUpdater import CowboyEasterEggUpdater
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonBreathUpdater import PersonBreathUpdater
+from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
 from game.engine.person.PersonJumpUpdater import PersonJumpUpdater
 from game.engine.person.PersonMovingTimeUpdater import PersonMovingTimeUpdater
 from game.engine.person.PersonPositionUpdater import PersonPositionUpdater
@@ -48,6 +49,7 @@ class GameUpdater:
     personMovingTimeUpdater: PersonMovingTimeUpdater
     personVelocityUpdater: PersonVelocityUpdater
     personZUpdater: PersonZUpdater
+    personFloorUpdater: PersonFloorUpdater
     personWallCollisionUpdater: PersonWallCollisionUpdater
     personCollisionUpdater: PersonCollisionUpdater
     personCeilingCollisionUpdater: PersonCeilingCollisionUpdater
@@ -95,6 +97,7 @@ class GameUpdater:
         self.personMovingTimeUpdater.update()
         self.personVelocityUpdater.update()
         self.personPositionUpdater.moveNextPosition()
+        self.personFloorUpdater.updateNextFloor()
         self.personJumpUpdater.update()
         self.personWallCollisionUpdater.update()
         self.personCollisionUpdater.update()
@@ -105,6 +108,7 @@ class GameUpdater:
         self.enemyLevelSegmentsUpdater.updateIfMoved()
         self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
         self.personPositionUpdater.commitNextPosition()
+        self.personFloorUpdater.commitNextFloor()
         self.playerMovingSwingUpdater.update()
         self.cameraUpdater.update()
         self.backgroundVisibilityUpdater.updateIfPlayerMovedOrTurned()
