@@ -1,5 +1,4 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.engine.bsp.SplitPlane import SplitPlane
 from game.levels.builder.CeilingBuilder import CeilingHole
@@ -8,8 +7,6 @@ from game.levels.builder.DoorwayBorder import DoorwayBorder
 from game.levels.builder.LevelBuilder import LevelBuilder
 from game.levels.builder.WallBorder import WallBorder
 from game.levels.builder.WallInfo import WallInfo
-from game.lib.Math import Math
-from game.model.level.Ceiling import Ceiling
 from game.model.level.Level import Level
 from game.model.level.LevelSegmentJoinLine import LevelSegmentJoinLine
 from game.model.level.PowerupArea import PowerupArea

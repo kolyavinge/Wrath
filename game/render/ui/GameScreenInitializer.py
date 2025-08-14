@@ -41,14 +41,15 @@ class GameScreenInitializer:
         self.enemyAnimationCollection = enemyAnimationCollection
 
     def init(self):
-        allLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
+        allVisibilityLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
 
         sw = Stopwatch()
         sw.start()
 
-        self.levelItemRenderCollection.init(allLevelSegments)
-        self.bulletHoleRenderCollection.init(allLevelSegments)
-        self.shadowCasterRenderCollection.init(allLevelSegments)
+        self.levelItemRenderCollection.init(allVisibilityLevelSegments)
+        # self.levelItemRenderCollection.init(allVisibilityLevelSegments + self.gameData.collisionTree.getAllLevelSegments())
+        self.bulletHoleRenderCollection.init(allVisibilityLevelSegments)
+        self.shadowCasterRenderCollection.init(allVisibilityLevelSegments)
         self.bulletRenderCollection.init()
         self.weaponRenderCollection.init()
         self.powerupRenderCollection.init()
