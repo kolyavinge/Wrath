@@ -14,6 +14,7 @@ class Stair(Floor):
         self.endBasePoint = Vector3()
         self.stepsCount = 0
         self.stepWidth = 0
+        self.includeBorderPoints = True
 
     def commit(self):
         self.maxZ = self.endBasePoint.z

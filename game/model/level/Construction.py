@@ -21,6 +21,7 @@ class Construction(VisibleLevelItem):
         self.frontUpRight = Vector3()
         self.visualSize = 1.0
         self.canCastShadow = True
+        self.includeBorderPoints = False
 
     def commit(self):
         self.faceDirection = self.getFaceDirection()
