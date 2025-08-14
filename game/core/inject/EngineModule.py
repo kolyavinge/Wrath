@@ -37,7 +37,6 @@ from game.engine.cm.VoidCollisionDetector import *
 from game.engine.cm.WallCollisionDetector import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
-from game.engine.level.LevelFloorCorrector import *
 from game.engine.level.LevelLoader import *
 from game.engine.level.LevelManager import *
 from game.engine.level.LevelSegmentItemFinder import *
@@ -137,7 +136,6 @@ class EngineModule:
         binder.bindSingleton(WallCollisionDetector)
         binder.bindSingleton(GameData)
         binder.bindSingleton(GameUpdater, resolveByFields=True)
-        binder.bindSingleton(LevelFloorCorrector)
         binder.bindSingleton(LevelLoader)
         binder.bindSingleton(LevelManager, resolveByFields=True)
         binder.bindSingleton(LevelSegmentItemFinder)
