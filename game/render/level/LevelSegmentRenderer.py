@@ -1,4 +1,5 @@
 from game.engine.GameData import GameData
+from game.lib.Query import Query
 from game.render.level.LevelItemRenderer import LevelItemRenderer
 from game.render.level.ShadowCasterRenderer import ShadowCasterRenderer
 from game.render.person.EnemyRenderer import EnemyRenderer
@@ -36,8 +37,14 @@ class LevelSegmentRenderer:
             self.powerupRenderer.render(shader, levelSegment)
             self.enemyRenderer.render(shader, levelSegment)
 
+        # self.printDebugInfo()
+
     def renderShadowCasters(self, shader):
         for levelSegment in self.gameData.visibleLevelSegments:
             shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerTorch)
             self.shadowCasterRenderer.render(shader, levelSegment)
             self.powerupRenderer.renderForShadow(shader, levelSegment)
+
+    def printDebugInfo(self):
+        constructions = Query([segment.allConstructions for segment in self.gameData.visibleLevelSegments]).flatten().result
+        print(f"all {len(constructions)}, unique {len(set(constructions))} {(len(set(constructions)) / len(constructions)):f}")
