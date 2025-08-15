@@ -13,8 +13,29 @@ class Math:
         return x if x < y else y
 
     @staticmethod
+    def minFromList(lst):
+        if len(lst) == 0:
+            return None
+
+        result = lst[0]
+        for item in lst:
+            result = Math.min(result, item)
+
+        return result
+
+    @staticmethod
     def max(x, y):
         return x if x > y else y
+
+    def maxFromList(lst):
+        if len(lst) == 0:
+            return None
+
+        result = lst[0]
+        for item in lst:
+            result = Math.max(result, item)
+
+        return result
 
     @staticmethod
     def abs(x):
