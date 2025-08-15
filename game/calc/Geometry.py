@@ -37,19 +37,24 @@ class Geometry:
         sin = Math.sin(radians)
         cos = Math.cos(radians)
 
-        a = point.copy()
-        a.mul(cos)
+        ax = point.x * cos
+        ay = point.y * cos
+        az = point.z * cos
 
-        b = pivotAxis.copy()
-        b.mul(pivotAxis.dotProduct(point))
-        b.mul(1 - cos)
+        dotProduct = pivotAxis.x * point.x + pivotAxis.y * point.y + pivotAxis.z * point.z
+        m = dotProduct * (1.0 - cos)
+        bx = pivotAxis.x * m
+        by = pivotAxis.y * m
+        bz = pivotAxis.z * m
 
-        c = pivotAxis.copy()
-        c.vectorProduct(point)
-        c.mul(sin)
+        cx = pivotAxis.y * point.z - pivotAxis.z * point.y
+        cy = pivotAxis.z * point.x - pivotAxis.x * point.z
+        cz = pivotAxis.x * point.y - pivotAxis.y * point.x
+        cx *= sin
+        cy *= sin
+        cz *= sin
 
-        a.add(b)
-        a.add(c)
+        a = Vector3(ax + bx + cx, ay + by + cy, az + bz + cz)
 
         # Формула Родрига
 
