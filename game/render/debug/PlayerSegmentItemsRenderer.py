@@ -35,11 +35,19 @@ class PlayerSegmentItemsRenderer:
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
 
-        for levelSegment in self.gameData.player.collisionLevelSegments:
-            model = self.renderCollection.getRenderModel3d(levelSegment)
-            self.model3dRenderer.renderForShadow(model)
+        # self.renderCollisionSegments()
+        self.renderVisibilitySegments()
 
         glDisable(GL_DEPTH_TEST)
         glDisable(GL_ALPHA_TEST)
 
         shader.unuse()
+
+    def renderCollisionSegments(self):
+        for levelSegment in self.gameData.player.collisionLevelSegments:
+            model = self.renderCollection.getRenderModel3d(levelSegment)
+            self.model3dRenderer.renderForShadow(model)
+
+    def renderVisibilitySegments(self):
+        model = self.renderCollection.getRenderModel3d(self.gameData.player.visibilityLevelSegment)
+        self.model3dRenderer.renderForShadow(model)
