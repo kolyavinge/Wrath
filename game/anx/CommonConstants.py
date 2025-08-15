@@ -18,4 +18,5 @@ class CommonConstants:
     up = Vector3(0, 0, 1)
     down = Vector3(0, 0, -1)
     mainTimerMsec = 20
+    renderTimerMsec = 40
     maxBulletHoles = 1000

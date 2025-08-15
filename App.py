@@ -41,13 +41,17 @@ class App:
         self.game = GameFactory.makeGame()
         # self.game = GameFactory.makeGame(levelDebugMode=True)  # отладочный режим для рисования местности
         glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
+        glutTimerFunc(CommonConstants.renderTimerMsec, self.renderCallback, 0)
         glutMainLoop()
 
     def timerCallback(self, value):
         self.game.updateCurrentScreen()
         self.game.voxCurrentScreen()
-        glutPostRedisplay()
         glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
+
+    def renderCallback(self, value):
+        glutPostRedisplay()
+        glutTimerFunc(CommonConstants.renderTimerMsec, self.renderCallback, 0)
 
     def keyup(self, key, a, b):
         if key == Keys.esc:
