@@ -37,6 +37,8 @@ class LevelSegmentVisibilityUpdater:
         direction = self.gameData.camera.position.getDirectionTo(point)
         if direction.getLength() > CommonConstants.maxDepth:
             return False
-        pointInFront = self.gameData.camera.lookDirection.dotProduct(direction) > 0
 
-        return pointInFront
+        dotProduct = self.gameData.camera.lookDirection.dotProduct(direction)
+        inCamera = self.gameData.camera.horizontalViewRadiansHalfCos < dotProduct
+
+        return inCamera
