@@ -55,7 +55,7 @@ class GameScreenRenderer:
 
     def renderDefaultAimState(self):
         self.mainSceneRenderer.renderDefaultAimState()
-        self.playerSegmentItemsRenderer.render()
+        # self.playerSegmentItemsRenderer.render()
         self.backgroundRenderer.render()
         self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()

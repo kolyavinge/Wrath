@@ -39,6 +39,7 @@ from game.engine.weapon.SniperAimFloatingUpdater import SniperAimFloatingUpdater
 from game.engine.weapon.WeaponDelayUpdater import WeaponDelayUpdater
 from game.engine.weapon.WeaponFireUpdater import WeaponFireUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
+from game.tools.CpuProfiler import cpuProfile
 from game.tools.timeProfile import timeProfile
 
 
@@ -88,6 +89,7 @@ class GameUpdater:
     selectWeaponRequestListener: SelectWeaponRequestListener
 
     # @timeProfile("Game updated")
+    # @cpuProfile
     def update(self):
         # --- main game loop ---
 
