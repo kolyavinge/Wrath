@@ -2,6 +2,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.SphereSegmentCalculator import SphereSegmentCalculator
 from game.engine.GameData import GameData
+from game.tools.CpuProfiler import cpuProfile
 
 
 class BackgroundVisibilityUpdater:
@@ -13,22 +14,23 @@ class BackgroundVisibilityUpdater:
     ):
         self.sphereRadius = CommonConstants.maxLevelSize
         self.gameData = gameData
-        self.gameData.backgroundVisibility.horizontalPointsCount = 17
-        self.gameData.backgroundVisibility.verticalPointsCount = 11
+        self.gameData.backgroundVisibility.horizontalPointsCount = 7
+        self.gameData.backgroundVisibility.verticalPointsCount = 5
         self.sphereSegmentCalculator = sphereSegmentCalculator
 
     def updateIfPlayerMovedOrTurned(self):
         if self.gameData.player.hasMoved or self.gameData.player.hasTurned or self.gameData.camera.hasVerticalViewRadiansChanged:
             self.update()
 
+    # @cpuProfile
     def update(self):
         player = self.gameData.player
         camera = self.gameData.camera
         endPoint = player.lookDirection.copy()
-        endPoint.setLength(2 * self.sphereRadius)
+        endPoint.mul(2 * self.sphereRadius)
         endPoint.add(camera.position)
 
-        centerPoint = Geometry.getSphereIntersectPointOrNone(self.sphereRadius, camera.position, endPoint)
+        centerPoint = Geometry.getSphereIntersectPointOrNone(self.sphereRadius, camera.position, endPoint, 100.0)
         self.gameData.backgroundVisibility.vertices = self.sphereSegmentCalculator.getVertices(
             camera.position,
             centerPoint,
