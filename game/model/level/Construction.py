@@ -6,8 +6,12 @@ from game.model.level.VisibleLevelItem import VisibleLevelItem
 
 class Construction(VisibleLevelItem):
 
+    idCounter = 1
+
     def __init__(self):
         super().__init__()
+        self.id = Construction.idCounter
+        Construction.idCounter += 1
         # глобальные координаты
         self.downLeft = Vector3()
         self.downRight = Vector3()
