@@ -36,7 +36,10 @@ class NebulaLevel(Level):
         self.makePowerups()
 
     def makeFirstFloor(self, builder):
-        builder.buildFlatFloor(Vector3(0, 0, 0), 100, 100, Material.rock1)
+        builder.buildFlatFloor(Vector3(0, 0, 0), 45, 50, Material.rock1)
+        builder.buildFlatFloor(Vector3(45, 0, 0), 55, 50, Material.rock1)
+        builder.buildFlatFloor(Vector3(0, 50, 0), 45, 50, Material.rock1)
+        builder.buildFlatFloor(Vector3(45, 50, 0), 55, 50, Material.rock1)
 
         builder.buildWalls(
             Vector3(0, 0, 0),
@@ -197,6 +200,13 @@ class NebulaLevel(Level):
             WallInfo(
                 Vector3(55, 0, 0),
                 Vector3(-1, 0, 0),
+                self.firstFloorHeight,
+                Material.construction7,
+                visualSize=4.0,
+            ),
+            WallInfo(
+                Vector3(45, 0, 0),
+                Vector3(0, 1, 0),
                 self.firstFloorHeight,
                 Material.construction7,
                 visualSize=4.0,
@@ -428,6 +438,8 @@ class NebulaLevel(Level):
         builder.buildLight(Vector3(50, 50, self.secondFloorZ + self.secondFloorHeight + 10), 2.0)
 
     def makeJoinLines(self):
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(45, 10, self.firstFloorZ + 1), Vector3(45, 90, self.firstFloorZ + 1)))
+
         self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 15, self.secondFloorZ), Vector3(100, 15, self.secondFloorZ)))
         self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 15, self.secondFloorZ), Vector3(20, 100, self.secondFloorZ)))
         self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, self.secondFloorZ), Vector3(90, 80, self.secondFloorZ)))
@@ -501,9 +513,9 @@ class NebulaLevel(Level):
         yield SplitPlane(Vector3(61, 70, self.secondFloorZ), Vector3(-1, 0, 0))
 
     def getVisibilitySplitPlanes(self):
-        yield SplitPlane(Vector3(50, 50, self.firstFloorZ), Vector3(0, 0, 1))
         yield SplitPlane(Vector3(50, 50, self.secondFloorZ), Vector3(0, 0, 1))
         yield SplitPlane(Vector3(50, 50, self.secondFloorZ + self.secondFloorHeight), Vector3(0, 0, 1))
+        yield SplitPlane(Vector3(45, 50, self.firstFloorZ + 1), Vector3(1, 0, 0))
 
     def getPlayerInitInfo(self):
         return (Vector3(80, 52, self.firstFloorZ), Vector3(1, 0, 0).getNormalized(), Pistol)
