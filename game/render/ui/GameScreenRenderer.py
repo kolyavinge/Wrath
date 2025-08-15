@@ -12,6 +12,7 @@ from game.render.weapon.CrosshairRenderer import CrosshairRenderer
 from game.render.weapon.ShineBulletRenderer import ShineBulletRenderer
 from game.render.weapon.SniperCrosshairRenderer import SniperCrosshairRenderer
 from game.render.weapon.WeaponFlashRenderer import WeaponFlashRenderer
+from game.tools.timeProfile import timeProfile
 
 
 class GameScreenRenderer:
@@ -48,12 +49,13 @@ class GameScreenRenderer:
     def init(self):
         self.gameScreenInitializer.init()
 
+    # @timeProfile("Rendered")
     def render(self):
         self.renderFunc()
 
     def renderDefaultAimState(self):
         self.mainSceneRenderer.renderDefaultAimState()
-        # self.playerSegmentItemsRenderer.render()
+        self.playerSegmentItemsRenderer.render()
         self.backgroundRenderer.render()
         self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()

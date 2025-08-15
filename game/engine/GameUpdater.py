@@ -39,7 +39,7 @@ from game.engine.weapon.SniperAimFloatingUpdater import SniperAimFloatingUpdater
 from game.engine.weapon.WeaponDelayUpdater import WeaponDelayUpdater
 from game.engine.weapon.WeaponFireUpdater import WeaponFireUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
-from game.lib.Stopwatch import Stopwatch
+from game.tools.timeProfile import timeProfile
 
 
 class GameUpdater:
@@ -87,10 +87,8 @@ class GameUpdater:
     # event listeners
     selectWeaponRequestListener: SelectWeaponRequestListener
 
+    # @timeProfile("Game updated")
     def update(self):
-        # sw = Stopwatch()
-        # sw.start()
-
         # --- main game loop ---
 
         self.personTurnUpdater.update()
@@ -140,6 +138,3 @@ class GameUpdater:
         self.sniperAimFloatingUpdater.update()
         self.gameData.collisionData.clear()
         self.gameData.updateGlobalTime()
-
-        # sw.stop()
-        # sw.printElapsed()

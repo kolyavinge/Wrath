@@ -1,5 +1,4 @@
 from game.engine.GameData import GameData
-from game.lib.Stopwatch import Stopwatch
 from game.render.level.LevelItemRenderCollection import LevelItemRenderCollection
 from game.render.level.ShadowCasterRenderCollection import ShadowCasterRenderCollection
 from game.render.person.EnemyAnimationCollection import EnemyAnimationCollection
@@ -10,6 +9,7 @@ from game.render.weapon.BulletHoleRenderCollection import BulletHoleRenderCollec
 from game.render.weapon.BulletRenderCollection import BulletRenderCollection
 from game.render.weapon.WeaponFlashRenderCollection import WeaponFlashRenderCollection
 from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection
+from game.tools.timeProfile import timeProfile
 
 
 class GameScreenInitializer:
@@ -40,12 +40,9 @@ class GameScreenInitializer:
         self.enemyRenderCollection = enemyRenderCollection
         self.enemyAnimationCollection = enemyAnimationCollection
 
+    # @timeProfile("GameScreenInitializer")
     def init(self):
         allVisibilityLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
-
-        sw = Stopwatch()
-        sw.start()
-
         self.levelItemRenderCollection.init(allVisibilityLevelSegments)
         # self.levelItemRenderCollection.init(allVisibilityLevelSegments + self.gameData.collisionTree.getAllLevelSegments())
         self.bulletHoleRenderCollection.init(allVisibilityLevelSegments)
@@ -57,6 +54,3 @@ class GameScreenInitializer:
         self.playerBloodStainRenderCollection.init()
         self.enemyRenderCollection.init()
         self.enemyAnimationCollection.init()
-
-        sw.stop()
-        print(f"GameScreenInitializer: {sw.elapsed:.8f}")
