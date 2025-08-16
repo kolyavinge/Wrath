@@ -10,6 +10,7 @@ from game.engine.GameData import GameData
 from game.engine.person.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.person.CowboyEasterEggUpdater import CowboyEasterEggUpdater
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
+from game.engine.person.EnemyVisibilityUpdater import EnemyVisibilityUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonBreathUpdater import PersonBreathUpdater
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
@@ -63,6 +64,7 @@ class GameUpdater:
     personJumpUpdater: PersonJumpUpdater
     personUpdater: PersonUpdater
     levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater
+    enemyVisibilityUpdater: EnemyVisibilityUpdater
     cameraUpdater: CameraUpdater
     personBreathUpdater: PersonBreathUpdater
     sniperAimFloatingUpdater: SniperAimFloatingUpdater
@@ -109,6 +111,7 @@ class GameUpdater:
         self.playerLevelSegmentsUpdater.updateIfMoved()
         self.enemyLevelSegmentsUpdater.updateIfMoved()
         self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
+        self.enemyVisibilityUpdater.updateEnemiesVisibility()
         self.playerMovingSwingUpdater.update()
         self.cameraUpdater.update()
         self.backgroundVisibilityUpdater.updateIfPlayerMovedOrTurned()
