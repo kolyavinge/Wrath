@@ -121,8 +121,11 @@ class Geometry:
 
         return projected
 
+    # получить проекцию точки в пикселях на экране
     @staticmethod
     def getScreenProjectedPoint(modelMatrix, viewMatrix, projectionMatrix, viewport, point):
+        # в классе CameraScopeChecker.isPointInCamera() использован более правильный способ
+        # без использования видовой матрицы (viewPoint = viewMatrix.mulVector3(point)) и деления на -viewPoint.z
         mvpMatrix = projectionMatrix.copy()
         mvpMatrix.mul(viewMatrix)
         mvpMatrix.mul(modelMatrix)

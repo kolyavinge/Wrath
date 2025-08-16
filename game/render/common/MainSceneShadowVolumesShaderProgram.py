@@ -15,6 +15,13 @@ class MainSceneShadowVolumesShaderProgram(ShaderProgram):
     def setProjectionMatrix(self, projectionMatrix):
         self.setTransformMatrix4("projectionMatrix", projectionMatrix)
 
+    def hasAnimation(self, value):
+        self.setInt32("hasAnimation", 1 if value else 0)
+
+    def setBoneTransformMatrices(self, boneTransformMatrices):
+        for index, matrix in enumerate(boneTransformMatrices):
+            self.setTransformMatrix4(f"boneTransformMatrices[{index}]", matrix)
+
     def setLight(self, lights, torch):
         lightIndex = 0
         for light in lights:

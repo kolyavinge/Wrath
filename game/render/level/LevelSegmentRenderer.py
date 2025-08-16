@@ -44,6 +44,7 @@ class LevelSegmentRenderer:
             shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerTorch)
             self.shadowCasterRenderer.render(shader, levelSegment)
             self.powerupRenderer.renderForShadow(shader, levelSegment)
+            self.enemyRenderer.renderForShadow(shader, levelSegment)
 
     def printDebugInfo(self):
         constructions = Query([segment.allConstructions for segment in self.gameData.visibleLevelSegments]).flatten().result

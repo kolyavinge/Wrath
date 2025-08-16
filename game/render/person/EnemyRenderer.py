@@ -52,3 +52,14 @@ class EnemyRenderer:
             or self.cameraScopeChecker.isPointInCamera(border.top.downLeft)
             or self.cameraScopeChecker.isPointInCamera(border.top.upRight)
         )
+
+    def renderForShadow(self, shader, levelSegment):
+        shader.hasAnimation(True)
+        for enemy in levelSegment.enemies:
+            if not self.isEnemyVisible(enemy):
+                return
+            shader.setModelMatrix(enemy.getModelMatrix())
+            animation = self.enemyAnimationCollection.getPlayableAnimationOrNone(enemy)
+            shader.setBoneTransformMatrices(animation.boneTransformMatrices)
+            self.model3dRenderer.renderForShadow(self.renderCollection.enemyModel)
+        shader.hasAnimation(False)
