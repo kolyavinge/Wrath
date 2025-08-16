@@ -1,11 +1,17 @@
 from game.anx.CommonConstants import CommonConstants
+from game.engine.CameraScopeChecker import CameraScopeChecker
 from game.engine.GameData import GameData
 
 
 class LevelSegmentVisibilityUpdater:
 
-    def __init__(self, gameData: GameData):
+    def __init__(
+        self,
+        gameData: GameData,
+        cameraScopeChecker: CameraScopeChecker,
+    ):
         self.gameData = gameData
+        self.cameraScopeChecker = cameraScopeChecker
 
     def updateIfPlayerMovedOrTurned(self):
         player = self.gameData.player
@@ -34,11 +40,4 @@ class LevelSegmentVisibilityUpdater:
         return False
 
     def isPointVisible(self, point):
-        direction = self.gameData.camera.position.getDirectionTo(point)
-        if direction.getLength() > CommonConstants.maxDepth:
-            return False
-
-        dotProduct = self.gameData.camera.lookDirection.dotProduct(direction)
-        inCamera = self.gameData.camera.horizontalViewRadiansHalfCos < dotProduct
-
-        return inCamera
+        return self.cameraScopeChecker.isPointInCamera(point) and self.gameData.camera.position.getLengthTo(point) < CommonConstants.maxDepth

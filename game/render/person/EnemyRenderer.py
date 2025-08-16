@@ -1,5 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
-from game.anx.PersonConstants import PersonConstants
+from game.engine.CameraScopeChecker import CameraScopeChecker
 from game.engine.GameData import GameData
 from game.gl.model3d.AnimationPlayer import AnimationPlayer
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
@@ -17,23 +17,24 @@ class EnemyRenderer:
         model3dRenderer: Model3dRenderer,
         enemyAnimationCollection: EnemyAnimationCollection,
         animationPlayer: AnimationPlayer,
+        cameraScopeChecker: CameraScopeChecker,
     ):
         self.gameData = gameData
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
         self.enemyAnimationCollection = enemyAnimationCollection
         self.animationPlayer = animationPlayer
+        self.cameraScopeChecker = cameraScopeChecker
 
     def render(self, shader, levelSegment):
         for enemy in levelSegment.enemies:
             self.renderEnemy(enemy, shader)
 
     def renderEnemy(self, enemy, shader):
-        enemyDirection = self.gameData.camera.position.getDirectionTo(enemy.middleCenterPoint)
-        enemyDirectionLength = enemyDirection.getLength()
-        if not self.isEnemyVisible(enemyDirection, enemyDirectionLength):
+        if not self.isEnemyVisible(enemy):
             return
         shader.setModelMatrix(enemy.getModelMatrix())
+        enemyDirectionLength = self.gameData.camera.position.getLengthTo(enemy.middleCenterPoint)
         if enemyDirectionLength < CommonConstants.maxEnemyAnimationDistance or type(self.gameData.aimState) == SniperAimState:
             animation = self.enemyAnimationCollection.getPlayableAnimationOrNone(enemy)
             if animation is not None:
@@ -43,15 +44,11 @@ class EnemyRenderer:
         self.model3dRenderer.render(self.renderCollection.enemyModel, shader)
         shader.hasAnimation(False)
 
-    def isEnemyVisible(self, enemyDirection, enemyDirectionLength):
-        dotProduct = self.gameData.camera.lookDirection.dotProduct(enemyDirection)
-        if dotProduct < 0:
-            return False
-
-        if enemyDirectionLength < PersonConstants.zLength:
-            return True
-
-        dotProduct /= enemyDirectionLength
-        isVisible = self.gameData.camera.horizontalViewRadiansHalfCos < dotProduct
-
-        return isVisible
+    def isEnemyVisible(self, enemy):
+        border = enemy.currentBorder
+        return (
+            self.cameraScopeChecker.isPointInCamera(border.bottom.downLeft)
+            or self.cameraScopeChecker.isPointInCamera(border.bottom.upRight)
+            or self.cameraScopeChecker.isPointInCamera(border.top.downLeft)
+            or self.cameraScopeChecker.isPointInCamera(border.top.upRight)
+        )

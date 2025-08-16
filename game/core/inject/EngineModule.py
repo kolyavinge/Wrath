@@ -17,6 +17,7 @@ from game.engine.ai.state.StateHandlerCollection import *
 from game.engine.ai.state.WeaponSearchStateHandler import *
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
+from game.engine.CameraScopeChecker import *
 from game.engine.CameraUpdater import *
 from game.engine.cm.BulletCollisionDetector import *
 from game.engine.cm.BulletCollisionUpdater import *
@@ -116,6 +117,7 @@ class EngineModule:
         binder.bindSingleton(WeaponSearchStateHandler)
         binder.bindSingleton(BSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal)
+        binder.bindSingleton(CameraScopeChecker)
         binder.bindSingleton(CameraUpdater)
         binder.bindSingleton(BulletCollisionDetector)
         binder.bindSingleton(BulletCollisionUpdater)

@@ -13,3 +13,4 @@ class CameraUpdater:
         camera.calculateViewMatrix()
         camera.setVerticalViewRadians(self.gameData.aimState.verticalViewRadians)
         camera.calculateProjectionMatrix()
+        camera.calculateProjectionViewMatrix()
