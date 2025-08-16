@@ -25,11 +25,10 @@ class EnemyRenderer:
 
     def render(self, shader, levelSegment):
         for enemy in levelSegment.enemies:
-            self.renderEnemy(enemy, shader)
+            if enemy.isVisibleForPlayer:
+                self.renderEnemy(enemy, shader)
 
     def renderEnemy(self, enemy, shader):
-        if not enemy.isVisibleForPlayer:
-            return
         shader.setModelMatrix(enemy.getModelMatrix())
         enemyDirectionLength = self.gameData.camera.position.getLengthTo(enemy.middleCenterPoint)
         if enemyDirectionLength < CommonConstants.maxEnemyAnimationDistance or type(self.gameData.aimState) == SniperAimState:
@@ -44,10 +43,12 @@ class EnemyRenderer:
     def renderForShadow(self, shader, levelSegment):
         shader.hasAnimation(True)
         for enemy in levelSegment.enemies:
-            if not enemy.isVisibleForPlayer:
-                return
-            shader.setModelMatrix(enemy.getModelMatrix())
-            animation = self.enemyAnimationCollection.getPlayableAnimationOrNone(enemy)
-            shader.setBoneTransformMatrices(animation.boneTransformMatrices)
-            self.model3dRenderer.renderForShadow(self.renderCollection.enemyModel)
+            if enemy.isVisibleForPlayer:
+                self.renderEnemyForShadow(enemy, shader)
         shader.hasAnimation(False)
+
+    def renderEnemyForShadow(self, enemy, shader):
+        shader.setModelMatrix(enemy.getModelMatrix())
+        animation = self.enemyAnimationCollection.getPlayableAnimationOrNone(enemy)
+        shader.setBoneTransformMatrices(animation.boneTransformMatrices)
+        self.model3dRenderer.renderForShadow(self.renderCollection.enemyModel)
