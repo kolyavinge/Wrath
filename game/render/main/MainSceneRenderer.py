@@ -23,7 +23,8 @@ class MainSceneRenderer:
 
     def defaultAimStateFunc(self, shader):
         self.levelSegmentRenderer.render(shader)
-        self.weaponRenderer.renderAllWeapons(shader)
+        self.weaponRenderer.renderPlayerWeapons(shader)
+        self.weaponRenderer.renderEnemyWeapons(shader)
 
     def sniperAimStateFunc(self, shader):
         self.levelSegmentRenderer.render(shader)

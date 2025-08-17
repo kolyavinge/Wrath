@@ -15,17 +15,17 @@ class WeaponRenderer:
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
 
-    def renderAllWeapons(self, shader):
-        for personItems in self.gameData.allPersonItems.values():
-            self.renderWeapon(shader, personItems.rightHandWeapon)
-            if personItems.leftHandWeapon is not None:
-                self.renderWeapon(shader, personItems.leftHandWeapon)
+    def renderPlayerWeapons(self, shader):
+        self.renderWeapon(shader, self.gameData.playerItems.rightHandWeapon)
+        if self.gameData.playerItems.leftHandWeapon is not None:
+            self.renderWeapon(shader, self.gameData.playerItems.leftHandWeapon)
 
     def renderEnemyWeapons(self, shader):
-        for enemyItems in self.gameData.enemyItems.values():
-            self.renderWeapon(shader, enemyItems.rightHandWeapon)
-            if enemyItems.leftHandWeapon is not None:
-                self.renderWeapon(shader, enemyItems.leftHandWeapon)
+        for enemy, enemyItems in self.gameData.enemyItems.items():
+            if enemy.isVisibleForPlayer:
+                self.renderWeapon(shader, enemyItems.rightHandWeapon)
+                if enemyItems.leftHandWeapon is not None:
+                    self.renderWeapon(shader, enemyItems.leftHandWeapon)
 
     def renderWeapon(self, shader, weapon):
         shader.setModelMatrix(weapon.getModelMatrix())
