@@ -22,6 +22,8 @@ class EnemyRenderer:
         self.model3dRenderer = model3dRenderer
         self.enemyAnimationCollection = enemyAnimationCollection
         self.animationPlayer = animationPlayer
+        if not self.gameData.canEnemiesCastShadows:
+            self.renderEnemyForShadow = lambda enemy, shader: None
 
     def render(self, shader, levelSegment):
         for enemy in levelSegment.enemies:

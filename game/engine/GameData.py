@@ -62,8 +62,9 @@ class GameData:
         self.backgroundVisibility = BackgroundVisibilityData()
         # for debug
         self.isDebug = True
-        self.noEnemies = True
+        self.noEnemies = False
         self.enemyFreeze = True
+        self.canEnemiesCastShadows = False
 
     def updateGlobalTime(self):
         self.globalTimeMsec += CommonConstants.mainTimerMsec
