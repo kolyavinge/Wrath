@@ -1,4 +1,5 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.lib.sys import warn
 
 
 class LevelSegmentJoinLineAnalyzer:
@@ -28,6 +29,8 @@ class LevelSegmentJoinLineAnalyzer:
                 joinLine.backLevelSegment = backLevelSegment
                 frontLevelSegment.joinLines.append(joinLine)
                 backLevelSegment.joinLines.append(joinLine)
+            else:
+                warn("JoinLine has no front and back segments.")
 
     def removeEmptyJoinLines(self, level):
         level.joinLines = [x for x in level.joinLines if x.frontLevelSegment is not None and x.backLevelSegment is not None]

@@ -440,21 +440,21 @@ class NebulaLevel(Level):
     def makeJoinLines(self):
         self.addJoinLine(LevelSegmentJoinLine(Vector3(45, 10, self.firstFloorZ + 1), Vector3(45, 90, self.firstFloorZ + 1)))
 
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 15, self.secondFloorZ), Vector3(100, 15, self.secondFloorZ)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 15, self.secondFloorZ), Vector3(20, 100, self.secondFloorZ)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, self.secondFloorZ), Vector3(90, 80, self.secondFloorZ)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(90, 15, self.secondFloorZ), Vector3(90, 80, self.secondFloorZ)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 15, self.secondFloorZ), Vector3(100, 15, self.secondFloorZ), CommonConstants.zAxis))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(10, 15, self.secondFloorZ), Vector3(10, 100, self.secondFloorZ), CommonConstants.zAxis))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, self.secondFloorZ), Vector3(90, 80, self.secondFloorZ), CommonConstants.zAxis))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(90, 15, self.secondFloorZ), Vector3(90, 80, self.secondFloorZ), CommonConstants.zAxis))
 
         z = self.secondFloorZ + self.secondFloorHeight
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 0, z), Vector3(100, 0, z)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 0, z), Vector3(0, 100, z)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(100, 0, z), Vector3(100, 100, z)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 100, z), Vector3(100, 100, z)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 0, z), Vector3(100, 0, z), CommonConstants.zAxis))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 0, z), Vector3(0, 100, z), CommonConstants.zAxis))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(100, 0, z), Vector3(100, 100, z), CommonConstants.zAxis))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(0, 100, z), Vector3(100, 100, z), CommonConstants.zAxis))
 
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 20, z), Vector3(80, 20, z)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 20, z), Vector3(20, 80, z)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(80, 20, z), Vector3(80, 80, z)))
-        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, z), Vector3(80, 80, z)))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 20, z), Vector3(80, 20, z), CommonConstants.zAxis))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 20, z), Vector3(20, 80, z), CommonConstants.zAxis))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(80, 20, z), Vector3(80, 80, z), CommonConstants.zAxis))
+        self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, z), Vector3(80, 80, z), CommonConstants.zAxis))
 
     def makePowerups(self):
         self.addPowerupArea(PowerupArea(Vector3(50, 50, self.firstFloorZ), Vector3(50, 50, self.firstFloorZ), 40))
@@ -518,11 +518,11 @@ class NebulaLevel(Level):
         yield SplitPlane(Vector3(45, 50, self.firstFloorZ + 1), Vector3(1, 0, 0))
 
     def getPlayerInitInfo(self):
-        return (Vector3(80, 52, self.firstFloorZ), Vector3(1, 0, 0).getNormalized(), Pistol)
+        return (Vector3(80, 53, self.firstFloorZ), Vector3(1, 0, 0).getNormalized(), Pistol)
 
     def getEnemyInitInfo(self):
         return [
-            (Vector3(50, 50, self.firstFloorZ), Vector3(1, 0, 0).getNormalized(), Pistol),
+            # (Vector3(50, 50, self.firstFloorZ), Vector3(1, 0, 0).getNormalized(), Pistol),
             (Vector3(88, 53, self.firstFloorZ), Vector3(-1, 0, 0).getNormalized(), Pistol),
-            (Vector3(40, 50, self.secondFloorZ), Vector3(-1, 0, 0).getNormalized(), Pistol),
+            # (Vector3(40, 50, self.secondFloorZ), Vector3(-1, 0, 0).getNormalized(), Pistol),
         ]

@@ -40,4 +40,10 @@ class LevelSegmentVisibilityUpdater:
         return False
 
     def isPointVisible(self, point):
-        return self.cameraScopeChecker.isPointInCamera(point) and self.gameData.camera.position.getLengthTo(point) < CommonConstants.maxDepth
+        direction = self.gameData.camera.position.getDirectionTo(point)
+        if direction.getLength() > CommonConstants.maxDepth:
+            return False
+
+        pointInFront = self.gameData.camera.lookDirection.dotProduct(direction) > 0
+
+        return pointInFront
