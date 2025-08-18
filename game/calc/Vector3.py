@@ -104,23 +104,16 @@ class Vector3:
         return f"{self.x:.2f} : {self.y:.2f} : {self.z:.2f}"
 
     @staticmethod
-    def fromStartToEnd(startPoint, endPoint, stepLength, action):
+    def fromStartToEnd(startPoint, endPoint, stepLength):
         stepDirection = startPoint.getDirectionTo(endPoint)
         stepsCount = int(stepDirection.getLength() / stepLength)
         stepDirection.setLength(stepLength)
-        action(startPoint.copy())
+        yield startPoint.copy()
         point = startPoint.copy()
         for _ in range(stepsCount - 1):
             point.add(stepDirection)
-            action(point.copy())
-        action(endPoint.copy())
-
-    @staticmethod
-    def splitFromStartToEnd(startPoint, endPoint, stepLength):
-        result = []
-        Vector3.fromStartToEnd(startPoint, endPoint, stepLength, lambda point: result.append(point))
-
-        return result
+            yield point.copy()
+        yield endPoint.copy()
 
     @staticmethod
     def getRandomNormalVector():

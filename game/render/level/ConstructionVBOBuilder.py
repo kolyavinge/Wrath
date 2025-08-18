@@ -26,18 +26,18 @@ class ConstructionVBOBuilder:
             leftStepLength = stepLength * leftDirectionLength / rightDirectionLength
             rightStepLength = stepLength
 
-        leftPoints = Vector3.splitFromStartToEnd(item.frontDownLeft, item.frontUpLeft, leftStepLength)
-        rightPoints = Vector3.splitFromStartToEnd(item.frontDownRight, item.frontUpRight, rightStepLength)
+        leftPoints = list(Vector3.fromStartToEnd(item.frontDownLeft, item.frontUpLeft, leftStepLength))
+        rightPoints = list(Vector3.fromStartToEnd(item.frontDownRight, item.frontUpRight, rightStepLength))
         assert len(leftPoints) == len(rightPoints)
 
         for i in range(1, len(leftPoints)):
-            downPoints = Vector3.splitFromStartToEnd(leftPoints[i - 1], rightPoints[i - 1], stepLength)
+            downPoints = list(Vector3.fromStartToEnd(leftPoints[i - 1], rightPoints[i - 1], stepLength))
             assert len(downPoints) > 1
             stepLength = leftPoints[i].getLengthTo(rightPoints[i]) / (len(downPoints) - 1)
             if Numeric.moreThanNFloatDigits(stepLength, 5):
                 msg = f"stepLength in ConstructionVBOBuilder has too many float digits ({stepLength}). Problems with texture alignment can occur."
                 warn(msg)
-            upPoints = Vector3.splitFromStartToEnd(leftPoints[i], rightPoints[i], stepLength)
+            upPoints = list(Vector3.fromStartToEnd(leftPoints[i], rightPoints[i], stepLength))
             assert len(downPoints) == len(upPoints)
             for j in range(1, len(downPoints)):
                 self.addVertices(vboBuilder, item, downPoints[j - 1], downPoints[j], upPoints[j - 1], upPoints[j])

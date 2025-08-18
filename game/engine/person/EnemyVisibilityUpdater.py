@@ -20,7 +20,7 @@ class EnemyVisibilityUpdater:
 
     def isEnemyVisible(self, enemy):
         def checkPoints(startPoint, endPoint):
-            for point in Vector3.splitFromStartToEnd(startPoint, endPoint, 0.3):
+            for point in Vector3.fromStartToEnd(startPoint, endPoint, 0.3):
                 if self.cameraScopeChecker.isPointInCamera(point):
                     return True
 

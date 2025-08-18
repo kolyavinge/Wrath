@@ -11,8 +11,8 @@ class WallVBOBuilder(ConstructionVBOBuilder):
         if wall.orientation == Orientation.diagonal:
             stepLength /= Math.sqrt(2.0)
         stepLength = Math.min(stepLength, wall.direction.getLength())
-        downPoints = Vector3.splitFromStartToEnd(wall.frontDownLeft, wall.frontDownRight, stepLength)
-        upPoints = Vector3.splitFromStartToEnd(wall.frontUpLeft, wall.frontUpRight, stepLength)
+        downPoints = list(Vector3.fromStartToEnd(wall.frontDownLeft, wall.frontDownRight, stepLength))
+        upPoints = list(Vector3.fromStartToEnd(wall.frontUpLeft, wall.frontUpRight, stepLength))
         for i in range(1, len(downPoints)):
             downLeft = downPoints[i - 1]
             downRight = downPoints[i]
