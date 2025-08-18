@@ -20,4 +20,4 @@ class CameraScopeChecker:
 
         v.toNDC()
 
-        return Numeric.between(v.x, -1.0, 1.0) and Numeric.between(v.y, -1.0, 1.0)
+        return Numeric.between(v.x, -1.0, 1.0) and Numeric.between(v.y, -1.0, 1.0) and Numeric.between(v.z, -1.0, 1.0)
