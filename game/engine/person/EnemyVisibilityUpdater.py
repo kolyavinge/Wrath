@@ -1,3 +1,4 @@
+from game.calc.Vector3 import Vector3
 from game.engine.CameraScopeChecker import CameraScopeChecker
 from game.engine.GameData import GameData
 
@@ -18,10 +19,19 @@ class EnemyVisibilityUpdater:
                 enemy.isVisibleForPlayer = self.isEnemyVisible(enemy)
 
     def isEnemyVisible(self, enemy):
-        border = enemy.currentBorder
+        def checkPoints(startPoint, endPoint):
+            for point in Vector3.splitFromStartToEnd(startPoint, endPoint, 0.3):
+                if self.cameraScopeChecker.isPointInCamera(point):
+                    return True
+
+            return False
+
+        bottom = enemy.currentBorder.bottom
+        top = enemy.currentBorder.top
+
         return (
-            self.cameraScopeChecker.isPointInCamera(border.bottom.downLeft)
-            or self.cameraScopeChecker.isPointInCamera(border.bottom.upRight)
-            or self.cameraScopeChecker.isPointInCamera(border.top.downLeft)
-            or self.cameraScopeChecker.isPointInCamera(border.top.upRight)
+            checkPoints(bottom.downLeft, top.downLeft)
+            or checkPoints(bottom.downRight, top.downRight)
+            or checkPoints(bottom.upLeft, top.upLeft)
+            or checkPoints(bottom.upRight, top.upRight)
         )
