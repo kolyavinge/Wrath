@@ -6,7 +6,7 @@ class Vector4:
         self.z = z
         self.w = w
 
-    #  convert to Normalized Device Coordinates
+    # convert to Normalized Device Coordinates
     def toNDC(self):
         self.x /= self.w
         self.y /= self.w

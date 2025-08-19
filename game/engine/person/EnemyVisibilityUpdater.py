@@ -1,3 +1,5 @@
+from game.anx.PersonConstants import PersonConstants
+from game.calc.Box3d import Box3d
 from game.calc.Vector3 import Vector3
 from game.engine.CameraScopeChecker import CameraScopeChecker
 from game.engine.GameData import GameData
@@ -12,6 +14,7 @@ class EnemyVisibilityUpdater:
     ):
         self.gameData = gameData
         self.cameraScopeChecker = cameraScopeChecker
+        self.calculateVisibilityPoints()
 
     def updateEnemiesVisibility(self):
         for levelSegment in self.gameData.visibleLevelSegments:
@@ -19,19 +22,18 @@ class EnemyVisibilityUpdater:
                 enemy.isVisibleForPlayer = self.isEnemyVisible(enemy)
 
     def isEnemyVisible(self, enemy):
-        def checkPoints(startPoint, endPoint):
-            for point in Vector3.fromStartToEnd(startPoint, endPoint, 0.3):
-                if self.cameraScopeChecker.isPointInCamera(point):
-                    return True
+        shift = enemy.currentCenterPoint
+        for initPoint in self.initVisibilityPoints:
+            if self.cameraScopeChecker.isPointInCamera(initPoint.x + shift.x, initPoint.y + shift.y, initPoint.z + shift.z):
+                return True
 
-            return False
+        return False
 
-        bottom = enemy.currentBorder.bottom
-        top = enemy.currentBorder.top
-
-        return (
-            checkPoints(bottom.downLeft, top.downLeft)
-            or checkPoints(bottom.downRight, top.downRight)
-            or checkPoints(bottom.upLeft, top.upLeft)
-            or checkPoints(bottom.upRight, top.upRight)
-        )
+    def calculateVisibilityPoints(self):
+        box = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)
+        box.calculatePointsByCenter(Vector3(0, 0, 0))
+        self.initVisibilityPoints = []
+        self.initVisibilityPoints.extend(Vector3.fromStartToEnd(box.bottom.downLeft, box.top.downLeft, 0.3))
+        self.initVisibilityPoints.extend(Vector3.fromStartToEnd(box.bottom.downRight, box.top.downRight, 0.3))
+        self.initVisibilityPoints.extend(Vector3.fromStartToEnd(box.bottom.upLeft, box.top.upLeft, 0.3))
+        self.initVisibilityPoints.extend(Vector3.fromStartToEnd(box.bottom.upRight, box.top.upRight, 0.3))
