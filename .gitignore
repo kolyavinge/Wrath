@@ -1,2 +1,5 @@
 *.py[cod]
 /misc/tmp
+game/external/gameexlib/gameexlib/*
+game/external/gameexlib/x64/*
+game/external/gameexlib/.vs/*
