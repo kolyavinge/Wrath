@@ -1,4 +1,3 @@
-import numpy
 from OpenGL.GL import *
 
 from game.gl.BufferIndices import BufferIndices
@@ -23,8 +22,7 @@ class Model3dVBOBuilder:
             glBindVertexArray(vaoId)
 
             if withAdjacency:
-                facesWithAdjacency = self.adjacencyFormatConverter.getFacesWithAdjacency(mesh.faces)
-                mesh.faces = numpy.array(facesWithAdjacency, dtype=numpy.uint32)
+                mesh.faces = self.adjacencyFormatConverter.getFacesWithAdjacency(mesh.faces)
 
             if model3d.animations is not None:
                 vboIds = glGenBuffers(6)

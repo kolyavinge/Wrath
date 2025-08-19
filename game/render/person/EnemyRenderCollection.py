@@ -16,7 +16,7 @@ class EnemyRenderCollection:
         self.enemyModel3dFactory = enemyModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.enemyModel = None
-        self.withAdjacency = self.gameData.canEnemiesCastShadows
+        self.withAdjacency = True
 
     def init(self):
         if self.gameData.noEnemies:
