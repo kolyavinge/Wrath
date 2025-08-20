@@ -28,9 +28,10 @@ class CpuProfiler:
     def makeResult():
         if CpuProfiler.profiler is not None and CpuProfiler.started:
             stats = pstats.Stats(CpuProfiler.profiler).sort_stats(-1)
-            statName = f"{CpuProfiler.root}\\output_{CpuProfiler.profileName}.pstats"
-            stats.dump_stats(statName)
-            os.system(f"gprof2dot -f pstats {statName} | dot -Tpng -o {statName}.png")
+            statFileName = f"{CpuProfiler.root}\\output_{CpuProfiler.profileName}.pstats"
+            stats.dump_stats(statFileName)
+            os.system(f"gprof2dot -f pstats {statFileName} | dot -Tpng -o {statFileName}.png")
+            os.remove(statFileName)
 
 
 def cpuProfile(func):

@@ -1,3 +1,4 @@
+from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.lib.EventManager import EventManager
 from game.model.person.AimState import DefaultAimState
@@ -12,6 +13,7 @@ from game.render.weapon.CrosshairRenderer import CrosshairRenderer
 from game.render.weapon.ShineBulletRenderer import ShineBulletRenderer
 from game.render.weapon.SniperCrosshairRenderer import SniperCrosshairRenderer
 from game.render.weapon.WeaponFlashRenderer import WeaponFlashRenderer
+from game.tools.CpuProfiler import cpuProfile
 from game.tools.timeProfile import timeProfile
 
 
@@ -49,7 +51,8 @@ class GameScreenRenderer:
     def init(self):
         self.gameScreenInitializer.init()
 
-    # @timeProfile("Rendered")
+    # @timeProfile("Rendered", CommonConstants.renderTimerMsec / 1000.0, showOnlyLimited=True)
+    # @cpuProfile
     def render(self):
         self.renderFunc()
 

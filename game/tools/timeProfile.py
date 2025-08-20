@@ -1,7 +1,10 @@
+import sys
+
 from game.lib.Stopwatch import Stopwatch
+from game.lib.sys import warn
 
 
-def timeProfile(title):
+def timeProfile(title, limitSec=sys.float_info.max, showOnlyLimited=False):
 
     def decorator(func):
         def wrapper(*args, **kwargs):
@@ -11,7 +14,10 @@ def timeProfile(title):
             result = func(*args, **kwargs)
 
             sw.stop()
-            print(f"{title}: {sw.elapsed:.8}")
+            if sw.elapsed > limitSec:
+                warn(f"{title}: {sw.elapsed:.8}")
+            elif not showOnlyLimited:
+                print(f"{title}: {sw.elapsed:.8}")
 
             return result
 

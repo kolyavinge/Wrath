@@ -90,7 +90,7 @@ class GameUpdater:
     # event listeners
     selectWeaponRequestListener: SelectWeaponRequestListener
 
-    # @timeProfile("Game updated")
+    # @timeProfile("Game updated", CommonConstants.mainTimerMsec / 1000.0, showOnlyLimited=True)
     # @cpuProfile
     def update(self):
         # --- main game loop ---
