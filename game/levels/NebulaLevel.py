@@ -236,12 +236,40 @@ class NebulaLevel(Level):
             Material.construction17,
         )
 
-        builder.buildPillarWithTop(Vector3(90, 49.5, self.firstFloorZ), 0.5, 1.0, Material.construction3)
-        builder.buildPillarWithTop(Vector3(90, 55, self.firstFloorZ), 0.5, 1.0, Material.construction3)
-        builder.buildPillarWithTop(Vector3(94.5, 49.5, self.firstFloorZ), 0.5, centerStairZ + 1.0, Material.construction3)
-        builder.buildPillarWithTop(Vector3(94.5, 55, self.firstFloorZ), 0.5, centerStairZ + 1.0, Material.construction3)
-        builder.buildPillarWithTop(Vector3(94.5, 45, self.firstFloorZ), 0.5, self.secondFloorZ + 1.0, Material.construction3)
-        builder.buildPillarWithTop(Vector3(94.5, 59.5, self.firstFloorZ), 0.5, self.secondFloorZ + 1.0, Material.construction3)
+        builder.buildPillar(Vector3(90, 49.5, self.firstFloorZ), 0.5, 1.0, Material.construction3, withTop=True, excludeWalls=[Vector3(1, 0, 0)])
+        builder.buildPillar(Vector3(90, 55, self.firstFloorZ), 0.5, 1.0, Material.construction3, withTop=True, excludeWalls=[Vector3(1, 0, 0)])
+        builder.buildPillar(
+            Vector3(94.5, 49.5, self.firstFloorZ),
+            0.5,
+            centerStairZ + 1.0,
+            Material.construction3,
+            withTop=True,
+            excludeWalls=[Vector3(-1, 0, 0), Vector3(0, -1, 0)],
+        )
+        builder.buildPillar(
+            Vector3(94.5, 55, self.firstFloorZ),
+            0.5,
+            centerStairZ + 1.0,
+            Material.construction3,
+            withTop=True,
+            excludeWalls=[Vector3(-1, 0, 0), Vector3(0, 1, 0)],
+        )
+        builder.buildPillar(
+            Vector3(94.5, 45, self.firstFloorZ),
+            0.5,
+            self.secondFloorZ + 1.0,
+            Material.construction3,
+            withTop=True,
+            excludeWalls=[Vector3(0, 1, 0)],
+        )
+        builder.buildPillar(
+            Vector3(94.5, 59.5, self.firstFloorZ),
+            0.5,
+            self.secondFloorZ + 1.0,
+            Material.construction3,
+            withTop=True,
+            excludeWalls=[Vector3(0, -1, 0)],
+        )
 
         builder.buildWalls(
             Vector3(95, 45, self.firstFloorZ),
@@ -400,6 +428,15 @@ class NebulaLevel(Level):
         builder.buildRectSlab(Vector3(35, 47, self.secondFloorZ), 34, 8, self.secondFloorSlabHeight, Material.construction11, Material.edgeMetal2)
         builder.buildRectSlab(Vector3(61, 55, self.secondFloorZ), 8, 25, self.secondFloorSlabHeight, Material.construction11, Material.edgeMetal2)
 
+        builder.buildWall(
+            Vector3(100, 60, self.firstFloorZ + self.firstFloorHeight),
+            Vector3(100, 40, self.firstFloorZ + self.firstFloorHeight),
+            Vector3(-1, 0, 0),
+            self.secondFloorSlabHeight,
+            self.secondFloorSlabHeight,
+            Material.construction7,
+        )
+
         builder.buildWalls(
             Vector3(0, 0, self.secondFloorZ),
             WallInfo(
@@ -522,7 +559,6 @@ class NebulaLevel(Level):
 
     def getEnemyInitInfo(self):
         return [
-            # (Vector3(50, 50, self.firstFloorZ), Vector3(1, 0, 0).getNormalized(), Pistol),
-            (Vector3(88, 53, self.firstFloorZ), Vector3(-1, 0, 0).getNormalized(), Pistol),
-            # (Vector3(40, 50, self.secondFloorZ), Vector3(-1, 0, 0).getNormalized(), Pistol),
+            (Vector3(50, 50, self.firstFloorZ), Vector3(0, -1, 0).getNormalized(), Pistol),
+            (Vector3(10, 10, self.secondFloorZ), Vector3(1, 0, 0).getNormalized(), Pistol),
         ]

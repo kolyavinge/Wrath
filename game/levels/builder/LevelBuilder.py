@@ -25,58 +25,64 @@ class LevelBuilder:
     def buildWalls(self, startPoint, *wallBuildInfoList):
         self.wallBuilder.buildWalls(startPoint, *wallBuildInfoList)
 
-    def buildPillar(self, downLeft, size, height, material):
+    def buildPillar(self, downLeft, size, height, material, withTop=False, excludeWalls=[]):
         downLeft = downLeft
         downRight = Vector3(downLeft.x + size, downLeft.y, downLeft.z)
         upLeft = Vector3(downLeft.x, downLeft.y + size, downLeft.z)
         upRight = Vector3(downLeft.x + size, downLeft.y + size, downLeft.z)
 
-        wall = Wall()
-        wall.startPoint = downLeft
-        wall.endPoint = downRight
-        wall.frontNormal = Vector3(0, -1, 0)
-        wall.startPointHeight = height
-        wall.endPointHeight = height
-        wall.material = material
-        self.level.addWall(wall)
+        normal = Vector3(0, -1, 0)
+        if normal not in excludeWalls:
+            wall = Wall()
+            wall.startPoint = downLeft
+            wall.endPoint = downRight
+            wall.frontNormal = normal
+            wall.startPointHeight = height
+            wall.endPointHeight = height
+            wall.material = material
+            self.level.addWall(wall)
 
-        wall = Wall()
-        wall.startPoint = downLeft
-        wall.endPoint = upLeft
-        wall.frontNormal = Vector3(-1, 0, 0)
-        wall.startPointHeight = height
-        wall.endPointHeight = height
-        wall.material = material
-        self.level.addWall(wall)
+        normal = Vector3(-1, 0, 0)
+        if normal not in excludeWalls:
+            wall = Wall()
+            wall.startPoint = downLeft
+            wall.endPoint = upLeft
+            wall.frontNormal = normal
+            wall.startPointHeight = height
+            wall.endPointHeight = height
+            wall.material = material
+            self.level.addWall(wall)
 
-        wall = Wall()
-        wall.startPoint = downRight
-        wall.endPoint = upRight
-        wall.frontNormal = Vector3(1, 0, 0)
-        wall.startPointHeight = height
-        wall.endPointHeight = height
-        wall.material = material
-        self.level.addWall(wall)
+        normal = Vector3(1, 0, 0)
+        if normal not in excludeWalls:
+            wall = Wall()
+            wall.startPoint = downRight
+            wall.endPoint = upRight
+            wall.frontNormal = normal
+            wall.startPointHeight = height
+            wall.endPointHeight = height
+            wall.material = material
+            self.level.addWall(wall)
 
-        wall = Wall()
-        wall.startPoint = upLeft
-        wall.endPoint = upRight
-        wall.frontNormal = Vector3(0, 1, 0)
-        wall.startPointHeight = height
-        wall.endPointHeight = height
-        wall.material = material
-        self.level.addWall(wall)
+        normal = Vector3(0, 1, 0)
+        if normal not in excludeWalls:
+            wall = Wall()
+            wall.startPoint = upLeft
+            wall.endPoint = upRight
+            wall.frontNormal = normal
+            wall.startPointHeight = height
+            wall.endPointHeight = height
+            wall.material = material
+            self.level.addWall(wall)
 
-    def buildPillarWithTop(self, downLeft, size, height, material):
-        self.buildPillar(downLeft, size, height, material)
-
-        floor = Floor()
-        floor.downLeft = Vector3(downLeft.x, downLeft.y, downLeft.z + height)
-        floor.downRight = Vector3(downLeft.x + size, downLeft.y, downLeft.z + height)
-        floor.upLeft = Vector3(downLeft.x, downLeft.y + size, downLeft.z + height)
-        floor.upRight = Vector3(downLeft.x + size, downLeft.y + size, downLeft.z + height)
-        floor.material = material
-        self.level.addFloor(floor)
+        if withTop:
+            floor = Floor()
+            floor.downLeft = Vector3(downLeft.x, downLeft.y, downLeft.z + height)
+            floor.downRight = Vector3(downLeft.x + size, downLeft.y, downLeft.z + height)
+            floor.upLeft = Vector3(downLeft.x, downLeft.y + size, downLeft.z + height)
+            floor.upRight = Vector3(downLeft.x + size, downLeft.y + size, downLeft.z + height)
+            floor.material = material
+            self.level.addFloor(floor)
 
     def buildFlatFloor(self, downLeft, xLength, yLength, material, visualSize=1):
         floor = Floor()
