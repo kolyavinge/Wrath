@@ -1,43 +1,83 @@
-from game.engine.cm.WallCollisionDetector import WallCollisionDetector
+from game.engine.cm.ConstructionCollisionDetector import ConstructionCollisionDetector
+from game.engine.GameData import GameData
+from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
 
 
 class PersonWallCollisionDetector:
 
-    def __init__(self, wallCollisionDetector: WallCollisionDetector):
-        self.wallCollisionDetector = wallCollisionDetector
+    def __init__(
+        self,
+        gameData: GameData,
+        constructionCollisionDetector: ConstructionCollisionDetector,
+        levelSegmentItemFinder: LevelSegmentItemFinder,
+    ):
+        self.gameData = gameData
+        self.constructionCollisionDetector = constructionCollisionDetector
+        self.levelSegmentItemFinder = levelSegmentItemFinder
 
-    def getCollidedWalls(self, person):
-        collidedWalls = []
+    def getCollidedWallOrNone(self, person):
+        for levelSegment in person.collisionLevelSegments:
+            collidedWall = self.getCollidedWallForPerson(person, levelSegment.horizontalVerticalWalls)
+            if collidedWall is not None:
+                return collidedWall
 
         for levelSegment in person.collisionLevelSegments:
-            for wall in levelSegment.horizontalVerticalWalls:
-                if self.hasCollision(person, wall):
-                    if wall not in collidedWalls:
-                        collidedWalls.append(wall)
+            collidedWall = self.getCollidedWallForPerson(person, levelSegment.diagonalWalls)
+            if collidedWall is not None:
+                return collidedWall
 
-        for levelSegment in person.collisionLevelSegments:
-            for wall in levelSegment.diagonalWalls:
-                if self.hasCollision(person, wall):
-                    if wall not in collidedWalls:
-                        collidedWalls.append(wall)
+        return None
 
-        return collidedWalls
-
-    def hasCollision(self, person, wall):
+    def getCollidedWallForPerson(self, person, walls):
         currentBorder = person.currentBorder.bottom
         nextBorder = person.nextBorder.bottom
         # check corners
-        result = self.personLineIntersectsWall(currentBorder.downLeft, nextBorder.downLeft, wall)
-        result = result or self.personLineIntersectsWall(currentBorder.downRight, nextBorder.downRight, wall)
-        result = result or self.personLineIntersectsWall(currentBorder.upLeft, nextBorder.upLeft, wall)
-        result = result or self.personLineIntersectsWall(currentBorder.upRight, nextBorder.upRight, wall)
+        result = self.getCollidedWallInLine(walls, currentBorder.downLeft, nextBorder.downLeft)
+        result = result or self.getCollidedWallInLine(walls, currentBorder.downRight, nextBorder.downRight)
+        result = result or self.getCollidedWallInLine(walls, currentBorder.upLeft, nextBorder.upLeft)
+        result = result or self.getCollidedWallInLine(walls, currentBorder.upRight, nextBorder.upRight)
         # check middle
-        result = result or self.personLineIntersectsWall(currentBorder.middleLeft, nextBorder.middleLeft, wall)
-        result = result or self.personLineIntersectsWall(currentBorder.middleRight, nextBorder.middleRight, wall)
-        result = result or self.personLineIntersectsWall(currentBorder.middleTop, nextBorder.middleTop, wall)
-        result = result or self.personLineIntersectsWall(currentBorder.middleBottom, nextBorder.middleBottom, wall)
+        result = result or self.getCollidedWallInLine(walls, currentBorder.middleLeft, nextBorder.middleLeft)
+        result = result or self.getCollidedWallInLine(walls, currentBorder.middleRight, nextBorder.middleRight)
+        result = result or self.getCollidedWallInLine(walls, currentBorder.middleTop, nextBorder.middleTop)
+        result = result or self.getCollidedWallInLine(walls, currentBorder.middleBottom, nextBorder.middleBottom)
 
         return result
 
-    def personLineIntersectsWall(self, personPointFrom, personPointTo, wall):
-        return self.wallCollisionDetector.lineIntersectsWall(personPointFrom, personPointTo, wall)
+    def getCollidedWallInLine(self, walls, linePointFrom, linePointTo):
+        linePointFrom = linePointFrom.copy()
+        linePointTo = linePointTo.copy()
+
+        linePointFrom.z += 0.2
+        linePointTo.z += 0.2
+
+        return self.constructionCollisionDetector.getCollidedConstructionOrNone(walls, linePointFrom, linePointTo)
+
+    def anyCollisions(self, linePointFrom, linePointTo, fromLevelSegment, toLevelSegment):
+
+        def checkCollisionOrNone(walls, linePointFrom, linePointTo):
+            if self.getCollidedWallInLine(walls, linePointFrom, linePointTo) is not None:
+                return True
+
+            return None
+
+        return (
+            self.levelSegmentItemFinder.findItemOrNone(
+                self.gameData.collisionTree,
+                fromLevelSegment,
+                toLevelSegment,
+                linePointFrom,
+                linePointTo,
+                lambda segment, start, end: checkCollisionOrNone(segment.walls, start, end),
+            )
+            or False
+        )
+
+    def isCollidedWall(self, wall, linePointFrom, linePointTo):
+        linePointFrom = linePointFrom.copy()
+        linePointTo = linePointTo.copy()
+
+        linePointFrom.z += 0.2
+        linePointTo.z += 0.2
+
+        return self.constructionCollisionDetector.isCollidedConstruction(wall, linePointFrom, linePointTo)

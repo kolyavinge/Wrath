@@ -27,7 +27,7 @@ class PlaneCollisionDetector:
         middlePoint = startPoint.getMiddleTo(endPoint)
         while startPoint.getLengthTo(endPoint) > eps:
             dotProduct = basePoint.getDirectionTo(middlePoint).dotProduct(frontNormal)
-            if Numeric.floatEquals(dotProduct, 0, eps):
+            if Numeric.floatEquals(dotProduct, 0):
                 break
             elif dotProduct > 0:
                 startPoint = middlePoint

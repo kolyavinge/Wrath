@@ -1,6 +1,6 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.engine.cm.PersonWallCollisionDetector import PersonWallCollisionDetector
 from game.engine.cm.VoidCollisionDetector import VoidCollisionDetector
-from game.engine.cm.WallCollisionDetector import WallCollisionDetector
 from game.engine.GameData import GameData
 
 
@@ -9,12 +9,12 @@ class RouteCollisionDetector:
     def __init__(
         self,
         gameData: GameData,
-        wallCollisionDetector: WallCollisionDetector,
+        personWallCollisionDetector: PersonWallCollisionDetector,
         voidCollisionDetector: VoidCollisionDetector,
         traversal: BSPTreeTraversal,
     ):
         self.gameData = gameData
-        self.wallCollisionDetector = wallCollisionDetector
+        self.personWallCollisionDetector = personWallCollisionDetector
         self.voidCollisionDetector = voidCollisionDetector
         self.traversal = traversal
 
@@ -27,7 +27,7 @@ class RouteCollisionDetector:
         )
 
     def anyWallCollisions(self, pointFrom, pointTo, fromLevelSegment, toLevelSegment):
-        return self.wallCollisionDetector.anyCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment)
+        return self.personWallCollisionDetector.anyCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment)
 
     def anyVoidCollisions(self, pointFrom, pointTo, fromLevelSegment, toLevelSegment):
         return self.voidCollisionDetector.anyCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment)

@@ -1,6 +1,6 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.cm.PersonCollisionDetector import PersonCollisionDetector
-from game.engine.cm.WallCollisionDetector import WallCollisionDetector
+from game.engine.cm.PersonWallCollisionDetector import PersonWallCollisionDetector
 from game.engine.GameData import GameData
 
 
@@ -9,12 +9,12 @@ class EnemyCollisionDetector:
     def __init__(
         self,
         gameData: GameData,
-        wallCollisionDetector: WallCollisionDetector,
+        personWallCollisionDetector: PersonWallCollisionDetector,
         personCollisionDetector: PersonCollisionDetector,
         traversal: BSPTreeTraversal,
     ):
         self.gameData = gameData
-        self.wallCollisionDetector = wallCollisionDetector
+        self.personWallCollisionDetector = personWallCollisionDetector
         self.personCollisionDetector = personCollisionDetector
         self.traversal = traversal
 
@@ -31,12 +31,12 @@ class EnemyCollisionDetector:
 
     def anyWallCollisions(self, enemy, nextCenterPoint, nextCenterPointLevelSegment):
         for wall in enemy.currentCenterPointLevelSegment.walls:
-            if self.wallCollisionDetector.lineIntersectsWall(enemy.currentCenterPoint, nextCenterPoint, wall):
+            if self.personWallCollisionDetector.isCollidedWall(wall, enemy.currentCenterPoint, nextCenterPoint):
                 return True
 
         if enemy.currentCenterPointLevelSegment != nextCenterPointLevelSegment:
             for wall in nextCenterPointLevelSegment.walls:
-                if self.wallCollisionDetector.lineIntersectsWall(enemy.currentCenterPoint, nextCenterPoint, wall):
+                if self.personWallCollisionDetector.isCollidedWall(wall, enemy.currentCenterPoint, nextCenterPoint):
                     return True
 
         return False
