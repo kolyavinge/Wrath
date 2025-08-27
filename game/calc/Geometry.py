@@ -64,53 +64,6 @@ class Geometry:
         return a
 
     @staticmethod
-    def getLinesIntersectPointOrNone(from1X, from1Y, to1X, to1Y, from2X, from2Y, to2X, to2Y):
-        a1 = from1Y - to1Y
-        b1 = to1X - from1X
-        c1 = from1X * to1Y - to1X * from1Y
-
-        a2 = from2Y - to2Y
-        b2 = to2X - from2X
-        c2 = from2X * to2Y - to2X * from2Y
-
-        denominator = a1 * b2 - a2 * b1
-        if denominator == 0:
-            return None
-
-        x = (b1 * c2 - b2 * c1) / denominator
-        y = (a2 * c1 - a1 * c2) / denominator
-
-        return (x, y)
-
-    @staticmethod
-    def lineContainsPoint(fromX, fromY, toX, toY, pointX, pointY):
-        x = pointX - toX
-        y = pointY - toY
-        pointLengthSqr = x * x + y * y
-        if pointLengthSqr < 0.01:
-            return True
-
-        x = pointX - fromX
-        y = pointY - fromY
-        lineX = toX - fromX
-        lineY = toY - fromY
-        pointLengthSqr = x * x + y * y
-        if pointLengthSqr < 0.01:
-            return True
-
-        lineLengthSqr = lineX * lineX + lineY * lineY
-        if pointLengthSqr > lineLengthSqr:
-            return False
-
-        vectorsLength = Math.sqrt(pointLengthSqr) * Math.sqrt(lineLengthSqr)
-        if vectorsLength == 0:
-            return False
-
-        dot = (x * lineX + y * lineY) / vectorsLength
-
-        return 0.999 <= dot and dot <= 1.001
-
-    @staticmethod
     def getProjectedVector(vector, projectionAxis):
         newLength = vector.dotProduct(projectionAxis) / projectionAxis.getLength()
         if newLength < 0:
