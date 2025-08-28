@@ -19,7 +19,7 @@ class EnemyCollisionDetector:
         self.traversal = traversal
 
     def anyCollisions(self, enemy, direction):
-        nextCenterPoint = enemy.currentCenterPoint.copy()
+        nextCenterPoint = enemy.currentFootRect.center.copy()
         nextCenterPoint.add(direction)
         nextCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, nextCenterPoint)
 
@@ -31,12 +31,12 @@ class EnemyCollisionDetector:
 
     def anyWallCollisions(self, enemy, nextCenterPoint, nextCenterPointLevelSegment):
         for wall in enemy.currentCenterPointLevelSegment.walls:
-            if self.personWallCollisionDetector.isCollidedWall(wall, enemy.currentCenterPoint, nextCenterPoint):
+            if self.personWallCollisionDetector.isCollidedWall(wall, enemy.currentFootRect.center, nextCenterPoint):
                 return True
 
         if enemy.currentCenterPointLevelSegment != nextCenterPointLevelSegment:
             for wall in nextCenterPointLevelSegment.walls:
-                if self.personWallCollisionDetector.isCollidedWall(wall, enemy.currentCenterPoint, nextCenterPoint):
+                if self.personWallCollisionDetector.isCollidedWall(wall, enemy.currentFootRect.center, nextCenterPoint):
                     return True
 
         return False

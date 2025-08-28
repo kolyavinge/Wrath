@@ -1,4 +1,3 @@
-from game.anx.PersonConstants import PersonConstants
 from game.engine.cm.ConstructionCollisionDetector import ConstructionCollisionDetector
 from game.engine.GameData import GameData
 from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
@@ -34,18 +33,18 @@ class PersonWallCollisionDetector:
         return collidedWalls
 
     def hasWallCollision(self, person, wall):
-        currentBorder = person.currentBorder.bottom
-        nextBorder = person.nextBorder.bottom
+        current = person.currentFootRect
+        next = person.nextFootRect
         # check corners
-        result = self.isCollidedWall(wall, currentBorder.downLeft, nextBorder.downLeft)
-        result = result or self.isCollidedWall(wall, currentBorder.downRight, nextBorder.downRight)
-        result = result or self.isCollidedWall(wall, currentBorder.upLeft, nextBorder.upLeft)
-        result = result or self.isCollidedWall(wall, currentBorder.upRight, nextBorder.upRight)
+        result = self.isCollidedWall(wall, current.downLeft, next.downLeft)
+        result = result or self.isCollidedWall(wall, current.downRight, next.downRight)
+        result = result or self.isCollidedWall(wall, current.upLeft, next.upLeft)
+        result = result or self.isCollidedWall(wall, current.upRight, next.upRight)
         # check middle
-        result = result or self.isCollidedWall(wall, currentBorder.middleLeft, nextBorder.middleLeft)
-        result = result or self.isCollidedWall(wall, currentBorder.middleRight, nextBorder.middleRight)
-        result = result or self.isCollidedWall(wall, currentBorder.middleTop, nextBorder.middleTop)
-        result = result or self.isCollidedWall(wall, currentBorder.middleBottom, nextBorder.middleBottom)
+        result = result or self.isCollidedWall(wall, current.middleLeft, next.middleLeft)
+        result = result or self.isCollidedWall(wall, current.middleRight, next.middleRight)
+        result = result or self.isCollidedWall(wall, current.middleTop, next.middleTop)
+        result = result or self.isCollidedWall(wall, current.middleBottom, next.middleBottom)
 
         return result
 
@@ -71,10 +70,4 @@ class PersonWallCollisionDetector:
         )
 
     def isCollidedWall(self, wall, startPoint, endPoint):
-        startPoint = startPoint.copy()
-        endPoint = endPoint.copy()
-
-        startPoint.z += PersonConstants.zFootLength
-        endPoint.z += PersonConstants.zFootLength
-
         return self.constructionCollisionDetector.isCollidedConstruction(wall, startPoint, endPoint)

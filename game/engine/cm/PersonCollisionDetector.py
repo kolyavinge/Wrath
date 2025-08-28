@@ -39,7 +39,7 @@ class PersonCollisionDetector:
             if person == excludedPerson:
                 continue
             # check body (two cross planes)
-            border = person.bodyBorder
+            border = person.nextBodyBorder
             plane = RectPlane(self.xNormal, border.bottom.middleBottom, border.bottom.middleTop, border.top.middleBottom, border.top.middleTop)
             collisionPoint = self.planeCollisionDetector.getRectPlaneCollisionPointOrNone(startPoint, endPoint, plane, 0.1)
             target = PersonCollisionTarget.body

@@ -1,6 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
 from game.anx.PersonConstants import PersonConstants
 from game.calc.Box3d import Box3d
+from game.calc.Rect2d import Rect2d
 from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.calc.Vector3 import Vector3
 from game.lib.DecrementCounter import DecrementCounter
@@ -24,7 +25,9 @@ class Person:
         self.visibilityLevelSegment = LevelSegment()
         self.currentBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)
         self.nextBorder = self.currentBorder.copy()
-        self.bodyBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zChestLength)
+        self.nextBodyBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zChestLength)
+        self.currentFootRect = Rect2d(PersonConstants.xyLength, PersonConstants.xyLength)
+        self.nextFootRect = Rect2d(PersonConstants.xyLength, PersonConstants.xyLength)
         self.currentFloor = Floor()
         self.nextFloor = Floor()
         self.pitchRadians = 0
@@ -61,12 +64,16 @@ class Person:
     def moveNextPositionBy(self, vector):
         self.nextCenterPoint.add(vector)
         self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
-        self.bodyBorder.calculatePointsByCenter(self.nextCenterPoint)
+        self.nextBodyBorder.calculatePointsByCenter(self.nextCenterPoint)
+        self.nextFootRect.calculatePointsByCenter(self.nextCenterPoint)
+        self.nextFootRect.addZ(PersonConstants.zFootLength)
 
     def moveNextPositionTo(self, vector):
         self.nextCenterPoint = vector
         self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
-        self.bodyBorder.calculatePointsByCenter(self.nextCenterPoint)
+        self.nextBodyBorder.calculatePointsByCenter(self.nextCenterPoint)
+        self.nextFootRect.calculatePointsByCenter(self.nextCenterPoint)
+        self.nextFootRect.addZ(PersonConstants.zFootLength)
 
     def getZ(self):
         return self.nextCenterPoint.z
@@ -74,7 +81,9 @@ class Person:
     def setZ(self, z):
         self.nextCenterPoint.z = z
         self.nextBorder.calculatePointsByCenter(self.nextCenterPoint)
-        self.bodyBorder.calculatePointsByCenter(self.nextCenterPoint)
+        self.nextBodyBorder.calculatePointsByCenter(self.nextCenterPoint)
+        self.nextFootRect.calculatePointsByCenter(self.nextCenterPoint)
+        self.nextFootRect.addZ(PersonConstants.zFootLength)
 
     def commitNextPosition(self):
         self.currentCenterPoint = self.nextCenterPoint.copy()
@@ -87,6 +96,7 @@ class Person:
         self.chestCenterPoint.z += PersonConstants.zLength34
         self.headCenterPoint = self.currentCenterPoint.copy()
         self.headCenterPoint.z += PersonConstants.zChestLength + (PersonConstants.headSizeHalf)
+        self.currentFootRect = self.nextFootRect.copy()
 
     def addHealth(self, health):
         if health < 0:

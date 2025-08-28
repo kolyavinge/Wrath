@@ -35,6 +35,17 @@ class Rect2d:
     def containsPoint(self, point):
         return Numeric.between(point.x, self.downLeft.x, self.downRight.x) and Numeric.between(point.y, self.downLeft.y, self.upLeft.y)
 
+    def addZ(self, dz):
+        self.center.z += dz
+        self.downLeft.z += dz
+        self.downRight.z += dz
+        self.upLeft.z += dz
+        self.upRight.z += dz
+        self.middleLeft.z += dz
+        self.middleRight.z += dz
+        self.middleTop.z += dz
+        self.middleBottom.z += dz
+
     def copy(self):
         copy = Rect2d(self.xLength, self.yLength)
         copy.center = self.center.copy()
