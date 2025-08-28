@@ -11,6 +11,7 @@ class PersonConstants:
     headSize = 0.24
     headSizeHalf = headSize / 2.0
     zChestLength = zLength - headSize
+    zFootLength = 0.2
     eyeLength = 1.6
     aimLength = 20.0
     maxPersonHealth = 100

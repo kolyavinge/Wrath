@@ -515,6 +515,8 @@ class NebulaLevel(Level):
         yield SplitPlane(Vector3(92, 55, self.firstFloorZ), Vector3(0, -1, 0))
         yield SplitPlane(Vector3(95, 52, self.firstFloorZ), Vector3(1, 0, 0))
         yield SplitPlane(Vector3(96, 52, self.firstFloorZ + 1.0), Vector3(0, 0, 1))
+        yield SplitPlane(Vector3(96, 60, self.firstFloorZ), Vector3(0, 1, 0))
+        yield SplitPlane(Vector3(96, 45, self.firstFloorZ), Vector3(0, -1, 0))
 
         # second floor
         yield SplitPlane(Vector3(20, 50, self.secondFloorZ), Vector3(1, 0, 0))

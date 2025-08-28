@@ -22,13 +22,15 @@ class PersonWallCollisionUpdater:
                 self.updatePersonCollisions(person)
 
     def updatePersonCollisions(self, person):
-        self.gameData.collisionData.personWalls[person] = []
-        collidedWall = self.personWallCollisionDetector.getCollidedWallOrNone(person)
-        while collidedWall is not None:
-            self.processWall(person, collidedWall)
-            self.gameData.collisionData.personWalls[person].append(collidedWall)
-            collidedWall = self.personWallCollisionDetector.getCollidedWallOrNone(person)
-            assert collidedWall not in self.gameData.collisionData.personWalls[person]
+        collidedWalls = self.personWallCollisionDetector.getCollidedWalls(person)
+        self.gameData.collisionData.personWalls[person] = collidedWalls
+        if len(collidedWalls) == 0:
+            return
+        self.processWall(person, collidedWalls[0])
+        for i in range(1, len(collidedWalls)):
+            wall = collidedWalls[i]
+            if self.personWallCollisionDetector.hasWallCollision(person, wall):
+                self.processWall(person, wall)
 
     def processWall(self, person, wall):
         x, y = self.getPointOnLimitLine(wall, person.nextCenterPoint)

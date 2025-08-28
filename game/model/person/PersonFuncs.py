@@ -4,7 +4,7 @@ from game.lib.Math import Math
 class VelocityFunc:
 
     def getValue(self, time):
-        return Math.ln(time + 1.0) / 2.5
+        return Math.ln(time + 1.0) / 3.5
 
 
 class JumpingFunc:

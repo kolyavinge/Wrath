@@ -57,9 +57,9 @@ class Wall(Construction):
 
     def getLimitLineOffset(self):
         if self.orientation == Orientation.diagonal:
-            return PersonConstants.xyLengthHalf * Math.sqrt(2) + 0.1
+            return PersonConstants.xyLengthHalf * Math.sqrt(2)
         else:
-            return PersonConstants.xyLengthHalf + 0.1
+            return PersonConstants.xyLengthHalf
 
     def validate(self):
         assert self.startPoint != self.endPoint
