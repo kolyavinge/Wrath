@@ -18,16 +18,16 @@ class RouteCollisionDetector:
         self.voidCollisionDetector = voidCollisionDetector
         self.traversal = traversal
 
-    def anyCollisions(self, pointFrom, pointTo):
-        fromLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, pointFrom)
-        toLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, pointTo)
+    def anyCollisions(self, startPoint, endPoint):
+        startLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, startPoint)
+        endLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, endPoint)
 
-        return self.anyWallCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment) or self.anyVoidCollisions(
-            pointFrom, pointTo, fromLevelSegment, toLevelSegment
+        return self.anyWallCollisions(startPoint, endPoint, startLevelSegment, endLevelSegment) or self.anyVoidCollisions(
+            startPoint, endPoint, startLevelSegment, endLevelSegment
         )
 
-    def anyWallCollisions(self, pointFrom, pointTo, fromLevelSegment, toLevelSegment):
-        return self.personWallCollisionDetector.anyCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment)
+    def anyWallCollisions(self, startPoint, endPoint, startLevelSegment, endLevelSegment):
+        return self.personWallCollisionDetector.anyCollisions(startPoint, endPoint, startLevelSegment, endLevelSegment)
 
-    def anyVoidCollisions(self, pointFrom, pointTo, fromLevelSegment, toLevelSegment):
-        return self.voidCollisionDetector.anyCollisions(pointFrom, pointTo, fromLevelSegment, toLevelSegment)
+    def anyVoidCollisions(self, startPoint, endPoint, startLevelSegment, endLevelSegment):
+        return self.voidCollisionDetector.anyCollisions(startPoint, endPoint, startLevelSegment, endLevelSegment)

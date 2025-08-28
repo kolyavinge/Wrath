@@ -49,11 +49,11 @@ class PersonWallCollisionDetector:
 
         return result
 
-    def anyCollisions(self, linePointFrom, linePointTo, fromLevelSegment, toLevelSegment):
+    def anyCollisions(self, startPoint, endPoint, startLevelSegment, endLevelSegment):
 
-        def checkCollisionOrNone(walls, linePointFrom, linePointTo):
+        def checkCollisionOrNone(walls, start, end):
             for wall in walls:
-                if self.isCollidedWall(wall, linePointFrom, linePointTo):
+                if self.isCollidedWall(wall, start, end):
                     return True
 
             return None
@@ -61,20 +61,20 @@ class PersonWallCollisionDetector:
         return (
             self.levelSegmentItemFinder.findItemOrNone(
                 self.gameData.collisionTree,
-                fromLevelSegment,
-                toLevelSegment,
-                linePointFrom,
-                linePointTo,
+                startLevelSegment,
+                endLevelSegment,
+                startPoint,
+                endPoint,
                 lambda segment, start, end: checkCollisionOrNone(segment.walls, start, end),
             )
             or False
         )
 
-    def isCollidedWall(self, wall, linePointFrom, linePointTo):
-        linePointFrom = linePointFrom.copy()
-        linePointTo = linePointTo.copy()
+    def isCollidedWall(self, wall, startPoint, endPoint):
+        startPoint = startPoint.copy()
+        endPoint = endPoint.copy()
 
-        linePointFrom.z += PersonConstants.zFootLength
-        linePointTo.z += PersonConstants.zFootLength
+        startPoint.z += PersonConstants.zFootLength
+        endPoint.z += PersonConstants.zFootLength
 
-        return self.constructionCollisionDetector.isCollidedConstruction(wall, linePointFrom, linePointTo)
+        return self.constructionCollisionDetector.isCollidedConstruction(wall, startPoint, endPoint)
