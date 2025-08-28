@@ -11,8 +11,8 @@ class PlaneCollisionDetector:
             return None
 
     def getPlaneCollisionPointOrNone(self, startPoint, endPoint, basePoint, frontNormal, eps):
-        startPointDotProduct = basePoint.getDirectionTo(startPoint).dotProduct(frontNormal)
-        endPointDotProduct = basePoint.getDirectionTo(endPoint).dotProduct(frontNormal)
+        startPointDotProduct = self.getDirectionAndCalcDotProduct(basePoint, startPoint, frontNormal)
+        endPointDotProduct = self.getDirectionAndCalcDotProduct(basePoint, endPoint, frontNormal)
 
         # чтобы пересечение было, скалярные произведения должны иметь разные знаки
         if startPointDotProduct * endPointDotProduct > 0:
@@ -26,7 +26,7 @@ class PlaneCollisionDetector:
 
         middlePoint = startPoint.getMiddleTo(endPoint)
         while startPoint.getLengthTo(endPoint) > eps:
-            dotProduct = basePoint.getDirectionTo(middlePoint).dotProduct(frontNormal)
+            dotProduct = self.getDirectionAndCalcDotProduct(basePoint, middlePoint, frontNormal)
             if Numeric.floatEquals(dotProduct, 0):
                 break
             elif dotProduct > 0:
@@ -36,3 +36,11 @@ class PlaneCollisionDetector:
             middlePoint = startPoint.getMiddleTo(endPoint)
 
         return middlePoint
+
+    def getDirectionAndCalcDotProduct(self, startPoint, endPoint, vectorForDotProduct):
+        x = endPoint.x - startPoint.x
+        y = endPoint.y - startPoint.y
+        z = endPoint.z - startPoint.z
+        dotProduct = x * vectorForDotProduct.x + y * vectorForDotProduct.y + z * vectorForDotProduct.z
+
+        return dotProduct
