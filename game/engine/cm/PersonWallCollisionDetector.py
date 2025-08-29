@@ -70,4 +70,4 @@ class PersonWallCollisionDetector:
         )
 
     def isCollidedWall(self, wall, startPoint, endPoint):
-        return self.constructionCollisionDetector.isCollidedConstruction(wall, startPoint, endPoint)
+        return self.constructionCollisionDetector.isCollidedConstruction(wall, startPoint, endPoint, 0.01)
