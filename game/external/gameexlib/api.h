@@ -10,3 +10,12 @@
 
 extern "C" MYDLL_API
 void convertFacesToAdjacencyFormat(int facesCount, unsigned int* faces, unsigned int* adjResult);
+
+extern "C" MYDLL_API
+bool getPlaneCollisionPoint(
+    float startPointX, float startPointY, float startPointZ,
+    float endPointX, float endPointY, float endPointZ,
+    float basePointX, float basePointY, float basePointZ,
+    float frontNormalX, float frontNormalY, float frontNormalZ,
+    float eps,
+    float* resultX, float* resultY, float* resultZ);

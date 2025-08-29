@@ -1,6 +1,8 @@
 #include "pch.h"
 #include <limits.h>
+#include <math.h>
 #include "api.h"
+#include "vector3.h"
 
 // adjResult must be passed already created with double capacity of faces
 void convertFacesToAdjacencyFormat(int facesCount, unsigned int* faces, unsigned int* adjResult) {
@@ -83,4 +85,50 @@ void convertFacesToAdjacencyFormat(int facesCount, unsigned int* faces, unsigned
         if (adjResult[i + 3] == UINT_MAX) adjResult[i + 3] = adjResult[i];
         if (adjResult[i + 5] == UINT_MAX) adjResult[i + 5] = adjResult[i + 2];
     }
+}
+
+bool getPlaneCollisionPoint(
+    float startPointX, float startPointY, float startPointZ,
+    float endPointX, float endPointY, float endPointZ,
+    float basePointX, float basePointY, float basePointZ,
+    float frontNormalX, float frontNormalY, float frontNormalZ,
+    float eps,
+    float* resultX, float* resultY, float* resultZ) {
+
+    Vector3 startPoint = Vector3{ startPointX, startPointY, startPointZ };
+    Vector3 endPoint = Vector3{ endPointX, endPointY, endPointZ };
+    Vector3 basePoint = Vector3{ basePointX, basePointY, basePointZ };
+    Vector3 frontNormal = Vector3{ frontNormalX, frontNormalY, frontNormalZ };
+
+    Vector3 startPointDirection, endPointDirection;
+    subVectors(startPoint, basePoint, startPointDirection);
+    subVectors(endPoint, basePoint, endPointDirection);
+
+    float startPointDotProduct = getDotProduct(startPointDirection, frontNormal);
+    float endPointDotProduct = getDotProduct(endPointDirection, frontNormal);
+
+    // чтобы пересечение было, скалярные произведения должны иметь разные знаки
+    if (startPointDotProduct * endPointDotProduct > 0) return false;
+
+    // для работы алгоритма startPoint должна находится перед лицевой стороной плоскости (dotProduct > 0)
+    if (startPointDotProduct < 0) {
+        // поворачивам плоскость на 180 градусов
+        mulVector(frontNormal, -1.0f);
+    }
+
+    Vector3 middlePoint, tmpPoint;
+    getMiddleBetweenVectors(startPoint, endPoint, middlePoint);
+    while (getLength(startPoint, endPoint) > eps) {
+        subVectors(middlePoint, basePoint, tmpPoint);
+        float dotProduct = getDotProduct(tmpPoint, frontNormal);
+        if (dotProduct > 0) startPoint = middlePoint;
+        else endPoint = middlePoint;
+        getMiddleBetweenVectors(startPoint, endPoint, middlePoint);
+    }
+
+    *resultX = middlePoint.x;
+    *resultY = middlePoint.y;
+    *resultZ = middlePoint.z;
+
+    return true;
 }
