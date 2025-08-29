@@ -104,6 +104,15 @@ class Vector3:
         return f"{self.x:.2f} : {self.y:.2f} : {self.z:.2f}"
 
     @staticmethod
+    def calcDirectionAndGetDotProduct(startPoint, endPoint, vectorForDotProduct):
+        x = endPoint.x - startPoint.x
+        y = endPoint.y - startPoint.y
+        z = endPoint.z - startPoint.z
+        dotProduct = x * vectorForDotProduct.x + y * vectorForDotProduct.y + z * vectorForDotProduct.z
+
+        return dotProduct
+
+    @staticmethod
     def fromStartToEnd(startPoint, endPoint, stepLength):
         stepDirection = startPoint.getDirectionTo(endPoint)
         stepsCount = int(stepDirection.getLength() / stepLength)

@@ -1,4 +1,4 @@
-from game.lib.Numeric import Numeric
+from game.calc.Vector3 import Vector3
 
 
 class PlaneCollisionDetector:
@@ -11,8 +11,8 @@ class PlaneCollisionDetector:
             return None
 
     def getPlaneCollisionPointOrNone(self, startPoint, endPoint, basePoint, frontNormal, eps):
-        startPointDotProduct = self.getDirectionAndCalcDotProduct(basePoint, startPoint, frontNormal)
-        endPointDotProduct = self.getDirectionAndCalcDotProduct(basePoint, endPoint, frontNormal)
+        startPointDotProduct = Vector3.calcDirectionAndGetDotProduct(basePoint, startPoint, frontNormal)
+        endPointDotProduct = Vector3.calcDirectionAndGetDotProduct(basePoint, endPoint, frontNormal)
 
         # чтобы пересечение было, скалярные произведения должны иметь разные знаки
         if startPointDotProduct * endPointDotProduct > 0:
@@ -24,23 +24,15 @@ class PlaneCollisionDetector:
             frontNormal = frontNormal.copy()
             frontNormal.mul(-1)
 
+        length = startPoint.getLengthTo(endPoint)
         middlePoint = startPoint.getMiddleTo(endPoint)
-        while startPoint.getLengthTo(endPoint) > eps:
-            dotProduct = self.getDirectionAndCalcDotProduct(basePoint, middlePoint, frontNormal)
-            if Numeric.floatEquals(dotProduct, 0):
-                break
-            elif dotProduct > 0:
+        while length > eps:
+            dotProduct = Vector3.calcDirectionAndGetDotProduct(basePoint, middlePoint, frontNormal)
+            if dotProduct > 0:
                 startPoint = middlePoint
             else:
                 endPoint = middlePoint
+            length /= 2.0
             middlePoint = startPoint.getMiddleTo(endPoint)
 
         return middlePoint
-
-    def getDirectionAndCalcDotProduct(self, startPoint, endPoint, vectorForDotProduct):
-        x = endPoint.x - startPoint.x
-        y = endPoint.y - startPoint.y
-        z = endPoint.z - startPoint.z
-        dotProduct = x * vectorForDotProduct.x + y * vectorForDotProduct.y + z * vectorForDotProduct.z
-
-        return dotProduct

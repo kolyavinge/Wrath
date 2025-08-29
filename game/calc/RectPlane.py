@@ -1,6 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Plane import Plane
+from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 
 
@@ -20,10 +21,10 @@ class RectPlane(Plane):
 
     def withinBorder(self, point):
         return (
-            self.leftSideNormal.dotProduct(self.downLeft.getDirectionTo(point)) >= 0
-            and self.rightSideNormal.dotProduct(self.downRight.getDirectionTo(point)) >= 0
-            and self.topSideNormal.dotProduct(self.upLeft.getDirectionTo(point)) >= 0
-            and self.bottomSideNormal.dotProduct(self.downLeft.getDirectionTo(point)) >= 0
+            Vector3.calcDirectionAndGetDotProduct(self.downLeft, point, self.leftSideNormal) >= 0
+            and Vector3.calcDirectionAndGetDotProduct(self.downRight, point, self.rightSideNormal) >= 0
+            and Vector3.calcDirectionAndGetDotProduct(self.upLeft, point, self.topSideNormal) >= 0
+            and Vector3.calcDirectionAndGetDotProduct(self.downLeft, point, self.bottomSideNormal) >= 0
         )
 
     def calculateSideNormals(self):
