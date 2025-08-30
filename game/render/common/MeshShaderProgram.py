@@ -15,5 +15,8 @@ class MeshShaderProgram(ShaderProgram):
     def setProjectionMatrix(self, projectionMatrix):
         self.setTransformMatrix4("projectionMatrix", projectionMatrix)
 
-    def setAlpha(self, alpha):
-        self.setFloat32("alpha", alpha)
+    def setColorFactor(self, factor):
+        self.setFloat32("colorFactor", factor)
+
+    def setAlphaFactor(self, factor):
+        self.setFloat32("alphaFactor", factor)

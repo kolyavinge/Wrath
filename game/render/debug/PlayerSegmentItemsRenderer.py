@@ -29,7 +29,7 @@ class PlayerSegmentItemsRenderer:
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setColor(Vector3(1, 0, 0))
-        shader.setAlpha(0.2)
+        shader.setAlphaFactor(0.2)
 
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)

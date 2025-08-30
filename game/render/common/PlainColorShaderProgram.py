@@ -18,5 +18,5 @@ class PlainColorShaderProgram(ShaderProgram):
     def setColor(self, color):
         self.setVector3("color", color)
 
-    def setAlpha(self, alpha):
-        self.setFloat32("alpha", alpha)
+    def setAlphaFactor(self, factor):
+        self.setFloat32("alphaFactor", factor)

@@ -40,7 +40,7 @@ class PlayerBloodStainRenderer:
         for bloodStain in self.gameData.bloodStains:
             model = bloodStain.getModelMatrix(self.viewportWidth, self.viewportHeight)
             shader.setModelMatrix(model)
-            shader.setAlpha(bloodStain.brightness)
+            shader.setAlphaFactor(bloodStain.brightness)
             mesh = self.renderCollection.getRenderMesh(bloodStain.number)
             mesh.texture.bind(GL_TEXTURE0)
             self.vboRenderer.render(mesh.vbo)
