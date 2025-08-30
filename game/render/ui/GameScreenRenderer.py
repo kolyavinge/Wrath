@@ -8,6 +8,7 @@ from game.render.main.MainSceneRenderer import MainSceneRenderer
 from game.render.menu.DashboardRenderer import DashboardRenderer
 from game.render.person.PlayerBloodStainRenderer import PlayerBloodStainRenderer
 from game.render.ui.GameScreenInitializer import GameScreenInitializer
+from game.render.weapon.BulletHoleRenderer import BulletHoleRenderer
 from game.render.weapon.BulletTraceRenderer import BulletTraceRenderer
 from game.render.weapon.CrosshairRenderer import CrosshairRenderer
 from game.render.weapon.ShineBulletRenderer import ShineBulletRenderer
@@ -26,6 +27,7 @@ class GameScreenRenderer:
         mainSceneRenderer: MainSceneRenderer,
         shineBulletRenderer: ShineBulletRenderer,
         weaponFlashRenderer: WeaponFlashRenderer,
+        bulletHoleRenderer: BulletHoleRenderer,
         bulletTraceRenderer: BulletTraceRenderer,
         crosshairRenderer: CrosshairRenderer,
         playerBloodStainRenderer: PlayerBloodStainRenderer,
@@ -39,6 +41,7 @@ class GameScreenRenderer:
         self.mainSceneRenderer = mainSceneRenderer
         self.shineBulletRenderer = shineBulletRenderer
         self.weaponFlashRenderer = weaponFlashRenderer
+        self.bulletHoleRenderer = bulletHoleRenderer
         self.bulletTraceRenderer = bulletTraceRenderer
         self.crosshairRenderer = crosshairRenderer
         self.playerBloodStainRenderer = playerBloodStainRenderer
@@ -62,6 +65,7 @@ class GameScreenRenderer:
         self.backgroundRenderer.render()
         self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()
+        self.bulletHoleRenderer.render()
         self.bulletTraceRenderer.render()
         self.crosshairRenderer.render()
         self.playerBloodStainRenderer.render()
@@ -72,6 +76,7 @@ class GameScreenRenderer:
         self.backgroundRenderer.render()
         self.shineBulletRenderer.render()
         self.weaponFlashRenderer.render()
+        self.bulletHoleRenderer.render()
         self.bulletTraceRenderer.render()
         self.sniperCrosshairRenderer.render()
 
