@@ -36,6 +36,7 @@ class BackgroundRenderer:
         shader.setModelMatrix(TransformMatrix4.identity)
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setColorFactor(1.0)
         shader.setAlphaFactor(1.0)
         self.textureCollection.background1.bind(GL_TEXTURE0)
         self.vboRenderer.render(self.vbo)

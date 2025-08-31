@@ -30,6 +30,7 @@ class DashboardRenderer:
         shader.setModelMatrix(self.model)
         shader.setViewMatrix(TransformMatrix4.identity)
         shader.setProjectionMatrix(self.projection)
+        shader.setColorFactor(1.0)
         shader.setAlphaFactor(1.0)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)

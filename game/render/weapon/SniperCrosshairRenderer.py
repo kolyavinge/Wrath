@@ -47,6 +47,7 @@ class SniperCrosshairRenderer:
         shader.setModelMatrix(self.modelMatrix)
         shader.setViewMatrix(TransformMatrix4.identity)
         shader.setProjectionMatrix(self.orthoLeft)
+        shader.setColorFactor(1.0)
         shader.setAlphaFactor(1.0)
         self.textureCollection.sniperCrosshair.bind(GL_TEXTURE0)
         self.vboRenderer.render(self.crosshairVBO)

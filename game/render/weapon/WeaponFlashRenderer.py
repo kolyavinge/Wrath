@@ -34,6 +34,7 @@ class WeaponFlashRenderer:
             for flash in levelSegment.weaponFlashes:
                 mesh = self.renderCollection.getRenderMesh(flash.weaponType)
                 shader.setModelMatrix(flash.getModelMatrix())
+                shader.setColorFactor(1.0)
                 shader.setAlphaFactor(flash.alpha)
                 mesh.texture.bind(GL_TEXTURE0)
                 self.vboRenderer.render(mesh.vbo)
