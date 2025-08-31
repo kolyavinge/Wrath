@@ -33,18 +33,33 @@ class PersonWallCollisionDetector:
         return collidedWalls
 
     def hasWallCollision(self, person, wall):
+        result = False
+
         current = person.currentFootRect
         next = person.nextFootRect
-        # check corners
-        result = self.isCollidedWall(wall, current.downLeft, next.downLeft)
-        result = result or self.isCollidedWall(wall, current.downRight, next.downRight)
-        result = result or self.isCollidedWall(wall, current.upLeft, next.upLeft)
-        result = result or self.isCollidedWall(wall, current.upRight, next.upRight)
-        # check middle
-        result = result or self.isCollidedWall(wall, current.middleLeft, next.middleLeft)
-        result = result or self.isCollidedWall(wall, current.middleRight, next.middleRight)
-        result = result or self.isCollidedWall(wall, current.middleTop, next.middleTop)
-        result = result or self.isCollidedWall(wall, current.middleBottom, next.middleBottom)
+
+        dx = next.center.x - current.center.x
+        dy = next.center.y - current.center.y
+
+        if dy > 0:
+            result = result or self.isCollidedWall(wall, current.upLeft, next.upLeft)
+            result = result or self.isCollidedWall(wall, current.upRight, next.upRight)
+            result = result or self.isCollidedWall(wall, current.middleTop, next.middleTop)
+
+        if dy < 0:
+            result = result or self.isCollidedWall(wall, current.downLeft, next.downLeft)
+            result = result or self.isCollidedWall(wall, current.downRight, next.downRight)
+            result = result or self.isCollidedWall(wall, current.middleBottom, next.middleBottom)
+
+        if dx < 0:
+            result = result or self.isCollidedWall(wall, current.downLeft, next.downLeft)
+            result = result or self.isCollidedWall(wall, current.upLeft, next.upLeft)
+            result = result or self.isCollidedWall(wall, current.middleLeft, next.middleLeft)
+
+        if dx > 0:
+            result = result or self.isCollidedWall(wall, current.downRight, next.downRight)
+            result = result or self.isCollidedWall(wall, current.upRight, next.upRight)
+            result = result or self.isCollidedWall(wall, current.middleRight, next.middleRight)
 
         return result
 
