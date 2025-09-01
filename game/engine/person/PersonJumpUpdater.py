@@ -1,7 +1,7 @@
 from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.lib.EventManager import EventManager
-from game.model.person.PersonZState import PersonZState
+from game.model.person.PersonStates import PersonZState
 
 
 class PersonJumpUpdater:

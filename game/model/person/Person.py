@@ -9,12 +9,14 @@ from game.lib.Math import Math
 from game.model.level.Floor import Floor
 from game.model.level.LevelSegment import LevelSegment
 from game.model.person.PersonFuncs import *
-from game.model.person.PersonZState import PersonZState
+from game.model.person.PersonStates import LifeCycle, PersonZState
 
 
 class Person:
 
     def __init__(self):
+        self.lifeCycle = LifeCycle.alive
+        self.lifeCycleDelay = DecrementCounter()
         self.zState = PersonZState.onFloor
         self.prevZState = None
         self.currentCenterPoint = Vector3()

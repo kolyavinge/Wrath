@@ -3,7 +3,7 @@ from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
 from game.lib.Math import Math
 from game.model.level.Stair import Stair
-from game.model.person.PersonZState import PersonZState
+from game.model.person.PersonStates import PersonZState
 
 
 class PersonVelocityUpdater:

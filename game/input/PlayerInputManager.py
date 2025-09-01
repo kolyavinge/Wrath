@@ -6,6 +6,7 @@ from game.input.Keys import Keys
 from game.lib.EventManager import EventManager
 from game.lib.Math import Math
 from game.model.person.AimState import DefaultAimState, SniperAimState
+from game.model.person.PersonStates import LifeCycle
 from game.model.weapon.Sniper import Sniper
 
 
@@ -25,8 +26,9 @@ class PlayerInputManager:
 
     def processInput(self):
         self.gameData.playerInputData.clear()
-        self.processKeyboard()
-        self.processMouse()
+        if self.gameData.player.lifeCycle == LifeCycle.alive:
+            self.processKeyboard()
+            self.processMouse()
 
     def processKeyboard(self):
         inputData = self.gameData.playerInputData

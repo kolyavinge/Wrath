@@ -1,6 +1,6 @@
 from game.engine.GameData import GameData
 from game.gl.model3d.AnimationPlayer import PlayableAnimation
-from game.model.person.PersonZState import PersonZState
+from game.model.person.PersonStates import PersonZState
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 
 

@@ -1,6 +1,6 @@
 from game.engine.GameData import GameData
 from game.lib.Math import Math
-from game.model.person.PersonZState import PersonZState
+from game.model.person.PersonStates import PersonZState
 
 
 class PlayerMovingSwingUpdater:
