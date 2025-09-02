@@ -63,10 +63,10 @@ class GameScreenRenderer:
         self.mainSceneRenderer.renderDefaultAimState()
         # self.playerSegmentItemsRenderer.render()
         self.backgroundRenderer.render()
-        self.shineBulletRenderer.render()
-        self.weaponFlashRenderer.render()
         self.bulletHoleRenderer.render()
+        self.shineBulletRenderer.render()
         self.bulletTraceRenderer.render()
+        self.weaponFlashRenderer.render()
         self.crosshairRenderer.render()
         self.playerBloodStainRenderer.render()
         self.dashboardRenderer.render()
@@ -74,10 +74,10 @@ class GameScreenRenderer:
     def renderSniperAimState(self):
         self.mainSceneRenderer.renderSniperAimState()
         self.backgroundRenderer.render()
-        self.shineBulletRenderer.render()
-        self.weaponFlashRenderer.render()
         self.bulletHoleRenderer.render()
+        self.shineBulletRenderer.render()
         self.bulletTraceRenderer.render()
+        self.weaponFlashRenderer.render()
         self.sniperCrosshairRenderer.render()
 
     def onAimStateSwitched(self, aimState):
