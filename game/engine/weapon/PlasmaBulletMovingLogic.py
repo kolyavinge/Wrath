@@ -1,5 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
+from game.model.person.PersonStates import LifeCycle
 
 
 class PlasmaBulletMovingLogic:
@@ -23,6 +24,8 @@ class PlasmaBulletMovingLogic:
         targetPersonDistance = CommonConstants.maxLevelSize
         for person in bullet.currentLevelSegment.allPerson:
             if person == bullet.ownerPerson:
+                continue
+            if person.lifeCycle != LifeCycle.alive:
                 continue
 
             personDirection = bullet.currentPosition.getDirectionTo(person.chestCenterPoint)
