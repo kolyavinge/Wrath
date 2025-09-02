@@ -4,6 +4,7 @@ from game.calc.RectPlane import RectPlane
 from game.calc.Vector3 import Vector3
 from game.engine.cm.PlaneCollisionDetector import PlaneCollisionDetector
 from game.engine.cm.SphereCollisionDetector import SphereCollisionDetector
+from game.model.person.PersonStates import LifeCycle
 
 
 class PersonCollisionTarget:
@@ -25,7 +26,10 @@ class PersonCollisionDetector:
         self.yNormal = Vector3(0, 1, 0)
 
     def getCollisionLengthOrNone(self, person1, person2):
-        return self.getCollisionLengthBetweenPointsOrNone(person1.nextCenterPoint, person2.nextCenterPoint)
+        if person1.lifeCycle == LifeCycle.alive and person2.lifeCycle == LifeCycle.alive:
+            return self.getCollisionLengthBetweenPointsOrNone(person1.nextCenterPoint, person2.nextCenterPoint)
+        else:
+            return None
 
     def getCollisionLengthBetweenPointsOrNone(self, point1, point2):
         # пересечение окружностей
@@ -37,6 +41,8 @@ class PersonCollisionDetector:
         nearestLength = CommonConstants.maxLevelSize
         for person in allPerson:
             if person == excludedPerson:
+                continue
+            if person.lifeCycle != LifeCycle.alive:
                 continue
             # check body (two cross planes)
             border = person.nextBodyBorder

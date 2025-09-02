@@ -3,6 +3,7 @@ from game.engine.GameData import GameData
 from game.gl.model3d.AnimationPlayer import AnimationPlayer
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.model.person.AimState import SniperAimState
+from game.model.person.PersonStates import LifeCycle
 from game.render.person.EnemyAnimationCollection import EnemyAnimationCollection
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 
@@ -30,13 +31,12 @@ class EnemyRenderer:
 
     def renderEnemy(self, enemy, shader):
         shader.setModelMatrix(enemy.getModelMatrix())
-        enemyDirectionLength = self.gameData.camera.position.getLengthTo(enemy.middleCenterPoint)
-        if enemyDirectionLength < CommonConstants.maxEnemyAnimationDistance or type(self.gameData.aimState) == SniperAimState:
+        if self.animationNeedApply(enemy):
             animation = self.enemyAnimationCollection.getPlayableAnimationOrNone(enemy)
-            if animation is not None:
+            if animation is not None and self.animationNeedUpdate(enemy):
                 self.animationPlayer.update(animation)
-                shader.hasAnimation(True)
-                shader.setBoneTransformMatrices(animation.boneTransformMatrices)
+            shader.hasAnimation(True)
+            shader.setBoneTransformMatrices(animation.boneTransformMatrices)
         self.model3dRenderer.render(self.renderCollection.enemyModel, shader)
         shader.hasAnimation(False)
 
@@ -52,3 +52,16 @@ class EnemyRenderer:
         animation = self.enemyAnimationCollection.getPlayableAnimationOrNone(enemy)
         shader.setBoneTransformMatrices(animation.boneTransformMatrices)
         self.model3dRenderer.renderForShadow(self.renderCollection.enemyModel)
+
+    def animationNeedApply(self, enemy):
+        if type(self.gameData.aimState) == SniperAimState:
+            return True
+
+        enemyDirectionLength = self.gameData.camera.position.getLengthTo(enemy.middleCenterPoint)
+        if enemyDirectionLength < CommonConstants.maxEnemyAnimationDistance:
+            return True
+
+        return False
+
+    def animationNeedUpdate(self, enemy):
+        return enemy.lifeCycle == LifeCycle.alive
