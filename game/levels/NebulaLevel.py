@@ -8,8 +8,8 @@ from game.levels.builder.LevelBuilder import LevelBuilder
 from game.levels.builder.WallBorder import WallBorder
 from game.levels.builder.WallInfo import WallInfo
 from game.model.level.Level import Level
+from game.model.level.LevelAreas import PowerupArea, RespawnArea
 from game.model.level.LevelSegmentJoinLine import LevelSegmentJoinLine
-from game.model.level.PowerupArea import PowerupArea
 from game.model.Material import Material
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
@@ -33,7 +33,8 @@ class NebulaLevel(Level):
         self.makeSecondFloor(builder)
         self.makeLights(builder)
         self.makeJoinLines()
-        self.makePowerups()
+        self.makePowerupAreas()
+        self.makeRespawnAreas()
 
     def makeFirstFloor(self, builder):
         builder.buildFlatFloor(Vector3(0, 0, 0), 45, 50, Material.rock1)
@@ -493,7 +494,7 @@ class NebulaLevel(Level):
         self.addJoinLine(LevelSegmentJoinLine(Vector3(80, 20, z), Vector3(80, 80, z), CommonConstants.zAxis))
         self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, z), Vector3(80, 80, z), CommonConstants.zAxis))
 
-    def makePowerups(self):
+    def makePowerupAreas(self):
         self.addPowerupArea(PowerupArea(Vector3(50, 50, self.firstFloorZ), Vector3(50, 50, self.firstFloorZ), 40))
 
         self.addPowerupArea(PowerupArea(Vector3(10, 7, self.secondFloorZ), Vector3(90, 7, self.secondFloorZ), 7))
@@ -504,6 +505,9 @@ class NebulaLevel(Level):
         self.addPowerupArea(PowerupArea(Vector3(95, 75, self.secondFloorZ), Vector3(95, 65, self.secondFloorZ), 5))
         self.addPowerupArea(PowerupArea(Vector3(95, 40, self.secondFloorZ), Vector3(95, 30, self.secondFloorZ), 5))
         self.addPowerupArea(PowerupArea(Vector3(85, 20, self.secondFloorZ), Vector3(95, 20, self.secondFloorZ), 5))
+
+    def makeRespawnAreas(self):
+        self.addRespawnArea(RespawnArea(Vector3(5, 5, self.secondFloorZ), Vector3(95, 5, self.secondFloorZ), 5, Vector3(0, 1, 0)))
 
     def getCollisionSplitPlanes(self):
         for sp in self.getVisibilitySplitPlanes():

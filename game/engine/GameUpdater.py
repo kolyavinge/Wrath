@@ -15,6 +15,7 @@ from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonBreathUpdater import PersonBreathUpdater
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
 from game.engine.person.PersonJumpUpdater import PersonJumpUpdater
+from game.engine.person.PersonLifeCycleUpdater import PersonLifeCycleUpdater
 from game.engine.person.PersonMovingTimeUpdater import PersonMovingTimeUpdater
 from game.engine.person.PersonPositionUpdater import PersonPositionUpdater
 from game.engine.person.PersonStepUpdater import PersonStepUpdater
@@ -79,6 +80,7 @@ class GameUpdater:
     bulletCollisionUpdater: BulletCollisionUpdater
     powerupCollisionUpdater: PowerupCollisionUpdater
     explosionCollisionUpdater: ExplosionCollisionUpdater
+    personLifeCycleUpdater: PersonLifeCycleUpdater
     torchUpdater: TorchUpdater
     powerupUpdater: PowerupUpdater
     weaponFlashUpdater: WeaponFlashUpdater
@@ -106,6 +108,7 @@ class GameUpdater:
         self.personZUpdater.updateIfMoved()
         self.personCeilingCollisionUpdater.update()
         self.personStepUpdater.update()
+        self.personLifeCycleUpdater.update()
         self.personPositionUpdater.commitNextPosition()
         self.personFloorUpdater.commitNextFloor()
         self.playerLevelSegmentsUpdater.updateIfMoved()

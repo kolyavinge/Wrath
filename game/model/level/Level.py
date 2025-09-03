@@ -12,6 +12,7 @@ class Level:
         self.lights = []
         self.joinLines = []
         self.powerupAreas = []
+        self.respawnAreas = []
 
     def addConstruction(self, construction):
         construction.commit()
@@ -39,6 +40,9 @@ class Level:
 
     def addPowerupArea(self, powerupArea):
         self.powerupAreas.append(powerupArea)
+
+    def addRespawnArea(self, respawnArea):
+        self.respawnAreas.append(respawnArea)
 
     def validate(self):
         allItems = self.walls + self.floors + self.ceilings

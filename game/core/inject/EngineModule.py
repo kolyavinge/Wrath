@@ -56,6 +56,7 @@ from game.engine.person.PersonDamageLogic import *
 from game.engine.person.PersonFloorUpdater import *
 from game.engine.person.PersonJumpUpdater import *
 from game.engine.person.PersonLevelSegmentsUpdater import *
+from game.engine.person.PersonLifeCycleUpdater import *
 from game.engine.person.PersonMovingTimeUpdater import *
 from game.engine.person.PersonPositionUpdater import *
 from game.engine.person.PersonStepUpdater import *
@@ -156,6 +157,7 @@ class EngineModule:
         binder.bindSingleton(PersonFloorUpdater)
         binder.bindSingleton(PersonJumpUpdater)
         binder.bindSingleton(PersonLevelSegmentsUpdater)
+        binder.bindSingleton(PersonLifeCycleUpdater)
         binder.bindSingleton(PersonMovingTimeUpdater)
         binder.bindSingleton(PersonPositionUpdater)
         binder.bindSingleton(PersonStepUpdater)

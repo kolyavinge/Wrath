@@ -3,6 +3,7 @@ from game.calc.Box3d import Box3d
 from game.calc.Vector3 import Vector3
 from game.engine.CameraScopeChecker import CameraScopeChecker
 from game.engine.GameData import GameData
+from game.model.person.PersonStates import LifeCycle
 
 
 class EnemyVisibilityUpdater:
@@ -19,9 +20,9 @@ class EnemyVisibilityUpdater:
     def updateEnemiesVisibility(self):
         for levelSegment in self.gameData.visibleLevelSegments:
             for enemy in levelSegment.enemies:
-                enemy.isVisibleForPlayer = self.isEnemyVisible(enemy)
+                enemy.isVisibleForPlayer = enemy.lifeCycle != LifeCycle.respawnDelay and self.inCamera(enemy)
 
-    def isEnemyVisible(self, enemy):
+    def inCamera(self, enemy):
         shift = enemy.currentCenterPoint
         for initPoint in self.initVisibilityPoints:
             if self.cameraScopeChecker.isPointInCamera(initPoint.x + shift.x, initPoint.y + shift.y, initPoint.z + shift.z):

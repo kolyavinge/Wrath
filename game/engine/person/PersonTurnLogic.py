@@ -17,6 +17,7 @@ class PersonTurnLogic:
             if vectorProduct.z < 0.0:
                 radians *= -1.0
             person.yawRadians = Geometry.normalizeRadians(person.yawRadians + radians)
+            person.pitchRadians = 0
             self.calculateDirectionVectors(person)
 
     def calculateDirectionVectors(self, person):
