@@ -1,9 +1,10 @@
 class DecrementCounter:
 
     def __init__(self):
-        self.value = 0
+        self.set(0)
 
     def set(self, value):
+        self.initValue = value
         self.value = value
 
     def decrease(self):

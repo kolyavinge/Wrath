@@ -10,6 +10,7 @@ layout (location = 1) out vec4 out_DiffuseSpecular;
 uniform sampler2D ourTexture;
 
 uniform mat4 viewMatrix;
+uniform float alphaFactor;
 uniform float maxDepth;
 
 mat3 normalMatrix = mat3(viewMatrix);
@@ -106,6 +107,7 @@ float getViewDepthFactor()
 void main()
 {
     vec4 textureColor = getTextureColor();
+    textureColor.w *= alphaFactor;
     vec3 ambient = vec3(0.0);
     vec3 diffuseSpecular = vec3(0.0);
     getTotalLightColor(ambient, diffuseSpecular);

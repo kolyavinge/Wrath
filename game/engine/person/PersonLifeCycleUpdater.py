@@ -23,16 +23,16 @@ class PersonLifeCycleUpdater:
         if person.lifeCycle == LifeCycle.alive:
             if person.health == 0:
                 person.lifeCycle = LifeCycle.dead
-                person.lifeCycleDelay.set(50)
+                person.lifeCycleDelay.set(100)
         else:
             person.lifeCycleDelay.decrease()
             if person.lifeCycleDelay.isExpired():
                 if person.lifeCycle == LifeCycle.dead:
                     person.lifeCycle = LifeCycle.respawnDelay
-                    person.lifeCycleDelay.set(100)
+                    person.lifeCycleDelay.set(500)
                 elif person.lifeCycle == LifeCycle.respawnDelay:
                     person.lifeCycle = LifeCycle.respawn
-                    person.lifeCycleDelay.set(50)
+                    person.lifeCycleDelay.set(100)
                     self.generateRespawnPosition(person)
                     person.addHealth(PersonConstants.maxPersonHealth)
                 elif person.lifeCycle == LifeCycle.respawn:

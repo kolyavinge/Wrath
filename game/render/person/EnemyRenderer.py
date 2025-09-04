@@ -1,3 +1,5 @@
+from OpenGL.GL import *
+
 from game.anx.CommonConstants import CommonConstants
 from game.engine.GameData import GameData
 from game.gl.model3d.AnimationPlayer import AnimationPlayer
@@ -31,14 +33,26 @@ class EnemyRenderer:
 
     def renderEnemy(self, enemy, shader):
         shader.setModelMatrix(enemy.getModelMatrix())
+
         if self.animationNeedApply(enemy):
             animation = self.enemyAnimationCollection.getPlayableAnimationOrNone(enemy)
             if animation is not None and self.animationNeedUpdate(enemy):
                 self.animationPlayer.update(animation)
             shader.hasAnimation(True)
             shader.setBoneTransformMatrices(animation.boneTransformMatrices)
+
+        if enemy.lifeCycle != LifeCycle.alive:
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+            glEnable(GL_BLEND)
+            glEnable(GL_ALPHA_TEST)
+            shader.setAlphaFactor(enemy.getAlphaForLifeCycle())
+
         self.model3dRenderer.render(self.renderCollection.enemyModel, shader)
+
         shader.hasAnimation(False)
+        if enemy.lifeCycle != LifeCycle.alive:
+            glDisable(GL_ALPHA_TEST)
+            glDisable(GL_BLEND)
 
     def renderForShadow(self, shader, levelSegment):
         shader.hasAnimation(True)

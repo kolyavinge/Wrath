@@ -19,6 +19,9 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
     def setMaxDepth(self, maxDepth):
         self.setFloat32("maxDepth", maxDepth)
 
+    def setAlphaFactor(self, factor):
+        self.setFloat32("alphaFactor", factor)
+
     def setMaterial(self, material):
         self.setFloat32("material.ambient", material.ambient)
         self.setFloat32("material.diffuse", material.diffuse)
