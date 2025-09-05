@@ -1,6 +1,10 @@
 import sys
 
-from OpenGL.GL import glViewport
+import OpenGL
+
+OpenGL.ERROR_CHECKING = False
+from OpenGL.GL import GL_NO_ERROR, glGetError, glViewport
+from OpenGL.GLU import gluErrorString
 from OpenGL.GLUT import *
 
 from game.anx.CommonConstants import CommonConstants
@@ -25,6 +29,9 @@ class App:
     def render(self):
         self.game.renderCurrentScreen()
         glutSwapBuffers()
+        error = glGetError()
+        if error != GL_NO_ERROR:
+            raise Exception(f"OpenGL error: {gluErrorString(error)}")
 
     def run(self):
         glutInit(sys.argv)
