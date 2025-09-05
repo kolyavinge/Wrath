@@ -112,18 +112,6 @@ class Person:
 
         self.health = int(Math.max(self.health - value, 0))
 
-    def getAlphaForLifeCycle(self):
-        if self.lifeCycle == LifeCycle.alive:
-            return 1.0
-        if self.lifeCycle == LifeCycle.dead:
-            return self.lifeCycleDelay.value / self.lifeCycleDelay.initValue
-        if self.lifeCycle == LifeCycle.respawnDelay:
-            return 0.0
-        if self.lifeCycle == LifeCycle.respawn:
-            return 1.0 - self.lifeCycleDelay.value / self.lifeCycleDelay.initValue
-
-        raise Exception("Wrong LifeCycle value.")
-
     def getModelMatrix(self):
         return (
             TransformMatrix4Builder()
