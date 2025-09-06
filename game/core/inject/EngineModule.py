@@ -37,6 +37,7 @@ from game.engine.cm.SphereCollisionDetector import *
 from game.engine.cm.VoidCollisionDetector import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
+from game.engine.level.BackgroundVisibilityUpdater import *
 from game.engine.level.LevelLoader import *
 from game.engine.level.LevelManager import *
 from game.engine.level.LevelSegmentItemFinder import *
@@ -46,7 +47,6 @@ from game.engine.level.LevelValidator import *
 from game.engine.level.PersonInitializer import *
 from game.engine.person.AIDataInitializer import *
 from game.engine.person.AimStateSwitcher import *
-from game.engine.person.BackgroundVisibilityUpdater import *
 from game.engine.person.CowboyEasterEggUpdater import *
 from game.engine.person.EnemyLevelSegmentsUpdater import *
 from game.engine.person.EnemyLifeBarUpdater import *
@@ -139,6 +139,7 @@ class EngineModule:
         binder.bindSingleton(VoidCollisionDetector)
         binder.bindSingleton(GameData)
         binder.bindSingleton(GameUpdater, resolveByFields=True)
+        binder.bindSingleton(BackgroundVisibilityUpdater)
         binder.bindSingleton(LevelLoader)
         binder.bindSingleton(LevelManager, resolveByFields=True)
         binder.bindSingleton(LevelSegmentItemFinder)
@@ -148,7 +149,6 @@ class EngineModule:
         binder.bindSingleton(PersonInitializer)
         binder.bindSingleton(AIDataInitializer)
         binder.bindSingleton(AimStateSwitcher)
-        binder.bindSingleton(BackgroundVisibilityUpdater)
         binder.bindSingleton(CowboyEasterEggUpdater)
         binder.bindSingleton(EnemyLevelSegmentsUpdater)
         binder.bindSingleton(EnemyLifeBarUpdater)

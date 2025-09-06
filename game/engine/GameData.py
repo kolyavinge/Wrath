@@ -1,35 +1,13 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTree import BSPTree
 from game.model.Camera import Camera
+from game.model.level.BackgroundVisibilityData import BackgroundVisibilityData
 from game.model.light.Torch import Torch
 from game.model.person.AimState import DefaultAimState
+from game.model.person.CollisionData import CollisionData
 from game.model.person.PersonInputData import PersonInputData
 from game.model.person.PersonItems import PersonItems
 from game.model.person.Player import Player
-
-
-# TODO переместить в папку model\person
-class CollisionData:
-
-    def __init__(self):
-        self.personBullet = {}
-        self.personPerson = {}
-        self.personWalls = {}
-
-    def clear(self):
-        self.personBullet.clear()
-        self.personPerson.clear()
-        self.personWalls.clear()
-
-
-# TODO переместить в папку model\level
-class BackgroundVisibilityData:
-
-    def __init__(self):
-        self.vertices = []
-        self.texCoords = []
-        self.horizontalPointsCount = 0
-        self.verticalPointsCount = 0
 
 
 class GameData:
