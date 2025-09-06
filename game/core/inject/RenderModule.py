@@ -38,6 +38,7 @@ from game.render.main.ShadowedObjectFramebuffer import *
 from game.render.main.ShadowedObjectRenderer import *
 from game.render.menu.DashboardRenderer import *
 from game.render.person.EnemyAnimationCollection import *
+from game.render.person.EnemyLifeBarRenderer import *
 from game.render.person.EnemyModel3dFactory import *
 from game.render.person.EnemyRenderCollection import *
 from game.render.person.EnemyRenderer import *
@@ -114,6 +115,7 @@ class RenderModule:
         binder.bindSingleton(ShadowedObjectRenderer)
         binder.bindSingleton(DashboardRenderer)
         binder.bindSingleton(EnemyAnimationCollection)
+        binder.bindSingleton(EnemyLifeBarRenderer)
         binder.bindSingleton(EnemyModel3dFactory)
         binder.bindSingleton(EnemyRenderCollection)
         binder.bindSingleton(EnemyRenderer)

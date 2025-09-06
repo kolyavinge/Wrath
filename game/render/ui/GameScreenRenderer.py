@@ -6,6 +6,7 @@ from game.render.debug.PlayerSegmentItemsRenderer import PlayerSegmentItemsRende
 from game.render.level.BackgroundRenderer import BackgroundRenderer
 from game.render.main.MainSceneRenderer import MainSceneRenderer
 from game.render.menu.DashboardRenderer import DashboardRenderer
+from game.render.person.EnemyLifeBarRenderer import EnemyLifeBarRenderer
 from game.render.person.PlayerBloodStainRenderer import PlayerBloodStainRenderer
 from game.render.ui.GameScreenInitializer import GameScreenInitializer
 from game.render.weapon.BulletHoleRenderer import BulletHoleRenderer
@@ -27,6 +28,7 @@ class GameScreenRenderer:
         mainSceneRenderer: MainSceneRenderer,
         shineBulletRenderer: ShineBulletRenderer,
         weaponFlashRenderer: WeaponFlashRenderer,
+        enemyLifeBarRenderer: EnemyLifeBarRenderer,
         bulletHoleRenderer: BulletHoleRenderer,
         bulletTraceRenderer: BulletTraceRenderer,
         crosshairRenderer: CrosshairRenderer,
@@ -41,6 +43,7 @@ class GameScreenRenderer:
         self.mainSceneRenderer = mainSceneRenderer
         self.shineBulletRenderer = shineBulletRenderer
         self.weaponFlashRenderer = weaponFlashRenderer
+        self.enemyLifeBarRenderer = enemyLifeBarRenderer
         self.bulletHoleRenderer = bulletHoleRenderer
         self.bulletTraceRenderer = bulletTraceRenderer
         self.crosshairRenderer = crosshairRenderer
@@ -67,6 +70,7 @@ class GameScreenRenderer:
         self.shineBulletRenderer.render()
         self.bulletTraceRenderer.render()
         self.weaponFlashRenderer.render()
+        self.enemyLifeBarRenderer.render()
         self.crosshairRenderer.render()
         self.playerBloodStainRenderer.render()
         self.dashboardRenderer.render()
@@ -78,6 +82,7 @@ class GameScreenRenderer:
         self.shineBulletRenderer.render()
         self.bulletTraceRenderer.render()
         self.weaponFlashRenderer.render()
+        self.enemyLifeBarRenderer.render()
         self.sniperCrosshairRenderer.render()
 
     def onAimStateSwitched(self, aimState):
