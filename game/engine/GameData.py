@@ -8,6 +8,7 @@ from game.model.person.PersonItems import PersonItems
 from game.model.person.Player import Player
 
 
+# TODO переместить в папку model\person
 class CollisionData:
 
     def __init__(self):
@@ -21,6 +22,7 @@ class CollisionData:
         self.personWalls.clear()
 
 
+# TODO переместить в папку model\level
 class BackgroundVisibilityData:
 
     def __init__(self):
@@ -56,14 +58,15 @@ class GameData:
         self.explosions = []
         self.powerups = []
         self.bloodStains = []
+        self.enemyLifeBars = {}
         self.camera = Camera()
         self.aimState = DefaultAimState()
         self.collisionData = CollisionData()
         self.backgroundVisibility = BackgroundVisibilityData()
         # for debug
-        self.isDebug = True
-        self.noEnemies = True
-        self.enemyFreeze = True
+        self.isDebug = False
+        self.noEnemies = False
+        self.enemyFreeze = False
 
     def updateGlobalTime(self):
         self.globalTimeMsec += CommonConstants.mainTimerMsec

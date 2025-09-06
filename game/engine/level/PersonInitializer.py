@@ -2,6 +2,7 @@ from game.engine.GameData import GameData
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.model.person.Enemy import Enemy
+from game.model.person.EnemyLifeBar import EnemyLifeBar
 from game.model.person.PersonInputData import PersonInputData
 from game.model.person.PersonItems import PersonItems
 
@@ -50,6 +51,7 @@ class PersonInitializer:
         self.gameData.enemyInputData[enemy] = PersonInputData()
         self.gameData.allPersonItems[enemy] = self.gameData.enemyItems[enemy]
         self.gameData.allPersonInputData[enemy] = self.gameData.enemyInputData[enemy]
+        self.gameData.enemyLifeBars[enemy] = EnemyLifeBar()
         self.weaponSelector.initWeaponByType(enemy, weaponType)
 
     def initAllPersonPairs(self):
