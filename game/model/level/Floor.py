@@ -8,6 +8,7 @@ class Floor(Construction):
         super().__init__()
         self.frontNormal = CommonConstants.up
         self.visualSize = 2.0
+        self.slowdownCoeff = 1.0
 
     def commit(self):
         super().commit()

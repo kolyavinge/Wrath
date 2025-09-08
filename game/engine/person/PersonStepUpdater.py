@@ -17,14 +17,14 @@ class PersonStepUpdater:
         self.eventManager = eventManager
 
     def update(self):
-        for person in self.gameData.allPerson:
+        for person, personItems in self.gameData.allPersonItems.items():
             if person.hasMoved:
-                self.updateForPerson(person)
+                self.updateForPerson(person, personItems)
 
-    def updateForPerson(self, person):
+    def updateForPerson(self, person, personItems):
         doStep = False
         if person.zState == PersonZState.onFloor:
-            person.stepTime += 1
+            person.stepTime += 1.0 * personItems.currentWeapon.slowdownCoeff
             if isinstance(person.nextFloor, Stair):
                 doStep = person.currentCenterPoint.z != person.nextCenterPoint.z
             else:

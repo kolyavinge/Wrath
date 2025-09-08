@@ -26,11 +26,11 @@ class PlayerWeaponSwingUpdater:
         elif player.velocityValue == 0:
             self.lastStep = 0
         else:
-            self.lastStep += 1
-            if self.lastStep == len(self.steps):
+            self.lastStep += 1.0 * self.gameData.playerItems.currentWeapon.slowdownCoeff
+            if self.lastStep >= len(self.steps):
                 self.lastStep = 0
 
-        radians = self.steps[self.lastStep]
+        radians = self.steps[int(self.lastStep)]
         swing = Geometry.rotatePoint(player.rightNormal, player.frontNormal, CommonConstants.axisOrigin, radians)
         swing.setLength(0.015 * player.velocityValue)
 

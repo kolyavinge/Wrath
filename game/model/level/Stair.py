@@ -15,6 +15,7 @@ class Stair(Floor):
         self.stepsCount = 0
         self.stepWidth = 0
         self.includeBorderPoints = True
+        self.slowdownCoeff = 0.5
 
     def commit(self):
         self.maxZ = self.endBasePoint.z

@@ -2,7 +2,6 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.engine.GameData import GameData
 from game.lib.Math import Math
-from game.model.level.Stair import Stair
 from game.model.person.PersonStates import PersonZState
 
 
@@ -28,7 +27,7 @@ class PersonVelocityUpdater:
     def processForwardBackward(self, person):
         movingTime = person.forwardMovingTime - person.backwardMovingTime
         person.velocityValue = person.velocityFunc.getValue(Math.abs(movingTime))
-        self.slowdownOnStair(person)
+        self.slowdownIfNeeded(person)
         person.velocityVector = person.frontNormal.copy()
         person.velocityVector.setLength(person.velocityValue)
         if movingTime < 0:
@@ -52,12 +51,13 @@ class PersonVelocityUpdater:
     def processLeftRightStep(self, person):
         movingTime = person.rightStepMovingTime - person.leftStepMovingTime
         person.velocityValue = person.velocityFunc.getValue(Math.abs(movingTime))
-        self.slowdownOnStair(person)
+        self.slowdownIfNeeded(person)
         person.velocityVector = person.rightNormal.copy()
         person.velocityVector.setLength(person.velocityValue)
         if movingTime < 0:
             person.velocityVector.mul(-1)
 
-    def slowdownOnStair(self, person):
-        if person.zState == PersonZState.onFloor and isinstance(person.currentFloor, Stair):
-            person.velocityValue = Math.min(person.velocityValue, 0.25)
+    def slowdownIfNeeded(self, person):
+        if person.zState == PersonZState.onFloor:
+            person.velocityValue *= person.currentFloor.slowdownCoeff
+            person.velocityValue *= self.gameData.allPersonItems[person].currentWeapon.slowdownCoeff

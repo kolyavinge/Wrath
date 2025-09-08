@@ -46,6 +46,7 @@ class Sniper(Weapon):
         self.jitterDelta = 0.05
         self.feedbackFade = 0.9
         self.feedbackLength = 0.3
+        self.slowdownCoeff = 0.85
         self.setPositionForDefaultAimState()
 
     def setPositionForDefaultAimState(self):
