@@ -26,9 +26,11 @@ class PlayerInputManager:
 
     def processInput(self):
         self.gameData.playerInputData.clear()
-        if self.gameData.player.lifeCycle == LifeCycle.alive:
-            self.processKeyboard()
-            self.processMouse()
+        player = self.gameData.player
+        if player.lifeCycle != LifeCycle.alive or player.isParalyzed():
+            return
+        self.processKeyboard()
+        self.processMouse()
 
     def processKeyboard(self):
         inputData = self.gameData.playerInputData

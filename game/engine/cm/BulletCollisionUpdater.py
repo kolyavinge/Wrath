@@ -58,7 +58,7 @@ class BulletCollisionUpdater:
         if bullet.goThroughPerson:
             if person not in bullet.damagedPersonSet:
                 self.personDamageLogic.damageByBullet(person, bullet)
-                bullet.damagedPersonSet.add(person)  # one person damaged only once
+                bullet.damagedPersonSet.add(person)  # one person damage only once
         else:
             self.removeBullet(bullet)
             bullet.currentPosition = collisionPoint
@@ -67,6 +67,8 @@ class BulletCollisionUpdater:
                 self.personDamageLogic.damageByHeadshot(person)
             else:
                 self.personDamageLogic.damageByBullet(person, bullet)
+        if bullet.paralyze and person.health > 0:
+            person.paralyzeDelay.set(bullet.paralyzeTime)
 
     def removeBullet(self, bullet):
         self.gameData.bullets.remove(bullet)

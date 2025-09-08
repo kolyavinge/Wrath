@@ -23,7 +23,7 @@ class EnemyAIUpdater:
         for enemy in self.gameData.enemies:
             inputData = self.gameData.enemyInputData[enemy]
             inputData.clear()
-            if enemy.lifeCycle != LifeCycle.alive:
+            if enemy.lifeCycle != LifeCycle.alive or enemy.isParalyzed():
                 return
             aiData = enemy.aiData
             stateHandler = self.stateHandlerCollection.getStateHandler(aiData.state)

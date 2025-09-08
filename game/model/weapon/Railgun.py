@@ -21,6 +21,8 @@ class RailgunBullet(Bullet):
         self.damagePercent = 0.8
         self.goThroughPerson = True
         self.damagedPersonSet = set()
+        self.paralyze = True
+        self.paralyzeTime = 100
         self.holeInfo = BulletHoleInfo.railgunHole
 
 

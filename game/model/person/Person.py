@@ -62,6 +62,7 @@ class Person:
         self.breathFunc = BreathFunc()
         self.stepTime = 0
         self.selectWeaponDelay = DecrementCounter()
+        self.paralyzeDelay = DecrementCounter()
 
     def moveNextPositionBy(self, vector):
         self.nextCenterPoint.add(vector)
@@ -111,6 +112,9 @@ class Person:
             raise Exception("value cannot be negative.")
 
         self.health = int(Math.max(self.health - value, 0))
+
+    def isParalyzed(self):
+        return not self.paralyzeDelay.isExpired()
 
     def getModelMatrix(self):
         return (

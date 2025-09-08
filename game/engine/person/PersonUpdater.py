@@ -13,3 +13,4 @@ class PersonUpdater:
     def updateDelays(self):
         for person in self.gameData.allPerson:
             person.selectWeaponDelay.decrease()
+            person.paralyzeDelay.decrease()
