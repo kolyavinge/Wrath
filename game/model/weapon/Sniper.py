@@ -38,7 +38,7 @@ class Sniper(Weapon):
         super().__init__(SniperBullet, SniperFlash)
         self.bulletsCount = 8
         self.maxBulletsCount = 8
-        self.delay = 80
+        self.delay = 70
         self.needReload = True
         self.reloadDelay = 15
         self.reloadDelayRemain = DecrementCounter()

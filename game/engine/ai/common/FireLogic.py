@@ -2,6 +2,7 @@ from game.anx.PersonConstants import PersonConstants
 from game.engine.ai.common.BurstFireLogic import BurstFireLogic
 from game.engine.GameData import GameData
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
+from game.model.person.PersonStates import LifeCycle
 
 
 class FireLogic:
@@ -39,6 +40,9 @@ class FireLogic:
         return False
 
     def canFireToOtherEnemy(self, enemy, otherEnemy):
+        if otherEnemy.lifeCycle != LifeCycle.alive:
+            return False
+
         otherEnemyDirection = enemy.currentCenterPoint.getDirectionTo(otherEnemy.currentCenterPoint)
         otherEnemyDistance = otherEnemyDirection.getLength()
 

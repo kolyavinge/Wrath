@@ -33,7 +33,7 @@ class Railgun(Weapon):
         self.barrelPoint = Vector3(0.003, -0.02, 0.01)
         self.bulletsCount = 10
         self.maxBulletsCount = 10
-        self.delay = 50
+        self.delay = 40
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6
