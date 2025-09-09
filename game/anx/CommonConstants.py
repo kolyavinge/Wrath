@@ -20,3 +20,4 @@ class CommonConstants:
     mainTimerMsec = 20
     renderTimerMsec = 40
     maxBulletHoles = 1000
+    maxRaysCount = 100

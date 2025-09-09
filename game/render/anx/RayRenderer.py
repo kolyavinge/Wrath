@@ -34,25 +34,27 @@ class RayRenderer:
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
-        self.vbo = self.makeVBO()
+        self.vbo = self.vboUpdater.buildUnfilled(
+            4 * CommonConstants.maxRaysCount, 2 * CommonConstants.maxRaysCount, [BufferIndices.vertices, BufferIndices.faces]
+        )
 
-    def render(self, traces, params):
+    def render(self, rays, params):
         self.vbo.reset()
         originPositions = []
         mainAxes = []
         rayLengths = []
         rayBrightnesses = []
-        for trace in traces:
-            rayDirection = trace.startPosition.getDirectionTo(trace.currentPosition)
+        for ray in rays:
+            rayDirection = ray.startPosition.getDirectionTo(ray.currentPosition)
             mainAxis = rayDirection.copy()
             mainAxis.normalize()
-            plane = self.getPlane(trace.startPosition, trace.currentPosition, mainAxis)
-            vertices = self.getVertices(trace.startPosition, trace.currentPosition, plane, mainAxis)
+            plane = self.getPlane(ray.startPosition, ray.currentPosition, mainAxis)
+            vertices = self.getVertices(ray.startPosition, ray.currentPosition, plane, mainAxis)
             self.addVerticesToVBO(vertices)
-            originPositions.append(trace.startPosition)
+            originPositions.append(ray.startPosition)
             mainAxes.append(mainAxis)
             rayLengths.append(rayDirection.getLength())
-            rayBrightnesses.append(trace.brightness)
+            rayBrightnesses.append(ray.brightness)
 
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
@@ -110,9 +112,3 @@ class RayRenderer:
         plane = Plane.makeByThreePoints(rotatedCameraPosition, startPosition, endPosition)
 
         return plane
-
-    def makeVBO(self):
-        maxTracesCount = 100
-        vbo = self.vboUpdater.buildUnfilled(4 * maxTracesCount, 2 * maxTracesCount, [BufferIndices.vertices, BufferIndices.faces])
-
-        return vbo

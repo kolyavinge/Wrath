@@ -60,7 +60,7 @@ vec4 getBluredShadowCoeff()
 
 const float piDouble = 6.28318530718;
 const float directions = 8.0;
-const float quality = 4.0;
+const float quality = 2.0;
 const float blurSize = 2.0;
 const float piDoubleDivDirections = piDouble / directions;
 const float inverseQuality = 1.0 / quality;
@@ -85,7 +85,15 @@ vec4 getBluredShadowCoeff2()
     return resultColor;
 }
 
+vec4 getShadowCoeff()
+{
+    vec2 uv = gl_FragCoord.xy / resolution.xy;
+    vec4 resultColor = texture(stencilMaskTexture, uv);
+
+    return resultColor;
+}
+
 void main()
 {
-    FragColor = texelFetch(diffuseSpecularTexture, ivec2(gl_FragCoord), 0) * getBluredShadowCoeff2();
+    FragColor = texelFetch(diffuseSpecularTexture, ivec2(gl_FragCoord), 0) * getShadowCoeff();
 }
