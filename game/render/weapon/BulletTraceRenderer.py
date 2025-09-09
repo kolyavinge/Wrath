@@ -1,5 +1,3 @@
-from OpenGL.GL import *
-
 from game.engine.GameData import GameData
 from game.model.weapon.Pistol import PistolBulletTrace
 from game.model.weapon.Railgun import RailgunBulletTrace
@@ -27,28 +25,22 @@ class BulletTraceRenderer:
         self.renderers[SniperBulletTrace] = sniperBulletTraceRenderer
 
     def render(self):
-        traces = self.getVisibleTraces()
+        traces = self.getVisibleTracesDictionary()
         if len(traces) == 0:
             return
 
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        glEnable(GL_BLEND)
-        glEnable(GL_ALPHA_TEST)
-        glEnable(GL_DEPTH_TEST)
+        for traceType, traces in traces.items():
+            if traceType in self.renderers:
+                renderer = self.renderers[traceType]
+                renderer.renderTraces(traces)
 
-        for trace in traces:
-            if type(trace) in self.renderers:
-                renderer = self.renderers[type(trace)]
-                renderer.renderTrace(trace)
-
-        glDisable(GL_DEPTH_TEST)
-        glDisable(GL_ALPHA_TEST)
-        glDisable(GL_BLEND)
-
-    def getVisibleTraces(self):
-        result = set()
+    def getVisibleTracesDictionary(self):
+        result = {}
         for levelSegment in self.gameData.visibleLevelSegments:
             for trace in levelSegment.bulletTraces:
-                result.add(trace)
+                if type(trace) in result:
+                    result[type(trace)].add(trace)
+                else:
+                    result[type(trace)] = set([trace])
 
         return result

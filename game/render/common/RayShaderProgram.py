@@ -15,14 +15,23 @@ class RayShaderProgram(ShaderProgram):
     def setProjectionMatrix(self, projectionMatrix):
         self.setTransformMatrix4("projectionMatrix", projectionMatrix)
 
-    def setOriginPosition(self, origin):
-        self.setVector3("origin", origin)
+    def setOriginPositions(self, origins):
+        index = 0
+        for origin in origins:
+            self.setVector3(f"origins[{index}]", origin)
+            index += 1
 
-    def setMainAxis(self, mainAxis):
-        self.setVector3("mainAxis", mainAxis)
+    def setMainAxes(self, mainAxes):
+        index = 0
+        for mainAxis in mainAxes:
+            self.setVector3(f"mainAxes[{index}]", mainAxis)
+            index += 1
 
-    def setRayLength(self, rayLength):
-        self.setFloat32("rayLength", rayLength)
+    def setRayLengths(self, rayLengths):
+        index = 0
+        for rayLength in rayLengths:
+            self.setFloat32(f"rayLengths[{index}]", rayLength)
+            index += 1
 
     def setRayHeight(self, rayHeight):
         self.setFloat32("rayHeight", rayHeight)
@@ -30,8 +39,11 @@ class RayShaderProgram(ShaderProgram):
     def setRayColor(self, rayColor):
         self.setVector3("rayColor", rayColor)
 
-    def setRayBrightness(self, rayBrightness):
-        self.setFloat32("rayBrightness", rayBrightness)
+    def setRayBrightnesses(self, rayBrightnesses):
+        index = 0
+        for rayBrightness in rayBrightnesses:
+            self.setFloat32(f"rayBrightnesses[{index}]", rayBrightness)
+            index += 1
 
     def setShineStrength(self, shineStrength):
         self.setFloat32("shineStrength", shineStrength)

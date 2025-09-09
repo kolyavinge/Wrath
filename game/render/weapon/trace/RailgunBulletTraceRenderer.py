@@ -13,5 +13,5 @@ class RailgunBulletTraceRenderer:
         self.rayParams.rayColor.normalize()
         self.rayParams.shineStrength = 0.002
 
-    def renderTrace(self, trace):
-        self.rayBulletTraceRenderer.renderTrace(trace, self.rayParams)
+    def renderTraces(self, traces):
+        self.rayBulletTraceRenderer.renderTraces(traces, self.rayParams)

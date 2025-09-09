@@ -79,7 +79,7 @@ class VBOUpdater:
         vaoId = glGenVertexArrays(1)
         glBindVertexArray(vaoId)
 
-        vboIds = [0, 0, 0, 0]
+        vboIds = [0] * BufferIndices.count
 
         if BufferIndices.vertices in bufferIndices:
             vboId = glGenBuffers(1)
