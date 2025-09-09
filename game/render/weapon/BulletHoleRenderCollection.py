@@ -1,5 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
+from game.gl.BufferIndices import BufferIndices
 from game.gl.model3d.RenderModel3d import RenderMesh
 from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 from game.lib.EventManager import EventManager
@@ -30,7 +31,11 @@ class BulletHoleRenderCollection:
         for levelSegment in allVisibilityLevelSegments:
             self.meshes[levelSegment] = {}
             for holeInfo in BulletHoleInfo.allItems:
-                vbo = self.vboUpdater.buildUnfilled(4 * CommonConstants.maxBulletHoles, 2 * CommonConstants.maxBulletHoles)
+                vbo = self.vboUpdater.buildUnfilled(
+                    4 * CommonConstants.maxBulletHoles,
+                    2 * CommonConstants.maxBulletHoles,
+                    [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces],
+                )
                 texture = self.materialTextureCollection.getTextureForMaterial(holeInfo.material)
                 mesh = RenderMesh(vbo, texture, holeInfo.material)
                 self.meshes[levelSegment][holeInfo.material] = mesh
@@ -50,11 +55,6 @@ class BulletHoleRenderCollection:
         self.vboUpdater.addVertex(bulletHole.point2)
         self.vboUpdater.addVertex(bulletHole.point3)
         self.vboUpdater.addVertex(bulletHole.point4)
-
-        self.vboUpdater.addNormal(bulletHole.frontNormal)
-        self.vboUpdater.addNormal(bulletHole.frontNormal)
-        self.vboUpdater.addNormal(bulletHole.frontNormal)
-        self.vboUpdater.addNormal(bulletHole.frontNormal)
 
         self.vboUpdater.addTexCoord(0, 0)
         self.vboUpdater.addTexCoord(1, 0)
