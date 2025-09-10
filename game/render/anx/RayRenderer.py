@@ -1,15 +1,13 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Geometry import Geometry
-from game.calc.Plane import Plane
+from game.calc.RayOrientationLogic import RayOrientationLogic
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
 from game.gl.BufferIndices import BufferIndices
 from game.gl.ColorVector3 import ColorVector3
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
-from game.lib.Math import Math
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 
@@ -26,11 +24,13 @@ class RayRenderer:
     def __init__(
         self,
         gameData: GameData,
+        rayOrientationLogic: RayOrientationLogic,
         vboUpdaterFactory: VBOUpdaterFactory,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
     ):
         self.gameData = gameData
+        self.rayOrientationLogic = rayOrientationLogic
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
@@ -48,8 +48,12 @@ class RayRenderer:
             rayDirection = ray.startPosition.getDirectionTo(ray.currentPosition)
             mainAxis = rayDirection.copy()
             mainAxis.normalize()
-            plane = self.getPlane(ray.startPosition, ray.currentPosition, mainAxis)
-            vertices = self.getVertices(ray.startPosition, ray.currentPosition, plane, mainAxis)
+            vertices = self.rayOrientationLogic.getVerticesOrientedInCamera(
+                ray.startPosition,
+                ray.currentPosition,
+                mainAxis,
+                self.gameData.camera.position,
+            )
             self.addVerticesToVBO(vertices)
             originPositions.append(ray.startPosition)
             mainAxes.append(mainAxis)
@@ -90,25 +94,3 @@ class RayRenderer:
         self.vboUpdater.addFace(1, 3, 2)
 
         self.vboUpdater.endUpdate()
-
-    def getVertices(self, startPosition, endPosition, plane, mainAxis):  # ф-я не относится к рендеру луча, убрать в другой класс, в BulletTrace
-        step = Geometry.rotatePoint(plane.getNormal(), mainAxis, CommonConstants.axisOrigin, Math.piHalf)
-        step.setLength(1)
-
-        p1 = startPosition.copy()
-        p2 = startPosition.copy()
-        p3 = endPosition.copy()
-        p4 = endPosition.copy()
-
-        p1.add(step)
-        p2.sub(step)
-        p3.add(step)
-        p4.sub(step)
-
-        return [p1, p2, p3, p4]
-
-    def getPlane(self, startPosition, endPosition, mainAxis):  # ф-я не относится к рендеру луча
-        rotatedCameraPosition = Geometry.rotatePoint(self.gameData.camera.position, mainAxis, startPosition, Math.piHalf)
-        plane = Plane.makeByThreePoints(rotatedCameraPosition, startPosition, endPosition)
-
-        return plane
