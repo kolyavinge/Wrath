@@ -26,7 +26,7 @@ class Person:
         self.collisionLevelSegments = set()
         self.visibilityLevelSegment = LevelSegment()
         self.currentBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)
-        self.nextBorder = self.currentBorder.copy()
+        self.nextBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)
         self.nextBodyBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zChestLength)
         self.currentFootRect = Rect2d(PersonConstants.xyLength, PersonConstants.xyLength)
         self.nextFootRect = Rect2d(PersonConstants.xyLength, PersonConstants.xyLength)
@@ -90,7 +90,7 @@ class Person:
 
     def commitNextPosition(self):
         self.currentCenterPoint = self.nextCenterPoint.copy()
-        self.currentBorder = self.nextBorder.copy()
+        self.currentBorder.copyFrom(self.nextBorder)
         self.eyePosition = self.currentCenterPoint.copy()
         self.eyePosition.z += PersonConstants.eyeLength
         self.middleCenterPoint = self.currentCenterPoint.copy()
@@ -99,7 +99,7 @@ class Person:
         self.chestCenterPoint.z += PersonConstants.zLength34
         self.headCenterPoint = self.currentCenterPoint.copy()
         self.headCenterPoint.z += PersonConstants.zChestLength + (PersonConstants.headSizeHalf)
-        self.currentFootRect = self.nextFootRect.copy()
+        self.currentFootRect.copyFrom(self.nextFootRect)
 
     def addHealth(self, health):
         if health < 0:
