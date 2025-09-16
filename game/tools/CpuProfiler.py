@@ -31,7 +31,6 @@ class CpuProfiler:
             statFileName = f"{CpuProfiler.root}\\output_{CpuProfiler.profileName}.pstats"
             stats.dump_stats(statFileName)
             os.system(f"gprof2dot -f pstats {statFileName} | dot -Tpng -o {statFileName}.png")
-            os.startfile(f"{statFileName}.png")
             os.remove(statFileName)
 
 

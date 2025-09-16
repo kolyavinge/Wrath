@@ -20,6 +20,7 @@ class PersonDamageLogic:
         person.damage(PersonConstants.maxPersonHealth)
 
     def damageByExplosion(self, person, explosion):
+        self.gameData.collisionData.personExplosion[person] = explosion
         personItems = self.gameData.allPersonItems[person]
         if personItems.vest > 0:
             personItems.damageVest(explosion.damagePercent * PersonConstants.maxVest)

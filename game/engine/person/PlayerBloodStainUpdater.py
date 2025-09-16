@@ -12,7 +12,7 @@ class PlayerBloodStainUpdater:
 
     def update(self):
         self.updateBloodStains()
-        if self.gameData.player in self.gameData.collisionData.personBullet:
+        if self.hasPlayerDamage():
             self.addNewBloodStain()
 
     def updateBloodStains(self):
@@ -30,3 +30,6 @@ class PlayerBloodStainUpdater:
         bloodStain.radians = Random.getFloat(-Math.piDouble, Math.piDouble)
         bloodStain.scaleVector = Vector3(Random.getFloat(0.5, 1.5), Random.getFloat(0.5, 1.5), 1.0)
         self.gameData.bloodStains.append(bloodStain)
+
+    def hasPlayerDamage(self):
+        return self.gameData.player in self.gameData.collisionData.personBullet or self.gameData.player in self.gameData.collisionData.personExplosion

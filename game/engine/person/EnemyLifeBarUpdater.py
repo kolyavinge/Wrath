@@ -25,7 +25,11 @@ class EnemyLifeBarUpdater:
 
     def setVisibility(self):
         for enemy in self.gameData.enemies:
-            if enemy.isVisibleForPlayer and enemy.lifeCycle == LifeCycle.alive and enemy in self.gameData.collisionData.personBullet:
+            if (
+                enemy.isVisibleForPlayer
+                and enemy.lifeCycle == LifeCycle.alive
+                and (enemy in self.gameData.collisionData.personBullet or enemy in self.gameData.collisionData.personExplosion)
+            ):
                 lifeBar = self.gameData.enemyLifeBars[enemy]
                 lifeBar.fadeRemain.set(100)
                 lifeBar.alpha = 1.0

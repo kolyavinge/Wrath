@@ -29,5 +29,6 @@ class Camera:
         )
 
     def calculateProjectionViewMatrix(self):
-        self.viewProjectionMatrix = self.projectionMatrix.copy()
-        self.viewProjectionMatrix.mul(self.viewMatrix)
+        newViewProjectionMatrix = self.projectionMatrix.copy()
+        newViewProjectionMatrix.mul(self.viewMatrix)
+        self.viewProjectionMatrix = newViewProjectionMatrix
