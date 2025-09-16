@@ -1,7 +1,10 @@
+from game.anx.CommonConstants import CommonConstants
+from game.calc.Sphere import Sphere
+from game.lib.Math import Math
+
+
 class BackgroundVisibilityData:
 
     def __init__(self):
-        self.vertices = []
-        self.texCoords = []
-        self.horizontalPointsCount = 0
-        self.verticalPointsCount = 0
+        self.sphere = Sphere(CommonConstants.maxLevelSize, 8, 16, (Math.piHalf, CommonConstants.xAxis))
+        self.visibleSphereElements = []

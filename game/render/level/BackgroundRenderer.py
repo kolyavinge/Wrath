@@ -24,13 +24,17 @@ class BackgroundRenderer:
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
         self.textureCollection = textureCollection
-        self.vbo = self.makeVBO()
-        self.vertices = None
+        sphereElementsCountHalf = int(len(self.gameData.backgroundVisibility.sphere.elements) / 2)
+        self.vbo = self.vboUpdater.buildUnfilled(
+            4 * sphereElementsCountHalf, 2 * sphereElementsCountHalf, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces]
+        )
+        self.currentSphereElements = None
 
     def render(self):
         self.updateVBOIfNeeded()
-        # TODO по хорошему тест глубины тут не нужен, но сейчас из-за постороения теней в MainSceneRenderer приходется его тут включать
         glEnable(GL_DEPTH_TEST)
+        glEnable(GL_CULL_FACE)
+        glCullFace(GL_BACK)
         shader = self.shaderProgramCollection.mesh
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
@@ -41,41 +45,19 @@ class BackgroundRenderer:
         self.textureCollection.background1.bind(GL_TEXTURE0)
         self.vboRenderer.render(self.vbo)
         shader.unuse()
+        glDisable(GL_CULL_FACE)
         glDisable(GL_DEPTH_TEST)
 
     def updateVBOIfNeeded(self):
-        if self.vertices != self.gameData.backgroundVisibility.vertices:
-            self.vertices = self.gameData.backgroundVisibility.vertices
+        if self.currentSphereElements == self.gameData.backgroundVisibility.visibleSphereElements:
+            return
+        self.currentSphereElements = self.gameData.backgroundVisibility.visibleSphereElements
+        self.vbo.reset()
+        for element in self.currentSphereElements:
             self.vboUpdater.beginUpdate(self.vbo)
-            i = 0
-            for vertex in self.gameData.backgroundVisibility.vertices:
-                self.vboUpdater.setVertex(i, vertex)
-                i += 1
-            i = 0
-            for texCoord in self.gameData.backgroundVisibility.texCoords:
-                self.vboUpdater.setTexCoord(i, texCoord.x, texCoord.y)
-                i += 1
+            for point in element.points:
+                self.vboUpdater.addVertex(point.vertex)
+                self.vboUpdater.addTexCoord(point.texCoord.x, point.texCoord.y)
+            self.vboUpdater.addFace(0, 1, 2)
+            self.vboUpdater.addFace(0, 2, 3)
             self.vboUpdater.endUpdate()
-
-    def makeVBO(self):
-        backgroundVisibility = self.gameData.backgroundVisibility
-        verticesCount = backgroundVisibility.horizontalPointsCount * backgroundVisibility.verticalPointsCount
-        facesCount = 2 * (backgroundVisibility.verticalPointsCount - 1) * (backgroundVisibility.horizontalPointsCount - 1)
-        vbo = self.vboUpdater.buildUnfilled(verticesCount, facesCount, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces])
-        self.vboUpdater.beginUpdate(vbo)
-        self.makeFaces(backgroundVisibility)
-        self.vboUpdater.endUpdate()
-
-        return vbo
-
-    def makeFaces(self, backgroundVisibility):
-        for row in range(0, backgroundVisibility.verticalPointsCount - 1):
-            vertexIndex = row * backgroundVisibility.horizontalPointsCount
-            for _ in range(0, backgroundVisibility.horizontalPointsCount - 1):
-                upLeft = vertexIndex
-                upRight = upLeft + 1
-                downLeft = upLeft + backgroundVisibility.horizontalPointsCount
-                downRight = downLeft + 1
-                self.vboUpdater.addFace(upLeft, downLeft, downRight)
-                self.vboUpdater.addFace(upLeft, downRight, upRight)
-                vertexIndex += 1

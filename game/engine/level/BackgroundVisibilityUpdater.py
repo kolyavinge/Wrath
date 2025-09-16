@@ -1,6 +1,4 @@
-from game.anx.CommonConstants import CommonConstants
-from game.calc.Geometry import Geometry
-from game.calc.SphereSegmentCalculator import SphereSegmentCalculator
+from game.engine.CameraScopeChecker import CameraScopeChecker
 from game.engine.GameData import GameData
 from game.tools.CpuProfiler import cpuProfile
 
@@ -10,13 +8,10 @@ class BackgroundVisibilityUpdater:
     def __init__(
         self,
         gameData: GameData,
-        sphereSegmentCalculator: SphereSegmentCalculator,
+        cameraScopeChecker: CameraScopeChecker,
     ):
-        self.sphereRadius = CommonConstants.maxLevelSize
         self.gameData = gameData
-        self.gameData.backgroundVisibility.horizontalPointsCount = 7
-        self.gameData.backgroundVisibility.verticalPointsCount = 5
-        self.sphereSegmentCalculator = sphereSegmentCalculator
+        self.cameraScopeChecker = cameraScopeChecker
 
     def updateIfPlayerMovedOrTurned(self):
         if self.gameData.player.hasMoved or self.gameData.player.hasTurned or self.gameData.camera.hasVerticalViewRadiansChanged:
@@ -27,25 +22,36 @@ class BackgroundVisibilityUpdater:
         player = self.gameData.player
         camera = self.gameData.camera
         endPoint = player.lookDirection.copy()
-        endPoint.mul(2 * self.sphereRadius)
         endPoint.add(camera.position)
+        self.gameData.backgroundVisibility.visibleSphereElements = self.getVisibleElements()
 
-        centerPoint = Geometry.getSphereIntersectPointOrNone(self.sphereRadius, camera.position, endPoint, 100.0)
-        self.gameData.backgroundVisibility.vertices = self.sphereSegmentCalculator.getVertices(
-            camera.position,
-            centerPoint,
-            player.rightNormal,
-            camera.horizontalViewRadians + 0.1,
-            camera.verticalViewRadians + 0.2,
-            self.gameData.backgroundVisibility.horizontalPointsCount,
-            self.gameData.backgroundVisibility.verticalPointsCount,
-        )
+    def getVisibleElements(self):
+        alreadyCheckedPoints = set()
+        visibleElements = set()
 
-        self.gameData.backgroundVisibility.texCoords = self.sphereSegmentCalculator.getTexCoords(
-            player.yawRadians,
-            player.pitchRadians,
-            camera.horizontalViewRadians + 0.1,
-            camera.verticalViewRadians + 0.2,
-            self.gameData.backgroundVisibility.horizontalPointsCount,
-            self.gameData.backgroundVisibility.verticalPointsCount,
-        )
+        def check(point):
+            alreadyCheckedPoints.add(point)
+            for element in point.joinedElements:
+                visibleElements.add(element)
+                for joinedPoint in element.points:
+                    if joinedPoint not in alreadyCheckedPoints and self.cameraScopeChecker.isPointInCamera(
+                        joinedPoint.vertex.x,
+                        joinedPoint.vertex.y,
+                        joinedPoint.vertex.z,
+                        scale=1.5,
+                    ):
+                        check(joinedPoint)
+
+        check(self.getAnyVisiblePoint())
+        # print(len(visibleElements))
+
+        return visibleElements
+
+    def getAnyVisiblePoint(self):
+        sphere = self.gameData.backgroundVisibility.sphere
+        for points in sphere.levels.values():
+            for point in points:
+                if self.cameraScopeChecker.isPointInCamera(point.vertex.x, point.vertex.y, point.vertex.z):
+                    return point
+
+        assert False

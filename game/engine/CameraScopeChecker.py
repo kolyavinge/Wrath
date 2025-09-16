@@ -9,7 +9,7 @@ class CameraScopeChecker:
         self.width = 0
         self.height = 0
 
-    def isPointInCamera(self, px, py, pz):
+    def isPointInCamera(self, px, py, pz, scale=1.0):
         # проецируем точку на экран
         # и проверяем что она попадает в его пределы
 
@@ -31,4 +31,4 @@ class CameraScopeChecker:
         y /= w
         z /= w
 
-        return Numeric.between(x, -1.0, 1.0) and Numeric.between(y, -1.0, 1.0) and Numeric.between(z, -1.0, 1.0)
+        return Numeric.between(x, -scale, scale) and Numeric.between(y, -scale, scale) and Numeric.between(z, -scale, scale)

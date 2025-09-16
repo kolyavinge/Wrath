@@ -1,5 +1,4 @@
 from game.calc.RayOrientationLogic import *
-from game.calc.SphereSegmentCalculator import *
 from game.engine.ai.common.BurstFireLogic import *
 from game.engine.ai.common.EnemyCollisionDetector import *
 from game.engine.ai.common.FireLogic import *
@@ -102,7 +101,6 @@ class EngineModule:
 
     def init(self, binder):
         binder.bindSingleton(RayOrientationLogic)
-        binder.bindSingleton(SphereSegmentCalculator)
         binder.bindSingleton(BurstFireLogic)
         binder.bindSingleton(EnemyCollisionDetector)
         binder.bindSingleton(FireLogic)

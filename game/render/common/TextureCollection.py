@@ -40,3 +40,4 @@ class TextureCollection:
         self.sniperCrosshair = self.textureLoader.load(path + "sniperCrosshair.png")
         self.bloodStain1 = self.textureLoader.load(path + "bloodStain1.png")
         self.background1 = self.textureLoader.load(path + "background1.jpg")
+        # self.background1 = self.textureLoader.load(path + "sphereTest.png")
