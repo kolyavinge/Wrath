@@ -32,7 +32,6 @@ class Sphere:
 
     def __init__(self, radius, levelsCount, levelPointsCount, defaultRotation=None):
         self.radius = radius
-        self.radiusHalf = radius / 2
         self.levelsCount = levelsCount
         self.levelPointsCount = levelPointsCount
         self.levels = {}
