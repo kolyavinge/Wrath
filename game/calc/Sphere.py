@@ -32,6 +32,7 @@ class Sphere:
 
     def __init__(self, radius, levelsCount, levelPointsCount, defaultRotation=None):
         self.radius = radius
+        self.radiusHalf = radius / 2
         self.levelsCount = levelsCount
         self.levelPointsCount = levelPointsCount
         self.levels = {}
@@ -106,6 +107,9 @@ class Sphere:
         radians, axis = defaultRotation
         for point in Query(self.levels.values()).flatten().result:
             point.vertex = Geometry.rotatePoint(point.vertex, axis, CommonConstants.axisOrigin, radians)
+
+    def getAllSpherePoints(self):
+        return Query(self.levels.values()).flatten().result
 
     def checkElementsCorrection(self):
         for points in self.levels.values():

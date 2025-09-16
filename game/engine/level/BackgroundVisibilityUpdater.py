@@ -1,3 +1,4 @@
+from game.calc.Vector3 import Vector3
 from game.engine.CameraScopeChecker import CameraScopeChecker
 from game.engine.GameData import GameData
 from game.tools.CpuProfiler import cpuProfile
@@ -12,6 +13,7 @@ class BackgroundVisibilityUpdater:
     ):
         self.gameData = gameData
         self.cameraScopeChecker = cameraScopeChecker
+        self.lookDirectionPoint = Vector3()
 
     def updateIfPlayerMovedOrTurned(self):
         if self.gameData.player.hasMoved or self.gameData.player.hasTurned or self.gameData.camera.hasVerticalViewRadiansChanged:
@@ -19,10 +21,6 @@ class BackgroundVisibilityUpdater:
 
     # @cpuProfile
     def update(self):
-        player = self.gameData.player
-        camera = self.gameData.camera
-        endPoint = player.lookDirection.copy()
-        endPoint.add(camera.position)
         self.gameData.backgroundVisibility.visibleSphereElements = self.getVisibleElements()
 
     def getVisibleElements(self):
@@ -48,10 +46,13 @@ class BackgroundVisibilityUpdater:
         return visibleElements
 
     def getAnyVisiblePoint(self):
-        sphere = self.gameData.backgroundVisibility.sphere
-        for points in sphere.levels.values():
-            for point in points:
-                if self.cameraScopeChecker.isPointInCamera(point.vertex.x, point.vertex.y, point.vertex.z):
-                    return point
+        lookDirection = self.gameData.camera.lookDirection
+        self.lookDirectionPoint.set(lookDirection.x, lookDirection.y, lookDirection.z)
+        self.lookDirectionPoint.mul(self.gameData.backgroundVisibility.sphere.radiusHalf)
+        self.lookDirectionPoint.add(self.gameData.camera.position)
+        spherePoints = self.gameData.backgroundVisibility.sphereBSPTree.findNodeItemsByPoint(self.lookDirectionPoint)
+        for point in spherePoints:
+            if self.cameraScopeChecker.isPointInCamera(point.vertex.x, point.vertex.y, point.vertex.z):
+                return point
 
         assert False
