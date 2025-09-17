@@ -14,42 +14,40 @@ class BackgroundVisibilityUpdater:
         self.gameData = gameData
         self.cameraScopeChecker = cameraScopeChecker
         self.lookDirectionPoint = Vector3()
-        self.visibleElements = set()
+        self.alreadyCheckedPoints = set()
 
     def updateIfPlayerMovedOrTurned(self):
         if self.gameData.player.hasMoved or self.gameData.player.hasTurned or self.gameData.camera.hasVerticalViewRadiansChanged:
             self.update()
+        else:
+            self.gameData.backgroundVisibility.isUpdated = False
 
     # @cpuProfile
     def update(self):
-        self.gameData.backgroundVisibility.visibleSphereElements = self.getVisibleElements()
 
-    def getVisibleElements(self):
-
-        def check(point):
-            alreadyCheckedPoints.add(point)
+        def checkVisiblePoint(point):
+            self.alreadyCheckedPoints.add(point)
             for element in point.joinedElements:
-                currentVisibleElements.add(element)
+                self.gameData.backgroundVisibility.visibleSphereElements.add(element)
                 for joinedPoint in element.points:
-                    if joinedPoint not in alreadyCheckedPoints and self.cameraScopeChecker.isPointInCamera(
+                    if joinedPoint not in self.alreadyCheckedPoints and self.cameraScopeChecker.isPointInCamera(
                         joinedPoint.vertex.x,
                         joinedPoint.vertex.y,
                         joinedPoint.vertex.z,
                         scale=1.5,
                     ):
-                        check(joinedPoint)
+                        checkVisiblePoint(joinedPoint)
 
-        point = self.getAnyVisiblePoint()
+        self.alreadyCheckedPoints.clear()
+        point = self.getAnyVisiblePointOrNone()
         if point is not None:
-            alreadyCheckedPoints = set()
-            currentVisibleElements = set()
-            check(point)
-            self.visibleElements = currentVisibleElements
-            # print(len(visibleElements))
+            self.gameData.backgroundVisibility.visibleSphereElements.clear()
+            checkVisiblePoint(point)
+            self.gameData.backgroundVisibility.isUpdated = True
+        else:
+            self.gameData.backgroundVisibility.isUpdated = False
 
-        return self.visibleElements
-
-    def getAnyVisiblePoint(self):
+    def getAnyVisiblePointOrNone(self):
         lookDirection = self.gameData.camera.lookDirection
         self.lookDirectionPoint.set(lookDirection.x, lookDirection.y, lookDirection.z)
         self.lookDirectionPoint.mul(self.gameData.backgroundVisibility.sphere.radius)
@@ -58,5 +56,8 @@ class BackgroundVisibilityUpdater:
         for point in spherePoints:
             if self.cameraScopeChecker.isPointInCamera(point.vertex.x, point.vertex.y, point.vertex.z):
                 return point
+            else:
+                self.alreadyCheckedPoints.add(point)
 
+        # если смотрим в снайперский прицел (узкое поле зрения), то на экран может не попасть ни одна точка сферы
         return None

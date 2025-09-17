@@ -27,4 +27,5 @@ class BackgroundVisibilityData:
             ],
         )
 
-        self.visibleSphereElements = []
+        self.visibleSphereElements = set()
+        self.isUpdated = False

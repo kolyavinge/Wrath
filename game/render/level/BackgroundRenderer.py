@@ -28,7 +28,6 @@ class BackgroundRenderer:
         self.vbo = self.vboUpdater.buildUnfilled(
             4 * sphereElementsCountHalf, 2 * sphereElementsCountHalf, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces]
         )
-        self.currentSphereElements = None
 
     def render(self):
         self.updateVBOIfNeeded()
@@ -49,11 +48,10 @@ class BackgroundRenderer:
         glDisable(GL_DEPTH_TEST)
 
     def updateVBOIfNeeded(self):
-        if self.currentSphereElements == self.gameData.backgroundVisibility.visibleSphereElements:
+        if not self.gameData.backgroundVisibility.isUpdated:
             return
-        self.currentSphereElements = self.gameData.backgroundVisibility.visibleSphereElements
         self.vbo.reset()
-        for element in self.currentSphereElements:
+        for element in self.gameData.backgroundVisibility.visibleSphereElements:
             self.vboUpdater.beginUpdate(self.vbo)
             for point in element.points:
                 self.vboUpdater.addVertex(point.vertex)
