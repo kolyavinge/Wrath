@@ -23,5 +23,5 @@ class LevelDebugGameUpdater:
         self.personPositionUpdater.moveNextPosition()
         self.personPositionUpdater.commitNextPosition()
         self.cameraUpdater.update()
-        self.backgroundVisibilityUpdater.updateIfPlayerMovedOrTurned()
+        self.backgroundVisibilityUpdater.updateIfNeeded()
         self.personPositionUpdater.resetMovedAndTurned()

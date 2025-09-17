@@ -119,7 +119,7 @@ class GameUpdater:
         self.enemyVisibilityUpdater.updateEnemiesVisibility()
         self.playerMovingSwingUpdater.update()
         self.cameraUpdater.update()
-        self.backgroundVisibilityUpdater.updateIfPlayerMovedOrTurned()
+        self.backgroundVisibilityUpdater.updateIfNeeded()
         self.personBreathUpdater.update()
         self.personWeaponPositionUpdater.update()
         self.weaponDelayUpdater.update()
