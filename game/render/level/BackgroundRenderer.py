@@ -24,7 +24,7 @@ class BackgroundRenderer:
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
         self.textureCollection = textureCollection
-        sphereElementsCountHalf = int(len(self.gameData.backgroundVisibility.sphere.elements) / 2)
+        sphereElementsCountHalf = self.gameData.backgroundVisibility.sphere.elementsCount
         self.vbo = self.vboUpdater.buildUnfilled(
             4 * sphereElementsCountHalf, 2 * sphereElementsCountHalf, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces]
         )

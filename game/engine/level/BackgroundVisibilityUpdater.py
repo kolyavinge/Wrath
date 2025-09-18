@@ -52,6 +52,8 @@ class BackgroundVisibilityUpdater:
         if point is not None:
             self.gameData.backgroundVisibility.visibleSphereElements = set()
             checkVisiblePoint(point)
+        else:
+            self.gameData.backgroundVisibility.visibleSphereElements = set(self.gameData.backgroundVisibility.sphere.elementsList)
 
     def getAnyVisiblePointOrNone(self):
         lookDirection = self.gameData.camera.lookDirection
