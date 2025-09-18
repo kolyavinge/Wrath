@@ -25,6 +25,10 @@ class Numeric:
                 return False
 
     @staticmethod
+    def isEven(x):
+        return (x % 2) == 0
+
+    @staticmethod
     def isOdd(x):
         return (x % 2) != 0
 
