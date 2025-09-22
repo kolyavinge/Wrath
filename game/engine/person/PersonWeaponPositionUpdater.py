@@ -17,8 +17,7 @@ class PersonWeaponPositionUpdater:
 
     def updateForEnemies(self):
         for enemy in self.gameData.enemies:
-            if enemy.isVisibleForPlayer:
-                self.updateForPerson(enemy)
+            self.updateForPerson(enemy)
 
     def updateForPerson(self, person):
         personItems = self.gameData.allPersonItems[person]
