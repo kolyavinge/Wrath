@@ -1,3 +1,4 @@
+from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.GameUpdater import GameUpdater
 from game.input.InputManager import InputManager
 from game.input.PlayerInputManager import PlayerInputManager
@@ -8,10 +9,12 @@ class GameScreen:
     def __init__(
         self,
         gameUpdater: GameUpdater,
+        enemyAIUpdater: EnemyAIUpdater,
         playerInputManager: PlayerInputManager,
         inputManager: InputManager,
     ):
         self.gameUpdater = gameUpdater
+        self.enemyAIUpdater = enemyAIUpdater
         self.playerInputManager = playerInputManager
         self.inputManager = inputManager
 
@@ -20,6 +23,9 @@ class GameScreen:
 
     def update(self):
         self.gameUpdater.update()
+
+    def updateEnemyAI(self):
+        self.enemyAIUpdater.update()
 
     def processInput(self):
         self.playerInputManager.processInput()

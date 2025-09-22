@@ -47,14 +47,19 @@ class App:
         glutSetCursor(GLUT_CURSOR_NONE)
         self.game = GameFactory.makeGame()
         # self.game = GameFactory.makeGame(levelDebugMode=True)  # отладочный режим для рисования местности
-        glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
+        glutTimerFunc(CommonConstants.mainTimerMsec, self.mainTimerCallback, 0)
+        glutTimerFunc(CommonConstants.aiTimerMsec, self.aiTImerCallback, 0)
         glutTimerFunc(CommonConstants.renderTimerMsec, self.renderCallback, 0)
         glutMainLoop()
 
-    def timerCallback(self, value):
+    def mainTimerCallback(self, value):
         self.game.updateCurrentScreen()
         self.game.voxCurrentScreen()
-        glutTimerFunc(CommonConstants.mainTimerMsec, self.timerCallback, 0)
+        glutTimerFunc(CommonConstants.mainTimerMsec, self.mainTimerCallback, 0)
+
+    def aiTImerCallback(self, value):
+        self.game.updateEnemyAI()
+        glutTimerFunc(CommonConstants.mainTimerMsec, self.aiTImerCallback, 0)
 
     def renderCallback(self, value):
         glutPostRedisplay()

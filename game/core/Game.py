@@ -29,6 +29,9 @@ class Game:
         self.screenManager.currentScreen.processInput()
         self.screenManager.currentScreen.update()
 
+    def updateEnemyAI(self):
+        self.screenManager.currentScreen.updateEnemyAI()
+
     def renderCurrentScreen(self):
         self.screenManager.currentScreenRenderer.render()
 

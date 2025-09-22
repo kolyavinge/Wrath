@@ -18,6 +18,7 @@ class CommonConstants:
     up = Vector3(0, 0, 1)
     down = Vector3(0, 0, -1)
     mainTimerMsec = 20
+    aiTimerMsec = 100
     renderTimerMsec = 40
     maxBulletHoles = 1000
     maxRaysCount = 100
