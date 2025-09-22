@@ -49,10 +49,11 @@ class PersonZUpdater:
         elif personOnFloor and person.zState == PersonZState.falling:
             person.setZ(floorZ)
             self.personDamageLogic.damageByFalling(person)
+            person.landingTime = 0.8 * person.fallingTime
             person.fallingTime = 0
             person.zState = PersonZState.landing
-            person.landingTime = 10 * 0.1
-            self.eventManager.raiseEvent(Events.personLanded, person)
+            if person.landingTime > 0.9:
+                self.eventManager.raiseEvent(Events.personLanded, person)
         elif personOnFloor and person.zState == PersonZState.landing:
             person.landingTime -= 0.1
             if person.landingTime <= 0:
