@@ -33,6 +33,7 @@ class PlayerBloodStainRenderer:
         shader.use()
         shader.setViewMatrix(TransformMatrix4.identity)
         shader.setProjectionMatrix(self.projection)
+        shader.setColorFactor(1.0)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
@@ -40,7 +41,6 @@ class PlayerBloodStainRenderer:
         for bloodStain in self.gameData.bloodStains:
             model = bloodStain.getModelMatrix(self.viewportWidth, self.viewportHeight)
             shader.setModelMatrix(model)
-            shader.setColorFactor(1.0)
             shader.setAlphaFactor(bloodStain.brightness)
             mesh = self.renderCollection.getRenderMesh(bloodStain.number)
             mesh.texture.bind(GL_TEXTURE0)

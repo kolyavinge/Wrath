@@ -22,3 +22,4 @@ class CommonConstants:
     renderTimerMsec = 40
     maxBulletHoles = 1000
     maxRaysCount = 100
+    maxBloodStains = 5

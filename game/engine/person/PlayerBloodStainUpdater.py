@@ -1,3 +1,4 @@
+from game.anx.CommonConstants import CommonConstants
 from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 from game.lib.Math import Math
@@ -12,7 +13,7 @@ class PlayerBloodStainUpdater:
 
     def update(self):
         self.updateBloodStains()
-        if self.hasPlayerDamage():
+        if self.canAddNewBloodStain():
             self.addNewBloodStain()
 
     def updateBloodStains(self):
@@ -25,11 +26,13 @@ class PlayerBloodStainUpdater:
         bloodStain = BloodStain()
         bloodStain.number = Random.getInt(0, BloodStain.numbersCount - 1)
         bloodStain.position = Vector3(Random.getFloat(0.0, 1.0), Random.getFloat(0.0, 1.0), 0.0)
-        bloodStain.brightness = Random.getFloat(0.5, 1.0)
+        bloodStain.brightness = 1.0
         bloodStain.fade = Random.getFloat(0.95, 0.99)
         bloodStain.radians = Random.getFloat(-Math.piDouble, Math.piDouble)
-        bloodStain.scaleVector = Vector3(Random.getFloat(0.5, 1.5), Random.getFloat(0.5, 1.5), 1.0)
+        bloodStain.scaleVector = Vector3(Random.getFloat(0.5, 2.0), Random.getFloat(0.5, 2.0), 1.0)
         self.gameData.bloodStains.append(bloodStain)
 
-    def hasPlayerDamage(self):
-        return self.gameData.player in self.gameData.collisionData.personBullet or self.gameData.player in self.gameData.collisionData.personExplosion
+    def canAddNewBloodStain(self):
+        return len(self.gameData.bloodStains) < CommonConstants.maxBloodStains and (
+            self.gameData.player in self.gameData.collisionData.personBullet or self.gameData.player in self.gameData.collisionData.personExplosion
+        )
