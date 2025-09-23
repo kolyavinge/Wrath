@@ -30,7 +30,7 @@ class CpuProfiler:
             stats = pstats.Stats(CpuProfiler.profiler).sort_stats(-1)
             statFileName = f"{CpuProfiler.root}\\output_{CpuProfiler.profileName}.pstats"
             stats.dump_stats(statFileName)
-            os.system(f"gprof2dot -f pstats {statFileName} | dot -Tpng -o {statFileName}.png")
+            os.system(f"py -m gprof2dot -f pstats {statFileName} | dot -Tpng -o {statFileName}.png")
             os.remove(statFileName)
 
 
