@@ -89,7 +89,8 @@ class App:
 
 
 print("\r\nProgram start")
-# CpuProfiler.init()
+
 app = App()
 app.run()
-# CpuProfiler.makeResult()
+
+CpuProfiler.makeResultIfNeeded()

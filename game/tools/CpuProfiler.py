@@ -17,6 +17,9 @@ class CpuProfiler:
 
     @staticmethod
     def start():
+        if CpuProfiler.profiler is None:
+            CpuProfiler.init()
+
         CpuProfiler.profiler.enable()
         CpuProfiler.started = True
 
@@ -25,7 +28,7 @@ class CpuProfiler:
         CpuProfiler.profiler.disable()
 
     @staticmethod
-    def makeResult():
+    def makeResultIfNeeded():
         if CpuProfiler.profiler is not None and CpuProfiler.started:
             stats = pstats.Stats(CpuProfiler.profiler).sort_stats(-1)
             statFileName = f"{CpuProfiler.root}\\output_{CpuProfiler.profileName}.pstats"
