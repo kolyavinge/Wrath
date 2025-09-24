@@ -232,7 +232,7 @@ class NebulaLevel(Level):
             5,
             Vector3(90, 55, self.firstFloorZ),
             Vector3(95, 55, centerStairZ),
-            10,
+            8,
             5,
             Material.construction17,
         )
@@ -398,7 +398,7 @@ class NebulaLevel(Level):
             5,
             Vector3(95, 55, self.firstFloorZ + self.firstFloorHeight / 2),
             Vector3(95, 60, self.firstFloorZ + self.secondFloorSlabHeight + self.firstFloorHeight),
-            10,
+            8,
             5,
             Material.construction17,
         )
@@ -410,7 +410,7 @@ class NebulaLevel(Level):
             5,
             Vector3(100, 50, self.firstFloorZ + self.firstFloorHeight / 2),
             Vector3(100, 45, self.firstFloorZ + self.secondFloorSlabHeight + self.firstFloorHeight),
-            10,
+            8,
             5,
             Material.construction17,
         )

@@ -22,7 +22,7 @@ class FallingFunc:
 class FallingDamageFunc:
 
     def getValue(self, time):
-        if time < 2.0:
+        if time < 2.5:
             return 0.0
         else:
             return 0.025 * time

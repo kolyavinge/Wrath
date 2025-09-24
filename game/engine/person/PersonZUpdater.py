@@ -31,13 +31,12 @@ class PersonZUpdater:
 
     def updatePerson(self, person):
         if person.nextFloor != NullFloor.instance:
-            self.processFloor(person)
+            floorZ = person.nextFloor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
+            personOnFloor = Numeric.between(person.getZ() - floorZ, -0.4, 0.4)
         else:
-            self.processHole(person)
+            floorZ = None
+            personOnFloor = False
 
-    def processFloor(self, person):
-        floorZ = person.nextFloor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
-        personOnFloor = Numeric.between(person.getZ() - floorZ, -0.4, 0.4)
         if personOnFloor and person.zState == PersonZState.onFloor and person.jumpingValue == 0:
             person.setZ(floorZ)
         elif personOnFloor and person.zState == PersonZState.onFloor and person.jumpingValue > 0:
@@ -61,18 +60,11 @@ class PersonZUpdater:
                 person.landingTime = 0
         elif not personOnFloor:
             person.zState = PersonZState.falling
-            self.processPersonFall(person, floorZ)
+            person.fallingTime += 0.1
+            personZ = person.getZ() - person.fallingFunc.getValue(person.fallingTime)
+            if floorZ is not None:
+                person.setZ(Math.max(personZ, floorZ))
+            else:
+                person.setZ(personZ)
         else:
             raise Exception("Wrong person state.")
-
-    def processHole(self, person):
-        person.zState = PersonZState.falling
-        self.processPersonFall(person)
-
-    def processPersonFall(self, person, floorZ=None):
-        person.fallingTime += 0.1
-        personZ = person.getZ() - person.fallingFunc.getValue(person.fallingTime)
-        if floorZ is not None:
-            person.setZ(Math.max(personZ, floorZ))
-        else:
-            person.setZ(personZ)
