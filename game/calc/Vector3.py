@@ -94,6 +94,14 @@ class Vector3:
 
         return middle
 
+    def round(self):
+        if Numeric.floatEquals(self.x, 0):
+            self.x = 0
+        if Numeric.floatEquals(self.y, 0):
+            self.y = 0
+        if Numeric.floatEquals(self.z, 0):
+            self.z = 0
+
     def __eq__(self, vector):
         return self.x == vector.x and self.y == vector.y and self.z == vector.z
 

@@ -31,15 +31,19 @@ class RectPlane(Plane):
         v = self.upLeft.getDirectionTo(self.downLeft)
         self.leftSideNormal = Geometry.rotatePoint(v, self.normal, CommonConstants.axisOrigin, Math.piHalf)
         self.leftSideNormal.normalize()
+        self.leftSideNormal.round()
 
         v = self.downRight.getDirectionTo(self.upRight)
         self.rightSideNormal = Geometry.rotatePoint(v, self.normal, CommonConstants.axisOrigin, Math.piHalf)
         self.rightSideNormal.normalize()
+        self.rightSideNormal.round()
 
         v = self.upRight.getDirectionTo(self.upLeft)
         self.topSideNormal = Geometry.rotatePoint(v, self.normal, CommonConstants.axisOrigin, Math.piHalf)
         self.topSideNormal.normalize()
+        self.topSideNormal.round()
 
         v = self.downLeft.getDirectionTo(self.downRight)
         self.bottomSideNormal = Geometry.rotatePoint(v, self.normal, CommonConstants.axisOrigin, Math.piHalf)
         self.bottomSideNormal.normalize()
+        self.bottomSideNormal.round()
