@@ -30,4 +30,6 @@ class PersonDamageLogic:
 
     def damageByFalling(self, person):
         damagePercent = person.fallingDamageFunc.getValue(person.fallingTime)
-        person.damage(damagePercent * PersonConstants.maxPersonHealth)
+        if damagePercent > 0:
+            self.gameData.collisionData.personFalling.add(person)
+            person.damage(damagePercent * PersonConstants.maxPersonHealth)

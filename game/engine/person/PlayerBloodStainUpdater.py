@@ -33,6 +33,10 @@ class PlayerBloodStainUpdater:
         self.gameData.bloodStains.append(bloodStain)
 
     def canAddNewBloodStain(self):
-        return len(self.gameData.bloodStains) < CommonConstants.maxBloodStains and (
-            self.gameData.player in self.gameData.collisionData.personBullet or self.gameData.player in self.gameData.collisionData.personExplosion
-        )
+        if len(self.gameData.bloodStains) >= CommonConstants.maxBloodStains:
+            return False
+
+        player = self.gameData.player
+        collisionData = self.gameData.collisionData
+
+        return player in collisionData.personBullet or player in collisionData.personExplosion or player in collisionData.personFalling
