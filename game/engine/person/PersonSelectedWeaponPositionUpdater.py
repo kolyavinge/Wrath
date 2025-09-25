@@ -7,7 +7,7 @@ from game.lib.Numeric import Numeric
 from game.model.weapon.NullWeapon import NullWeapon
 
 
-class PlayerSelectedWeaponPositionUpdater:
+class PersonSelectedWeaponPositionUpdater:
 
     def __init__(
         self,
@@ -19,20 +19,22 @@ class PlayerSelectedWeaponPositionUpdater:
         self.radianStep = Math.piHalf / PersonConstants.selectWeaponDelayHalf
 
     def update(self):
-        if self.gameData.player.selectWeaponDelay.isExpired():
+        for person, personItems in self.gameData.allPersonItems.items():
+            self.updateForPerson(person, personItems)
+
+    def updateForPerson(self, person, personItems):
+        if person.selectWeaponDelay.isExpired():
             return
-        player = self.gameData.player
         # -1 чтобы на последнем шаге delay равнялся нулю и следовательно значение radians в raiseWeapon() тоже равнялось нулю
-        delay = player.selectWeaponDelay.value - 1
-        personItems = self.gameData.playerItems
-        if player.selectWeaponDelay.value == PersonConstants.selectWeaponDelay and type(personItems.currentWeapon) != NullWeapon:
-            self.eventManager.raiseEvent(Events.weaponPutDown, (player, personItems.currentWeapon))
+        delay = person.selectWeaponDelay.value - 1
+        if person.selectWeaponDelay.value == PersonConstants.selectWeaponDelay and type(personItems.currentWeapon) != NullWeapon:
+            self.eventManager.raiseEvent(Events.weaponPutDown, (person, personItems.currentWeapon))
         elif Numeric.between(delay, PersonConstants.selectWeaponDelayHalf + 1, PersonConstants.selectWeaponDelay):
             self.putWeaponDown(delay, personItems)
         elif delay == PersonConstants.selectWeaponDelayHalf:
             self.setSelectedWeaponAsCurrent(personItems)
             if type(personItems.currentWeapon) != NullWeapon:
-                self.eventManager.raiseEvent(Events.weaponRaised, (player, personItems.currentWeapon))
+                self.eventManager.raiseEvent(Events.weaponRaised, (person, personItems.currentWeapon))
         else:
             self.raiseWeapon(delay, personItems)
 

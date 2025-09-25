@@ -60,6 +60,7 @@ from game.engine.person.PersonLevelSegmentsUpdater import *
 from game.engine.person.PersonLifeCycleUpdater import *
 from game.engine.person.PersonMovingTimeUpdater import *
 from game.engine.person.PersonPositionUpdater import *
+from game.engine.person.PersonSelectedWeaponPositionUpdater import *
 from game.engine.person.PersonStepUpdater import *
 from game.engine.person.PersonTurnLogic import *
 from game.engine.person.PersonTurnUpdater import *
@@ -70,7 +71,6 @@ from game.engine.person.PersonZUpdater import *
 from game.engine.person.PlayerBloodStainUpdater import *
 from game.engine.person.PlayerLevelSegmentsUpdater import *
 from game.engine.person.PlayerMovingSwingUpdater import *
-from game.engine.person.PlayerSelectedWeaponPositionUpdater import *
 from game.engine.person.PlayerWeaponSwingUpdater import *
 from game.engine.person.TorchUpdater import *
 from game.engine.powerup.PowerupPositionGenerator import *
@@ -162,6 +162,7 @@ class EngineModule:
         binder.bindSingleton(PersonLifeCycleUpdater)
         binder.bindSingleton(PersonMovingTimeUpdater)
         binder.bindSingleton(PersonPositionUpdater)
+        binder.bindSingleton(PersonSelectedWeaponPositionUpdater)
         binder.bindSingleton(PersonStepUpdater)
         binder.bindSingleton(PersonTurnLogic)
         binder.bindSingleton(PersonTurnUpdater)
@@ -172,7 +173,6 @@ class EngineModule:
         binder.bindSingleton(PlayerBloodStainUpdater)
         binder.bindSingleton(PlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMovingSwingUpdater)
-        binder.bindSingleton(PlayerSelectedWeaponPositionUpdater)
         binder.bindSingleton(PlayerWeaponSwingUpdater)
         binder.bindSingleton(TorchUpdater)
         binder.bindSingleton(PowerupPositionGenerator)

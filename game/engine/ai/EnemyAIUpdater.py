@@ -1,6 +1,7 @@
 from game.engine.ai.state.StateHandlerCollection import StateHandlerCollection
 from game.engine.GameData import GameData
 from game.model.person.PersonStates import LifeCycle
+from game.tools.CpuProfiler import cpuProfile
 
 
 class EnemyAIUpdater:
@@ -19,6 +20,7 @@ class EnemyAIUpdater:
         for enemy in self.gameData.enemies:
             self.stateHandlerCollection.getStateHandler(enemy.aiData.state).init(enemy)
 
+    # @cpuProfile
     def update(self):
         for enemy in self.gameData.enemies:
             inputData = self.gameData.enemyInputData[enemy]

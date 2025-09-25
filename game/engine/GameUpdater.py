@@ -18,6 +18,7 @@ from game.engine.person.PersonJumpUpdater import PersonJumpUpdater
 from game.engine.person.PersonLifeCycleUpdater import PersonLifeCycleUpdater
 from game.engine.person.PersonMovingTimeUpdater import PersonMovingTimeUpdater
 from game.engine.person.PersonPositionUpdater import PersonPositionUpdater
+from game.engine.person.PersonSelectedWeaponPositionUpdater import *
 from game.engine.person.PersonStepUpdater import PersonStepUpdater
 from game.engine.person.PersonTurnUpdater import PersonTurnUpdater
 from game.engine.person.PersonUpdater import PersonUpdater
@@ -27,7 +28,6 @@ from game.engine.person.PersonZUpdater import PersonZUpdater
 from game.engine.person.PlayerBloodStainUpdater import PlayerBloodStainUpdater
 from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.person.PlayerMovingSwingUpdater import PlayerMovingSwingUpdater
-from game.engine.person.PlayerSelectedWeaponPositionUpdater import *
 from game.engine.person.PlayerWeaponSwingUpdater import PlayerWeaponSwingUpdater
 from game.engine.person.TorchUpdater import TorchUpdater
 from game.engine.powerup.PowerupUpdater import PowerupUpdater
@@ -85,7 +85,7 @@ class GameUpdater:
     powerupUpdater: PowerupUpdater
     weaponFlashUpdater: WeaponFlashUpdater
     bulletTraceUpdater: BulletTraceUpdater
-    playerSelectedWeaponPositionUpdater: PlayerSelectedWeaponPositionUpdater
+    personSelectedWeaponPositionUpdater: PersonSelectedWeaponPositionUpdater
     playerBloodStainUpdater: PlayerBloodStainUpdater
     enemyLifeBarUpdater: EnemyLifeBarUpdater
     cowboyEasterEggUpdater: CowboyEasterEggUpdater
@@ -136,7 +136,7 @@ class GameUpdater:
         self.powerupUpdater.generateNew()
         self.weaponFlashUpdater.update()
         self.bulletTraceUpdater.update()
-        self.playerSelectedWeaponPositionUpdater.update()
+        self.personSelectedWeaponPositionUpdater.update()
         self.playerBloodStainUpdater.update()
         self.enemyLifeBarUpdater.update()
         self.cowboyEasterEggUpdater.update()
