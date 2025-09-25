@@ -18,10 +18,10 @@ class EnemyLifeBarUpdater:
         self.calcModelMatrix()
 
     def decreaseFade(self):
-        for lifeBar in self.gameData.enemyLifeBars.values():
+        for enemy, lifeBar in self.gameData.enemyLifeBars.items():
             lifeBar.fadeRemain.decrease()
             lifeBar.alpha = lifeBar.fadeRemain.value / lifeBar.fadeRemain.initValue
-            lifeBar.isVisible = Numeric.limitMin(lifeBar.alpha, 0.01, 0) > 0
+            lifeBar.isVisible = enemy.lifeCycle == LifeCycle.alive and Numeric.limitMin(lifeBar.alpha, 0.01, 0) > 0
 
     def setVisibility(self):
         for enemy in self.gameData.enemies:
