@@ -1,3 +1,4 @@
+from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.BulletCollisionUpdater import BulletCollisionUpdater
 from game.engine.cm.ExplosionCollisionUpdater import ExplosionCollisionUpdater
@@ -89,6 +90,7 @@ class GameUpdater:
     playerBloodStainUpdater: PlayerBloodStainUpdater
     enemyLifeBarUpdater: EnemyLifeBarUpdater
     cowboyEasterEggUpdater: CowboyEasterEggUpdater
+    enemyAIUpdater: EnemyAIUpdater
     # event listeners
     selectWeaponRequestListener: SelectWeaponRequestListener
 
@@ -140,6 +142,7 @@ class GameUpdater:
         self.playerBloodStainUpdater.update()
         self.enemyLifeBarUpdater.update()
         self.cowboyEasterEggUpdater.update()
+        self.enemyAIUpdater.update()
         self.personPositionUpdater.resetMovedAndTurned()
         self.personUpdater.commitZState()
         self.personUpdater.updateDelays()

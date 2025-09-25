@@ -1,5 +1,3 @@
-import sys
-
 import OpenGL
 
 OpenGL.ERROR_CHECKING = False
@@ -34,7 +32,7 @@ class App:
             raise Exception(f"OpenGL error: {gluErrorString(error)}")
 
     def run(self):
-        glutInit(sys.argv)
+        glutInit()
         glutInitWindowSize(self.windowWidth, self.windowHeight)
         x, y = self.getCenterWindowPosition()
         glutInitWindowPosition(x, y)
@@ -48,7 +46,6 @@ class App:
         self.game = GameFactory.makeGame()
         # self.game = GameFactory.makeGame(levelDebugMode=True)  # отладочный режим для рисования местности
         glutTimerFunc(CommonConstants.mainTimerMsec, self.mainTimerCallback, 0)
-        glutTimerFunc(CommonConstants.aiTimerMsec, self.aiTImerCallback, 0)
         glutTimerFunc(CommonConstants.renderTimerMsec, self.renderCallback, 0)
         glutMainLoop()
 
@@ -56,10 +53,6 @@ class App:
         self.game.updateCurrentScreen()
         self.game.voxCurrentScreen()
         glutTimerFunc(CommonConstants.mainTimerMsec, self.mainTimerCallback, 0)
-
-    def aiTImerCallback(self, value):
-        self.game.updateEnemyAI()
-        glutTimerFunc(CommonConstants.mainTimerMsec, self.aiTImerCallback, 0)
 
     def renderCallback(self, value):
         glutPostRedisplay()
