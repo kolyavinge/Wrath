@@ -25,7 +25,7 @@ class PlayerBloodStainUpdater:
     def addNewBloodStain(self):
         bloodStain = BloodStain()
         bloodStain.number = Random.getInt(0, BloodStain.numbersCount - 1)
-        bloodStain.position = Vector3(Random.getFloat(0.0, 1.0), Random.getFloat(0.0, 1.0), 0.0)
+        bloodStain.position = Vector3(0.5 + Random.getFloat(-0.4, 0.4), 0.5 + Random.getFloat(-0.4, 0.4), 0.0)
         bloodStain.brightness = 1.0
         bloodStain.fade = Random.getFloat(0.95, 0.99)
         bloodStain.radians = Random.getFloat(-Math.piDouble, Math.piDouble)
