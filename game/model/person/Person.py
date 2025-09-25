@@ -23,6 +23,7 @@ class Person:
         self.nextCenterPoint = self.currentCenterPoint.copy()
         self.middleCenterPoint = Vector3()
         self.chestCenterPoint = Vector3()
+        self.headCenterPoint = Vector3()
         self.collisionLevelSegments = set()
         self.visibilityLevelSegment = LevelSegment()
         self.currentBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)
@@ -89,15 +90,15 @@ class Person:
         self.nextFootRect.addZ(PersonConstants.zFootLength)
 
     def commitNextPosition(self):
-        self.currentCenterPoint = self.nextCenterPoint.copy()
+        self.currentCenterPoint.copyFrom(self.nextCenterPoint)
         self.currentBorder.copyFrom(self.nextBorder)
-        self.eyePosition = self.currentCenterPoint.copy()
+        self.eyePosition.copyFrom(self.currentCenterPoint)
         self.eyePosition.z += PersonConstants.eyeLength
-        self.middleCenterPoint = self.currentCenterPoint.copy()
+        self.middleCenterPoint.copyFrom(self.currentCenterPoint)
         self.middleCenterPoint.z += PersonConstants.zLengthHalf
-        self.chestCenterPoint = self.currentCenterPoint.copy()
+        self.chestCenterPoint.copyFrom(self.currentCenterPoint)
         self.chestCenterPoint.z += PersonConstants.zLength34
-        self.headCenterPoint = self.currentCenterPoint.copy()
+        self.headCenterPoint.copyFrom(self.currentCenterPoint)
         self.headCenterPoint.z += PersonConstants.zChestLength + (PersonConstants.headSizeHalf)
         self.currentFootRect.copyFrom(self.nextFootRect)
 

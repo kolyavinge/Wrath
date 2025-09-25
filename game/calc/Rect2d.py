@@ -47,15 +47,15 @@ class Rect2d:
         self.middleBottom.z += dz
 
     def copyFrom(self, copy):
-        self.center.set(copy.center.x, copy.center.y, copy.center.z)
-        self.downLeft.set(copy.downLeft.x, copy.downLeft.y, copy.downLeft.z)
-        self.downRight.set(copy.downRight.x, copy.downRight.y, copy.downRight.z)
-        self.upLeft.set(copy.upLeft.x, copy.upLeft.y, copy.upLeft.z)
-        self.upRight.set(copy.upRight.x, copy.upRight.y, copy.upRight.z)
-        self.middleLeft.set(copy.middleLeft.x, copy.middleLeft.y, copy.middleLeft.z)
-        self.middleRight.set(copy.middleRight.x, copy.middleRight.y, copy.middleRight.z)
-        self.middleTop.set(copy.middleTop.x, copy.middleTop.y, copy.middleTop.z)
-        self.middleBottom.set(copy.middleBottom.x, copy.middleBottom.y, copy.middleBottom.z)
+        self.center.copyFrom(copy.center)
+        self.downLeft.copyFrom(copy.downLeft)
+        self.downRight.copyFrom(copy.downRight)
+        self.upLeft.copyFrom(copy.upLeft)
+        self.upRight.copyFrom(copy.upRight)
+        self.middleLeft.copyFrom(copy.middleLeft)
+        self.middleRight.copyFrom(copy.middleRight)
+        self.middleTop.copyFrom(copy.middleTop)
+        self.middleBottom.copyFrom(copy.middleBottom)
 
     def __str__(self):
         return f"({self.downLeft}),({self.downRight}),({self.upLeft}),({self.upRight})"

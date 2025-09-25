@@ -56,8 +56,7 @@ class BackgroundVisibilityUpdater:
             self.gameData.backgroundVisibility.visibleSphereElements = set(self.gameData.backgroundVisibility.sphere.elementsList)
 
     def getAnyVisiblePointOrNone(self):
-        lookDirection = self.gameData.camera.lookDirection
-        self.lookDirectionPoint.set(lookDirection.x, lookDirection.y, lookDirection.z)
+        self.lookDirectionPoint.copyFrom(self.gameData.camera.lookDirection)
         self.lookDirectionPoint.mul(self.gameData.backgroundVisibility.sphere.radius)
         self.lookDirectionPoint.add(self.gameData.camera.position)
         spherePoints = self.gameData.backgroundVisibility.sphereBSPTree.findNodeItemsByPoint(self.lookDirectionPoint)

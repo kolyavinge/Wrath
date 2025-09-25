@@ -16,6 +16,11 @@ class Vector3:
     def copy(self):
         return Vector3(self.x, self.y, self.z)
 
+    def copyFrom(self, vector):
+        self.x = vector.x
+        self.y = vector.y
+        self.z = vector.z
+
     def getLength(self):
         return Math.sqrt(self.x * self.x + self.y * self.y + self.z * self.z)
 
