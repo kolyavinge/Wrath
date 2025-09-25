@@ -6,8 +6,8 @@ from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.calc.Vector3 import Vector3
 from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Math import Math
-from game.model.level.Floor import Floor
 from game.model.level.LevelSegment import LevelSegment
+from game.model.level.NullFloor import NullFloor
 from game.model.person.PersonFuncs import *
 from game.model.person.PersonStates import LifeCycle, PersonZState
 
@@ -30,8 +30,8 @@ class Person:
         self.nextBodyBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zChestLength)
         self.currentFootRect = Rect2d(PersonConstants.xyLength, PersonConstants.xyLength)
         self.nextFootRect = Rect2d(PersonConstants.xyLength, PersonConstants.xyLength)
-        self.currentFloor = Floor()
-        self.nextFloor = Floor()
+        self.currentFloor = NullFloor.instance
+        self.nextFloor = NullFloor.instance
         self.pitchRadians = 0
         self.yawRadians = 0
         self.eyePosition = Vector3()

@@ -25,10 +25,13 @@ class Stair(Floor):
         self.stepDirection2d.normalize()
         self.stepHeight = (self.endBasePoint.z - self.startBasePoint.z) / self.stepsCount
         self.stepLength = self.stepsLength / self.stepsCount
+        # frontNormal - нормаль передней грани ступеньки
+        # topNormal - нормаль верхней грани
         self.frontNormal = CommonConstants.zAxis
         self.topNormal = Geometry.rotatePoint(self.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, Math.piHalf)
         self.topNormal.normalize()
         super().commit()
+        self.isHorizontal = False
 
     def getFaceDirection(self):
         return FaceDirection.counterClockwise

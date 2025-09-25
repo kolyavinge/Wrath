@@ -48,6 +48,8 @@ class PersonVelocityUpdater:
         if radians != 0:
             person.velocityVector = Geometry.rotatePoint(person.velocityVector, CommonConstants.zAxis, CommonConstants.axisOrigin, radians)
 
+        self.correctByFloor(person)
+
     def processLeftRightStep(self, person):
         movingTime = person.rightStepMovingTime - person.leftStepMovingTime
         person.velocityValue = person.velocityFunc.getValue(Math.abs(movingTime))
@@ -56,8 +58,16 @@ class PersonVelocityUpdater:
         person.velocityVector.setLength(person.velocityValue)
         if movingTime < 0:
             person.velocityVector.mul(-1)
+        self.correctByFloor(person)
 
     def slowdownIfNeeded(self, person):
         if person.zState == PersonZState.onFloor:
             person.velocityValue *= person.currentFloor.slowdownCoeff
             person.velocityValue *= self.gameData.allPersonItems[person].currentWeapon.slowdownCoeff
+
+    def correctByFloor(self, person):
+        if not person.currentFloor.isHorizontal and (person.zState == PersonZState.onFloor or person.zState == PersonZState.landing):
+            person.velocityVector.add(person.currentCenterPoint)
+            person.velocityVector.z = person.currentFloor.getZ(person.velocityVector.x, person.velocityVector.y)
+            person.velocityVector.sub(person.currentCenterPoint)
+            person.velocityVector.setLength(person.velocityValue)

@@ -10,8 +10,5 @@ class Floor(Construction):
         self.visualSize = 2.0
         self.slowdownCoeff = 1.0
 
-    def commit(self):
-        super().commit()
-
     def getZ(self, x, y):
         return self.plane.getZ(x, y)

@@ -1,3 +1,4 @@
+from game.anx.CommonConstants import CommonConstants
 from game.calc.RectPlane import RectPlane
 from game.calc.Vector3 import Vector3
 from game.model.FaceDirection import FaceDirection
@@ -26,11 +27,13 @@ class Construction(VisibleLevelItem):
         self.visualSize = 1.0
         self.canCastShadow = True
         self.includeBorderPoints = False
+        self.isHorizontal = False
 
     def commit(self):
         self.faceDirection = self.getFaceDirection()
         self.calculateFrontCoords()
         self.plane = RectPlane(self.frontNormal, self.frontDownLeft, self.frontDownRight, self.frontUpLeft, self.frontUpRight)
+        self.isHorizontal = self.frontNormal == CommonConstants.zAxis
 
     def getFaceDirection(self):
         v = self.downLeft.getDirectionTo(self.downRight)
