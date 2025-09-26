@@ -7,9 +7,8 @@ class ExplosionCollisionDetector:
         self.gameData = gameData
 
     def getCollisionResult(self, explosion):
-        result = []
-        for person in explosion.collisionLevelSegment.allPerson:
-            if explosion.position.getLengthTo(person.currentCenterPoint) <= explosion.radius:
-                result.append(person)
-
-        return result
+        return [
+            person
+            for person in explosion.collisionLevelSegment.allPerson
+            if explosion.position.getLengthTo(person.currentCenterPoint) <= explosion.radius
+        ]

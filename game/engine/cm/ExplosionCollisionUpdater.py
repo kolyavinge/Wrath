@@ -1,4 +1,3 @@
-from game.engine.cm.BulletCollisionDetector import *
 from game.engine.cm.ExplosionCollisionDetector import ExplosionCollisionDetector
 from game.engine.GameData import GameData
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
