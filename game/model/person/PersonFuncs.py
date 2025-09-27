@@ -1,4 +1,5 @@
 from game.lib.Math import Math
+from game.lib.Numeric import Numeric
 
 
 class VelocityFunc:
@@ -10,13 +11,13 @@ class VelocityFunc:
 class JumpingFunc:
 
     def getValue(self, time):
-        return 0.5 * time
+        return Numeric.limitMax(0.5 * time, 0.2, 0.2)
 
 
 class FallingFunc:
 
     def getValue(self, time):
-        return 0.2 * time
+        return 0.1 * time
 
 
 class FallingDamageFunc:
