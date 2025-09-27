@@ -495,8 +495,10 @@ class NebulaLevel(Level):
         self.addJoinLine(LevelSegmentJoinLine(Vector3(20, 80, z), Vector3(80, 80, z), CommonConstants.zAxis))
 
     def makePowerupAreas(self):
+        # first floor
         self.addPowerupArea(PowerupArea(Vector3(50, 50, self.firstFloorZ), Vector3(50, 50, self.firstFloorZ), 40))
 
+        # second floor
         self.addPowerupArea(PowerupArea(Vector3(10, 7, self.secondFloorZ), Vector3(90, 7, self.secondFloorZ), 7))
         self.addPowerupArea(PowerupArea(Vector3(5, 20, self.secondFloorZ), Vector3(5, 20, self.secondFloorZ), 5))
         self.addPowerupArea(PowerupArea(Vector3(10, 35, self.secondFloorZ), Vector3(10, 90, self.secondFloorZ), 10))
@@ -515,12 +517,8 @@ class NebulaLevel(Level):
 
         # first floor
         yield SplitPlane(Vector3(90, 50, self.firstFloorZ), Vector3(-1, 0, 0))
-        yield SplitPlane(Vector3(92, 50, self.firstFloorZ), Vector3(0, 1, 0))
-        yield SplitPlane(Vector3(92, 55, self.firstFloorZ), Vector3(0, -1, 0))
-        yield SplitPlane(Vector3(95, 52, self.firstFloorZ), Vector3(1, 0, 0))
-        yield SplitPlane(Vector3(96, 52, self.firstFloorZ + 1.0), Vector3(0, 0, 1))
-        yield SplitPlane(Vector3(96, 60, self.firstFloorZ), Vector3(0, 1, 0))
-        yield SplitPlane(Vector3(96, 45, self.firstFloorZ), Vector3(0, -1, 0))
+        yield SplitPlane(Vector3(95, 60, self.firstFloorZ), Vector3(0, 1, 0))
+        yield SplitPlane(Vector3(95, 45, self.firstFloorZ), Vector3(0, -1, 0))
 
         # second floor
         yield SplitPlane(Vector3(20, 50, self.secondFloorZ), Vector3(1, 0, 0))
