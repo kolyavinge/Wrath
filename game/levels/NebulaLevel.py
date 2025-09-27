@@ -473,7 +473,7 @@ class NebulaLevel(Level):
         builder.buildCeiling(Vector3(0, 0, self.secondFloorZ + self.secondFloorHeight), 100, 100, Material.construction7, CeilingHole(80, 80))
 
     def makeLights(self, builder):
-        builder.buildLight(Vector3(50, 50, self.secondFloorZ + self.secondFloorHeight + 10), 2.0)
+        builder.buildLight(Vector3(50.1, 50.1, self.secondFloorZ + self.secondFloorHeight + 10), 2.0)
 
     def makeJoinLines(self):
         self.addJoinLine(LevelSegmentJoinLine(Vector3(45, 10, self.firstFloorZ + 1), Vector3(45, 90, self.firstFloorZ + 1)))
