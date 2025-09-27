@@ -15,6 +15,7 @@ from game.gl.vbo.VBORenderer import *
 from game.gl.vbo.VBOUpdaterFactory import *
 from game.render.anx.RayRenderer import *
 from game.render.anx.ShineCircleRenderer import *
+from game.render.anx.VignetteRenderer import *
 from game.render.common.MaterialTextureCollection import *
 from game.render.common.Model3dDirectory import *
 from game.render.common.ShaderCollection import *
@@ -92,6 +93,7 @@ class RenderModule:
         binder.bindSingleton(VBOUpdaterFactory)
         binder.bindSingleton(RayRenderer)
         binder.bindSingleton(ShineCircleRenderer)
+        binder.bindSingleton(VignetteRenderer)
         binder.bindSingleton(MaterialTextureCollection)
         binder.bindSingleton(Model3dDirectory)
         binder.bindSingleton(ShaderCollection)

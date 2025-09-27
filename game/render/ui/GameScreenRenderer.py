@@ -2,6 +2,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.lib.EventManager import EventManager
 from game.model.person.AimState import DefaultAimState
+from game.render.anx.VignetteRenderer import VignetteRenderer
 from game.render.debug.PlayerSegmentItemsRenderer import PlayerSegmentItemsRenderer
 from game.render.level.BackgroundRenderer import BackgroundRenderer
 from game.render.main.MainSceneRenderer import MainSceneRenderer
@@ -34,6 +35,7 @@ class GameScreenRenderer:
         crosshairRenderer: CrosshairRenderer,
         playerBloodStainRenderer: PlayerBloodStainRenderer,
         sniperCrosshairRenderer: SniperCrosshairRenderer,
+        vignetteRenderer: VignetteRenderer,
         dashboardRenderer: DashboardRenderer,
         playerSegmentItemsRenderer: PlayerSegmentItemsRenderer,
         eventManager: EventManager,
@@ -49,6 +51,7 @@ class GameScreenRenderer:
         self.crosshairRenderer = crosshairRenderer
         self.playerBloodStainRenderer = playerBloodStainRenderer
         self.sniperCrosshairRenderer = sniperCrosshairRenderer
+        self.vignetteRenderer = vignetteRenderer
         self.dashboardRenderer = dashboardRenderer
         self.playerSegmentItemsRenderer = playerSegmentItemsRenderer
         self.renderFunc = self.renderDefaultAimState
@@ -72,6 +75,7 @@ class GameScreenRenderer:
         self.weaponFlashRenderer.render()
         self.enemyLifeBarRenderer.render()
         self.crosshairRenderer.render()
+        self.vignetteRenderer.render()
         self.playerBloodStainRenderer.render()
         self.dashboardRenderer.render()
 

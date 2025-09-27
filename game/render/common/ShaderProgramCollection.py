@@ -8,6 +8,7 @@ from game.render.common.PlainColorShaderProgram import PlainColorShaderProgram
 from game.render.common.RayShaderProgram import RayShaderProgram
 from game.render.common.ShaderCollection import ShaderCollection
 from game.render.common.ShineCircleShaderProgram import ShineCircleShaderProgram
+from game.render.common.VignetteShaderProgram import VignetteShaderProgram
 
 
 class ShaderProgramCollection:
@@ -48,3 +49,5 @@ class ShaderProgramCollection:
         self.ray = RayShaderProgram([self.shaderCollection.rayVertex, self.shaderCollection.rayFragment])
 
         self.plainColor = PlainColorShaderProgram([self.shaderCollection.plainColorVertex, self.shaderCollection.plainColorFragment])
+
+        self.vignette = VignetteShaderProgram([self.shaderCollection.vignetteVertex, self.shaderCollection.vignetteFragment])

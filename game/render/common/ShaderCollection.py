@@ -38,3 +38,6 @@ class ShaderCollection:
 
         self.plainColorVertex = self.shaderCompiler.compile(path + "plainColor.vert", ShaderType.vertex)
         self.plainColorFragment = self.shaderCompiler.compile(path + "plainColor.frag", ShaderType.fragment)
+
+        self.vignetteVertex = self.shaderCompiler.compile(path + "vignette.vert", ShaderType.vertex)
+        self.vignetteFragment = self.shaderCompiler.compile(path + "vignette.frag", ShaderType.fragment)
