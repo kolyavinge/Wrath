@@ -1,4 +1,4 @@
-from OpenGL.GL import *
+from OpenGL.GL import GL_TEXTURE0
 
 from game.calc.Vector3 import Vector3
 from game.gl.BufferIndices import BufferIndices

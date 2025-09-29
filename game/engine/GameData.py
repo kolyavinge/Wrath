@@ -1,6 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTree import BSPTree
 from game.model.Camera import Camera
+from game.model.Dashboard import Dashboard
 from game.model.level.BackgroundVisibilityData import BackgroundVisibilityData
 from game.model.light.Torch import Torch
 from game.model.person.AimState import DefaultAimState
@@ -41,6 +42,7 @@ class GameData:
         self.aimState = DefaultAimState()
         self.collisionData = CollisionData()
         self.backgroundVisibility = BackgroundVisibilityData()
+        self.dashboard = Dashboard()
         # for debug
         self.isDebug = False
         self.noEnemies = False

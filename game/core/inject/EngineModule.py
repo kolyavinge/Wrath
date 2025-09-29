@@ -19,6 +19,7 @@ from game.engine.cm.PowerupCollisionDetector import *
 from game.engine.cm.PowerupCollisionUpdater import *
 from game.engine.cm.SphereCollisionDetector import *
 from game.engine.cm.VoidCollisionDetector import *
+from game.engine.DashboardUpdater import *
 from game.engine.GameData import *
 from game.engine.GameUpdater import *
 from game.engine.level.BackgroundVisibilityUpdater import *
@@ -106,6 +107,7 @@ class EngineModule:
         binder.bindSingleton(PowerupCollisionUpdater)
         binder.bindSingleton(SphereCollisionDetector)
         binder.bindSingleton(VoidCollisionDetector)
+        binder.bindSingleton(DashboardUpdater)
         binder.bindSingleton(GameData)
         binder.bindSingleton(GameUpdater, resolveByFields=True)
         binder.bindSingleton(BackgroundVisibilityUpdater)
