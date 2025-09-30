@@ -12,6 +12,11 @@ class ScreenQuadVBO:
         vboBuilder.addVertex(Vector3(1, 1, 0))
         vboBuilder.addVertex(Vector3(-1, 1, 0))
 
+        vboBuilder.addTexCoord(0, 0)
+        vboBuilder.addTexCoord(1, 0)
+        vboBuilder.addTexCoord(1, 1)
+        vboBuilder.addTexCoord(0, 1)
+
         vboBuilder.addFace(0, 1, 2)
         vboBuilder.addFace(0, 2, 3)
 
