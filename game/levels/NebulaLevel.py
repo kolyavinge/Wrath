@@ -509,7 +509,17 @@ class NebulaLevel(Level):
         self.addPowerupArea(PowerupArea(Vector3(85, 20, self.secondFloorZ), Vector3(95, 20, self.secondFloorZ), 5))
 
     def makeRespawnAreas(self):
+        # first floor
+        self.addRespawnArea(RespawnArea(Vector3(5, 5, self.firstFloorZ), Vector3(40, 5, self.secondFloorZ), 5, Vector3(0, 1, 0)))
+        self.addRespawnArea(RespawnArea(Vector3(50, 5, self.firstFloorZ), Vector3(50, 5, self.secondFloorZ), 5, Vector3(-1, 0, 0)))
+        self.addRespawnArea(RespawnArea(Vector3(70, 5, self.firstFloorZ), Vector3(95, 5, self.secondFloorZ), 5, Vector3(0, 1, 0)))
+
+        # second floor
         self.addRespawnArea(RespawnArea(Vector3(5, 5, self.secondFloorZ), Vector3(95, 5, self.secondFloorZ), 5, Vector3(0, 1, 0)))
+        self.addRespawnArea(RespawnArea(Vector3(5, 5, self.secondFloorZ), Vector3(5, 95, self.secondFloorZ), 5, Vector3(1, 0, 0)))
+        self.addRespawnArea(RespawnArea(Vector3(5, 95, self.secondFloorZ), Vector3(95, 95, self.secondFloorZ), 5, Vector3(0, -1, 0)))
+        self.addRespawnArea(RespawnArea(Vector3(95, 95, self.secondFloorZ), Vector3(95, 70, self.secondFloorZ), 5, Vector3(-1, 0, 0)))
+        self.addRespawnArea(RespawnArea(Vector3(95, 5, self.secondFloorZ), Vector3(95, 30, self.secondFloorZ), 5, Vector3(-1, 0, 0)))
 
     def getCollisionSplitPlanes(self):
         for sp in self.getVisibilitySplitPlanes():
