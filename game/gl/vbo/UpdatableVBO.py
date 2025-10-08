@@ -20,6 +20,7 @@ class UpdatableVBO(VBO):
         self.verticesLastIndex = 0
         self.normalsLastIndex = 0
         self.texCoordsLastIndex = 0
+        self.colorsLastIndex = 0
         self.faceLastIndex = 0
 
     def reset(self):

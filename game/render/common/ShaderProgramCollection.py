@@ -3,6 +3,7 @@ from game.render.common.MainSceneComposeShaderProgram import *
 from game.render.common.MainSceneLightComponentsShaderProgram import *
 from game.render.common.MainSceneShadowVolumesShaderProgram import *
 from game.render.common.MainSceneStencilMaskShaderProgram import *
+from game.render.common.MeshExtShaderProgram import MeshExtShaderProgram
 from game.render.common.MeshShaderProgram import MeshShaderProgram
 from game.render.common.PlainColorShaderProgram import PlainColorShaderProgram
 from game.render.common.RayShaderProgram import RayShaderProgram
@@ -18,7 +19,10 @@ class ShaderProgramCollection:
 
     def init(self):
         self.mainSceneLightComponents = MainSceneLightComponentsShaderProgram(
-            [self.shaderCollection.mainSceneLightComponentsVertex, self.shaderCollection.mainSceneLightComponentsFragment]
+            [
+                self.shaderCollection.mainSceneLightComponentsVertex,
+                self.shaderCollection.mainSceneLightComponentsFragment,
+            ]
         )
 
         self.mainSceneShadowVolumes = MainSceneShadowVolumesShaderProgram(
@@ -37,12 +41,17 @@ class ShaderProgramCollection:
         )
 
         self.mainSceneCompose = MainSceneComposeShaderProgram(
-            [self.shaderCollection.mainSceneComposeVertex, self.shaderCollection.mainSceneComposeFragment]
+            [
+                self.shaderCollection.mainSceneComposeVertex,
+                self.shaderCollection.mainSceneComposeFragment,
+            ]
         )
 
         self.crosshair = CrossshairShaderProgram([self.shaderCollection.crosshairVertex, self.shaderCollection.crosshairFragment])
 
         self.mesh = MeshShaderProgram([self.shaderCollection.meshVertex, self.shaderCollection.meshFragment])
+
+        self.meshExt = MeshExtShaderProgram([self.shaderCollection.meshExtVertex, self.shaderCollection.meshExtFragment])
 
         self.shineCircle = ShineCircleShaderProgram([self.shaderCollection.shineCircleVertex, self.shaderCollection.shineCircleFragment])
 

@@ -47,6 +47,17 @@ class VBOUpdater:
         glUnmapBuffer(GL_ARRAY_BUFFER)
         self.vbo.texCoordsLastIndex += 2
 
+    def addColor(self, vector):
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[BufferIndices.colors])
+        mapBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY)
+        mapArray = (GLfloat * (4 * self.vbo.maxVerticesCount)).from_address(mapBuffer)
+        mapArray[self.vbo.colorsLastIndex] = vector.x
+        mapArray[self.vbo.colorsLastIndex + 1] = vector.y
+        mapArray[self.vbo.colorsLastIndex + 2] = vector.z
+        mapArray[self.vbo.colorsLastIndex + 3] = vector.w
+        glUnmapBuffer(GL_ARRAY_BUFFER)
+        self.vbo.colorsLastIndex += 4
+
     def addFace(self, i1, i2, i3):
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.vbo.vboIds[BufferIndices.faces])
         mapBuffer = glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY)
@@ -87,6 +98,14 @@ class VBOUpdater:
             glVertexAttribPointer(BufferIndices.texCoords, 2, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(BufferIndices.texCoords)
             vboIds[BufferIndices.texCoords] = vboId
+
+        if BufferIndices.colors in bufferIndices:
+            vboId = glGenBuffers(1)
+            glBindBuffer(GL_ARRAY_BUFFER, vboId)
+            glBufferData(GL_ARRAY_BUFFER, 4 * 4 * maxVerticesCount, None, GL_STATIC_DRAW)
+            glVertexAttribPointer(BufferIndices.colors, 4, GL_FLOAT, GL_FALSE, 0, None)
+            glEnableVertexAttribArray(BufferIndices.colors)
+            vboIds[BufferIndices.colors] = vboId
 
         if BufferIndices.faces in bufferIndices:
             vboId = glGenBuffers(1)

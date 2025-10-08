@@ -30,6 +30,9 @@ class ShaderCollection:
         self.meshVertex = self.shaderCompiler.compile(path + "mesh.vert", ShaderType.vertex)
         self.meshFragment = self.shaderCompiler.compile(path + "mesh.frag", ShaderType.fragment)
 
+        self.meshExtVertex = self.shaderCompiler.compile(path + "meshExt.vert", ShaderType.vertex)
+        self.meshExtFragment = self.shaderCompiler.compile(path + "meshExt.frag", ShaderType.fragment)
+
         self.shineCircleVertex = self.shaderCompiler.compile(path + "shineCircle.vert", ShaderType.vertex)
         self.shineCircleFragment = self.shaderCompiler.compile(path + "shineCircle.frag", ShaderType.fragment)
 
