@@ -24,37 +24,40 @@ class Model3dVBOBuilder:
             if withAdjacency:
                 mesh.faces = self.adjacencyFormatConverter.getFacesWithAdjacency(mesh.faces)
 
-            if model3d.animations is not None:
-                vboIds = glGenBuffers(6)
-            else:
-                vboIds = glGenBuffers(4)
+            vboIds = {}
 
+            vboIds[BufferIndices.vertices] = glGenBuffers(1)
             glBindBuffer(GL_ARRAY_BUFFER, vboIds[BufferIndices.vertices])
             glBufferData(GL_ARRAY_BUFFER, mesh.vertices.nbytes, mesh.vertices, GL_STATIC_DRAW)
             glVertexAttribPointer(BufferIndices.vertices, 3, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(BufferIndices.vertices)
 
+            vboIds[BufferIndices.normals] = glGenBuffers(1)
             glBindBuffer(GL_ARRAY_BUFFER, vboIds[BufferIndices.normals])
             glBufferData(GL_ARRAY_BUFFER, mesh.normals.nbytes, mesh.normals, GL_STATIC_DRAW)
             glVertexAttribPointer(BufferIndices.normals, 3, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(BufferIndices.normals)
 
+            vboIds[BufferIndices.texCoords] = glGenBuffers(1)
             glBindBuffer(GL_ARRAY_BUFFER, vboIds[BufferIndices.texCoords])
             glBufferData(GL_ARRAY_BUFFER, mesh.texCoords.nbytes, mesh.texCoords, GL_STATIC_DRAW)
             glVertexAttribPointer(BufferIndices.texCoords, 3, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(BufferIndices.texCoords)
 
             if model3d.animations is not None:
+                vboIds[BufferIndices.boneIds] = glGenBuffers(1)
                 glBindBuffer(GL_ARRAY_BUFFER, vboIds[BufferIndices.boneIds])
                 glBufferData(GL_ARRAY_BUFFER, mesh.boneIds.nbytes, mesh.boneIds, GL_STATIC_DRAW)
                 glVertexAttribIPointer(BufferIndices.boneIds, Bone.maxBonesCountInfluence, GL_INT, 0, None)
                 glEnableVertexAttribArray(BufferIndices.boneIds)
 
+                vboIds[BufferIndices.weights] = glGenBuffers(1)
                 glBindBuffer(GL_ARRAY_BUFFER, vboIds[BufferIndices.weights])
                 glBufferData(GL_ARRAY_BUFFER, mesh.weights.nbytes, mesh.weights, GL_STATIC_DRAW)
                 glVertexAttribPointer(BufferIndices.weights, Bone.maxBonesCountInfluence, GL_FLOAT, GL_FALSE, 0, None)
                 glEnableVertexAttribArray(BufferIndices.weights)
 
+            vboIds[BufferIndices.faces] = glGenBuffers(1)
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboIds[BufferIndices.faces])
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.faces.nbytes, mesh.faces, GL_STATIC_DRAW)
 
@@ -62,7 +65,6 @@ class Model3dVBOBuilder:
             glBindVertexArray(0)
 
             format = GL_TRIANGLES if not withAdjacency else GL_TRIANGLES_ADJACENCY
-
             vbo = VBO(vaoId, vboIds, len(mesh.faces), format)
             result.append((mesh, vbo))
 

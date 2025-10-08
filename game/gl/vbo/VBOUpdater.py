@@ -17,23 +17,6 @@ class VBOUpdater:
         glBindBuffer(GL_ARRAY_BUFFER, 0)
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0)
 
-    def setVertex(self, index, vector):
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[BufferIndices.vertices])
-        mapBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY)
-        mapArray = (GLfloat * (3 * self.vbo.maxVerticesCount)).from_address(mapBuffer)
-        mapArray[3 * index] = vector.x
-        mapArray[3 * index + 1] = vector.y
-        mapArray[3 * index + 2] = vector.z
-        glUnmapBuffer(GL_ARRAY_BUFFER)
-
-    def setTexCoord(self, index, x, y):
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[BufferIndices.texCoords])
-        mapBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY)
-        mapArray = (GLfloat * (2 * self.vbo.maxVerticesCount)).from_address(mapBuffer)
-        mapArray[2 * index] = x
-        mapArray[2 * index + 1] = y
-        glUnmapBuffer(GL_ARRAY_BUFFER)
-
     def addVertex(self, vector):
         glBindBuffer(GL_ARRAY_BUFFER, self.vbo.vboIds[BufferIndices.vertices])
         mapBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY)
@@ -79,7 +62,7 @@ class VBOUpdater:
         vaoId = glGenVertexArrays(1)
         glBindVertexArray(vaoId)
 
-        vboIds = [0] * BufferIndices.count
+        vboIds = {}
 
         if BufferIndices.vertices in bufferIndices:
             vboId = glGenBuffers(1)

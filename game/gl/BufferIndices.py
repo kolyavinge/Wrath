@@ -3,10 +3,11 @@ class BufferIndices:
     vertices = 0
     normals = 1
     texCoords = 2
-    faces = 3
+    colors = 3
     boneIds = 4
     weights = 5
-    count = 6
+    faces = 6
+    count = 7
 
 
 BufferIndices.main = [BufferIndices.vertices, BufferIndices.normals, BufferIndices.texCoords, BufferIndices.faces]

@@ -55,7 +55,7 @@ class VBOBuilder:
         if withAdjacency:
             self.faces = self.adjacencyFormatConverter.getFacesWithAdjacency(self.faces)
 
-        vboIds = []
+        vboIds = {}
 
         if len(self.vertices) > 0:
             vertices = numpy.array(self.vertices, dtype=numpy.float32)
@@ -64,7 +64,7 @@ class VBOBuilder:
             glBufferData(GL_ARRAY_BUFFER, vertices.nbytes, vertices, GL_STATIC_DRAW)
             glVertexAttribPointer(BufferIndices.vertices, 3, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(BufferIndices.vertices)
-            vboIds.append(vboId)
+            vboIds[BufferIndices.vertices] = vboId
 
         if len(self.normals) > 0:
             normals = numpy.array(self.normals, dtype=numpy.float32)
@@ -73,7 +73,7 @@ class VBOBuilder:
             glBufferData(GL_ARRAY_BUFFER, normals.nbytes, normals, GL_STATIC_DRAW)
             glVertexAttribPointer(BufferIndices.normals, 3, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(BufferIndices.normals)
-            vboIds.append(vboId)
+            vboIds[BufferIndices.normals] = vboId
 
         if len(self.texCoords) > 0:
             texCoords = numpy.array(self.texCoords, dtype=numpy.float32)
@@ -82,7 +82,7 @@ class VBOBuilder:
             glBufferData(GL_ARRAY_BUFFER, texCoords.nbytes, texCoords, GL_STATIC_DRAW)
             glVertexAttribPointer(BufferIndices.texCoords, 2, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(BufferIndices.texCoords)
-            vboIds.append(vboId)
+            vboIds[BufferIndices.texCoords] = vboId
 
         faces = []
         if len(self.faces) > 0:
@@ -90,7 +90,7 @@ class VBOBuilder:
             vboId = glGenBuffers(1)
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboId)
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, faces.nbytes, faces, GL_STATIC_DRAW)
-            vboIds.append(vboId)
+            vboIds[BufferIndices.faces] = vboId
 
         glBindBuffer(GL_ARRAY_BUFFER, 0)
         glBindVertexArray(0)
