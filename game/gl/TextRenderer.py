@@ -2,24 +2,26 @@ from OpenGL.GL import GL_TEXTURE0
 
 from game.calc.Vector3 import Vector3
 from game.gl.BufferIndices import BufferIndices
-from game.gl.TextureLoader import TextureLoader
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
-from game.lib.Environment import Environment
+from game.render.common.TextureCollection import TextureCollection
 
 
 class TextRenderer:
 
     def __init__(
         self,
-        textureLoader: TextureLoader,
+        textureCollection: TextureCollection,
         vboUpdaterFactory: VBOUpdaterFactory,
         vboRenderer: VBORenderer,
     ):
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.vboRenderer = vboRenderer
+        self.textureCollection = textureCollection
         self.symbolCoordinates = self.getSymbolCoordinates()
-        self.alphabetTexture = textureLoader.load(Environment.programRootPath + "\\res\\menu\\alphabet.png")
+
+    def init(self):
+        self.alphabetTexture = self.textureCollection.alphabet
         self.symbolWidth = 64.0
         self.symbolHeight = 64.0
         self.spaceWidth = 38.0

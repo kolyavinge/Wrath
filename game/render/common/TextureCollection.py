@@ -8,6 +8,7 @@ class TextureCollection:
         self.textureLoader = textureLoader
 
     def init(self):
+        # textures
         path = Environment.programRootPath + "\\res\\textures\\"
         self.blank = self.textureLoader.load(path + "blank.png")
         self.construction1 = self.textureLoader.load(path + "construction1.jpg")
@@ -41,3 +42,7 @@ class TextureCollection:
         self.bloodStain1 = self.textureLoader.load(path + "bloodStain1.png")
         self.background1 = self.textureLoader.load(path + "background1.jpg")
         # self.background1 = self.textureLoader.load(path + "sphereTest.png")
+
+        # menu
+        path = Environment.programRootPath + "\\res\\menu\\"
+        self.alphabet = self.textureLoader.load(path + "alphabet.png")

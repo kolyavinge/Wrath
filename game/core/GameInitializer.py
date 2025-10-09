@@ -1,4 +1,5 @@
 from game.audio.AudioPlayer import AudioPlayer
+from game.gl.TextRenderer import TextRenderer
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
 from game.render.common.ShaderCollection import ShaderCollection
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -14,6 +15,7 @@ class GameInitializer:
         materialTextureCollection: MaterialTextureCollection,
         shaderCollection: ShaderCollection,
         shaderProgramCollection: ShaderProgramCollection,
+        textRenderer: TextRenderer,
         audioPlayer: AudioPlayer,
         audioBufferCollection: AudioBufferCollection,
     ):
@@ -21,6 +23,7 @@ class GameInitializer:
         self.materialTextureCollection = materialTextureCollection
         self.shaderCollection = shaderCollection
         self.shaderProgramCollection = shaderProgramCollection
+        self.textRenderer = textRenderer
         self.audioPlayer = audioPlayer
         self.audioBufferCollection = audioBufferCollection
 
@@ -29,5 +32,6 @@ class GameInitializer:
         self.materialTextureCollection.init()
         self.shaderCollection.init()
         self.shaderProgramCollection.init()
+        self.textRenderer.init()
         self.audioPlayer.init()
         self.audioBufferCollection.init()
