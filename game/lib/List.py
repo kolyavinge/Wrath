@@ -1,6 +1,10 @@
 class List:
 
     @staticmethod
+    def equals(list1, list2):
+        return len(list1) == len(list2) and set(list1).issubset(list2)
+
+    @staticmethod
     def isSorted(lst, getFieldFunc):
         iterator = iter(lst)
         prev = getFieldFunc(next(iterator))

@@ -88,3 +88,6 @@ class PersonItems:
                 self.currentWeapon = self.leftHandWeapon
             else:
                 self.currentWeapon = self.rightHandWeapon
+
+    def getNonemptyWeaponTypes(self):
+        return [type(weapon) for weapon in self.weapons]
