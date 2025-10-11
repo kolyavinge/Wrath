@@ -7,6 +7,7 @@ from game.gl.model3d.Model3dLoader import *
 from game.gl.model3d.Model3dRenderer import *
 from game.gl.model3d.RenderModel3dLoader import *
 from game.gl.ShaderCompiler import *
+from game.gl.SpriteRendererFactory import *
 from game.gl.TextRenderer import *
 from game.gl.TextureLoader import *
 from game.gl.vbo.ScreenQuadVBO import *
@@ -39,6 +40,8 @@ from game.render.main.ShadowedObjectFramebuffer import *
 from game.render.main.ShadowedObjectRenderer import *
 from game.render.menu.DashboardFramebuffer import *
 from game.render.menu.DashboardRenderer import *
+from game.render.menu.DashboardSpriteRenderer import *
+from game.render.menu.DashboardTextRenderer import *
 from game.render.person.EnemyAnimationCollection import *
 from game.render.person.EnemyLifeBarRenderer import *
 from game.render.person.EnemyModel3dFactory import *
@@ -86,6 +89,7 @@ class RenderModule:
         binder.bindSingleton(Model3dRenderer)
         binder.bindSingleton(RenderModel3dLoader)
         binder.bindSingleton(ShaderCompiler)
+        binder.bindSingleton(SpriteRendererFactory)
         binder.bindSingleton(TextRenderer)
         binder.bindSingleton(TextureLoader)
         binder.bindSingleton(ScreenQuadVBO)
@@ -118,6 +122,8 @@ class RenderModule:
         binder.bindSingleton(ShadowedObjectRenderer)
         binder.bindSingleton(DashboardFramebuffer)
         binder.bindSingleton(DashboardRenderer)
+        binder.bindSingleton(DashboardSpriteRenderer)
+        binder.bindSingleton(DashboardTextRenderer)
         binder.bindSingleton(EnemyAnimationCollection)
         binder.bindSingleton(EnemyLifeBarRenderer)
         binder.bindSingleton(EnemyModel3dFactory)

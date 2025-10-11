@@ -46,3 +46,4 @@ class TextureCollection:
         # menu
         path = Environment.programRootPath + "\\res\\menu\\"
         self.alphabet = self.textureLoader.load(path + "alphabet.png")
+        self.sprites = self.textureLoader.load(path + "sprites.png")

@@ -1,6 +1,7 @@
 from game.engine.GameData import GameData
 from game.render.level.LevelItemRenderCollection import LevelItemRenderCollection
 from game.render.level.ShadowCasterRenderCollection import ShadowCasterRenderCollection
+from game.render.menu.DashboardRenderer import DashboardRenderer
 from game.render.person.EnemyAnimationCollection import EnemyAnimationCollection
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 from game.render.person.PlayerBloodStainRenderCollection import *
@@ -27,6 +28,7 @@ class GameScreenInitializer:
         playerBloodStainRenderCollection: PlayerBloodStainRenderCollection,
         enemyRenderCollection: EnemyRenderCollection,
         enemyAnimationCollection: EnemyAnimationCollection,
+        dashboardRenderer: DashboardRenderer,
     ):
         self.gameData = gameData
         self.levelItemRenderCollection = levelItemRenderCollection
@@ -39,6 +41,7 @@ class GameScreenInitializer:
         self.playerBloodStainRenderCollection = playerBloodStainRenderCollection
         self.enemyRenderCollection = enemyRenderCollection
         self.enemyAnimationCollection = enemyAnimationCollection
+        self.dashboardRenderer = dashboardRenderer
 
     # @timeProfile("GameScreenInitializer")
     def init(self):
@@ -54,3 +57,4 @@ class GameScreenInitializer:
         self.playerBloodStainRenderCollection.init()
         self.enemyRenderCollection.init()
         self.enemyAnimationCollection.init()
+        self.dashboardRenderer.init()
