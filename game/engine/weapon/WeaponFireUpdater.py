@@ -37,7 +37,7 @@ class WeaponFireUpdater:
             weapon.isFiring = False
 
     def canFire(self, person, weapon):
-        return person.selectWeaponDelay.isExpired() and weapon.bulletsCount > 0 and weapon.delayRemain.isExpired()
+        return weapon.delayRemain.isExpired() and person.weaponSelectState is None and weapon.bulletsCount > 0
 
     def fire(self, person, personItems, weapon):
         weapon.bulletsCount -= 1

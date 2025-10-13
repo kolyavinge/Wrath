@@ -62,7 +62,7 @@ class Person:
         self.breathTime = 0
         self.breathFunc = BreathFunc()
         self.stepTime = 0
-        self.selectWeaponDelay = DecrementCounter()
+        self.weaponSelectState = None
         self.paralyzeDelay = DecrementCounter()
 
     def moveNextPositionBy(self, vector):

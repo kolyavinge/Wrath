@@ -1,6 +1,6 @@
-from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
+from game.model.person.PersonStates import WeaponSelectState
 from game.model.person.Player import Player
 from game.model.weapon.NullWeapon import NullWeapon
 from game.model.weapon.WeaponCollection import WeaponCollection
@@ -52,7 +52,7 @@ class WeaponSelector:
     def selectNextWeapon(self, person):
         personItems = self.gameData.allPersonItems[person]
         if personItems.hasWeapons():
-            weaponType = personItems.getCurrentWeaponType()
+            weaponType = type(personItems.selectedCurrentWeapon or personItems.currentWeapon)
             nextWeaponType = WeaponCollection.getNextWeaponTypeFor(weaponType)
             for _ in range(1, WeaponCollection.weaponTypesCount):
                 if personItems.hasWeaponByType(nextWeaponType):
@@ -66,7 +66,7 @@ class WeaponSelector:
     def selectPrevWeapon(self, person):
         personItems = self.gameData.allPersonItems[person]
         if personItems.hasWeapons():
-            weaponType = personItems.getCurrentWeaponType()
+            weaponType = type(personItems.selectedCurrentWeapon or personItems.currentWeapon)
             prevWeaponType = WeaponCollection.getPrevWeaponTypeFor(weaponType)
             for _ in range(1, WeaponCollection.weaponTypesCount):
                 if personItems.hasWeaponByType(prevWeaponType):
@@ -90,6 +90,5 @@ class WeaponSelector:
         personItems.selectedRightHandWeapon = rightHandWeapon
         personItems.selectedLeftHandWeapon = leftHandWeapon
         personItems.selectedCurrentWeapon = currentWeapon
-        # при быстром переключении оружия задержка все равно активируется один раз
-        if person.selectWeaponDelay.isExpired():
-            person.selectWeaponDelay.set(PersonConstants.selectWeaponDelay)
+        if person.weaponSelectState != WeaponSelectState.putWeaponDown:
+            person.weaponSelectState = WeaponSelectState.startSelection

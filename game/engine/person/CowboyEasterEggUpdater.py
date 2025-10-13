@@ -19,7 +19,7 @@ class CowboyEasterEggUpdater:
             return
 
         player = self.gameData.player
-        anyActions = self.gameData.playerInputData.anyActions() or not player.selectWeaponDelay.isExpired()
+        anyActions = self.gameData.playerInputData.anyActions() or player.weaponSelectState is not None
         cowboyRemain = player.cowboyRemain
 
         if not anyActions and cowboyRemain.isExpired():

@@ -91,3 +91,13 @@ class PersonItems:
 
     def getNonemptyWeaponTypes(self):
         return [type(weapon) for weapon in self.weapons]
+
+    def setSelectedWeaponAsCurrent(self):
+        self.rightHandWeapon = self.selectedRightHandWeapon
+        self.leftHandWeapon = self.selectedLeftHandWeapon
+        self.currentWeapon = self.selectedCurrentWeapon
+
+    def resetSelectedWeapon(self):
+        self.selectedRightHandWeapon = None
+        self.selectedLeftHandWeapon = None
+        self.selectedCurrentWeapon = None
