@@ -1,5 +1,6 @@
 from game.engine.GameData import GameData
 from game.lib.List import List
+from game.model.weapon.NullWeapon import NullWeapon
 
 
 class DashboardUpdater:
@@ -33,7 +34,10 @@ class DashboardUpdater:
         if dashboard.hasChanged:
             dashboard.healthStr = self.getAlignedNumber(dashboard.health)
             dashboard.vestStr = self.getAlignedNumber(dashboard.vest)
-            dashboard.bulletsCountStr = self.getAlignedNumber(f"{self.getAlignedNumber(dashboard.bulletsCount)}/{dashboard.maxBulletsCount}")
+            if playerItems.currentWeapon != NullWeapon.instance:
+                dashboard.bulletsCountStr = self.getAlignedNumber(f"{self.getAlignedNumber(dashboard.bulletsCount)}/{dashboard.maxBulletsCount}")
+            else:
+                dashboard.bulletsCountStr = ""
 
     def getAlignedNumber(self, number):
         return str(number).rjust(3)
