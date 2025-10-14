@@ -1,4 +1,5 @@
 from game.engine.GameData import GameData
+from game.model.person.PersonStates import LifeCycle
 
 
 class ExplosionCollisionDetector:
@@ -10,5 +11,5 @@ class ExplosionCollisionDetector:
         return [
             person
             for person in explosion.collisionLevelSegment.allPerson
-            if explosion.position.getLengthTo(person.currentCenterPoint) <= explosion.radius
+            if person.lifeCycle == LifeCycle.alive and explosion.position.getLengthTo(person.currentCenterPoint) <= explosion.radius
         ]
