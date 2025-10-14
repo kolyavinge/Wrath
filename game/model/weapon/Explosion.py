@@ -4,6 +4,7 @@ from game.calc.Vector3 import Vector3
 class Explosion:
 
     def __init__(self):
+        self.bullet = None
         self.radius = 0
         self.maxRadius = 0
         self.velocityValue = 0

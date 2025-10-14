@@ -52,6 +52,7 @@ class Bullet:
             return None
 
         explosion = self.explosionType()
+        explosion.bullet = self
         explosion.position = self.currentPosition.copy()
 
         return explosion
