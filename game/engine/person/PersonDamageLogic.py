@@ -16,7 +16,8 @@ class PersonDamageLogic:
         else:
             person.damage(bullet.damagePercent * PersonConstants.maxPersonHealth)
 
-    def damageByHeadshot(self, person):
+    def damageByHeadshot(self, person, bullet):
+        self.gameData.collisionData.personBullet[person] = bullet
         person.damage(PersonConstants.maxPersonHealth)
 
     def damageByExplosion(self, person, explosion):
