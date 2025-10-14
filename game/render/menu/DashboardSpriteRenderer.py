@@ -58,7 +58,7 @@ class DashboardSpriteRenderer:
     def getSpriteItems(self):
         dashboard = self.gameData.dashboard
         for weaponType, spriteInfo in self.weaponSprite.items():
-            if weaponType in dashboard.weaponTypes:
+            if weaponType in dashboard.weaponTypesSet:
                 row, col, x, y = spriteInfo
                 alpha = 1 if weaponType == dashboard.selectedWeaponType else 0.7
                 yield (row, col, x, y, alpha)

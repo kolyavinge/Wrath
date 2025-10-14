@@ -7,15 +7,15 @@ class Dashboard:
         self.lastBulletsCount = 0
         self.lastMaxBulletsCount = 0
         self.lastSelectedWeaponType = None
-        self.lastWeaponTypes = []
+        self.lastWeaponTypesSet = set()
 
         # current values
-        self.health = 0
-        self.vest = 0
-        self.bulletsCount = 0
-        self.maxBulletsCount = 0
-        self.selectedWeaponType = None
-        self.weaponTypes = []
+        self.health = self.lastHealth
+        self.vest = self.lastVest
+        self.bulletsCount = self.lastBulletsCount
+        self.maxBulletsCount = self.lastMaxBulletsCount
+        self.selectedWeaponType = self.lastSelectedWeaponType
+        self.weaponTypesSet = self.lastWeaponTypesSet
 
         self.hasChanged = False
 
@@ -29,4 +29,4 @@ class Dashboard:
         self.lastBulletsCount = self.bulletsCount
         self.lastMaxBulletsCount = self.maxBulletsCount
         self.lastSelectedWeaponType = self.selectedWeaponType
-        self.lastWeaponTypes = self.weaponTypes
+        self.lastWeaponTypesSet = self.weaponTypesSet

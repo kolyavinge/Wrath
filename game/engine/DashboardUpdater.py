@@ -1,5 +1,4 @@
 from game.engine.GameData import GameData
-from game.lib.List import List
 from game.model.weapon.NullWeapon import NullWeapon
 
 
@@ -19,7 +18,7 @@ class DashboardUpdater:
         dashboard.bulletsCount = playerItems.getLeftRightWeaponBulletsCount()
         dashboard.maxBulletsCount = playerItems.getLeftRightWeaponMaxBulletsCount()
         dashboard.selectedWeaponType = type(playerItems.selectedCurrentWeapon or playerItems.currentWeapon)
-        dashboard.weaponTypes = playerItems.getNonemptyWeaponTypes()
+        dashboard.weaponTypesSet = playerItems.getNonemptyWeaponTypesSet()
 
         # check for changes
         dashboard.hasChanged = (
@@ -28,7 +27,7 @@ class DashboardUpdater:
             or dashboard.lastBulletsCount != dashboard.bulletsCount
             or dashboard.lastMaxBulletsCount != dashboard.maxBulletsCount
             or dashboard.lastSelectedWeaponType != dashboard.selectedWeaponType
-            or not List.equals(dashboard.lastWeaponTypes, dashboard.weaponTypes)
+            or dashboard.lastWeaponTypesSet != dashboard.weaponTypesSet
         )
 
         if dashboard.hasChanged:
