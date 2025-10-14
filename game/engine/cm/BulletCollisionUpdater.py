@@ -64,7 +64,7 @@ class BulletCollisionUpdater:
             bullet.currentPosition = collisionPoint
             bullet.nextPosition = collisionPoint
             if bullet.isHeadshotEnabled and target == PersonCollisionTarget.head:
-                self.personDamageLogic.damageByHeadshot(person)
+                self.personDamageLogic.damageByHeadshot(person, bullet)
             else:
                 self.personDamageLogic.damageByBullet(person, bullet)
         if bullet.paralyze and person.health > 0:
