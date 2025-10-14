@@ -19,6 +19,7 @@ from game.engine.person.PersonJumpUpdater import PersonJumpUpdater
 from game.engine.person.PersonLifeCycleUpdater import PersonLifeCycleUpdater
 from game.engine.person.PersonMovingTimeUpdater import PersonMovingTimeUpdater
 from game.engine.person.PersonPositionUpdater import PersonPositionUpdater
+from game.engine.person.PersonRespawnUpdater import PersonRespawnUpdater
 from game.engine.person.PersonSelectedWeaponPositionUpdater import *
 from game.engine.person.PersonStepUpdater import PersonStepUpdater
 from game.engine.person.PersonTurnUpdater import PersonTurnUpdater
@@ -63,6 +64,7 @@ class GameUpdater:
     playerMovingSwingUpdater: PlayerMovingSwingUpdater
     backgroundVisibilityUpdater: BackgroundVisibilityUpdater
     personPositionUpdater: PersonPositionUpdater
+    personRespawnUpdater: PersonRespawnUpdater
     personJumpUpdater: PersonJumpUpdater
     personUpdater: PersonUpdater
     levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater
@@ -103,6 +105,7 @@ class GameUpdater:
         self.personMovingTimeUpdater.update()
         self.personVelocityUpdater.update()
         self.personPositionUpdater.moveNextPosition()
+        self.personRespawnUpdater.update()
         self.personFloorUpdater.updateNextFloor()
         self.personJumpUpdater.update()
         self.personWallCollisionUpdater.update()
@@ -110,7 +113,6 @@ class GameUpdater:
         self.personZUpdater.updateIfMoved()
         self.personCeilingCollisionUpdater.update()
         self.personStepUpdater.update()
-        self.personLifeCycleUpdater.update()
         self.personPositionUpdater.commitNextPosition()
         self.personFloorUpdater.commitNextFloor()
         self.playerLevelSegmentsUpdater.updateIfMoved()
@@ -133,6 +135,7 @@ class GameUpdater:
         self.bulletPositionUpdater.commitNextPosition()
         self.powerupCollisionUpdater.update()
         self.explosionCollisionUpdater.update()
+        self.personLifeCycleUpdater.update()
         self.torchUpdater.update()
         self.powerupUpdater.update()
         self.powerupUpdater.generateNew()

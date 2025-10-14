@@ -38,6 +38,7 @@ class GameData:
         self.powerups = []
         self.bloodStains = []
         self.enemyLifeBars = {}
+        self.respawnRequests = []
         self.camera = Camera()
         self.aimState = DefaultAimState()
         self.collisionData = CollisionData()
