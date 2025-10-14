@@ -12,6 +12,7 @@ from game.engine.person.CowboyEasterEggUpdater import CowboyEasterEggUpdater
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.EnemyLifeBarUpdater import EnemyLifeBarUpdater
 from game.engine.person.EnemyVisibilityUpdater import EnemyVisibilityUpdater
+from game.engine.person.FragStatisticUpdater import FragStatisticUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonBreathUpdater import PersonBreathUpdater
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
@@ -92,6 +93,7 @@ class GameUpdater:
     playerBloodStainUpdater: PlayerBloodStainUpdater
     enemyLifeBarUpdater: EnemyLifeBarUpdater
     cowboyEasterEggUpdater: CowboyEasterEggUpdater
+    fragStatisticUpdater: FragStatisticUpdater
     enemyAIUpdater: EnemyAIUpdater
     # event listeners
     selectWeaponRequestListener: SelectWeaponRequestListener
@@ -150,5 +152,6 @@ class GameUpdater:
         self.personUpdater.commitZState()
         self.personUpdater.updateDelays()
         self.sniperAimFloatingUpdater.update()
+        self.fragStatisticUpdater.update()
         self.gameData.collisionData.clear()
         self.gameData.updateGlobalTime()

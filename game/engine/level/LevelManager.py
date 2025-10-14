@@ -10,6 +10,7 @@ from game.engine.level.LevelValidator import LevelValidator
 from game.engine.level.PersonInitializer import PersonInitializer
 from game.engine.person.AIDataInitializer import AIDataInitializer
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
+from game.engine.person.FragStatisticUpdater import FragStatisticUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
@@ -35,6 +36,7 @@ class LevelManager:
     backgroundVisibilityDetector: BackgroundVisibilityUpdater
     personWeaponPositionUpdater: PersonWeaponPositionUpdater
     weaponFlashUpdater: WeaponFlashUpdater
+    fragStatisticUpdater: FragStatisticUpdater
     enemyAIUpdater: EnemyAIUpdater
 
     def loadFirstLevel(self):
@@ -56,4 +58,5 @@ class LevelManager:
         self.backgroundVisibilityDetector.update()
         self.personWeaponPositionUpdater.update()
         self.weaponFlashUpdater.init()
+        self.fragStatisticUpdater.init()
         self.enemyAIUpdater.init()

@@ -11,5 +11,8 @@ class DecrementCounter:
         if self.value > 0:
             self.value -= 1
 
+    def isFull(self):
+        return self.value == self.initValue
+
     def isExpired(self):
         return self.value == 0

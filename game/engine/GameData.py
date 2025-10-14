@@ -32,6 +32,7 @@ class GameData:
         self.allPersonInputData = {}
         self.allPersonInputData[self.player] = self.playerInputData
         self.playerTorch = Torch()
+        self.personFragStatistic = {}
         self.bullets = []
         self.bulletTraces = []
         self.explosions = []
@@ -47,7 +48,7 @@ class GameData:
         # for debug
         self.isDebug = False
         self.noEnemies = False
-        self.enemyFreeze = False
+        self.enemyFreeze = True
 
     def updateGlobalTime(self):
         self.globalTimeMsec += CommonConstants.mainTimerMsec

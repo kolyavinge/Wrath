@@ -36,6 +36,7 @@ from game.engine.person.CowboyEasterEggUpdater import *
 from game.engine.person.EnemyLevelSegmentsUpdater import *
 from game.engine.person.EnemyLifeBarUpdater import *
 from game.engine.person.EnemyVisibilityUpdater import *
+from game.engine.person.FragStatisticUpdater import *
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonBreathUpdater import *
 from game.engine.person.PersonDamageLogic import *
@@ -125,6 +126,7 @@ class EngineModule:
         binder.bindSingleton(EnemyLevelSegmentsUpdater)
         binder.bindSingleton(EnemyLifeBarUpdater)
         binder.bindSingleton(EnemyVisibilityUpdater)
+        binder.bindSingleton(FragStatisticUpdater)
         binder.bindSingleton(LevelSegmentVisibilityUpdater)
         binder.bindSingleton(PersonBreathUpdater)
         binder.bindSingleton(PersonDamageLogic)
