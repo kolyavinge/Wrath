@@ -11,7 +11,7 @@ class FragStatisticUpdater:
     def init(self):
         self.gameData.personFragStatistic = {}
         for person in self.gameData.allPerson:
-            self.gameData.personFragStatistic[person] = FragStatistic()
+            self.gameData.personFragStatistic[person] = FragStatistic(person)
 
     def update(self):
         collisionData = self.gameData.collisionData
