@@ -8,6 +8,7 @@ class Dashboard:
         self.lastMaxBulletsCount = 0
         self.lastSelectedWeaponType = None
         self.lastWeaponTypesSet = set()
+        self.lastFragStatisticSet = set()
 
         # current values
         self.health = self.lastHealth
@@ -16,12 +17,14 @@ class Dashboard:
         self.maxBulletsCount = self.lastMaxBulletsCount
         self.selectedWeaponType = self.lastSelectedWeaponType
         self.weaponTypesSet = self.lastWeaponTypesSet
+        self.fragStatisticSet = self.lastFragStatisticSet
 
         self.hasChanged = False
 
         self.healthStr = ""
         self.vestStr = ""
         self.bulletsCountStr = ""
+        self.fragStatisticStr = []
 
     def resetChanges(self):
         self.lastHealth = self.health
@@ -30,3 +33,4 @@ class Dashboard:
         self.lastMaxBulletsCount = self.maxBulletsCount
         self.lastSelectedWeaponType = self.selectedWeaponType
         self.lastWeaponTypesSet = self.weaponTypesSet
+        self.lastFragStatisticSet = self.fragStatisticSet

@@ -86,6 +86,6 @@ class DashboardRenderer:
         projectionMatrix = TransformMatrix4()
         projectionMatrix.ortho(0, viewportWidth, 0, viewportHeight, -1, 1)
         self.dashboardFramebuffer.init()
-        self.dashboardTextRenderer.setData(projectionMatrix, viewportWidth)
+        self.dashboardTextRenderer.setData(projectionMatrix, viewportWidth, viewportHeight)
         self.dashboardSpriteRenderer.setData(projectionMatrix, viewportWidth)
         self.updateRenderData()
