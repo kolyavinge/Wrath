@@ -65,7 +65,7 @@ class EnemyRenderer:
         shader.setModelMatrix(enemy.getModelMatrix())
         animation = self.enemyAnimationCollection.getPlayableAnimationOrNone(enemy)
         shader.setBoneTransformMatrices(animation.boneTransformMatrices)
-        self.model3dRenderer.renderForShadow(self.renderCollection.enemyModel)
+        self.model3dRenderer.renderForShadow(self.renderCollection.enemyModelForShadow)
 
     def animationNeedApply(self, enemy):
         if type(self.gameData.aimState) == SniperAimState:

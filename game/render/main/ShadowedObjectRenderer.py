@@ -70,6 +70,7 @@ class ShadowedObjectRenderer:
         glClear(GL_STENCIL_BUFFER_BIT)
         glEnable(GL_STENCIL_TEST)
         glEnable(GL_DEPTH_TEST)
+        glShadeModel(GL_FLAT)
         # stencil test always succeeds, decrements for front faces and increments for back
         glStencilFunc(GL_ALWAYS, 0, 0xFFFF)
         glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP)
@@ -80,6 +81,7 @@ class ShadowedObjectRenderer:
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         renderShadowCastersFunc(shader)
         shader.unuse()
+        glShadeModel(GL_SMOOTH)
         glDisable(GL_DEPTH_TEST)
         glDisable(GL_STENCIL_TEST)
         glDisable(GL_DEPTH_CLAMP)

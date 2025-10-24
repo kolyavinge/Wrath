@@ -13,6 +13,11 @@ class EnemyModel3dFactory:
         self.model3dDirectory = model3dDirectory
 
     def makeEnemy(self):
-        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("enemy"))
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("enemy", "model.glb"))
+
+        return model
+
+    def makeEnemyForShadow(self):
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("enemy", "modelForShadow.glb"))
 
         return model

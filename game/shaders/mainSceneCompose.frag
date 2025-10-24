@@ -7,8 +7,9 @@ layout (binding = 1) uniform sampler2D stencilMaskTexture;
 
 uniform vec2 resolution;
 
-const int offsetsCount = 32;
-vec2 offsets[offsetsCount] =
+const int offsetsCount = 8;
+const int maxOffsetsCount = 32;
+vec2 offsets[maxOffsetsCount] =
 {
     vec2(0.0020833333333333333,0.0),
     vec2(0.00204330266750673,0.0007225567482078824),
@@ -95,5 +96,5 @@ vec4 getShadowCoeff()
 
 void main()
 {
-    FragColor = texelFetch(diffuseSpecularTexture, ivec2(gl_FragCoord), 0) * getShadowCoeff();
+    FragColor = texelFetch(diffuseSpecularTexture, ivec2(gl_FragCoord), 0) * getBluredShadowCoeff();
 }

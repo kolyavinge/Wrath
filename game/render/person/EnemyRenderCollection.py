@@ -26,7 +26,12 @@ class EnemyRenderCollection:
             self.enemyModel.release()
 
         self.makeEnemy()
+        self.makeEnemyForShadow()
 
     def makeEnemy(self):
         model = self.enemyModel3dFactory.makeEnemy()
-        self.enemyModel = self.renderModel3dLoader.make(model, Material.person, self.withAdjacency)
+        self.enemyModel = self.renderModel3dLoader.make(model, Material.person)
+
+    def makeEnemyForShadow(self):
+        model = self.enemyModel3dFactory.makeEnemyForShadow()
+        self.enemyModelForShadow = self.renderModel3dLoader.make(model, Material.person, self.withAdjacency)

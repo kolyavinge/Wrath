@@ -8,12 +8,16 @@ class Model3dDirectory:
         self.fileSystem = fileSystem
         self.extensions = [".obj", ".fbx", ".glb"]
 
-    def getModelFileFromDirectory(self, model3dDirectoryName):
+    def getModelFileFromDirectory(self, model3dDirectoryName, model3dFileName=None):
         path = f"{Environment.programRootPath}\\res\\3dmodels\\{model3dDirectoryName}"
 
         for ext in self.extensions:
             modelFiles = self.fileSystem.findFilesByExtension(path, ext)
             if len(modelFiles) > 1:
+                if model3dFileName is not None:
+                    for fileName in modelFiles:
+                        if fileName.endswith(model3dFileName):
+                            return fileName
                 raise Exception(f"Many model files in {path}.")
             if len(modelFiles) == 1:
                 return modelFiles[0]
