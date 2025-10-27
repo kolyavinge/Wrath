@@ -573,6 +573,6 @@ class NebulaLevel(Level):
 
     def getEnemyInitInfo(self):
         return [
-            (Vector3(50, 50, self.firstFloorZ), Vector3(0, -1, 0).getNormalized(), Pistol),
-            # (Vector3(50, 55, self.firstFloorZ), Vector3(0, -1, 0).getNormalized(), Pistol),
+            (Vector3(50, 20, self.firstFloorZ), Vector3(0, -1, 0).getNormalized(), Pistol),
+            (Vector3(50, 25, self.firstFloorZ), Vector3(0, -1, 0).getNormalized(), Pistol),
         ]
