@@ -2,11 +2,11 @@ from game.calc.Vector3 import Vector3
 from game.model.Material import Material
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
-from game.model.weapon.BulletTrace import BulletTrace
+from game.model.weapon.BulletTrace import RayBulletTrace
 from game.model.weapon.Weapon import Weapon
 
 
-class RailgunBulletTrace(BulletTrace):
+class RailgunBulletTrace(RayBulletTrace):
 
     def __init__(self):
         super().__init__()

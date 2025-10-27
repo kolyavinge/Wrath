@@ -3,7 +3,7 @@ from game.lib.DecrementCounter import DecrementCounter
 from game.model.Material import Material
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
-from game.model.weapon.BulletTrace import BulletTrace
+from game.model.weapon.BulletTrace import RayBulletTrace
 from game.model.weapon.SimpleFlash import SimpleFlash
 from game.model.weapon.Weapon import Weapon
 
@@ -14,7 +14,7 @@ class SniperFlash(SimpleFlash):
         super().__init__()
 
 
-class SniperBulletTrace(BulletTrace):
+class SniperBulletTrace(RayBulletTrace):
 
     def __init__(self):
         super().__init__()
