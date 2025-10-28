@@ -1,6 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.GameData import GameData
+from game.engine.weapon.BulletLogic import BulletLogic
 
 
 class BulletPositionUpdater:
@@ -9,9 +10,11 @@ class BulletPositionUpdater:
         self,
         gameData: GameData,
         traversal: BSPTreeTraversal,
+        bulletLogic: BulletLogic,
     ):
         self.gameData = gameData
         self.traversal = traversal
+        self.bulletLogic = bulletLogic
 
     def moveNextPosition(self):
         for bullet in self.gameData.bullets:
@@ -24,9 +27,7 @@ class BulletPositionUpdater:
             bspTree = self.gameData.collisionTree
             bullet.nextLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.nextPosition)
         else:
-            self.gameData.bullets.remove(bullet)
-            if bullet.isVisible:
-                bullet.currentVisibilityLevelSegment.bullets.remove(bullet)
+            self.bulletLogic.removeBullet(bullet)
 
     def commitNextPosition(self):
         for bullet in self.gameData.bullets:

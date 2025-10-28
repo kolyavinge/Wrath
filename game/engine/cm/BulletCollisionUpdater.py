@@ -5,6 +5,7 @@ from game.engine.cm.PersonCollisionDetector import PersonCollisionTarget
 from game.engine.GameData import GameData
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.engine.weapon.BulletHoleFactory import BulletHoleFactory
+from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.lib.EventManager import EventManager
 
@@ -18,6 +19,7 @@ class BulletCollisionUpdater:
         bulletCollisionDetector: BulletCollisionDetector,
         bulletHoleFactory: BulletHoleFactory,
         personDamageLogic: PersonDamageLogic,
+        bulletLogic: BulletLogic,
         explosionLogic: ExplosionLogic,
         eventManager: EventManager,
     ):
@@ -26,6 +28,7 @@ class BulletCollisionUpdater:
         self.bulletCollisionDetector = bulletCollisionDetector
         self.bulletHoleFactory = bulletHoleFactory
         self.personDamageLogic = personDamageLogic
+        self.bulletLogic = bulletLogic
         self.explosionLogic = explosionLogic
         self.eventManager = eventManager
 
@@ -44,7 +47,7 @@ class BulletCollisionUpdater:
         self.explosionLogic.makeExplosion(bullet)
 
     def processConstructionCollision(self, bullet, collisionResult):
-        self.removeBullet(bullet)
+        self.bulletLogic.removeBullet(bullet)
         collisionPoint, frontNormal = collisionResult
         bspTree = self.gameData.visibilityTree
         visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
@@ -60,7 +63,7 @@ class BulletCollisionUpdater:
                 self.personDamageLogic.damageByBullet(person, bullet)
                 bullet.damagedPersonSet.add(person)  # one person damage only once
         else:
-            self.removeBullet(bullet)
+            self.bulletLogic.removeBullet(bullet)
             bullet.currentPosition = collisionPoint
             bullet.nextPosition = collisionPoint
             if bullet.isHeadshotEnabled and target == PersonCollisionTarget.head:
@@ -69,8 +72,3 @@ class BulletCollisionUpdater:
                 self.personDamageLogic.damageByBullet(person, bullet)
         if bullet.paralyze and person.health > 0:
             person.paralyzeDelay.set(bullet.paralyzeTime)
-
-    def removeBullet(self, bullet):
-        self.gameData.bullets.remove(bullet)
-        if bullet.isVisible:
-            bullet.currentVisibilityLevelSegment.bullets.remove(bullet)

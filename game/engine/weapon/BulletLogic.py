@@ -33,3 +33,9 @@ class BulletLogic:
             self.gameData.bulletTraces.append(trace)
             visibilityLevelSegment.bulletTraces.append(trace)
             trace.visibilityLevelSegments.add(visibilityLevelSegment)
+
+    def removeBullet(self, bullet):
+        bullet.isAlive = False
+        self.gameData.bullets.remove(bullet)
+        if bullet.isVisible:
+            bullet.currentVisibilityLevelSegment.bullets.remove(bullet)

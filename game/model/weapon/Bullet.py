@@ -8,6 +8,7 @@ class Bullet:
     def __init__(self, traceType=None, explosionType=None):
         self.traceType = traceType
         self.explosionType = explosionType
+        self.isAlive = True
         self.isVisible = False
         self.currentPosition = Vector3()
         self.nextPosition = Vector3()
