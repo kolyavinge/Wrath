@@ -43,6 +43,7 @@ class Weapon:
         bullet.nextPosition = bullet.currentPosition.copy()
         bullet.yawRadians = self.yawRadians
         bullet.pitchRadians = self.pitchRadians
+        bullet.direction = self.direction.copy()
         bullet.velocity = self.direction.copy()
         bullet.velocity.setLength(bullet.velocityValue)
         bullet.ownerPerson = ownerPerson
