@@ -10,8 +10,17 @@ class ShaderProgram:
         self.id = glCreateProgram()
         for shader in shaders:
             glAttachShader(self.id, shader.id)
+        self.initBeforeLink()
         glLinkProgram(self.id)
-        self.fillLocations()
+        if glGetProgramiv(self.id, GL_LINK_STATUS) == GL_TRUE:
+            self.fillLocations()
+        else:
+            log = glGetProgramInfoLog(self.id)
+            if len(log) > 0:
+                raise Exception(log)
+
+    def initBeforeLink(self):
+        pass
 
     def use(self):
         glUseProgram(self.id)
