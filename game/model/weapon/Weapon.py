@@ -14,6 +14,7 @@ class Weapon:
         self.flashType = flashType
         self.position = Vector3()
         self.direction = Vector3()
+        self.directionTopNormal = Vector3()
         self.barrelPoint = Vector3()
         self.barrelPosition = Vector3()
         self.isFiring = False
@@ -44,6 +45,7 @@ class Weapon:
         bullet.yawRadians = self.yawRadians
         bullet.pitchRadians = self.pitchRadians
         bullet.direction = self.direction.copy()
+        bullet.directionTopNormal = self.directionTopNormal.copy()
         bullet.velocity = self.direction.copy()
         bullet.velocity.setLength(bullet.velocityValue)
         bullet.ownerPerson = ownerPerson

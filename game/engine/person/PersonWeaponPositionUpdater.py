@@ -37,6 +37,7 @@ class PersonWeaponPositionUpdater:
         weapon.direction.normalize()
         weapon.direction.add(weapon.jitter)
         weapon.direction.normalize()
+        weapon.directionTopNormal = person.lookDirectionNormal.copy()
         weapon.yawRadians = person.yawRadians
         weapon.pitchRadians = person.pitchRadians
 

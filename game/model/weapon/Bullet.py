@@ -16,6 +16,7 @@ class Bullet:
         self.rollRadians = 0
         self.yawRadians = 0
         self.direction = Vector3()
+        self.directionTopNormal = Vector3()
         self.velocity = Vector3()
         self.velocityValue = 0
         self.damagePercent = 0
