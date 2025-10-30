@@ -1,4 +1,5 @@
 from game.render.common.CrossshairShaderProgram import CrossshairShaderProgram
+from game.render.common.LauncherBulletTraceShaderProgram import *
 from game.render.common.MainSceneComposeShaderProgram import *
 from game.render.common.MainSceneLightComponentsShaderProgram import *
 from game.render.common.MainSceneShadowVolumesShaderProgram import *
@@ -60,3 +61,10 @@ class ShaderProgramCollection:
         self.plainColor = PlainColorShaderProgram([self.shaderCollection.plainColorVertex, self.shaderCollection.plainColorFragment])
 
         self.vignette = VignetteShaderProgram([self.shaderCollection.vignetteVertex, self.shaderCollection.vignetteFragment])
+
+        self.launcherBulletTrace = LauncherBulletTraceShaderProgram(
+            [
+                self.shaderCollection.launcherBulletTraceVertex,
+                self.shaderCollection.launcherBulletTraceFragment,
+            ]
+        )

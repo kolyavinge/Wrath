@@ -14,6 +14,7 @@ from game.gl.vbo.ScreenQuadVBO import *
 from game.gl.vbo.VBOBuilderFactory import *
 from game.gl.vbo.VBORenderer import *
 from game.gl.vbo.VBOUpdaterFactory import *
+from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
 from game.render.anx.RayRenderer import *
 from game.render.anx.ShineCircleRenderer import *
 from game.render.anx.VignetteRenderer import *
@@ -65,6 +66,7 @@ from game.render.weapon.CrosshairRenderer import *
 from game.render.weapon.shine.PlasmaShineBulletRenderer import *
 from game.render.weapon.ShineBulletRenderer import *
 from game.render.weapon.SniperCrosshairRenderer import *
+from game.render.weapon.trace.LauncherBulletTraceRenderer import *
 from game.render.weapon.trace.RailgunBulletTraceRenderer import *
 from game.render.weapon.trace.RayBulletTraceRenderer import *
 from game.render.weapon.trace.RifleBulletTraceRenderer import *
@@ -96,6 +98,7 @@ class RenderModule:
         binder.bindSingleton(VBOBuilderFactory)
         binder.bindSingleton(VBORenderer)
         binder.bindSingleton(VBOUpdaterFactory)
+        binder.bindSingleton(LauncherBulletTraceParticleBufferInitializer)
         binder.bindSingleton(RayRenderer)
         binder.bindSingleton(ShineCircleRenderer)
         binder.bindSingleton(VignetteRenderer)
@@ -147,6 +150,7 @@ class RenderModule:
         binder.bindSingleton(PlasmaShineBulletRenderer)
         binder.bindSingleton(ShineBulletRenderer)
         binder.bindSingleton(SniperCrosshairRenderer)
+        binder.bindSingleton(LauncherBulletTraceRenderer)
         binder.bindSingleton(RailgunBulletTraceRenderer)
         binder.bindSingleton(RayBulletTraceRenderer)
         binder.bindSingleton(RifleBulletTraceRenderer)

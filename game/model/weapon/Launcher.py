@@ -2,6 +2,7 @@ from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
+from game.model.weapon.BulletTrace import ParticleBulletTrace
 from game.model.weapon.Explosion import Explosion
 from game.model.weapon.Weapon import Weapon
 from game.model.weapon.WeaponFlash import WeaponFlash
@@ -16,6 +17,17 @@ class LauncherFlash(WeaponFlash):
         pass
 
 
+class LauncherBulletTrace(ParticleBulletTrace):
+
+    def __init__(self):
+        super().__init__()
+        self.particlesInGroup = 100
+        self.particleGroupsCount = 10
+        self.initDelayMsec = 100
+        self.particleAppearanceDelayMsec = 40
+        self.particleLifeTimeMsec = self.particleAppearanceDelayMsec * self.particleGroupsCount
+
+
 class LauncherExplosion(Explosion):
 
     def __init__(self):
@@ -28,11 +40,12 @@ class LauncherExplosion(Explosion):
 class LauncherBullet(Bullet):
 
     def __init__(self):
-        super().__init__(None, LauncherExplosion)
+        super().__init__(LauncherBulletTrace, LauncherExplosion)
         self.isVisible = True
         self.velocityValue = 1.0
         self.damagePercent = 0.5
         self.holeInfo = BulletHoleInfo.explosionHole
+        self.nozzleRadius = 0.1
 
     def update(self):
         self.rollRadians = Geometry.normalizeRadians(self.rollRadians + 0.25)

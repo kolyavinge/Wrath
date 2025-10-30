@@ -27,3 +27,12 @@ class RayBulletTrace(BulletTrace):
         if self.brightness < 0.01:
             self.isVisible = False
             self.brightness = 0.0
+
+
+class ParticleBulletTrace(BulletTrace):
+
+    def __init__(self):
+        super().__init__()
+        self.initDelayMsec = 0
+        self.particleAppearanceDelayMsec = 0
+        self.particleLifeTimeMsec = 0

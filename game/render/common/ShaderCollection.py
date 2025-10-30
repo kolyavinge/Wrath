@@ -44,3 +44,6 @@ class ShaderCollection:
 
         self.vignetteVertex = self.shaderCompiler.compile(path + "vignette.vert", ShaderType.vertex)
         self.vignetteFragment = self.shaderCompiler.compile(path + "vignette.frag", ShaderType.fragment)
+
+        self.launcherBulletTraceVertex = self.shaderCompiler.compile(path + "launcherBulletTrace.vert", ShaderType.vertex)
+        self.launcherBulletTraceFragment = self.shaderCompiler.compile(path + "launcherBulletTrace.frag", ShaderType.fragment)
