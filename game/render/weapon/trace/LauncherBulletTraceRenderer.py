@@ -32,6 +32,7 @@ class LauncherBulletTraceRenderer:
         shader.setBulletDirection(trace.bullet.direction)
         shader.setBulletDirectionTopNormal(trace.bullet.directionTopNormal)
         shader.setBulletNozzleRadius(trace.bullet.nozzleRadius)
+        shader.setIsBulletAlive(trace.bullet.isAlive)
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setParticleAppearanceDelay(trace.particleAppearanceDelayMsec)

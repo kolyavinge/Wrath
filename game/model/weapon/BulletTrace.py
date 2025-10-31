@@ -1,4 +1,5 @@
 from game.calc.Vector3 import Vector3
+from game.lib.DecrementCounter import DecrementCounter
 
 
 class BulletTrace:
@@ -37,3 +38,10 @@ class ParticleBulletTrace(BulletTrace):
         self.particleAppearanceDelayMsec = 0
         self.particleLifeTimeMsec = 0
         self.particleSize = 0
+        self.aliveRemainCounter = DecrementCounter()
+
+    def update(self):
+        if not self.bullet.isAlive:
+            self.aliveRemainCounter.decrease()
+            if self.aliveRemainCounter.isExpired():
+                self.isVisible = False

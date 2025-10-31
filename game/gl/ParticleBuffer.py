@@ -108,6 +108,9 @@ class ParticleBuffer:
         ageData = numpy.array(ageData, dtype=numpy.float32)
         glBindBuffer(GL_ARRAY_BUFFER, self.ageBuffers[0])
         glBufferSubData(GL_ARRAY_BUFFER, 0, ageData.nbytes, ageData)
+        glBindBuffer(GL_ARRAY_BUFFER, self.ageBuffers[1])
+        glBufferSubData(GL_ARRAY_BUFFER, 0, ageData.nbytes, ageData)
+        glBindBuffer(GL_ARRAY_BUFFER, 0)
 
     def setInitRandomData(self, randomData):
         randomData = numpy.array(randomData, dtype=numpy.float32)

@@ -19,6 +19,7 @@ uniform vec3 tracePosition;
 uniform vec3 bulletDirection;
 uniform vec3 bulletDirectionTopNormal;
 uniform float bulletNozzleRadius;
+uniform bool isBulletAlive;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform float particleAppearanceDelay;
@@ -70,7 +71,7 @@ void update()
         Velocity = in_VertexVelocity;
     }
     // particle dead
-    else if (in_VertexAge > particleLifeTime)
+    else if (isBulletAlive && (in_VertexAge > particleLifeTime))
     {
         Age = -particleAppearanceDelay;
     }

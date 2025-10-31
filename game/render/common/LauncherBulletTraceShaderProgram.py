@@ -28,6 +28,9 @@ class LauncherBulletTraceShaderProgram(ShaderProgram):
     def setBulletNozzleRadius(self, bulletNozzleRadius):
         self.setFloat32("bulletNozzleRadius", bulletNozzleRadius)
 
+    def setIsBulletAlive(self, isBulletAlive):
+        self.setBoolean("isBulletAlive", isBulletAlive)
+
     def setViewMatrix(self, viewMatrix):
         self.setTransformMatrix4("viewMatrix", viewMatrix)
 
