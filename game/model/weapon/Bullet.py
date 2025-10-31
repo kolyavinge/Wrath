@@ -28,6 +28,7 @@ class Bullet:
         self.isHeadshotEnabled = False
         self.paralyze = False
         self.holeInfo = None
+        self.traceShift = 0
         self.ownerPerson = None
 
     def commitNextPosition(self):

@@ -14,7 +14,12 @@ class BulletTraceUpdater:
 
     def update(self):
         for trace in self.gameData.bulletTraces:
-            trace.currentPosition = trace.bullet.currentPosition.copy()
+            if trace.bullet.traceShift > 0:
+                trace.currentPosition = trace.bullet.direction.copy()
+                trace.currentPosition.mul(-trace.bullet.traceShift)
+                trace.currentPosition.add(trace.bullet.currentPosition)
+            else:
+                trace.currentPosition = trace.bullet.currentPosition.copy()
 
             visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, trace.currentPosition)
             if visibilityLevelSegment not in trace.visibilityLevelSegments:

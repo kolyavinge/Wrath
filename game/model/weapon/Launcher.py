@@ -47,6 +47,7 @@ class LauncherBullet(Bullet):
         self.velocityValue = 1.0
         self.damagePercent = 0.5
         self.holeInfo = BulletHoleInfo.explosionHole
+        self.traceShift = 0.5
         self.nozzleRadius = 0.1
 
     def update(self):
