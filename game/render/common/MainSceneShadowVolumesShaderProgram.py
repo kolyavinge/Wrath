@@ -16,7 +16,7 @@ class MainSceneShadowVolumesShaderProgram(ShaderProgram):
         self.setTransformMatrix4("projectionMatrix", projectionMatrix)
 
     def hasAnimation(self, value):
-        self.setInt32("hasAnimation", 1 if value else 0)
+        self.setBoolean("hasAnimation", value)
 
     def setBoneTransformMatrices(self, boneTransformMatrices):
         for index, matrix in enumerate(boneTransformMatrices):

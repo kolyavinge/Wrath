@@ -38,6 +38,9 @@ class ShaderProgram:
         if location is not None:
             glUniform1f(location, numpy.float32(value))
 
+    def setBoolean(self, name, value):
+        self.setInt32(name, 1 if value else 0)
+
     def setVector2(self, name, x, y):
         location = self.getUniformLocationOrNone(name)
         if location is not None:
