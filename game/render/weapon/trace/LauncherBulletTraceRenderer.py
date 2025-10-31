@@ -2,7 +2,6 @@ from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.engine.GameData import GameData
-from game.gl.ColorVector3 import ColorVector3
 from game.render.anx.BulletTraceParticleBufferCollection import *
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -19,8 +18,6 @@ class LauncherBulletTraceRenderer:
         self.gameData = gameData
         self.bufferCollection = BulletTraceParticleBufferCollection(bufferInitializer)
         self.shaderProgramCollection = shaderProgramCollection
-        self.particleColor = ColorVector3(150, 150, 150)
-        self.particleColor.normalize()
 
     def renderTraces(self, traces):
         for trace in traces:
@@ -39,8 +36,7 @@ class LauncherBulletTraceRenderer:
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setParticleAppearanceDelay(trace.particleAppearanceDelayMsec)
         shader.setParticleLifeTime(trace.particleLifeTimeMsec)
-        shader.setParticleColor(self.particleColor)
-        shader.setParticleSize(0.01)
+        shader.setParticleSize(trace.particleSize)
         shader.setDeltaTime(CommonConstants.renderTimerMsec)
 
         # pass 1 - update

@@ -40,9 +40,6 @@ class LauncherBulletTraceShaderProgram(ShaderProgram):
     def setParticleLifeTime(self, particleLifeTime):
         self.setFloat32("particleLifeTime", particleLifeTime)
 
-    def setParticleColor(self, particleColor):
-        self.setVector3("particleColor", particleColor)
-
     def setParticleSize(self, particleSize):
         self.setFloat32("particleSize", particleSize)
 

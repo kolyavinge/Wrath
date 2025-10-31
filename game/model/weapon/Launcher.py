@@ -26,6 +26,7 @@ class LauncherBulletTrace(ParticleBulletTrace):
         self.initDelayMsec = 100
         self.particleAppearanceDelayMsec = 40
         self.particleLifeTimeMsec = self.particleAppearanceDelayMsec * self.particleGroupsCount
+        self.particleSize = 0.01
 
 
 class LauncherExplosion(Explosion):

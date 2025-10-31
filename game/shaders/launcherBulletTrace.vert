@@ -3,6 +3,7 @@
 layout (location = 0) in vec3 in_VertexPosition;
 layout (location = 1) in vec3 in_VertexVelocity;
 layout (location = 2) in float in_VertexAge;
+layout (location = 3) in vec4 in_Random;
 
 // for feedback buffer
 out vec3 Position;
@@ -10,6 +11,7 @@ out vec3 Velocity;
 out float Age;
 
 // for fragment shader
+out vec3 ParticleColor;
 out float TransparentValue;
 
 uniform int passNumber;
@@ -24,25 +26,12 @@ uniform float particleLifeTime;
 uniform float particleSize;
 uniform float deltaTime;
 
-const float pi = 3.1415926535;
-const float maxFloatValue = 1e38;
-
 // two triangles
 const vec3 offsets[] = vec3[]
 (
     vec3(-0.5, -0.5, 0.0), vec3(0.5, -0.5, 0.0), vec3(0.5, 0.5, 0.0),
     vec3(-0.5, -0.5, 0.0), vec3(0.5, 0.5, 0.0),  vec3(-0.5, 0.5, 0.0)
 );
-
-float getRandomFloat(float minValue, float maxValue)
-{
-    float r = fract(sin(dot(in_VertexPosition, vec3(12.9898, 78.233, -16.7895))) * 43758.5453);
-    r = clamp(r, -maxFloatValue, maxFloatValue);
-    r /= maxFloatValue / maxValue;
-    r -= minValue;
-
-    return r;
-}
 
 vec3 rotatePoint(vec3 point, vec3 pivotAxis, float radian)
 {
@@ -56,8 +45,8 @@ vec3 rotatePoint(vec3 point, vec3 pivotAxis, float radian)
 
 vec3 getInitPosition()
 {
-    float radius = getRandomFloat(0.0, bulletNozzleRadius);
-    float radian = getRandomFloat(-2.0 * pi, 2.0 * pi);
+    float radius = in_Random.x * bulletNozzleRadius;
+    float radian = in_Random.y;
     vec3 point = radius * bulletDirectionTopNormal;
     point = rotatePoint(point, bulletDirection, radian);
     point += tracePosition;
@@ -91,6 +80,7 @@ void render()
 {
     if (0 <= in_VertexAge && in_VertexAge < particleLifeTime)
     {
+        ParticleColor = vec3(in_Random.z);
         TransparentValue = clamp(1.0 - in_VertexAge / particleLifeTime, 0.0, 1.0);
         vec3 pos = (viewMatrix * vec4(in_VertexPosition, 1.0)).xyz + offsets[gl_VertexID] * particleSize;
         gl_Position = projectionMatrix * vec4(pos, 1.0);

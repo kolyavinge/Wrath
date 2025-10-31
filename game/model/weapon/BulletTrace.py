@@ -36,3 +36,4 @@ class ParticleBulletTrace(BulletTrace):
         self.initDelayMsec = 0
         self.particleAppearanceDelayMsec = 0
         self.particleLifeTimeMsec = 0
+        self.particleSize = 0
