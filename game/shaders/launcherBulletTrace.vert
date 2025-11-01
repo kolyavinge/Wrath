@@ -46,13 +46,8 @@ vec3 rotatePoint(vec3 point, vec3 pivotAxis, float radian)
 
 vec3 getInitPosition()
 {
-    float radius = in_Random.x * bulletNozzleRadius;
-    float radian = in_Random.y;
-    vec3 point = radius * bulletDirectionTopNormal;
-    point = rotatePoint(point, bulletDirection, radian);
-    point += tracePosition;
-
-    return point;
+    vec3 initPoint = in_Random.x * bulletNozzleRadius * bulletDirectionTopNormal;
+    return tracePosition + rotatePoint(initPoint, bulletDirection, in_Random.z) - in_Random.y * bulletDirection;
 }
 
 void update()
@@ -62,7 +57,7 @@ void update()
     if (0 <= in_VertexAge && in_VertexAge < deltaTime)
     {
         Position = getInitPosition();
-        Velocity = -bulletDirection;
+        Velocity = -in_Random.w * bulletDirection;
     }
     // particle alive
     else if (0 < in_VertexAge && in_VertexAge < particleLifeTime)
@@ -73,7 +68,7 @@ void update()
     // particle dead
     else if (isBulletAlive && (in_VertexAge > particleLifeTime))
     {
-        Age = -particleAppearanceDelay;
+        Age = -particleAppearanceDelay + (in_VertexAge - particleLifeTime);
     }
 }
 
@@ -81,7 +76,7 @@ void render()
 {
     if (0 <= in_VertexAge && in_VertexAge < particleLifeTime)
     {
-        ParticleColor = vec3(in_Random.z);
+        ParticleColor = vec3(in_Random.w);
         TransparentValue = clamp(1.0 - in_VertexAge / particleLifeTime, 0.0, 1.0);
         vec3 pos = (viewMatrix * vec4(in_VertexPosition, 1.0)).xyz + offsets[gl_VertexID] * particleSize;
         gl_Position = projectionMatrix * vec4(pos, 1.0);

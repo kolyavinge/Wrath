@@ -28,8 +28,8 @@ class LauncherBulletTraceParticleBufferInitializer:
         randomData = []
         for _ in range(particlesCount):
             randomData.append(Random.getFloat(0.0, 1.0))
+            randomData.append(Random.getFloat(0.0, 2.0))
             randomData.append(Random.getFloat(-Math.piDouble, Math.piDouble))
             randomData.append(Random.getFloat(0.2, 1.0))
-            randomData.append(0)  # unused
 
         return randomData
