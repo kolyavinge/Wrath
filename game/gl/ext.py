@@ -9,3 +9,9 @@ def gleGetViewportSize():
     height = viewport[3]
 
     return (width, height)
+
+
+def gleBlitFramebuffer(fromId, toId, width, height, mask, filter):
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, fromId)
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, toId)
+    glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, mask, filter)

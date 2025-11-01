@@ -3,7 +3,7 @@ from OpenGL.GL import *
 from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.engine.GameData import GameData
-from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
+from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleBlitFramebuffer
 from game.gl.TexturedFramebuffer import TexturedFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
@@ -39,10 +39,8 @@ class LauncherBulletTraceRenderer:
         self.blurRenderedTraces()
 
     def prepareFramebuffer(self):
-        glBindFramebuffer(GL_READ_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
-        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, self.texturedFramebuffer.id)
-        glBlitFramebuffer(
-            0, 0, self.viewportWidth, self.viewportHeight, 0, 0, self.viewportWidth, self.viewportHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST
+        gleBlitFramebuffer(
+            GL_DEFAULT_FRAMEBUFFER_ID, self.texturedFramebuffer.id, self.viewportWidth, self.viewportHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST
         )
         glBindFramebuffer(GL_FRAMEBUFFER, self.texturedFramebuffer.id)
         glClear(GL_COLOR_BUFFER_BIT)
@@ -107,10 +105,8 @@ class LauncherBulletTraceRenderer:
         particleBuffer.swapBuffers()
 
     def blurRenderedTraces(self):
-        glBindFramebuffer(GL_READ_FRAMEBUFFER, self.texturedFramebuffer.id)
-        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
-        glBlitFramebuffer(
-            0, 0, self.viewportWidth, self.viewportHeight, 0, 0, self.viewportWidth, self.viewportHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST
+        gleBlitFramebuffer(
+            self.texturedFramebuffer.id, GL_DEFAULT_FRAMEBUFFER_ID, self.viewportWidth, self.viewportHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST
         )
         glBindFramebuffer(GL_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
         glEnable(GL_BLEND)

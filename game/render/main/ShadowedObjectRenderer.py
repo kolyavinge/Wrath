@@ -3,7 +3,7 @@ from OpenGL.GL import *
 from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.engine.GameData import GameData
-from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
+from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleBlitFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager
@@ -114,8 +114,12 @@ class ShadowedObjectRenderer:
         glDisable(GL_BLEND)
 
     def copySceneToDefaultFBO(self):
-        # copy depth and color buffers from shadowed FBO to default FBO
-        glBindFramebuffer(GL_READ_FRAMEBUFFER, self.shadowedObjectFramebuffer.id)
-        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
-        glBlitFramebuffer(0, 0, self.width, self.height, 0, 0, self.width, self.height, GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT, GL_NEAREST)
+        gleBlitFramebuffer(
+            self.shadowedObjectFramebuffer.id,
+            GL_DEFAULT_FRAMEBUFFER_ID,
+            self.width,
+            self.height,
+            GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT,
+            GL_NEAREST,
+        )
         glBindFramebuffer(GL_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
