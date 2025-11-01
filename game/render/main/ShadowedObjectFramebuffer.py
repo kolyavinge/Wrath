@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, glGetViewportSize
+from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleGetViewportSize
 
 
 class ShadowedObjectFramebuffer:
@@ -17,7 +17,7 @@ class ShadowedObjectFramebuffer:
         glDeleteTextures(2, [self.diffuseSpecularTexture, self.stencilMaskTexture])
         glDeleteFramebuffers(1, [self.id])
 
-        self.viewportWidth, self.viewportHeight = glGetViewportSize()
+        self.viewportWidth, self.viewportHeight = gleGetViewportSize()
 
         self.depthBuffer = glGenRenderbuffers(1)
         glBindRenderbuffer(GL_RENDERBUFFER, self.depthBuffer)

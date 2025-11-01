@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.gl.ext import glGetViewportSize
+from game.gl.ext import gleGetViewportSize
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -25,7 +25,7 @@ class VignetteRenderer:
 
         shader = self.shaderProgramCollection.vignette
         shader.use()
-        width, height = glGetViewportSize()
+        width, height = gleGetViewportSize()
         shader.setResolution(width, height)
         shader.setRadius(0.4)
         shader.setAlphaFactor(0.8)

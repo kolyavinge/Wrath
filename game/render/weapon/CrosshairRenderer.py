@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.gl.ext import glGetViewportSize
+from game.gl.ext import gleGetViewportSize
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -25,7 +25,7 @@ class CrosshairRenderer:
 
         shader = self.shaderProgramCollection.crosshair
         shader.use()
-        width, height = glGetViewportSize()
+        width, height = gleGetViewportSize()
         shader.setResolution(width, height)
         self.vboRenderer.render(self.screenQuadVBO.vbo)
         shader.unuse()
