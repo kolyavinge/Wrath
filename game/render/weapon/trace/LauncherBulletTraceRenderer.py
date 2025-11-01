@@ -1,7 +1,13 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
+from game.anx.Events import Events
 from game.engine.GameData import GameData
+from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
+from game.gl.TexturedFramebuffer import TexturedFramebuffer
+from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
+from game.gl.vbo.VBORenderer import VBORenderer
+from game.lib.EventManager import EventManager
 from game.render.anx.BulletTraceParticleBufferCollection import *
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -14,31 +20,59 @@ class LauncherBulletTraceRenderer:
         gameData: GameData,
         bufferInitializer: LauncherBulletTraceParticleBufferInitializer,
         shaderProgramCollection: ShaderProgramCollection,
+        screenQuadVBO: ScreenQuadVBO,
+        vboRenderer: VBORenderer,
+        eventManager: EventManager,
     ):
         self.gameData = gameData
         self.bufferCollection = BulletTraceParticleBufferCollection(bufferInitializer)
         self.shaderProgramCollection = shaderProgramCollection
+        self.screenQuadVBO = screenQuadVBO
+        self.vboRenderer = vboRenderer
+        self.texturedFramebuffer = TexturedFramebuffer(addDepthComponent=True)
+        eventManager.attachToEvent(Events.viewportSizeChanged, self.onViewportSizeChanged)
 
     def renderTraces(self, traces):
-        for trace in traces:
-            self.renderTrace(trace)
+        self.prepareFramebuffer()
+        self.prepareShader()
+        self.updateAndRenderTraces(traces)
+        self.blurRenderedTraces()
 
-    def renderTrace(self, trace):
-        particleBuffer = self.bufferCollection.getBufferForTrace(trace)
+    def prepareFramebuffer(self):
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, self.texturedFramebuffer.id)
+        glBlitFramebuffer(
+            0, 0, self.viewportWidth, self.viewportHeight, 0, 0, self.viewportWidth, self.viewportHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST
+        )
+        glBindFramebuffer(GL_FRAMEBUFFER, self.texturedFramebuffer.id)
+        glClear(GL_COLOR_BUFFER_BIT)
 
+    def prepareShader(self):
         shader = self.shaderProgramCollection.launcherBulletTrace
         shader.use()
+        shader.setViewMatrix(self.gameData.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setDeltaTime(CommonConstants.renderTimerMsec)
+        shader.unuse()
+
+    def updateAndRenderTraces(self, traces):
+        shader = self.shaderProgramCollection.launcherBulletTrace
+        shader.use()
+        for trace in traces:
+            self.updateAndRenderTrace(trace, shader)
+        shader.unuse()
+
+    def updateAndRenderTrace(self, trace, shader):
+        particleBuffer = self.bufferCollection.getBufferForTrace(trace)
+
         shader.setTracePosition(trace.currentPosition)
         shader.setBulletDirection(trace.bullet.direction)
         shader.setBulletDirectionTopNormal(trace.bullet.directionTopNormal)
         shader.setBulletNozzleRadius(trace.bullet.nozzleRadius)
         shader.setIsBulletAlive(trace.bullet.isAlive)
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
         shader.setParticleAppearanceDelay(trace.particleAppearanceDelayMsec)
         shader.setParticleLifeTime(trace.particleLifeTimeMsec)
         shader.setParticleSize(trace.particleSize)
-        shader.setDeltaTime(CommonConstants.renderTimerMsec)
 
         # pass 1 - update
         shader.setPassNumber(1)
@@ -60,18 +94,41 @@ class LauncherBulletTraceRenderer:
 
         # pass 2 - render
         shader.setPassNumber(2)
-        glDepthMask(GL_FALSE)
         glBindVertexArray(particleBuffer.destinationBufferId)
         glVertexAttribDivisor(0, 1)
         glVertexAttribDivisor(1, 1)
         glVertexAttribDivisor(2, 1)
         glDrawArraysInstanced(GL_TRIANGLES, 0, 6, particleBuffer.particlesCount)
         glBindVertexArray(0)
-        glDepthMask(GL_TRUE)
         glDisable(GL_DEPTH_TEST)
         glDisable(GL_ALPHA_TEST)
         glDisable(GL_BLEND)
 
-        shader.unuse()
-
         particleBuffer.swapBuffers()
+
+    def blurRenderedTraces(self):
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, self.texturedFramebuffer.id)
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
+        glBlitFramebuffer(
+            0, 0, self.viewportWidth, self.viewportHeight, 0, 0, self.viewportWidth, self.viewportHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST
+        )
+        glBindFramebuffer(GL_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
+        glEnable(GL_BLEND)
+        glEnable(GL_ALPHA_TEST)
+        glEnable(GL_DEPTH_TEST)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        glActiveTexture(GL_TEXTURE0)
+        glBindTexture(GL_TEXTURE_2D, self.texturedFramebuffer.texture)
+        shader = self.shaderProgramCollection.blur
+        shader.use()
+        shader.setResolution(self.viewportWidth, self.viewportHeight)
+        shader.setOffsetsCount(32)
+        self.vboRenderer.render(self.screenQuadVBO.vbo)
+        shader.unuse()
+        glDisable(GL_DEPTH_TEST)
+        glDisable(GL_ALPHA_TEST)
+        glDisable(GL_BLEND)
+
+    def onViewportSizeChanged(self, size):
+        self.viewportWidth, self.viewportHeight = size
+        self.texturedFramebuffer.init(self.viewportWidth, self.viewportHeight)

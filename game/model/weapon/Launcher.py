@@ -21,9 +21,9 @@ class LauncherBulletTrace(ParticleBulletTrace):
 
     def __init__(self):
         super().__init__()
-        self.particlesInGroup = 100
+        self.particlesInGroup = 2000
         self.particleGroupsCount = 10
-        self.initDelayMsec = 100
+        self.initDelayMsec = 50
         self.particleAppearanceDelayMsec = 40
         self.particleLifeTimeMsec = self.particleAppearanceDelayMsec * self.particleGroupsCount - self.particleAppearanceDelayMsec
         self.particleSize = 0.01
@@ -48,7 +48,7 @@ class LauncherBullet(Bullet):
         self.damagePercent = 0.5
         self.holeInfo = BulletHoleInfo.explosionHole
         self.traceShift = 0.5
-        self.nozzleRadius = 0.05
+        self.nozzleRadius = 0.1
 
     def update(self):
         self.rollRadians = Geometry.normalizeRadians(self.rollRadians + 0.25)

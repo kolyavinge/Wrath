@@ -1,17 +1,26 @@
 from OpenGL.GL import *
 
-from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, glGetViewportSize
+from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
 
 
 class TexturedFramebuffer:
 
-    def __init__(self):
+    def __init__(self, addDepthComponent=False):
+        self.depthBuffer = 0
         self.texture = 0
         self.id = 0
+        self.addDepthComponent = addDepthComponent
 
     def init(self, textureWidth, textureHeight):
+        if self.addDepthComponent:
+            glDeleteRenderbuffers(1, [self.depthBuffer])
         glDeleteTextures(1, [self.texture])
         glDeleteFramebuffers(1, [self.id])
+
+        if self.addDepthComponent:
+            self.depthBuffer = glGenRenderbuffers(1)
+            glBindRenderbuffer(GL_RENDERBUFFER, self.depthBuffer)
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, textureWidth, textureHeight)
 
         self.texture = glGenTextures(1)
         glBindTexture(GL_TEXTURE_2D, self.texture)
@@ -21,6 +30,8 @@ class TexturedFramebuffer:
 
         self.id = glGenFramebuffers(1)
         glBindFramebuffer(GL_FRAMEBUFFER, self.id)
+        if self.addDepthComponent:
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, self.depthBuffer)
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, self.texture, 0)
         glDrawBuffers(1, [GL_COLOR_ATTACHMENT0])
 

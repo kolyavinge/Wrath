@@ -1,3 +1,4 @@
+from game.render.common.BlurShaderProgram import BlurShaderProgram
 from game.render.common.CrossshairShaderProgram import CrossshairShaderProgram
 from game.render.common.LauncherBulletTraceShaderProgram import *
 from game.render.common.MainSceneComposeShaderProgram import *
@@ -48,23 +49,65 @@ class ShaderProgramCollection:
             ]
         )
 
-        self.crosshair = CrossshairShaderProgram([self.shaderCollection.crosshairVertex, self.shaderCollection.crosshairFragment])
+        self.crosshair = CrossshairShaderProgram(
+            [
+                self.shaderCollection.crosshairVertex,
+                self.shaderCollection.crosshairFragment,
+            ]
+        )
 
-        self.mesh = MeshShaderProgram([self.shaderCollection.meshVertex, self.shaderCollection.meshFragment])
+        self.mesh = MeshShaderProgram(
+            [
+                self.shaderCollection.meshVertex,
+                self.shaderCollection.meshFragment,
+            ]
+        )
 
-        self.meshExt = MeshExtShaderProgram([self.shaderCollection.meshExtVertex, self.shaderCollection.meshExtFragment])
+        self.meshExt = MeshExtShaderProgram(
+            [
+                self.shaderCollection.meshExtVertex,
+                self.shaderCollection.meshExtFragment,
+            ]
+        )
 
-        self.shineCircle = ShineCircleShaderProgram([self.shaderCollection.shineCircleVertex, self.shaderCollection.shineCircleFragment])
+        self.shineCircle = ShineCircleShaderProgram(
+            [
+                self.shaderCollection.shineCircleVertex,
+                self.shaderCollection.shineCircleFragment,
+            ]
+        )
 
-        self.ray = RayShaderProgram([self.shaderCollection.rayVertex, self.shaderCollection.rayFragment])
+        self.ray = RayShaderProgram(
+            [
+                self.shaderCollection.rayVertex,
+                self.shaderCollection.rayFragment,
+            ]
+        )
 
-        self.plainColor = PlainColorShaderProgram([self.shaderCollection.plainColorVertex, self.shaderCollection.plainColorFragment])
+        self.plainColor = PlainColorShaderProgram(
+            [
+                self.shaderCollection.plainColorVertex,
+                self.shaderCollection.plainColorFragment,
+            ]
+        )
 
-        self.vignette = VignetteShaderProgram([self.shaderCollection.vignetteVertex, self.shaderCollection.vignetteFragment])
+        self.vignette = VignetteShaderProgram(
+            [
+                self.shaderCollection.vignetteVertex,
+                self.shaderCollection.vignetteFragment,
+            ]
+        )
 
         self.launcherBulletTrace = LauncherBulletTraceShaderProgram(
             [
                 self.shaderCollection.launcherBulletTraceVertex,
                 self.shaderCollection.launcherBulletTraceFragment,
+            ]
+        )
+
+        self.blur = BlurShaderProgram(
+            [
+                self.shaderCollection.blurVertex,
+                self.shaderCollection.blurFragment,
             ]
         )

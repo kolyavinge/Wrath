@@ -47,3 +47,6 @@ class ShaderCollection:
 
         self.launcherBulletTraceVertex = self.shaderCompiler.compile(path + "launcherBulletTrace.vert", ShaderType.vertex)
         self.launcherBulletTraceFragment = self.shaderCompiler.compile(path + "launcherBulletTrace.frag", ShaderType.fragment)
+
+        self.blurVertex = self.shaderCompiler.compile(path + "blur.vert", ShaderType.vertex)
+        self.blurFragment = self.shaderCompiler.compile(path + "blur.frag", ShaderType.fragment)
