@@ -39,7 +39,6 @@ from game.render.level.WallVBOBuilder import *
 from game.render.main.MainSceneRenderer import *
 from game.render.main.ShadowedObjectFramebuffer import *
 from game.render.main.ShadowedObjectRenderer import *
-from game.render.menu.DashboardFramebuffer import *
 from game.render.menu.DashboardRenderer import *
 from game.render.menu.DashboardSpriteRenderer import *
 from game.render.menu.DashboardTextRenderer import *
@@ -123,7 +122,6 @@ class RenderModule:
         binder.bindSingleton(MainSceneRenderer)
         binder.bindSingleton(ShadowedObjectFramebuffer)
         binder.bindSingleton(ShadowedObjectRenderer)
-        binder.bindSingleton(DashboardFramebuffer)
         binder.bindSingleton(DashboardRenderer)
         binder.bindSingleton(DashboardSpriteRenderer)
         binder.bindSingleton(DashboardTextRenderer)

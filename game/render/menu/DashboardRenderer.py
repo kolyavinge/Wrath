@@ -5,11 +5,11 @@ from game.calc.TransformMatrix4 import TransformMatrix4
 from game.engine.DashboardUpdater import DashboardUpdater
 from game.engine.GameData import GameData
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
+from game.gl.TexturedFramebuffer import TexturedFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
-from game.render.menu.DashboardFramebuffer import DashboardFramebuffer
 from game.render.menu.DashboardSpriteRenderer import DashboardSpriteRenderer
 from game.render.menu.DashboardTextRenderer import DashboardTextRenderer
 
@@ -20,7 +20,6 @@ class DashboardRenderer:
         self,
         gameData: GameData,
         dashboardUpdater: DashboardUpdater,
-        dashboardFramebuffer: DashboardFramebuffer,
         dashboardTextRenderer: DashboardTextRenderer,
         dashboardSpriteRenderer: DashboardSpriteRenderer,
         shaderProgramCollection: ShaderProgramCollection,
@@ -30,12 +29,12 @@ class DashboardRenderer:
     ):
         self.gameData = gameData
         self.dashboardUpdater = dashboardUpdater
-        self.dashboardFramebuffer = dashboardFramebuffer
         self.dashboardTextRenderer = dashboardTextRenderer
         self.dashboardSpriteRenderer = dashboardSpriteRenderer
         self.shaderProgramCollection = shaderProgramCollection
         self.screenQuadVBO = screenQuadVBO
         self.vboRenderer = vboRenderer
+        self.dashboardFramebuffer = TexturedFramebuffer()
         eventManager.attachToEvent(Events.viewportSizeChanged, self.onViewportSizeChanged)
 
     def init(self):
@@ -85,7 +84,7 @@ class DashboardRenderer:
         viewportWidth, viewportHeight = size
         projectionMatrix = TransformMatrix4()
         projectionMatrix.ortho(0, viewportWidth, 0, viewportHeight, -1, 1)
-        self.dashboardFramebuffer.init()
+        self.dashboardFramebuffer.init(viewportWidth, viewportHeight)
         self.dashboardTextRenderer.setData(projectionMatrix, viewportWidth, viewportHeight)
         self.dashboardSpriteRenderer.setData(projectionMatrix, viewportWidth)
         self.updateRenderData()
