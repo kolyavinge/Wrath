@@ -61,7 +61,7 @@ class LauncherBulletTraceRenderer:
         shader.unuse()
 
     def updateAndRenderTrace(self, trace, shader):
-        particleBuffer = self.bufferCollection.getBufferForTrace(trace)
+        particleBuffer = self.bufferCollection.getBufferFor(trace)
 
         shader.setTracePosition(trace.currentPosition)
         shader.setBulletDirection(trace.bullet.direction)

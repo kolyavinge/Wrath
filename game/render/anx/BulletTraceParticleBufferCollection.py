@@ -4,28 +4,28 @@ class BulletTraceParticleBufferCollection:
         self.bufferInitializer = bufferInitializer
         self.buffers = {}
 
-    def getBufferForTrace(self, trace):
-        if trace in self.buffers:
-            return self.buffers[trace]
+    def getBufferFor(self, item):
+        if item in self.buffers:
+            return self.buffers[item]
         else:
             buffer = self.findFreeBufferOrNone()
             if buffer is None:
-                buffer = self.bufferInitializer.makeEmpty(trace)
-            self.bufferInitializer.init(buffer, trace)
-            self.buffers[trace] = buffer
+                buffer = self.bufferInitializer.makeEmpty(item)
+            self.bufferInitializer.init(buffer, item)
+            self.buffers[item] = buffer
 
             return buffer
 
     def findFreeBufferOrNone(self):
-        oldTraceToRemove = None
+        oldItemToRemove = None
         freeBuffer = None
-        for trace, buffer in self.buffers.items():
-            if not trace.isVisible:
-                oldTraceToRemove = trace
+        for item, buffer in self.buffers.items():
+            if not item.isVisible:
+                oldItemToRemove = item
                 freeBuffer = buffer
                 break
 
-        if oldTraceToRemove is not None:
-            self.buffers.pop(oldTraceToRemove)
+        if oldItemToRemove is not None:
+            self.buffers.pop(oldItemToRemove)
 
         return freeBuffer
