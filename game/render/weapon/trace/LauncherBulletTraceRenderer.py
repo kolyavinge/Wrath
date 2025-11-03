@@ -96,7 +96,7 @@ class LauncherBulletTraceRenderer:
         glVertexAttribDivisor(0, 1)
         glVertexAttribDivisor(1, 1)
         glVertexAttribDivisor(2, 1)
-        glDrawArraysInstanced(GL_TRIANGLES, 0, 6, particleBuffer.particlesCount)
+        glDrawArraysInstanced(GL_TRIANGLES, 0, 24, particleBuffer.particlesCount)
         glBindVertexArray(0)
         glDisable(GL_DEPTH_TEST)
         glDisable(GL_ALPHA_TEST)

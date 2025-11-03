@@ -27,11 +27,18 @@ uniform float particleLifeTime;
 uniform float particleSize;
 uniform float deltaTime;
 
-// two triangles
+const float cos45 = 0.70710678118;
+// circle
 const vec3 offsets[] = vec3[]
 (
-    vec3(-0.5, -0.5, 0.0), vec3(0.5, -0.5, 0.0), vec3(0.5, 0.5, 0.0),
-    vec3(-0.5, -0.5, 0.0), vec3(0.5, 0.5, 0.0),  vec3(-0.5, 0.5, 0.0)
+    vec3(0.0, 0.0, 0.0), vec3(   0.0,    1.0, 0.0),  vec3(-cos45,  cos45, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3(-cos45,  cos45, 0.0),  vec3(  -1.0,    0.0, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3(  -1.0,    0.0, 0.0),  vec3(-cos45, -cos45, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3(-cos45, -cos45, 0.0),  vec3(   0.0,   -1.0, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3(   0.0,   -1.0, 0.0),  vec3( cos45, -cos45, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3( cos45, -cos45, 0.0),  vec3(   1.0,    0.0, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3(   1.0,    0.0, 0.0),  vec3( cos45,  cos45, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3( cos45,  cos45, 0.0),  vec3(   0.0,    1.0, 0.0)
 );
 
 vec3 rotatePoint(vec3 point, vec3 pivotAxis, float radian)
