@@ -1,4 +1,4 @@
-class BulletTraceParticleBufferCollection:
+class ParticleBufferCollection:
 
     def __init__(self, bufferInitializer):
         self.bufferInitializer = bufferInitializer

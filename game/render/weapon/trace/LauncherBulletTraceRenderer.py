@@ -8,8 +8,8 @@ from game.gl.TexturedFramebuffer import TexturedFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager
-from game.render.anx.BulletTraceParticleBufferCollection import *
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
+from game.render.anx.ParticleBufferCollection import ParticleBufferCollection
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 
@@ -25,7 +25,7 @@ class LauncherBulletTraceRenderer:
         eventManager: EventManager,
     ):
         self.gameData = gameData
-        self.bufferCollection = BulletTraceParticleBufferCollection(bufferInitializer)
+        self.bufferCollection = ParticleBufferCollection(bufferInitializer)
         self.shaderProgramCollection = shaderProgramCollection
         self.screenQuadVBO = screenQuadVBO
         self.vboRenderer = vboRenderer
