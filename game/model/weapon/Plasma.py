@@ -4,13 +4,22 @@ from game.lib.Math import Math
 from game.lib.Random import Random
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
+from game.model.weapon.Explosion import Explosion
 from game.model.weapon.Weapon import Weapon
+
+
+class PlasmaExplosion(Explosion):
+
+    def __init__(self):
+        super().__init__()
+        self.maxRadius = 8
+        self.velocityValue = 0.5
 
 
 class PlasmaBullet(Bullet):
 
     def __init__(self):
-        super().__init__()
+        super().__init__(None, PlasmaExplosion)
         self.isVisible = True
         self.velocityValue = 0.8
         self.damagePercent = 0.25

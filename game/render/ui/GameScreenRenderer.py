@@ -13,6 +13,7 @@ from game.render.ui.GameScreenInitializer import GameScreenInitializer
 from game.render.weapon.BulletHoleRenderer import BulletHoleRenderer
 from game.render.weapon.BulletTraceRenderer import BulletTraceRenderer
 from game.render.weapon.CrosshairRenderer import CrosshairRenderer
+from game.render.weapon.ExplosionRenderer import ExplosionRenderer
 from game.render.weapon.ShineBulletRenderer import ShineBulletRenderer
 from game.render.weapon.SniperCrosshairRenderer import SniperCrosshairRenderer
 from game.render.weapon.WeaponFlashRenderer import WeaponFlashRenderer
@@ -32,6 +33,7 @@ class GameScreenRenderer:
         enemyLifeBarRenderer: EnemyLifeBarRenderer,
         bulletHoleRenderer: BulletHoleRenderer,
         bulletTraceRenderer: BulletTraceRenderer,
+        explosionRenderer: ExplosionRenderer,
         crosshairRenderer: CrosshairRenderer,
         playerBloodStainRenderer: PlayerBloodStainRenderer,
         sniperCrosshairRenderer: SniperCrosshairRenderer,
@@ -48,6 +50,7 @@ class GameScreenRenderer:
         self.enemyLifeBarRenderer = enemyLifeBarRenderer
         self.bulletHoleRenderer = bulletHoleRenderer
         self.bulletTraceRenderer = bulletTraceRenderer
+        self.explosionRenderer = explosionRenderer
         self.crosshairRenderer = crosshairRenderer
         self.playerBloodStainRenderer = playerBloodStainRenderer
         self.sniperCrosshairRenderer = sniperCrosshairRenderer
@@ -72,6 +75,7 @@ class GameScreenRenderer:
         self.bulletHoleRenderer.render()
         self.shineBulletRenderer.render()
         self.bulletTraceRenderer.render()
+        self.explosionRenderer.render()
         self.weaponFlashRenderer.render()
         self.enemyLifeBarRenderer.render()
         self.crosshairRenderer.render()
@@ -85,6 +89,7 @@ class GameScreenRenderer:
         self.bulletHoleRenderer.render()
         self.shineBulletRenderer.render()
         self.bulletTraceRenderer.render()
+        self.explosionRenderer.render()
         self.weaponFlashRenderer.render()
         self.enemyLifeBarRenderer.render()
         self.sniperCrosshairRenderer.render()

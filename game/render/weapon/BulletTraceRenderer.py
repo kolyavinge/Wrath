@@ -29,14 +29,12 @@ class BulletTraceRenderer:
         self.renderers[SniperBulletTrace] = sniperBulletTraceRenderer
 
     def render(self):
-        traces = self.getVisibleTracesDictionary()
-        if len(traces) == 0:
+        visibleTraces = self.getVisibleTracesDictionary()
+        if len(visibleTraces) == 0:
             return
 
-        for traceType, traces in traces.items():
-            if traceType in self.renderers:
-                renderer = self.renderers[traceType]
-                renderer.renderTraces(traces)
+        for traceType, traces in visibleTraces.items():
+            self.renderers[traceType].renderTraces(traces)
 
     def getVisibleTracesDictionary(self):
         result = {}
