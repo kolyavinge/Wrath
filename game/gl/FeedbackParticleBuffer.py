@@ -2,7 +2,7 @@ import numpy
 from OpenGL.GL import *
 
 
-class ParticleBuffer:
+class FeedbackParticleBuffer:
 
     def __init__(self, particlesCount):
         self.particlesCount = particlesCount
@@ -103,6 +103,32 @@ class ParticleBuffer:
         glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 2, self.ageBuffers[1])
 
         glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, 0)
+
+    def setInitPositionData(self, positionData):
+        plainData = []
+        for vector in positionData:
+            plainData.append(vector.x)
+            plainData.append(vector.y)
+            plainData.append(vector.z)
+        plainData = numpy.array(plainData, dtype=numpy.float32)
+        glBindBuffer(GL_ARRAY_BUFFER, self.positionBuffers[0])
+        glBufferSubData(GL_ARRAY_BUFFER, 0, plainData.nbytes, plainData)
+        glBindBuffer(GL_ARRAY_BUFFER, self.positionBuffers[1])
+        glBufferSubData(GL_ARRAY_BUFFER, 0, plainData.nbytes, plainData)
+        glBindBuffer(GL_ARRAY_BUFFER, 0)
+
+    def setInitVelocityData(self, velocityData):
+        plainData = []
+        for vector in velocityData:
+            plainData.append(vector.x)
+            plainData.append(vector.y)
+            plainData.append(vector.z)
+        plainData = numpy.array(plainData, dtype=numpy.float32)
+        glBindBuffer(GL_ARRAY_BUFFER, self.velocityBuffers[0])
+        glBufferSubData(GL_ARRAY_BUFFER, 0, plainData.nbytes, plainData)
+        glBindBuffer(GL_ARRAY_BUFFER, self.velocityBuffers[1])
+        glBufferSubData(GL_ARRAY_BUFFER, 0, plainData.nbytes, plainData)
+        glBindBuffer(GL_ARRAY_BUFFER, 0)
 
     def setInitAgeData(self, ageData):
         ageData = numpy.array(ageData, dtype=numpy.float32)

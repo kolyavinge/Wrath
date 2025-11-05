@@ -31,14 +31,14 @@ const float cos45 = 0.70710678118;
 // circle
 const vec3 offsets[] = vec3[]
 (
-    vec3(0.0, 0.0, 0.0), vec3(   0.0,    1.0, 0.0),  vec3(-cos45,  cos45, 0.0),
-    vec3(0.0, 0.0, 0.0), vec3(-cos45,  cos45, 0.0),  vec3(  -1.0,    0.0, 0.0),
-    vec3(0.0, 0.0, 0.0), vec3(  -1.0,    0.0, 0.0),  vec3(-cos45, -cos45, 0.0),
-    vec3(0.0, 0.0, 0.0), vec3(-cos45, -cos45, 0.0),  vec3(   0.0,   -1.0, 0.0),
-    vec3(0.0, 0.0, 0.0), vec3(   0.0,   -1.0, 0.0),  vec3( cos45, -cos45, 0.0),
-    vec3(0.0, 0.0, 0.0), vec3( cos45, -cos45, 0.0),  vec3(   1.0,    0.0, 0.0),
-    vec3(0.0, 0.0, 0.0), vec3(   1.0,    0.0, 0.0),  vec3( cos45,  cos45, 0.0),
-    vec3(0.0, 0.0, 0.0), vec3( cos45,  cos45, 0.0),  vec3(   0.0,    1.0, 0.0)
+    vec3(0.0, 0.0, 0.0), vec3(   0.0,    1.0, 0.0), vec3(-cos45,  cos45, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3(-cos45,  cos45, 0.0), vec3(  -1.0,    0.0, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3(  -1.0,    0.0, 0.0), vec3(-cos45, -cos45, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3(-cos45, -cos45, 0.0), vec3(   0.0,   -1.0, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3(   0.0,   -1.0, 0.0), vec3( cos45, -cos45, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3( cos45, -cos45, 0.0), vec3(   1.0,    0.0, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3(   1.0,    0.0, 0.0), vec3( cos45,  cos45, 0.0),
+    vec3(0.0, 0.0, 0.0), vec3( cos45,  cos45, 0.0), vec3(   0.0,    1.0, 0.0)
 );
 
 vec3 rotatePoint(vec3 point, vec3 pivotAxis, float radian)
@@ -85,8 +85,8 @@ void render()
     {
         ParticleColor = vec3(in_Random.w);
         TransparentValue = clamp(1.0 - in_VertexAge / particleLifeTime, 0.0, 1.0);
-        vec3 pos = (viewMatrix * vec4(in_VertexPosition, 1.0)).xyz + offsets[gl_VertexID] * particleSize;
-        gl_Position = projectionMatrix * vec4(pos, 1.0);
+        vec3 viewPosition = (viewMatrix * vec4(in_VertexPosition, 1.0)).xyz + offsets[gl_VertexID] * particleSize;
+        gl_Position = projectionMatrix * vec4(viewPosition, 1.0);
     }
     else
     {

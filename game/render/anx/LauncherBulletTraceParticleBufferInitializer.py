@@ -1,4 +1,4 @@
-from game.gl.ParticleBuffer import ParticleBuffer
+from game.gl.FeedbackParticleBuffer import FeedbackParticleBuffer
 from game.lib.Math import Math
 from game.lib.Random import Random
 
@@ -7,7 +7,7 @@ class LauncherBulletTraceParticleBufferInitializer:
 
     def makeEmpty(self, trace):
         particlesCount = trace.particlesInGroup * trace.particleGroupsCount
-        buffer = ParticleBuffer(particlesCount)
+        buffer = FeedbackParticleBuffer(particlesCount)
 
         return buffer
 

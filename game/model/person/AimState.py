@@ -25,7 +25,7 @@ class SniperAimState:
     def __init__(self):
         self.verticalViewRadiansMax = Geometry.degreesToRadians(15.0)
         self.verticalViewRadiansMin = Geometry.degreesToRadians(2.0)
-        self.radiansStep = Geometry.degreesToRadians(2.0)
+        self.radianStep = Geometry.degreesToRadians(2.0)
         self.verticalViewRadians = self.verticalViewRadiansMax
         self.mouseSensibility = 0.0003
         self.aFloatingFunc = SniperAimFloatingFunc(Random.getOneOrMinusOne() * 0.0025, Random.getOneOrMinusOne() * 0.04)
@@ -36,7 +36,7 @@ class SniperAimState:
         self.bFloatingValue = self.bFloatingFunc.getValue(self.bFloatingParam)
 
     def zoomIn(self):
-        self.verticalViewRadians = Math.max(self.verticalViewRadians - self.radiansStep, self.verticalViewRadiansMin)
+        self.verticalViewRadians = Math.max(self.verticalViewRadians - self.radianStep, self.verticalViewRadiansMin)
 
     def zoomOut(self):
-        self.verticalViewRadians = Math.min(self.verticalViewRadians + self.radiansStep, self.verticalViewRadiansMax)
+        self.verticalViewRadians = Math.min(self.verticalViewRadians + self.radianStep, self.verticalViewRadiansMax)
