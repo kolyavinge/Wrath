@@ -7,10 +7,10 @@ class Stopwatch:
         self.elapsed = 0
 
     def start(self):
-        self.startedAt = time.time()
+        self.startedAt = time.perf_counter()
 
     def stop(self):
-        self.stopedAt = time.time()
+        self.stopedAt = time.perf_counter()
         self.elapsed += self.stopedAt - self.startedAt
 
     def printElapsed(self):
