@@ -20,7 +20,7 @@ class FeedbackParticleBuffer:
         self.positionBuffers = glGenBuffers(2)
         self.velocityBuffers = glGenBuffers(2)
         self.ageBuffers = glGenBuffers(2)
-        self.randomBuffer = glGenBuffers(1)
+        self.randomBuffer = None
 
         # set position data
         glBindBuffer(GL_ARRAY_BUFFER, self.positionBuffers[0])
@@ -40,16 +40,12 @@ class FeedbackParticleBuffer:
         glBindBuffer(GL_ARRAY_BUFFER, self.ageBuffers[1])
         glBufferData(GL_ARRAY_BUFFER, self.particlesCount * 4, None, GL_DYNAMIC_COPY)
 
-        # set random data
-        glBindBuffer(GL_ARRAY_BUFFER, self.randomBuffer)
-        glBufferData(GL_ARRAY_BUFFER, self.particlesCount * 4 * 4, None, GL_STATIC_DRAW)
-
         glBindBuffer(GL_ARRAY_BUFFER, 0)
 
     def initVertexBuffers(self):
         self.particleBuffers = glGenVertexArrays(2)
 
-        # first
+        # first particle buffer
         glBindVertexArray(self.particleBuffers[0])
 
         glBindBuffer(GL_ARRAY_BUFFER, self.positionBuffers[0])
@@ -64,11 +60,7 @@ class FeedbackParticleBuffer:
         glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 0, None)
         glEnableVertexAttribArray(2)
 
-        glBindBuffer(GL_ARRAY_BUFFER, self.randomBuffer)
-        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 0, None)
-        glEnableVertexAttribArray(3)
-
-        # second
+        # second particle buffer
         glBindVertexArray(self.particleBuffers[1])
 
         glBindBuffer(GL_ARRAY_BUFFER, self.positionBuffers[1])
@@ -82,10 +74,6 @@ class FeedbackParticleBuffer:
         glBindBuffer(GL_ARRAY_BUFFER, self.ageBuffers[1])
         glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 0, None)
         glEnableVertexAttribArray(2)
-
-        glBindBuffer(GL_ARRAY_BUFFER, self.randomBuffer)
-        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 0, None)
-        glEnableVertexAttribArray(3)
 
         glBindVertexArray(0)
 
@@ -104,7 +92,7 @@ class FeedbackParticleBuffer:
 
         glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, 0)
 
-    def setInitPositionData(self, positionData):
+    def initPositionData(self, positionData):
         plainData = []
         for vector in positionData:
             plainData.append(vector.x)
@@ -117,7 +105,7 @@ class FeedbackParticleBuffer:
         glBufferSubData(GL_ARRAY_BUFFER, 0, plainData.nbytes, plainData)
         glBindBuffer(GL_ARRAY_BUFFER, 0)
 
-    def setInitVelocityData(self, velocityData):
+    def initVelocityData(self, velocityData):
         plainData = []
         for vector in velocityData:
             plainData.append(vector.x)
@@ -130,7 +118,7 @@ class FeedbackParticleBuffer:
         glBufferSubData(GL_ARRAY_BUFFER, 0, plainData.nbytes, plainData)
         glBindBuffer(GL_ARRAY_BUFFER, 0)
 
-    def setInitAgeData(self, ageData):
+    def initAgeData(self, ageData):
         ageData = numpy.array(ageData, dtype=numpy.float32)
         glBindBuffer(GL_ARRAY_BUFFER, self.ageBuffers[0])
         glBufferSubData(GL_ARRAY_BUFFER, 0, ageData.nbytes, ageData)
@@ -138,7 +126,27 @@ class FeedbackParticleBuffer:
         glBufferSubData(GL_ARRAY_BUFFER, 0, ageData.nbytes, ageData)
         glBindBuffer(GL_ARRAY_BUFFER, 0)
 
-    def setInitRandomData(self, randomData):
+    def initRandomBuffer(self):
+        self.randomBuffer = glGenBuffers(1)
+        glBindBuffer(GL_ARRAY_BUFFER, self.randomBuffer)
+        glBufferData(GL_ARRAY_BUFFER, self.particlesCount * 4 * 4, None, GL_STATIC_DRAW)
+
+        glBindVertexArray(self.particleBuffers[0])
+        glBindBuffer(GL_ARRAY_BUFFER, self.randomBuffer)
+        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 0, None)
+        glEnableVertexAttribArray(3)
+
+        glBindVertexArray(self.particleBuffers[1])
+        glBindBuffer(GL_ARRAY_BUFFER, self.randomBuffer)
+        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 0, None)
+        glEnableVertexAttribArray(3)
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0)
+        glBindVertexArray(0)
+
+    def initRandomData(self, randomData):
+        if self.randomBuffer is None:
+            self.initRandomBuffer()
         randomData = numpy.array(randomData, dtype=numpy.float32)
         glBindBuffer(GL_ARRAY_BUFFER, self.randomBuffer)
         glBufferSubData(GL_ARRAY_BUFFER, 0, randomData.nbytes, randomData)
@@ -159,7 +167,8 @@ class FeedbackParticleBuffer:
         glDeleteBuffers(len(self.positionBuffers), self.positionBuffers)
         glDeleteBuffers(len(self.velocityBuffers), self.velocityBuffers)
         glDeleteBuffers(len(self.ageBuffers), self.ageBuffers)
-        glDeleteBuffers(1, self.randomBuffer)
+        if self.randomBuffer is not None:
+            glDeleteBuffers(1, self.randomBuffer)
         self.feedbacks = None
         self.particleBuffers = None
         self.positionBuffers = None

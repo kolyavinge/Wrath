@@ -1,3 +1,9 @@
+class ShaderConstants:
+
+    updatePass = 1
+    renderPass = 2
+
+
 class ShaderType:
 
     # GL constants

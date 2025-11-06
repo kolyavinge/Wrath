@@ -4,6 +4,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleBlitFramebuffer
+from game.gl.Shader import ShaderConstants
 from game.gl.TexturedFramebuffer import TexturedFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
@@ -72,8 +73,7 @@ class LauncherBulletTraceRenderer:
         shader.setParticleLifeTime(trace.particleLifeTimeMsec)
         shader.setParticleSize(trace.particleSize)
 
-        # pass 1 - update
-        shader.setPassNumber(1)
+        shader.setPassNumber(ShaderConstants.updatePass)
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_ALPHA_TEST)
@@ -90,8 +90,7 @@ class LauncherBulletTraceRenderer:
         glEndTransformFeedback()
         glDisable(GL_RASTERIZER_DISCARD)
 
-        # pass 2 - render
-        shader.setPassNumber(2)
+        shader.setPassNumber(ShaderConstants.renderPass)
         glBindVertexArray(particleBuffer.destinationBufferId)
         glVertexAttribDivisor(0, 1)
         glVertexAttribDivisor(1, 1)

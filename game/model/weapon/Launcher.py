@@ -22,7 +22,7 @@ class LauncherBulletTrace(ParticleBulletTrace):
     def __init__(self):
         super().__init__()
         self.particlesInGroup = 1000
-        self.particleGroupsCount = 10
+        self.particleGroupsCount = 20
         self.initDelayMsec = 50
         self.particleAppearanceDelayMsec = 40
         self.particleLifeTimeMsec = self.particleAppearanceDelayMsec * self.particleGroupsCount - self.particleAppearanceDelayMsec
