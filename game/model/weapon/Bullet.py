@@ -30,6 +30,7 @@ class Bullet:
         self.holeInfo = None
         self.traceShift = 0
         self.ownerPerson = None
+        self.damagedObject = None
 
     def commitNextPosition(self):
         self.currentPosition = self.nextPosition.copy()

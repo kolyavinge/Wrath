@@ -16,7 +16,7 @@ class ConstructionCollisionDetector:
                 collisionPoint = construction.plane.getNearestPointOnFront(collisionPoint)
                 length = startPoint.getLengthTo(collisionPoint)
                 if length < nearestLength:
-                    result = (collisionPoint, construction.frontNormal)
+                    result = (collisionPoint, construction)
                     nearestLength = length
 
         return result

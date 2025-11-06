@@ -48,20 +48,22 @@ class BulletCollisionUpdater:
 
     def processConstructionCollision(self, bullet, collisionResult):
         self.bulletLogic.removeBullet(bullet)
-        collisionPoint, frontNormal = collisionResult
+        collisionPoint, construction = collisionResult
+        bullet.damagedObject = construction
         bspTree = self.gameData.visibilityTree
         visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
         bullet.currentPosition = collisionPoint
         bullet.nextPosition = collisionPoint
-        bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, visibilityLevelSegment, bullet.holeInfo)
+        bulletHole = self.bulletHoleFactory.make(collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
         self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
 
     def processPersonCollision(self, bullet, collisionResult):
         collisionPoint, person, target = collisionResult
+        bullet.damagedObject = person
         if bullet.goThroughPerson:
             if person not in bullet.damagedPersonSet:
                 self.personDamageLogic.damageByBullet(person, bullet)
-                bullet.damagedPersonSet.add(person)  # one person damage only once
+                bullet.damagedPersonSet.add(person)  # one person damaged only once
         else:
             self.bulletLogic.removeBullet(bullet)
             bullet.currentPosition = collisionPoint

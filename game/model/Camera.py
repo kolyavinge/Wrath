@@ -32,3 +32,9 @@ class Camera:
         newViewProjectionMatrix = self.projectionMatrix.copy()
         newViewProjectionMatrix.mul(self.viewMatrix)
         self.viewProjectionMatrix = newViewProjectionMatrix
+
+    def getCameraFacedNormal(self, pointInWorld):
+        normal = pointInWorld.getDirectionTo(self.position)
+        normal.normalize()
+
+        return normal
