@@ -15,6 +15,7 @@ from game.gl.vbo.ScreenQuadVBO import *
 from game.gl.vbo.VBOBuilderFactory import *
 from game.gl.vbo.VBORenderer import *
 from game.gl.vbo.VBOUpdaterFactory import *
+from game.render.anx.BlurRenderer import *
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
 from game.render.anx.PlasmaExplosionParticleBufferInitializer import *
 from game.render.anx.RayRenderer import *
@@ -103,6 +104,7 @@ class RenderModule:
         binder.bindSingleton(VBOBuilderFactory)
         binder.bindSingleton(VBORenderer)
         binder.bindSingleton(VBOUpdaterFactory)
+        binder.bindSingleton(BlurRenderer)
         binder.bindSingleton(LauncherBulletTraceParticleBufferInitializer)
         binder.bindSingleton(PlasmaExplosionParticleBufferInitializer)
         binder.bindSingleton(RayRenderer)
