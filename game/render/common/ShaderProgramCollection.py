@@ -1,18 +1,18 @@
-from game.render.common.BlurShaderProgram import BlurShaderProgram
-from game.render.common.CrossshairShaderProgram import CrossshairShaderProgram
-from game.render.common.LauncherBulletTraceShaderProgram import *
-from game.render.common.MainSceneComposeShaderProgram import *
-from game.render.common.MainSceneLightComponentsShaderProgram import *
-from game.render.common.MainSceneShadowVolumesShaderProgram import *
-from game.render.common.MainSceneStencilMaskShaderProgram import *
-from game.render.common.MeshExtShaderProgram import MeshExtShaderProgram
-from game.render.common.MeshShaderProgram import MeshShaderProgram
-from game.render.common.PlainColorShaderProgram import PlainColorShaderProgram
-from game.render.common.PlasmaExplosionShaderProgram import PlasmaExplosionShaderProgram
-from game.render.common.RayShaderProgram import RayShaderProgram
 from game.render.common.ShaderCollection import ShaderCollection
-from game.render.common.ShineCircleShaderProgram import ShineCircleShaderProgram
-from game.render.common.VignetteShaderProgram import VignetteShaderProgram
+from game.render.shaderprogram.BlurShaderProgram import BlurShaderProgram
+from game.render.shaderprogram.CrossshairShaderProgram import CrossshairShaderProgram
+from game.render.shaderprogram.LauncherBulletTraceShaderProgram import *
+from game.render.shaderprogram.MainSceneComposeShaderProgram import *
+from game.render.shaderprogram.MainSceneLightComponentsShaderProgram import *
+from game.render.shaderprogram.MainSceneShadowVolumesShaderProgram import *
+from game.render.shaderprogram.MainSceneStencilMaskShaderProgram import *
+from game.render.shaderprogram.MeshExtShaderProgram import MeshExtShaderProgram
+from game.render.shaderprogram.MeshShaderProgram import MeshShaderProgram
+from game.render.shaderprogram.PlainColorShaderProgram import PlainColorShaderProgram
+from game.render.shaderprogram.PlasmaExplosionShaderProgram import *
+from game.render.shaderprogram.RayShaderProgram import RayShaderProgram
+from game.render.shaderprogram.ShineCircleShaderProgram import ShineCircleShaderProgram
+from game.render.shaderprogram.VignetteShaderProgram import VignetteShaderProgram
 
 
 class ShaderProgramCollection:
