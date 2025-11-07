@@ -8,6 +8,7 @@ from game.render.common.MainSceneStencilMaskShaderProgram import *
 from game.render.common.MeshExtShaderProgram import MeshExtShaderProgram
 from game.render.common.MeshShaderProgram import MeshShaderProgram
 from game.render.common.PlainColorShaderProgram import PlainColorShaderProgram
+from game.render.common.PlasmaExplosionShaderProgram import PlasmaExplosionShaderProgram
 from game.render.common.RayShaderProgram import RayShaderProgram
 from game.render.common.ShaderCollection import ShaderCollection
 from game.render.common.ShineCircleShaderProgram import ShineCircleShaderProgram
@@ -109,5 +110,12 @@ class ShaderProgramCollection:
             [
                 self.shaderCollection.blurVertex,
                 self.shaderCollection.blurFragment,
+            ]
+        )
+
+        self.plasmaExplosion = PlasmaExplosionShaderProgram(
+            [
+                self.shaderCollection.plasmaExplosionVertex,
+                self.shaderCollection.plasmaExplosionFragment,
             ]
         )

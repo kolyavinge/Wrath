@@ -1,4 +1,5 @@
 from game.calc.Vector3 import Vector3
+from game.lib.DecrementCounter import DecrementCounter
 
 
 class Explosion:
@@ -11,11 +12,16 @@ class Explosion:
         self.position = Vector3()
         self.damagePercent = 0
         self.isVisible = True
+        self.aliveRemainCounter = DecrementCounter()
         self.collisionLevelSegment = None
         self.visibilityLevelSegment = None
 
     def update(self):
-        self.radius += self.velocityValue
-        if self.radius > self.maxRadius:
-            self.isVisible = False
-            self.radius = 0
+        if self.radius >= 0:
+            self.radius += self.velocityValue
+            if self.radius > self.maxRadius:
+                self.radius = -1
+        else:
+            self.aliveRemainCounter.decrease()
+            if self.aliveRemainCounter.isExpired():
+                self.isVisible = False

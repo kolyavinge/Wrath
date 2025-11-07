@@ -12,8 +12,13 @@ class PlasmaExplosion(Explosion):
 
     def __init__(self):
         super().__init__()
-        self.maxRadius = 8
-        self.velocityValue = 0.5
+        self.velocityValue = 0.1
+        self.particlesInGroup = 1000
+        self.particleGroupsCount = 10
+        self.particleAppearanceDelayMsec = 10
+        self.particleLifeTimeMsec = 500
+        self.particleSize = 0.01
+        self.aliveRemainCounter.set(50)
 
 
 class PlasmaBullet(Bullet):

@@ -15,6 +15,7 @@ from game.gl.vbo.VBOBuilderFactory import *
 from game.gl.vbo.VBORenderer import *
 from game.gl.vbo.VBOUpdaterFactory import *
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
+from game.render.anx.PlasmaExplosionParticleBufferInitializer import *
 from game.render.anx.RayRenderer import *
 from game.render.anx.ShineCircleRenderer import *
 from game.render.anx.VignetteRenderer import *
@@ -101,6 +102,7 @@ class RenderModule:
         binder.bindSingleton(VBORenderer)
         binder.bindSingleton(VBOUpdaterFactory)
         binder.bindSingleton(LauncherBulletTraceParticleBufferInitializer)
+        binder.bindSingleton(PlasmaExplosionParticleBufferInitializer)
         binder.bindSingleton(RayRenderer)
         binder.bindSingleton(ShineCircleRenderer)
         binder.bindSingleton(VignetteRenderer)

@@ -50,3 +50,6 @@ class ShaderCollection:
 
         self.blurVertex = self.shaderCompiler.compile(path + "blur.vert", ShaderType.vertex)
         self.blurFragment = self.shaderCompiler.compile(path + "blur.frag", ShaderType.fragment)
+
+        self.plasmaExplosionVertex = self.shaderCompiler.compile(path + "plasmaExplosion.vert", ShaderType.vertex)
+        self.plasmaExplosionFragment = self.shaderCompiler.compile(path + "plasmaExplosion.frag", ShaderType.fragment)
