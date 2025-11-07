@@ -1,9 +1,8 @@
-from game.anx.Events import Events
 from game.engine.cm.PowerupCollisionDetector import PowerupCollisionDetector
 from game.engine.GameData import GameData
 from game.engine.powerup.PowerupProcessor import PowerupProcessor
 from game.engine.powerup.PowerupValidator import PowerupValidator
-from game.lib.EventManager import EventManager
+from game.lib.EventManager import EventManager, Events
 
 
 class PowerupCollisionUpdater:

@@ -1,9 +1,8 @@
-from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
 from game.input.InputManager import InputManager
 from game.input.Keys import Keys
-from game.lib.EventManager import EventManager
+from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
 from game.model.person.AimState import DefaultAimState, SniperAimState
 from game.model.person.PersonStates import LifeCycle

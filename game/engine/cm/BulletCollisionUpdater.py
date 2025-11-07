@@ -1,4 +1,3 @@
-from game.anx.Events import Events
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.cm.BulletCollisionDetector import *
 from game.engine.cm.PersonCollisionDetector import PersonCollisionTarget
@@ -7,7 +6,7 @@ from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.engine.weapon.BulletHoleFactory import BulletHoleFactory
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
-from game.lib.EventManager import EventManager
+from game.lib.EventManager import EventManager, Events
 
 
 class BulletCollisionUpdater:

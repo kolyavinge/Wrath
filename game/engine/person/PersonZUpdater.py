@@ -1,7 +1,6 @@
-from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
-from game.lib.EventManager import EventManager
+from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 from game.model.level.NullFloor import NullFloor

@@ -1,12 +1,11 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleBlitFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
-from game.lib.EventManager import EventManager
+from game.lib.EventManager import EventManager, Events
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.main.ShadowedObjectFramebuffer import ShadowedObjectFramebuffer
 

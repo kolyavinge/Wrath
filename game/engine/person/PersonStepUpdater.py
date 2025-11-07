@@ -1,7 +1,6 @@
-from game.anx.Events import Events
 from game.anx.PersonConstants import PersonConstants
 from game.engine.GameData import GameData
-from game.lib.EventManager import EventManager
+from game.lib.EventManager import EventManager, Events
 from game.model.level.Stair import Stair
 from game.model.person.PersonStates import PersonZState
 

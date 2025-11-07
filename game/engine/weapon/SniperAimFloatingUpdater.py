@@ -1,7 +1,6 @@
-from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
-from game.lib.EventManager import EventManager
+from game.lib.EventManager import EventManager, Events
 from game.lib.Random import Random
 from game.model.person.AimState import SniperAimState
 

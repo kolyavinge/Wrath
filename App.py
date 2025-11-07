@@ -6,9 +6,9 @@ from OpenGL.GLU import gluErrorString
 from OpenGL.GLUT import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.anx.Events import Events
 from game.core.GameFactory import GameFactory
 from game.input.Keys import Keys
+from game.lib.EventManager import Events
 from game.lib.Screen import Screen
 from game.tools.CpuProfiler import CpuProfiler
 

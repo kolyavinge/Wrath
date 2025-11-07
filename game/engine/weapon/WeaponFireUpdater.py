@@ -1,9 +1,8 @@
-from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.WeaponFeedbackLogic import WeaponFeedbackLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
-from game.lib.EventManager import EventManager
+from game.lib.EventManager import EventManager, Events
 
 
 class WeaponFireUpdater:

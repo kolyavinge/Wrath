@@ -1,6 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
-from game.anx.Events import Events
-from game.lib.EventManager import EventManager
+from game.lib.EventManager import EventManager, Events
 from game.model.person.AimState import DefaultAimState
 from game.render.anx.VignetteRenderer import VignetteRenderer
 from game.render.debug.PlayerSegmentItemsRenderer import PlayerSegmentItemsRenderer

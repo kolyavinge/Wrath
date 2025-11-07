@@ -1,7 +1,6 @@
-from game.anx.Events import Events
 from game.audio.AudioPlayer import AudioPlayer
 from game.engine.GameData import GameData
-from game.lib.EventManager import EventManager
+from game.lib.EventManager import EventManager, Events
 from game.model.Material import MaterialKind
 from game.vox.common.AudioSourceFactory import AudioSourceFactory
 from game.vox.sources.PersonAudioSources import PersonAudioSources
