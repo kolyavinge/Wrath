@@ -1,4 +1,5 @@
 from game.gl.AdjacencyFormatConverter import *
+from game.gl.FeedbackParticleRenderer import *
 from game.gl.model3d.AnimationLoader import *
 from game.gl.model3d.AnimationPlayer import *
 from game.gl.model3d.FrameInterpolator import *
@@ -86,6 +87,7 @@ class RenderModule:
 
     def init(self, binder):
         binder.bindSingleton(AdjacencyFormatConverter)
+        binder.bindSingleton(FeedbackParticleRenderer)
         binder.bindSingleton(AnimationLoader)
         binder.bindSingleton(AnimationPlayer)
         binder.bindSingleton(FrameInterpolator)

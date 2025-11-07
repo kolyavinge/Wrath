@@ -4,7 +4,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.anx.Events import Events
 from game.engine.GameData import GameData
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleBlitFramebuffer
-from game.gl.Shader import ShaderConstants
+from game.gl.FeedbackParticleRenderer import FeedbackParticleRenderer
 from game.gl.TexturedFramebuffer import TexturedFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
@@ -19,6 +19,7 @@ class LauncherBulletTraceRenderer:
     def __init__(
         self,
         gameData: GameData,
+        particleRenderer: FeedbackParticleRenderer,
         bufferInitializer: LauncherBulletTraceParticleBufferInitializer,
         shaderProgramCollection: ShaderProgramCollection,
         screenQuadVBO: ScreenQuadVBO,
@@ -26,6 +27,7 @@ class LauncherBulletTraceRenderer:
         eventManager: EventManager,
     ):
         self.gameData = gameData
+        self.particleRenderer = particleRenderer
         self.bufferCollection = ParticleBufferCollection(bufferInitializer)
         self.shaderProgramCollection = shaderProgramCollection
         self.screenQuadVBO = screenQuadVBO
@@ -62,8 +64,6 @@ class LauncherBulletTraceRenderer:
         shader.unuse()
 
     def updateAndRenderTrace(self, trace, shader):
-        particleBuffer = self.bufferCollection.getBufferFor(trace)
-
         shader.setTracePosition(trace.currentPosition)
         shader.setBulletDirection(trace.bullet.direction)
         shader.setBulletDirectionTopNormal(trace.bullet.directionTopNormal)
@@ -72,35 +72,9 @@ class LauncherBulletTraceRenderer:
         shader.setParticleAppearanceDelay(trace.particleAppearanceDelayMsec)
         shader.setParticleLifeTime(trace.particleLifeTimeMsec)
         shader.setParticleSize(trace.particleSize)
-
-        shader.setPassNumber(ShaderConstants.updatePass)
-        glEnable(GL_BLEND)
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        glEnable(GL_ALPHA_TEST)
-        glEnable(GL_DEPTH_TEST)
-        glEnable(GL_RASTERIZER_DISCARD)
-        glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, particleBuffer.destinationFeedbackId)
-        glBeginTransformFeedback(GL_POINTS)
-        glBindVertexArray(particleBuffer.sourceBufferId)
-        glVertexAttribDivisor(0, 0)
-        glVertexAttribDivisor(1, 0)
-        glVertexAttribDivisor(2, 0)
-        glDrawArrays(GL_POINTS, 0, particleBuffer.particlesCount)
-        glBindVertexArray(0)
-        glEndTransformFeedback()
-        glDisable(GL_RASTERIZER_DISCARD)
-
-        shader.setPassNumber(ShaderConstants.renderPass)
-        glBindVertexArray(particleBuffer.destinationBufferId)
-        glVertexAttribDivisor(0, 1)
-        glVertexAttribDivisor(1, 1)
-        glVertexAttribDivisor(2, 1)
-        glDrawArraysInstanced(GL_TRIANGLES, 0, 24, particleBuffer.particlesCount)
-        glBindVertexArray(0)
-        glDisable(GL_DEPTH_TEST)
-        glDisable(GL_ALPHA_TEST)
-        glDisable(GL_BLEND)
-
+        particleBuffer = self.bufferCollection.getBufferFor(trace)
+        self.particleRenderer.update(particleBuffer, shader)
+        self.particleRenderer.render(particleBuffer, shader, 24)
         particleBuffer.swapBuffers()
 
     def blurRenderedTraces(self):
