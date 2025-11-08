@@ -19,9 +19,9 @@ class PlasmaExplosionParticleBufferInitializer:
         return buffer
 
     def init(self, buffer, explosion):
-        buffer.initPositionData(self.getPositionData(explosion))
-        buffer.initVelocityData(self.getVelocityData(explosion))
-        buffer.initAgeData(self.getAgeData(explosion))
+        buffer.setPositionData(self.getPositionData(explosion))
+        buffer.setVelocityData(self.getVelocityData(explosion))
+        buffer.setAgeData(self.getAgeData(explosion))
 
     def getPositionData(self, explosion):
         positionData = []

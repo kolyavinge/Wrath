@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleGetViewportSize
+from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
 
 
 class ShadowedObjectFramebuffer:
@@ -12,30 +12,28 @@ class ShadowedObjectFramebuffer:
         self.stencilMaskTexture = 0
         self.id = 0
 
-    def init(self):
+    def init(self, viewportWidth, viewportHeight):
         glDeleteRenderbuffers(2, [self.depthBuffer, self.ambientBuffer])
         glDeleteTextures(2, [self.diffuseSpecularTexture, self.stencilMaskTexture])
         glDeleteFramebuffers(1, [self.id])
 
-        self.viewportWidth, self.viewportHeight = gleGetViewportSize()
-
         self.depthBuffer = glGenRenderbuffers(1)
         glBindRenderbuffer(GL_RENDERBUFFER, self.depthBuffer)
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, self.viewportWidth, self.viewportHeight)
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, viewportWidth, viewportHeight)
 
         self.ambientBuffer = glGenRenderbuffers(1)
         glBindRenderbuffer(GL_RENDERBUFFER, self.ambientBuffer)
-        glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, self.viewportWidth, self.viewportHeight)
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, viewportWidth, viewportHeight)
 
         self.diffuseSpecularTexture = glGenTextures(1)
         glBindTexture(GL_TEXTURE_2D, self.diffuseSpecularTexture)
-        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, self.viewportWidth, self.viewportHeight)
+        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, viewportWidth, viewportHeight)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 
         self.stencilMaskTexture = glGenTextures(1)
         glBindTexture(GL_TEXTURE_2D, self.stencilMaskTexture)
-        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB8, self.viewportWidth, self.viewportHeight)
+        glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGB8, viewportWidth, viewportHeight)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST)
 

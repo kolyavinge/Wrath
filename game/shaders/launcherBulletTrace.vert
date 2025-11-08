@@ -3,7 +3,7 @@
 layout (location = 0) in vec3 in_VertexPosition;
 layout (location = 1) in vec3 in_VertexVelocity;
 layout (location = 2) in float in_VertexAge;
-layout (location = 3) in vec4 in_Random;
+layout (location = 6) in vec4 in_Random;
 
 // for feedback buffer
 out vec3 Position;

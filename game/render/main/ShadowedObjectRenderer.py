@@ -29,8 +29,8 @@ class ShadowedObjectRenderer:
         eventManager.attachToEvent(Events.viewportSizeChanged, self.onViewportSizeChanged)
 
     def onViewportSizeChanged(self, size):
-        self.shadowedObjectFramebuffer.init()
         self.width, self.height = size
+        self.shadowedObjectFramebuffer.init(self.width, self.height)
 
     def render(self, renderObjectFunc, renderShadowCastersFunc):
         self.calculateLightComponents(renderObjectFunc)
