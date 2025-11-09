@@ -2,19 +2,24 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Plane import Plane
 from game.engine.GameData import GameData
-from game.gl.FeedbackParticleBuffer import FeedbackParticleBuffer
+from game.gl.FeedbackParticleBufferFactory import FeedbackParticleBufferFactory
 from game.lib.Math import Math
 from game.lib.Random import Random
 
 
 class PlasmaExplosionParticleBufferInitializer:
 
-    def __init__(self, gameData: GameData):
+    def __init__(
+        self,
+        gameData: GameData,
+        particleBufferFactory: FeedbackParticleBufferFactory,
+    ):
         self.gameData = gameData
+        self.particleBufferFactory = particleBufferFactory
 
     def makeEmpty(self, explosion):
         particlesCount = explosion.particlesInGroup * explosion.particleGroupsCount
-        buffer = FeedbackParticleBuffer(particlesCount)
+        buffer = self.particleBufferFactory.make(particlesCount)
 
         return buffer
 
