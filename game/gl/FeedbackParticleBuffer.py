@@ -40,12 +40,12 @@ class FeedbackParticleBuffer:
         self.setData(self.scaleBuffers[0], data)
         self.setData(self.scaleBuffers[1], data)
 
-    def setAlphaData(self, alphaData):
-        if self.alphaBuffers is None:
-            raise Exception("Alpha buffer is not initialized")
-        data = numpy.array(alphaData, dtype=numpy.float32)
-        self.setData(self.alphaBuffers[0], data)
-        self.setData(self.alphaBuffers[1], data)
+    def setColorData(self, colorData):
+        if self.colorBuffers is None:
+            raise Exception("Color buffer is not initialized")
+        data = numpy.array(colorData, dtype=numpy.float32)
+        self.setData(self.colorBuffers[0], data)
+        self.setData(self.colorBuffers[1], data)
 
     def setTextureData(self, textureData):
         if self.textureBuffer is None:
@@ -70,7 +70,7 @@ class FeedbackParticleBuffer:
         glVertexAttribDivisor(2, index)
         if self.scaleBuffers is not None:
             glVertexAttribDivisor(3, index)
-        if self.alphaBuffers is not None:
+        if self.colorBuffers is not None:
             glVertexAttribDivisor(4, index)
 
     def swapBuffers(self):
@@ -90,8 +90,8 @@ class FeedbackParticleBuffer:
         glDeleteBuffers(len(self.ageBuffers), self.ageBuffers)
         if self.scaleBuffers is not None:
             glDeleteBuffers(len(self.scaleBuffers), self.scaleBuffers)
-        if self.alphaBuffers is not None:
-            glDeleteBuffers(len(self.alphaBuffers), self.alphaBuffers)
+        if self.colorBuffers is not None:
+            glDeleteBuffers(len(self.colorBuffers), self.colorBuffers)
         if self.textureBuffer is not None:
             glDeleteBuffers(1, self.textureBuffer)
         if self.randomBuffer is not None:
@@ -102,6 +102,6 @@ class FeedbackParticleBuffer:
         self.velocityBuffers = None
         self.ageBuffers = None
         self.scaleBuffers = None
-        self.alphaBuffers = None
+        self.colorBuffers = None
         self.textureBuffer = None
         self.randomBuffer = None

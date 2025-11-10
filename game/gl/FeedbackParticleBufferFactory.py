@@ -6,7 +6,7 @@ from game.gl.FeedbackParticleBuffer import FeedbackParticleBuffer
 class ExtraParticleDataBuffers:
 
     scaleBuffer = 3
-    alphaBuffer = 4
+    colorBuffer = 4
     textureBuffer = 5
     random = 6
 
@@ -30,7 +30,7 @@ class FeedbackParticleBufferFactory:
         particleBuffer.velocityBuffers = glGenBuffers(2)
         particleBuffer.ageBuffers = glGenBuffers(2)
         particleBuffer.scaleBuffers = None
-        particleBuffer.alphaBuffers = None
+        particleBuffer.colorBuffers = None
         particleBuffer.textureBuffer = None
         particleBuffer.randomBuffer = None
 
@@ -40,9 +40,9 @@ class FeedbackParticleBufferFactory:
         if ExtraParticleDataBuffers.scaleBuffer in extraDataBuffers:
             particleBuffer.scaleBuffers = glGenBuffers(2)
             self.initDataBufferForFeedback(particleBuffer.scaleBuffers, 4, 1)
-        if ExtraParticleDataBuffers.alphaBuffer in extraDataBuffers:
-            particleBuffer.alphaBuffers = glGenBuffers(2)
-            self.initDataBufferForFeedback(particleBuffer.alphaBuffers, 4, 1)
+        if ExtraParticleDataBuffers.colorBuffer in extraDataBuffers:
+            particleBuffer.colorBuffers = glGenBuffers(2)
+            self.initDataBufferForFeedback(particleBuffer.colorBuffers, 4, 4)
         if ExtraParticleDataBuffers.textureBuffer in extraDataBuffers:
             particleBuffer.textureBuffer = glGenBuffers(1)
             self.initDataBuffer(particleBuffer.textureBuffer, particleBuffer.particlesCount, 4, 2)
@@ -88,9 +88,9 @@ class FeedbackParticleBufferFactory:
             glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(3)
 
-        if particleBuffer.alphaBuffers is not None:
-            glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.alphaBuffers[vertexBufferIndex])
-            glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, 0, None)
+        if particleBuffer.colorBuffers is not None:
+            glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.colorBuffers[vertexBufferIndex])
+            glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(4)
 
         if particleBuffer.textureBuffer is not None:
@@ -116,5 +116,5 @@ class FeedbackParticleBufferFactory:
         glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 2, particleBuffer.ageBuffers[feedbackIndex])
         if particleBuffer.scaleBuffers is not None:
             glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 3, particleBuffer.scaleBuffers[feedbackIndex])
-        if particleBuffer.alphaBuffers is not None:
-            glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 4, particleBuffer.alphaBuffers[feedbackIndex])
+        if particleBuffer.colorBuffers is not None:
+            glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 4, particleBuffer.colorBuffers[feedbackIndex])
