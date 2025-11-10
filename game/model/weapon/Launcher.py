@@ -25,7 +25,7 @@ class LauncherBulletTrace(ParticleBulletTrace):
         self.particleGroupsCount = 20
         self.initDelayMsec = 50
         self.particleAppearanceDelayMsec = 40
-        self.particleLifeTimeMsec = self.particleAppearanceDelayMsec * self.particleGroupsCount - self.particleAppearanceDelayMsec
+        self.particleLifeTimeMsec = self.particleAppearanceDelayMsec * (self.particleGroupsCount - 1)
         self.particleSize = 0.01
         self.aliveRemainCounter.set(50)
 

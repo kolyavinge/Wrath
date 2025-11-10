@@ -37,9 +37,6 @@ class LauncherBulletTraceShaderProgram(ShaderProgram):
     def setProjectionMatrix(self, projectionMatrix):
         self.setTransformMatrix4("projectionMatrix", projectionMatrix)
 
-    def setParticleAppearanceDelay(self, particleAppearanceDelay):
-        self.setFloat32("particleAppearanceDelay", particleAppearanceDelay)
-
     def setParticleLifeTime(self, particleLifeTime):
         self.setFloat32("particleLifeTime", particleLifeTime)
 

@@ -21,7 +21,7 @@ class LauncherBulletTraceParticleBufferInitializer:
     def getAgeData(self, trace):
         ageData = []
         for groupNumber in range(0, trace.particleGroupsCount):
-            appearanceDelayMsec = trace.initDelayMsec + groupNumber * trace.particleAppearanceDelayMsec
+            appearanceDelayMsec = trace.initDelayMsec + (groupNumber + 1) * trace.particleAppearanceDelayMsec
             ageData.extend([-appearanceDelayMsec] * trace.particlesInGroup)
 
         return ageData

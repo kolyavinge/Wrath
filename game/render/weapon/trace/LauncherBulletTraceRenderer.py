@@ -52,7 +52,6 @@ class LauncherBulletTraceRenderer:
         shader.setBulletDirectionTopNormal(trace.bullet.directionTopNormal)
         shader.setBulletNozzleRadius(trace.bullet.nozzleRadius)
         shader.setIsBulletAlive(trace.bullet.isAlive)
-        shader.setParticleAppearanceDelay(trace.particleAppearanceDelayMsec)
         shader.setParticleLifeTime(trace.particleLifeTimeMsec)
         shader.setParticleSize(trace.particleSize)
         particleBuffer = self.bufferCollection.getBufferFor(trace)

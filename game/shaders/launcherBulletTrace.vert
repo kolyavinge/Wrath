@@ -22,7 +22,6 @@ uniform float bulletNozzleRadius;
 uniform bool isBulletAlive;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
-uniform float particleAppearanceDelay;
 uniform float particleLifeTime;
 uniform float particleSize;
 uniform float deltaTime;
@@ -59,23 +58,35 @@ vec3 getInitPosition()
 
 void update()
 {
-    Age = in_VertexAge + deltaTime;
-    // particle respawn
-    if (0 <= in_VertexAge && in_VertexAge < deltaTime)
-    {
-        Position = getInitPosition();
-        Velocity = -in_Random.w * bulletDirection;
-    }
-    // particle alive
-    else if (0 < in_VertexAge && in_VertexAge < particleLifeTime)
+    // particle is alive - move it, whether bullet is alive or not
+    if (0 <= in_VertexAge && in_VertexAge < particleLifeTime)
     {
         Position = in_VertexPosition + in_VertexVelocity;
         Velocity = in_VertexVelocity;
+        Age = in_VertexAge + deltaTime;
     }
-    // particle dead
-    else if (isBulletAlive && (in_VertexAge > particleLifeTime))
+    // particle is not alive, check bullet is alive
+    else if (isBulletAlive)
     {
-        Age = -particleAppearanceDelay + (in_VertexAge - particleLifeTime);
+        // particle spawn
+        if (in_VertexAge < 0 && (in_VertexAge + deltaTime) >= 0)
+        {
+            Position = getInitPosition();
+            Velocity = -in_Random.w * bulletDirection;
+            Age = in_VertexAge + deltaTime;
+        }
+        // particle dead - respawn
+        else if (in_VertexAge > particleLifeTime)
+        {
+            Position = getInitPosition();
+            Velocity = -in_Random.w * bulletDirection;
+            Age = in_VertexAge - particleLifeTime;
+        }
+        // particle is coming
+        else // in_VertexAge < 0
+        {
+            Age = in_VertexAge + deltaTime;
+        }
     }
 }
 
