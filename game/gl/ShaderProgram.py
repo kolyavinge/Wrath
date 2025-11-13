@@ -1,7 +1,7 @@
 import numpy
 from OpenGL.GL import *
 
-from game.lib.sys import warn
+from game.lib.sys import convertListToLPLPChar, warn
 
 
 class ShaderProgram:
@@ -86,3 +86,6 @@ class ShaderProgram:
                     arrayIndexName = f"{arrayName}[{i}]"
                     location = glGetUniformLocation(self.id, arrayIndexName)
                     self.locations[arrayIndexName] = location
+
+    def setOutputNamesForTransformFeedback(self, outputNames):
+        glTransformFeedbackVaryings(self.id, len(outputNames), convertListToLPLPChar(outputNames), GL_SEPARATE_ATTRIBS)

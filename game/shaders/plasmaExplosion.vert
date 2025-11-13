@@ -1,13 +1,13 @@
 #version 460 core
 
-layout (location = 0) in vec3 in_VertexPosition;
-layout (location = 1) in vec3 in_VertexVelocity;
-layout (location = 2) in float in_VertexAge;
+layout (location = 0) in vec3 in_Position;
+layout (location = 1) in vec3 in_Velocity;
+layout (location = 2) in float in_Age;
 
 // for feedback buffer
-out vec3 Position;
-out vec3 Velocity;
-out float Age;
+out vec3 UpdatedPosition;
+out vec3 UpdatedVelocity;
+out float UpdatedAge;
 
 // for fragment shader
 out vec3 ParticleColor;
@@ -22,7 +22,7 @@ uniform float deltaTime;
 
 const float cos45 = 0.70710678118;
 // circle
-const vec3 offsets[] = vec3[]
+const vec3 points[] = vec3[]
 (
     vec3(0.0, 0.0, 0.0), vec3(   0.0,    1.0, 0.0), vec3(-cos45,  cos45, 0.0),
     vec3(0.0, 0.0, 0.0), vec3(-cos45,  cos45, 0.0), vec3(  -1.0,    0.0, 0.0),
@@ -36,23 +36,23 @@ const vec3 offsets[] = vec3[]
 
 void update()
 {
-    Position = in_VertexPosition;
-    Velocity = in_VertexVelocity;
-    Age = in_VertexAge + deltaTime;
-    if (0 <= in_VertexAge && in_VertexAge < particleLifeTime)
+    UpdatedPosition = in_Position;
+    UpdatedVelocity = in_Velocity;
+    UpdatedAge = in_Age + deltaTime;
+    if (0 <= in_Age && in_Age < particleLifeTime)
     {
-        Position += in_VertexVelocity;
+        UpdatedPosition += in_Velocity;
     }
 }
 
 void render()
 {
-    if (0 <= in_VertexAge && in_VertexAge < particleLifeTime)
+    if (0 <= in_Age && in_Age < particleLifeTime)
     {
-        float da = clamp(in_VertexAge / particleLifeTime, 0.0, 1.0);
+        float da = clamp(in_Age / particleLifeTime, 0.0, 1.0);
         ParticleColor = mix(vec3(0.03, 0.19, 0.46), vec3(0.33, 0.93, 0.96), da);
         TransparentValue = 1.0 - da;
-        vec3 viewPosition = (viewMatrix * vec4(in_VertexPosition, 1.0)).xyz + offsets[gl_VertexID] * particleSize;
+        vec3 viewPosition = (viewMatrix * vec4(in_Position, 1.0)).xyz + points[gl_VertexID] * particleSize;
         gl_Position = projectionMatrix * vec4(viewPosition, 1.0);
     }
     else

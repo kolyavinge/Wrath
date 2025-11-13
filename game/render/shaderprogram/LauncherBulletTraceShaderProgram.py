@@ -1,7 +1,4 @@
-from OpenGL.GL import GL_SEPARATE_ATTRIBS, glTransformFeedbackVaryings
-
 from game.gl.ShaderProgram import ShaderProgram
-from game.lib.sys import convertListToLPLPChar
 
 
 class LauncherBulletTraceShaderProgram(ShaderProgram):
@@ -10,8 +7,7 @@ class LauncherBulletTraceShaderProgram(ShaderProgram):
         super().__init__(shaders)
 
     def initBeforeLink(self):
-        outputNames = ["Position", "Velocity", "Age"]
-        glTransformFeedbackVaryings(self.id, len(outputNames), convertListToLPLPChar(outputNames), GL_SEPARATE_ATTRIBS)
+        self.setOutputNamesForTransformFeedback(["UpdatedPosition", "UpdatedVelocity", "UpdatedAge"])
 
     def setPassNumber(self, passNumber):
         self.setInt32("passNumber", passNumber)
