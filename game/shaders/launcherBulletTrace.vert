@@ -10,9 +10,7 @@ out vec3 UpdatedPosition;
 out vec3 UpdatedVelocity;
 out float UpdatedAge;
 
-// for fragment shader
-out vec3 ParticleColor;
-out float TransparentValue;
+out vec4 ParticleColor;
 
 uniform int passNumber;
 uniform vec3 tracePosition;
@@ -28,7 +26,7 @@ uniform float deltaTime;
 
 const float cos45 = 0.70710678118;
 // circle
-const vec3 points[] = vec3[]
+const vec3 vertices[] = vec3[]
 (
     vec3(0.0, 0.0, 0.0), vec3(   0.0,    1.0, 0.0), vec3(-cos45,  cos45, 0.0),
     vec3(0.0, 0.0, 0.0), vec3(-cos45,  cos45, 0.0), vec3(  -1.0,    0.0, 0.0),
@@ -87,14 +85,13 @@ void render()
 {
     if (0 <= in_Age && in_Age < particleLifeTime)
     {
-        ParticleColor = vec3(in_Random.w);
-        TransparentValue = clamp(1.0 - in_Age / particleLifeTime, 0.0, 1.0);
-        vec3 viewPosition = (viewMatrix * vec4(in_Position, 1.0)).xyz + points[gl_VertexID] * particleSize;
+        ParticleColor = vec4(vec3(in_Random.w), clamp(1.0 - in_Age / particleLifeTime, 0.0, 1.0));
+        vec3 viewPosition = (viewMatrix * vec4(in_Position, 1.0)).xyz + vertices[gl_VertexID] * particleSize;
         gl_Position = projectionMatrix * vec4(viewPosition, 1.0);
     }
     else
     {
-        TransparentValue = 0.0;
+        ParticleColor = vec4(0.0);
         gl_Position = vec4(0.0);
     }
 }
