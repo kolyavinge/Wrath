@@ -101,6 +101,7 @@ class ShaderProgramCollection:
 
         self.launcherBulletTrace = LauncherBulletTraceShaderProgram(
             [
+                self.shaderCollection.common,
                 self.shaderCollection.launcherBulletTraceVertex,
                 self.shaderCollection.launcherBulletTraceFragment,
             ]
