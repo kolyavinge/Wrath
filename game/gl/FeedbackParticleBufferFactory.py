@@ -7,7 +7,7 @@ class ExtraParticleDataBuffers:
 
     scaleBuffer = 3
     colorBuffer = 4
-    textureBuffer = 5
+    texCoordBuffer = 5
     random = 6
 
 
@@ -31,7 +31,7 @@ class FeedbackParticleBufferFactory:
         particleBuffer.ageBuffers = glGenBuffers(2)
         particleBuffer.scaleBuffers = None
         particleBuffer.colorBuffers = None
-        particleBuffer.textureBuffer = None
+        particleBuffer.texCoordBuffer = None
         particleBuffer.randomBuffer = None
 
         self.initDataBufferForFeedback(particleBuffer.positionBuffers, particleBuffer.particlesCount, 4, 3)
@@ -43,9 +43,9 @@ class FeedbackParticleBufferFactory:
         if ExtraParticleDataBuffers.colorBuffer in extraDataBuffers:
             particleBuffer.colorBuffers = glGenBuffers(2)
             self.initDataBufferForFeedback(particleBuffer.colorBuffers, 4, 4)
-        if ExtraParticleDataBuffers.textureBuffer in extraDataBuffers:
-            particleBuffer.textureBuffer = glGenBuffers(1)
-            self.initDataBuffer(particleBuffer.textureBuffer, particleBuffer.particlesCount, 4, 2)
+        if ExtraParticleDataBuffers.texCoordBuffer in extraDataBuffers:
+            particleBuffer.texCoordBuffer = glGenBuffers(1)
+            self.initDataBuffer(particleBuffer.texCoordBuffer, particleBuffer.particlesCount, 4, 4)
         if ExtraParticleDataBuffers.random in extraDataBuffers:
             particleBuffer.randomBuffer = glGenBuffers(1)
             self.initDataBuffer(particleBuffer.randomBuffer, particleBuffer.particlesCount, 4, 4)
@@ -93,9 +93,9 @@ class FeedbackParticleBufferFactory:
             glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(4)
 
-        if particleBuffer.textureBuffer is not None:
-            glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.textureBuffer)
-            glVertexAttribPointer(5, 2, GL_FLOAT, GL_FALSE, 0, None)
+        if particleBuffer.texCoordBuffer is not None:
+            glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.texCoordBuffer)
+            glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(5)
 
         if particleBuffer.randomBuffer is not None:

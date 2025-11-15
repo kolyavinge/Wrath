@@ -43,15 +43,27 @@ class FeedbackParticleBuffer:
     def setColorData(self, colorData):
         if self.colorBuffers is None:
             raise Exception("Color buffer is not initialized")
-        data = numpy.array(colorData, dtype=numpy.float32)
-        self.setData(self.colorBuffers[0], data)
-        self.setData(self.colorBuffers[1], data)
+        plainData = []
+        for vector in colorData:
+            plainData.append(vector.x)
+            plainData.append(vector.y)
+            plainData.append(vector.z)
+            plainData.append(vector.w)
+        plainData = numpy.array(plainData, dtype=numpy.float32)
+        self.setData(self.colorBuffers[0], plainData)
+        self.setData(self.colorBuffers[1], plainData)
 
-    def setTextureData(self, textureData):
-        if self.textureBuffer is None:
-            raise Exception("Texture buffer is not initialized")
-        data = numpy.array(textureData, dtype=numpy.float32)
-        self.setData(self.textureBuffer, data)
+    def setTexCoordData(self, texCoordData):
+        if self.texCoordBuffer is None:
+            raise Exception("TexCoord buffer is not initialized")
+        plainData = []
+        for vector in texCoordData:
+            plainData.append(vector.x)
+            plainData.append(vector.y)
+            plainData.append(vector.z)
+            plainData.append(vector.w)
+        plainData = numpy.array(texCoordData, dtype=numpy.float32)
+        self.setData(self.texCoordBuffer, plainData)
 
     def setRandomData(self, randomData):
         if self.randomBuffer is None:
@@ -72,6 +84,10 @@ class FeedbackParticleBuffer:
             glVertexAttribDivisor(3, index)
         if self.colorBuffers is not None:
             glVertexAttribDivisor(4, index)
+        if self.texCoordBuffer is not None:
+            glVertexAttribDivisor(5, index)
+        if self.randomBuffer is not None:
+            glVertexAttribDivisor(6, index)
 
     def swapBuffers(self):
         tmp = self.sourceBufferId
@@ -92,8 +108,8 @@ class FeedbackParticleBuffer:
             glDeleteBuffers(len(self.scaleBuffers), self.scaleBuffers)
         if self.colorBuffers is not None:
             glDeleteBuffers(len(self.colorBuffers), self.colorBuffers)
-        if self.textureBuffer is not None:
-            glDeleteBuffers(1, self.textureBuffer)
+        if self.texCoordBuffer is not None:
+            glDeleteBuffers(1, self.texCoordBuffer)
         if self.randomBuffer is not None:
             glDeleteBuffers(1, self.randomBuffer)
         self.feedbacks = None
@@ -103,5 +119,5 @@ class FeedbackParticleBuffer:
         self.ageBuffers = None
         self.scaleBuffers = None
         self.colorBuffers = None
-        self.textureBuffer = None
+        self.texCoordBuffer = None
         self.randomBuffer = None
