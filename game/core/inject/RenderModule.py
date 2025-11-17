@@ -8,6 +8,7 @@ from game.gl.model3d.FrameLoader import *
 from game.gl.model3d.Model3dLoader import *
 from game.gl.model3d.Model3dRenderer import *
 from game.gl.model3d.RenderModel3dLoader import *
+from game.gl.ParticleBufferFactory import *
 from game.gl.ShaderCompiler import *
 from game.gl.SpriteRendererFactory import *
 from game.gl.TextRenderer import *
@@ -98,6 +99,7 @@ class RenderModule:
         binder.bindSingleton(Model3dLoader)
         binder.bindSingleton(Model3dRenderer)
         binder.bindSingleton(RenderModel3dLoader)
+        binder.bindSingleton(ParticleBufferFactory)
         binder.bindSingleton(ShaderCompiler)
         binder.bindSingleton(SpriteRendererFactory)
         binder.bindSingleton(TextRenderer)

@@ -1,4 +1,5 @@
 from game.gl.FeedbackParticleBufferFactory import *
+from game.gl.ParticleBuffer import ExtraParticleDataBuffers
 from game.lib.Math import Math
 from game.lib.Random import Random
 

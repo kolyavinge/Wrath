@@ -1,120 +1,78 @@
 from OpenGL.GL import *
 
 from game.gl.FeedbackParticleBuffer import FeedbackParticleBuffer
-
-
-class ExtraParticleDataBuffers:
-
-    scaleBuffer = 3
-    colorBuffer = 4
-    texCoordBuffer = 5
-    random = 6
+from game.gl.ParticleBuffer import ExtraParticleDataBuffers
+from game.gl.ParticleBufferFactory import ParticleBufferFactory
 
 
 class FeedbackParticleBufferFactory:
 
+    def __init__(self, particleBufferFactory: ParticleBufferFactory):
+        self.particleBufferFactory = particleBufferFactory
+
     def make(self, particlesCount, extraDataBuffers=[]):
-        particleBuffer = FeedbackParticleBuffer(particlesCount)
-        self.initDataBuffers(particleBuffer, extraDataBuffers)
-        self.initVertexBuffers(particleBuffer)
-        self.initFeedbacks(particleBuffer)
-        particleBuffer.sourceBufferId = particleBuffer.particleBuffers[0]
-        particleBuffer.destinationBufferId = particleBuffer.particleBuffers[1]
-        particleBuffer.sourceFeedbackId = particleBuffer.feedbacks[0]
-        particleBuffer.destinationFeedbackId = particleBuffer.feedbacks[1]
+        feedbackParticleBuffer = FeedbackParticleBuffer(particlesCount)
 
-        return particleBuffer
+        # make first particle buffer with all data buffers
+        feedbackParticleBuffer.particleBuffer1 = self.particleBufferFactory.make(particlesCount, extraDataBuffers)
 
-    def initDataBuffers(self, particleBuffer, extraDataBuffers):
-        particleBuffer.positionBuffers = glGenBuffers(2)
-        particleBuffer.velocityBuffers = glGenBuffers(2)
-        particleBuffer.ageBuffers = glGenBuffers(2)
-        particleBuffer.scaleBuffers = None
-        particleBuffer.colorBuffers = None
-        particleBuffer.texCoordBuffer = None
-        particleBuffer.randomBuffer = None
+        # make second particle buffer for feedback with data buffers no need feedback
+        # bind these share data buffers from first particle buffer
+        extraDataBuffersNoNeedFeedback = self.getExtraDataBuffersNoNeedFeedback(extraDataBuffers)
+        feedbackParticleBuffer.particleBuffer2 = self.particleBufferFactory.make(particlesCount, extraDataBuffersNoNeedFeedback)
+        self.bindShareDataBuffersNoNeedFeedback(feedbackParticleBuffer)
 
-        self.initDataBufferForFeedback(particleBuffer.positionBuffers, particleBuffer.particlesCount, 4, 3)
-        self.initDataBufferForFeedback(particleBuffer.velocityBuffers, particleBuffer.particlesCount, 4, 3)
-        self.initDataBufferForFeedback(particleBuffer.ageBuffers, particleBuffer.particlesCount, 4, 1)
-        if ExtraParticleDataBuffers.scaleBuffer in extraDataBuffers:
-            particleBuffer.scaleBuffers = glGenBuffers(2)
-            self.initDataBufferForFeedback(particleBuffer.scaleBuffers, 4, 1)
-        if ExtraParticleDataBuffers.colorBuffer in extraDataBuffers:
-            particleBuffer.colorBuffers = glGenBuffers(2)
-            self.initDataBufferForFeedback(particleBuffer.colorBuffers, 4, 4)
-        if ExtraParticleDataBuffers.texCoordBuffer in extraDataBuffers:
-            particleBuffer.texCoordBuffer = glGenBuffers(1)
-            self.initDataBuffer(particleBuffer.texCoordBuffer, particleBuffer.particlesCount, 4, 4)
-        if ExtraParticleDataBuffers.random in extraDataBuffers:
-            particleBuffer.randomBuffer = glGenBuffers(1)
-            self.initDataBuffer(particleBuffer.randomBuffer, particleBuffer.particlesCount, 4, 4)
+        self.initFeedbacks(feedbackParticleBuffer)
 
-    def initDataBufferForFeedback(self, buffers, particlesCount, elementSize, elementsCount):
-        memorySize = particlesCount * elementSize * elementsCount
-        glBindBuffer(GL_ARRAY_BUFFER, buffers[0])
-        glBufferData(GL_ARRAY_BUFFER, memorySize, None, GL_DYNAMIC_COPY)
-        glBindBuffer(GL_ARRAY_BUFFER, buffers[1])
-        glBufferData(GL_ARRAY_BUFFER, memorySize, None, GL_DYNAMIC_COPY)
+        return feedbackParticleBuffer
 
-    def initDataBuffer(self, buffer, particlesCount, elementSize, elementsCount):
-        memorySize = particlesCount * elementSize * elementsCount
-        glBindBuffer(GL_ARRAY_BUFFER, buffer)
-        glBufferData(GL_ARRAY_BUFFER, memorySize, None, GL_DYNAMIC_COPY)
+    def bindShareDataBuffersNoNeedFeedback(self, feedbackParticleBuffer):
+        glBindVertexArray(feedbackParticleBuffer.particleBuffer2.vaid)
 
-    def initVertexBuffers(self, particleBuffer):
-        particleBuffer.particleBuffers = glGenVertexArrays(2)
-        self.initVertexBuffer(particleBuffer, 0)
-        self.initVertexBuffer(particleBuffer, 1)
-        glBindVertexArray(0)
-
-    def initVertexBuffer(self, particleBuffer, vertexBufferIndex):
-        glBindVertexArray(particleBuffer.particleBuffers[vertexBufferIndex])
-
-        glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.positionBuffers[vertexBufferIndex])
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, None)
-        glEnableVertexAttribArray(0)
-
-        glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.velocityBuffers[vertexBufferIndex])
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, None)
-        glEnableVertexAttribArray(1)
-
-        glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.ageBuffers[vertexBufferIndex])
-        glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 0, None)
-        glEnableVertexAttribArray(2)
-
-        if particleBuffer.scaleBuffers is not None:
-            glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.scaleBuffers[vertexBufferIndex])
-            glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 0, None)
-            glEnableVertexAttribArray(3)
-
-        if particleBuffer.colorBuffers is not None:
-            glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.colorBuffers[vertexBufferIndex])
-            glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 0, None)
-            glEnableVertexAttribArray(4)
-
-        if particleBuffer.texCoordBuffer is not None:
-            glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.texCoordBuffer)
+        if feedbackParticleBuffer.particleBuffer1.texCoordBuffer is not None:
+            feedbackParticleBuffer.particleBuffer2.texCoordBuffer = feedbackParticleBuffer.particleBuffer1.texCoordBuffer
+            glBindBuffer(GL_ARRAY_BUFFER, feedbackParticleBuffer.particleBuffer1.texCoordBuffer)
             glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(5)
 
-        if particleBuffer.randomBuffer is not None:
-            glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.randomBuffer)
+        if feedbackParticleBuffer.particleBuffer1.randomBuffer is not None:
+            feedbackParticleBuffer.particleBuffer2.randomBuffer = feedbackParticleBuffer.particleBuffer1.randomBuffer
+            glBindBuffer(GL_ARRAY_BUFFER, feedbackParticleBuffer.particleBuffer1.randomBuffer)
             glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(6)
 
-    def initFeedbacks(self, particleBuffer):
-        particleBuffer.feedbacks = glGenTransformFeedbacks(2)
-        self.initFeedback(particleBuffer, 0)
-        self.initFeedback(particleBuffer, 1)
-        glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, 0)
+        glBindVertexArray(0)
 
-    def initFeedback(self, particleBuffer, feedbackIndex):
-        glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, particleBuffer.feedbacks[feedbackIndex])
-        glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, particleBuffer.positionBuffers[feedbackIndex])
-        glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 1, particleBuffer.velocityBuffers[feedbackIndex])
-        glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 2, particleBuffer.ageBuffers[feedbackIndex])
-        if particleBuffer.scaleBuffers is not None:
-            glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 3, particleBuffer.scaleBuffers[feedbackIndex])
-        if particleBuffer.colorBuffers is not None:
-            glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 4, particleBuffer.colorBuffers[feedbackIndex])
+    def initFeedbacks(self, feedbackParticleBuffer):
+        feedbackParticleBuffer.feedbacks = glGenTransformFeedbacks(2)
+        self.initFeedback(feedbackParticleBuffer.particleBuffer1, feedbackParticleBuffer.feedbacks[0])
+        self.initFeedback(feedbackParticleBuffer.particleBuffer2, feedbackParticleBuffer.feedbacks[1])
+        glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, 0)
+        # init fields to swap buffers
+        feedbackParticleBuffer.sourceBufferId = feedbackParticleBuffer.particleBuffer1.vaid
+        feedbackParticleBuffer.destinationBufferId = feedbackParticleBuffer.particleBuffer2.vaid
+        feedbackParticleBuffer.sourceFeedbackId = feedbackParticleBuffer.feedbacks[0]
+        feedbackParticleBuffer.destinationFeedbackId = feedbackParticleBuffer.feedbacks[1]
+
+    def initFeedback(self, particleBuffer, feedbackBuffer):
+        glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, feedbackBuffer)
+        glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, particleBuffer.positionBuffer)
+        glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 1, particleBuffer.velocityBuffer)
+        glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 2, particleBuffer.ageBuffer)
+        if particleBuffer.scaleBuffer is not None:
+            glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 3, particleBuffer.scaleBuffer)
+        if particleBuffer.colorBuffer is not None:
+            glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 4, particleBuffer.colorBuffer)
+
+    def getExtraDataBuffersNoNeedFeedback(self, extraDataBuffers):
+        if len(extraDataBuffers) == 0:
+            return extraDataBuffers
+
+        extraDataBuffers = extraDataBuffers.copy()
+        if ExtraParticleDataBuffers.texCoordBuffer in extraDataBuffers:
+            extraDataBuffers.remove(ExtraParticleDataBuffers.texCoordBuffer)
+
+        if ExtraParticleDataBuffers.random in extraDataBuffers:
+            extraDataBuffers.remove(ExtraParticleDataBuffers.random)
+
+        return extraDataBuffers
