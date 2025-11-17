@@ -21,6 +21,35 @@ class ShaderProgramCollection:
         self.shaderCollection = shaderCollection
 
     def init(self):
+        self.blur = BlurShaderProgram(
+            [
+                self.shaderCollection.blurVertex,
+                self.shaderCollection.blurFragment,
+            ]
+        )
+
+        self.crosshair = CrossshairShaderProgram(
+            [
+                self.shaderCollection.crosshairVertex,
+                self.shaderCollection.crosshairFragment,
+            ]
+        )
+
+        self.launcherBulletTrace = LauncherBulletTraceShaderProgram(
+            [
+                self.shaderCollection.common,
+                self.shaderCollection.launcherBulletTraceVertex,
+                self.shaderCollection.launcherBulletTraceFragment,
+            ]
+        )
+
+        self.mainSceneCompose = MainSceneComposeShaderProgram(
+            [
+                self.shaderCollection.mainSceneComposeVertex,
+                self.shaderCollection.mainSceneComposeFragment,
+            ]
+        )
+
         self.mainSceneLightComponents = MainSceneLightComponentsShaderProgram(
             [
                 self.shaderCollection.mainSceneLightComponentsVertex,
@@ -43,17 +72,10 @@ class ShaderProgramCollection:
             ]
         )
 
-        self.mainSceneCompose = MainSceneComposeShaderProgram(
+        self.meshExt = MeshExtShaderProgram(
             [
-                self.shaderCollection.mainSceneComposeVertex,
-                self.shaderCollection.mainSceneComposeFragment,
-            ]
-        )
-
-        self.crosshair = CrossshairShaderProgram(
-            [
-                self.shaderCollection.crosshairVertex,
-                self.shaderCollection.crosshairFragment,
+                self.shaderCollection.meshExtVertex,
+                self.shaderCollection.meshExtFragment,
             ]
         )
 
@@ -64,17 +86,17 @@ class ShaderProgramCollection:
             ]
         )
 
-        self.meshExt = MeshExtShaderProgram(
+        self.plainColor = PlainColorShaderProgram(
             [
-                self.shaderCollection.meshExtVertex,
-                self.shaderCollection.meshExtFragment,
+                self.shaderCollection.plainColorVertex,
+                self.shaderCollection.plainColorFragment,
             ]
         )
 
-        self.shineCircle = ShineCircleShaderProgram(
+        self.plasmaExplosion = PlasmaExplosionShaderProgram(
             [
-                self.shaderCollection.shineCircleVertex,
-                self.shaderCollection.shineCircleFragment,
+                self.shaderCollection.plasmaExplosionVertex,
+                self.shaderCollection.plasmaExplosionFragment,
             ]
         )
 
@@ -85,10 +107,10 @@ class ShaderProgramCollection:
             ]
         )
 
-        self.plainColor = PlainColorShaderProgram(
+        self.shineCircle = ShineCircleShaderProgram(
             [
-                self.shaderCollection.plainColorVertex,
-                self.shaderCollection.plainColorFragment,
+                self.shaderCollection.shineCircleVertex,
+                self.shaderCollection.shineCircleFragment,
             ]
         )
 
@@ -96,27 +118,5 @@ class ShaderProgramCollection:
             [
                 self.shaderCollection.vignetteVertex,
                 self.shaderCollection.vignetteFragment,
-            ]
-        )
-
-        self.launcherBulletTrace = LauncherBulletTraceShaderProgram(
-            [
-                self.shaderCollection.common,
-                self.shaderCollection.launcherBulletTraceVertex,
-                self.shaderCollection.launcherBulletTraceFragment,
-            ]
-        )
-
-        self.blur = BlurShaderProgram(
-            [
-                self.shaderCollection.blurVertex,
-                self.shaderCollection.blurFragment,
-            ]
-        )
-
-        self.plasmaExplosion = PlasmaExplosionShaderProgram(
-            [
-                self.shaderCollection.plasmaExplosionVertex,
-                self.shaderCollection.plasmaExplosionFragment,
             ]
         )
