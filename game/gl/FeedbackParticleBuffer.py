@@ -18,9 +18,9 @@ class FeedbackParticleBuffer:
         self.particleBuffer1.setAgeData(ageData)
         self.particleBuffer2.setAgeData(ageData)
 
-    def setScaleData(self, scaleData):
-        self.particleBuffer1.setScaleData(scaleData)
-        self.particleBuffer2.setScaleData(scaleData)
+    def setLifeTimeData(self, lifeTimeData):
+        self.particleBuffer1.setLifeTimeData(lifeTimeData)
+        self.particleBuffer2.setLifeTimeData(lifeTimeData)
 
     def setColorData(self, colorData):
         self.particleBuffer1.setColorData(colorData)

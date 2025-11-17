@@ -1,7 +1,6 @@
 from OpenGL.GL import *
 
 from game.gl.FeedbackParticleBuffer import FeedbackParticleBuffer
-from game.gl.ParticleBuffer import ExtraParticleDataBuffers
 from game.gl.ParticleBufferFactory import ParticleBufferFactory
 
 
@@ -18,8 +17,7 @@ class FeedbackParticleBufferFactory:
 
         # make second particle buffer for feedback with data buffers no need feedback
         # bind these share data buffers from first particle buffer
-        extraDataBuffersNoNeedFeedback = self.getExtraDataBuffersNoNeedFeedback(extraDataBuffers)
-        feedbackParticleBuffer.particleBuffer2 = self.particleBufferFactory.make(particlesCount, extraDataBuffersNoNeedFeedback)
+        feedbackParticleBuffer.particleBuffer2 = self.particleBufferFactory.make(particlesCount)
         self.bindShareDataBuffersNoNeedFeedback(feedbackParticleBuffer)
 
         self.initFeedbacks(feedbackParticleBuffer)
@@ -28,6 +26,18 @@ class FeedbackParticleBufferFactory:
 
     def bindShareDataBuffersNoNeedFeedback(self, feedbackParticleBuffer):
         glBindVertexArray(feedbackParticleBuffer.particleBuffer2.vaid)
+
+        if feedbackParticleBuffer.particleBuffer1.lifeTimeBuffer is not None:
+            feedbackParticleBuffer.particleBuffer2.lifeTimeBuffer = feedbackParticleBuffer.particleBuffer1.lifeTimeBuffer
+            glBindBuffer(GL_ARRAY_BUFFER, feedbackParticleBuffer.particleBuffer1.lifeTimeBuffer)
+            glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 0, None)
+            glEnableVertexAttribArray(3)
+
+        if feedbackParticleBuffer.particleBuffer1.colorBuffer is not None:
+            feedbackParticleBuffer.particleBuffer2.colorBuffer = feedbackParticleBuffer.particleBuffer1.colorBuffer
+            glBindBuffer(GL_ARRAY_BUFFER, feedbackParticleBuffer.particleBuffer1.colorBuffer)
+            glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 0, None)
+            glEnableVertexAttribArray(4)
 
         if feedbackParticleBuffer.particleBuffer1.texCoordBuffer is not None:
             feedbackParticleBuffer.particleBuffer2.texCoordBuffer = feedbackParticleBuffer.particleBuffer1.texCoordBuffer
@@ -59,20 +69,3 @@ class FeedbackParticleBufferFactory:
         glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, particleBuffer.positionBuffer)
         glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 1, particleBuffer.velocityBuffer)
         glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 2, particleBuffer.ageBuffer)
-        if particleBuffer.scaleBuffer is not None:
-            glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 3, particleBuffer.scaleBuffer)
-        if particleBuffer.colorBuffer is not None:
-            glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 4, particleBuffer.colorBuffer)
-
-    def getExtraDataBuffersNoNeedFeedback(self, extraDataBuffers):
-        if len(extraDataBuffers) == 0:
-            return extraDataBuffers
-
-        extraDataBuffers = extraDataBuffers.copy()
-        if ExtraParticleDataBuffers.texCoordBuffer in extraDataBuffers:
-            extraDataBuffers.remove(ExtraParticleDataBuffers.texCoordBuffer)
-
-        if ExtraParticleDataBuffers.random in extraDataBuffers:
-            extraDataBuffers.remove(ExtraParticleDataBuffers.random)
-
-        return extraDataBuffers

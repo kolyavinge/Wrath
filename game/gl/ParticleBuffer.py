@@ -4,7 +4,7 @@ from OpenGL.GL import *
 
 class ExtraParticleDataBuffers:
 
-    scaleBuffer = 3
+    lifeTimeBuffer = 3
     colorBuffer = 4
     texCoordBuffer = 5
     random = 6
@@ -37,11 +37,11 @@ class ParticleBuffer:
         data = numpy.array(ageData, dtype=numpy.float32)
         self.setData(self.ageBuffer, data)
 
-    def setScaleData(self, scaleData):
-        if self.scaleBuffer is None:
-            raise Exception("Scale buffer is not initialized")
-        data = numpy.array(scaleData, dtype=numpy.float32)
-        self.setData(self.scaleBuffer, data)
+    def setLifeTimeData(self, lifeTimeData):
+        if self.lifeTimeBuffer is None:
+            raise Exception("LifeTime buffer is not initialized")
+        data = numpy.array(lifeTimeData, dtype=numpy.float32)
+        self.setData(self.lifeTimeBuffer, data)
 
     def setColorData(self, colorData):
         if self.colorBuffer is None:
@@ -82,7 +82,7 @@ class ParticleBuffer:
         glVertexAttribDivisor(0, index)
         glVertexAttribDivisor(1, index)
         glVertexAttribDivisor(2, index)
-        if self.scaleBuffer is not None:
+        if self.lifeTimeBuffer is not None:
             glVertexAttribDivisor(3, index)
         if self.colorBuffer is not None:
             glVertexAttribDivisor(4, index)
@@ -96,8 +96,8 @@ class ParticleBuffer:
         glDeleteBuffers(1, self.positionBuffer)
         glDeleteBuffers(1, self.velocityBuffer)
         glDeleteBuffers(1, self.ageBuffer)
-        if self.scaleBuffer is not None:
-            glDeleteBuffers(1, self.scaleBuffer)
+        if self.lifeTimeBuffer is not None:
+            glDeleteBuffers(1, self.lifeTimeBuffer)
         if self.colorBuffer is not None:
             glDeleteBuffers(1, self.colorBuffer)
         if self.texCoordBuffer is not None:
@@ -108,7 +108,7 @@ class ParticleBuffer:
         self.positionBuffer = None
         self.velocityBuffer = None
         self.ageBuffer = None
-        self.scaleBuffer = None
+        self.lifeTimeBuffer = None
         self.colorBuffer = None
         self.texCoordBuffer = None
         self.randomBuffer = None

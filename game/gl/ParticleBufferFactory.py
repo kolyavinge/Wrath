@@ -16,7 +16,7 @@ class ParticleBufferFactory:
         particleBuffer.positionBuffer = glGenBuffers(1)
         particleBuffer.velocityBuffer = glGenBuffers(1)
         particleBuffer.ageBuffer = glGenBuffers(1)
-        particleBuffer.scaleBuffer = None
+        particleBuffer.lifeTimeBuffer = None
         particleBuffer.colorBuffer = None
         particleBuffer.texCoordBuffer = None
         particleBuffer.randomBuffer = None
@@ -24,9 +24,9 @@ class ParticleBufferFactory:
         self.initDataBuffer(particleBuffer.positionBuffer, particleBuffer.particlesCount, 4, 3)
         self.initDataBuffer(particleBuffer.velocityBuffer, particleBuffer.particlesCount, 4, 3)
         self.initDataBuffer(particleBuffer.ageBuffer, particleBuffer.particlesCount, 4, 1)
-        if ExtraParticleDataBuffers.scaleBuffer in extraDataBuffers:
-            particleBuffer.scaleBuffer = glGenBuffers(1)
-            self.initDataBuffer(particleBuffer.scaleBuffer, 4, 1)
+        if ExtraParticleDataBuffers.lifeTimeBuffer in extraDataBuffers:
+            particleBuffer.lifeTimeBuffer = glGenBuffers(1)
+            self.initDataBuffer(particleBuffer.lifeTimeBuffer, 4, 1)
         if ExtraParticleDataBuffers.colorBuffer in extraDataBuffers:
             particleBuffer.colorBuffer = glGenBuffers(1)
             self.initDataBuffer(particleBuffer.colorBuffer, 4, 4)
@@ -58,8 +58,8 @@ class ParticleBufferFactory:
         glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 0, None)
         glEnableVertexAttribArray(2)
 
-        if particleBuffer.scaleBuffer is not None:
-            glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.scaleBuffer)
+        if particleBuffer.lifeTimeBuffer is not None:
+            glBindBuffer(GL_ARRAY_BUFFER, particleBuffer.lifeTimeBuffer)
             glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 0, None)
             glEnableVertexAttribArray(3)
 
