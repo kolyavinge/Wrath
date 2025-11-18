@@ -26,10 +26,10 @@ class ParticleBufferFactory:
         self.initDataBuffer(particleBuffer.ageBuffer, particleBuffer.particlesCount, 4, 1)
         if ExtraParticleDataBuffers.lifeTimeBuffer in extraDataBuffers:
             particleBuffer.lifeTimeBuffer = glGenBuffers(1)
-            self.initDataBuffer(particleBuffer.lifeTimeBuffer, 4, 1)
+            self.initDataBuffer(particleBuffer.lifeTimeBuffer, particleBuffer.particlesCount, 4, 1)
         if ExtraParticleDataBuffers.colorBuffer in extraDataBuffers:
             particleBuffer.colorBuffer = glGenBuffers(1)
-            self.initDataBuffer(particleBuffer.colorBuffer, 4, 4)
+            self.initDataBuffer(particleBuffer.colorBuffer, particleBuffer.particlesCount, 4, 4)
         if ExtraParticleDataBuffers.texCoordBuffer in extraDataBuffers:
             particleBuffer.texCoordBuffer = glGenBuffers(1)
             self.initDataBuffer(particleBuffer.texCoordBuffer, particleBuffer.particlesCount, 4, 4)

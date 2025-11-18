@@ -64,7 +64,7 @@ class ParticleBuffer:
             plainData.append(vector.y)
             plainData.append(vector.z)
             plainData.append(vector.w)
-        plainData = numpy.array(texCoordData, dtype=numpy.float32)
+        plainData = numpy.array(plainData, dtype=numpy.float32)
         self.setData(self.texCoordBuffer, plainData)
 
     def setRandomData(self, randomData):
