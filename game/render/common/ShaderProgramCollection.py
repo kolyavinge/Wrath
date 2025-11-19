@@ -1,6 +1,7 @@
 from game.render.common.ShaderCollection import ShaderCollection
 from game.render.shaderprogram.BlurShaderProgram import BlurShaderProgram
 from game.render.shaderprogram.CrossshairShaderProgram import CrossshairShaderProgram
+from game.render.shaderprogram.FireExplosionShaderProgram import *
 from game.render.shaderprogram.LauncherBulletTraceShaderProgram import *
 from game.render.shaderprogram.MainSceneComposeShaderProgram import *
 from game.render.shaderprogram.MainSceneLightComponentsShaderProgram import *
@@ -32,6 +33,13 @@ class ShaderProgramCollection:
             [
                 self.shaderCollection.crosshairVertex,
                 self.shaderCollection.crosshairFragment,
+            ]
+        )
+
+        self.fireExplosion = FireExplosionShaderProgram(
+            [
+                self.shaderCollection.fireExplosionVertex,
+                self.shaderCollection.fireExplosionFragment,
             ]
         )
 

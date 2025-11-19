@@ -9,6 +9,7 @@ from game.gl.model3d.Model3dLoader import *
 from game.gl.model3d.Model3dRenderer import *
 from game.gl.model3d.RenderModel3dLoader import *
 from game.gl.ParticleBufferFactory import *
+from game.gl.ParticleRenderer import *
 from game.gl.ShaderCompiler import *
 from game.gl.SpriteRendererFactory import *
 from game.gl.TextRenderer import *
@@ -18,6 +19,7 @@ from game.gl.vbo.VBOBuilderFactory import *
 from game.gl.vbo.VBORenderer import *
 from game.gl.vbo.VBOUpdaterFactory import *
 from game.render.anx.BlurRenderer import *
+from game.render.anx.FireExplosionParticleBufferInitializer import *
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
 from game.render.anx.PlasmaExplosionParticleBufferInitializer import *
 from game.render.anx.RayRenderer import *
@@ -67,6 +69,7 @@ from game.render.weapon.BulletRenderCollection import *
 from game.render.weapon.BulletRenderer import *
 from game.render.weapon.BulletTraceRenderer import *
 from game.render.weapon.CrosshairRenderer import *
+from game.render.weapon.explosion.FireExplosionRenderer import *
 from game.render.weapon.explosion.LauncherExplosionRenderer import *
 from game.render.weapon.explosion.PlasmaExplosionRenderer import *
 from game.render.weapon.ExplosionRenderer import *
@@ -100,6 +103,7 @@ class RenderModule:
         binder.bindSingleton(Model3dRenderer)
         binder.bindSingleton(RenderModel3dLoader)
         binder.bindSingleton(ParticleBufferFactory)
+        binder.bindSingleton(ParticleRenderer)
         binder.bindSingleton(ShaderCompiler)
         binder.bindSingleton(SpriteRendererFactory)
         binder.bindSingleton(TextRenderer)
@@ -109,6 +113,7 @@ class RenderModule:
         binder.bindSingleton(VBORenderer)
         binder.bindSingleton(VBOUpdaterFactory)
         binder.bindSingleton(BlurRenderer)
+        binder.bindSingleton(FireExplosionParticleBufferInitializer)
         binder.bindSingleton(LauncherBulletTraceParticleBufferInitializer)
         binder.bindSingleton(PlasmaExplosionParticleBufferInitializer)
         binder.bindSingleton(RayRenderer)
@@ -158,6 +163,7 @@ class RenderModule:
         binder.bindSingleton(BulletRenderer)
         binder.bindSingleton(BulletTraceRenderer)
         binder.bindSingleton(CrosshairRenderer)
+        binder.bindSingleton(FireExplosionRenderer)
         binder.bindSingleton(LauncherExplosionRenderer)
         binder.bindSingleton(PlasmaExplosionRenderer)
         binder.bindSingleton(ExplosionRenderer)

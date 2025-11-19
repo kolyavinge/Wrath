@@ -19,6 +19,9 @@ class ShaderCollection:
         self.crosshairVertex = self.shaderCompiler.compile(path + "crosshair.vert", ShaderType.vertex)
         self.crosshairFragment = self.shaderCompiler.compile(path + "crosshair.frag", ShaderType.fragment)
 
+        self.fireExplosionVertex = self.shaderCompiler.compile(path + "fireExplosion.vert", ShaderType.vertex)
+        self.fireExplosionFragment = self.shaderCompiler.compile(path + "fireExplosion.frag", ShaderType.fragment)
+
         self.launcherBulletTraceVertex = self.shaderCompiler.compile(path + "launcherBulletTrace.vert", ShaderType.vertex)
         self.launcherBulletTraceFragment = self.shaderCompiler.compile(path + "launcherBulletTrace.frag", ShaderType.fragment)
 

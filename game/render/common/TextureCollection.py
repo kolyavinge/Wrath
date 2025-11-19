@@ -40,6 +40,7 @@ class TextureCollection:
         self.sniperFlash = self.textureLoader.load(path + "sniperFlash.png")
         self.sniperCrosshair = self.textureLoader.load(path + "sniperCrosshair.png")
         self.bloodStain1 = self.textureLoader.load(path + "bloodStain1.png")
+        self.launcherExplosion = self.textureLoader.load(path + "launcherExplosion.png")
         self.background1 = self.textureLoader.load(path + "background1.jpg")
         # self.background1 = self.textureLoader.load(path + "sphereTest.png")
 

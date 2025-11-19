@@ -35,7 +35,7 @@ class LauncherExplosion(Explosion):
     def __init__(self):
         super().__init__()
         self.maxRadius = 8
-        self.velocityValue = 0.5
+        self.velocityValue = 0.1
         self.damagePercent = 0.02
 
 
