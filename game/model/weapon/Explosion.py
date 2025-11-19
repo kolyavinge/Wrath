@@ -15,6 +15,7 @@ class Explosion:
         self.aliveRemainCounter = DecrementCounter()
         self.collisionLevelSegment = None
         self.visibilityLevelSegment = None
+        self.initTimeSec = 0
 
     def update(self):
         if self.radius >= 0:

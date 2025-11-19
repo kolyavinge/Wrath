@@ -47,7 +47,7 @@ class PowerupUpdater:
                 count += 1
 
         currentPowerups.extend(newPowerups)
-        self.delay = 200 * CommonConstants.mainTimerMsec
+        self.delay = 200 * CommonConstants.mainTimerMsec  # TODO decrement counter
 
     def makeNewPowerup(self, powerupType):
         powerup = powerupType()

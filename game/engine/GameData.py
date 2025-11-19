@@ -15,6 +15,7 @@ class GameData:
 
     def __init__(self):
         self.globalTimeMsec = 0
+        self.globalTimeSec = 0
         self.level = None
         self.collisionTree = BSPTree()
         self.visibilityTree = BSPTree()
@@ -52,3 +53,4 @@ class GameData:
 
     def updateGlobalTime(self):
         self.globalTimeMsec += CommonConstants.mainTimerMsec
+        self.globalTimeSec = self.globalTimeMsec / 1000.0

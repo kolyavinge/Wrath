@@ -13,6 +13,7 @@ class ExplosionLogic:
             explosion.visibilityLevelSegment = bullet.currentVisibilityLevelSegment
             explosion.collisionLevelSegment.explosions.append(explosion)
             explosion.visibilityLevelSegment.explosions.append(explosion)
+            explosion.initTimeSec = self.gameData.globalTimeSec
             self.gameData.explosions.append(explosion)
 
     def removeExplosion(self, explosion):
