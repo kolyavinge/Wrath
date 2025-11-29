@@ -10,9 +10,13 @@ class BulletTrace:
         self.currentPosition = Vector3()
         self.isVisible = True
         self.visibilityLevelSegments = set()
+        self.aliveRemainCounter = DecrementCounter()
 
     def update(self):
-        pass
+        if not self.bullet.isAlive:
+            self.aliveRemainCounter.decrease()
+            if self.aliveRemainCounter.isExpired():
+                self.isVisible = False
 
 
 class RayBulletTrace(BulletTrace):
@@ -28,20 +32,3 @@ class RayBulletTrace(BulletTrace):
         if self.brightness < 0.01:
             self.isVisible = False
             self.brightness = 0.0
-
-
-class ParticleBulletTrace(BulletTrace):
-
-    def __init__(self):
-        super().__init__()
-        self.initDelayMsec = 0
-        self.particleAppearanceDelayMsec = 0
-        self.particleLifeTimeMsec = 0
-        self.particleSize = 0
-        self.aliveRemainCounter = DecrementCounter()
-
-    def update(self):
-        if not self.bullet.isAlive:
-            self.aliveRemainCounter.decrease()
-            if self.aliveRemainCounter.isExpired():
-                self.isVisible = False

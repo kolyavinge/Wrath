@@ -1,6 +1,5 @@
 from OpenGL.GL import GL_TEXTURE0
 
-from game.anx.CommonConstants import CommonConstants
 from game.engine.GameData import GameData
 from game.gl.ParticleRenderer import ParticleRenderer
 from game.render.anx.FireExplosionParticleBufferInitializer import *

@@ -14,11 +14,13 @@ uniform mat4 projectionMatrix;
 uniform float initTimeSec;
 uniform float currentTimeSec;
 
+const float pi = 3.1415926535;
+
 #define UNKNOWN 0
 #define FIRE 1
 #define FLASH 2
-#define SPARK 3
-#define TRAIT 4
+#define SMOKE 3
+#define SPARK 4
 
 const vec3 vertices[] = vec3[]
 (
@@ -38,10 +40,10 @@ bool inRange(float value, float left, float right)
 
 int getParticleType()
 {
-    if (inRange(gl_InstanceID, 0, 4)) return FIRE;
-    if (inRange(gl_InstanceID, 4, 8)) return FLASH;
-    if (inRange(gl_InstanceID, 8, 18)) return SPARK;
-    if (inRange(gl_InstanceID, 18, 24)) return TRAIT;
+    if (inRange(gl_InstanceID, 0, 8)) return FIRE;
+    if (inRange(gl_InstanceID, 8, 9)) return FLASH;
+    if (inRange(gl_InstanceID, 9, 41)) return SMOKE;
+    if (inRange(gl_InstanceID, 49, 57)) return SPARK;
 
     return UNKNOWN;
 }
@@ -51,14 +53,89 @@ float getParticleAge()
     return in_InitAge + (currentTimeSec - initTimeSec);
 }
 
-vec3 getFireVelocity(float age)
+float getParticleAgePercent(float age)
+{
+    return age / in_LifeTime;
+}
+
+// fire
+
+vec3 getFireDistance(float age)
 {
     return in_InitVelocity * age;
 }
 
 float getFireSize(float age)
 {
-    return clamp(age / 0.1, 0.0, 1.0);
+    return 1.5 * clamp(age / 0.1, 0.0, 1.0);
+}
+
+vec4 getFireColor(float age)
+{
+    float colorFactor = 1.0 - clamp(2.0 * getParticleAgePercent(age), 0.2, 1.0);
+    float alphaFactor = 1.0 - getParticleAgePercent(age);
+
+    return vec4(vec3(colorFactor), alphaFactor);
+}
+
+// flash
+
+vec3 getFlashDistance(float age)
+{
+    return in_InitVelocity * age;
+}
+
+float getFlashSize(float age)
+{
+    return 2.0 * sin(pi * (age / (in_LifeTime / 2.0)));
+}
+
+vec4 getFlashColor(float age)
+{
+    float colorFactor = 1.0;
+    float alphaFactor = sin(pi * (age / (in_LifeTime / 2.0)));
+
+    return vec4(vec3(colorFactor), alphaFactor);
+}
+
+// smoke
+
+vec3 getSmokeDistance(float age)
+{
+    float accel = 2.0 * getParticleAgePercent(age);
+    return in_InitVelocity * age * accel;
+}
+
+float getSmokeSize(float age)
+{
+    return getParticleAgePercent(age);
+}
+
+vec4 getSmokeColor(float age)
+{
+    float alphaFactor = 0.5 * (1.0 - getParticleAgePercent(age));
+
+    return vec4(vec3(1.0), alphaFactor);
+}
+
+// spark
+
+vec3 getSparkDistance(float age)
+{
+    float accel = 2.0 * getParticleAgePercent(age);
+    return in_InitVelocity * age * accel;
+}
+
+float getSparkSize(float age)
+{
+    return 0.25;
+}
+
+vec4 getSparkColor(float age)
+{
+    float alphaFactor = 1.0 - getParticleAgePercent(age);
+
+    return vec4(vec3(2.0), alphaFactor);
 }
 
 vec2 getParticleTexCoord()
@@ -72,27 +149,38 @@ vec2 getParticleTexCoord()
 void main()
 {
     float age = getParticleAge();
-    if (age >= 0)
+    if (0 <= age && age < in_LifeTime)
     {
-        vec3 velocity = vec3(0.0);
+        vec3 dist = vec3(0.0);
         float size = 0.0;
+        vec4 color = vec4(0.0);
         int particleType = getParticleType();
         if (particleType == FIRE)
         {
-            velocity = getFireVelocity(age);
+            dist = getFireDistance(age);
             size = getFireSize(age);
+            color = getFireColor(age);
         }
         else if (particleType == FLASH)
         {
+            dist = getFlashDistance(age);
+            size = getFlashSize(age);
+            color = getFlashColor(age);
+        }
+        else if (particleType == SMOKE)
+        {
+            dist = getSmokeDistance(age);
+            size = getSmokeSize(age);
+            color = getSmokeColor(age);
         }
         else if (particleType == SPARK)
         {
+            dist = getSparkDistance(age);
+            size = getSparkSize(age);
+            color = getSparkColor(age);
         }
-        else if (particleType == TRAIT)
-        {
-        }
-        vec3 position = in_InitPosition + velocity;
-        ParticleColor = vec4(vec3(1.0), clamp(1.0 - age / in_LifeTime, 0.0, 1.0));
+        vec3 position = in_InitPosition + dist;
+        ParticleColor = color;
         TexCoord = getParticleTexCoord();
         vec3 viewPosition = (viewMatrix * vec4(position, 1.0)).xyz + vertices[gl_VertexID] * size;
         gl_Position = projectionMatrix * vec4(viewPosition, 1.0);

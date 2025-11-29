@@ -2,22 +2,12 @@ from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
-from game.model.weapon.BulletTrace import ParticleBulletTrace
+from game.model.weapon.BulletTrace import BulletTrace
 from game.model.weapon.Explosion import Explosion
 from game.model.weapon.Weapon import Weapon
-from game.model.weapon.WeaponFlash import WeaponFlash
 
 
-class LauncherFlash(WeaponFlash):
-
-    def __init__(self):
-        super().__init__()
-
-    def update(self):
-        pass
-
-
-class LauncherBulletTrace(ParticleBulletTrace):
+class LauncherBulletTrace(BulletTrace):
 
     def __init__(self):
         super().__init__()
@@ -34,9 +24,10 @@ class LauncherExplosion(Explosion):
 
     def __init__(self):
         super().__init__()
-        self.maxRadius = 8
+        self.maxRadius = 4
         self.velocityValue = 0.1
         self.damagePercent = 0.02
+        self.aliveRemainCounter.set(150)
 
 
 class LauncherBullet(Bullet):
@@ -57,7 +48,7 @@ class LauncherBullet(Bullet):
 class Launcher(Weapon):
 
     def __init__(self):
-        super().__init__(LauncherBullet, LauncherFlash)
+        super().__init__(LauncherBullet)
         self.barrelPoint = Vector3(0, 0, 0.05)
         self.bulletsCount = 5
         self.maxBulletsCount = 5
