@@ -5,6 +5,7 @@ from game.engine.GameData import GameData
 from game.gl.FeedbackParticleBufferFactory import FeedbackParticleBufferFactory
 from game.lib.Math import Math
 from game.lib.Random import Random
+from game.model.person.Person import Person
 
 
 class PlasmaExplosionParticleBufferInitializer:
@@ -31,14 +32,25 @@ class PlasmaExplosionParticleBufferInitializer:
     def getPositionData(self, explosion):
         positionData = []
         particlesCount = explosion.particlesInGroup * explosion.particleGroupsCount
+        damagedObject = explosion.bullet.damagedObject
+        if isinstance(damagedObject, Person):
+            explosionPosition = self.gameData.camera.getCameraFacedNormal(explosion.position)
+            explosionPosition.setLength(0.5)
+            explosionPosition.add(explosion.position)
+        else:
+            explosionPosition = explosion.position
         for _ in range(0, particlesCount):
-            positionData.append(explosion.position)
+            positionData.append(explosionPosition)
 
         return positionData
 
     def getVelocityData(self, explosion):
         velocityDataForGroup = []
-        planeNormal = explosion.bullet.damagedObject.frontNormal
+        damagedObject = explosion.bullet.damagedObject
+        if isinstance(damagedObject, Person):
+            planeNormal = self.gameData.camera.getCameraFacedNormal(explosion.position)
+        else:
+            planeNormal = damagedObject.frontNormal
         plane = Plane(planeNormal, explosion.position)
         initPoint = plane.getAnyVector()
         for _ in range(0, explosion.particlesInGroup):
