@@ -78,7 +78,9 @@ class PlayerInputManager:
         if mouse.isLeftButtonPressed():
             inputData.fire = True
 
-        if mouse.isRightButtonClicked():
+        if mouse.isRightButtonPressed():
+            inputData.altFireHold = True
+        elif mouse.isRightButtonClicked():
             inputData.altFireClick = True
 
         if mouse.getScrollDelta() != 0:

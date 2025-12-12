@@ -71,6 +71,7 @@ from game.engine.weapon.BulletTraceUpdater import *
 from game.engine.weapon.BulletUpdater import *
 from game.engine.weapon.ExplosionLogic import *
 from game.engine.weapon.ExplosionUpdater import *
+from game.engine.weapon.LauncherAltFireLogic import *
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
 from game.engine.weapon.PlasmaBulletMovingLogic import *
 from game.engine.weapon.SelectWeaponRequestListener import *
@@ -163,6 +164,7 @@ class EngineModule:
         binder.bindSingleton(BulletUpdater)
         binder.bindSingleton(ExplosionLogic)
         binder.bindSingleton(ExplosionUpdater)
+        binder.bindSingleton(LauncherAltFireLogic)
         binder.bindSingleton(NonStandardBulletMovingUpdater)
         binder.bindSingleton(PlasmaBulletMovingLogic)
         binder.bindSingleton(SelectWeaponRequestListener)
