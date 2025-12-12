@@ -13,6 +13,7 @@ class PersonInputData:
         self.lookUpRadians = 0
         self.lookDownRadians = 0
         self.fire = False
+        self.altFireClick = False
         self.jump = False
 
     def setGoForward(self):
@@ -42,5 +43,6 @@ class PersonInputData:
             or self.lookUpRadians > 0
             or self.lookDownRadians > 0
             or self.fire
+            or self.altFireClick
             or self.jump
         )

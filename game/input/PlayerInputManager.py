@@ -1,12 +1,10 @@
 from game.engine.GameData import GameData
-from game.engine.person.AimStateSwitcher import AimStateSwitcher
 from game.input.InputManager import InputManager
 from game.input.Keys import Keys
 from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
 from game.model.person.AimState import DefaultAimState, SniperAimState
 from game.model.person.PersonStates import LifeCycle
-from game.model.weapon.Sniper import Sniper
 
 
 class PlayerInputManager:
@@ -15,12 +13,10 @@ class PlayerInputManager:
         self,
         gameData: GameData,
         inputManager: InputManager,
-        aimStateSwitcher: AimStateSwitcher,
         eventManager: EventManager,
     ):
         self.gameData = gameData
         self.inputManager = inputManager
-        self.aimStateSwitcher = aimStateSwitcher
         self.eventManager = eventManager
 
     def processInput(self):
@@ -82,8 +78,8 @@ class PlayerInputManager:
         if mouse.isLeftButtonPressed():
             inputData.fire = True
 
-        if mouse.isRightButtonClicked() and type(self.gameData.playerItems.currentWeapon) == Sniper:
-            self.aimStateSwitcher.switchDefaultOrSniper()
+        if mouse.isRightButtonClicked():
+            inputData.altFireClick = True
 
         if mouse.getScrollDelta() != 0:
             if type(aimState) == DefaultAimState:

@@ -41,6 +41,7 @@ from game.engine.weapon.ExplosionUpdater import ExplosionUpdater
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
 from game.engine.weapon.SelectWeaponRequestListener import SelectWeaponRequestListener
 from game.engine.weapon.SniperAimFloatingUpdater import SniperAimFloatingUpdater
+from game.engine.weapon.WeaponAltFireUpdater import WeaponAltFireUpdater
 from game.engine.weapon.WeaponDelayUpdater import WeaponDelayUpdater
 from game.engine.weapon.WeaponFireUpdater import WeaponFireUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
@@ -76,6 +77,7 @@ class GameUpdater:
     personWeaponPositionUpdater: PersonWeaponPositionUpdater
     weaponDelayUpdater: WeaponDelayUpdater
     weaponFireUpdater: WeaponFireUpdater
+    weaponAltFireUpdater: WeaponAltFireUpdater
     playerWeaponSwingUpdater: PlayerWeaponSwingUpdater
     bulletUpdater: BulletUpdater
     explosionUpdater: ExplosionUpdater
@@ -128,6 +130,7 @@ class GameUpdater:
         self.personWeaponPositionUpdater.update()
         self.weaponDelayUpdater.update()
         self.weaponFireUpdater.update()
+        self.weaponAltFireUpdater.update()
         self.playerWeaponSwingUpdater.update()
         self.bulletUpdater.update()
         self.explosionUpdater.update()
