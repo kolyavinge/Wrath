@@ -7,7 +7,7 @@ from OpenGL.GLUT import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.core.GameFactory import GameFactory
-from game.input.Keys import Keys
+from game.input.Keyboard import KeyboardButtons
 from game.lib.EventManager import Events
 from game.lib.Screen import Screen
 from game.tools.CpuProfiler import CpuProfiler
@@ -59,9 +59,9 @@ class App:
         glutTimerFunc(CommonConstants.renderTimerMsec, self.renderCallback, 0)
 
     def keyup(self, key, a, b):
-        if key == Keys.esc:
+        if key == KeyboardButtons.esc:
             glutLeaveMainLoop()
-        elif key == Keys.backspace:
+        elif key == KeyboardButtons.backspace:
             self.toggleFullscreen()
 
     def toggleFullscreen(self):

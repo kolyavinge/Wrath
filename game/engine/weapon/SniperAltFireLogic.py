@@ -1,4 +1,5 @@
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
+from game.model.person.PersonInputData import FireState
 
 
 class SniperAltFireLogic:
@@ -7,5 +8,5 @@ class SniperAltFireLogic:
         self.aimStateSwitcher = aimStateSwitcher
 
     def apply(self, person, weapon, inputData):
-        if inputData.altFireClick:
+        if inputData.altFireState == FireState.activated:
             self.aimStateSwitcher.switchDefaultOrSniper()

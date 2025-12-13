@@ -1,42 +1,34 @@
 import keyboard
 
-from game.input.Keys import Keys
+from game.input.InputDevice import InputDevice
 
 
-class KeyState:
+class KeyboardButtons:
 
-    released = 0
-    pressed = 1
-    held = 2
+    esc = b"\x1b"
+    backspace = b"\x08"
+    space = "space"
+
+    d1 = "1"
+    d2 = "2"
+    d3 = "3"
+    d4 = "4"
+    d5 = "5"
+    d6 = "6"
+
+    w = "w"
+    a = "a"
+    s = "s"
+    d = "d"
+    f = "f"
+
+    allButtons = [d1, d2, d3, d4, d5, d6, w, a, s, d, f, space]
 
 
-class Keyboard:
+class Keyboard(InputDevice):
 
     def __init__(self):
-        self.keyStates = {}
-        for key in Keys.allKeys:
-            self.keyStates[key] = KeyState.released
+        super().__init__(KeyboardButtons.allButtons)
 
-    def update(self):
-        for key in Keys.allKeys:
-            pressed = keyboard.is_pressed(key)
-            if self.keyStates[key] == KeyState.released and pressed:
-                self.keyStates[key] = KeyState.pressed
-            elif self.keyStates[key] == KeyState.pressed and pressed:
-                self.keyStates[key] = KeyState.held
-            elif self.keyStates[key] == KeyState.held and not pressed:
-                self.keyStates[key] = KeyState.released
-            elif self.keyStates[key] == KeyState.pressed and not pressed:
-                self.keyStates[key] = KeyState.released
-
-    def isReleased(self, key):
-        return self.keyStates[key] == KeyState.released
-
-    def isPressed(self, key):
-        return self.keyStates[key] == KeyState.pressed
-
-    def isHeld(self, key):
-        return self.keyStates[key] == KeyState.held
-
-    def isPressedOrHeld(self, key):
-        return self.isPressed(key) or self.isHeld(key)
+    def checkInnerPressed(self, button):
+        return keyboard.is_pressed(button)

@@ -1,3 +1,11 @@
+class FireState:
+
+    deactive = 0
+    activated = 1
+    active = 2
+    deactivated = 3
+
+
 class PersonInputData:
 
     def __init__(self):
@@ -13,8 +21,7 @@ class PersonInputData:
         self.lookUpRadians = 0
         self.lookDownRadians = 0
         self.fire = False
-        self.altFireClick = False
-        self.altFireHold = False
+        self.altFireState = FireState.deactive
         self.jump = False
 
     def setGoForward(self):
@@ -44,7 +51,6 @@ class PersonInputData:
             or self.lookUpRadians > 0
             or self.lookDownRadians > 0
             or self.fire
-            or self.altFireClick
-            or self.altFireHold
+            or self.altFireState != FireState.deactive
             or self.jump
         )

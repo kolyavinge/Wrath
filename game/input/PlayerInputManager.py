@@ -1,9 +1,11 @@
 from game.engine.GameData import GameData
 from game.input.InputManager import InputManager
-from game.input.Keys import Keys
+from game.input.Keyboard import KeyboardButtons
+from game.input.Mouse import MouseButtons
 from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
 from game.model.person.AimState import DefaultAimState, SniperAimState
+from game.model.person.PersonInputData import FireState
 from game.model.person.PersonStates import LifeCycle
 
 
@@ -31,33 +33,33 @@ class PlayerInputManager:
         inputData = self.gameData.playerInputData
         keyboard = self.inputManager.keyboard
 
-        if keyboard.isPressed(Keys.d1):
+        if keyboard.isPressed(KeyboardButtons.d1):
             self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 1))
-        elif keyboard.isPressed(Keys.d2):
+        elif keyboard.isPressed(KeyboardButtons.d2):
             self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 2))
-        elif keyboard.isPressed(Keys.d3):
+        elif keyboard.isPressed(KeyboardButtons.d3):
             self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 3))
-        elif keyboard.isPressed(Keys.d4):
+        elif keyboard.isPressed(KeyboardButtons.d4):
             self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 4))
-        elif keyboard.isPressed(Keys.d5):
+        elif keyboard.isPressed(KeyboardButtons.d5):
             self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 5))
-        elif keyboard.isPressed(Keys.d6):
+        elif keyboard.isPressed(KeyboardButtons.d6):
             self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 6))
 
-        if keyboard.isPressedOrHeld(Keys.w):
+        if keyboard.isPressedOrHeld(KeyboardButtons.w):
             inputData.goForward = True
-        elif keyboard.isPressedOrHeld(Keys.s):
+        elif keyboard.isPressedOrHeld(KeyboardButtons.s):
             inputData.goBackward = True
 
-        if keyboard.isPressedOrHeld(Keys.a):
+        if keyboard.isPressedOrHeld(KeyboardButtons.a):
             inputData.stepLeft = True
-        elif keyboard.isPressedOrHeld(Keys.d):
+        elif keyboard.isPressedOrHeld(KeyboardButtons.d):
             inputData.stepRight = True
 
-        if keyboard.isPressedOrHeld(Keys.space):
+        if keyboard.isPressedOrHeld(KeyboardButtons.space):
             inputData.jump = True
 
-        if keyboard.isPressed(Keys.f):
+        if keyboard.isPressed(KeyboardButtons.f):
             self.eventManager.raiseEvent(Events.torchSwitchRequested)
 
     def processMouse(self):
@@ -75,22 +77,24 @@ class PlayerInputManager:
         elif mouse.dy > 0:
             inputData.lookDownRadians = aimState.mouseSensibility * Math.abs(mouse.dy)
 
-        if mouse.isLeftButtonPressed():
+        if mouse.isPressedOrHeld(MouseButtons.left):
             inputData.fire = True
 
-        if mouse.isRightButtonPressed():
-            inputData.altFireHold = True
-        elif mouse.isRightButtonClicked():
-            inputData.altFireClick = True
+        if mouse.isPressed(MouseButtons.right):
+            inputData.altFireState = FireState.activated
+        elif mouse.isHeld(MouseButtons.right):
+            inputData.altFireState = FireState.active
+        elif mouse.isLifted(MouseButtons.right):
+            inputData.altFireState = FireState.deactivated
 
-        if mouse.getScrollDelta() != 0:
+        if mouse.scrollDelta != 0:
             if type(aimState) == DefaultAimState:
-                if mouse.getScrollDelta() > 0:
+                if mouse.scrollDelta > 0:
                     self.eventManager.raiseEvent(Events.selectNextWeaponRequested, self.gameData.player)
-                elif mouse.getScrollDelta() < 0:
+                elif mouse.scrollDelta < 0:
                     self.eventManager.raiseEvent(Events.selectPrevWeaponRequested, self.gameData.player)
             elif type(aimState) == SniperAimState:
-                if mouse.getScrollDelta() > 0:
+                if mouse.scrollDelta > 0:
                     aimState.zoomIn()
-                elif mouse.getScrollDelta() < 0:
+                elif mouse.scrollDelta < 0:
                     aimState.zoomOut()

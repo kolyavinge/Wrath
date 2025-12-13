@@ -1,6 +1,7 @@
 from game.engine.GameData import GameData
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
+from game.model.person.PersonInputData import FireState
 
 
 class LauncherAltFireLogic:
@@ -16,7 +17,7 @@ class LauncherAltFireLogic:
         self.explosionLogic = explosionLogic
 
     def apply(self, person, weapon, inputData):
-        if inputData.altFireHold:
+        if inputData.altFireState == FireState.activated:
             personBullets = [bullet for bullet in self.gameData.bullets if bullet.ownerPerson == person]
             for bullet in personBullets:
                 self.explosionLogic.makeExplosion(bullet)
