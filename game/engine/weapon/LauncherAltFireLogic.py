@@ -16,7 +16,7 @@ class LauncherAltFireLogic:
         self.bulletLogic = bulletLogic
         self.explosionLogic = explosionLogic
 
-    def apply(self, person, weapon, inputData):
+    def apply(self, person, personItems, inputData):
         if inputData.altFireState == FireState.activated:
             personBullets = [bullet for bullet in self.gameData.bullets if bullet.ownerPerson == person]
             for bullet in personBullets:

@@ -15,6 +15,7 @@ class PersonConstants:
     eyeLength = 1.6
     aimLength = 20.0
     maxPersonHealth = 100
+    maxDamagePercent = 2.0
     maxPitchRadians = Math.piHalf - 0.1
     maxVest = 100
     stepTimeLimit = 15

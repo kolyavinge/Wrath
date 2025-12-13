@@ -1,4 +1,6 @@
+from game.anx.PersonConstants import PersonConstants
 from game.calc.Vector3 import Vector3
+from game.lib.DecrementCounter import DecrementCounter
 from game.model.Material import Material
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
@@ -18,6 +20,7 @@ class RailgunBullet(Bullet):
     def __init__(self):
         super().__init__(RailgunBulletTrace)
         self.velocityValue = 3
+        self.chargedVelocityFactor = 10
         self.damagePercent = 0.8
         self.goThroughPerson = True
         self.damagedPersonSet = set()
@@ -41,3 +44,17 @@ class Railgun(Weapon):
         self.playerShift = Vector3(0.1, 0.3, -0.11)
         self.enemyShift = Vector3(0.16, 0.5, -0.1)
         self.selectionShift = Vector3(0, -0.25, 0)
+        self.chargeDelayTime = 50
+        self.chargeDelay = DecrementCounter()
+        self.isCharged = False
+
+    def makeBullet(self, ownerPerson):
+        bullet = super().makeBullet(ownerPerson)
+
+        if self.isCharged:
+            bullet.velocityValue *= bullet.chargedVelocityFactor
+            bullet.velocity.mul(bullet.chargedVelocityFactor)
+            bullet.damagePercent = PersonConstants.maxDamagePercent
+            self.isCharged = False
+
+        return bullet

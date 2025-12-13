@@ -74,6 +74,7 @@ from game.engine.weapon.ExplosionUpdater import *
 from game.engine.weapon.LauncherAltFireLogic import *
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
 from game.engine.weapon.PlasmaBulletMovingLogic import *
+from game.engine.weapon.RailgunAltFireLogic import *
 from game.engine.weapon.SelectWeaponRequestListener import *
 from game.engine.weapon.SniperAimFloatingUpdater import *
 from game.engine.weapon.SniperAltFireLogic import *
@@ -168,6 +169,7 @@ class EngineModule:
         binder.bindSingleton(LauncherAltFireLogic)
         binder.bindSingleton(NonStandardBulletMovingUpdater)
         binder.bindSingleton(PlasmaBulletMovingLogic)
+        binder.bindSingleton(RailgunAltFireLogic)
         binder.bindSingleton(SelectWeaponRequestListener)
         binder.bindSingleton(SniperAimFloatingUpdater)
         binder.bindSingleton(SniperAltFireLogic)
