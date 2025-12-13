@@ -80,6 +80,7 @@ from game.engine.weapon.SniperAltFireLogic import *
 from game.engine.weapon.WeaponAltFireUpdater import *
 from game.engine.weapon.WeaponDelayUpdater import *
 from game.engine.weapon.WeaponFeedbackLogic import *
+from game.engine.weapon.WeaponFireLogic import *
 from game.engine.weapon.WeaponFireUpdater import *
 from game.engine.weapon.WeaponFlashUpdater import *
 from game.engine.weapon.WeaponSelector import *
@@ -173,6 +174,7 @@ class EngineModule:
         binder.bindSingleton(WeaponAltFireUpdater)
         binder.bindSingleton(WeaponDelayUpdater)
         binder.bindSingleton(WeaponFeedbackLogic)
+        binder.bindSingleton(WeaponFireLogic)
         binder.bindSingleton(WeaponFireUpdater)
         binder.bindSingleton(WeaponFlashUpdater)
         binder.bindSingleton(WeaponSelector)
