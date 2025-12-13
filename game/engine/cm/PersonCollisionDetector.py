@@ -36,33 +36,54 @@ class PersonCollisionDetector:
         collisionLength = PersonConstants.xyLength - point1.getLengthTo(point2)
         return collisionLength if collisionLength > 0 else None
 
-    def getCollisionResultOrNone(self, excludedPerson, allPerson, startPoint, endPoint):
+    def getNearestCollisionResultOrNone(self, excludedPerson, allPerson, startPoint, endPoint):
         result = None
         nearestLength = CommonConstants.maxLevelSize
         for person in allPerson:
-            if person == excludedPerson:
+            collisionResult = self.getCollisionResultForPersonOrNone(excludedPerson, person, startPoint, endPoint)
+            if collisionResult is None:
                 continue
-            if person.lifeCycle != LifeCycle.alive:
-                continue
-            # check body (two cross planes)
-            border = person.nextBodyBorder
-            plane = RectPlane(self.xNormal, border.bottom.middleBottom, border.bottom.middleTop, border.top.middleBottom, border.top.middleTop)
-            collisionPoint = self.planeCollisionDetector.getRectPlaneCollisionPointOrNone(startPoint, endPoint, plane, 0.1)
-            target = PersonCollisionTarget.body
-            if collisionPoint is None:
-                plane = RectPlane(self.yNormal, border.bottom.middleRight, border.bottom.middleLeft, border.top.middleRight, border.top.middleLeft)
-                collisionPoint = self.planeCollisionDetector.getRectPlaneCollisionPointOrNone(startPoint, endPoint, plane, 0.1)
-            # check head (sphere)
-            if collisionPoint is None:
-                collisionPoint = self.sphereCollisionDetector.getCollisionPointOrNone(
-                    startPoint, endPoint, person.headCenterPoint, PersonConstants.headSize, 0.1
-                )
-                target = PersonCollisionTarget.head
-            # check result
-            if collisionPoint is not None:
-                length = startPoint.getLengthTo(collisionPoint)
-                if length < nearestLength:
-                    result = (collisionPoint, person, target)
-                    nearestLength = length
+            collisionPoint, target = collisionResult
+            length = startPoint.getLengthTo(collisionPoint)
+            if length < nearestLength:
+                result = (collisionPoint, person, target)
+                nearestLength = length
 
         return result
+
+    def getAllCollisionResultOrNone(self, excludedPerson, allPerson, startPoint, endPoint):
+        result = []
+        for person in allPerson:
+            collisionResult = self.getCollisionResultForPersonOrNone(excludedPerson, person, startPoint, endPoint)
+            if collisionResult is not None:
+                collisionPoint, target = collisionResult
+                result.append((collisionPoint, person, target))
+
+        return result if len(result) > 0 else None
+
+    def getCollisionResultForPersonOrNone(self, excludedPerson, person, startPoint, endPoint):
+        if person == excludedPerson:
+            return None
+        if person.lifeCycle != LifeCycle.alive:
+            return None
+
+        # check body (two cross planes)
+        border = person.nextBodyBorder
+        plane = RectPlane(self.xNormal, border.bottom.middleBottom, border.bottom.middleTop, border.top.middleBottom, border.top.middleTop)
+        collisionPoint = self.planeCollisionDetector.getRectPlaneCollisionPointOrNone(startPoint, endPoint, plane, 0.1)
+        target = PersonCollisionTarget.body
+        if collisionPoint is None:
+            plane = RectPlane(self.yNormal, border.bottom.middleRight, border.bottom.middleLeft, border.top.middleRight, border.top.middleLeft)
+            collisionPoint = self.planeCollisionDetector.getRectPlaneCollisionPointOrNone(startPoint, endPoint, plane, 0.1)
+
+        # check head (sphere)
+        if collisionPoint is None:
+            collisionPoint = self.sphereCollisionDetector.getCollisionPointOrNone(
+                startPoint, endPoint, person.headCenterPoint, PersonConstants.headSize, 0.1
+            )
+            target = PersonCollisionTarget.head
+
+        if collisionPoint is not None:
+            return (collisionPoint, target)
+
+        return None

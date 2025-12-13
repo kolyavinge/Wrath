@@ -41,8 +41,11 @@ class BulletCollisionUpdater:
         target, collisionResultData = collisionResult
         if target == BulletCollisionTarget.construction:
             self.processConstructionCollision(bullet, collisionResultData)
-        elif target == BulletCollisionTarget.person:
+        elif target == BulletCollisionTarget.onePerson:
             self.processPersonCollision(bullet, collisionResultData)
+        elif target == BulletCollisionTarget.allPerson:
+            for item in collisionResultData:
+                self.processPersonCollision(bullet, item)
         self.explosionLogic.makeExplosion(bullet)
 
     def processConstructionCollision(self, bullet, collisionResult):

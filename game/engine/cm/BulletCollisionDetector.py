@@ -7,7 +7,8 @@ from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
 class BulletCollisionTarget:
 
     construction = 1
-    person = 2
+    onePerson = 2
+    allPerson = 3
 
 
 class BulletCollisionDetector:
@@ -35,10 +36,19 @@ class BulletCollisionDetector:
         )
 
     def getTotalCollisionResultOrNone(self, bullet, levelSegment, startPoint, endPoint):
-        collisionResult = self.personCollisionDetector.getCollisionResultOrNone(bullet.ownerPerson, levelSegment.allPerson, startPoint, endPoint)
-        if collisionResult is not None:
-            return (BulletCollisionTarget.person, collisionResult)
+        # check person
+        ownerPerson = bullet.ownerPerson
+        allPerson = levelSegment.allPerson
+        if bullet.goThroughPerson:
+            collisionResult = self.personCollisionDetector.getAllCollisionResultOrNone(ownerPerson, allPerson, startPoint, endPoint)
+            if collisionResult is not None:
+                return (BulletCollisionTarget.allPerson, collisionResult)
+        else:
+            collisionResult = self.personCollisionDetector.getNearestCollisionResultOrNone(ownerPerson, allPerson, startPoint, endPoint)
+            if collisionResult is not None:
+                return (BulletCollisionTarget.onePerson, collisionResult)
 
+        # check constructions
         collisionResult = self.constructionCollisionDetector.getCollisionResultOrNone(levelSegment.allConstructions, startPoint, endPoint)
         if collisionResult is not None:
             return (BulletCollisionTarget.construction, collisionResult)
