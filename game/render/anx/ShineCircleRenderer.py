@@ -38,6 +38,7 @@ class ShineCircleRenderer:
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
+        glEnable(GL_DEPTH_TEST)
         circleShader = self.shaderProgramCollection.shineCircle
         circleShader.use()
         circleShader.setModelMatrix(modelMatrix)
@@ -49,6 +50,7 @@ class ShineCircleRenderer:
         circleShader.setScreenAspect(CommonConstants.screenAspect)
         self.vboRenderer.render(self.quadVBO)
         circleShader.unuse()
+        glDisable(GL_DEPTH_TEST)
         glDisable(GL_ALPHA_TEST)
         glDisable(GL_BLEND)
 
