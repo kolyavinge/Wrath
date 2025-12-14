@@ -1,6 +1,6 @@
 from game.engine.GameData import GameData
 from game.model.weapon.Plasma import PlasmaBullet
-from game.render.weapon.shine.PlasmaShineBulletRenderer import PlasmaShineBulletRenderer
+from game.render.weapon.anx.PlasmaShineBulletRenderer import PlasmaShineBulletRenderer
 
 
 class ShineBulletRenderer:

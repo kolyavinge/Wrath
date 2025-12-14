@@ -62,6 +62,7 @@ from game.render.powerup.PowerupRenderCollection import *
 from game.render.powerup.PowerupRenderer import *
 from game.render.ui.GameScreenInitializer import *
 from game.render.ui.GameScreenRenderer import *
+from game.render.weapon.anx.PlasmaShineBulletRenderer import *
 from game.render.weapon.BulletHoleRenderCollection import *
 from game.render.weapon.BulletHoleRenderer import *
 from game.render.weapon.BulletModel3dFactory import *
@@ -73,7 +74,6 @@ from game.render.weapon.explosion.FireExplosionRenderer import *
 from game.render.weapon.explosion.LauncherExplosionRenderer import *
 from game.render.weapon.explosion.PlasmaExplosionRenderer import *
 from game.render.weapon.ExplosionRenderer import *
-from game.render.weapon.shine.PlasmaShineBulletRenderer import *
 from game.render.weapon.ShineBulletRenderer import *
 from game.render.weapon.SniperCrosshairRenderer import *
 from game.render.weapon.trace.LauncherBulletTraceRenderer import *
@@ -156,6 +156,7 @@ class RenderModule:
         binder.bindSingleton(PowerupRenderer)
         binder.bindSingleton(GameScreenInitializer)
         binder.bindSingleton(GameScreenRenderer)
+        binder.bindSingleton(PlasmaShineBulletRenderer)
         binder.bindSingleton(BulletHoleRenderCollection)
         binder.bindSingleton(BulletHoleRenderer)
         binder.bindSingleton(BulletModel3dFactory)
@@ -167,7 +168,6 @@ class RenderModule:
         binder.bindSingleton(LauncherExplosionRenderer)
         binder.bindSingleton(PlasmaExplosionRenderer)
         binder.bindSingleton(ExplosionRenderer)
-        binder.bindSingleton(PlasmaShineBulletRenderer)
         binder.bindSingleton(ShineBulletRenderer)
         binder.bindSingleton(SniperCrosshairRenderer)
         binder.bindSingleton(LauncherBulletTraceRenderer)
