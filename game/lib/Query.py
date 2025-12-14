@@ -129,3 +129,14 @@ class Query:
     def orderByDesc(self, orderFunc):
         self.result.sort(key=orderFunc, reverse=True)
         return self
+
+    def split(self, condition):
+        forTrue = []
+        forFalse = []
+        for item in self.result:
+            if condition(item):
+                forTrue.append(item)
+            else:
+                forFalse.append(item)
+
+        return (forTrue, forFalse)

@@ -26,6 +26,7 @@ class RailgunBullet(Bullet):
         self.damagedPersonSet = set()
         self.paralyze = True
         self.paralyzeTime = 100
+        self.isCharged = False
         self.holeInfo = BulletHoleInfo.railgunHole
 
 
@@ -55,6 +56,7 @@ class Railgun(Weapon):
             bullet.velocityValue *= bullet.chargedVelocityFactor
             bullet.velocity.mul(bullet.chargedVelocityFactor)
             bullet.damagePercent = PersonConstants.maxDamagePercent
+            bullet.isCharged = True
             self.isCharged = False
 
         return bullet
