@@ -18,7 +18,7 @@ class WeaponRenderer:
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
 
-    def renderPlayerWeapons(self, shader):
+    def renderPlayerWeapon(self, shader):
         self.renderWeapon(shader, self.gameData.playerItems.rightHandWeapon)
         if self.gameData.playerItems.leftHandWeapon is not None:
             self.renderWeapon(shader, self.gameData.playerItems.leftHandWeapon)
