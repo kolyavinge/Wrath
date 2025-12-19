@@ -1,4 +1,5 @@
 from game.engine.GameData import GameData
+from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.lib.EventManager import EventManager, Events
 from game.model.person.AimState import DefaultAimState, SniperAimState
 
@@ -8,15 +9,18 @@ class AimStateSwitcher:
     def __init__(
         self,
         gameData: GameData,
+        weaponPositionUpdater: PersonWeaponPositionUpdater,
         eventManager: EventManager,
     ):
         self.gameData = gameData
+        self.weaponPositionUpdater = weaponPositionUpdater
         self.eventManager = eventManager
 
     def setToDefaultIfNeeded(self):
         if type(self.gameData.aimState) != DefaultAimState:
             self.gameData.aimState = DefaultAimState()
             self.gameData.playerItems.currentWeapon.setPositionForDefaultAimState()
+            self.updatePlayerWeaponPosition()
             self.eventManager.raiseEvent(Events.aimStateSwitched, self.gameData.aimState)
 
     def switchDefaultOrSniper(self):
@@ -26,5 +30,10 @@ class AimStateSwitcher:
         else:
             self.gameData.aimState = DefaultAimState()
             self.gameData.playerItems.currentWeapon.setPositionForDefaultAimState()
-
+        self.updatePlayerWeaponPosition()
         self.eventManager.raiseEvent(Events.aimStateSwitched, self.gameData.aimState)
+
+    def updatePlayerWeaponPosition(self):
+        # обновляем позицию оружия сразу, не дожидаясь след цикла апдейта
+        # иначе оружие может отрендерится на старой позиции
+        self.weaponPositionUpdater.updateForPerson(self.gameData.player)
