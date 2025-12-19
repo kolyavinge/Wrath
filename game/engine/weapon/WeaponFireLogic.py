@@ -30,8 +30,6 @@ class WeaponFireLogic:
             self.bulletLogic.makeBullet(person, weapon)
             self.weaponSelector.selectNextWeaponIfCurrentEmpty(person, personItems)
             self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
-        else:
-            weapon.isFiring = False
 
     def canFire(self, person, weapon):
         return weapon.delayRemain.isExpired() and person.weaponSelectState is None and weapon.bulletsCount > 0

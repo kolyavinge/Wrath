@@ -14,6 +14,7 @@ class WeaponFireUpdater:
 
     def update(self):
         for person, inputData in self.gameData.allPersonInputData.items():
+            personItems = self.gameData.allPersonItems[person]
+            personItems.currentWeapon.isFiring = False
             if inputData.fire:
-                personItems = self.gameData.allPersonItems[person]
                 self.weaponFireLogic.fire(person, personItems)
