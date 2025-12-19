@@ -59,3 +59,10 @@ class Numeric:
     def moreThanNFloatDigits(x, digits):
         p = x * Math.power(10.0, digits)
         return p > int(p)
+
+    @staticmethod
+    def getFillRangeFactor(value, left, right):
+        if left > right:
+            raise Exception("Left must be lower than right.")
+
+        return Math.max(Math.min((value - left) / (right - left), 1.0), 0.0)

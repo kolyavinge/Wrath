@@ -63,6 +63,7 @@ from game.render.powerup.PowerupRenderer import *
 from game.render.ui.GameScreenInitializer import *
 from game.render.ui.GameScreenRenderer import *
 from game.render.weapon.anx.PlasmaShineBulletRenderer import *
+from game.render.weapon.anx.RailgunChargingRenderer import *
 from game.render.weapon.BulletHoleRenderCollection import *
 from game.render.weapon.BulletHoleRenderer import *
 from game.render.weapon.BulletModel3dFactory import *
@@ -81,6 +82,7 @@ from game.render.weapon.trace.RailgunBulletTraceRenderer import *
 from game.render.weapon.trace.RayBulletTraceRenderer import *
 from game.render.weapon.trace.RifleBulletTraceRenderer import *
 from game.render.weapon.trace.SniperBulletTraceRenderer import *
+from game.render.weapon.WeaponAltRenderer import *
 from game.render.weapon.WeaponFlashRenderCollection import *
 from game.render.weapon.WeaponFlashRenderer import *
 from game.render.weapon.WeaponFlashRenderMeshFactory import *
@@ -157,6 +159,7 @@ class RenderModule:
         binder.bindSingleton(GameScreenInitializer)
         binder.bindSingleton(GameScreenRenderer)
         binder.bindSingleton(PlasmaShineBulletRenderer)
+        binder.bindSingleton(RailgunChargingRenderer)
         binder.bindSingleton(BulletHoleRenderCollection)
         binder.bindSingleton(BulletHoleRenderer)
         binder.bindSingleton(BulletModel3dFactory)
@@ -175,6 +178,7 @@ class RenderModule:
         binder.bindSingleton(RayBulletTraceRenderer)
         binder.bindSingleton(RifleBulletTraceRenderer)
         binder.bindSingleton(SniperBulletTraceRenderer)
+        binder.bindSingleton(WeaponAltRenderer)
         binder.bindSingleton(WeaponFlashRenderCollection)
         binder.bindSingleton(WeaponFlashRenderer)
         binder.bindSingleton(WeaponFlashRenderMeshFactory)

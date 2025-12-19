@@ -45,8 +45,8 @@ class Railgun(Weapon):
         self.playerShift = Vector3(0.1, 0.3, -0.11)
         self.enemyShift = Vector3(0.16, 0.5, -0.1)
         self.selectionShift = Vector3(0, -0.25, 0)
-        self.chargeDelayTime = 50
-        self.chargeDelay = DecrementCounter()
+        self.chargeDelayTime = 80
+        self.chargeDelay = DecrementCounter(self.chargeDelayTime)
         self.isCharged = False
 
     def makeBullet(self, ownerPerson):
@@ -60,3 +60,17 @@ class Railgun(Weapon):
             self.isCharged = False
 
         return bullet
+
+    @staticmethod
+    def getChargingDisplayPosition(displayIndex):
+        downLeft = Vector3(-0.0043, -0.11805, 0.0857)
+        width = 0.0114
+        height = 0.0025
+        heightStep = 0.003
+
+        return (
+            Vector3(downLeft.x, downLeft.y, downLeft.z + displayIndex * heightStep),
+            Vector3(downLeft.x + width, downLeft.y, downLeft.z + displayIndex * heightStep),
+            Vector3(downLeft.x + width, downLeft.y, downLeft.z + height + displayIndex * heightStep),
+            Vector3(downLeft.x, downLeft.y, downLeft.z + height + displayIndex * heightStep),
+        )

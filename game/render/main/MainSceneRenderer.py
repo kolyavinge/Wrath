@@ -1,5 +1,6 @@
 from game.render.level.LevelSegmentRenderer import LevelSegmentRenderer
 from game.render.main.ShadowedObjectRenderer import ShadowedObjectRenderer
+from game.render.weapon.WeaponAltRenderer import WeaponAltRenderer
 from game.render.weapon.WeaponRenderer import WeaponRenderer
 
 
@@ -10,10 +11,12 @@ class MainSceneRenderer:
         shadowedObjectRenderer: ShadowedObjectRenderer,
         levelSegmentRenderer: LevelSegmentRenderer,
         weaponRenderer: WeaponRenderer,
+        weaponAltRenderer: WeaponAltRenderer,
     ):
         self.shadowedObjectRenderer = shadowedObjectRenderer
         self.levelSegmentRenderer = levelSegmentRenderer
         self.weaponRenderer = weaponRenderer
+        self.weaponAltRenderer = weaponAltRenderer
 
     def renderDefaultAimState(self):
         self.shadowedObjectRenderer.render(self.defaultAimStateFunc, self.levelSegmentRenderer.renderShadowCasters)
@@ -25,6 +28,7 @@ class MainSceneRenderer:
         self.levelSegmentRenderer.render(shader)
         self.weaponRenderer.renderPlayerWeapon(shader)
         self.weaponRenderer.renderEnemyWeapons(shader)
+        self.weaponAltRenderer.renderPlayerWeapon()
 
     def sniperAimStateFunc(self, shader):
         self.levelSegmentRenderer.render(shader)

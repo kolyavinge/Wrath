@@ -10,9 +10,10 @@ class RailgunAltFireLogic:
     def apply(self, person, personItems, inputData):
         weapon = personItems.currentWeapon
         if inputData.altFireState == FireState.activated:
-            weapon.chargeDelay.set(weapon.chargeDelayTime)
+            weapon.chargeDelay.reset()
         elif inputData.altFireState == FireState.active:
             weapon.chargeDelay.decrease()
         elif inputData.altFireState == FireState.deactivated:
             weapon.isCharged = weapon.chargeDelay.isExpired()
             self.weaponFireLogic.fire(person, personItems)
+            weapon.chargeDelay.reset()
