@@ -34,6 +34,29 @@ class BulletLogic:
             visibilityLevelSegment.bulletTraces.append(trace)
             trace.visibilityLevelSegments.add(visibilityLevelSegment)
 
+    def makeDebris(self, explosion):
+        debris = explosion.makeDebris()
+        if debris is None:
+            return
+
+        currentLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, explosion.position)
+        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, explosion.position)
+
+        for piece in debris:
+            self.gameData.bullets.append(piece)
+            piece.currentLevelSegment = currentLevelSegment
+            piece.nextLevelSegment = currentLevelSegment
+
+            if piece.isVisible:
+                piece.currentVisibilityLevelSegment = visibilityLevelSegment
+                visibilityLevelSegment.bullets.append(piece)
+
+            trace = piece.makeTrace()
+            if trace is not None:
+                self.gameData.bulletTraces.append(trace)
+                visibilityLevelSegment.bulletTraces.append(trace)
+                trace.visibilityLevelSegments.add(visibilityLevelSegment)
+
     def removeBullet(self, bullet):
         bullet.isAlive = False
         self.gameData.bullets.remove(bullet)

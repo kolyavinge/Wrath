@@ -1,4 +1,5 @@
 from game.engine.GameData import GameData
+from game.model.weapon.Debris import DebrisBulletTrace
 from game.model.weapon.Launcher import LauncherBulletTrace
 from game.model.weapon.Pistol import PistolBulletTrace
 from game.model.weapon.Railgun import RailgunBulletTrace
@@ -27,6 +28,7 @@ class BulletTraceRenderer:
         self.renderers[LauncherBulletTrace] = launcherBulletTraceRenderer
         self.renderers[RailgunBulletTrace] = railgunBulletTraceRenderer
         self.renderers[SniperBulletTrace] = sniperBulletTraceRenderer
+        self.renderers[DebrisBulletTrace] = rifleBulletTraceRenderer
 
     def render(self):
         visibleTraces = self.getVisibleTracesDictionary()

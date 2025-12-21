@@ -3,6 +3,7 @@ from game.calc.Vector3 import Vector3
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
 from game.model.weapon.BulletTrace import BulletTrace
+from game.model.weapon.Debris import Debris
 from game.model.weapon.Explosion import Explosion
 from game.model.weapon.Weapon import Weapon
 
@@ -23,10 +24,11 @@ class LauncherBulletTrace(BulletTrace):
 class LauncherExplosion(Explosion):
 
     def __init__(self):
-        super().__init__()
+        super().__init__(Debris)
         self.maxRadius = 4
         self.velocityValue = 0.1
         self.damagePercent = 0.02
+        self.debrisCount = 10
         self.aliveRemainCounter.set(150)
 
 

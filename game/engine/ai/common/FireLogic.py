@@ -72,7 +72,7 @@ class FireLogic:
     def getEnemyWithinFireDistanceWhoFiringTo(self, enemy):
         if enemy in self.gameData.collisionData.personBullet:
             bullet = self.gameData.collisionData.personBullet[enemy]
-            if self.withinFireDistance(enemy, bullet.ownerPerson):
+            if bullet.ownerPerson is not None and self.withinFireDistance(enemy, bullet.ownerPerson):
                 return bullet.ownerPerson
 
         return None
