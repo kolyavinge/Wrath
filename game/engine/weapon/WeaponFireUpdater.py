@@ -16,6 +16,11 @@ class WeaponFireUpdater:
     def update(self):
         for person, inputData in self.gameData.allPersonInputData.items():
             personItems = self.gameData.allPersonItems[person]
-            personItems.currentWeapon.isFiring = False  # reset firing before process fire
+
+            # reset firing before process fire
+            personItems.rightHandWeapon.isFiring = False
+            if personItems.leftHandWeapon is not None:
+                personItems.leftHandWeapon.isFiring = False
+
             if inputData.fire and inputData.altFireState == FireState.deactive:
                 self.weaponFireLogic.fireCurrentWeapon(person, personItems)
