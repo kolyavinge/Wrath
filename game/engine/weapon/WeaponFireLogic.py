@@ -18,8 +18,11 @@ class WeaponFireLogic:
         self.weaponSelector = weaponSelector
         self.eventManager = eventManager
 
-    def fire(self, person, personItems):
+    def fireCurrentWeapon(self, person, personItems):
         weapon = personItems.currentWeapon
+        self.fireWeapon(person, weapon, personItems)
+
+    def fireWeapon(self, person, weapon, personItems):
         if self.canFire(person, weapon):
             weapon.isFiring = True
             weapon.bulletsCount -= 1

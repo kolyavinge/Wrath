@@ -15,5 +15,5 @@ class RailgunAltFireLogic:
             weapon.chargeDelay.decrease()
         elif inputData.altFireState == FireState.deactivated:
             weapon.isCharged = weapon.chargeDelay.isExpired()
-            self.weaponFireLogic.fire(person, personItems)
+            self.weaponFireLogic.fireCurrentWeapon(person, personItems)
             weapon.chargeDelay.reset()

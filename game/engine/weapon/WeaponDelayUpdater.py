@@ -14,7 +14,9 @@ class WeaponDelayUpdater:
 
     def update(self):
         for person, personItems in self.gameData.allPersonItems.items():
-            self.updateWeapon(person, personItems, personItems.currentWeapon)
+            self.updateWeapon(person, personItems, personItems.rightHandWeapon)
+            if personItems.leftHandWeapon is not None:
+                self.updateWeapon(person, personItems, personItems.leftHandWeapon)
 
     def updateWeapon(self, person, personItems, weapon):
         if not weapon.delayRemain.isExpired():
