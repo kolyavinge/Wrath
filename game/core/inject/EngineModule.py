@@ -64,6 +64,10 @@ from game.engine.powerup.PowerupPositionGenerator import *
 from game.engine.powerup.PowerupProcessor import *
 from game.engine.powerup.PowerupUpdater import *
 from game.engine.powerup.PowerupValidator import *
+from game.engine.weapon.alt.LauncherAltFireLogic import *
+from game.engine.weapon.alt.PistolAltFireLogic import *
+from game.engine.weapon.alt.RailgunAltFireLogic import *
+from game.engine.weapon.alt.SniperAltFireLogic import *
 from game.engine.weapon.BulletHoleFactory import *
 from game.engine.weapon.BulletLogic import *
 from game.engine.weapon.BulletPositionUpdater import *
@@ -71,14 +75,10 @@ from game.engine.weapon.BulletTraceUpdater import *
 from game.engine.weapon.BulletUpdater import *
 from game.engine.weapon.ExplosionLogic import *
 from game.engine.weapon.ExplosionUpdater import *
-from game.engine.weapon.LauncherAltFireLogic import *
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
-from game.engine.weapon.PistolAltFireLogic import *
 from game.engine.weapon.PlasmaBulletMovingLogic import *
-from game.engine.weapon.RailgunAltFireLogic import *
 from game.engine.weapon.SelectWeaponRequestListener import *
 from game.engine.weapon.SniperAimFloatingUpdater import *
-from game.engine.weapon.SniperAltFireLogic import *
 from game.engine.weapon.WeaponAltFireUpdater import *
 from game.engine.weapon.WeaponDelayUpdater import *
 from game.engine.weapon.WeaponFeedbackLogic import *
@@ -160,6 +160,10 @@ class EngineModule:
         binder.bindSingleton(PowerupProcessor)
         binder.bindSingleton(PowerupUpdater)
         binder.bindSingleton(PowerupValidator)
+        binder.bindSingleton(LauncherAltFireLogic)
+        binder.bindSingleton(PistolAltFireLogic)
+        binder.bindSingleton(RailgunAltFireLogic)
+        binder.bindSingleton(SniperAltFireLogic)
         binder.bindSingleton(BulletHoleFactory)
         binder.bindSingleton(BulletLogic)
         binder.bindSingleton(BulletPositionUpdater)
@@ -167,14 +171,10 @@ class EngineModule:
         binder.bindSingleton(BulletUpdater)
         binder.bindSingleton(ExplosionLogic)
         binder.bindSingleton(ExplosionUpdater)
-        binder.bindSingleton(LauncherAltFireLogic)
         binder.bindSingleton(NonStandardBulletMovingUpdater)
-        binder.bindSingleton(PistolAltFireLogic)
         binder.bindSingleton(PlasmaBulletMovingLogic)
-        binder.bindSingleton(RailgunAltFireLogic)
         binder.bindSingleton(SelectWeaponRequestListener)
         binder.bindSingleton(SniperAimFloatingUpdater)
-        binder.bindSingleton(SniperAltFireLogic)
         binder.bindSingleton(WeaponAltFireUpdater)
         binder.bindSingleton(WeaponDelayUpdater)
         binder.bindSingleton(WeaponFeedbackLogic)
