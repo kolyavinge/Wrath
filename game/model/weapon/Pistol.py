@@ -27,6 +27,7 @@ class PistolBullet(Bullet):
         super().__init__(PistolBulletTrace)
         self.velocityValue = 4
         self.damagePercent = 0.1
+        self.ricochetPossibility = 0.3
         self.holeInfo = BulletHoleInfo.smallHole
 
 

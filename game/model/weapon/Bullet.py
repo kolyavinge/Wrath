@@ -20,6 +20,7 @@ class Bullet:
         self.velocity = Vector3()
         self.velocityValue = 0
         self.damagePercent = 0
+        self.ricochetPossibility = 0
         self.totalDistance = 0
         self.currentLevelSegment = None
         self.nextLevelSegment = None

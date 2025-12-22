@@ -7,6 +7,7 @@ from game.engine.weapon.BulletHoleFactory import BulletHoleFactory
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.lib.EventManager import EventManager, Events
+from game.lib.Random import Random
 
 
 class BulletCollisionUpdater:
@@ -49,15 +50,22 @@ class BulletCollisionUpdater:
         self.explosionLogic.makeExplosion(bullet)
 
     def processConstructionCollision(self, bullet, collisionResult):
-        self.bulletLogic.removeBullet(bullet)
         collisionPoint, construction = collisionResult
-        bullet.damagedObject = construction
-        bspTree = self.gameData.visibilityTree
-        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
         bullet.currentPosition = collisionPoint
         bullet.nextPosition = collisionPoint
-        bulletHole = self.bulletHoleFactory.make(collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
-        self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
+        if bullet.ricochetPossibility > 0 and Random.getFloat(0.0, 1.0) <= bullet.ricochetPossibility:
+            bullet.direction.reflectBy(construction.frontNormal)
+            bullet.velocityValue /= 2.0
+            bullet.velocity = bullet.direction.copy()
+            bullet.velocity.setLength(bullet.velocityValue)
+            bullet.totalDistance = 0
+        else:
+            self.bulletLogic.removeBullet(bullet)
+            bullet.damagedObject = construction
+            bspTree = self.gameData.visibilityTree
+            visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
+            bulletHole = self.bulletHoleFactory.make(collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
+            self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
 
     def processPersonCollision(self, bullet, collisionResult):
         collisionPoint, person, target = collisionResult

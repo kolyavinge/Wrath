@@ -107,6 +107,13 @@ class Vector3:
         if Numeric.floatEquals(self.z, 0):
             self.z = 0
 
+    def reflectBy(self, normal):
+        # reflected = vector - 2 * (vector * normal) * normal
+        product = 2.0 * (self.x * normal.x + self.y * normal.y + self.z * normal.z)
+        self.x -= product * normal.x
+        self.y -= product * normal.y
+        self.z -= product * normal.z
+
     def __eq__(self, vector):
         return self.x == vector.x and self.y == vector.y and self.z == vector.z
 
