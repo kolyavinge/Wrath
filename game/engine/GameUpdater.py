@@ -156,5 +156,6 @@ class GameUpdater:
         self.personUpdater.updateDelays()
         self.sniperAimFloatingUpdater.update()
         self.fragStatisticUpdater.update()
+        self.bulletUpdater.removeNotAlive()
         self.gameData.collisionData.clear()
         self.gameData.updateGlobalTime()

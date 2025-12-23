@@ -59,6 +59,4 @@ class BulletLogic:
 
     def removeBullet(self, bullet):
         bullet.isAlive = False
-        self.gameData.bullets.remove(bullet)
-        if bullet.isVisible:
-            bullet.currentVisibilityLevelSegment.bullets.remove(bullet)
+        self.gameData.bulletsToRemove.append(bullet)
