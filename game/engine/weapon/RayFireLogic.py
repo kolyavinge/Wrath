@@ -4,7 +4,7 @@ from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.EventManager import EventManager, Events
 
 
-class RayLogic:
+class RayFireLogic:
 
     def __init__(
         self,
