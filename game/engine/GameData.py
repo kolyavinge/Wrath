@@ -37,6 +37,7 @@ class GameData:
         self.bullets = []
         self.bulletsToRemove = []
         self.bulletTraces = []
+        self.rays = []
         self.explosions = []
         self.powerups = []
         self.bloodStains = []

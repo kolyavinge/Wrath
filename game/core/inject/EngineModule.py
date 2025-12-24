@@ -66,6 +66,7 @@ from game.engine.powerup.PowerupUpdater import *
 from game.engine.powerup.PowerupValidator import *
 from game.engine.weapon.alt.LauncherAltFireLogic import *
 from game.engine.weapon.alt.PistolAltFireLogic import *
+from game.engine.weapon.alt.PlasmaAltFireLogic import *
 from game.engine.weapon.alt.RailgunAltFireLogic import *
 from game.engine.weapon.alt.SniperAltFireLogic import *
 from game.engine.weapon.BulletHoleFactory import *
@@ -77,6 +78,8 @@ from game.engine.weapon.ExplosionLogic import *
 from game.engine.weapon.ExplosionUpdater import *
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
 from game.engine.weapon.PlasmaBulletMovingLogic import *
+from game.engine.weapon.RayLogic import *
+from game.engine.weapon.RayUpdater import *
 from game.engine.weapon.SelectWeaponRequestListener import *
 from game.engine.weapon.SniperAimFloatingUpdater import *
 from game.engine.weapon.WeaponAltFireUpdater import *
@@ -162,6 +165,7 @@ class EngineModule:
         binder.bindSingleton(PowerupValidator)
         binder.bindSingleton(LauncherAltFireLogic)
         binder.bindSingleton(PistolAltFireLogic)
+        binder.bindSingleton(PlasmaAltFireLogic)
         binder.bindSingleton(RailgunAltFireLogic)
         binder.bindSingleton(SniperAltFireLogic)
         binder.bindSingleton(BulletHoleFactory)
@@ -173,6 +177,8 @@ class EngineModule:
         binder.bindSingleton(ExplosionUpdater)
         binder.bindSingleton(NonStandardBulletMovingUpdater)
         binder.bindSingleton(PlasmaBulletMovingLogic)
+        binder.bindSingleton(RayLogic)
+        binder.bindSingleton(RayUpdater)
         binder.bindSingleton(SelectWeaponRequestListener)
         binder.bindSingleton(SniperAimFloatingUpdater)
         binder.bindSingleton(WeaponAltFireUpdater)
