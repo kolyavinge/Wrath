@@ -2,6 +2,7 @@ class CollisionData:
 
     def __init__(self):
         self.personBullet = {}
+        self.personRay = {}
         self.personExplosion = {}
         self.personPerson = {}
         self.personWalls = {}
@@ -9,6 +10,7 @@ class CollisionData:
 
     def clear(self):
         self.personBullet.clear()
+        self.personRay.clear()
         self.personExplosion.clear()
         self.personPerson.clear()
         self.personWalls.clear()

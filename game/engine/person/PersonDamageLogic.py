@@ -16,7 +16,7 @@ class PersonDamageLogic:
         person.damage(PersonConstants.maxPersonHealth)
 
     def damageByRay(self, person, ray):
-        # TODO self.gameData.collisionData.personBullet[person] = bullet
+        self.gameData.collisionData.personRay[person] = ray
         self.damage(person, ray.damagePercent)
 
     def damageByExplosion(self, person, explosion):

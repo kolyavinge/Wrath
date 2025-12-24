@@ -28,7 +28,11 @@ class EnemyLifeBarUpdater:
             if (
                 enemy.isVisibleForPlayer
                 and enemy.lifeCycle == LifeCycle.alive
-                and (enemy in self.gameData.collisionData.personBullet or enemy in self.gameData.collisionData.personExplosion)
+                and (
+                    enemy in self.gameData.collisionData.personBullet
+                    or enemy in self.gameData.collisionData.personRay
+                    or enemy in self.gameData.collisionData.personExplosion
+                )
             ):
                 lifeBar = self.gameData.enemyLifeBars[enemy]
                 lifeBar.fadeRemain.set(100)

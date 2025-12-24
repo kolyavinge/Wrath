@@ -75,6 +75,11 @@ class FireLogic:
             if bullet.ownerPerson is not None and self.withinFireDistance(enemy, bullet.ownerPerson):
                 return bullet.ownerPerson
 
+        if enemy in self.gameData.collisionData.personRay:
+            ray = self.gameData.collisionData.personRay[enemy]
+            if self.withinFireDistance(enemy, ray.ownerPerson):
+                return ray.ownerPerson
+
         return None
 
     def applyInputData(self, enemy, inputData):

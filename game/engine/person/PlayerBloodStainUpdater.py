@@ -39,4 +39,9 @@ class PlayerBloodStainUpdater:
         player = self.gameData.player
         collisionData = self.gameData.collisionData
 
-        return player in collisionData.personBullet or player in collisionData.personExplosion or player in collisionData.personFalling
+        return (
+            player in collisionData.personBullet
+            or player in collisionData.personRay
+            or player in collisionData.personExplosion
+            or player in collisionData.personFalling
+        )
