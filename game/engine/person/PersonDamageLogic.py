@@ -9,16 +9,15 @@ class PersonDamageLogic:
 
     def damageByBullet(self, person, bullet):
         self.gameData.collisionData.personBullet[person] = bullet
-        personItems = self.gameData.allPersonItems[person]
-        if personItems.vest > 0:
-            personItems.damageVest(bullet.damagePercent * PersonConstants.maxVest)
-            person.damage((bullet.damagePercent * PersonConstants.maxPersonHealth) / 2.0)
-        else:
-            person.damage(bullet.damagePercent * PersonConstants.maxPersonHealth)
+        self.damage(person, bullet.damagePercent)
 
     def damageByHeadshot(self, person, bullet):
         self.gameData.collisionData.personBullet[person] = bullet
         person.damage(PersonConstants.maxPersonHealth)
+
+    def damageByRay(self, person, ray):
+        # TODO self.gameData.collisionData.personBullet[person] = bullet
+        self.damage(person, ray.damagePercent)
 
     def damageByExplosion(self, person, explosion):
         self.gameData.collisionData.personExplosion[person] = explosion
@@ -33,4 +32,12 @@ class PersonDamageLogic:
         damagePercent = person.fallingDamageFunc.getValue(person.fallingTime)
         if damagePercent > 0:
             self.gameData.collisionData.personFalling.add(person)
+            person.damage(damagePercent * PersonConstants.maxPersonHealth)
+
+    def damage(self, person, damagePercent):
+        personItems = self.gameData.allPersonItems[person]
+        if personItems.vest > 0:
+            personItems.damageVest(damagePercent * PersonConstants.maxVest)
+            person.damage((damagePercent * PersonConstants.maxPersonHealth) / 2.0)
+        else:
             person.damage(damagePercent * PersonConstants.maxPersonHealth)

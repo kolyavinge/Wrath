@@ -9,6 +9,8 @@ class PlasmaAltFireLogic:
 
     def apply(self, person, personItems, inputData):
         if inputData.altFireState == FireState.activated:
-            self.rayLogic.makeRay(personItems.currentWeapon)
+            self.rayLogic.activateRay(person, personItems.currentWeapon)
+        elif inputData.altFireState == FireState.active:
+            self.rayLogic.fire(person, personItems)
         elif inputData.altFireState == FireState.deactivated:
-            self.rayLogic.removeRay(personItems.currentWeapon)
+            self.rayLogic.deactivateRay(person, personItems.currentWeapon)

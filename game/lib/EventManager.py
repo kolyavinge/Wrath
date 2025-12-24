@@ -11,6 +11,9 @@ class Events:
     weaponRaised = "weaponRaised"
     bulletHoleAdded = "bulletHoleAdded"
 
+    rayActivated = "rayActivated"
+    rayDeactivated = "rayDeactivated"
+
     powerupPickedUp = "powerupPicked"
 
     torchSwitchRequested = "torchSwitchRequested"

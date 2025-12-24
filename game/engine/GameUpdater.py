@@ -6,6 +6,7 @@ from game.engine.cm.PersonCeilingCollisionUpdater import PersonCeilingCollisionU
 from game.engine.cm.PersonCollisionUpdater import PersonCollisionUpdater
 from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
+from game.engine.cm.RayCollisionUpdater import RayCollisionUpdater
 from game.engine.GameData import GameData
 from game.engine.level.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.person.CowboyEasterEggUpdater import CowboyEasterEggUpdater
@@ -86,6 +87,7 @@ class GameUpdater:
     nonStandardBulletMovingUpdater: NonStandardBulletMovingUpdater
     bulletPositionUpdater: BulletPositionUpdater
     bulletCollisionUpdater: BulletCollisionUpdater
+    rayCollisionUpdater: RayCollisionUpdater
     powerupCollisionUpdater: PowerupCollisionUpdater
     explosionCollisionUpdater: ExplosionCollisionUpdater
     personLifeCycleUpdater: PersonLifeCycleUpdater
@@ -140,6 +142,7 @@ class GameUpdater:
         self.nonStandardBulletMovingUpdater.update()
         self.bulletPositionUpdater.moveNextPosition()
         self.bulletCollisionUpdater.update()
+        self.rayCollisionUpdater.update()
         self.bulletPositionUpdater.commitNextPosition()
         self.powerupCollisionUpdater.update()
         self.explosionCollisionUpdater.update()

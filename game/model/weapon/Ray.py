@@ -10,7 +10,10 @@ class Ray:
         self.startLevelSegment = LevelSegment()
         self.endLevelSegment = LevelSegment()
         self.visibilityLevelSegment = LevelSegment()
+        self.damagePercent = 0
         self.weapon = None
+        self.ownerPerson = None
+        self.damagedObject = None
 
     def update(self):
         pass

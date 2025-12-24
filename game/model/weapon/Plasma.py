@@ -47,6 +47,7 @@ class PlasmaRay(Ray):
 
     def __init__(self):
         super().__init__()
+        self.damagePercent = 0.02
         self.segments = []
         self.segmentLength = 0.3
         self.segmentsCount = 0
@@ -88,10 +89,11 @@ class Plasma(Weapon):
         self.enemyShift = Vector3(0.15, 0.4, -0.1)
         self.selectionShift = Vector3(0, -0.3, 0)
 
-    def makeRay(self):
+    def makeRay(self, ownerPerson):
         ray = PlasmaRay()
         ray.startPosition = self.barrelPosition
         ray.endPosition = ray.startPosition
         ray.weapon = self
+        ray.ownerPerson = ownerPerson
 
         return ray
