@@ -1,5 +1,6 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
-from game.engine.cm.BulletCollisionDetector import *
+from game.engine.cm.BulletCollisionDetector import BulletCollisionDetector
+from game.engine.cm.CollidedTarget import CollidedTarget
 from game.engine.cm.PersonCollisionDetector import PersonCollisionTarget
 from game.engine.GameData import GameData
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
@@ -40,11 +41,11 @@ class BulletCollisionUpdater:
 
     def processCollision(self, bullet, collisionResult):
         target, collisionResultData = collisionResult
-        if target == BulletCollisionTarget.construction:
+        if target == CollidedTarget.construction:
             self.processConstructionCollision(bullet, collisionResultData)
-        elif target == BulletCollisionTarget.onePerson:
+        elif target == CollidedTarget.onePerson:
             self.processPersonCollision(bullet, collisionResultData)
-        elif target == BulletCollisionTarget.allPerson:
+        elif target == CollidedTarget.allPerson:
             for item in collisionResultData:
                 self.processPersonCollision(bullet, item)
         self.explosionLogic.makeExplosion(bullet)

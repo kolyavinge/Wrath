@@ -1,14 +1,8 @@
+from game.engine.cm.CollidedTarget import CollidedTarget
 from game.engine.cm.ConstructionCollisionDetector import ConstructionCollisionDetector
 from game.engine.cm.PersonCollisionDetector import PersonCollisionDetector
 from game.engine.GameData import GameData
 from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
-
-
-class BulletCollisionTarget:
-
-    construction = 1
-    onePerson = 2
-    allPerson = 3
 
 
 class BulletCollisionDetector:
@@ -42,15 +36,15 @@ class BulletCollisionDetector:
         if bullet.goThroughPerson:
             collisionResult = self.personCollisionDetector.getAllCollisionResultOrNone(ownerPerson, allPerson, startPoint, endPoint)
             if collisionResult is not None:
-                return (BulletCollisionTarget.allPerson, collisionResult)
+                return (CollidedTarget.allPerson, collisionResult)
         else:
             collisionResult = self.personCollisionDetector.getNearestCollisionResultOrNone(ownerPerson, allPerson, startPoint, endPoint)
             if collisionResult is not None:
-                return (BulletCollisionTarget.onePerson, collisionResult)
+                return (CollidedTarget.onePerson, collisionResult)
 
         # check constructions
         collisionResult = self.constructionCollisionDetector.getCollisionResultOrNone(levelSegment.allConstructions, startPoint, endPoint)
         if collisionResult is not None:
-            return (BulletCollisionTarget.construction, collisionResult)
+            return (CollidedTarget.construction, collisionResult)
 
         return None
