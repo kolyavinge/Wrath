@@ -1,4 +1,5 @@
-from game.calc.RayOrientationLogic import *
+from game.calc.PlaneOrientationLogic import *
+from game.engine.ai.EnemyAIUpdater import *
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
 from game.engine.CameraScopeChecker import *
@@ -98,7 +99,7 @@ from game.input.PlayerInputManager import *
 class EngineModule:
 
     def init(self, binder):
-        binder.bindSingleton(RayOrientationLogic)
+        binder.bindSingleton(PlaneOrientationLogic)
         binder.bindSingleton(EnemyAIUpdater)
         binder.bindSingleton(BSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal)

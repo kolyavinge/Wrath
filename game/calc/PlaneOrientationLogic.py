@@ -4,7 +4,7 @@ from game.calc.Plane import Plane
 from game.lib.Math import Math
 
 
-class RayOrientationLogic:
+class PlaneOrientationLogic:
 
     def getVerticesOrientedToCamera(self, rayStartPosition, rayEndPosition, rayMainAxis, cameraPosition):
         rotatedCameraPosition = Geometry.rotatePoint(cameraPosition, rayMainAxis, rayStartPosition, Math.piHalf)

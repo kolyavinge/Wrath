@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.calc.RayOrientationLogic import RayOrientationLogic
+from game.calc.PlaneOrientationLogic import PlaneOrientationLogic
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.engine.GameData import GameData
 from game.gl.BufferIndices import BufferIndices
@@ -24,13 +24,13 @@ class RayRenderer:
     def __init__(
         self,
         gameData: GameData,
-        rayOrientationLogic: RayOrientationLogic,
+        planeOrientationLogic: PlaneOrientationLogic,
         vboUpdaterFactory: VBOUpdaterFactory,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
     ):
         self.gameData = gameData
-        self.rayOrientationLogic = rayOrientationLogic
+        self.planeOrientationLogic = planeOrientationLogic
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
@@ -48,7 +48,7 @@ class RayRenderer:
             rayDirection = ray.startPosition.getDirectionTo(ray.currentPosition)
             mainAxis = rayDirection.copy()
             mainAxis.normalize()
-            vertices = self.rayOrientationLogic.getVerticesOrientedToCamera(
+            vertices = self.planeOrientationLogic.getVerticesOrientedToCamera(
                 ray.startPosition,
                 ray.currentPosition,
                 mainAxis,
