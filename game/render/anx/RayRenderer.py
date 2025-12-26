@@ -48,7 +48,7 @@ class RayRenderer:
             rayDirection = ray.startPosition.getDirectionTo(ray.currentPosition)
             mainAxis = rayDirection.copy()
             mainAxis.normalize()
-            vertices = self.rayOrientationLogic.getVerticesOrientedInCamera(
+            vertices = self.rayOrientationLogic.getVerticesOrientedToCamera(
                 ray.startPosition,
                 ray.currentPosition,
                 mainAxis,

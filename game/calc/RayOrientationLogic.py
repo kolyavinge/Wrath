@@ -6,7 +6,7 @@ from game.lib.Math import Math
 
 class RayOrientationLogic:
 
-    def getVerticesOrientedInCamera(self, rayStartPosition, rayEndPosition, rayMainAxis, cameraPosition):
+    def getVerticesOrientedToCamera(self, rayStartPosition, rayEndPosition, rayMainAxis, cameraPosition):
         rotatedCameraPosition = Geometry.rotatePoint(cameraPosition, rayMainAxis, rayStartPosition, Math.piHalf)
         plane = Plane.makeByThreePoints(rotatedCameraPosition, rayStartPosition, rayEndPosition)
 
