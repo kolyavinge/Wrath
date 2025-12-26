@@ -7,6 +7,7 @@ class Ray:
     def __init__(self):
         self.startPosition = Vector3()
         self.currentPosition = Vector3()
+        self.direction = Vector3()
         self.startLevelSegment = LevelSegment()
         self.currentLevelSegment = LevelSegment()
         self.visibilityLevelSegment = LevelSegment()
@@ -17,3 +18,4 @@ class Ray:
         self.weapon = None
         self.ownerPerson = None
         self.damagedObject = None
+        self.initTimeSec = 0

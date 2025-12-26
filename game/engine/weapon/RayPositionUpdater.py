@@ -20,6 +20,7 @@ class RayPositionUpdater:
             ray.currentPosition = ray.weapon.direction.copy()
             ray.currentPosition.setLength(ray.length)
             ray.currentPosition.add(ray.startPosition)
+            ray.direction = ray.weapon.direction
             ray.startLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, ray.startPosition)
             ray.currentLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, ray.currentPosition)
             oldVisibilityLevelSegment = ray.visibilityLevelSegment

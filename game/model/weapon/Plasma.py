@@ -47,16 +47,16 @@ class PlasmaRay(Ray):
 
     def __init__(self):
         super().__init__()
-        self.maxLength = 5
+        self.maxLength = 10
         self.velocityValue = 0.5
-        self.damagePercent = 0.02
+        self.damagePercent = 0.01
 
 
 class Plasma(Weapon):
 
     def __init__(self):
         super().__init__(PlasmaBullet)
-        self.barrelPoint = Vector3(0, 0.3, 0)
+        self.barrelPoint = Vector3(0.0, 0.35, 0.025)
         self.isBurstModeEnabled = True
         self.minBurstCount = 1
         self.maxBurstCount = 5
