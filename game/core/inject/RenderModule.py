@@ -21,8 +21,8 @@ from game.gl.vbo.VBOUpdaterFactory import *
 from game.render.anx.BlurRenderer import *
 from game.render.anx.FireExplosionParticleBufferInitializer import *
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
+from game.render.anx.PlaneRayRenderer import *
 from game.render.anx.PlasmaExplosionParticleBufferInitializer import *
-from game.render.anx.RayRenderer import *
 from game.render.anx.ShineCircleRenderer import *
 from game.render.anx.VignetteRenderer import *
 from game.render.common.MaterialTextureCollection import *
@@ -117,8 +117,8 @@ class RenderModule:
         binder.bindSingleton(BlurRenderer)
         binder.bindSingleton(FireExplosionParticleBufferInitializer)
         binder.bindSingleton(LauncherBulletTraceParticleBufferInitializer)
+        binder.bindSingleton(PlaneRayRenderer)
         binder.bindSingleton(PlasmaExplosionParticleBufferInitializer)
-        binder.bindSingleton(RayRenderer)
         binder.bindSingleton(ShineCircleRenderer)
         binder.bindSingleton(VignetteRenderer)
         binder.bindSingleton(MaterialTextureCollection)

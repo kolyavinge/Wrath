@@ -19,7 +19,7 @@ class RayParams:
         self.shineStrength = 0
 
 
-class RayRenderer:
+class PlaneRayRenderer:
 
     def __init__(
         self,

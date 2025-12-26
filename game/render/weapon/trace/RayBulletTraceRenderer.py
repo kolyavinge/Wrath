@@ -1,10 +1,10 @@
-from game.render.anx.RayRenderer import RayRenderer
+from game.render.anx.PlaneRayRenderer import PlaneRayRenderer
 
 
 class RayBulletTraceRenderer:
 
-    def __init__(self, rayRenderer: RayRenderer):
-        self.rayRenderer = rayRenderer
+    def __init__(self, planeRayRenderer: PlaneRayRenderer):
+        self.planeRayRenderer = planeRayRenderer
 
     def renderTraces(self, traces, rayParams):
-        self.rayRenderer.render(traces, rayParams)
+        self.planeRayRenderer.render(traces, rayParams)
