@@ -16,6 +16,7 @@ class Ray:
         self.velocityValue = 0
         self.damagePercent = 0
         self.weapon = None
+        self.holeInfo = None
         self.ownerPerson = None
         self.damagedObject = None
         self.initTimeSec = 0

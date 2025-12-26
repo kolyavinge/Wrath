@@ -45,10 +45,10 @@ class RayCollisionUpdater:
         collisionPoint, construction = collisionResult
         ray.endPosition = collisionPoint
         ray.damagedObject = construction
-        # bspTree = self.gameData.visibilityTree
-        # visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
-        # bulletHole = self.bulletHoleFactory.make(collisionPoint, construction.frontNormal, visibilityLevelSegment, ray.holeInfo)
-        # self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
+        bspTree = self.gameData.visibilityTree
+        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
+        bulletHole = self.bulletHoleFactory.make(collisionPoint, construction.frontNormal, visibilityLevelSegment, ray.holeInfo)
+        self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
 
     def processPersonCollision(self, ray, collisionResult):
         collisionPoint, person, target = collisionResult

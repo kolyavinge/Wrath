@@ -50,6 +50,7 @@ class PlasmaRay(Ray):
         self.maxLength = 10
         self.velocityValue = 0.5
         self.damagePercent = 0.01
+        self.holeInfo = BulletHoleInfo.plasmaHole
 
 
 class Plasma(Weapon):
