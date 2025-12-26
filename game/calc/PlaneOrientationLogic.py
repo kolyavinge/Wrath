@@ -6,12 +6,12 @@ from game.lib.Math import Math
 
 class PlaneOrientationLogic:
 
-    def getVerticesOrientedToCamera(self, startPosition, endPosition, mainAxis, cameraPosition):
+    def getVerticesOrientedToCamera(self, startPosition, endPosition, mainAxis, cameraPosition, planeWidth=1.0):
         rotatedCameraPosition = Geometry.rotatePoint(cameraPosition, mainAxis, startPosition, Math.piHalf)
         plane = Plane.makeByThreePoints(rotatedCameraPosition, startPosition, endPosition)
 
         step = Geometry.rotatePoint(plane.getNormal(), mainAxis, CommonConstants.axisOrigin, Math.piHalf)
-        step.setLength(1)
+        step.setLength(planeWidth)
 
         p1 = startPosition.copy()
         p2 = startPosition.copy()
