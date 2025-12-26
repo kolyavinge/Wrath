@@ -13,6 +13,7 @@ from game.render.weapon.BulletHoleRenderer import BulletHoleRenderer
 from game.render.weapon.BulletTraceRenderer import BulletTraceRenderer
 from game.render.weapon.CrosshairRenderer import CrosshairRenderer
 from game.render.weapon.ExplosionRenderer import ExplosionRenderer
+from game.render.weapon.RayRenderer import RayRenderer
 from game.render.weapon.ShineBulletRenderer import ShineBulletRenderer
 from game.render.weapon.SniperCrosshairRenderer import SniperCrosshairRenderer
 from game.render.weapon.WeaponFlashRenderer import WeaponFlashRenderer
@@ -30,6 +31,7 @@ class GameScreenRenderer:
         shineBulletRenderer: ShineBulletRenderer,
         weaponFlashRenderer: WeaponFlashRenderer,
         enemyLifeBarRenderer: EnemyLifeBarRenderer,
+        rayRenderer: RayRenderer,
         bulletHoleRenderer: BulletHoleRenderer,
         bulletTraceRenderer: BulletTraceRenderer,
         explosionRenderer: ExplosionRenderer,
@@ -47,6 +49,7 @@ class GameScreenRenderer:
         self.shineBulletRenderer = shineBulletRenderer
         self.weaponFlashRenderer = weaponFlashRenderer
         self.enemyLifeBarRenderer = enemyLifeBarRenderer
+        self.rayRenderer = rayRenderer
         self.bulletHoleRenderer = bulletHoleRenderer
         self.bulletTraceRenderer = bulletTraceRenderer
         self.explosionRenderer = explosionRenderer
@@ -71,6 +74,7 @@ class GameScreenRenderer:
         self.mainSceneRenderer.renderDefaultAimState()
         # self.playerSegmentItemsRenderer.render()
         self.backgroundRenderer.render()
+        self.rayRenderer.render()
         self.bulletHoleRenderer.render()
         self.shineBulletRenderer.render()
         self.bulletTraceRenderer.render()
@@ -85,6 +89,7 @@ class GameScreenRenderer:
     def renderSniperAimState(self):
         self.mainSceneRenderer.renderSniperAimState()
         self.backgroundRenderer.render()
+        self.rayRenderer.render()
         self.bulletHoleRenderer.render()
         self.shineBulletRenderer.render()
         self.bulletTraceRenderer.render()

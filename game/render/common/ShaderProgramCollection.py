@@ -11,6 +11,7 @@ from game.render.shaderprogram.MeshExtShaderProgram import MeshExtShaderProgram
 from game.render.shaderprogram.MeshShaderProgram import MeshShaderProgram
 from game.render.shaderprogram.PlainColorShaderProgram import PlainColorShaderProgram
 from game.render.shaderprogram.PlasmaExplosionShaderProgram import *
+from game.render.shaderprogram.PlasmaRayShaderProgram import PlasmaRayShaderProgram
 from game.render.shaderprogram.RayShaderProgram import RayShaderProgram
 from game.render.shaderprogram.ShineCircleShaderProgram import ShineCircleShaderProgram
 from game.render.shaderprogram.VignetteShaderProgram import VignetteShaderProgram
@@ -105,6 +106,13 @@ class ShaderProgramCollection:
             [
                 self.shaderCollection.plasmaExplosionVertex,
                 self.shaderCollection.plasmaExplosionFragment,
+            ]
+        )
+
+        self.plasmaRay = PlasmaRayShaderProgram(
+            [
+                self.shaderCollection.plasmaRayVertex,
+                self.shaderCollection.plasmaRayFragment,
             ]
         )
 

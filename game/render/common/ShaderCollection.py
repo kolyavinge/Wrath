@@ -50,6 +50,9 @@ class ShaderCollection:
         self.plasmaExplosionVertex = self.shaderCompiler.compile(path + "plasmaExplosion.vert", ShaderType.vertex)
         self.plasmaExplosionFragment = self.shaderCompiler.compile(path + "plasmaExplosion.frag", ShaderType.fragment)
 
+        self.plasmaRayVertex = self.shaderCompiler.compile(path + "plasmaRay.vert", ShaderType.vertex)
+        self.plasmaRayFragment = self.shaderCompiler.compile(path + "plasmaRay.frag", ShaderType.fragment)
+
         self.rayVertex = self.shaderCompiler.compile(path + "ray.vert", ShaderType.vertex)
         self.rayFragment = self.shaderCompiler.compile(path + "ray.frag", ShaderType.fragment)
 
