@@ -47,27 +47,9 @@ class PlasmaRay(Ray):
 
     def __init__(self):
         super().__init__()
+        self.maxLength = 5
+        self.velocityValue = 0.5
         self.damagePercent = 0.02
-        self.segments = []
-        self.segmentLength = 0.3
-        self.segmentsCount = 0
-        self.maxSegmentsCount = 10
-
-    def update(self):
-        self.segments.clear()
-        self.segmentsCount = Math.min(self.segmentsCount + 1, self.maxSegmentsCount)
-        lastPoint = self.weapon.barrelPosition
-        for _ in range(0, self.segmentsCount):
-            segmentPoint = self.weapon.direction.copy()
-            segmentPoint.setLength(self.segmentLength)
-            segmentPoint.x += Random.getFloat(-0.1, 0.1)
-            segmentPoint.y += Random.getFloat(-0.1, 0.1)
-            segmentPoint.z += Random.getFloat(-0.1, 0.1)
-            segmentPoint.add(lastPoint)
-            self.segments.append(segmentPoint)
-            lastPoint = segmentPoint
-        self.startPosition = self.weapon.barrelPosition
-        self.endPosition = lastPoint
 
 
 class Plasma(Weapon):
@@ -92,7 +74,7 @@ class Plasma(Weapon):
     def makeRay(self, ownerPerson):
         ray = PlasmaRay()
         ray.startPosition = self.barrelPosition
-        ray.endPosition = ray.startPosition
+        ray.currentPosition = ray.startPosition
         ray.weapon = self
         ray.ownerPerson = ownerPerson
 

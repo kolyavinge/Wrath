@@ -40,7 +40,7 @@ from game.engine.weapon.BulletTraceUpdater import BulletTraceUpdater
 from game.engine.weapon.BulletUpdater import BulletUpdater
 from game.engine.weapon.ExplosionUpdater import ExplosionUpdater
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
-from game.engine.weapon.RayUpdater import RayUpdater
+from game.engine.weapon.RayPositionUpdater import RayPositionUpdater
 from game.engine.weapon.SelectWeaponRequestListener import SelectWeaponRequestListener
 from game.engine.weapon.SniperAimFloatingUpdater import SniperAimFloatingUpdater
 from game.engine.weapon.WeaponAltFireUpdater import WeaponAltFireUpdater
@@ -82,7 +82,7 @@ class GameUpdater:
     weaponAltFireUpdater: WeaponAltFireUpdater
     playerWeaponSwingUpdater: PlayerWeaponSwingUpdater
     bulletUpdater: BulletUpdater
-    rayUpdater: RayUpdater
+    rayPositionUpdater: RayPositionUpdater
     explosionUpdater: ExplosionUpdater
     nonStandardBulletMovingUpdater: NonStandardBulletMovingUpdater
     bulletPositionUpdater: BulletPositionUpdater
@@ -137,11 +137,11 @@ class GameUpdater:
         self.weaponAltFireUpdater.update()
         self.playerWeaponSwingUpdater.update()
         self.bulletUpdater.update()
-        self.rayUpdater.update()
         self.explosionUpdater.update()
         self.nonStandardBulletMovingUpdater.update()
         self.bulletPositionUpdater.moveNextPosition()
         self.bulletCollisionUpdater.update()
+        self.rayPositionUpdater.update()
         self.rayCollisionUpdater.update()
         self.bulletPositionUpdater.commitNextPosition()
         self.powerupCollisionUpdater.update()

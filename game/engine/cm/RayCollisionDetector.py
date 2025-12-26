@@ -23,9 +23,9 @@ class RayCollisionDetector:
         return self.levelSegmentItemFinder.findItemOrNone(
             self.gameData.collisionTree,
             ray.startLevelSegment,
-            ray.endLevelSegment,
+            ray.currentLevelSegment,
             ray.startPosition,
-            ray.endPosition,
+            ray.currentPosition,
             lambda segment, start, end: self.getTotalCollisionResultOrNone(ray, segment, start, end),
         )
 

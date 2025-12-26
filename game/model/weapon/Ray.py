@@ -6,14 +6,14 @@ class Ray:
 
     def __init__(self):
         self.startPosition = Vector3()
-        self.endPosition = Vector3()
+        self.currentPosition = Vector3()
         self.startLevelSegment = LevelSegment()
-        self.endLevelSegment = LevelSegment()
+        self.currentLevelSegment = LevelSegment()
         self.visibilityLevelSegment = LevelSegment()
+        self.length = 0
+        self.maxLength = 0
+        self.velocityValue = 0
         self.damagePercent = 0
         self.weapon = None
         self.ownerPerson = None
         self.damagedObject = None
-
-    def update(self):
-        pass
