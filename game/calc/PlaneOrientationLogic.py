@@ -6,17 +6,17 @@ from game.lib.Math import Math
 
 class PlaneOrientationLogic:
 
-    def getVerticesOrientedToCamera(self, rayStartPosition, rayEndPosition, rayMainAxis, cameraPosition):
-        rotatedCameraPosition = Geometry.rotatePoint(cameraPosition, rayMainAxis, rayStartPosition, Math.piHalf)
-        plane = Plane.makeByThreePoints(rotatedCameraPosition, rayStartPosition, rayEndPosition)
+    def getVerticesOrientedToCamera(self, startPosition, endPosition, mainAxis, cameraPosition):
+        rotatedCameraPosition = Geometry.rotatePoint(cameraPosition, mainAxis, startPosition, Math.piHalf)
+        plane = Plane.makeByThreePoints(rotatedCameraPosition, startPosition, endPosition)
 
-        step = Geometry.rotatePoint(plane.getNormal(), rayMainAxis, CommonConstants.axisOrigin, Math.piHalf)
+        step = Geometry.rotatePoint(plane.getNormal(), mainAxis, CommonConstants.axisOrigin, Math.piHalf)
         step.setLength(1)
 
-        p1 = rayStartPosition.copy()
-        p2 = rayStartPosition.copy()
-        p3 = rayEndPosition.copy()
-        p4 = rayEndPosition.copy()
+        p1 = startPosition.copy()
+        p2 = startPosition.copy()
+        p3 = endPosition.copy()
+        p4 = endPosition.copy()
 
         p1.add(step)
         p2.sub(step)
