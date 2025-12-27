@@ -10,8 +10,13 @@ class TexturedFramebuffer:
         self.texture = 0
         self.id = 0
         self.addDepthComponent = addDepthComponent
+        self.textureWidth = 0
+        self.textureHeight = 0
 
     def init(self, textureWidth, textureHeight):
+        self.textureWidth = textureWidth
+        self.textureHeight = textureHeight
+
         if self.addDepthComponent:
             glDeleteRenderbuffers(1, [self.depthBuffer])
         glDeleteTextures(1, [self.texture])
