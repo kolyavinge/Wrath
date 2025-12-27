@@ -91,6 +91,6 @@ class PlaneRayRenderer:
         self.vboUpdater.addVertex(vertices[3])
 
         self.vboUpdater.addFace(0, 1, 2)
-        self.vboUpdater.addFace(1, 3, 2)
+        self.vboUpdater.addFace(0, 2, 3)
 
         self.vboUpdater.endUpdate()

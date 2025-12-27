@@ -13,14 +13,16 @@ class PlaneOrientationLogic:
         step = Geometry.rotatePoint(plane.getNormal(), mainAxis, CommonConstants.axisOrigin, Math.piHalf)
         step.setLength(planeWidth)
 
-        p1 = startPosition.copy()
-        p2 = startPosition.copy()
-        p3 = endPosition.copy()
-        p4 = endPosition.copy()
+        nearLeft = startPosition.copy()
+        nearRight = startPosition.copy()
+        farRight = endPosition.copy()
+        farLeft = endPosition.copy()
 
-        p1.add(step)
-        p2.sub(step)
-        p3.add(step)
-        p4.sub(step)
+        nearLeft.add(step)
+        nearRight.sub(step)
+        farRight.sub(step)
+        farLeft.add(step)
 
-        return [p1, p2, p3, p4]
+        # от точки nearLeft (ближняя левая) обходим остальные против часовой стрелки
+
+        return [nearLeft, nearRight, farRight, farLeft]
