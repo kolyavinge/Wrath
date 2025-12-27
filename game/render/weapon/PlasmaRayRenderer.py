@@ -1,11 +1,12 @@
 from OpenGL.GL import *
 
-from game.anx.CommonConstants import CommonConstants
 from game.calc.PlaneOrientationLogic import PlaneOrientationLogic
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.calc.Vector3 import Vector3
 from game.engine.GameData import GameData
 from game.gl.BufferIndices import BufferIndices
+from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
+from game.gl.TexturedFramebuffer import TexturedFramebuffer
+from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -20,39 +21,56 @@ class PlasmaRayRenderer:
         shaderProgramCollection: ShaderProgramCollection,
         vboUpdaterFactory: VBOUpdaterFactory,
         vboRenderer: VBORenderer,
+        screenQuadVBO: ScreenQuadVBO,
     ):
         self.gameData = gameData
         self.planeOrientationLogic = planeOrientationLogic
         self.shaderProgramCollection = shaderProgramCollection
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.vboRenderer = vboRenderer
-        self.vbo = self.vboUpdater.buildUnfilled(
-            4 * CommonConstants.maxRaysCount, 2 * CommonConstants.maxRaysCount, [BufferIndices.vertices, BufferIndices.faces]
-        )
+        self.screenQuadVBO = screenQuadVBO
+        self.rayFramebuffer = TexturedFramebuffer()
+        self.rayFramebuffer.init(1024, 512)
+        rayCount = 1
+        self.vbo = self.vboUpdater.buildUnfilled(4 * rayCount, 2 * rayCount, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces])
 
     def renderRays(self, rays):
+        glBindFramebuffer(GL_FRAMEBUFFER, self.rayFramebuffer.id)
+        glClear(GL_COLOR_BUFFER_BIT)
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+        glEnable(GL_BLEND)
+        glEnable(GL_ALPHA_TEST)
+        shader = self.shaderProgramCollection.plasmaRay
+        shader.use()
+        shader.setResolution(self.rayFramebuffer.textureWidth, self.rayFramebuffer.textureHeight)
+        shader.setCurrentTimeSec(self.gameData.globalTimeSec)
+        for ray in rays:
+            shader.setInitTimeSec(ray.initTimeSec)
+            self.vboRenderer.render(self.screenQuadVBO.vbo)
+        shader.unuse()
+        glDisable(GL_ALPHA_TEST)
+        glDisable(GL_BLEND)
+        glBindFramebuffer(GL_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
+
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
         glEnable(GL_DEPTH_TEST)
-        shader = self.shaderProgramCollection.plasmaRay
+        shader = self.shaderProgramCollection.mesh
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
         shader.setViewMatrix(self.gameData.camera.viewMatrix)
         shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
-        shader.setResolution(2000, 0)
-        shader.setCurrentTimeSec(self.gameData.globalTimeSec)
+        shader.setColorFactor(1.0)
+        shader.setAlphaFactor(1.0)
+        glActiveTexture(GL_TEXTURE0)
+        glBindTexture(GL_TEXTURE_2D, self.rayFramebuffer.texture)
         for ray in rays:
             vertices = self.planeOrientationLogic.getVerticesOrientedToCamera(
-                ray.startPosition,
-                ray.currentPosition,
-                ray.direction,
-                self.gameData.camera.position,
+                ray.startPosition, ray.currentPosition, ray.direction, self.gameData.camera.position, 0.2
             )
             self.vbo.reset()
             self.addVerticesToVBO(vertices)
-            shader.setStartPosition(ray.startPosition)
-            shader.setInitTimeSec(ray.initTimeSec)
             self.vboRenderer.render(self.vbo)
         shader.unuse()
         glDisable(GL_DEPTH_TEST)
@@ -67,7 +85,12 @@ class PlasmaRayRenderer:
         self.vboUpdater.addVertex(vertices[2])
         self.vboUpdater.addVertex(vertices[3])
 
+        self.vboUpdater.addTexCoord(1, 0)
+        self.vboUpdater.addTexCoord(1, 1)
+        self.vboUpdater.addTexCoord(0, 1)
+        self.vboUpdater.addTexCoord(0, 0)
+
         self.vboUpdater.addFace(0, 1, 2)
-        self.vboUpdater.addFace(1, 3, 2)
+        self.vboUpdater.addFace(0, 2, 3)
 
         self.vboUpdater.endUpdate()

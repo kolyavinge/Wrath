@@ -5,9 +5,6 @@
 
 out vec4 FragColor;
 
-in vec4 Position;
-in vec4 Center;
-
 uniform vec2 resolution;
 uniform float initTimeSec;
 uniform float currentTimeSec;
@@ -85,17 +82,18 @@ float noise(vec3 m)
 
 void main()
 {
-    vec2 uv = (Position - Center).xy;
+    vec2 uv = gl_FragCoord.xy / resolution.xy;
+    uv = uv * 2.0 - 1.0;
 
     vec2 p = gl_FragCoord.xy / resolution.x;
     vec3 p3 = vec3(p, (currentTimeSec - initTimeSec) * 0.4);
 
     float intensity = noise(vec3(p3 * 12.0 + 12.0));
 
-    float t = clamp((uv.x * -uv.x * 0.15) + 0.15, 0.0, 1.0);
+    float t = clamp((uv.x * -uv.x * 0.1) + 0.15, 0.0, 1.0);
     float y = abs(intensity * -t + uv.y);
 
-    float g = pow(y, 0.3);
+    float g = pow(y, 0.6);
 
     vec3 color = vec3(1.0, 1.48, 1.78);
     color = color * -g + color;
