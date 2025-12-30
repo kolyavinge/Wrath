@@ -21,6 +21,9 @@ class BulletPositionUpdater:
             self.moveBulletNextPosition(bullet)
 
     def moveBulletNextPosition(self, bullet):
+        if bullet.accelValue > 0:
+            bullet.velocityValue += bullet.accelValue
+            bullet.velocity.setLength(bullet.velocityValue)
         bullet.totalDistance += bullet.velocityValue
         if bullet.totalDistance < CommonConstants.maxLevelSize:
             bullet.nextPosition.add(bullet.velocity)

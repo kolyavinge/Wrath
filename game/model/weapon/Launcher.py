@@ -37,7 +37,8 @@ class LauncherBullet(Bullet):
     def __init__(self):
         super().__init__(LauncherBulletTrace, LauncherExplosion)
         self.isVisible = True
-        self.velocityValue = 1.0
+        self.velocityValue = 0.1
+        self.accelValue = 0.1
         self.damagePercent = 0.5
         self.holeInfo = BulletHoleInfo.explosionHole
         self.traceShift = 0.5

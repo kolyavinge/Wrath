@@ -19,6 +19,7 @@ class Bullet:
         self.directionTopNormal = Vector3()
         self.velocity = Vector3()
         self.velocityValue = 0
+        self.accelValue = 0
         self.damagePercent = 0
         self.ricochetPossibility = 0
         self.totalDistance = 0

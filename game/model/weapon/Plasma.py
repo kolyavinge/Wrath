@@ -48,7 +48,8 @@ class PlasmaRay(Ray):
     def __init__(self):
         super().__init__()
         self.maxLength = 10
-        self.velocityValue = 0.5
+        self.velocityValue = 0.1
+        self.accelValue = 0.1
         self.damagePercent = 0.01
         self.holeInfo = BulletHoleInfo.plasmaHole
 
