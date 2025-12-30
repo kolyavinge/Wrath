@@ -3,12 +3,14 @@ from game.engine.weapon.alt.LauncherAltFireLogic import LauncherAltFireLogic
 from game.engine.weapon.alt.PistolAltFireLogic import PistolAltFireLogic
 from game.engine.weapon.alt.PlasmaAltFireLogic import PlasmaAltFireLogic
 from game.engine.weapon.alt.RailgunAltFireLogic import RailgunAltFireLogic
+from game.engine.weapon.alt.RifleAltFireLogic import RifleAltFireLogic
 from game.engine.weapon.alt.SniperAltFireLogic import SniperAltFireLogic
 from game.engine.weapon.WeaponAltFireStateSwitcher import WeaponAltFireStateSwitcher
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.Railgun import Railgun
+from game.model.weapon.Rifle import Rifle
 from game.model.weapon.Sniper import Sniper
 from game.model.weapon.Weapon import FireState
 
@@ -19,6 +21,7 @@ class WeaponAltFireUpdater:
         self,
         gameData: GameData,
         pistolAltFireLogic: PistolAltFireLogic,
+        rifleAltFireLogic: RifleAltFireLogic,
         plasmaAltFireLogic: PlasmaAltFireLogic,
         launcherAltFireLogic: LauncherAltFireLogic,
         railgunAltFireLogic: RailgunAltFireLogic,
@@ -28,6 +31,7 @@ class WeaponAltFireUpdater:
         self.gameData = gameData
         self.altFireLogic = {}
         self.altFireLogic[Pistol] = pistolAltFireLogic
+        self.altFireLogic[Rifle] = rifleAltFireLogic
         self.altFireLogic[Plasma] = plasmaAltFireLogic
         self.altFireLogic[Launcher] = launcherAltFireLogic
         self.altFireLogic[Railgun] = railgunAltFireLogic
@@ -40,11 +44,7 @@ class WeaponAltFireUpdater:
             weapon = personItems.currentWeapon
             if inputData.fire and weapon.altFireState == FireState.deactive:
                 continue
-
             weaponType = type(weapon)
-            if weaponType not in self.altFireLogic:  # TODO можно убрать если для всех оружей реализована альт стрельба
-                continue
-
             if person.weaponSelectState is not None:
                 if weapon.altFireState != FireState.deactive:
                     weapon.altFireState = FireState.deactivated

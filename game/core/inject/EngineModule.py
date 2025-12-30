@@ -71,6 +71,7 @@ from game.engine.weapon.alt.LauncherAltFireLogic import *
 from game.engine.weapon.alt.PistolAltFireLogic import *
 from game.engine.weapon.alt.PlasmaAltFireLogic import *
 from game.engine.weapon.alt.RailgunAltFireLogic import *
+from game.engine.weapon.alt.RifleAltFireLogic import *
 from game.engine.weapon.alt.SniperAltFireLogic import *
 from game.engine.weapon.BulletHoleFactory import *
 from game.engine.weapon.BulletLogic import *
@@ -173,6 +174,7 @@ class EngineModule:
         binder.bindSingleton(PistolAltFireLogic)
         binder.bindSingleton(PlasmaAltFireLogic)
         binder.bindSingleton(RailgunAltFireLogic)
+        binder.bindSingleton(RifleAltFireLogic)
         binder.bindSingleton(SniperAltFireLogic)
         binder.bindSingleton(BulletHoleFactory)
         binder.bindSingleton(BulletLogic)
