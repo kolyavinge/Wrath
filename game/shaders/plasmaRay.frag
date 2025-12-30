@@ -93,13 +93,13 @@ void main()
     float t = clamp((uv.x * -uv.x * 0.1) + 0.15, 0.0, 1.0);
     float y = abs(intensity * -t + uv.y);
 
-    float g = pow(y, 0.6);
+    float g = pow(y, 0.8);
 
-    vec3 color = vec3(1.0, 1.48, 1.78);
+    vec3 color = vec3(0.0, 0.9, 1.0);
     color = color * -g + color;
     color = color * color;
     color = color * color;
 
-    FragColor.rgb = color;
-    FragColor.w = clamp(1.0 - 2.0 * g, 0.0, 1.0);
+    FragColor.rgb = 2.0 * color;
+    FragColor.a = clamp(1.0 - 2.0 * g, 0.0, 1.0);
 }

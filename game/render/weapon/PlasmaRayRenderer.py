@@ -9,6 +9,7 @@ from game.gl.TexturedFramebuffer import TexturedFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
+from game.lib.Query import Query
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 
@@ -30,11 +31,16 @@ class PlasmaRayRenderer:
         self.vboRenderer = vboRenderer
         self.screenQuadVBO = screenQuadVBO
         self.rayFramebuffer = TexturedFramebuffer()
-        self.rayFramebuffer.init(1024, 512)
+        self.rayFramebuffer.init(1024, 1024)
         rayCount = 1
         self.vbo = self.vboUpdater.buildUnfilled(4 * rayCount, 2 * rayCount, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces])
 
     def renderRays(self, rays):
+        ethalonRay = Query(rays).firstOrNone(lambda r: r.ownerPerson == self.gameData.player) or rays[0]
+        self.renderEthalonRayToFramebuffer(ethalonRay)
+        self.renderAllRaysBasedOnEthalon(rays)
+
+    def renderEthalonRayToFramebuffer(self, ray):
         glBindFramebuffer(GL_FRAMEBUFFER, self.rayFramebuffer.id)
         glClear(GL_COLOR_BUFFER_BIT)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
@@ -43,15 +49,15 @@ class PlasmaRayRenderer:
         shader = self.shaderProgramCollection.plasmaRay
         shader.use()
         shader.setResolution(self.rayFramebuffer.textureWidth, self.rayFramebuffer.textureHeight)
+        shader.setInitTimeSec(ray.initTimeSec)
         shader.setCurrentTimeSec(self.gameData.globalTimeSec)
-        for ray in rays:
-            shader.setInitTimeSec(ray.initTimeSec)
-            self.vboRenderer.render(self.screenQuadVBO.vbo)
+        self.vboRenderer.render(self.screenQuadVBO.vbo)
         shader.unuse()
         glDisable(GL_ALPHA_TEST)
         glDisable(GL_BLEND)
         glBindFramebuffer(GL_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
 
+    def renderAllRaysBasedOnEthalon(self, rays):
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
@@ -67,7 +73,7 @@ class PlasmaRayRenderer:
         glBindTexture(GL_TEXTURE_2D, self.rayFramebuffer.texture)
         for ray in rays:
             vertices = self.planeOrientationLogic.getVerticesOrientedToCamera(
-                ray.startPosition, ray.currentPosition, ray.direction, self.gameData.camera.position, 0.2
+                ray.startPosition, ray.currentPosition, ray.direction, self.gameData.camera.position, 0.25
             )
             self.vbo.reset()
             self.addVerticesToVBO(vertices)
