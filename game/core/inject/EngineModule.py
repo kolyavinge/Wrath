@@ -85,6 +85,7 @@ from game.engine.weapon.RayFireLogic import *
 from game.engine.weapon.RayPositionUpdater import *
 from game.engine.weapon.SelectWeaponRequestListener import *
 from game.engine.weapon.SniperAimFloatingUpdater import *
+from game.engine.weapon.WeaponAltFireStateSwitcher import *
 from game.engine.weapon.WeaponAltFireUpdater import *
 from game.engine.weapon.WeaponDelayUpdater import *
 from game.engine.weapon.WeaponFeedbackLogic import *
@@ -186,6 +187,7 @@ class EngineModule:
         binder.bindSingleton(RayPositionUpdater)
         binder.bindSingleton(SelectWeaponRequestListener)
         binder.bindSingleton(SniperAimFloatingUpdater)
+        binder.bindSingleton(WeaponAltFireStateSwitcher)
         binder.bindSingleton(WeaponAltFireUpdater)
         binder.bindSingleton(WeaponDelayUpdater)
         binder.bindSingleton(WeaponFeedbackLogic)

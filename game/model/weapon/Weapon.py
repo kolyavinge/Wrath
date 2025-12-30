@@ -5,6 +5,14 @@ from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Math import Math
 
 
+class FireState:
+
+    deactive = 0
+    activated = 1
+    active = 2
+    deactivated = 3
+
+
 class Weapon:
 
     defaultCount = 1
@@ -27,6 +35,7 @@ class Weapon:
         self.delay = 0
         self.delayRemain = DecrementCounter()
         self.needReload = False
+        self.altFireState = FireState.deactive
         self.jitter = Vector3()
         self.jitterFade = 0
         self.jitterDelta = 0

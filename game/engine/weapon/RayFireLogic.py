@@ -20,14 +20,15 @@ class RayFireLogic:
         self.eventManager = eventManager
 
     def activateRay(self, person, weapon):
-        ray = weapon.makeRay(person)
-        ray.startLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, ray.startPosition)
-        ray.endLevelSegment = ray.startLevelSegment
-        ray.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, ray.startPosition)
-        ray.visibilityLevelSegment.rays.append(ray)
-        ray.initTimeSec = self.gameData.globalTimeSec
-        self.gameData.rays.append(ray)
-        self.eventManager.raiseEvent(Events.rayActivated, (person, weapon, ray))
+        if self.canFire(person, weapon):
+            ray = weapon.makeRay(person)
+            ray.startLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, ray.startPosition)
+            ray.endLevelSegment = ray.startLevelSegment
+            ray.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, ray.startPosition)
+            ray.visibilityLevelSegment.rays.append(ray)
+            ray.initTimeSec = self.gameData.globalTimeSec
+            self.gameData.rays.append(ray)
+            self.eventManager.raiseEvent(Events.rayActivated, (person, weapon, ray))
 
     def fire(self, person, personItems):
         weapon = personItems.currentWeapon

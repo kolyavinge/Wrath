@@ -5,7 +5,6 @@ from game.input.Mouse import MouseButtons
 from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
 from game.model.person.AimState import DefaultAimState, SniperAimState
-from game.model.person.PersonInputData import FireState
 from game.model.person.PersonStates import LifeCycle
 
 
@@ -80,12 +79,8 @@ class PlayerInputManager:
         if mouse.isPressedOrHeld(MouseButtons.left):
             inputData.fire = True
 
-        if mouse.isPressed(MouseButtons.right):
-            inputData.altFireState = FireState.activated
-        elif mouse.isHeld(MouseButtons.right):
-            inputData.altFireState = FireState.active
-        elif mouse.isLifted(MouseButtons.right):
-            inputData.altFireState = FireState.deactivated
+        if mouse.isPressedOrHeld(MouseButtons.right):
+            inputData.altFire = True
 
         if mouse.scrollDelta != 0:
             if type(aimState) == DefaultAimState:

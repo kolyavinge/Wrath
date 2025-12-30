@@ -4,12 +4,13 @@ from game.engine.weapon.alt.PistolAltFireLogic import PistolAltFireLogic
 from game.engine.weapon.alt.PlasmaAltFireLogic import PlasmaAltFireLogic
 from game.engine.weapon.alt.RailgunAltFireLogic import RailgunAltFireLogic
 from game.engine.weapon.alt.SniperAltFireLogic import SniperAltFireLogic
-from game.model.person.PersonInputData import FireState
+from game.engine.weapon.WeaponAltFireStateSwitcher import WeaponAltFireStateSwitcher
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.Railgun import Railgun
 from game.model.weapon.Sniper import Sniper
+from game.model.weapon.Weapon import FireState
 
 
 class WeaponAltFireUpdater:
@@ -22,6 +23,7 @@ class WeaponAltFireUpdater:
         launcherAltFireLogic: LauncherAltFireLogic,
         railgunAltFireLogic: RailgunAltFireLogic,
         sniperAltFireLogic: SniperAltFireLogic,
+        weaponAltFireStateSwitcher: WeaponAltFireStateSwitcher,
     ):
         self.gameData = gameData
         self.altFireLogic = {}
@@ -30,11 +32,25 @@ class WeaponAltFireUpdater:
         self.altFireLogic[Launcher] = launcherAltFireLogic
         self.altFireLogic[Railgun] = railgunAltFireLogic
         self.altFireLogic[Sniper] = sniperAltFireLogic
+        self.weaponAltFireStateSwitcher = weaponAltFireStateSwitcher
 
     def update(self):
         for person, inputData in self.gameData.allPersonInputData.items():
-            if not inputData.fire and inputData.altFireState != FireState.deactive:
-                personItems = self.gameData.allPersonItems[person]
-                weaponType = personItems.getCurrentWeaponType()
-                if weaponType in self.altFireLogic:
-                    self.altFireLogic[weaponType].apply(person, personItems, inputData)
+            personItems = self.gameData.allPersonItems[person]
+            weapon = personItems.currentWeapon
+            if inputData.fire and weapon.altFireState == FireState.deactive:
+                continue
+
+            weaponType = type(weapon)
+            if weaponType not in self.altFireLogic:  # TODO можно убрать если для всех оружей реализована альт стрельба
+                continue
+
+            if person.weaponSelectState is not None:
+                if weapon.altFireState != FireState.deactive:
+                    weapon.altFireState = FireState.deactivated
+                    self.altFireLogic[weaponType].apply(person, personItems, weapon)
+                    weapon.altFireState = FireState.deactive
+            else:
+                self.weaponAltFireStateSwitcher.switch(weapon, inputData.altFire)
+                if weapon.altFireState != FireState.deactive:
+                    self.altFireLogic[weaponType].apply(person, personItems, weapon)

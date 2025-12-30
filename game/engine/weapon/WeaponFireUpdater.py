@@ -1,6 +1,5 @@
 from game.engine.GameData import GameData
 from game.engine.weapon.WeaponFireLogic import WeaponFireLogic
-from game.model.person.PersonInputData import FireState
 
 
 class WeaponFireUpdater:
@@ -22,5 +21,5 @@ class WeaponFireUpdater:
             if personItems.leftHandWeapon is not None:
                 personItems.leftHandWeapon.isFiring = False
 
-            if inputData.fire and inputData.altFireState == FireState.deactive:
+            if inputData.fire and not inputData.altFire:
                 self.weaponFireLogic.fireCurrentWeapon(person, personItems)
