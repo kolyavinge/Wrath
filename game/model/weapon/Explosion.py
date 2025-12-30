@@ -1,7 +1,9 @@
 from game.anx.CommonConstants import CommonConstants
+from game.calc.Geometry import Geometry
 from game.calc.Plane import Plane
 from game.calc.Vector3 import Vector3
 from game.lib.DecrementCounter import DecrementCounter
+from game.lib.Math import Math
 from game.lib.Random import Random
 
 
@@ -34,7 +36,9 @@ class Explosion:
             debris.directionTopNormal = Vector3(Random.getFloat(-0.1, 0.1), Random.getFloat(-0.1, 0.1), 1.0)
             debris.directionTopNormal.normalize()
             plane = Plane(debris.directionTopNormal, CommonConstants.axisOrigin)
-            debris.direction = plane.getAnyVector()
+            debris.direction = Geometry.rotatePoint(
+                plane.getAnyVector(), debris.directionTopNormal, CommonConstants.axisOrigin, Random.getFloat(-Math.piDouble, Math.piDouble)
+            )
             debris.direction.normalize()
             debris.velocity = debris.direction.copy()
             debris.velocity.setLength(debris.velocityValue)
