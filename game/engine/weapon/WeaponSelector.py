@@ -3,6 +3,7 @@ from game.engine.person.AimStateSwitcher import AimStateSwitcher
 from game.model.person.PersonStates import WeaponSelectState
 from game.model.person.Player import Player
 from game.model.weapon.NullWeapon import NullWeapon
+from game.model.weapon.Weapon import FireState
 from game.model.weapon.WeaponCollection import WeaponCollection
 
 
@@ -82,13 +83,22 @@ class WeaponSelector:
             personItems.removeWeaponByType(personItems.getCurrentWeaponType())
             self.selectNextWeapon(person)
 
-    def selectWeapons(self, person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon):
-        if personItems.currentWeapon == currentWeapon:
+    def selectWeapons(self, person, personItems, selectedRightHandWeapon, selectedLeftHandWeapon, selectedCurrentWeapon):
+        if personItems.currentWeapon == selectedCurrentWeapon:
             return
+
+        if (
+            personItems.currentWeapon.bulletsCount > 0
+            and personItems.currentWeapon.cannotBeChangedWhileAltFire
+            and personItems.currentWeapon.altFireState != FireState.deactive
+        ):
+            return
+
         if type(person) == Player:
             self.aimStateSwitcher.setToDefaultIfNeeded()
-        personItems.selectedRightHandWeapon = rightHandWeapon
-        personItems.selectedLeftHandWeapon = leftHandWeapon
-        personItems.selectedCurrentWeapon = currentWeapon
+
+        personItems.selectedRightHandWeapon = selectedRightHandWeapon
+        personItems.selectedLeftHandWeapon = selectedLeftHandWeapon
+        personItems.selectedCurrentWeapon = selectedCurrentWeapon
         if person.weaponSelectState != WeaponSelectState.putWeaponDown:
             person.weaponSelectState = WeaponSelectState.startSelection

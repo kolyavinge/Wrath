@@ -46,6 +46,7 @@ class Weapon:
         self.playerShift = Vector3()
         self.enemyShift = Vector3()
         self.selectionShift = Vector3()
+        self.cannotBeChangedWhileAltFire = False
 
     def makeBullet(self, ownerPerson):
         bullet = self.bulletType()
