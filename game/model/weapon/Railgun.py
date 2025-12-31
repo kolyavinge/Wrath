@@ -46,8 +46,8 @@ class Railgun(Weapon):
         self.enemyShift = Vector3(0.16, 0.5, -0.1)
         self.selectionShift = Vector3(0, -0.25, 0)
         self.cannotBeChangedWhileAltFire = True
-        self.chargeDelayTime = 80
-        self.chargeDelay = DecrementCounter(self.chargeDelayTime)
+        self.chargeDelay = DecrementCounter(80)
+        self.altFireLimitDelay = DecrementCounter(200)
         self.isCharged = False
 
     def makeBullet(self, ownerPerson):
