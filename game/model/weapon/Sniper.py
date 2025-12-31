@@ -40,6 +40,7 @@ class Sniper(Weapon):
         self.maxBulletsCount = 8
         self.delay = 70
         self.needReload = True
+        self.allowFireWithAltFire = True
         self.reloadDelay = 15
         self.reloadDelayRemain = DecrementCounter()
         self.jitterFade = 0.9

@@ -43,7 +43,7 @@ class WeaponAltFireUpdater:
             personItems = self.gameData.allPersonItems[person]
             weapon = personItems.currentWeapon
             weaponType = type(weapon)
-            if inputData.fire:
+            if inputData.fire and not weapon.allowFireWithAltFire:
                 self.deactivateAltFire(person, personItems, weaponType, weapon)
             elif person.weaponSelectState is not None:
                 self.deactivateAltFire(person, personItems, weaponType, weapon)

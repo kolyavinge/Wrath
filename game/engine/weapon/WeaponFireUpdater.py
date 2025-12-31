@@ -21,5 +21,5 @@ class WeaponFireUpdater:
             if personItems.leftHandWeapon is not None:
                 personItems.leftHandWeapon.isFiring = False
 
-            if inputData.fire and not inputData.altFire:
+            if inputData.fire and (not inputData.altFire or personItems.currentWeapon.allowFireWithAltFire):
                 self.weaponFireLogic.fireCurrentWeapon(person, personItems)

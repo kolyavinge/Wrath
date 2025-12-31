@@ -36,6 +36,7 @@ class Weapon:
         self.delayRemain = DecrementCounter()
         self.needReload = False
         self.altFireState = FireState.deactive
+        self.allowFireWithAltFire = False
         self.jitter = Vector3()
         self.jitterFade = 0
         self.jitterDelta = 0
