@@ -1,5 +1,6 @@
 from game.engine.GameData import GameData
 from game.engine.weapon.BulletLogic import BulletLogic
+from game.lib.EventManager import EventManager, Events
 
 
 class ExplosionLogic:
@@ -8,9 +9,11 @@ class ExplosionLogic:
         self,
         gameData: GameData,
         bulletLogic: BulletLogic,
+        eventManager: EventManager,
     ):
         self.gameData = gameData
         self.bulletLogic = bulletLogic
+        self.eventManager = eventManager
 
     def makeExplosion(self, bullet):
         explosion = bullet.makeExplosion()
@@ -22,6 +25,7 @@ class ExplosionLogic:
             explosion.initTimeSec = self.gameData.globalTimeSec
             self.gameData.explosions.append(explosion)
             self.bulletLogic.makeDebris(explosion)
+            self.eventManager.raiseEvent(Events.exploded, explosion)
 
     def removeExplosion(self, explosion):
         explosion.collisionLevelSegment.explosions.remove(explosion)

@@ -14,6 +14,11 @@ class Events:
     rayActivated = "rayActivated"
     rayDeactivated = "rayDeactivated"
 
+    exploded = "exploded"
+
+    railgunChargingActivated = "railgunChargingActivated"
+    railgunChargingDeactivated = "railgunChargingDeactivated"
+
     powerupPickedUp = "powerupPicked"
 
     torchSwitchRequested = "torchSwitchRequested"
