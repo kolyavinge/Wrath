@@ -74,6 +74,7 @@ from game.engine.weapon.alt.RailgunAltFireLogic import *
 from game.engine.weapon.alt.RifleAltFireLogic import *
 from game.engine.weapon.alt.SniperAltFireLogic import *
 from game.engine.weapon.BulletHoleFactory import *
+from game.engine.weapon.BulletHoleLogic import *
 from game.engine.weapon.BulletLogic import *
 from game.engine.weapon.BulletPositionUpdater import *
 from game.engine.weapon.BulletTraceUpdater import *
@@ -177,6 +178,7 @@ class EngineModule:
         binder.bindSingleton(RifleAltFireLogic)
         binder.bindSingleton(SniperAltFireLogic)
         binder.bindSingleton(BulletHoleFactory)
+        binder.bindSingleton(BulletHoleLogic)
         binder.bindSingleton(BulletLogic)
         binder.bindSingleton(BulletPositionUpdater)
         binder.bindSingleton(BulletTraceUpdater)

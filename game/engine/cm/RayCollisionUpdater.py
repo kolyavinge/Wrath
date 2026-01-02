@@ -3,9 +3,8 @@ from game.engine.cm.CollidedTarget import CollidedTarget
 from game.engine.cm.RayCollisionDetector import RayCollisionDetector
 from game.engine.GameData import GameData
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
-from game.engine.weapon.BulletHoleFactory import BulletHoleFactory
+from game.engine.weapon.BulletHoleLogic import BulletHoleLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
-from game.lib.EventManager import EventManager, Events
 
 
 class RayCollisionUpdater:
@@ -15,18 +14,16 @@ class RayCollisionUpdater:
         gameData: GameData,
         traversal: BSPTreeTraversal,
         rayCollisionDetector: RayCollisionDetector,
-        bulletHoleFactory: BulletHoleFactory,
+        bulletHoleLogic: BulletHoleLogic,
         personDamageLogic: PersonDamageLogic,
         explosionLogic: ExplosionLogic,
-        eventManager: EventManager,
     ):
         self.gameData = gameData
         self.traversal = traversal
         self.rayCollisionDetector = rayCollisionDetector
-        self.bulletHoleFactory = bulletHoleFactory
+        self.bulletHoleLogic = bulletHoleLogic
         self.personDamageLogic = personDamageLogic
         self.explosionLogic = explosionLogic
-        self.eventManager = eventManager
 
     def update(self):
         for ray in self.gameData.rays:
@@ -47,8 +44,7 @@ class RayCollisionUpdater:
         ray.damagedObject = construction
         bspTree = self.gameData.visibilityTree
         visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
-        bulletHole = self.bulletHoleFactory.make(collisionPoint, construction.frontNormal, visibilityLevelSegment, ray.holeInfo)
-        self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
+        self.bulletHoleLogic.makeHole(collisionPoint, construction.frontNormal, visibilityLevelSegment, ray.holeInfo)
 
     def processPersonCollision(self, ray, collisionResult):
         collisionPoint, person, target = collisionResult

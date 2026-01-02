@@ -4,10 +4,9 @@ from game.engine.cm.CollidedTarget import CollidedTarget
 from game.engine.cm.PersonCollisionDetector import PersonCollisionTarget
 from game.engine.GameData import GameData
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
-from game.engine.weapon.BulletHoleFactory import BulletHoleFactory
+from game.engine.weapon.BulletHoleLogic import BulletHoleLogic
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
-from game.lib.EventManager import EventManager, Events
 from game.lib.Random import Random
 
 
@@ -18,20 +17,18 @@ class BulletCollisionUpdater:
         gameData: GameData,
         traversal: BSPTreeTraversal,
         bulletCollisionDetector: BulletCollisionDetector,
-        bulletHoleFactory: BulletHoleFactory,
+        bulletHoleLogic: BulletHoleLogic,
         personDamageLogic: PersonDamageLogic,
         bulletLogic: BulletLogic,
         explosionLogic: ExplosionLogic,
-        eventManager: EventManager,
     ):
         self.gameData = gameData
         self.traversal = traversal
         self.bulletCollisionDetector = bulletCollisionDetector
-        self.bulletHoleFactory = bulletHoleFactory
+        self.bulletHoleLogic = bulletHoleLogic
         self.personDamageLogic = personDamageLogic
         self.bulletLogic = bulletLogic
         self.explosionLogic = explosionLogic
-        self.eventManager = eventManager
 
     def update(self):
         for bullet in self.gameData.bullets:
@@ -65,8 +62,7 @@ class BulletCollisionUpdater:
             bullet.damagedObject = construction
             bspTree = self.gameData.visibilityTree
             visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
-            bulletHole = self.bulletHoleFactory.make(collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
-            self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
+            self.bulletHoleLogic.makeHole(collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
 
     def processPersonCollision(self, bullet, collisionResult):
         collisionPoint, person, target = collisionResult
