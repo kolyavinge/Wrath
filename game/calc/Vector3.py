@@ -99,7 +99,12 @@ class Vector3:
 
         return middle
 
-    def round(self):
+    def round(self, digits):
+        self.x = Math.round(self.x, digits)
+        self.y = Math.round(self.y, digits)
+        self.z = Math.round(self.z, digits)
+
+    def roundToZero(self):
         if Numeric.floatEquals(self.x, 0):
             self.x = 0
         if Numeric.floatEquals(self.y, 0):
