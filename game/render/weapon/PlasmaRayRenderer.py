@@ -73,7 +73,7 @@ class PlasmaRayRenderer:
         glBindTexture(GL_TEXTURE_2D, self.rayFramebuffer.texture)
         for ray in rays:
             vertices = self.planeOrientationLogic.getVerticesOrientedToCamera(
-                ray.startPosition, ray.currentPosition, ray.direction, self.gameData.camera.position, 0.25
+                ray.startPosition, ray.currentPosition, ray.direction, self.gameData.camera.position, 0.15
             )
             self.vbo.reset()
             self.addVerticesToVBO(vertices)
