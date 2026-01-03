@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.anx.DebugSettings import DebugSettings
 from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.render.person.EnemyModel3dFactory import EnemyModel3dFactory
@@ -8,18 +8,16 @@ class EnemyRenderCollection:
 
     def __init__(
         self,
-        gameData: GameData,
         enemyModel3dFactory: EnemyModel3dFactory,
         renderModel3dLoader: RenderModel3dLoader,
     ):
-        self.gameData = gameData
         self.enemyModel3dFactory = enemyModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.enemyModel = None
         self.withAdjacency = True
 
     def init(self):
-        if self.gameData.noEnemies:
+        if DebugSettings.noEnemies:
             return
 
         if self.enemyModel is not None:

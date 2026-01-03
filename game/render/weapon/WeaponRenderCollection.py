@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.anx.DebugSettings import DebugSettings
 from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.weapon.Launcher import Launcher
@@ -15,11 +15,9 @@ class WeaponRenderCollection:
 
     def __init__(
         self,
-        gameData: GameData,
         weaponModel3dFactory: WeaponModel3dFactory,
         renderModel3dLoader: RenderModel3dLoader,
     ):
-        self.gameData = gameData
         self.weaponModel3dFactory = weaponModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.models = {}
@@ -31,7 +29,7 @@ class WeaponRenderCollection:
 
         self.models = {}
 
-        if not self.gameData.isDebug:
+        if not DebugSettings.isDebug:
             self.makePistol()
             self.makeRifle()
             self.makePlasma()

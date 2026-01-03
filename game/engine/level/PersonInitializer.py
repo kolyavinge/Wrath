@@ -1,3 +1,4 @@
+from game.anx.DebugSettings import DebugSettings
 from game.engine.GameData import GameData
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
@@ -33,7 +34,7 @@ class PersonInitializer:
         self.weaponSelector.initWeaponByType(self.gameData.player, weaponType)
 
     def initEnemies(self):
-        if self.gameData.noEnemies:
+        if DebugSettings.noEnemies:
             return
 
         for position, frontNormal, weaponType in self.gameData.level.getEnemyInitInfo():

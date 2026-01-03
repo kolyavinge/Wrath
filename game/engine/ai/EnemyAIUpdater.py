@@ -1,3 +1,4 @@
+from game.anx.DebugSettings import DebugSettings
 from game.engine.ai.state.StateHandlerCollection import StateHandlerCollection
 from game.engine.GameData import GameData
 from game.model.person.PersonStates import LifeCycle
@@ -13,7 +14,7 @@ class EnemyAIUpdater:
     ):
         self.gameData = gameData
         self.stateHandlerCollection = stateHandlerCollection
-        if self.gameData.enemyFreeze:
+        if DebugSettings.enemyFreeze:
             self.update = lambda: None
 
     def init(self):

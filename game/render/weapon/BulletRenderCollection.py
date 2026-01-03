@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.anx.DebugSettings import DebugSettings
 from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.weapon.Launcher import LauncherBullet
@@ -10,17 +10,15 @@ class BulletRenderCollection:
 
     def __init__(
         self,
-        gameData: GameData,
         bulletModel3dFactory: BulletModel3dFactory,
         renderModel3dLoader: RenderModel3dLoader,
     ):
-        self.gameData = gameData
         self.bulletModel3dFactory = bulletModel3dFactory
         self.renderModel3dLoader = renderModel3dLoader
         self.models = {}
 
     def init(self):
-        if self.gameData.isDebug:
+        if DebugSettings.isDebug:
             return
 
         for vbo in self.models:
