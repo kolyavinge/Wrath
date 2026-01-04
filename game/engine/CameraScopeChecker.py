@@ -16,7 +16,7 @@ class CameraScopeChecker:
         m = self.gameData.camera.viewProjectionMatrix
 
         # для оптимизации, чтобы не создавать промежуточные обьекты Vector3 и Vector4
-        # умножение матрицы на вектор написано тут, а не в методе класса
+        # умножение матрицы на вектор делаем тут
 
         w = m.items[3] * px + m.items[7] * py + m.items[11] * pz + m.items[15] * 1.0
         if w == 0.0:

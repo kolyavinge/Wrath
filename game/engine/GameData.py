@@ -32,8 +32,6 @@ class GameData:
         self.allPersonItems[self.player] = self.playerItems
         self.allPersonInputData = {}
         self.allPersonInputData[self.player] = self.playerInputData
-        self.playerTorch = Torch()
-        self.personFragStatistic = {}
         self.bullets = []
         self.bulletsToRemove = []
         self.bulletTraces = []
@@ -41,12 +39,15 @@ class GameData:
         self.rays = []
         self.explosions = []
         self.powerups = []
+        self.respawnRequests = []
+        self.personFragStatistic = {}
+        self.collisionData = CollisionData()
+        # for player
+        self.playerTorch = Torch()
         self.bloodStains = []
         self.enemyLifeBars = {}
-        self.respawnRequests = []
         self.camera = Camera()
         self.aimState = DefaultAimState()
-        self.collisionData = CollisionData()
         self.backgroundVisibility = BackgroundVisibilityData()
         self.dashboard = Dashboard()
 
