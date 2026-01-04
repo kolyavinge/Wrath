@@ -1,7 +1,7 @@
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.engine.cm.PersonWallCollisionDetector import PersonWallCollisionDetector
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Math import Math
 from game.model.Orientation import Orientation
 
@@ -10,7 +10,7 @@ class PersonWallCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         personWallCollisionDetector: PersonWallCollisionDetector,
     ):
         self.gameData = gameData

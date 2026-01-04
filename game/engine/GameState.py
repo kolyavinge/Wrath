@@ -11,7 +11,7 @@ from game.model.person.PersonItems import PersonItems
 from game.model.person.Player import Player
 
 
-class GameData:
+class GameState:
 
     def __init__(self):
         self.globalTimeMsec = 0

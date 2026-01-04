@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.weapon.PlasmaBulletMovingLogic import PlasmaBulletMovingLogic
 from game.model.weapon.Plasma import PlasmaBullet
 
@@ -7,7 +7,7 @@ class NonStandardBulletMovingUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         plasmaBulletMovingLogic: PlasmaBulletMovingLogic,
     ):
         self.gameData = gameData

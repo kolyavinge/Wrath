@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.ColorVector3 import ColorVector3
 from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 from game.gl.vbo.VBORenderer import VBORenderer
@@ -13,7 +13,7 @@ class RailgunChargingRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
         vboBuilderFactory: VBOBuilderFactory,

@@ -3,7 +3,7 @@ from OpenGL.GL import *
 from game.anx.CommonConstants import CommonConstants
 from game.calc.PlaneOrientationLogic import PlaneOrientationLogic
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.BufferIndices import BufferIndices
 from game.gl.ColorVector3 import ColorVector3
 from game.gl.vbo.VBORenderer import VBORenderer
@@ -23,7 +23,7 @@ class PlaneRayRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         planeOrientationLogic: PlaneOrientationLogic,
         vboUpdaterFactory: VBOUpdaterFactory,
         shaderProgramCollection: ShaderProgramCollection,

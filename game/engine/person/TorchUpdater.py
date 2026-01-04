@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.EventManager import EventManager, Events
 
 
@@ -6,7 +6,7 @@ class TorchUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         eventManager: EventManager,
     ):
         self.gameData = gameData

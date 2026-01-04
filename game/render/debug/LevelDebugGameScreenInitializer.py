@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.render.debug.LevelDebugLevelSegmentRenderer import *
 from game.render.level.LevelItemRenderCollection import LevelItemRenderCollection
 from game.render.level.ShadowCasterRenderCollection import ShadowCasterRenderCollection
@@ -10,7 +10,7 @@ class LevelDebugGameScreenInitializer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         levelDebugLevelSegmentRenderer: LevelDebugLevelSegmentRenderer,
         levelItemRenderCollection: LevelItemRenderCollection,
         shadowCasterRenderCollection: ShadowCasterRenderCollection,

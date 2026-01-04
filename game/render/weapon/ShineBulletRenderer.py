@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.model.weapon.Plasma import PlasmaBullet
 from game.render.weapon.anx.PlasmaShineBulletRenderer import PlasmaShineBulletRenderer
 
@@ -7,7 +7,7 @@ class ShineBulletRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         plasmaShineBulletRenderer: PlasmaShineBulletRenderer,
     ):
         self.gameData = gameData

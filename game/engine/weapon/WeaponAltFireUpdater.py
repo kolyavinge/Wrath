@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.weapon.alt.LauncherAltFireLogic import LauncherAltFireLogic
 from game.engine.weapon.alt.PistolAltFireLogic import PistolAltFireLogic
 from game.engine.weapon.alt.PlasmaAltFireLogic import PlasmaAltFireLogic
@@ -19,7 +19,7 @@ class WeaponAltFireUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         pistolAltFireLogic: PistolAltFireLogic,
         rifleAltFireLogic: RifleAltFireLogic,
         plasmaAltFireLogic: PlasmaAltFireLogic,

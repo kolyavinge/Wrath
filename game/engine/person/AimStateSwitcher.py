@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.lib.EventManager import EventManager, Events
 from game.model.person.AimState import DefaultAimState, SniperAimState
@@ -8,7 +8,7 @@ class AimStateSwitcher:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         weaponPositionUpdater: PersonWeaponPositionUpdater,
         eventManager: EventManager,
     ):

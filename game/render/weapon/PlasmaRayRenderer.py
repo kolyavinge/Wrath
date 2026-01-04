@@ -2,7 +2,7 @@ from OpenGL.GL import *
 
 from game.calc.PlaneOrientationLogic import PlaneOrientationLogic
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.BufferIndices import BufferIndices
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
 from game.gl.TexturedFramebuffer import TexturedFramebuffer
@@ -17,7 +17,7 @@ class PlasmaRayRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         planeOrientationLogic: PlaneOrientationLogic,
         shaderProgramCollection: ShaderProgramCollection,
         vboUpdaterFactory: VBOUpdaterFactory,

@@ -1,5 +1,5 @@
 from game.audio.AudioPlayer import AudioPlayer
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.EventManager import EventManager, Events
 from game.model.Material import MaterialKind
 from game.vox.common.AudioSourceFactory import AudioSourceFactory
@@ -10,7 +10,7 @@ class PersonVox:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         audioSourceFactory: AudioSourceFactory,
         audioPlayer: AudioPlayer,
         eventManager: EventManager,

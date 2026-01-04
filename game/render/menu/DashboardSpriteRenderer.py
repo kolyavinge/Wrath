@@ -1,5 +1,5 @@
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.SpriteRendererFactory import SpriteRendererFactory
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
@@ -15,7 +15,7 @@ class DashboardSpriteRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         spriteRendererFactory: SpriteRendererFactory,
         textureCollection: TextureCollection,

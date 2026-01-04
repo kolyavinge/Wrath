@@ -1,6 +1,6 @@
 from game.anx.DebugSettings import DebugSettings
 from game.engine.ai.state.StateHandlerCollection import StateHandlerCollection
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.model.person.PersonStates import LifeCycle
 from game.tools.CpuProfiler import cpuProfile
 
@@ -9,7 +9,7 @@ class EnemyAIUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         stateHandlerCollection: StateHandlerCollection,
     ):
         self.gameData = gameData

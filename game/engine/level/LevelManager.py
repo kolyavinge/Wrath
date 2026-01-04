@@ -1,7 +1,7 @@
 from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.CameraUpdater import CameraUpdater
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.level.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.level.LevelLoader import LevelLoader
 from game.engine.level.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyzer
@@ -20,7 +20,7 @@ from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 
 class LevelManager:
 
-    gameData: GameData
+    gameData: GameState
     levelLoader: LevelLoader
     bspTreeBuilder: BSPTreeBuilder
     joinLineAnalyzer: LevelSegmentJoinLineAnalyzer

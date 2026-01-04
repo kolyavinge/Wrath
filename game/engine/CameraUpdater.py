@@ -1,9 +1,9 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 
 
 class CameraUpdater:
 
-    def __init__(self, gameData: GameData):
+    def __init__(self, gameData: GameState):
         self.gameData = gameData
 
     def update(self):

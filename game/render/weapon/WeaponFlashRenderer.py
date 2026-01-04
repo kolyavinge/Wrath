@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.weapon.WeaponFlashRenderCollection import WeaponFlashRenderCollection
@@ -10,7 +10,7 @@ class WeaponFlashRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         renderCollection: WeaponFlashRenderCollection,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,

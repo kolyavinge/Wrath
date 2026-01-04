@@ -2,7 +2,7 @@ from game.anx.PersonConstants import PersonConstants
 from game.calc.Box3d import Box3d
 from game.calc.Vector3 import Vector3
 from game.engine.CameraScopeChecker import CameraScopeChecker
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.model.person.PersonStates import LifeCycle
 
 
@@ -10,7 +10,7 @@ class EnemyVisibilityUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         cameraScopeChecker: CameraScopeChecker,
     ):
         self.gameData = gameData

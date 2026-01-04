@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager, Events
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -12,7 +12,7 @@ class PlayerBloodStainRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         renderCollection: PlayerBloodStainRenderCollection,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,

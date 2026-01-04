@@ -1,6 +1,6 @@
 from game.anx.PersonConstants import PersonConstants
 from game.engine.ai.common.BurstFireLogic import BurstFireLogic
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.model.person.PersonStates import LifeCycle
 
@@ -9,7 +9,7 @@ class FireLogic:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         personTurnLogic: PersonTurnLogic,
         burstFireLogic: BurstFireLogic,
     ):

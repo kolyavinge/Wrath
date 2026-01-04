@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.model.weapon.Plasma import PlasmaRay
 from game.render.weapon.PlasmaRayRenderer import PlasmaRayRenderer
 
@@ -7,7 +7,7 @@ class RayRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         plasmaRayRenderer: PlasmaRayRenderer,
     ):
         self.gameData = gameData

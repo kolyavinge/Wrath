@@ -1,5 +1,5 @@
 from game.anx.DebugSettings import DebugSettings
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.model.person.Enemy import Enemy
@@ -12,7 +12,7 @@ class PersonInitializer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         personTurnLogic: PersonTurnLogic,
         weaponSelector: WeaponSelector,
     ):

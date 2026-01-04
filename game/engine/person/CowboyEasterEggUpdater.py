@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Math import Math
 from game.model.weapon.Pistol import Pistol
 
@@ -8,7 +8,7 @@ class CowboyEasterEggUpdater:
     # небольшая пасхалочка
     # если игрок стоит неподвижно с пистолетами 20 секунд, то он их начинает крутить
 
-    def __init__(self, gameData: GameData):
+    def __init__(self, gameData: GameState):
         self.gameData = gameData
         self.remainInit = 120
         self.radianStep = 7 * Math.piDouble / self.remainInit

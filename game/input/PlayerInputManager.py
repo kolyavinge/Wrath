@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.input.InputManager import InputManager
 from game.input.Keyboard import KeyboardButtons
 from game.input.Mouse import MouseButtons
@@ -12,7 +12,7 @@ class PlayerInputManager:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         inputManager: InputManager,
         eventManager: EventManager,
     ):

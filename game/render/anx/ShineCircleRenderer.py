@@ -5,7 +5,7 @@ from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Vector3 import Vector3
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -23,7 +23,7 @@ class ShineCircleRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         vboBuilderFactory: VBOBuilderFactory,
         vboRenderer: VBORenderer,

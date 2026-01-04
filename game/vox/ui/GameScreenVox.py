@@ -1,5 +1,5 @@
 from game.audio.AudioPlayer import AudioPlayer
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.vox.common.PersonVox import PersonVox
 from game.vox.common.PlayerItemsVox import PlayerItemsVox
 from game.vox.common.PowerupVox import PowerupVox
@@ -10,7 +10,7 @@ class GameScreenVox:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         audioPlayer: AudioPlayer,
         personVox: PersonVox,
         playerItemsVox: PlayerItemsVox,

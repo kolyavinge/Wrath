@@ -2,7 +2,7 @@ from OpenGL.GL import *
 
 from game.calc.TransformMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.level.LevelItemRenderCollection import *
@@ -12,7 +12,7 @@ class PlayerSegmentItemsRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         renderCollection: LevelItemRenderCollection,
         model3dRenderer: Model3dRenderer,
         shaderProgramCollection: ShaderProgramCollection,

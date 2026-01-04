@@ -1,5 +1,5 @@
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.TextRenderer import TextRenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
@@ -8,7 +8,7 @@ class DashboardTextRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         textRenderer: TextRenderer,
     ):

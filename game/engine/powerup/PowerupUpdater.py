@@ -1,6 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.powerup.PowerupPositionGenerator import PowerupPositionGenerator
 from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Query import Query
@@ -14,7 +14,7 @@ class PowerupUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         positionGenerator: PowerupPositionGenerator,
         traversal: BSPTreeTraversal,
     ):

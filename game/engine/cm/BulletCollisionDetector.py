@@ -1,7 +1,7 @@
 from game.engine.cm.CollidedTarget import CollidedTarget
 from game.engine.cm.ConstructionCollisionDetector import ConstructionCollisionDetector
 from game.engine.cm.PersonCollisionDetector import PersonCollisionDetector
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
 
 
@@ -9,7 +9,7 @@ class BulletCollisionDetector:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         levelSegmentItemFinder: LevelSegmentItemFinder,
         constructionCollisionDetector: ConstructionCollisionDetector,
         personCollisionDetector: PersonCollisionDetector,

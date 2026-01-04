@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.model.weapon.Weapon import FireState
@@ -8,7 +8,7 @@ class LauncherAltFireLogic:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         bulletLogic: BulletLogic,
         explosionLogic: ExplosionLogic,
     ):

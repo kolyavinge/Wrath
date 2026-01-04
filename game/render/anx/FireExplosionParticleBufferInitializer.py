@@ -2,7 +2,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.calc.Vector4 import Vector4
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.ParticleBuffer import ExtraParticleDataBuffers
 from game.gl.ParticleBufferFactory import ParticleBufferFactory
 from game.lib.Math import Math
@@ -13,7 +13,7 @@ class FireExplosionParticleBufferInitializer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         particleBufferFactory: ParticleBufferFactory,
     ):
         self.gameData = gameData

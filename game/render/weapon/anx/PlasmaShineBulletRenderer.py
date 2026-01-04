@@ -1,6 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.ColorVector3 import ColorVector3
 from game.render.anx.ShineCircleRenderer import ShineCircleParams, ShineCircleRenderer
 
@@ -9,7 +9,7 @@ class PlasmaShineBulletRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         shineCircleRenderer: ShineCircleRenderer,
     ):
         self.gameData = gameData

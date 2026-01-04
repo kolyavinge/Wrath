@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.model.weapon.Railgun import Railgun
 from game.render.weapon.anx.RailgunChargingRenderer import RailgunChargingRenderer
 
@@ -7,7 +7,7 @@ class WeaponAltRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         railgunChargingRenderer: RailgunChargingRenderer,
     ):
         self.gameData = gameData

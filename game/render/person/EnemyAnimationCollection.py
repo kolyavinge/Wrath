@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.model3d.AnimationPlayer import PlayableAnimation
 from game.model.person.PersonStates import PersonZState
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
@@ -8,7 +8,7 @@ class EnemyAnimationCollection:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         renderCollection: EnemyRenderCollection,
     ):
         self.gameData = gameData

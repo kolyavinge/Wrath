@@ -1,12 +1,12 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Query import Query
 from game.model.level.NullFloor import NullFloor
 
 
 class PersonFloorUpdater:
 
-    def __init__(self, gameData: GameData, traversal: BSPTreeTraversal):
+    def __init__(self, gameData: GameState, traversal: BSPTreeTraversal):
         self.gameData = gameData
         self.traversal = traversal
 

@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.weapon.BulletHoleRenderCollection import BulletHoleRenderCollection
@@ -11,7 +11,7 @@ class BulletHoleRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         bulletHoleRenderCollection: BulletHoleRenderCollection,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,

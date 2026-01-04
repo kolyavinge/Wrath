@@ -1,10 +1,10 @@
 from game.anx.PersonConstants import PersonConstants
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 
 
 class PersonDamageLogic:
 
-    def __init__(self, gameData: GameData):
+    def __init__(self, gameData: GameState):
         self.gameData = gameData
 
     def damageByBullet(self, person, bullet):

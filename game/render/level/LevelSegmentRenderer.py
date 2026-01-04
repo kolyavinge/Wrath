@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Query import Query
 from game.render.level.LevelItemRenderer import LevelItemRenderer
 from game.render.level.ShadowCasterRenderer import ShadowCasterRenderer
@@ -11,7 +11,7 @@ class LevelSegmentRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         levelItemRenderer: LevelItemRenderer,
         bulletRenderer: BulletRenderer,
         powerupRenderer: PowerupRenderer,

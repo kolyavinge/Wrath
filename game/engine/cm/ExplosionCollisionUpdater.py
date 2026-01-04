@@ -1,5 +1,5 @@
 from game.engine.cm.ExplosionCollisionDetector import ExplosionCollisionDetector
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
 
 
@@ -7,7 +7,7 @@ class ExplosionCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         explosionCollisionDetector: ExplosionCollisionDetector,
         personDamageLogic: PersonDamageLogic,
     ):

@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
 
 
@@ -6,7 +6,7 @@ class ExplosionUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         explosionLogic: ExplosionLogic,
     ):
         self.gameData = gameData

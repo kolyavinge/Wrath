@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.person.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
 
 
@@ -6,7 +6,7 @@ class PlayerLevelSegmentsUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         personLevelSegmentsUpdater: PersonLevelSegmentsUpdater,
     ):
         self.gameData = gameData

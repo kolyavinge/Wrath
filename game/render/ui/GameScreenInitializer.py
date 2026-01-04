@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.render.level.LevelItemRenderCollection import LevelItemRenderCollection
 from game.render.level.ShadowCasterRenderCollection import ShadowCasterRenderCollection
 from game.render.menu.DashboardRenderer import DashboardRenderer
@@ -17,7 +17,7 @@ class GameScreenInitializer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         levelItemRenderCollection: LevelItemRenderCollection,
         bulletHoleRenderCollection: BulletHoleRenderCollection,
         shadowCasterRenderCollection: ShadowCasterRenderCollection,

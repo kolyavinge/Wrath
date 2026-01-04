@@ -1,5 +1,5 @@
 from game.anx.PersonConstants import PersonConstants
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.EventManager import EventManager, Events
 from game.model.level.Stair import Stair
 from game.model.person.PersonStates import PersonZState
@@ -9,7 +9,7 @@ class PersonStepUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         eventManager: EventManager,
     ):
         self.gameData = gameData

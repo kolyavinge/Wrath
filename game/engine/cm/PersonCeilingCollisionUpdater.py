@@ -1,6 +1,6 @@
 from game.anx.PersonConstants import PersonConstants
 from game.engine.cm.PersonCeilingCollisionDetector import PersonCeilingCollisionDetector
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.model.person.PersonStates import PersonZState
 
 
@@ -8,7 +8,7 @@ class PersonCeilingCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         personCeilingCollisionDetector: PersonCeilingCollisionDetector,
     ):
         self.gameData = gameData

@@ -1,7 +1,7 @@
 from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
 from game.engine.ai.common.PowerupFinder import PowerupFinder
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Random import Random
 from game.model.ai.EnemyState import EnemyState
 
@@ -10,7 +10,7 @@ class HealthSearchStateHandler:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         movingLogic: MovingLogic,
         fireLogic: FireLogic,
         powerupFinder: PowerupFinder,

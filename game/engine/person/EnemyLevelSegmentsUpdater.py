@@ -1,5 +1,5 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.person.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
 
 
@@ -7,7 +7,7 @@ class EnemyLevelSegmentsUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         personLevelSegmentsUpdater: PersonLevelSegmentsUpdater,
         traversal: BSPTreeTraversal,
     ):

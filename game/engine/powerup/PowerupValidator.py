@@ -1,5 +1,5 @@
 from game.anx.PersonConstants import PersonConstants
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
 from game.model.powerup.VestPowerup import VestPowerup
@@ -8,7 +8,7 @@ from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 class PowerupValidator:
 
-    def __init__(self, gameData: GameData):
+    def __init__(self, gameData: GameState):
         self.gameData = gameData
         self.actions = {}
         self.actions[WeaponPowerup] = self.canApplyWeaponPowerup

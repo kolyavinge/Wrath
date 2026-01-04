@@ -1,14 +1,14 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.cm.PersonWallCollisionDetector import PersonWallCollisionDetector
 from game.engine.cm.VoidCollisionDetector import VoidCollisionDetector
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 
 
 class RouteCollisionDetector:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         personWallCollisionDetector: PersonWallCollisionDetector,
         voidCollisionDetector: VoidCollisionDetector,
         traversal: BSPTreeTraversal,

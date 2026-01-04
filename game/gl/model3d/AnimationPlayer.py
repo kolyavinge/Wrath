@@ -1,5 +1,5 @@
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.model3d.FrameInterpolator import FrameInterpolator
 
 
@@ -16,7 +16,7 @@ class AnimationPlayer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         frameInterpolator: FrameInterpolator,
     ):
         self.gameData = gameData

@@ -1,7 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Plane import Plane
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.FeedbackParticleBufferFactory import FeedbackParticleBufferFactory
 from game.lib.Math import Math
 from game.lib.Random import Random
@@ -12,7 +12,7 @@ class PlasmaExplosionParticleBufferInitializer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         particleBufferFactory: FeedbackParticleBufferFactory,
     ):
         self.gameData = gameData

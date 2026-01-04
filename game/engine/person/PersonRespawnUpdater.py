@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.lib.Random import Random
 
@@ -7,7 +7,7 @@ class PersonRespawnUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         personTurnLogic: PersonTurnLogic,
     ):
         self.gameData = gameData

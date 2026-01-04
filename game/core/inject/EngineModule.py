@@ -23,7 +23,7 @@ from game.engine.cm.RayCollisionUpdater import *
 from game.engine.cm.SphereCollisionDetector import *
 from game.engine.cm.VoidCollisionDetector import *
 from game.engine.DashboardUpdater import *
-from game.engine.GameData import *
+from game.engine.GameState import *
 from game.engine.GameUpdater import *
 from game.engine.level.BackgroundVisibilityUpdater import *
 from game.engine.level.LevelLoader import *
@@ -127,7 +127,7 @@ class EngineModule:
         binder.bindSingleton(SphereCollisionDetector)
         binder.bindSingleton(VoidCollisionDetector)
         binder.bindSingleton(DashboardUpdater)
-        binder.bindSingleton(GameData)
+        binder.bindSingleton(GameState)
         binder.bindSingleton(GameUpdater, resolveByFields=True)
         binder.bindSingleton(BackgroundVisibilityUpdater)
         binder.bindSingleton(LevelLoader)

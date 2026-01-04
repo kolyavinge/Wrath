@@ -1,6 +1,6 @@
 from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.model.ai.AIData import EnemyState
 
 
@@ -8,7 +8,7 @@ class AttackStateHandler:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         movingLogic: MovingLogic,
         fireLogic: FireLogic,
     ):

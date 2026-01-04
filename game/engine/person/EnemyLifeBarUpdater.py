@@ -1,7 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
 from game.anx.PersonConstants import PersonConstants
 from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 from game.model.person.PersonStates import LifeCycle
@@ -9,7 +9,7 @@ from game.model.person.PersonStates import LifeCycle
 
 class EnemyLifeBarUpdater:
 
-    def __init__(self, gameData: GameData):
+    def __init__(self, gameData: GameState):
         self.gameData = gameData
 
     def update(self):

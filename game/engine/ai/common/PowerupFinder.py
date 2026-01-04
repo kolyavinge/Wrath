@@ -1,5 +1,5 @@
 from game.engine.ai.common.RouteFinder import RouteFinder
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Query import Query
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
@@ -11,7 +11,7 @@ class PowerupFinder:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         routeFinder: RouteFinder,
     ):
         self.gameData = gameData

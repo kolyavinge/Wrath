@@ -1,6 +1,6 @@
 from OpenGL.GL import GL_TEXTURE0
 
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.ParticleRenderer import ParticleRenderer
 from game.render.anx.FireExplosionParticleBufferInitializer import *
 from game.render.anx.ParticleBufferCollection import ParticleBufferCollection
@@ -11,7 +11,7 @@ class FireExplosionRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         particleRenderer: ParticleRenderer,
         bufferInitializer: FireExplosionParticleBufferInitializer,
         shaderProgramCollection: ShaderProgramCollection,

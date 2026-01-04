@@ -2,7 +2,7 @@ from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.cm.BulletCollisionDetector import BulletCollisionDetector
 from game.engine.cm.CollidedTarget import CollidedTarget
 from game.engine.cm.PersonCollisionDetector import PersonCollisionTarget
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.engine.weapon.BulletHoleLogic import BulletHoleLogic
 from game.engine.weapon.BulletLogic import BulletLogic
@@ -14,7 +14,7 @@ class BulletCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         traversal: BSPTreeTraversal,
         bulletCollisionDetector: BulletCollisionDetector,
         bulletHoleLogic: BulletHoleLogic,

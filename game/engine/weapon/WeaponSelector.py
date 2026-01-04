@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
 from game.model.person.PersonStates import WeaponSelectState
 from game.model.person.Player import Player
@@ -11,7 +11,7 @@ class WeaponSelector:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         aimStateSwitcher: AimStateSwitcher,
     ):
         self.gameData = gameData

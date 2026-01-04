@@ -1,11 +1,11 @@
 from game.calc.Geometry import Geometry
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Random import Random
 
 
 class AIDataInitializer:
 
-    def __init__(self, gameData: GameData):
+    def __init__(self, gameData: GameState):
         self.gameData = gameData
 
     def init(self):

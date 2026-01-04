@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.model.weapon.Launcher import LauncherExplosion
 from game.model.weapon.Plasma import PlasmaExplosion
 from game.render.weapon.explosion.LauncherExplosionRenderer import *
@@ -9,7 +9,7 @@ class ExplosionRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         plasmaExplosionRenderer: PlasmaExplosionRenderer,
         launcherExplosionRenderer: LauncherExplosionRenderer,
     ):

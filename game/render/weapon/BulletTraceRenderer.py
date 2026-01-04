@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.model.weapon.Debris import DebrisBulletTrace
 from game.model.weapon.Launcher import LauncherBulletTrace
 from game.model.weapon.Pistol import PistolBulletTrace
@@ -15,7 +15,7 @@ class BulletTraceRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         rifleBulletTraceRenderer: RifleBulletTraceRenderer,
         launcherBulletTraceRenderer: LauncherBulletTraceRenderer,
         railgunBulletTraceRenderer: RailgunBulletTraceRenderer,

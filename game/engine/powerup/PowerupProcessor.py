@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
@@ -10,7 +10,7 @@ class PowerupProcessor:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         weaponSelector: WeaponSelector,
     ):
         self.gameData = gameData

@@ -1,6 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Math import Math
 from game.lib.mirrorRange import mirrorRange
 from game.model.person.PersonStates import PersonZState
@@ -8,7 +8,7 @@ from game.model.person.PersonStates import PersonZState
 
 class PlayerWeaponSwingUpdater:
 
-    def __init__(self, gameData: GameData):
+    def __init__(self, gameData: GameState):
         self.gameData = gameData
         stepsCount = 15
         stepValue = Math.pi / stepsCount

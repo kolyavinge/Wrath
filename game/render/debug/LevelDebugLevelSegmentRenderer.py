@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.render.level.LevelItemRenderer import LevelItemRenderer
 from game.render.level.ShadowCasterRenderer import ShadowCasterRenderer
 from game.render.person.EnemyRenderer import EnemyRenderer
@@ -8,7 +8,7 @@ class LevelDebugLevelSegmentRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         levelItemRenderer: LevelItemRenderer,
         enemyRenderer: EnemyRenderer,
         shadowCasterRenderer: ShadowCasterRenderer,

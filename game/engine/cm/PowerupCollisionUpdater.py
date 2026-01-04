@@ -1,5 +1,5 @@
 from game.engine.cm.PowerupCollisionDetector import PowerupCollisionDetector
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.powerup.PowerupProcessor import PowerupProcessor
 from game.engine.powerup.PowerupValidator import PowerupValidator
 from game.lib.EventManager import EventManager, Events
@@ -9,7 +9,7 @@ class PowerupCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         powerupCollisionDetector: PowerupCollisionDetector,
         powerupValidator: PowerupValidator,
         powerupProcessor: PowerupProcessor,

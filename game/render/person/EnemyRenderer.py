@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.model3d.AnimationPlayer import AnimationPlayer
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.model.person.AimState import SniperAimState
@@ -14,7 +14,7 @@ class EnemyRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         renderCollection: EnemyRenderCollection,
         model3dRenderer: Model3dRenderer,
         enemyAnimationCollection: EnemyAnimationCollection,

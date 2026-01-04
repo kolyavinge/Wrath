@@ -1,12 +1,12 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 
 
 class BulletTraceUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         traversal: BSPTreeTraversal,
     ):
         self.gameData = gameData

@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.weapon.WeaponFireLogic import WeaponFireLogic
 
 
@@ -6,7 +6,7 @@ class WeaponFireUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         weaponFireLogic: WeaponFireLogic,
     ):
         self.gameData = gameData

@@ -1,7 +1,7 @@
 from game.calc.Vector3 import Vector3
 from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.lib.Random import Random
 from game.model.ai.AIData import EnemyState
@@ -11,7 +11,7 @@ class IdleStateHandler:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         movingLogic: MovingLogic,
         fireLogic: FireLogic,
         personTurnLogic: PersonTurnLogic,

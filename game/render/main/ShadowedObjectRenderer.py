@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleBlitFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
@@ -14,7 +14,7 @@ class ShadowedObjectRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         shadowedObjectFramebuffer: ShadowedObjectFramebuffer,
         vboRenderer: VBORenderer,
         shaderProgramCollection: ShaderProgramCollection,

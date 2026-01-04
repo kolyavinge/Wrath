@@ -1,6 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Vector3 import Vector3
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Math import Math
 from game.lib.Random import Random
 from game.model.person.BloodStain import BloodStain
@@ -8,7 +8,7 @@ from game.model.person.BloodStain import BloodStain
 
 class PlayerBloodStainUpdater:
 
-    def __init__(self, gameData: GameData):
+    def __init__(self, gameData: GameState):
         self.gameData = gameData
 
     def update(self):

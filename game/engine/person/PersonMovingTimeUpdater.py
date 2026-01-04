@@ -1,10 +1,10 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.Numeric import Numeric
 
 
 class PersonMovingTimeUpdater:
 
-    def __init__(self, gameData: GameData):
+    def __init__(self, gameData: GameState):
         self.gameData = gameData
         self.maxForwardMovingTime = 1.25
         self.maxMovingTime = 0.5

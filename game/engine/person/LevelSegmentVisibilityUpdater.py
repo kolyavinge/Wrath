@@ -1,13 +1,13 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.CameraScopeChecker import CameraScopeChecker
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 
 
 class LevelSegmentVisibilityUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         cameraScopeChecker: CameraScopeChecker,
     ):
         self.gameData = gameData

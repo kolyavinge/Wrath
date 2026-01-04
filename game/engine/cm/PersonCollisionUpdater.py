@@ -1,12 +1,12 @@
 from game.engine.cm.PersonCollisionDetector import PersonCollisionDetector
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 
 
 class PersonCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         personCollisionDetector: PersonCollisionDetector,
     ):
         self.gameData = gameData

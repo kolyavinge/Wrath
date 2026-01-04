@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.FeedbackParticleRenderer import FeedbackParticleRenderer
 from game.render.anx.BlurRenderer import BlurRenderer
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
@@ -13,7 +13,7 @@ class LauncherBulletTraceRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         particleRenderer: FeedbackParticleRenderer,
         blurRenderer: BlurRenderer,
         bufferInitializer: LauncherBulletTraceParticleBufferInitializer,

@@ -1,4 +1,4 @@
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.weapon.BulletHoleFactory import BulletHoleFactory
 from game.lib.EventManager import EventManager, Events
 
@@ -7,7 +7,7 @@ class BulletHoleLogic:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         bulletHoleFactory: BulletHoleFactory,
         eventManager: EventManager,
     ):

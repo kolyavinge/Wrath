@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.model.person.PersonStates import LifeCycle
 from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection
@@ -10,7 +10,7 @@ class WeaponRenderer:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         renderCollection: WeaponRenderCollection,
         model3dRenderer: Model3dRenderer,
     ):

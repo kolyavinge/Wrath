@@ -1,5 +1,5 @@
 from game.anx.PersonConstants import PersonConstants
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
 from game.model.person.PersonStates import WeaponSelectState
@@ -10,7 +10,7 @@ class PersonSelectedWeaponPositionUpdater:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         eventManager: EventManager,
     ):
         self.gameData = gameData

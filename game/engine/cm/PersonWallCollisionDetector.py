@@ -1,5 +1,5 @@
 from game.engine.cm.ConstructionCollisionDetector import ConstructionCollisionDetector
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
 
 
@@ -7,7 +7,7 @@ class PersonWallCollisionDetector:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         constructionCollisionDetector: ConstructionCollisionDetector,
         levelSegmentItemFinder: LevelSegmentItemFinder,
     ):

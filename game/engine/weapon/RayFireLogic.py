@@ -1,5 +1,5 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
-from game.engine.GameData import GameData
+from game.engine.GameState import GameState
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.EventManager import EventManager, Events
 from game.lib.Query import Query
@@ -9,7 +9,7 @@ class RayFireLogic:
 
     def __init__(
         self,
-        gameData: GameData,
+        gameData: GameState,
         traversal: BSPTreeTraversal,
         weaponSelector: WeaponSelector,
         eventManager: EventManager,
