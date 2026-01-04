@@ -16,18 +16,18 @@ class AnimationPlayer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         frameInterpolator: FrameInterpolator,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.frameInterpolator = frameInterpolator
 
     def update(self, playableAnimation, deltaTimeFactor=0.001):
         self.calculateBoneTransformMatrices(playableAnimation, playableAnimation.animation.rootNode, TransformMatrix4.identity)
-        deltaTime = self.gameData.globalTimeMsec - playableAnimation.lastGlobalTimeMsec
+        deltaTime = self.gameState.globalTimeMsec - playableAnimation.lastGlobalTimeMsec
         playableAnimation.currentTime += playableAnimation.animation.ticksPerSecond * (deltaTime * deltaTimeFactor)
         playableAnimation.currentTime %= playableAnimation.animation.duration
-        playableAnimation.lastGlobalTimeMsec = self.gameData.globalTimeMsec
+        playableAnimation.lastGlobalTimeMsec = self.gameState.globalTimeMsec
 
     def calculateBoneTransformMatrices(self, playableAnimation, node, parentTransformMatrix):
         bone = None

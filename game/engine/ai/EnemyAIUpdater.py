@@ -9,22 +9,22 @@ class EnemyAIUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         stateHandlerCollection: StateHandlerCollection,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.stateHandlerCollection = stateHandlerCollection
         if DebugSettings.enemyFreeze:
             self.update = lambda: None
 
     def init(self):
-        for enemy in self.gameData.enemies:
+        for enemy in self.gameState.enemies:
             self.stateHandlerCollection.getStateHandler(enemy.aiData.state).init(enemy)
 
     # @cpuProfile
     def update(self):
-        for enemy in self.gameData.enemies:
-            inputData = self.gameData.enemyInputData[enemy]
+        for enemy in self.gameState.enemies:
+            inputData = self.gameState.enemyInputData[enemy]
             inputData.clear()
             if enemy.lifeCycle != LifeCycle.alive or enemy.isParalyzed():
                 return

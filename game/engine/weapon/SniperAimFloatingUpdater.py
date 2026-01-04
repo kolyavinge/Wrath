@@ -9,11 +9,11 @@ class SniperAimFloatingUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personTurnLogic: PersonTurnLogic,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personTurnLogic = personTurnLogic
         self.updateFunc = self.noUpdate
         eventManager.attachToEvent(Events.aimStateSwitched, self.onAimStateSwitched)
@@ -28,7 +28,7 @@ class SniperAimFloatingUpdater:
         self.updateFunc()
 
     def updateFloating(self):
-        aimState = self.gameData.aimState
+        aimState = self.gameState.aimState
 
         aimState.aFloatingParam += Random.getFloat(0.0, 1.0)
         aimState.bFloatingParam += Random.getFloat(0.0, 1.0)
@@ -42,7 +42,7 @@ class SniperAimFloatingUpdater:
         aimState.aFloatingValue = aFloatingValue
         aimState.bFloatingValue = bFloatingValue
 
-        player = self.gameData.player
+        player = self.gameState.player
         player.yawRadians += aDelta
         player.pitchRadians += bDelta
 

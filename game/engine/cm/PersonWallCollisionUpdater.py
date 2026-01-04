@@ -10,20 +10,20 @@ class PersonWallCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personWallCollisionDetector: PersonWallCollisionDetector,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personWallCollisionDetector = personWallCollisionDetector
 
     def update(self):
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             if person.hasMoved:
                 self.updatePersonCollisions(person)
 
     def updatePersonCollisions(self, person):
         collidedWalls = self.personWallCollisionDetector.getCollidedWalls(person)
-        self.gameData.collisionData.personWalls[person] = collidedWalls
+        self.gameState.collisionData.personWalls[person] = collidedWalls
         if len(collidedWalls) == 0:
             return
         self.processWall(person, collidedWalls[0])

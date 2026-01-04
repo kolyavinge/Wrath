@@ -11,12 +11,12 @@ class IdleStateHandler:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         movingLogic: MovingLogic,
         fireLogic: FireLogic,
         personTurnLogic: PersonTurnLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
         self.personTurnLogic = personTurnLogic
@@ -39,7 +39,7 @@ class IdleStateHandler:
         if enemy.health < enemy.aiData.criticalHealth and enemy.aiData.healthPowerupDelay.isExpired():
             return EnemyState.healthSearch
 
-        enemyItems = self.gameData.enemyItems[enemy]
+        enemyItems = self.gameState.enemyItems[enemy]
 
         if enemyItems.hasWeapons():
             otherEnemy = self.fireLogic.getEnemyWithinFireDistanceWhoFiringTo(enemy)

@@ -3,14 +3,14 @@ from game.engine.GameState import GameState
 
 class CameraUpdater:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
 
     def update(self):
-        camera = self.gameData.camera
-        camera.position = self.gameData.player.eyePosition
-        camera.lookDirection = self.gameData.player.lookDirection
+        camera = self.gameState.camera
+        camera.position = self.gameState.player.eyePosition
+        camera.lookDirection = self.gameState.player.lookDirection
         camera.calculateViewMatrix()
-        camera.setVerticalViewRadians(self.gameData.aimState.verticalViewRadians)
+        camera.setVerticalViewRadians(self.gameState.aimState.verticalViewRadians)
         camera.calculateProjectionMatrix()
         camera.calculateProjectionViewMatrix()

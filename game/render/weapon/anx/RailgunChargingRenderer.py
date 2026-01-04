@@ -13,12 +13,12 @@ class RailgunChargingRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
         vboBuilderFactory: VBOBuilderFactory,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
         self.vboBuilderFactory = vboBuilderFactory
@@ -37,8 +37,8 @@ class RailgunChargingRenderer:
         shader = self.shaderProgramCollection.plainColor
         shader.use()
         shader.setModelMatrix(railgun.getModelMatrix())
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         shader.setColor(self.rangeColor)
 
         chargedRanges = self.getChargedRanges(railgun)

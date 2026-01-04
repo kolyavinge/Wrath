@@ -23,12 +23,12 @@ class ShineCircleRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         vboBuilderFactory: VBOBuilderFactory,
         vboRenderer: VBORenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.shaderProgramCollection = shaderProgramCollection
         self.vboBuilderFactory = vboBuilderFactory
         self.vboRenderer = vboRenderer
@@ -42,8 +42,8 @@ class ShineCircleRenderer:
         circleShader = self.shaderProgramCollection.shineCircle
         circleShader.use()
         circleShader.setModelMatrix(modelMatrix)
-        circleShader.setViewMatrix(self.gameData.camera.viewMatrix)
-        circleShader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        circleShader.setViewMatrix(self.gameState.camera.viewMatrix)
+        circleShader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         circleShader.setRadius(params.radius)
         circleShader.setShineColor(params.shineColor)
         circleShader.setShineStrength(params.shineStrength)

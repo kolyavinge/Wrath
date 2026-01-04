@@ -10,14 +10,14 @@ class LevelDebugGameScreenInitializer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         levelDebugLevelSegmentRenderer: LevelDebugLevelSegmentRenderer,
         levelItemRenderCollection: LevelItemRenderCollection,
         shadowCasterRenderCollection: ShadowCasterRenderCollection,
         enemyRenderCollection: EnemyRenderCollection,
         enemyAnimationCollection: EnemyAnimationCollection,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.levelDebugLevelSegmentRenderer = levelDebugLevelSegmentRenderer
         self.levelItemRenderCollection = levelItemRenderCollection
         self.shadowCasterRenderCollection = shadowCasterRenderCollection
@@ -25,7 +25,7 @@ class LevelDebugGameScreenInitializer:
         self.enemyAnimationCollection = enemyAnimationCollection
 
     def init(self):
-        allLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
+        allLevelSegments = self.gameState.visibilityTree.getAllLevelSegments()
         self.levelDebugLevelSegmentRenderer.init(allLevelSegments)
         self.levelItemRenderCollection.init(allLevelSegments)
         self.shadowCasterRenderCollection.init(allLevelSegments)

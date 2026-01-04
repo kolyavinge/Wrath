@@ -9,7 +9,7 @@ from game.engine.person.PersonVelocityUpdater import PersonVelocityUpdater
 
 class LevelDebugGameUpdater:
 
-    gameData: GameState
+    gameState: GameState
     personTurnUpdater: PersonTurnUpdater
     personVelocityUpdater: PersonVelocityUpdater
     backgroundVisibilityUpdater: BackgroundVisibilityUpdater

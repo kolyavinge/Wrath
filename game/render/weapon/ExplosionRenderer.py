@@ -9,11 +9,11 @@ class ExplosionRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         plasmaExplosionRenderer: PlasmaExplosionRenderer,
         launcherExplosionRenderer: LauncherExplosionRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderers = {}
         self.renderers[PlasmaExplosion] = plasmaExplosionRenderer
         self.renderers[LauncherExplosion] = launcherExplosionRenderer
@@ -28,7 +28,7 @@ class ExplosionRenderer:
 
     def getVisibleExplosionsDictionary(self):
         result = {}
-        for levelSegment in self.gameData.visibleLevelSegments:
+        for levelSegment in self.gameState.visibleLevelSegments:
             for explosion in levelSegment.explosions:
                 if type(explosion) in result:
                     result[type(explosion)].add(explosion)

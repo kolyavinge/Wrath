@@ -10,7 +10,7 @@ class GameScreenVox:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         audioPlayer: AudioPlayer,
         personVox: PersonVox,
         playerItemsVox: PlayerItemsVox,
@@ -18,7 +18,7 @@ class GameScreenVox:
         powerupVox: PowerupVox,
     ):
         self.allSources = []
-        self.gameData = gameData
+        self.gameState = gameState
         self.audioPlayer = audioPlayer
         self.personVox = personVox
         self.playerItemsVox = playerItemsVox
@@ -36,6 +36,6 @@ class GameScreenVox:
         self.powerupVox.init(self.allSources)
 
     def update(self):
-        self.audioPlayer.setListenerPosition(self.gameData.player.currentCenterPoint)
+        self.audioPlayer.setListenerPosition(self.gameState.player.currentCenterPoint)
         for source in self.allSources:
             source.updatePosition()

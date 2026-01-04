@@ -17,14 +17,14 @@ class PlasmaRayRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         planeOrientationLogic: PlaneOrientationLogic,
         shaderProgramCollection: ShaderProgramCollection,
         vboUpdaterFactory: VBOUpdaterFactory,
         vboRenderer: VBORenderer,
         screenQuadVBO: ScreenQuadVBO,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.planeOrientationLogic = planeOrientationLogic
         self.shaderProgramCollection = shaderProgramCollection
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
@@ -36,7 +36,7 @@ class PlasmaRayRenderer:
         self.vbo = self.vboUpdater.buildUnfilled(4 * rayCount, 2 * rayCount, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces])
 
     def renderRays(self, rays):
-        ethalonRay = Query(rays).firstOrNone(lambda r: r.ownerPerson == self.gameData.player) or rays[0]
+        ethalonRay = Query(rays).firstOrNone(lambda r: r.ownerPerson == self.gameState.player) or rays[0]
         self.renderEthalonRayToFramebuffer(ethalonRay)
         self.renderAllRaysBasedOnEthalon(rays)
 
@@ -50,7 +50,7 @@ class PlasmaRayRenderer:
         shader.use()
         shader.setResolution(self.rayFramebuffer.textureWidth, self.rayFramebuffer.textureHeight)
         shader.setInitTimeSec(ray.initTimeSec)
-        shader.setCurrentTimeSec(self.gameData.globalTimeSec)
+        shader.setCurrentTimeSec(self.gameState.globalTimeSec)
         self.vboRenderer.render(self.screenQuadVBO.vbo)
         shader.unuse()
         glDisable(GL_ALPHA_TEST)
@@ -65,15 +65,15 @@ class PlasmaRayRenderer:
         shader = self.shaderProgramCollection.mesh
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         shader.setColorFactor(1.0)
         shader.setAlphaFactor(1.0)
         glActiveTexture(GL_TEXTURE0)
         glBindTexture(GL_TEXTURE_2D, self.rayFramebuffer.texture)
         for ray in rays:
             vertices = self.planeOrientationLogic.getVerticesOrientedToCamera(
-                ray.startPosition, ray.currentPosition, ray.direction, self.gameData.camera.position, 0.15
+                ray.startPosition, ray.currentPosition, ray.direction, self.gameState.camera.position, 0.15
             )
             self.vbo.reset()
             self.addVerticesToVBO(vertices)

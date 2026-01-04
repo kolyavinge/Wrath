@@ -7,14 +7,14 @@ class PersonJumpUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.eventManager = eventManager
 
     def update(self):
-        for person, inputData in self.gameData.allPersonInputData.items():
+        for person, inputData in self.gameState.allPersonInputData.items():
             self.updateForPerson(person, inputData)
 
     def updateForPerson(self, person, inputData):

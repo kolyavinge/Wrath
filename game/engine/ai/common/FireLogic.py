@@ -9,11 +9,11 @@ class FireLogic:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personTurnLogic: PersonTurnLogic,
         burstFireLogic: BurstFireLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personTurnLogic = personTurnLogic
         self.burstFireLogic = burstFireLogic
 
@@ -32,7 +32,7 @@ class FireLogic:
 
     def isNewTargetFound(self, enemy):
         enemy.aiData.targetPerson = None
-        for otherEnemy in self.gameData.allPerson:
+        for otherEnemy in self.gameState.allPerson:
             if enemy != otherEnemy and self.canFireToOtherEnemy(enemy, otherEnemy):
                 enemy.aiData.targetPerson = otherEnemy
                 return True
@@ -70,20 +70,20 @@ class FireLogic:
         self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
 
     def getEnemyWithinFireDistanceWhoFiringTo(self, enemy):
-        if enemy in self.gameData.collisionData.personBullet:
-            bullet = self.gameData.collisionData.personBullet[enemy]
+        if enemy in self.gameState.collisionData.personBullet:
+            bullet = self.gameState.collisionData.personBullet[enemy]
             if bullet.ownerPerson is not None and self.withinFireDistance(enemy, bullet.ownerPerson):
                 return bullet.ownerPerson
 
-        if enemy in self.gameData.collisionData.personRay:
-            ray = self.gameData.collisionData.personRay[enemy]
+        if enemy in self.gameState.collisionData.personRay:
+            ray = self.gameState.collisionData.personRay[enemy]
             if self.withinFireDistance(enemy, ray.ownerPerson):
                 return ray.ownerPerson
 
         return None
 
     def applyInputData(self, enemy, inputData):
-        enemyItems = self.gameData.allPersonItems[enemy]
+        enemyItems = self.gameState.allPersonItems[enemy]
         if enemyItems.currentWeapon.isBurstModeEnabled:
             inputData.fire = self.burstFireLogic.fire(enemy, enemyItems)
         else:

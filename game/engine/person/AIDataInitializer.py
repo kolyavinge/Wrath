@@ -5,11 +5,11 @@ from game.lib.Random import Random
 
 class AIDataInitializer:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
 
     def init(self):
-        for enemy in self.gameData.enemies:
+        for enemy in self.gameState.enemies:
             self.initForEnemy(enemy.aiData)
 
     def initForEnemy(self, aiData):

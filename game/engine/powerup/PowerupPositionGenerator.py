@@ -8,16 +8,16 @@ class PowerupPositionGenerator:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         traversal: BSPTreeTraversal,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.traversal = traversal
 
     def getPosition(self):
-        powerupArea = Random.getListItem(self.gameData.level.powerupAreas)
+        powerupArea = Random.getListItem(self.gameState.level.powerupAreas)
         position = powerupArea.getRandomPoint()
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, position)
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, position)
         if len(levelSegment.floors) == 0:
             raise Exception(f"No floors in segment. Cannot generate powerup position: {position}. PowerupArea is {powerupArea}.")
 

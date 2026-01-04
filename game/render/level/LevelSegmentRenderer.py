@@ -11,14 +11,14 @@ class LevelSegmentRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         levelItemRenderer: LevelItemRenderer,
         bulletRenderer: BulletRenderer,
         powerupRenderer: PowerupRenderer,
         enemyRenderer: EnemyRenderer,
         shadowCasterRenderer: ShadowCasterRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.levelItemRenderer = levelItemRenderer
         self.bulletRenderer = bulletRenderer
         self.powerupRenderer = powerupRenderer
@@ -26,8 +26,8 @@ class LevelSegmentRenderer:
         self.shadowCasterRenderer = shadowCasterRenderer
 
     def render(self, shader):
-        for levelSegment in self.gameData.visibleLevelSegments:
-            shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerTorch)
+        for levelSegment in self.gameState.visibleLevelSegments:
+            shader.setLight(levelSegment.lightsWithJoined, self.gameState.playerTorch)
             self.levelItemRenderer.render(shader, levelSegment)
             self.bulletRenderer.render(shader, levelSegment)
             self.powerupRenderer.render(shader, levelSegment)
@@ -36,12 +36,12 @@ class LevelSegmentRenderer:
         # self.printDebugInfo()
 
     def renderShadowCasters(self, shader):
-        for levelSegment in self.gameData.visibleLevelSegments:
-            shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerTorch)
+        for levelSegment in self.gameState.visibleLevelSegments:
+            shader.setLight(levelSegment.lightsWithJoined, self.gameState.playerTorch)
             self.shadowCasterRenderer.render(shader, levelSegment)
             self.powerupRenderer.renderForShadow(shader, levelSegment)
             self.enemyRenderer.renderForShadow(shader, levelSegment)
 
     def printDebugInfo(self):
-        constructions = Query([segment.allConstructions for segment in self.gameData.visibleLevelSegments]).flatten().result
+        constructions = Query([segment.allConstructions for segment in self.gameState.visibleLevelSegments]).flatten().result
         print(f"all {len(constructions)}, unique {len(set(constructions))} {(len(set(constructions)) / len(constructions)):f}")

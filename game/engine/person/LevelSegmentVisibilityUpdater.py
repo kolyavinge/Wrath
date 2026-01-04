@@ -7,24 +7,24 @@ class LevelSegmentVisibilityUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         cameraScopeChecker: CameraScopeChecker,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.cameraScopeChecker = cameraScopeChecker
 
     def updateIfPlayerMovedOrTurned(self):
-        player = self.gameData.player
+        player = self.gameState.player
         if player.hasMoved or player.hasTurned:
             self.update()
 
     def update(self):
-        self.gameData.visibleLevelSegments = set()
+        self.gameState.visibleLevelSegments = set()
         self.checkedJoinLines = set()
-        self.checkLevelSegment(self.gameData.player.visibilityLevelSegment)
+        self.checkLevelSegment(self.gameState.player.visibilityLevelSegment)
 
     def checkLevelSegment(self, levelSegment):
-        self.gameData.visibleLevelSegments.add(levelSegment)
+        self.gameState.visibleLevelSegments.add(levelSegment)
         for joinLine in levelSegment.joinLines:
             if joinLine not in self.checkedJoinLines:
                 self.checkedJoinLines.add(joinLine)
@@ -40,10 +40,10 @@ class LevelSegmentVisibilityUpdater:
         return False
 
     def isPointVisible(self, point):
-        direction = self.gameData.camera.position.getDirectionTo(point)
+        direction = self.gameState.camera.position.getDirectionTo(point)
         if direction.getLength() > CommonConstants.maxDepth:
             return False
 
-        pointInFront = self.gameData.camera.lookDirection.dotProduct(direction) > 0
+        pointInFront = self.gameState.camera.lookDirection.dotProduct(direction) > 0
 
         return pointInFront

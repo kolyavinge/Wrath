@@ -6,20 +6,20 @@ class PlayerLevelSegmentsUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personLevelSegmentsUpdater: PersonLevelSegmentsUpdater,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
 
     def updateIfMoved(self):
-        if self.gameData.player.hasMoved:
+        if self.gameState.player.hasMoved:
             self.update()
 
     def update(self):
-        self.removePlayerFromLevelSegments(self.gameData.player)
-        self.personLevelSegmentsUpdater.updatePerson(self.gameData.player)
-        self.addPlayerToLevelSegments(self.gameData.player)
+        self.removePlayerFromLevelSegments(self.gameState.player)
+        self.personLevelSegmentsUpdater.updatePerson(self.gameState.player)
+        self.addPlayerToLevelSegments(self.gameState.player)
 
     def removePlayerFromLevelSegments(self, player):
         for segment in player.collisionLevelSegments:

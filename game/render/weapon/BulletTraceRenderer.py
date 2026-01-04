@@ -15,13 +15,13 @@ class BulletTraceRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         rifleBulletTraceRenderer: RifleBulletTraceRenderer,
         launcherBulletTraceRenderer: LauncherBulletTraceRenderer,
         railgunBulletTraceRenderer: RailgunBulletTraceRenderer,
         sniperBulletTraceRenderer: SniperBulletTraceRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderers = {}
         self.renderers[PistolBulletTrace] = rifleBulletTraceRenderer
         self.renderers[RifleBulletTrace] = rifleBulletTraceRenderer
@@ -40,7 +40,7 @@ class BulletTraceRenderer:
 
     def getVisibleTracesDictionary(self):
         result = {}
-        for levelSegment in self.gameData.visibleLevelSegments:
+        for levelSegment in self.gameState.visibleLevelSegments:
             for trace in levelSegment.bulletTraces:
                 if type(trace) in result:
                     result[type(trace)].add(trace)

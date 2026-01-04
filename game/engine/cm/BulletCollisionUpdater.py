@@ -14,7 +14,7 @@ class BulletCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         traversal: BSPTreeTraversal,
         bulletCollisionDetector: BulletCollisionDetector,
         bulletHoleLogic: BulletHoleLogic,
@@ -22,7 +22,7 @@ class BulletCollisionUpdater:
         bulletLogic: BulletLogic,
         explosionLogic: ExplosionLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.traversal = traversal
         self.bulletCollisionDetector = bulletCollisionDetector
         self.bulletHoleLogic = bulletHoleLogic
@@ -31,7 +31,7 @@ class BulletCollisionUpdater:
         self.explosionLogic = explosionLogic
 
     def update(self):
-        for bullet in self.gameData.bullets:
+        for bullet in self.gameState.bullets:
             collisionResult = self.bulletCollisionDetector.getCollisionResultOrNone(bullet)
             if collisionResult is not None:
                 self.processCollision(bullet, collisionResult)
@@ -60,7 +60,7 @@ class BulletCollisionUpdater:
         else:
             self.bulletLogic.removeBullet(bullet)
             bullet.damagedObject = construction
-            bspTree = self.gameData.visibilityTree
+            bspTree = self.gameState.visibilityTree
             visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
             self.bulletHoleLogic.makeHole(collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
 

@@ -8,17 +8,17 @@ class LauncherAltFireLogic:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         bulletLogic: BulletLogic,
         explosionLogic: ExplosionLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.bulletLogic = bulletLogic
         self.explosionLogic = explosionLogic
 
     def apply(self, person, personItems, weapon):
         if weapon.altFireState == FireState.activated:
-            personBullets = [bullet for bullet in self.gameData.bullets if bullet.ownerPerson == person]
+            personBullets = [bullet for bullet in self.gameState.bullets if bullet.ownerPerson == person]
             for bullet in personBullets:
                 self.explosionLogic.makeExplosion(bullet)
                 self.bulletLogic.removeBullet(bullet)

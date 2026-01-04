@@ -9,10 +9,10 @@ class PlasmaShineBulletRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         shineCircleRenderer: ShineCircleRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.shineCircleRenderer = shineCircleRenderer
         self.shineCircleParams = ShineCircleParams()
         self.shineCircleParams.radius = 0.09
@@ -24,8 +24,8 @@ class PlasmaShineBulletRenderer:
         modelMatrix = (
             TransformMatrix4Builder()
             .translate(bullet.currentPosition.x, bullet.currentPosition.y, bullet.currentPosition.z)
-            .rotate(self.gameData.player.yawRadians, CommonConstants.zAxis)
-            .rotate(self.gameData.player.pitchRadians, CommonConstants.xAxis)
+            .rotate(self.gameState.player.yawRadians, CommonConstants.zAxis)
+            .rotate(self.gameState.player.pitchRadians, CommonConstants.xAxis)
             .resultMatrix
         )
         self.shineCircleRenderer.render(modelMatrix, self.shineCircleParams)

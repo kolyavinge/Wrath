@@ -6,31 +6,31 @@ class BulletLogic:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         traversal: BSPTreeTraversal,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.traversal = traversal
 
     def makeBullet(self, person, weapon):
         bullet = weapon.makeBullet(person)
-        self.gameData.bullets.append(bullet)
-        bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, bullet.currentPosition)
+        self.gameState.bullets.append(bullet)
+        bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, bullet.currentPosition)
         bullet.nextLevelSegment = bullet.currentLevelSegment
 
-        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, bullet.currentPosition)
+        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.visibilityTree, bullet.currentPosition)
         if bullet.isVisible:
             bullet.currentVisibilityLevelSegment = visibilityLevelSegment
             visibilityLevelSegment.bullets.append(bullet)
 
-        if visibilityLevelSegment in self.gameData.visibleLevelSegments:
+        if visibilityLevelSegment in self.gameState.visibleLevelSegments:
             flash = weapon.makeFlash()
             if flash is not None:
                 visibilityLevelSegment.weaponFlashes.append(flash)
 
         trace = bullet.makeTrace()
         if trace is not None:
-            self.gameData.bulletTraces.append(trace)
+            self.gameState.bulletTraces.append(trace)
             visibilityLevelSegment.bulletTraces.append(trace)
             trace.visibilityLevelSegments.add(visibilityLevelSegment)
 
@@ -39,11 +39,11 @@ class BulletLogic:
         if debris is None:
             return
 
-        currentLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, explosion.position)
-        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, explosion.position)
+        currentLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, explosion.position)
+        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.visibilityTree, explosion.position)
 
         for piece in debris:
-            self.gameData.bullets.append(piece)
+            self.gameState.bullets.append(piece)
             piece.currentLevelSegment = currentLevelSegment
             piece.nextLevelSegment = currentLevelSegment
 
@@ -53,10 +53,10 @@ class BulletLogic:
 
             trace = piece.makeTrace()
             if trace is not None:
-                self.gameData.bulletTraces.append(trace)
+                self.gameState.bulletTraces.append(trace)
                 visibilityLevelSegment.bulletTraces.append(trace)
                 trace.visibilityLevelSegments.add(visibilityLevelSegment)
 
     def removeBullet(self, bullet):
         bullet.isAlive = False
-        self.gameData.bulletsToRemove.append(bullet)
+        self.gameState.bulletsToRemove.append(bullet)

@@ -7,23 +7,23 @@ class PersonRespawnUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personTurnLogic: PersonTurnLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personTurnLogic = personTurnLogic
 
     def update(self):
-        if len(self.gameData.respawnRequests) == 0:
+        if len(self.gameState.respawnRequests) == 0:
             return
 
-        for person in self.gameData.respawnRequests:
+        for person in self.gameState.respawnRequests:
             self.generateRespawnPosition(person)
 
-        self.gameData.respawnRequests.clear()
+        self.gameState.respawnRequests.clear()
 
     def generateRespawnPosition(self, person):
-        respawnArea = Random.getListItem(self.gameData.level.respawnAreas)
+        respawnArea = Random.getListItem(self.gameState.level.respawnAreas)
         position = respawnArea.getRandomPoint()
         person.moveNextPositionTo(position)
         self.personTurnLogic.orientToFrontNormal(person, respawnArea.frontNormal)

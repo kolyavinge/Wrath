@@ -15,12 +15,12 @@ class DashboardSpriteRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         spriteRendererFactory: SpriteRendererFactory,
         textureCollection: TextureCollection,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.shaderProgramCollection = shaderProgramCollection
         self.textureCollection = textureCollection
         self.spriteRenderer = spriteRendererFactory.make()
@@ -56,7 +56,7 @@ class DashboardSpriteRenderer:
         self.spriteRenderer.render(spriteItems)
 
     def getSpriteItems(self):
-        dashboard = self.gameData.dashboard
+        dashboard = self.gameState.dashboard
         for weaponType, spriteInfo in self.weaponSprite.items():
             if weaponType in dashboard.weaponTypesSet:
                 row, col, x, y = spriteInfo

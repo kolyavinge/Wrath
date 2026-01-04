@@ -7,11 +7,11 @@ from game.model.person.PersonStates import PersonZState
 
 class PersonVelocityUpdater:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
 
     def update(self):
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             self.updateForPerson(person)
 
     def updateForPerson(self, person):
@@ -63,7 +63,7 @@ class PersonVelocityUpdater:
     def slowdownIfNeeded(self, person):
         if person.zState == PersonZState.onFloor:
             person.velocityValue *= person.currentFloor.slowdownCoeff
-            person.velocityValue *= self.gameData.allPersonItems[person].currentWeapon.slowdownCoeff
+            person.velocityValue *= self.gameState.allPersonItems[person].currentWeapon.slowdownCoeff
 
     def correctByFloor(self, person):
         if not person.currentFloor.isHorizontal and (person.zState == PersonZState.onFloor or person.zState == PersonZState.landing):

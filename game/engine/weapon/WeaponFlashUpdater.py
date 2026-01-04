@@ -3,11 +3,11 @@ from game.engine.GameState import GameState
 
 class WeaponFlashUpdater:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
 
     def init(self):
-        self.allVisibilityLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
+        self.allVisibilityLevelSegments = self.gameState.visibilityTree.getAllLevelSegments()
 
     def update(self):
         for levelSegment in self.allVisibilityLevelSegments:

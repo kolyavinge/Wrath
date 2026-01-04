@@ -6,14 +6,14 @@ class PersonCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personCollisionDetector: PersonCollisionDetector,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personCollisionDetector = personCollisionDetector
 
     def update(self):
-        for person1, person2 in self.gameData.allPersonPairs:
+        for person1, person2 in self.gameState.allPersonPairs:
             if person1.hasMoved or person2.hasMoved:
                 self.updateForPerson(person1, person2)
 
@@ -23,8 +23,8 @@ class PersonCollisionUpdater:
             velocitySum = person1.velocityValue + person2.velocityValue
             self.movePerson(person1, collisionLength, velocitySum)
             self.movePerson(person2, collisionLength, velocitySum)
-            self.gameData.collisionData.personPerson[person1] = person2
-            self.gameData.collisionData.personPerson[person2] = person1
+            self.gameState.collisionData.personPerson[person1] = person2
+            self.gameState.collisionData.personPerson[person2] = person1
 
     def movePerson(self, person, collisionLength, velocitySum):
         if person.hasMoved:

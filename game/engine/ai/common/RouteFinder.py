@@ -12,12 +12,12 @@ class RouteFinder:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         collisionDetector: RouteCollisionDetector,
         routeOptimizer: RouteOptimizer,
         traversal: BSPTreeTraversal,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.collisionDetector = collisionDetector
         self.routeOptimizer = routeOptimizer
         self.traversal = traversal
@@ -100,7 +100,7 @@ class RouteFinder:
         return routePoints
 
     def getPointZ(self, point):
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, point)
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, point)
         z = levelSegment.floors[0].getZ(point.x, point.y)
 
         return z

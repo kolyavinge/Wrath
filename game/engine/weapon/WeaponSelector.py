@@ -11,14 +11,14 @@ class WeaponSelector:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         aimStateSwitcher: AimStateSwitcher,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.aimStateSwitcher = aimStateSwitcher
 
     def initWeaponByType(self, person, weaponType):
-        personItems = self.gameData.allPersonItems[person]
+        personItems = self.gameState.allPersonItems[person]
         if weaponType.defaultCount == 1:
             findedWeapon = personItems.getWeaponByTypeOrNone(weaponType)
             assert findedWeapon is not None
@@ -36,7 +36,7 @@ class WeaponSelector:
             personItems.currentWeapon = currentWeapon
 
     def selectWeaponByType(self, person, weaponType):
-        personItems = self.gameData.allPersonItems[person]
+        personItems = self.gameState.allPersonItems[person]
         if weaponType.defaultCount == 1:
             findedWeapon = personItems.getWeaponByTypeOrNone(weaponType)
             if findedWeapon is not None:
@@ -51,7 +51,7 @@ class WeaponSelector:
                 self.selectWeapons(person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon)
 
     def selectNextWeapon(self, person):
-        personItems = self.gameData.allPersonItems[person]
+        personItems = self.gameState.allPersonItems[person]
         if personItems.hasWeapons():
             weaponType = type(personItems.selectedCurrentWeapon or personItems.currentWeapon)
             nextWeaponType = WeaponCollection.getNextWeaponTypeFor(weaponType)
@@ -65,7 +65,7 @@ class WeaponSelector:
             self.selectWeapons(person, personItems, NullWeapon.instance, None, NullWeapon.instance)
 
     def selectPrevWeapon(self, person):
-        personItems = self.gameData.allPersonItems[person]
+        personItems = self.gameState.allPersonItems[person]
         if personItems.hasWeapons():
             weaponType = type(personItems.selectedCurrentWeapon or personItems.currentWeapon)
             prevWeaponType = WeaponCollection.getPrevWeaponTypeFor(weaponType)

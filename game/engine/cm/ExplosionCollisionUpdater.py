@@ -7,16 +7,16 @@ class ExplosionCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         explosionCollisionDetector: ExplosionCollisionDetector,
         personDamageLogic: PersonDamageLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.explosionCollisionDetector = explosionCollisionDetector
         self.personDamageLogic = personDamageLogic
 
     def update(self):
-        for explosion in self.gameData.explosions:
+        for explosion in self.gameState.explosions:
             if explosion.damagePercent > 0:
                 collisionResult = self.explosionCollisionDetector.getCollisionResult(explosion)
                 for person in collisionResult:

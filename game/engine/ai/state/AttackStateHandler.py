@@ -8,11 +8,11 @@ class AttackStateHandler:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         movingLogic: MovingLogic,
         fireLogic: FireLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
 
@@ -25,9 +25,9 @@ class AttackStateHandler:
 
         self.movingLogic.updateMoveDirection(enemy)
 
-        if not enemy.aiData.runAwayFromObstacle and enemy in self.gameData.collisionData.personPerson:
+        if not enemy.aiData.runAwayFromObstacle and enemy in self.gameState.collisionData.personPerson:
             enemy.aiData.runAwayFromObstacle = True
-            otherEnemy = self.gameData.collisionData.personPerson[enemy]
+            otherEnemy = self.gameState.collisionData.personPerson[enemy]
             if enemy.velocityValue > 0 and otherEnemy.velocityValue > 0:
                 if not enemy.velocityVector.isParallel(otherEnemy.velocityVector, 0.1):
                     self.movingLogic.setOppositeMoveDirection(enemy)
@@ -46,7 +46,7 @@ class AttackStateHandler:
         if not self.fireLogic.targetExists(enemy):
             return EnemyState.patrolling
 
-        enemyItems = self.gameData.enemyItems[enemy]
+        enemyItems = self.gameState.enemyItems[enemy]
 
         if not enemyItems.hasWeapons() and enemy.aiData.weaponPowerupDelay.isExpired():
             return EnemyState.weaponSearch

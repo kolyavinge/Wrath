@@ -10,21 +10,21 @@ class WeaponRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         renderCollection: WeaponRenderCollection,
         model3dRenderer: Model3dRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
 
     def renderPlayerWeapon(self, shader):
-        self.renderWeapon(shader, self.gameData.playerItems.rightHandWeapon)
-        if self.gameData.playerItems.leftHandWeapon is not None:
-            self.renderWeapon(shader, self.gameData.playerItems.leftHandWeapon)
+        self.renderWeapon(shader, self.gameState.playerItems.rightHandWeapon)
+        if self.gameState.playerItems.leftHandWeapon is not None:
+            self.renderWeapon(shader, self.gameState.playerItems.leftHandWeapon)
 
     def renderEnemyWeapons(self, shader):
-        for enemy, enemyItems in self.gameData.enemyItems.items():
+        for enemy, enemyItems in self.gameState.enemyItems.items():
             if enemy.isVisibleForPlayer:
                 self.renderEnemyWeapon(enemy, enemyItems, shader)
 

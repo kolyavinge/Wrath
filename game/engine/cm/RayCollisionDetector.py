@@ -9,19 +9,19 @@ class RayCollisionDetector:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         levelSegmentItemFinder: LevelSegmentItemFinder,
         constructionCollisionDetector: ConstructionCollisionDetector,
         personCollisionDetector: PersonCollisionDetector,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.levelSegmentItemFinder = levelSegmentItemFinder
         self.constructionCollisionDetector = constructionCollisionDetector
         self.personCollisionDetector = personCollisionDetector
 
     def getCollisionResultOrNone(self, ray):
         return self.levelSegmentItemFinder.findItemOrNone(
-            self.gameData.collisionTree,
+            self.gameState.collisionTree,
             ray.startLevelSegment,
             ray.currentLevelSegment,
             ray.startPosition,

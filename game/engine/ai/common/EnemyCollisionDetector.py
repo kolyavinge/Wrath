@@ -8,12 +8,12 @@ class EnemyCollisionDetector:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personWallCollisionDetector: PersonWallCollisionDetector,
         personCollisionDetector: PersonCollisionDetector,
         traversal: BSPTreeTraversal,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personWallCollisionDetector = personWallCollisionDetector
         self.personCollisionDetector = personCollisionDetector
         self.traversal = traversal
@@ -21,7 +21,7 @@ class EnemyCollisionDetector:
     def anyCollisions(self, enemy, direction):
         nextCenterPoint = enemy.currentFootRect.center.copy()
         nextCenterPoint.add(direction)
-        nextCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, nextCenterPoint)
+        nextCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, nextCenterPoint)
 
         return (
             self.anyWallCollisions(enemy, nextCenterPoint, nextCenterPointLevelSegment)

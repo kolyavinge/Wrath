@@ -8,8 +8,8 @@ from game.model.person.BloodStain import BloodStain
 
 class PlayerBloodStainUpdater:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
 
     def update(self):
         self.updateBloodStains()
@@ -17,10 +17,10 @@ class PlayerBloodStainUpdater:
             self.addNewBloodStain()
 
     def updateBloodStains(self):
-        for bloodStain in self.gameData.bloodStains:
+        for bloodStain in self.gameState.bloodStains:
             bloodStain.brightness *= bloodStain.fade
             if bloodStain.brightness < 0.1:
-                self.gameData.bloodStains.remove(bloodStain)
+                self.gameState.bloodStains.remove(bloodStain)
 
     def addNewBloodStain(self):
         bloodStain = BloodStain()
@@ -30,14 +30,14 @@ class PlayerBloodStainUpdater:
         bloodStain.fade = Random.getFloat(0.95, 0.99)
         bloodStain.radians = Random.getFloat(-Math.piDouble, Math.piDouble)
         bloodStain.scaleVector = Vector3(Random.getFloat(0.5, 2.0), Random.getFloat(0.5, 2.0), 1.0)
-        self.gameData.bloodStains.append(bloodStain)
+        self.gameState.bloodStains.append(bloodStain)
 
     def canAddNewBloodStain(self):
-        if len(self.gameData.bloodStains) >= CommonConstants.maxBloodStains:
+        if len(self.gameState.bloodStains) >= CommonConstants.maxBloodStains:
             return False
 
-        player = self.gameData.player
-        collisionData = self.gameData.collisionData
+        player = self.gameState.player
+        collisionData = self.gameState.collisionData
 
         return (
             player in collisionData.personBullet

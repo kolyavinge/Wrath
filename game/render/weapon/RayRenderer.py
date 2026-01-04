@@ -7,10 +7,10 @@ class RayRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         plasmaRayRenderer: PlasmaRayRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderers = {}
         self.renderers[PlasmaRay] = plasmaRayRenderer
 
@@ -24,7 +24,7 @@ class RayRenderer:
 
     def getVisibleRaysDictionary(self):
         result = {}
-        for levelSegment in self.gameData.visibleLevelSegments:
+        for levelSegment in self.gameState.visibleLevelSegments:
             for ray in levelSegment.rays:
                 if type(ray) in result:
                     result[type(ray)].add(ray)

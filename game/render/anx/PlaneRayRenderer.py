@@ -23,13 +23,13 @@ class PlaneRayRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         planeOrientationLogic: PlaneOrientationLogic,
         vboUpdaterFactory: VBOUpdaterFactory,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.planeOrientationLogic = planeOrientationLogic
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.shaderProgramCollection = shaderProgramCollection
@@ -52,7 +52,7 @@ class PlaneRayRenderer:
                 ray.startPosition,
                 ray.currentPosition,
                 mainAxis,
-                self.gameData.camera.position,
+                self.gameState.camera.position,
             )
             self.addVerticesToVBO(vertices)
             originPositions.append(ray.startPosition)
@@ -67,8 +67,8 @@ class PlaneRayRenderer:
         shader = self.shaderProgramCollection.ray
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         shader.setOriginPositions(originPositions)
         shader.setMainAxes(mainAxes)
         shader.setRayLengths(rayLengths)

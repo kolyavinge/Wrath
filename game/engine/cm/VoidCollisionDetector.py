@@ -6,15 +6,15 @@ class VoidCollisionDetector:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         levelSegmentItemFinder: LevelSegmentItemFinder,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.levelSegmentItemFinder = levelSegmentItemFinder
 
     def anyCollisions(self, startPoint, endPoint, startSegment, endSegment):
         return self.levelSegmentItemFinder.findItemOrNone(
-            self.gameData.collisionTree,
+            self.gameState.collisionTree,
             startSegment,
             endSegment,
             startPoint,

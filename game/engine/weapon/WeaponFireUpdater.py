@@ -6,15 +6,15 @@ class WeaponFireUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         weaponFireLogic: WeaponFireLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.weaponFireLogic = weaponFireLogic
 
     def update(self):
-        for person, inputData in self.gameData.allPersonInputData.items():
-            personItems = self.gameData.allPersonItems[person]
+        for person, inputData in self.gameState.allPersonInputData.items():
+            personItems = self.gameState.allPersonItems[person]
 
             # reset firing before process fire
             personItems.rightHandWeapon.isFiring = False

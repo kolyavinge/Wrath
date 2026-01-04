@@ -8,11 +8,11 @@ class DashboardTextRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         textRenderer: TextRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.shaderProgramCollection = shaderProgramCollection
         self.textRenderer = textRenderer
 
@@ -43,7 +43,7 @@ class DashboardTextRenderer:
         shader.unuse()
 
     def updateMainData(self):
-        dashboard = self.gameData.dashboard
+        dashboard = self.gameState.dashboard
         textItems = [
             (dashboard.healthStr, 10, 10),
             (dashboard.vestStr, 200, 10),
@@ -53,7 +53,7 @@ class DashboardTextRenderer:
         self.textRenderer.render(textItems)
 
     def updateFragsData(self):
-        dashboard = self.gameData.dashboard
+        dashboard = self.gameState.dashboard
         textItems = []
         for index, stat in enumerate(dashboard.fragStatisticStr):
             y = 2.0 * self.viewportHeight - 80 - (index * 60)

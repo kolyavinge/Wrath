@@ -12,11 +12,11 @@ class PersonInitializer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personTurnLogic: PersonTurnLogic,
         weaponSelector: WeaponSelector,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personTurnLogic = personTurnLogic
         self.weaponSelector = weaponSelector
 
@@ -26,18 +26,18 @@ class PersonInitializer:
         self.initAllPersonPairs()
 
     def initPlayer(self):
-        level = self.gameData.level
+        level = self.gameState.level
         position, frontNormal, weaponType = level.getPlayerInitInfo()
-        self.gameData.player.moveNextPositionTo(position)
-        self.personTurnLogic.orientToFrontNormal(self.gameData.player, frontNormal)
-        self.gameData.player.commitNextPosition()
-        self.weaponSelector.initWeaponByType(self.gameData.player, weaponType)
+        self.gameState.player.moveNextPositionTo(position)
+        self.personTurnLogic.orientToFrontNormal(self.gameState.player, frontNormal)
+        self.gameState.player.commitNextPosition()
+        self.weaponSelector.initWeaponByType(self.gameState.player, weaponType)
 
     def initEnemies(self):
         if DebugSettings.noEnemies:
             return
 
-        for position, frontNormal, weaponType in self.gameData.level.getEnemyInitInfo():
+        for position, frontNormal, weaponType in self.gameState.level.getEnemyInitInfo():
             self.initEnemy(position, frontNormal, weaponType)
 
     def initEnemy(self, position, frontNormal, weaponType):
@@ -45,19 +45,19 @@ class PersonInitializer:
         enemy.moveNextPositionTo(position)
         self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
         enemy.commitNextPosition()
-        self.gameData.enemies.append(enemy)
-        self.gameData.allPerson.append(enemy)
+        self.gameState.enemies.append(enemy)
+        self.gameState.allPerson.append(enemy)
         personItems = PersonItems()
-        self.gameData.enemyItems[enemy] = personItems
-        self.gameData.enemyInputData[enemy] = PersonInputData()
-        self.gameData.allPersonItems[enemy] = self.gameData.enemyItems[enemy]
-        self.gameData.allPersonInputData[enemy] = self.gameData.enemyInputData[enemy]
-        self.gameData.enemyLifeBars[enemy] = EnemyLifeBar()
+        self.gameState.enemyItems[enemy] = personItems
+        self.gameState.enemyInputData[enemy] = PersonInputData()
+        self.gameState.allPersonItems[enemy] = self.gameState.enemyItems[enemy]
+        self.gameState.allPersonInputData[enemy] = self.gameState.enemyInputData[enemy]
+        self.gameState.enemyLifeBars[enemy] = EnemyLifeBar()
         self.weaponSelector.initWeaponByType(enemy, weaponType)
 
     def initAllPersonPairs(self):
-        for i in range(0, len(self.gameData.allPerson) - 1):
-            for j in range(i + 1, len(self.gameData.allPerson)):
-                person1 = self.gameData.allPerson[i]
-                person2 = self.gameData.allPerson[j]
-                self.gameData.allPersonPairs.append((person1, person2))
+        for i in range(0, len(self.gameState.allPerson) - 1):
+            for j in range(i + 1, len(self.gameState.allPerson)):
+                person1 = self.gameState.allPerson[i]
+                person2 = self.gameState.allPerson[j]
+                self.gameState.allPersonPairs.append((person1, person2))

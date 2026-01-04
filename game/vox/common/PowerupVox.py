@@ -9,22 +9,22 @@ class PowerupVox:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         audioSourceFactory: AudioSourceFactory,
         audioPlayer: AudioPlayer,
         eventManager: EventManager,
     ):
         self.sources = {}
-        self.gameData = gameData
+        self.gameState = gameState
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer
         eventManager.attachToEvent(Events.powerupPickedUp, self.onPowerupPickedUp)
 
     def init(self, allSources):
-        self.source = PowerupAudioSources(self.gameData.player, self.audioSourceFactory)
+        self.source = PowerupAudioSources(self.gameState.player, self.audioSourceFactory)
         allSources.append(self.source)
 
     def onPowerupPickedUp(self, args):
         person, powerup = args
-        if person == self.gameData.player:
+        if person == self.gameState.player:
             self.audioPlayer.play(self.source.powerups[type(powerup)])

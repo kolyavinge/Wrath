@@ -10,15 +10,15 @@ class EnemyVisibilityUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         cameraScopeChecker: CameraScopeChecker,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.cameraScopeChecker = cameraScopeChecker
         self.calculateVisibilityPoints()
 
     def updateEnemiesVisibility(self):
-        for levelSegment in self.gameData.visibleLevelSegments:
+        for levelSegment in self.gameState.visibleLevelSegments:
             for enemy in levelSegment.enemies:
                 enemy.isVisibleForPlayer = enemy.lifeCycle != LifeCycle.respawnDelay and self.inCamera(enemy)
 

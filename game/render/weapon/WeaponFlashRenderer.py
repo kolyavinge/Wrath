@@ -10,12 +10,12 @@ class WeaponFlashRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         renderCollection: WeaponFlashRenderCollection,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderCollection = renderCollection
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
@@ -23,14 +23,14 @@ class WeaponFlashRenderer:
     def render(self):
         shader = self.shaderProgramCollection.mesh
         shader.use()
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
         glEnable(GL_DEPTH_TEST)
 
-        for levelSegment in self.gameData.visibleLevelSegments:
+        for levelSegment in self.gameState.visibleLevelSegments:
             for flash in levelSegment.weaponFlashes:
                 mesh = self.renderCollection.getRenderMesh(flash.weaponType)
                 shader.setModelMatrix(flash.getModelMatrix())

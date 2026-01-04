@@ -19,7 +19,7 @@ class WeaponAltFireUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         pistolAltFireLogic: PistolAltFireLogic,
         rifleAltFireLogic: RifleAltFireLogic,
         plasmaAltFireLogic: PlasmaAltFireLogic,
@@ -28,7 +28,7 @@ class WeaponAltFireUpdater:
         sniperAltFireLogic: SniperAltFireLogic,
         weaponAltFireStateSwitcher: WeaponAltFireStateSwitcher,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.altFireLogic = {}
         self.altFireLogic[Pistol] = pistolAltFireLogic
         self.altFireLogic[Rifle] = rifleAltFireLogic
@@ -39,8 +39,8 @@ class WeaponAltFireUpdater:
         self.weaponAltFireStateSwitcher = weaponAltFireStateSwitcher
 
     def update(self):
-        for person, inputData in self.gameData.allPersonInputData.items():
-            personItems = self.gameData.allPersonItems[person]
+        for person, inputData in self.gameState.allPersonInputData.items():
+            personItems = self.gameState.allPersonItems[person]
             weapon = personItems.currentWeapon
             weaponType = type(weapon)
             if inputData.fire and not weapon.allowFireWithAltFire:

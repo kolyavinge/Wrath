@@ -9,8 +9,8 @@ from game.model.person.PersonStates import LifeCycle
 
 class EnemyLifeBarUpdater:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
 
     def update(self):
         self.decreaseFade()
@@ -18,29 +18,29 @@ class EnemyLifeBarUpdater:
         self.calcModelMatrix()
 
     def decreaseFade(self):
-        for enemy, lifeBar in self.gameData.enemyLifeBars.items():
+        for enemy, lifeBar in self.gameState.enemyLifeBars.items():
             lifeBar.fadeRemain.decrease()
             lifeBar.alpha = lifeBar.fadeRemain.value / lifeBar.fadeRemain.initValue
             lifeBar.isVisible = enemy.lifeCycle == LifeCycle.alive and Numeric.limitMin(lifeBar.alpha, 0.01, 0) > 0
 
     def setVisibility(self):
-        for enemy in self.gameData.enemies:
+        for enemy in self.gameState.enemies:
             if (
                 enemy.isVisibleForPlayer
                 and enemy.lifeCycle == LifeCycle.alive
                 and (
-                    enemy in self.gameData.collisionData.personBullet
-                    or enemy in self.gameData.collisionData.personRay
-                    or enemy in self.gameData.collisionData.personExplosion
+                    enemy in self.gameState.collisionData.personBullet
+                    or enemy in self.gameState.collisionData.personRay
+                    or enemy in self.gameState.collisionData.personExplosion
                 )
             ):
-                lifeBar = self.gameData.enemyLifeBars[enemy]
+                lifeBar = self.gameState.enemyLifeBars[enemy]
                 lifeBar.fadeRemain.set(100)
                 lifeBar.alpha = 1.0
                 lifeBar.isVisible = True
 
     def calcModelMatrix(self):
-        for enemy, lifeBar in self.gameData.enemyLifeBars.items():
+        for enemy, lifeBar in self.gameState.enemyLifeBars.items():
             if lifeBar.isVisible:
                 enemyPoint = enemy.currentCenterPoint
                 angleToCamera = self.getAngleToCamera(enemyPoint)
@@ -52,7 +52,7 @@ class EnemyLifeBarUpdater:
                 ).resultMatrix
 
     def getAngleToCamera(self, enemyPoint):
-        directionToCamera = enemyPoint.getDirectionTo(self.gameData.camera.position)
+        directionToCamera = enemyPoint.getDirectionTo(self.gameState.camera.position)
         directionToCamera.z = 0  # make 2d vector
         directionToCamera.normalize()
         dotProduct = directionToCamera.dotProduct(CommonConstants.yAxis)

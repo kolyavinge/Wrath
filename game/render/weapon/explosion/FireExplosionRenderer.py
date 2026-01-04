@@ -11,12 +11,12 @@ class FireExplosionRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         particleRenderer: ParticleRenderer,
         bufferInitializer: FireExplosionParticleBufferInitializer,
         shaderProgramCollection: ShaderProgramCollection,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.particleRenderer = particleRenderer
         self.bufferCollection = ParticleBufferCollection(bufferInitializer)
         self.shaderProgramCollection = shaderProgramCollection
@@ -24,9 +24,9 @@ class FireExplosionRenderer:
     def renderExplosions(self, explosions, explosionTexture):
         shader = self.shaderProgramCollection.fireExplosion
         shader.use()
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
-        shader.setCurrentTimeSec(self.gameData.globalTimeSec)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
+        shader.setCurrentTimeSec(self.gameState.globalTimeSec)
         explosionTexture.bind(GL_TEXTURE0)
         for explosion in explosions:
             particleBuffer = self.bufferCollection.getBufferFor(explosion)

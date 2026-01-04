@@ -7,21 +7,21 @@ class EnemyLevelSegmentsUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personLevelSegmentsUpdater: PersonLevelSegmentsUpdater,
         traversal: BSPTreeTraversal,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
         self.traversal = traversal
 
     def updateIfMoved(self):
-        for enemy in self.gameData.enemies:
+        for enemy in self.gameState.enemies:
             if enemy.hasMoved:
                 self.updateEnemy(enemy)
 
     def update(self):
-        for enemy in self.gameData.enemies:
+        for enemy in self.gameState.enemies:
             self.updateEnemy(enemy)
 
     def updateEnemy(self, enemy):
@@ -48,5 +48,5 @@ class EnemyLevelSegmentsUpdater:
         enemy.visibilityLevelSegment.allPerson.append(enemy)
 
     def updateCurrentCenterPointLevelSegment(self, enemy):
-        bspTree = self.gameData.collisionTree
+        bspTree = self.gameState.collisionTree
         enemy.currentCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, enemy.currentCenterPoint)

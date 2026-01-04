@@ -14,11 +14,11 @@ class PowerupUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         positionGenerator: PowerupPositionGenerator,
         traversal: BSPTreeTraversal,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.positionGenerator = positionGenerator
         self.traversal = traversal
         self.delay = DecrementCounter()
@@ -30,14 +30,14 @@ class PowerupUpdater:
 
     def update(self):
         self.delay.decrease()
-        for powerup in self.gameData.powerups:
+        for powerup in self.gameState.powerups:
             powerup.update()
 
     def generateNew(self):
         if not self.delay.isExpired():
             return
 
-        currentPowerups = self.gameData.powerups
+        currentPowerups = self.gameState.powerups
         newPowerups = []
         for powerupType, powerupCount in self.powerupCount.items():
             count = Query(currentPowerups).count(lambda x: type(x) == powerupType)
@@ -53,11 +53,11 @@ class PowerupUpdater:
         powerup = powerupType()
         powerup.setPosition(self.positionGenerator.getPosition())
 
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, powerup.position)
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, powerup.position)
         levelSegment.powerups.append(powerup)
         powerup.collisionLevelSegment = levelSegment
 
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, powerup.position)
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.visibilityTree, powerup.position)
         levelSegment.powerups.append(powerup)
         powerup.visibilityLevelSegment = levelSegment
 

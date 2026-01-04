@@ -12,38 +12,38 @@ class PlayerInputManager:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         inputManager: InputManager,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.inputManager = inputManager
         self.eventManager = eventManager
 
     def processInput(self):
-        self.gameData.playerInputData.clear()
-        player = self.gameData.player
+        self.gameState.playerInputData.clear()
+        player = self.gameState.player
         if player.lifeCycle != LifeCycle.alive or player.isParalyzed():
             return
         self.processKeyboard()
         self.processMouse()
 
     def processKeyboard(self):
-        inputData = self.gameData.playerInputData
+        inputData = self.gameState.playerInputData
         keyboard = self.inputManager.keyboard
 
         if keyboard.isPressed(KeyboardButtons.d1):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 1))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 1))
         elif keyboard.isPressed(KeyboardButtons.d2):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 2))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 2))
         elif keyboard.isPressed(KeyboardButtons.d3):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 3))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 3))
         elif keyboard.isPressed(KeyboardButtons.d4):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 4))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 4))
         elif keyboard.isPressed(KeyboardButtons.d5):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 5))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 5))
         elif keyboard.isPressed(KeyboardButtons.d6):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameData.player, 6))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 6))
 
         if keyboard.isPressedOrHeld(KeyboardButtons.w):
             inputData.goForward = True
@@ -62,9 +62,9 @@ class PlayerInputManager:
             self.eventManager.raiseEvent(Events.torchSwitchRequested)
 
     def processMouse(self):
-        inputData = self.gameData.playerInputData
+        inputData = self.gameState.playerInputData
         mouse = self.inputManager.mouse
-        aimState = self.gameData.aimState
+        aimState = self.gameState.aimState
 
         if mouse.dx < 0:
             inputData.turnLeftRadians = aimState.mouseSensibility * Math.abs(mouse.dx)
@@ -85,9 +85,9 @@ class PlayerInputManager:
         if mouse.scrollDelta != 0:
             if type(aimState) == DefaultAimState:
                 if mouse.scrollDelta > 0:
-                    self.eventManager.raiseEvent(Events.selectNextWeaponRequested, self.gameData.player)
+                    self.eventManager.raiseEvent(Events.selectNextWeaponRequested, self.gameState.player)
                 elif mouse.scrollDelta < 0:
-                    self.eventManager.raiseEvent(Events.selectPrevWeaponRequested, self.gameData.player)
+                    self.eventManager.raiseEvent(Events.selectPrevWeaponRequested, self.gameState.player)
             elif type(aimState) == SniperAimState:
                 if mouse.scrollDelta > 0:
                     aimState.zoomIn()

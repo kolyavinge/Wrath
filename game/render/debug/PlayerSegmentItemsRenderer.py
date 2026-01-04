@@ -12,12 +12,12 @@ class PlayerSegmentItemsRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         renderCollection: LevelItemRenderCollection,
         model3dRenderer: Model3dRenderer,
         shaderProgramCollection: ShaderProgramCollection,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
         self.shaderProgramCollection = shaderProgramCollection
@@ -26,8 +26,8 @@ class PlayerSegmentItemsRenderer:
         shader = self.shaderProgramCollection.plainColor
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         shader.setColor(Vector3(1, 0, 0))
         shader.setAlphaFactor(0.2)
 
@@ -44,10 +44,10 @@ class PlayerSegmentItemsRenderer:
         shader.unuse()
 
     def renderCollisionSegments(self):
-        for levelSegment in self.gameData.player.collisionLevelSegments:
+        for levelSegment in self.gameState.player.collisionLevelSegments:
             model = self.renderCollection.getRenderModel3d(levelSegment)
             self.model3dRenderer.renderForShadow(model)
 
     def renderVisibilitySegments(self):
-        model = self.renderCollection.getRenderModel3d(self.gameData.player.visibilityLevelSegment)
+        model = self.renderCollection.getRenderModel3d(self.gameState.player.visibilityLevelSegment)
         self.model3dRenderer.renderForShadow(model)

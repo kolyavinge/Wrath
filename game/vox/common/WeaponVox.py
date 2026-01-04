@@ -9,13 +9,13 @@ class WeaponVox:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         audioSourceFactory: AudioSourceFactory,
         audioPlayer: AudioPlayer,
         eventManager: EventManager,
     ):
         self.sources = {}
-        self.gameData = gameData
+        self.gameState = gameState
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer
         eventManager.attachToEvent(Events.weaponFired, self.onWeaponFired)
@@ -25,7 +25,7 @@ class WeaponVox:
 
     def init(self, allSources):
         self.sources = {}
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             self.sources[person] = WeaponAudioSources(person, self.audioSourceFactory)
         allSources.extend(self.sources.values())
 

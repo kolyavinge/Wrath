@@ -9,12 +9,12 @@ class RayFireLogic:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         traversal: BSPTreeTraversal,
         weaponSelector: WeaponSelector,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.traversal = traversal
         self.weaponSelector = weaponSelector
         self.eventManager = eventManager
@@ -22,12 +22,12 @@ class RayFireLogic:
     def activateRay(self, person, weapon):
         if self.canFire(person, weapon):
             ray = weapon.makeRay(person)
-            ray.startLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, ray.startPosition)
+            ray.startLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, ray.startPosition)
             ray.endLevelSegment = ray.startLevelSegment
-            ray.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, ray.startPosition)
+            ray.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.visibilityTree, ray.startPosition)
             ray.visibilityLevelSegment.rays.append(ray)
-            ray.initTimeSec = self.gameData.globalTimeSec
-            self.gameData.rays.append(ray)
+            ray.initTimeSec = self.gameState.globalTimeSec
+            self.gameState.rays.append(ray)
             self.eventManager.raiseEvent(Events.rayActivated, (person, weapon, ray))
 
     def fire(self, person, personItems):
@@ -43,8 +43,8 @@ class RayFireLogic:
         return person.weaponSelectState is None and weapon.bulletsCount > 0
 
     def deactivateRay(self, person, weapon):
-        ray = Query(self.gameData.rays).first(lambda r: r.weapon == weapon)
-        self.gameData.rays.remove(ray)
+        ray = Query(self.gameState.rays).first(lambda r: r.weapon == weapon)
+        self.gameState.rays.remove(ray)
         ray.visibilityLevelSegment.rays.remove(ray)
         weapon.delayRemain.set(2 * weapon.delay)
         self.eventManager.raiseEvent(Events.rayDeactivated, (person, weapon, ray))

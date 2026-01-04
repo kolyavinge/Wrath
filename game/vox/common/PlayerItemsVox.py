@@ -9,18 +9,18 @@ class PlayerItemsVox:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         audioSourceFactory: AudioSourceFactory,
         audioPlayer: AudioPlayer,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer
         eventManager.attachToEvent(Events.torchSwitched, self.onTorchSwitched)
 
     def init(self, allSources):
-        self.source = PlayertemsAudioSources(self.gameData.player, self.audioSourceFactory)
+        self.source = PlayertemsAudioSources(self.gameState.player, self.audioSourceFactory)
         allSources.append(self.source)
 
     def onTorchSwitched(self, _):

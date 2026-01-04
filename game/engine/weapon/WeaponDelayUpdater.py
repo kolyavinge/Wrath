@@ -6,14 +6,14 @@ class WeaponDelayUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.eventManager = eventManager
 
     def update(self):
-        for person, personItems in self.gameData.allPersonItems.items():
+        for person, personItems in self.gameState.allPersonItems.items():
             self.updateWeapon(person, personItems, personItems.rightHandWeapon)
             if personItems.leftHandWeapon is not None:
                 self.updateWeapon(person, personItems, personItems.leftHandWeapon)

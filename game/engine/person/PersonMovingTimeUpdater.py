@@ -4,15 +4,15 @@ from game.lib.Numeric import Numeric
 
 class PersonMovingTimeUpdater:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
         self.maxForwardMovingTime = 1.25
         self.maxMovingTime = 0.5
         self.minMovingTimeThreshold = 0.1
         self.movingTimeFade = 0.9
 
     def update(self):
-        for person, inputData in self.gameData.allPersonInputData.items():
+        for person, inputData in self.gameState.allPersonInputData.items():
             self.updateForPerson(person, inputData)
 
     def updateForPerson(self, person, inputData):

@@ -8,14 +8,14 @@ class PersonTurnUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personTurnLogic: PersonTurnLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personTurnLogic = personTurnLogic
 
     def update(self):
-        for person, inputData in self.gameData.allPersonInputData.items():
+        for person, inputData in self.gameState.allPersonInputData.items():
             self.updateForPerson(person, inputData)
 
     def updateForPerson(self, person, inputData):

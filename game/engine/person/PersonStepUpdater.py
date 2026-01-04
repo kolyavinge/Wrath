@@ -9,14 +9,14 @@ class PersonStepUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.eventManager = eventManager
 
     def update(self):
-        for person, personItems in self.gameData.allPersonItems.items():
+        for person, personItems in self.gameState.allPersonItems.items():
             if person.hasMoved:
                 self.updateForPerson(person, personItems)
 

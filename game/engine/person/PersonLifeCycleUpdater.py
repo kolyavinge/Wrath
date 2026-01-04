@@ -5,11 +5,11 @@ from game.model.person.PersonStates import LifeCycle
 
 class PersonLifeCycleUpdater:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
 
     def update(self):
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             self.processPerson(person)
 
     def processPerson(self, person):
@@ -27,6 +27,6 @@ class PersonLifeCycleUpdater:
                     person.lifeCycle = LifeCycle.respawn
                     person.lifeCycleDelay.set(100)
                     person.addHealth(PersonConstants.maxPersonHealth)
-                    self.gameData.respawnRequests.append(person)
+                    self.gameState.respawnRequests.append(person)
                 elif person.lifeCycle == LifeCycle.respawn:
                     person.lifeCycle = LifeCycle.alive

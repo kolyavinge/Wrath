@@ -53,7 +53,7 @@ from game.tools.timeProfile import timeProfile
 
 class GameUpdater:
 
-    gameData: GameState
+    gameState: GameState
     personTurnUpdater: PersonTurnUpdater
     personMovingTimeUpdater: PersonMovingTimeUpdater
     personVelocityUpdater: PersonVelocityUpdater
@@ -163,5 +163,5 @@ class GameUpdater:
         self.sniperAimFloatingUpdater.update()
         self.fragStatisticUpdater.update()
         self.bulletUpdater.removeNotAlive()
-        self.gameData.collisionData.clear()
-        self.gameData.updateGlobalTime()
+        self.gameState.collisionData.clear()
+        self.gameState.updateGlobalTime()

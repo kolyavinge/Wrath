@@ -6,17 +6,17 @@ from game.model.level.NullFloor import NullFloor
 
 class PersonFloorUpdater:
 
-    def __init__(self, gameData: GameState, traversal: BSPTreeTraversal):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState, traversal: BSPTreeTraversal):
+        self.gameState = gameState
         self.traversal = traversal
 
     def updateNextFloor(self):
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             self.updateForPerson(person)
 
     def updateForPerson(self, person):
         personPosition = person.nextCenterPoint
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, personPosition)
+        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, personPosition)
         assert levelSegment is not None
         if len(levelSegment.floors) == 0:
             person.nextFloor = NullFloor.instance
@@ -34,5 +34,5 @@ class PersonFloorUpdater:
             ) or NullFloor.instance
 
     def commitNextFloor(self):
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             person.currentFloor = person.nextFloor

@@ -6,10 +6,10 @@ class PersonLevelSegmentsUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         traversal: BSPTreeTraversal,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.traversal = traversal
 
     def updatePerson(self, person):
@@ -18,7 +18,7 @@ class PersonLevelSegmentsUpdater:
 
     def updateCollisionLevelSegments(self, person):
         person.collisionLevelSegments = set()
-        bspTree = self.gameData.collisionTree
+        bspTree = self.gameState.collisionTree
         self.updateForBorder(person, bspTree, person.currentBorder.bottom)
         self.updateForBorder(person, bspTree, person.currentBorder.top)
 
@@ -40,5 +40,5 @@ class PersonLevelSegmentsUpdater:
         person.collisionLevelSegments.add(levelSegment)
 
     def updateVisibilityLevelSegment(self, person):
-        person.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.visibilityTree, person.currentCenterPoint)
+        person.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.visibilityTree, person.currentCenterPoint)
         assert person.visibilityLevelSegment is not None

@@ -8,8 +8,8 @@ from game.model.powerup.WeaponPowerup import WeaponPowerup
 
 class PowerupValidator:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
         self.actions = {}
         self.actions[WeaponPowerup] = self.canApplyWeaponPowerup
         self.actions[LargeHealthPowerup] = self.canApplyHealthPowerup
@@ -20,7 +20,7 @@ class PowerupValidator:
         return self.actions[type(powerup)](person, powerup)
 
     def canApplyWeaponPowerup(self, person, powerup):
-        personItems = self.gameData.allPersonItems[person]
+        personItems = self.gameState.allPersonItems[person]
         findedWeapons = personItems.getWeaponsByType(powerup.weaponType)
         if len(findedWeapons) == 0:
             return True
@@ -35,5 +35,5 @@ class PowerupValidator:
         return person.health < PersonConstants.maxPersonHealth
 
     def canApplyVestPowerup(self, person, powerup):
-        personItems = self.gameData.allPersonItems[person]
+        personItems = self.gameState.allPersonItems[person]
         return personItems.vest < PersonConstants.maxVest

@@ -12,20 +12,20 @@ class PlayerBloodStainRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         renderCollection: PlayerBloodStainRenderCollection,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderCollection = renderCollection
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
         eventManager.attachToEvent(Events.viewportSizeChanged, self.onViewportSizeChanged)
 
     def render(self):
-        if len(self.gameData.bloodStains) == 0:
+        if len(self.gameState.bloodStains) == 0:
             return
 
         shader = self.shaderProgramCollection.mesh
@@ -37,7 +37,7 @@ class PlayerBloodStainRenderer:
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
 
-        for bloodStain in self.gameData.bloodStains:
+        for bloodStain in self.gameState.bloodStains:
             model = bloodStain.getModelMatrix(self.viewportWidth, self.viewportHeight)
             shader.setModelMatrix(model)
             shader.setAlphaFactor(bloodStain.brightness)

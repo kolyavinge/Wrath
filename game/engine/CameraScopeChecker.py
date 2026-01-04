@@ -4,8 +4,8 @@ from game.lib.Numeric import Numeric
 
 class CameraScopeChecker:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
         self.width = 0
         self.height = 0
 
@@ -13,7 +13,7 @@ class CameraScopeChecker:
         # проецируем точку на экран
         # и проверяем что она попадает в его пределы
 
-        m = self.gameData.camera.viewProjectionMatrix
+        m = self.gameState.camera.viewProjectionMatrix
 
         # для оптимизации, чтобы не создавать промежуточные обьекты Vector3 и Vector4
         # умножение матрицы на вектор делаем тут

@@ -20,7 +20,7 @@ from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 
 class LevelManager:
 
-    gameData: GameState
+    gameState: GameState
     levelLoader: LevelLoader
     bspTreeBuilder: BSPTreeBuilder
     joinLineAnalyzer: LevelSegmentJoinLineAnalyzer
@@ -41,12 +41,12 @@ class LevelManager:
 
     def loadFirstLevel(self):
         level = self.levelLoader.load()
-        self.gameData.level = level
-        self.bspTreeBuilder.build(self.gameData.collisionTree, level, list(level.getCollisionSplitPlanes()))
-        self.bspTreeBuilder.build(self.gameData.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
-        self.joinLineAnalyzer.analyzeJoinLines(level, self.gameData.visibilityTree)
-        self.levelValidator.validate(level, self.gameData.visibilityTree)
-        self.lightAnalyzer.analyzeLights(level, self.gameData.visibilityTree)
+        self.gameState.level = level
+        self.bspTreeBuilder.build(self.gameState.collisionTree, level, list(level.getCollisionSplitPlanes()))
+        self.bspTreeBuilder.build(self.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
+        self.joinLineAnalyzer.analyzeJoinLines(level, self.gameState.visibilityTree)
+        self.levelValidator.validate(level, self.gameState.visibilityTree)
+        self.lightAnalyzer.analyzeLights(level, self.gameState.visibilityTree)
         self.personInitializer.init()
         self.personFloorUpdater.updateNextFloor()
         self.personFloorUpdater.commitNextFloor()

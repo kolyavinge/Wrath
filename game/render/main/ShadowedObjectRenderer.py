@@ -14,14 +14,14 @@ class ShadowedObjectRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         shadowedObjectFramebuffer: ShadowedObjectFramebuffer,
         vboRenderer: VBORenderer,
         shaderProgramCollection: ShaderProgramCollection,
         screenQuadVBO: ScreenQuadVBO,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.shadowedObjectFramebuffer = shadowedObjectFramebuffer
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
@@ -52,8 +52,8 @@ class ShadowedObjectRenderer:
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT)
         shader = self.shaderProgramCollection.mainSceneLightComponents
         shader.use()
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         shader.setMaxDepth(CommonConstants.maxDepth)
         renderObjectFunc(shader)
         shader.unuse()
@@ -76,8 +76,8 @@ class ShadowedObjectRenderer:
         glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP)
         shader = self.shaderProgramCollection.mainSceneShadowVolumes
         shader.use()
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         renderShadowCastersFunc(shader)
         shader.unuse()
         glShadeModel(GL_SMOOTH)

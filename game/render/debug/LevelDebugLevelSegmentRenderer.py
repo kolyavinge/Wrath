@@ -8,12 +8,12 @@ class LevelDebugLevelSegmentRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         levelItemRenderer: LevelItemRenderer,
         enemyRenderer: EnemyRenderer,
         shadowCasterRenderer: ShadowCasterRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.levelItemRenderer = levelItemRenderer
         self.enemyRenderer = enemyRenderer
         self.shadowCasterRenderer = shadowCasterRenderer
@@ -23,11 +23,11 @@ class LevelDebugLevelSegmentRenderer:
 
     def render(self, shader):
         for levelSegment in self.allLevelSegments:
-            shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerTorch)
+            shader.setLight(levelSegment.lightsWithJoined, self.gameState.playerTorch)
             self.levelItemRenderer.render(shader, levelSegment)
             self.enemyRenderer.render(shader, levelSegment)
 
     def renderShadowCasters(self, shader):
         for levelSegment in self.allLevelSegments:
-            shader.setLight(levelSegment.lightsWithJoined, self.gameData.playerTorch)
+            shader.setLight(levelSegment.lightsWithJoined, self.gameState.playerTorch)
             self.shadowCasterRenderer.render(levelSegment)

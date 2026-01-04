@@ -3,11 +3,11 @@ from game.engine.GameState import GameState
 
 class LevelDebugPersonVelocityUpdater:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
 
     def update(self):
-        for person, inputData in self.gameData.allPersonInputData.items():
+        for person, inputData in self.gameState.allPersonInputData.items():
             self.updateForPerson(person, inputData)
 
     def updateForPerson(self, person, inputData):

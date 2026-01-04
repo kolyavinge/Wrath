@@ -11,12 +11,12 @@ class BulletHoleRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         bulletHoleRenderCollection: BulletHoleRenderCollection,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.bulletHoleRenderCollection = bulletHoleRenderCollection
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
@@ -30,11 +30,11 @@ class BulletHoleRenderer:
         shader = self.shaderProgramCollection.mesh
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         shader.setColorFactor(0.5)
         shader.setAlphaFactor(1.0)
-        for levelSegment in self.gameData.visibleLevelSegments:
+        for levelSegment in self.gameState.visibleLevelSegments:
             meshes = self.bulletHoleRenderCollection.getRenderMeshes(levelSegment)
             for mesh in meshes:
                 mesh.texture.bind(GL_TEXTURE0)

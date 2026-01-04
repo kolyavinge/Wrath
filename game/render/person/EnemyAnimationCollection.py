@@ -8,17 +8,17 @@ class EnemyAnimationCollection:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         renderCollection: EnemyRenderCollection,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderCollection = renderCollection
         self.animationNames = {}
         self.animationNames[PersonZState.onFloor] = "group|Take 001|BaseLayer"
         self.animations = {}
 
     def init(self):
-        for enemy in self.gameData.enemies:
+        for enemy in self.gameState.enemies:
             self.initForEnemy(enemy)
 
     def initForEnemy(self, enemy):

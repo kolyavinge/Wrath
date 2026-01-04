@@ -8,10 +8,10 @@ class BackgroundVisibilityUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         cameraScopeChecker: CameraScopeChecker,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.cameraScopeChecker = cameraScopeChecker
         self.lookDirectionPoint = Vector3()
         self.alreadyCheckedPoints = set()
@@ -21,23 +21,23 @@ class BackgroundVisibilityUpdater:
 
     def updateIfNeeded(self):
         if self.needUpdate():
-            self.lastPitchRadians = self.gameData.player.pitchRadians
-            self.lastYawRadians = self.gameData.player.yawRadians
+            self.lastPitchRadians = self.gameState.player.pitchRadians
+            self.lastYawRadians = self.gameState.player.yawRadians
             self.update()
 
     def needUpdate(self):
-        if self.gameData.camera.hasVerticalViewRadiansChanged:
+        if self.gameState.camera.hasVerticalViewRadiansChanged:
             return True
         return (
-            Math.abs(self.gameData.player.pitchRadians - self.lastPitchRadians) > self.personTurnRadiansDelta
-            or Math.abs(self.gameData.player.yawRadians - self.lastYawRadians) > self.personTurnRadiansDelta
+            Math.abs(self.gameState.player.pitchRadians - self.lastPitchRadians) > self.personTurnRadiansDelta
+            or Math.abs(self.gameState.player.yawRadians - self.lastYawRadians) > self.personTurnRadiansDelta
         )
 
     def update(self):
 
         def checkVisiblePoint(point):
             for element in point.joinedElements:
-                self.gameData.backgroundVisibility.visibleSphereElements.add(element)
+                self.gameState.backgroundVisibility.visibleSphereElements.add(element)
                 for joinedPoint in element.points:
                     if joinedPoint not in self.alreadyCheckedPoints:
                         self.alreadyCheckedPoints.add(joinedPoint)
@@ -45,21 +45,21 @@ class BackgroundVisibilityUpdater:
                             checkVisiblePoint(joinedPoint)
                         else:
                             for element in joinedPoint.joinedElements:
-                                self.gameData.backgroundVisibility.visibleSphereElements.add(element)
+                                self.gameState.backgroundVisibility.visibleSphereElements.add(element)
 
         self.alreadyCheckedPoints.clear()
         point = self.getAnyVisiblePointOrNone()
         if point is not None:
-            self.gameData.backgroundVisibility.visibleSphereElements = set()
+            self.gameState.backgroundVisibility.visibleSphereElements = set()
             checkVisiblePoint(point)
         else:
-            self.gameData.backgroundVisibility.visibleSphereElements = set(self.gameData.backgroundVisibility.sphere.elementsList)
+            self.gameState.backgroundVisibility.visibleSphereElements = set(self.gameState.backgroundVisibility.sphere.elementsList)
 
     def getAnyVisiblePointOrNone(self):
-        self.lookDirectionPoint.copyFrom(self.gameData.camera.lookDirection)
-        self.lookDirectionPoint.mul(self.gameData.backgroundVisibility.sphere.radius)
-        self.lookDirectionPoint.add(self.gameData.camera.position)
-        spherePoints = self.gameData.backgroundVisibility.sphereBSPTree.findNodeItemsByPoint(self.lookDirectionPoint)
+        self.lookDirectionPoint.copyFrom(self.gameState.camera.lookDirection)
+        self.lookDirectionPoint.mul(self.gameState.backgroundVisibility.sphere.radius)
+        self.lookDirectionPoint.add(self.gameState.camera.position)
+        spherePoints = self.gameState.backgroundVisibility.sphereBSPTree.findNodeItemsByPoint(self.lookDirectionPoint)
         for point in spherePoints:
             if self.cameraScopeChecker.isPointInCamera(point.vertex.x, point.vertex.y, point.vertex.z):
                 self.alreadyCheckedPoints.add(point)

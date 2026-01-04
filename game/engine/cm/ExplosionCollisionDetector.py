@@ -4,8 +4,8 @@ from game.model.person.PersonStates import LifeCycle
 
 class ExplosionCollisionDetector:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
 
     def getCollisionResult(self, explosion):
         return [

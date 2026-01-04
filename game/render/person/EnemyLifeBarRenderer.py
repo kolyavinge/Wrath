@@ -13,12 +13,12 @@ class EnemyLifeBarRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         vboBuilderFactory: VBOBuilderFactory,
         vboRenderer: VBORenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.shaderProgramCollection = shaderProgramCollection
         self.vboBuilderFactory = vboBuilderFactory
         self.vboRenderer = vboRenderer
@@ -29,14 +29,14 @@ class EnemyLifeBarRenderer:
     def render(self):
         plainColor = self.shaderProgramCollection.plainColor
         plainColor.use()
-        plainColor.setViewMatrix(self.gameData.camera.viewMatrix)
-        plainColor.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        plainColor.setViewMatrix(self.gameState.camera.viewMatrix)
+        plainColor.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         plainColor.setColor(self.lifeBarColor)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
 
-        for lifeBar in self.gameData.enemyLifeBars.values():
+        for lifeBar in self.gameState.enemyLifeBars.values():
             if lifeBar.isVisible:
                 plainColor.setModelMatrix(lifeBar.modelMatrix)
                 plainColor.setAlphaFactor(lifeBar.alpha)

@@ -11,21 +11,21 @@ class PersonZUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personDamageLogic: PersonDamageLogic,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personDamageLogic = personDamageLogic
         self.eventManager = eventManager
 
     def updateIfMoved(self):
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             if person.hasMoved:
                 self.updatePerson(person)
 
     def update(self):
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             self.updatePerson(person)
 
     def updatePerson(self, person):

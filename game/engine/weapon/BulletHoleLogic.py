@@ -7,18 +7,18 @@ class BulletHoleLogic:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         bulletHoleFactory: BulletHoleFactory,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.bulletHoleFactory = bulletHoleFactory
         self.eventManager = eventManager
 
     def makeHole(self, collisionPoint, frontNormal, levelSegment, bulletHoleInfo):
         bulletHolePoint = self.toBulletHolePoint(collisionPoint)
-        if bulletHolePoint not in self.gameData.bulletHolePoints:
-            self.gameData.bulletHolePoints.add(bulletHolePoint)
+        if bulletHolePoint not in self.gameState.bulletHolePoints:
+            self.gameState.bulletHolePoints.add(bulletHolePoint)
             bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, levelSegment, bulletHoleInfo)
             self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
 

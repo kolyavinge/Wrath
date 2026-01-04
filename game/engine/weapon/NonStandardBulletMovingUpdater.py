@@ -7,15 +7,15 @@ class NonStandardBulletMovingUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         plasmaBulletMovingLogic: PlasmaBulletMovingLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.bulletMovingLogic = {}
         self.bulletMovingLogic[PlasmaBullet] = plasmaBulletMovingLogic
 
     def update(self):
-        for bullet in self.gameData.bullets:
+        for bullet in self.gameState.bullets:
             bulletType = type(bullet)
             if bulletType in self.bulletMovingLogic:
                 self.bulletMovingLogic[bulletType].apply(bullet)

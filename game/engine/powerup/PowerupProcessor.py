@@ -10,10 +10,10 @@ class PowerupProcessor:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         weaponSelector: WeaponSelector,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.weaponSelector = weaponSelector
         self.actions = {}
         self.actions[WeaponPowerup] = self.applyWeaponPowerup
@@ -25,7 +25,7 @@ class PowerupProcessor:
         self.actions[type(powerup)](person, powerup)
 
     def applyWeaponPowerup(self, person, powerup):
-        personItems = self.gameData.allPersonItems[person]
+        personItems = self.gameState.allPersonItems[person]
         findedWeapons = personItems.getWeaponsByType(powerup.weaponType)
         if len(findedWeapons) > 0:
             for findedWeapon in findedWeapons:
@@ -41,4 +41,4 @@ class PowerupProcessor:
         person.addHealth(powerup.value)
 
     def applyVestPowerup(self, person, powerup):
-        self.gameData.allPersonItems[person].setFullVest()
+        self.gameState.allPersonItems[person].setFullVest()

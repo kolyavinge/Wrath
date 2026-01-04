@@ -8,32 +8,32 @@ class AimStateSwitcher:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         weaponPositionUpdater: PersonWeaponPositionUpdater,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.weaponPositionUpdater = weaponPositionUpdater
         self.eventManager = eventManager
 
     def setToDefaultIfNeeded(self):
-        if type(self.gameData.aimState) != DefaultAimState:
-            self.gameData.aimState = DefaultAimState()
-            self.gameData.playerItems.currentWeapon.setPositionForDefaultAimState()
+        if type(self.gameState.aimState) != DefaultAimState:
+            self.gameState.aimState = DefaultAimState()
+            self.gameState.playerItems.currentWeapon.setPositionForDefaultAimState()
             self.updatePlayerWeaponPosition()
-            self.eventManager.raiseEvent(Events.aimStateSwitched, self.gameData.aimState)
+            self.eventManager.raiseEvent(Events.aimStateSwitched, self.gameState.aimState)
 
     def switchDefaultOrSniper(self):
-        if type(self.gameData.aimState) == DefaultAimState:
-            self.gameData.aimState = SniperAimState()
-            self.gameData.playerItems.currentWeapon.setPositionForSniperAimState()
+        if type(self.gameState.aimState) == DefaultAimState:
+            self.gameState.aimState = SniperAimState()
+            self.gameState.playerItems.currentWeapon.setPositionForSniperAimState()
         else:
-            self.gameData.aimState = DefaultAimState()
-            self.gameData.playerItems.currentWeapon.setPositionForDefaultAimState()
+            self.gameState.aimState = DefaultAimState()
+            self.gameState.playerItems.currentWeapon.setPositionForDefaultAimState()
         self.updatePlayerWeaponPosition()
-        self.eventManager.raiseEvent(Events.aimStateSwitched, self.gameData.aimState)
+        self.eventManager.raiseEvent(Events.aimStateSwitched, self.gameState.aimState)
 
     def updatePlayerWeaponPosition(self):
         # обновляем позицию оружия сразу, не дожидаясь след цикла апдейта
         # иначе оружие может отрендерится на старой позиции
-        self.weaponPositionUpdater.updateForPerson(self.gameData.player)
+        self.weaponPositionUpdater.updateForPerson(self.gameState.player)

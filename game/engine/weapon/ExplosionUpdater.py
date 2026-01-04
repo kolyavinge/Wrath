@@ -6,14 +6,14 @@ class ExplosionUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         explosionLogic: ExplosionLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.explosionLogic = explosionLogic
 
     def update(self):
-        for explosion in self.gameData.explosions:
+        for explosion in self.gameState.explosions:
             explosion.update()
             if not explosion.isVisible:
                 self.explosionLogic.removeExplosion(explosion)

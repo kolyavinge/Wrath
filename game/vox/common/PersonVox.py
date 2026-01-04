@@ -10,13 +10,13 @@ class PersonVox:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         audioSourceFactory: AudioSourceFactory,
         audioPlayer: AudioPlayer,
         eventManager: EventManager,
     ):
         self.sources = {}
-        self.gameData = gameData
+        self.gameState = gameState
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer
         eventManager.attachToEvent(Events.personStepDone, self.onPersonStepDone)
@@ -25,7 +25,7 @@ class PersonVox:
 
     def init(self, allSources):
         self.sources = {}
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             self.sources[person] = PersonAudioSources(person, self.audioSourceFactory)
         allSources.extend(self.sources.values())
 

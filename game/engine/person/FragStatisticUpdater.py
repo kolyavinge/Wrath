@@ -5,16 +5,16 @@ from game.model.person.PersonStates import LifeCycle
 
 class FragStatisticUpdater:
 
-    def __init__(self, gameData: GameState):
-        self.gameData = gameData
+    def __init__(self, gameState: GameState):
+        self.gameState = gameState
 
     def init(self):
-        self.gameData.personFragStatistic = {}
-        for person in self.gameData.allPerson:
-            self.gameData.personFragStatistic[person] = FragStatistic(person)
+        self.gameState.personFragStatistic = {}
+        for person in self.gameState.allPerson:
+            self.gameState.personFragStatistic[person] = FragStatistic(person)
 
     def update(self):
-        collisionData = self.gameData.collisionData
+        collisionData = self.gameState.collisionData
 
         for person, bullet in collisionData.personBullet.items():
             if person.lifeCycle == LifeCycle.dead:
@@ -38,7 +38,7 @@ class FragStatisticUpdater:
                 self.increaseDeaths(person)
 
     def increaseFrags(self, person):
-        self.gameData.personFragStatistic[person].frags += 1
+        self.gameState.personFragStatistic[person].frags += 1
 
     def increaseDeaths(self, person):
-        self.gameData.personFragStatistic[person].deaths += 1
+        self.gameState.personFragStatistic[person].deaths += 1

@@ -13,13 +13,13 @@ class PlasmaExplosionRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         particleRenderer: FeedbackParticleRenderer,
         blurRenderer: BlurRenderer,
         bufferInitializer: PlasmaExplosionParticleBufferInitializer,
         shaderProgramCollection: ShaderProgramCollection,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.particleRenderer = particleRenderer
         self.blurRenderer = blurRenderer
         self.bufferCollection = ParticleBufferCollection(bufferInitializer)
@@ -34,8 +34,8 @@ class PlasmaExplosionRenderer:
     def prepareShader(self):
         shader = self.shaderProgramCollection.plasmaExplosion
         shader.use()
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         shader.setDeltaTime(CommonConstants.renderTimerMsec)
         shader.unuse()
 

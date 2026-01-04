@@ -17,7 +17,7 @@ class DashboardRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         dashboardUpdater: DashboardUpdater,
         dashboardTextRenderer: DashboardTextRenderer,
         dashboardSpriteRenderer: DashboardSpriteRenderer,
@@ -26,7 +26,7 @@ class DashboardRenderer:
         vboRenderer: VBORenderer,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.dashboardUpdater = dashboardUpdater
         self.dashboardTextRenderer = dashboardTextRenderer
         self.dashboardSpriteRenderer = dashboardSpriteRenderer
@@ -63,8 +63,8 @@ class DashboardRenderer:
         shader.unuse()
 
     def updateRenderDataIfDashboardChanged(self):
-        if self.gameData.dashboard.hasChanged:
-            self.gameData.dashboard.resetChanges()
+        if self.gameState.dashboard.hasChanged:
+            self.gameState.dashboard.resetChanges()
             self.updateRenderData()
 
     def updateRenderData(self):

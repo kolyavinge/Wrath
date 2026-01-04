@@ -11,10 +11,10 @@ class PowerupFinder:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         routeFinder: RouteFinder,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.routeFinder = routeFinder
 
     def tryFindNearestHealthOrVest(self, enemy):
@@ -42,4 +42,4 @@ class PowerupFinder:
         return False
 
     def getNearestPowerups(self, enemy, conditionFunc):
-        return Query(self.gameData.powerups).where(conditionFunc).orderBy(lambda x: x.pickupPosition.getLengthTo(enemy.currentCenterPoint)).result
+        return Query(self.gameState.powerups).where(conditionFunc).orderBy(lambda x: x.pickupPosition.getLengthTo(enemy.currentCenterPoint)).result

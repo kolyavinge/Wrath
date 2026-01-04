@@ -9,19 +9,19 @@ class BulletCollisionDetector:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         levelSegmentItemFinder: LevelSegmentItemFinder,
         constructionCollisionDetector: ConstructionCollisionDetector,
         personCollisionDetector: PersonCollisionDetector,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.levelSegmentItemFinder = levelSegmentItemFinder
         self.constructionCollisionDetector = constructionCollisionDetector
         self.personCollisionDetector = personCollisionDetector
 
     def getCollisionResultOrNone(self, bullet):
         return self.levelSegmentItemFinder.findItemOrNone(
-            self.gameData.collisionTree,
+            self.gameState.collisionTree,
             bullet.currentLevelSegment,
             bullet.nextLevelSegment,
             bullet.currentPosition,

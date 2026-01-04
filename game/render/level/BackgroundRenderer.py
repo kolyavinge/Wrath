@@ -13,18 +13,18 @@ class BackgroundRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         vboUpdaterFactory: VBOUpdaterFactory,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
         textureCollection: TextureCollection,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
         self.textureCollection = textureCollection
-        sphereElementsCountHalf = self.gameData.backgroundVisibility.sphere.elementsCount
+        sphereElementsCountHalf = self.gameState.backgroundVisibility.sphere.elementsCount
         self.vbo = self.vboUpdater.buildUnfilled(
             4 * sphereElementsCountHalf, 2 * sphereElementsCountHalf, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces]
         )
@@ -38,8 +38,8 @@ class BackgroundRenderer:
         shader = self.shaderProgramCollection.mesh
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
-        shader.setViewMatrix(self.gameData.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameData.camera.projectionMatrix)
+        shader.setViewMatrix(self.gameState.camera.viewMatrix)
+        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
         shader.setColorFactor(1.0)
         shader.setAlphaFactor(1.0)
         self.textureCollection.background1.bind(GL_TEXTURE0)
@@ -49,9 +49,9 @@ class BackgroundRenderer:
         glDisable(GL_DEPTH_TEST)
 
     def updateVBOIfNeeded(self):
-        if self.visibleSphereElements == self.gameData.backgroundVisibility.visibleSphereElements:
+        if self.visibleSphereElements == self.gameState.backgroundVisibility.visibleSphereElements:
             return
-        self.visibleSphereElements = self.gameData.backgroundVisibility.visibleSphereElements
+        self.visibleSphereElements = self.gameState.backgroundVisibility.visibleSphereElements
         self.vbo.reset()
         for element in self.visibleSphereElements:
             self.vboUpdater.beginUpdate(self.vbo)

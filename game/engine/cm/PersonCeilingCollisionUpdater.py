@@ -8,14 +8,14 @@ class PersonCeilingCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personCeilingCollisionDetector: PersonCeilingCollisionDetector,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personCeilingCollisionDetector = personCeilingCollisionDetector
 
     def update(self):
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             if person.zState != PersonZState.jumping:
                 continue
 

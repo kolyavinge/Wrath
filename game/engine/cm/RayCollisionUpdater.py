@@ -11,14 +11,14 @@ class RayCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         traversal: BSPTreeTraversal,
         rayCollisionDetector: RayCollisionDetector,
         bulletHoleLogic: BulletHoleLogic,
         personDamageLogic: PersonDamageLogic,
         explosionLogic: ExplosionLogic,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.traversal = traversal
         self.rayCollisionDetector = rayCollisionDetector
         self.bulletHoleLogic = bulletHoleLogic
@@ -26,7 +26,7 @@ class RayCollisionUpdater:
         self.explosionLogic = explosionLogic
 
     def update(self):
-        for ray in self.gameData.rays:
+        for ray in self.gameState.rays:
             collisionResult = self.rayCollisionDetector.getCollisionResultOrNone(ray)
             if collisionResult is not None:
                 self.processCollision(ray, collisionResult)
@@ -42,7 +42,7 @@ class RayCollisionUpdater:
         collisionPoint, construction = collisionResult
         ray.endPosition = collisionPoint
         ray.damagedObject = construction
-        bspTree = self.gameData.visibilityTree
+        bspTree = self.gameState.visibilityTree
         visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
         self.bulletHoleLogic.makeHole(collisionPoint, construction.frontNormal, visibilityLevelSegment, ray.holeInfo)
 

@@ -10,12 +10,12 @@ class HealthSearchStateHandler:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         movingLogic: MovingLogic,
         fireLogic: FireLogic,
         powerupFinder: PowerupFinder,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.movingLogic = movingLogic
         self.fireLogic = fireLogic
         self.powerupFinder = powerupFinder

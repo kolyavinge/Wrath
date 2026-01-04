@@ -17,7 +17,7 @@ class GameScreenInitializer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         levelItemRenderCollection: LevelItemRenderCollection,
         bulletHoleRenderCollection: BulletHoleRenderCollection,
         shadowCasterRenderCollection: ShadowCasterRenderCollection,
@@ -30,7 +30,7 @@ class GameScreenInitializer:
         enemyAnimationCollection: EnemyAnimationCollection,
         dashboardRenderer: DashboardRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.levelItemRenderCollection = levelItemRenderCollection
         self.bulletHoleRenderCollection = bulletHoleRenderCollection
         self.shadowCasterRenderCollection = shadowCasterRenderCollection
@@ -45,9 +45,9 @@ class GameScreenInitializer:
 
     # @timeProfile("GameScreenInitializer")
     def init(self):
-        allVisibilityLevelSegments = self.gameData.visibilityTree.getAllLevelSegments()
+        allVisibilityLevelSegments = self.gameState.visibilityTree.getAllLevelSegments()
         self.levelItemRenderCollection.init(allVisibilityLevelSegments)
-        # self.levelItemRenderCollection.init(allVisibilityLevelSegments + self.gameData.collisionTree.getAllLevelSegments())
+        # self.levelItemRenderCollection.init(allVisibilityLevelSegments + self.gameState.collisionTree.getAllLevelSegments())
         self.bulletHoleRenderCollection.init(allVisibilityLevelSegments)
         self.shadowCasterRenderCollection.init(allVisibilityLevelSegments)
         self.bulletRenderCollection.init()

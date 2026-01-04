@@ -8,19 +8,19 @@ class RouteCollisionDetector:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         personWallCollisionDetector: PersonWallCollisionDetector,
         voidCollisionDetector: VoidCollisionDetector,
         traversal: BSPTreeTraversal,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.personWallCollisionDetector = personWallCollisionDetector
         self.voidCollisionDetector = voidCollisionDetector
         self.traversal = traversal
 
     def anyCollisions(self, startPoint, endPoint):
-        startLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, startPoint)
-        endLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameData.collisionTree, endPoint)
+        startLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, startPoint)
+        endLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, endPoint)
 
         return self.anyWallCollisions(startPoint, endPoint, startLevelSegment, endLevelSegment) or self.anyVoidCollisions(
             startPoint, endPoint, startLevelSegment, endLevelSegment

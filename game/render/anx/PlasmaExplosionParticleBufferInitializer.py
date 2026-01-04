@@ -12,10 +12,10 @@ class PlasmaExplosionParticleBufferInitializer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         particleBufferFactory: FeedbackParticleBufferFactory,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.particleBufferFactory = particleBufferFactory
 
     def makeEmpty(self, explosion):
@@ -34,7 +34,7 @@ class PlasmaExplosionParticleBufferInitializer:
         particlesCount = explosion.particlesInGroup * explosion.particleGroupsCount
         damagedObject = explosion.bullet.damagedObject
         if isinstance(damagedObject, Person):
-            explosionPosition = self.gameData.camera.getCameraFacedNormal(explosion.position)
+            explosionPosition = self.gameState.camera.getCameraFacedNormal(explosion.position)
             explosionPosition.setLength(0.5)
             explosionPosition.add(explosion.position)
         else:
@@ -48,7 +48,7 @@ class PlasmaExplosionParticleBufferInitializer:
         velocityDataForGroup = []
         damagedObject = explosion.bullet.damagedObject
         if isinstance(damagedObject, Person):
-            planeNormal = self.gameData.camera.getCameraFacedNormal(explosion.position)
+            planeNormal = self.gameState.camera.getCameraFacedNormal(explosion.position)
         else:
             planeNormal = damagedObject.frontNormal
         plane = Plane(planeNormal, explosion.position)

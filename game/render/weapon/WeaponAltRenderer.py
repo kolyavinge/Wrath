@@ -7,14 +7,14 @@ class WeaponAltRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         railgunChargingRenderer: RailgunChargingRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderers = {}
         self.renderers[Railgun] = railgunChargingRenderer
 
     def renderPlayerWeapon(self):
-        weaponType = self.gameData.playerItems.getCurrentWeaponType()
+        weaponType = self.gameState.playerItems.getCurrentWeaponType()
         if weaponType in self.renderers:
-            self.renderers[weaponType].renderPlayerWeapon(self.gameData.playerItems.currentWeapon)
+            self.renderers[weaponType].renderPlayerWeapon(self.gameState.playerItems.currentWeapon)

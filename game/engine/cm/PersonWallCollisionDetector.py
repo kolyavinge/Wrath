@@ -7,11 +7,11 @@ class PersonWallCollisionDetector:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         constructionCollisionDetector: ConstructionCollisionDetector,
         levelSegmentItemFinder: LevelSegmentItemFinder,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.constructionCollisionDetector = constructionCollisionDetector
         self.levelSegmentItemFinder = levelSegmentItemFinder
 
@@ -74,7 +74,7 @@ class PersonWallCollisionDetector:
 
         return (
             self.levelSegmentItemFinder.findItemOrNone(
-                self.gameData.collisionTree,
+                self.gameState.collisionTree,
                 startLevelSegment,
                 endLevelSegment,
                 startPoint,

@@ -14,13 +14,13 @@ class EnemyRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         renderCollection: EnemyRenderCollection,
         model3dRenderer: Model3dRenderer,
         enemyAnimationCollection: EnemyAnimationCollection,
         animationPlayer: AnimationPlayer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
         self.enemyAnimationCollection = enemyAnimationCollection
@@ -68,10 +68,10 @@ class EnemyRenderer:
         self.model3dRenderer.renderForShadow(self.renderCollection.enemyModelForShadow)
 
     def animationNeedApply(self, enemy):
-        if type(self.gameData.aimState) == SniperAimState:
+        if type(self.gameState.aimState) == SniperAimState:
             return True
 
-        enemyDirectionLength = self.gameData.camera.position.getLengthTo(enemy.middleCenterPoint)
+        enemyDirectionLength = self.gameState.camera.position.getLengthTo(enemy.middleCenterPoint)
         if enemyDirectionLength < CommonConstants.maxEnemyAnimationDistance:
             return True
 

@@ -7,11 +7,11 @@ class ExplosionLogic:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         bulletLogic: BulletLogic,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.bulletLogic = bulletLogic
         self.eventManager = eventManager
 
@@ -22,12 +22,12 @@ class ExplosionLogic:
             explosion.visibilityLevelSegment = bullet.currentVisibilityLevelSegment
             explosion.collisionLevelSegment.explosions.append(explosion)
             explosion.visibilityLevelSegment.explosions.append(explosion)
-            explosion.initTimeSec = self.gameData.globalTimeSec
-            self.gameData.explosions.append(explosion)
+            explosion.initTimeSec = self.gameState.globalTimeSec
+            self.gameState.explosions.append(explosion)
             self.bulletLogic.makeDebris(explosion)
             self.eventManager.raiseEvent(Events.exploded, explosion)
 
     def removeExplosion(self, explosion):
         explosion.collisionLevelSegment.explosions.remove(explosion)
         explosion.visibilityLevelSegment.explosions.remove(explosion)
-        self.gameData.explosions.remove(explosion)
+        self.gameState.explosions.remove(explosion)

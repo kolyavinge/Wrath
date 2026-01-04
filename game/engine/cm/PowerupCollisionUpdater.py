@@ -9,27 +9,27 @@ class PowerupCollisionUpdater:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         powerupCollisionDetector: PowerupCollisionDetector,
         powerupValidator: PowerupValidator,
         powerupProcessor: PowerupProcessor,
         eventManager: EventManager,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.powerupCollisionDetector = powerupCollisionDetector
         self.powerupValidator = powerupValidator
         self.powerupProcessor = powerupProcessor
         self.eventManager = eventManager
 
     def update(self):
-        for person in self.gameData.allPerson:
+        for person in self.gameState.allPerson:
             self.updateForPerson(person)
 
     def updateForPerson(self, person):
         powerup = self.powerupCollisionDetector.getCollisionResultOrNone(person)
         if powerup is not None and self.powerupValidator.canApply(person, powerup):
             self.powerupProcessor.apply(person, powerup)
-            self.gameData.powerups.remove(powerup)
+            self.gameState.powerups.remove(powerup)
             powerup.collisionLevelSegment.powerups.remove(powerup)
             powerup.visibilityLevelSegment.powerups.remove(powerup)
             self.eventManager.raiseEvent(Events.powerupPickedUp, (person, powerup))

@@ -7,15 +7,15 @@ class ShineBulletRenderer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         plasmaShineBulletRenderer: PlasmaShineBulletRenderer,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.renderers = {}
         self.renderers[PlasmaBullet] = plasmaShineBulletRenderer
 
     def render(self):
-        for bullet in self.gameData.bullets:
+        for bullet in self.gameState.bullets:
             if type(bullet) in self.renderers:
                 renderer = self.renderers[type(bullet)]
                 renderer.renderBullet(bullet)

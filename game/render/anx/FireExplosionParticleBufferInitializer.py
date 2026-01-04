@@ -13,10 +13,10 @@ class FireExplosionParticleBufferInitializer:
 
     def __init__(
         self,
-        gameData: GameState,
+        gameState: GameState,
         particleBufferFactory: ParticleBufferFactory,
     ):
-        self.gameData = gameData
+        self.gameState = gameState
         self.particleBufferFactory = particleBufferFactory
         self.fireParticlesCount = 8
         self.flashParticlesCount = 1
@@ -40,7 +40,7 @@ class FireExplosionParticleBufferInitializer:
         buffer.setTexCoordData(self.getTexCoordData())
 
     def getPositionData(self, explosion):
-        stepToCamera = self.gameData.camera.getCameraFacedNormal(explosion.position)
+        stepToCamera = self.gameState.camera.getCameraFacedNormal(explosion.position)
         stepToCamera.mul(0.5)
         initPosition = explosion.position.copy()
         initPosition.add(stepToCamera)
