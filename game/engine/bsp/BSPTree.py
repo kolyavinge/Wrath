@@ -46,3 +46,6 @@ class BSPTree:
                 return True
             else:
                 return False
+
+    def commit(self):
+        self.allLevelSegments = self.getAllLevelSegments()

@@ -45,9 +45,9 @@ class GameScreenInitializer:
 
     # @timeProfile("GameScreenInitializer")
     def init(self):
-        allVisibilityLevelSegments = self.gameState.visibilityTree.getAllLevelSegments()
+        allVisibilityLevelSegments = self.gameState.visibilityTree.allLevelSegments
         self.levelItemRenderCollection.init(allVisibilityLevelSegments)
-        # self.levelItemRenderCollection.init(allVisibilityLevelSegments + self.gameState.collisionTree.getAllLevelSegments())
+        # self.levelItemRenderCollection.init(allVisibilityLevelSegments + self.gameState.collisionTree.allLevelSegments)
         self.bulletHoleRenderCollection.init(allVisibilityLevelSegments)
         self.shadowCasterRenderCollection.init(allVisibilityLevelSegments)
         self.bulletRenderCollection.init()

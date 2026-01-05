@@ -13,9 +13,12 @@ class PersonCollisionUpdater:
         self.personCollisionDetector = personCollisionDetector
 
     def update(self):
-        for person1, person2 in self.gameState.allPersonPairs:
-            if person1.hasMoved or person2.hasMoved:
-                self.updateForPerson(person1, person2)
+        for levelSegment in self.gameState.collisionTree.allLevelSegments:
+            for person1 in levelSegment.allPerson:
+                for person2 in levelSegment.allPerson:
+                    if person1 != person2:
+                        if person1.hasMoved or person2.hasMoved:
+                            self.updateForPerson(person1, person2)
 
     def updateForPerson(self, person1, person2):
         collisionLength = self.personCollisionDetector.getCollisionLengthOrNone(person1, person2)

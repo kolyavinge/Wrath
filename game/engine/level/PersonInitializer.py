@@ -23,7 +23,6 @@ class PersonInitializer:
     def init(self):
         self.initPlayer()
         self.initEnemies()
-        self.initAllPersonPairs()
 
     def initPlayer(self):
         level = self.gameState.level
@@ -54,10 +53,3 @@ class PersonInitializer:
         self.gameState.allPersonInputData[enemy] = self.gameState.enemyInputData[enemy]
         self.gameState.enemyLifeBars[enemy] = EnemyLifeBar()
         self.weaponSelector.initWeaponByType(enemy, weaponType)
-
-    def initAllPersonPairs(self):
-        for i in range(0, len(self.gameState.allPerson) - 1):
-            for j in range(i + 1, len(self.gameState.allPerson)):
-                person1 = self.gameState.allPerson[i]
-                person2 = self.gameState.allPerson[j]
-                self.gameState.allPersonPairs.append((person1, person2))

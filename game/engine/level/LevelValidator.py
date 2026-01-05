@@ -5,8 +5,7 @@ class LevelValidator:
 
     def validate(self, level, visibilityTree):
         level.validate()
-        # allLevelSegments = visibilityTree.getAllLevelSegments()
-        # self.printSegmentInfo(allLevelSegments)
+        # self.printSegmentInfo(visibilityTree.allLevelSegments)
 
     def printSegmentInfo(self, allLevelSegments):
         # self.printItems(allLevelSegments, lambda x: x.floors, "floors")

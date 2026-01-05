@@ -13,6 +13,7 @@ class BSPTreeBuilder:
         bspTree.root.levelSegment.ceilings = level.ceilings.copy()
         bspTree.root.levelSegment.lights = level.lights.copy()
         self.buildRec(bspTree.root, splitPlanes)
+        bspTree.commit()
 
     def buildRec(self, node, splitPlanes):
         splitPlane = splitPlanes[0]

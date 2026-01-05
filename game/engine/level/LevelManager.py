@@ -57,6 +57,5 @@ class LevelManager:
         self.levelSegmentVisibilityUpdater.update()
         self.backgroundVisibilityDetector.update()
         self.personWeaponPositionUpdater.update()
-        self.weaponFlashUpdater.init()
         self.fragStatisticUpdater.init()
         self.enemyAIUpdater.init()

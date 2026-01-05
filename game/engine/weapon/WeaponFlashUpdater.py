@@ -6,11 +6,8 @@ class WeaponFlashUpdater:
     def __init__(self, gameState: GameState):
         self.gameState = gameState
 
-    def init(self):
-        self.allVisibilityLevelSegments = self.gameState.visibilityTree.getAllLevelSegments()
-
     def update(self):
-        for levelSegment in self.allVisibilityLevelSegments:
+        for levelSegment in self.gameState.visibilityTree.allLevelSegments:
             for flash in levelSegment.weaponFlashes:
                 flash.update()
                 if not flash.isVisible:

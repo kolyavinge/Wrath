@@ -25,7 +25,7 @@ class LevelDebugGameScreenInitializer:
         self.enemyAnimationCollection = enemyAnimationCollection
 
     def init(self):
-        allLevelSegments = self.gameState.visibilityTree.getAllLevelSegments()
+        allLevelSegments = self.gameState.visibilityTree.allLevelSegments
         self.levelDebugLevelSegmentRenderer.init(allLevelSegments)
         self.levelItemRenderCollection.init(allLevelSegments)
         self.shadowCasterRenderCollection.init(allLevelSegments)
