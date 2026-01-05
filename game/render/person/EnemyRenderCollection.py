@@ -17,7 +17,7 @@ class EnemyRenderCollection:
         self.withAdjacency = True
 
     def init(self):
-        if DebugSettings.noEnemies:
+        if not DebugSettings.allowEnemies:
             return
 
         if self.enemyModel is not None:

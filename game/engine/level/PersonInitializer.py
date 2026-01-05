@@ -33,7 +33,7 @@ class PersonInitializer:
         self.weaponSelector.initWeaponByType(self.gameState.player, weaponType)
 
     def initEnemies(self):
-        if DebugSettings.noEnemies:
+        if not DebugSettings.allowEnemies:
             return
 
         for position, frontNormal, weaponType in self.gameState.level.getEnemyInitInfo():

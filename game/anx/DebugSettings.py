@@ -1,5 +1,5 @@
 class DebugSettings:
 
     isDebug = False
-    noEnemies = True
+    allowEnemies = False
     enemyFreeze = True
