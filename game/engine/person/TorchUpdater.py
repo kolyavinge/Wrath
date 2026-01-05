@@ -14,12 +14,11 @@ class TorchUpdater:
         self.eventManager.attachToEvent(Events.torchSwitchRequested, self.switchTorch)
 
     def update(self):
-        player = self.gameState.player
-        torch = self.gameState.playerTorch
-        torch.position = player.eyePosition
-        torch.direction = player.lookDirection
+        torch = self.gameState.playerItems.torch
+        torch.position = self.gameState.player.eyePosition
+        torch.direction = self.gameState.player.lookDirection
 
     def switchTorch(self, _):
-        torch = self.gameState.playerTorch
+        torch = self.gameState.playerItems.torch
         torch.switch()
         self.eventManager.raiseEvent(Events.torchSwitched)

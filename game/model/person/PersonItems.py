@@ -1,6 +1,7 @@
 from game.anx.PersonConstants import PersonConstants
 from game.lib.Math import Math
 from game.lib.Query import Query
+from game.model.light.Torch import Torch
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma
@@ -35,6 +36,7 @@ class PersonItems:
         self.selectedLeftHandWeapon = None
         self.selectedCurrentWeapon = None
         self.vest = 0
+        self.torch = Torch()
 
     def setFullVest(self):
         self.vest = PersonConstants.maxVest

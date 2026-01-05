@@ -23,11 +23,11 @@ class LevelDebugLevelSegmentRenderer:
 
     def render(self, shader):
         for levelSegment in self.allLevelSegments:
-            shader.setLight(levelSegment.lightsWithJoined, self.gameState.playerTorch)
+            shader.setLight(levelSegment.lightsWithJoined, self.gameState.playerItems.torch)
             self.levelItemRenderer.render(shader, levelSegment)
             self.enemyRenderer.render(shader, levelSegment)
 
     def renderShadowCasters(self, shader):
         for levelSegment in self.allLevelSegments:
-            shader.setLight(levelSegment.lightsWithJoined, self.gameState.playerTorch)
+            shader.setLight(levelSegment.lightsWithJoined, self.gameState.playerItems.torch)
             self.shadowCasterRenderer.render(levelSegment)

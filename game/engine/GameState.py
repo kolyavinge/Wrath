@@ -3,7 +3,6 @@ from game.engine.bsp.BSPTree import BSPTree
 from game.model.Camera import Camera
 from game.model.Dashboard import Dashboard
 from game.model.level.BackgroundVisibilityData import BackgroundVisibilityData
-from game.model.light.Torch import Torch
 from game.model.person.AimState import DefaultAimState
 from game.model.person.CollisionData import CollisionData
 from game.model.person.PersonInputData import PersonInputData
@@ -42,7 +41,6 @@ class GameState:
         self.personFragStatistic = {}
         self.collisionData = CollisionData()
         # for player
-        self.playerTorch = Torch()
         self.bloodStains = []
         self.enemyLifeBars = {}
         self.camera = Camera()
