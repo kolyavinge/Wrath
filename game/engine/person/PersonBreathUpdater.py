@@ -7,8 +7,9 @@ class PersonBreathUpdater:
         self.gameState = gameState
 
     def update(self):
-        for person in self.gameState.allPerson:
-            if not person.hasMoved and not self.gameState.allPersonItems[person].currentWeapon.isFiring:
-                person.breathTime += 1.0
-            else:
-                person.breathTime = 0
+        player = self.gameState.player
+        currentWeapon = self.gameState.playerItems.currentWeapon
+        if not player.hasMoved and not currentWeapon.isFiring:
+            player.breathTime += 1.0
+        else:
+            player.breathTime = 0
