@@ -13,6 +13,8 @@ from game.model.person.Player import Player
 class GameState:
 
     def __init__(self):
+
+        # common data for client and server
         self.globalTimeMsec = 0
         self.globalTimeSec = 0
         self.level = None
@@ -40,7 +42,8 @@ class GameState:
         self.respawnRequests = []
         self.personFragStatistic = {}
         self.collisionData = CollisionData()
-        # for player
+
+        # data for client
         self.bloodStains = []
         self.enemyLifeBars = {}
         self.camera = Camera()

@@ -54,53 +54,53 @@ from game.tools.timeProfile import timeProfile
 class GameUpdater:
 
     gameState: GameState
-    personTurnUpdater: PersonTurnUpdater
-    personMovingTimeUpdater: PersonMovingTimeUpdater
-    personVelocityUpdater: PersonVelocityUpdater
-    personZUpdater: PersonZUpdater
-    personFloorUpdater: PersonFloorUpdater
-    personWallCollisionUpdater: PersonWallCollisionUpdater
-    personCollisionUpdater: PersonCollisionUpdater
+    enemyAIUpdater: EnemyAIUpdater
+    cameraUpdater: CameraUpdater
+    bulletCollisionUpdater: BulletCollisionUpdater
+    explosionCollisionUpdater: ExplosionCollisionUpdater
     personCeilingCollisionUpdater: PersonCeilingCollisionUpdater
-    personStepUpdater: PersonStepUpdater
-    playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater
-    enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater
-    playerMovingSwingUpdater: PlayerMovingSwingUpdater
+    personCollisionUpdater: PersonCollisionUpdater
+    personWallCollisionUpdater: PersonWallCollisionUpdater
+    powerupCollisionUpdater: PowerupCollisionUpdater
+    rayCollisionUpdater: RayCollisionUpdater
     backgroundVisibilityUpdater: BackgroundVisibilityUpdater
+    cowboyEasterEggUpdater: CowboyEasterEggUpdater
+    enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater
+    enemyLifeBarUpdater: EnemyLifeBarUpdater
+    enemyVisibilityUpdater: EnemyVisibilityUpdater
+    fragStatisticUpdater: FragStatisticUpdater
+    levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater
+    personBreathUpdater: PersonBreathUpdater
+    personFloorUpdater: PersonFloorUpdater
+    personJumpUpdater: PersonJumpUpdater
+    personLifeCycleUpdater: PersonLifeCycleUpdater
+    personMovingTimeUpdater: PersonMovingTimeUpdater
     personPositionUpdater: PersonPositionUpdater
     personRespawnUpdater: PersonRespawnUpdater
-    personJumpUpdater: PersonJumpUpdater
+    personSelectedWeaponPositionUpdater: PersonSelectedWeaponPositionUpdater
+    personStepUpdater: PersonStepUpdater
+    personTurnUpdater: PersonTurnUpdater
     personUpdater: PersonUpdater
-    levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater
-    enemyVisibilityUpdater: EnemyVisibilityUpdater
-    cameraUpdater: CameraUpdater
-    personBreathUpdater: PersonBreathUpdater
-    sniperAimFloatingUpdater: SniperAimFloatingUpdater
+    personVelocityUpdater: PersonVelocityUpdater
     personWeaponPositionUpdater: PersonWeaponPositionUpdater
-    weaponDelayUpdater: WeaponDelayUpdater
-    weaponFireUpdater: WeaponFireUpdater
-    weaponAltFireUpdater: WeaponAltFireUpdater
+    personZUpdater: PersonZUpdater
+    playerBloodStainUpdater: PlayerBloodStainUpdater
+    playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater
+    playerMovingSwingUpdater: PlayerMovingSwingUpdater
     playerWeaponSwingUpdater: PlayerWeaponSwingUpdater
-    bulletUpdater: BulletUpdater
-    rayPositionUpdater: RayPositionUpdater
-    explosionUpdater: ExplosionUpdater
-    nonStandardBulletMovingUpdater: NonStandardBulletMovingUpdater
-    bulletPositionUpdater: BulletPositionUpdater
-    bulletCollisionUpdater: BulletCollisionUpdater
-    rayCollisionUpdater: RayCollisionUpdater
-    powerupCollisionUpdater: PowerupCollisionUpdater
-    explosionCollisionUpdater: ExplosionCollisionUpdater
-    personLifeCycleUpdater: PersonLifeCycleUpdater
     torchUpdater: TorchUpdater
     powerupUpdater: PowerupUpdater
-    weaponFlashUpdater: WeaponFlashUpdater
+    bulletPositionUpdater: BulletPositionUpdater
     bulletTraceUpdater: BulletTraceUpdater
-    personSelectedWeaponPositionUpdater: PersonSelectedWeaponPositionUpdater
-    playerBloodStainUpdater: PlayerBloodStainUpdater
-    enemyLifeBarUpdater: EnemyLifeBarUpdater
-    cowboyEasterEggUpdater: CowboyEasterEggUpdater
-    fragStatisticUpdater: FragStatisticUpdater
-    enemyAIUpdater: EnemyAIUpdater
+    bulletUpdater: BulletUpdater
+    explosionUpdater: ExplosionUpdater
+    nonStandardBulletMovingUpdater: NonStandardBulletMovingUpdater
+    rayPositionUpdater: RayPositionUpdater
+    sniperAimFloatingUpdater: SniperAimFloatingUpdater
+    weaponAltFireUpdater: WeaponAltFireUpdater
+    weaponDelayUpdater: WeaponDelayUpdater
+    weaponFireUpdater: WeaponFireUpdater
+    weaponFlashUpdater: WeaponFlashUpdater
     # event listeners
     selectWeaponRequestListener: SelectWeaponRequestListener
 
@@ -120,48 +120,60 @@ class GameUpdater:
         self.personCollisionUpdater.update()
         self.personZUpdater.updateIfMoved()
         self.personCeilingCollisionUpdater.update()
-        self.personStepUpdater.update()
+        self.personStepUpdater.update()  # можно делать для всех персонажей
         self.personPositionUpdater.commitNextPosition()
         self.personFloorUpdater.commitNextFloor()
+        # асинхронно отправляем на сервер позицию игрока и направление взгляда
+        self.personWeaponPositionUpdater.update()
+        self.personSelectedWeaponPositionUpdater.update()
         self.playerLevelSegmentsUpdater.updateIfMoved()
         self.enemyLevelSegmentsUpdater.updateIfMoved()
-        self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
-        self.enemyVisibilityUpdater.updateEnemiesVisibility()
-        self.playerMovingSwingUpdater.update()
-        self.cameraUpdater.update()
-        self.backgroundVisibilityUpdater.updateIfNeeded()
-        self.personBreathUpdater.update()
-        self.personWeaponPositionUpdater.update()
+
+        # для игрока на клиенте
+        # для ботов на сервере
         self.weaponDelayUpdater.update()
         self.weaponFireUpdater.update()
         self.weaponAltFireUpdater.update()
-        self.playerWeaponSwingUpdater.update()
-        self.bulletUpdater.update()
-        self.explosionUpdater.update()
+
+        # на сервере
         self.nonStandardBulletMovingUpdater.update()
         self.bulletPositionUpdater.moveNextPosition()
         self.bulletCollisionUpdater.update()
+        self.bulletPositionUpdater.commitNextPosition()
         self.rayPositionUpdater.update()
         self.rayCollisionUpdater.update()
-        self.bulletPositionUpdater.commitNextPosition()
         self.powerupCollisionUpdater.update()
         self.explosionCollisionUpdater.update()
-        self.personLifeCycleUpdater.update()
-        self.torchUpdater.update()
-        self.powerupUpdater.update()
         self.powerupUpdater.generateNew()
+        self.enemyAIUpdater.update()
+        # на сервере
+
+        self.personLifeCycleUpdater.update()
+        self.bulletUpdater.update()
+        self.explosionUpdater.update()
+        self.powerupUpdater.update()
         self.weaponFlashUpdater.update()
         self.bulletTraceUpdater.update()
-        self.personSelectedWeaponPositionUpdater.update()
-        self.playerBloodStainUpdater.update()
-        self.enemyLifeBarUpdater.update()
-        self.cowboyEasterEggUpdater.update()
-        self.enemyAIUpdater.update()
+        self.torchUpdater.update()
         self.personPositionUpdater.resetMovedAndTurned()
         self.personUpdater.commitZState()
         self.personUpdater.updateDelays()
-        self.sniperAimFloatingUpdater.update()
         self.fragStatisticUpdater.update()
         self.bulletUpdater.removeNotAlive()
+
+        # for player
+        self.cameraUpdater.update()
+        self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
+        self.enemyVisibilityUpdater.updateEnemiesVisibility()
+        self.playerMovingSwingUpdater.update()
+        self.personBreathUpdater.update()
+        self.backgroundVisibilityUpdater.updateIfNeeded()
+        self.playerWeaponSwingUpdater.update()
+        self.playerBloodStainUpdater.update()
+        self.enemyLifeBarUpdater.update()
+        self.cowboyEasterEggUpdater.update()
+        self.sniperAimFloatingUpdater.update()
+        # for player
+
         self.gameState.collisionData.clear()
         self.gameState.updateGlobalTime()
