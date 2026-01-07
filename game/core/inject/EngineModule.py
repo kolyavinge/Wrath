@@ -41,7 +41,6 @@ from game.engine.person.EnemyLifeBarUpdater import *
 from game.engine.person.EnemyVisibilityUpdater import *
 from game.engine.person.FragStatisticUpdater import *
 from game.engine.person.LevelSegmentVisibilityUpdater import *
-from game.engine.person.PersonBreathUpdater import *
 from game.engine.person.PersonDamageLogic import *
 from game.engine.person.PersonFloorUpdater import *
 from game.engine.person.PersonJumpUpdater import *
@@ -59,6 +58,7 @@ from game.engine.person.PersonVelocityUpdater import *
 from game.engine.person.PersonWeaponPositionUpdater import *
 from game.engine.person.PersonZUpdater import *
 from game.engine.person.PlayerBloodStainUpdater import *
+from game.engine.person.PlayerBreathUpdater import *
 from game.engine.person.PlayerLevelSegmentsUpdater import *
 from game.engine.person.PlayerMovingSwingUpdater import *
 from game.engine.person.PlayerWeaponSwingUpdater import *
@@ -145,7 +145,6 @@ class EngineModule:
         binder.bindSingleton(EnemyVisibilityUpdater)
         binder.bindSingleton(FragStatisticUpdater)
         binder.bindSingleton(LevelSegmentVisibilityUpdater)
-        binder.bindSingleton(PersonBreathUpdater)
         binder.bindSingleton(PersonDamageLogic)
         binder.bindSingleton(PersonFloorUpdater)
         binder.bindSingleton(PersonJumpUpdater)
@@ -163,6 +162,7 @@ class EngineModule:
         binder.bindSingleton(PersonWeaponPositionUpdater)
         binder.bindSingleton(PersonZUpdater)
         binder.bindSingleton(PlayerBloodStainUpdater)
+        binder.bindSingleton(PlayerBreathUpdater)
         binder.bindSingleton(PlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMovingSwingUpdater)
         binder.bindSingleton(PlayerWeaponSwingUpdater)

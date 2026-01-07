@@ -1,7 +1,7 @@
 from game.engine.GameState import GameState
 
 
-class PersonBreathUpdater:
+class PlayerBreathUpdater:
 
     def __init__(self, gameState: GameState):
         self.gameState = gameState

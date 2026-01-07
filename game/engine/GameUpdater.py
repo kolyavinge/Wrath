@@ -15,7 +15,6 @@ from game.engine.person.EnemyLifeBarUpdater import EnemyLifeBarUpdater
 from game.engine.person.EnemyVisibilityUpdater import EnemyVisibilityUpdater
 from game.engine.person.FragStatisticUpdater import FragStatisticUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
-from game.engine.person.PersonBreathUpdater import PersonBreathUpdater
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
 from game.engine.person.PersonJumpUpdater import PersonJumpUpdater
 from game.engine.person.PersonLifeCycleUpdater import PersonLifeCycleUpdater
@@ -30,6 +29,7 @@ from game.engine.person.PersonVelocityUpdater import PersonVelocityUpdater
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.person.PersonZUpdater import PersonZUpdater
 from game.engine.person.PlayerBloodStainUpdater import PlayerBloodStainUpdater
+from game.engine.person.PlayerBreathUpdater import PlayerBreathUpdater
 from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.person.PlayerMovingSwingUpdater import PlayerMovingSwingUpdater
 from game.engine.person.PlayerWeaponSwingUpdater import PlayerWeaponSwingUpdater
@@ -70,7 +70,6 @@ class GameUpdater:
     enemyVisibilityUpdater: EnemyVisibilityUpdater
     fragStatisticUpdater: FragStatisticUpdater
     levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater
-    personBreathUpdater: PersonBreathUpdater
     personFloorUpdater: PersonFloorUpdater
     personJumpUpdater: PersonJumpUpdater
     personLifeCycleUpdater: PersonLifeCycleUpdater
@@ -85,6 +84,7 @@ class GameUpdater:
     personWeaponPositionUpdater: PersonWeaponPositionUpdater
     personZUpdater: PersonZUpdater
     playerBloodStainUpdater: PlayerBloodStainUpdater
+    playerBreathUpdater: PlayerBreathUpdater
     playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater
     playerMovingSwingUpdater: PlayerMovingSwingUpdater
     playerWeaponSwingUpdater: PlayerWeaponSwingUpdater
@@ -166,7 +166,7 @@ class GameUpdater:
         self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
         self.enemyVisibilityUpdater.updateEnemiesVisibility()
         self.playerMovingSwingUpdater.update()
-        self.personBreathUpdater.update()
+        self.playerBreathUpdater.update()
         self.backgroundVisibilityUpdater.updateIfNeeded()
         self.playerWeaponSwingUpdater.update()
         self.playerBloodStainUpdater.update()
