@@ -14,9 +14,12 @@ class PersonTurnUpdater:
         self.gameState = gameState
         self.personTurnLogic = personTurnLogic
 
-    def update(self):
-        for person, inputData in self.gameState.allPersonInputData.items():
-            self.updateForPerson(person, inputData)
+    def updateForPlayer(self):
+        self.updateForPerson(self.gameState.player, self.gameState.playerInputData)
+
+    def updateForEnemies(self):
+        for enemy, inputData in self.gameState.enemyInputData.items():
+            self.updateForPerson(enemy, inputData)
 
     def updateForPerson(self, person, inputData):
         if inputData.turnLeftRadians > 0:

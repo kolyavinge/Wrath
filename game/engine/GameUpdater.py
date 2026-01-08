@@ -109,33 +109,44 @@ class GameUpdater:
     def update(self):
         # --- main game loop ---
 
-        self.personTurnUpdater.update()
-        self.personMovingTimeUpdater.update()
-        self.personVelocityUpdater.update()
-        self.personPositionUpdater.moveNextPosition()
-        self.personRespawnUpdater.update()
-        self.personFloorUpdater.updateNextFloor()
-        self.personJumpUpdater.update()
-        self.personWallCollisionUpdater.update()
-        self.personCollisionUpdater.update()
-        self.personZUpdater.updateIfMoved()
-        self.personCeilingCollisionUpdater.update()
-        self.personStepUpdater.update()  # можно делать для всех персонажей
-        self.personPositionUpdater.commitNextPosition()
-        self.personFloorUpdater.commitNextFloor()
+        self.personTurnUpdater.updateForPlayer()
+        self.personMovingTimeUpdater.updateForPlayer()
+        self.personVelocityUpdater.updateForPlayer()
+        self.personPositionUpdater.movePlayerNextPosition()
+        self.personRespawnUpdater.update()  # ?
+        self.personFloorUpdater.updatePlayerNextFloor()
+        self.personJumpUpdater.updateForPlayer()
+        self.personWallCollisionUpdater.updateForPlayer()
+        self.personZUpdater.updateIfMovedForPlayer()
+        self.personCeilingCollisionUpdater.updateForPlayer()
+        self.personPositionUpdater.commitPlayerNextPosition()
+        self.personFloorUpdater.commitPlayerNextFloor()
         # асинхронно отправляем на сервер позицию игрока и направление взгляда
+        self.playerLevelSegmentsUpdater.updateIfMoved()
+        self.personStepUpdater.update()
         self.personWeaponPositionUpdater.update()
         self.personSelectedWeaponPositionUpdater.update()
-        self.playerLevelSegmentsUpdater.updateIfMoved()
-        self.enemyLevelSegmentsUpdater.updateIfMoved()
-
-        # для игрока на клиенте
-        # для ботов на сервере
-        self.weaponDelayUpdater.update()
-        self.weaponFireUpdater.update()
-        self.weaponAltFireUpdater.update()
+        self.weaponDelayUpdater.updateForPlayer()
+        self.weaponFireUpdater.updateForPlayer()
+        self.weaponAltFireUpdater.updateForPlayer()
 
         # на сервере
+        self.personTurnUpdater.updateForEnemies()
+        self.personMovingTimeUpdater.updateForEnemies()
+        self.personVelocityUpdater.updateForEnemies()
+        self.personPositionUpdater.moveEnemyNextPosition()
+        self.personFloorUpdater.updateEnemyNextFloor()
+        self.personJumpUpdater.updateForEnemies()
+        self.personWallCollisionUpdater.updateForEnemies()
+        self.personCollisionUpdater.update()
+        self.personZUpdater.updateIfMovedForEnemies()
+        self.personCeilingCollisionUpdater.updateForEnemies()
+        self.personPositionUpdater.commitEnemyNextPosition()
+        self.personFloorUpdater.commitEnemyNextFloor()
+        self.enemyLevelSegmentsUpdater.updateIfMoved()
+        self.weaponDelayUpdater.updateForEnemies()
+        self.weaponFireUpdater.updateForEnemies()
+        self.weaponAltFireUpdater.updateForEnemies()
         self.nonStandardBulletMovingUpdater.update()
         self.bulletPositionUpdater.moveNextPosition()
         self.bulletCollisionUpdater.update()
@@ -155,11 +166,13 @@ class GameUpdater:
         self.weaponFlashUpdater.update()
         self.bulletTraceUpdater.update()
         self.torchUpdater.update()
+
         self.personPositionUpdater.resetMovedAndTurned()
         self.personUpdater.commitZState()
         self.personUpdater.updateDelays()
-        self.fragStatisticUpdater.update()
+
         self.bulletUpdater.removeNotAlive()
+        self.fragStatisticUpdater.update()
 
         # for player
         self.cameraUpdater.update()

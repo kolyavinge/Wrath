@@ -14,11 +14,15 @@ class PersonCeilingCollisionUpdater:
         self.gameState = gameState
         self.personCeilingCollisionDetector = personCeilingCollisionDetector
 
-    def update(self):
-        for person in self.gameState.allPerson:
-            if person.zState != PersonZState.jumping:
-                continue
+    def updateForPlayer(self):
+        self.updateForPerson(self.gameState.player)
 
+    def updateForEnemies(self):
+        for enemy in self.gameState.enemies:
+            self.updateForPerson(enemy)
+
+    def updateForPerson(self, person):
+        if person.zState == PersonZState.jumping:
             ceiling = self.personCeilingCollisionDetector.getCollidedCeilingOrNone(person)
             if ceiling is not None:
                 person.setZ(ceiling.downLeft.z - PersonConstants.zLength)

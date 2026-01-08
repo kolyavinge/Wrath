@@ -19,10 +19,14 @@ class PersonZUpdater:
         self.personDamageLogic = personDamageLogic
         self.eventManager = eventManager
 
-    def updateIfMoved(self):
-        for person in self.gameState.allPerson:
-            if person.hasMoved:
-                self.updatePerson(person)
+    def updateIfMovedForPlayer(self):
+        if self.gameState.player.hasMoved:
+            self.updatePerson(self.gameState.player)
+
+    def updateIfMovedForEnemies(self):
+        for enemy in self.gameState.enemies:
+            if enemy.hasMoved:
+                self.updatePerson(enemy)
 
     def update(self):
         for person in self.gameState.allPerson:

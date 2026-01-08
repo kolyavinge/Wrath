@@ -10,9 +10,12 @@ class PersonFloorUpdater:
         self.gameState = gameState
         self.traversal = traversal
 
-    def updateNextFloor(self):
-        for person in self.gameState.allPerson:
-            self.updateForPerson(person)
+    def updatePlayerNextFloor(self):
+        self.updateForPerson(self.gameState.player)
+
+    def updateEnemyNextFloor(self):
+        for enemy in self.gameState.enemies:
+            self.updateForPerson(enemy)
 
     def updateForPerson(self, person):
         personPosition = person.nextCenterPoint
@@ -33,6 +36,9 @@ class PersonFloorUpdater:
                 .firstOrNone()
             ) or NullFloor.instance
 
-    def commitNextFloor(self):
-        for person in self.gameState.allPerson:
-            person.currentFloor = person.nextFloor
+    def commitPlayerNextFloor(self):
+        self.gameState.player.currentFloor = self.gameState.player.nextFloor
+
+    def commitEnemyNextFloor(self):
+        for enemy in self.gameState.enemies:
+            enemy.currentFloor = enemy.nextFloor

@@ -38,17 +38,23 @@ class WeaponAltFireUpdater:
         self.altFireLogic[Sniper] = sniperAltFireLogic
         self.weaponAltFireStateSwitcher = weaponAltFireStateSwitcher
 
-    def update(self):
-        for person, inputData in self.gameState.allPersonInputData.items():
-            personItems = self.gameState.allPersonItems[person]
-            weapon = personItems.currentWeapon
-            weaponType = type(weapon)
-            if inputData.fire and not weapon.allowFireWithAltFire:
-                self.deactivateAltFire(person, personItems, weaponType, weapon)
-            elif person.weaponSelectState is not None:
-                self.deactivateAltFire(person, personItems, weaponType, weapon)
-            else:
-                self.applyAltFire(person, personItems, weaponType, weapon, inputData)
+    def updateForPlayer(self):
+        self.updateForPerson(self.gameState.player, self.gameState.playerInputData)
+
+    def updateForEnemies(self):
+        for enemy, inputData in self.gameState.enemyInputData.items():
+            self.updateForPerson(enemy, inputData)
+
+    def updateForPerson(self, person, inputData):
+        personItems = self.gameState.allPersonItems[person]
+        weapon = personItems.currentWeapon
+        weaponType = type(weapon)
+        if inputData.fire and not weapon.allowFireWithAltFire:
+            self.deactivateAltFire(person, personItems, weaponType, weapon)
+        elif person.weaponSelectState is not None:
+            self.deactivateAltFire(person, personItems, weaponType, weapon)
+        else:
+            self.applyAltFire(person, personItems, weaponType, weapon, inputData)
 
     def applyAltFire(self, person, personItems, weaponType, weapon, inputData):
         self.weaponAltFireStateSwitcher.switch(weapon, inputData.altFire)
