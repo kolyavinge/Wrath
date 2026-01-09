@@ -12,6 +12,6 @@ class InputManager:
         self.keyboard = Keyboard()
 
     def update(self):
-        if Screen.isFocused():
+        if Screen.isWindowFocused():
             self.mouse.update()
             self.keyboard.update()

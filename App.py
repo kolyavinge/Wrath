@@ -20,21 +20,10 @@ class App:
         self.windowWidth = 1400
         self.windowHeight = (int)(self.windowWidth / CommonConstants.screenAspect)
 
-    def resize(self, width, height):
-        glViewport(0, 0, width, height)
-        self.game.eventManager.raiseEvent(Events.viewportSizeChanged, (width, height))
-
-    def render(self):
-        self.game.renderCurrentScreen()
-        glutSwapBuffers()
-        error = glGetError()
-        if error != GL_NO_ERROR:
-            raise Exception(f"OpenGL error: {gluErrorString(error)}")
-
     def run(self):
         glutInit()
         glutInitWindowSize(self.windowWidth, self.windowHeight)
-        x, y = self.getCenterWindowPosition()
+        x, y = Screen.getCenterWindowPosition(self.windowWidth, self.windowHeight)
         glutInitWindowPosition(x, y)
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH)
         glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION)
@@ -58,7 +47,18 @@ class App:
         glutPostRedisplay()
         glutTimerFunc(CommonConstants.renderTimerMsec, self.renderCallback, 0)
 
-    def keyup(self, key, a, b):
+    def render(self):
+        self.game.renderCurrentScreen()
+        glutSwapBuffers()
+        error = glGetError()
+        if error != GL_NO_ERROR:
+            raise Exception(f"OpenGL error: {gluErrorString(error)}")
+
+    def resize(self, width, height):
+        glViewport(0, 0, width, height)
+        self.game.eventManager.raiseEvent(Events.viewportSizeChanged, (width, height))
+
+    def keyup(self, key, x, y):
         if key == KeyboardButtons.esc:
             glutLeaveMainLoop()
         elif key == KeyboardButtons.backspace:
@@ -70,18 +70,11 @@ class App:
             glutFullScreen()
         else:
             glutReshapeWindow(self.windowWidth, self.windowHeight)
-            x, y = self.getCenterWindowPosition()
+            x, y = Screen.getCenterWindowPosition(self.windowWidth, self.windowHeight)
             glutPositionWindow(x, y)
 
-    def getCenterWindowPosition(self):
-        screenWidth, screenHeight = Screen.getWidthAndHeight()
-        x = int((screenWidth - self.windowWidth) / 2)
-        y = int((screenHeight - self.windowHeight) / 2)
 
-        return (x, y)
-
-
-print("\r\nProgram start")
+print("\r\nStart the app")
 
 app = App()
 app.run()
