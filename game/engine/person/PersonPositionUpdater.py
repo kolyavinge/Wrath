@@ -28,6 +28,12 @@ class PersonPositionUpdater:
             if enemy.hasMoved:
                 enemy.commitNextPosition()
 
+    def resetMovedAndTurnedForPlayer(self):
+        player = self.gameState.player
+        player.hasTurned = False
+        if player.hasMoved and player.zState == PersonZState.onFloor:
+            player.hasMoved = False
+
     def resetMovedAndTurned(self):
         for person in self.gameState.allPerson:
             person.hasTurned = False

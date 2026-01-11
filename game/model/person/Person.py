@@ -122,9 +122,9 @@ class Person:
             return 1.0
         if self.lifeCycle == LifeCycle.dead:
             return self.lifeCycleDelay.value / self.lifeCycleDelay.initValue
-        if self.lifeCycle == LifeCycle.respawnDelay:
-            return 0.0
         if self.lifeCycle == LifeCycle.respawn:
+            return 0.0
+        if self.lifeCycle == LifeCycle.respawnDelay:
             return 1.0 - self.lifeCycleDelay.value / self.lifeCycleDelay.initValue
 
         raise Exception("Wrong LifeCycle value.")

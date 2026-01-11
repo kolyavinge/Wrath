@@ -108,12 +108,16 @@ class GameUpdater:
     # @cpuProfile
     def update(self):
         # --- main game loop ---
+        self.updateClient()
+        self.updateServer()
+        self.gameState.collisionData.clear()
+        self.gameState.updateGlobalTime()
 
+    def updateClient(self):
         self.personTurnUpdater.updateForPlayer()
         self.personMovingTimeUpdater.updateForPlayer()
         self.personVelocityUpdater.updateForPlayer()
         self.personPositionUpdater.movePlayerNextPosition()
-        self.personRespawnUpdater.update()  # ?
         self.personFloorUpdater.updatePlayerNextFloor()
         self.personJumpUpdater.updateForPlayer()
         self.personWallCollisionUpdater.updateForPlayer()
@@ -123,18 +127,43 @@ class GameUpdater:
         self.personFloorUpdater.commitPlayerNextFloor()
         # асинхронно отправляем на сервер позицию игрока и направление взгляда
         self.playerLevelSegmentsUpdater.updateIfMoved()
+        self.enemyLevelSegmentsUpdater.updateIfMoved()
         self.personStepUpdater.update()
         self.personWeaponPositionUpdater.update()
         self.personSelectedWeaponPositionUpdater.update()
         self.weaponDelayUpdater.updateForPlayer()
         self.weaponFireUpdater.updateForPlayer()
         self.weaponAltFireUpdater.updateForPlayer()
+        self.personLifeCycleUpdater.update()
+        self.bulletUpdater.update()
+        self.explosionUpdater.update()
+        self.powerupUpdater.update()
+        self.weaponFlashUpdater.update()
+        self.bulletTraceUpdater.update()
+        self.torchUpdater.update()
+        self.cameraUpdater.update()
+        self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
+        self.enemyVisibilityUpdater.updateEnemiesVisibility()
+        self.backgroundVisibilityUpdater.updateIfNeeded()
+        self.playerMovingSwingUpdater.update()
+        self.playerBreathUpdater.update()
+        self.playerWeaponSwingUpdater.update()
+        self.playerBloodStainUpdater.update()
+        self.enemyLifeBarUpdater.update()
+        self.sniperAimFloatingUpdater.update()
+        self.cowboyEasterEggUpdater.update()
+        self.personPositionUpdater.resetMovedAndTurnedForPlayer()
+        self.personUpdater.commitZStateForPlayer()
+        self.personUpdater.updateDelaysForPlayer()
+        self.bulletUpdater.removeNotAlive()
 
-        # на сервере
+    def updateServer(self):
+        # читаем и применяем текущие сообщения от всех клиентов
         self.personTurnUpdater.updateForEnemies()
         self.personMovingTimeUpdater.updateForEnemies()
         self.personVelocityUpdater.updateForEnemies()
         self.personPositionUpdater.moveEnemyNextPosition()
+        self.personRespawnUpdater.update()
         self.personFloorUpdater.updateEnemyNextFloor()
         self.personJumpUpdater.updateForEnemies()
         self.personWallCollisionUpdater.updateForEnemies()
@@ -147,6 +176,7 @@ class GameUpdater:
         self.weaponDelayUpdater.updateForEnemies()
         self.weaponFireUpdater.updateForEnemies()
         self.weaponAltFireUpdater.updateForEnemies()
+        self.personLifeCycleUpdater.update()
         self.nonStandardBulletMovingUpdater.update()
         self.bulletPositionUpdater.moveNextPosition()
         self.bulletCollisionUpdater.update()
@@ -157,36 +187,8 @@ class GameUpdater:
         self.explosionCollisionUpdater.update()
         self.powerupUpdater.generateNew()
         self.enemyAIUpdater.update()
-        # на сервере
-
-        self.personLifeCycleUpdater.update()
-        self.bulletUpdater.update()
-        self.explosionUpdater.update()
-        self.powerupUpdater.update()
-        self.weaponFlashUpdater.update()
-        self.bulletTraceUpdater.update()
-        self.torchUpdater.update()
-
         self.personPositionUpdater.resetMovedAndTurned()
-        self.personUpdater.commitZState()
-        self.personUpdater.updateDelays()
-
+        self.personUpdater.commitZStateForEnemies()
+        self.personUpdater.updateDelaysForEnemies()
         self.bulletUpdater.removeNotAlive()
         self.fragStatisticUpdater.update()
-
-        # for player
-        self.cameraUpdater.update()
-        self.levelSegmentVisibilityUpdater.updateIfPlayerMovedOrTurned()
-        self.enemyVisibilityUpdater.updateEnemiesVisibility()
-        self.playerMovingSwingUpdater.update()
-        self.playerBreathUpdater.update()
-        self.backgroundVisibilityUpdater.updateIfNeeded()
-        self.playerWeaponSwingUpdater.update()
-        self.playerBloodStainUpdater.update()
-        self.enemyLifeBarUpdater.update()
-        self.cowboyEasterEggUpdater.update()
-        self.sniperAimFloatingUpdater.update()
-        # for player
-
-        self.gameState.collisionData.clear()
-        self.gameState.updateGlobalTime()

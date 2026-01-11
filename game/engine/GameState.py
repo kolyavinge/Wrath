@@ -39,7 +39,6 @@ class GameState:
         self.rays = []
         self.explosions = []
         self.powerups = []
-        self.respawnRequests = []
         self.personFragStatistic = {}
         self.collisionData = CollisionData()
 
