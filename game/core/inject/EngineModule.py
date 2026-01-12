@@ -4,6 +4,7 @@ from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
 from game.engine.CameraScopeChecker import *
 from game.engine.CameraUpdater import *
+from game.engine.ClientUpdater import *
 from game.engine.cm.BulletCollisionDetector import *
 from game.engine.cm.BulletCollisionUpdater import *
 from game.engine.cm.ConstructionCollisionDetector import *
@@ -67,6 +68,7 @@ from game.engine.powerup.PowerupPositionGenerator import *
 from game.engine.powerup.PowerupProcessor import *
 from game.engine.powerup.PowerupUpdater import *
 from game.engine.powerup.PowerupValidator import *
+from game.engine.ServerUpdater import *
 from game.engine.weapon.alt.LauncherAltFireLogic import *
 from game.engine.weapon.alt.PistolAltFireLogic import *
 from game.engine.weapon.alt.PlasmaAltFireLogic import *
@@ -108,6 +110,7 @@ class EngineModule:
         binder.bindSingleton(BSPTreeTraversal)
         binder.bindSingleton(CameraScopeChecker)
         binder.bindSingleton(CameraUpdater)
+        binder.bindSingleton(ClientUpdater, resolveByFields=True)
         binder.bindSingleton(BulletCollisionDetector)
         binder.bindSingleton(BulletCollisionUpdater)
         binder.bindSingleton(ConstructionCollisionDetector)
@@ -128,7 +131,7 @@ class EngineModule:
         binder.bindSingleton(VoidCollisionDetector)
         binder.bindSingleton(DashboardUpdater)
         binder.bindSingleton(GameState)
-        binder.bindSingleton(GameUpdater, resolveByFields=True)
+        binder.bindSingleton(GameUpdater)
         binder.bindSingleton(BackgroundVisibilityUpdater)
         binder.bindSingleton(LevelLoader)
         binder.bindSingleton(LevelManager, resolveByFields=True)
@@ -171,6 +174,7 @@ class EngineModule:
         binder.bindSingleton(PowerupProcessor)
         binder.bindSingleton(PowerupUpdater)
         binder.bindSingleton(PowerupValidator)
+        binder.bindSingleton(ServerUpdater, resolveByFields=True)
         binder.bindSingleton(LauncherAltFireLogic)
         binder.bindSingleton(PistolAltFireLogic)
         binder.bindSingleton(PlasmaAltFireLogic)

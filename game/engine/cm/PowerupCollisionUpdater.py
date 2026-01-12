@@ -21,9 +21,12 @@ class PowerupCollisionUpdater:
         self.powerupProcessor = powerupProcessor
         self.eventManager = eventManager
 
-    def update(self):
-        for person in self.gameState.allPerson:
-            self.updateForPerson(person)
+    def updateForPlayer(self):
+        self.updateForPerson(self.gameState.player)
+
+    def updateForEnemies(self):
+        for enemy in self.gameState.enemies:
+            self.updateForPerson(enemy)
 
     def updateForPerson(self, person):
         powerup = self.powerupCollisionDetector.getCollisionResultOrNone(person)
