@@ -6,7 +6,6 @@ from game.engine.cm.PersonCollisionUpdater import PersonCollisionUpdater
 from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
 from game.engine.cm.RayCollisionUpdater import RayCollisionUpdater
-from game.engine.GameState import GameState
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.FragStatisticUpdater import FragStatisticUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *

@@ -1,6 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
-from game.engine.CameraScopeChecker import CameraScopeChecker
 from game.engine.GameState import GameState
+from game.engine.person.CameraScopeChecker import CameraScopeChecker
 
 
 class LevelSegmentVisibilityUpdater:

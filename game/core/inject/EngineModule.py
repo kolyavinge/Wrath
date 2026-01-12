@@ -2,8 +2,6 @@ from game.calc.PlaneOrientationLogic import *
 from game.engine.ai.EnemyAIUpdater import *
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
-from game.engine.CameraScopeChecker import *
-from game.engine.CameraUpdater import *
 from game.engine.ClientUpdater import *
 from game.engine.cm.BulletCollisionDetector import *
 from game.engine.cm.BulletCollisionUpdater import *
@@ -23,7 +21,6 @@ from game.engine.cm.RayCollisionDetector import *
 from game.engine.cm.RayCollisionUpdater import *
 from game.engine.cm.SphereCollisionDetector import *
 from game.engine.cm.VoidCollisionDetector import *
-from game.engine.DashboardUpdater import *
 from game.engine.GameState import *
 from game.engine.GameUpdater import *
 from game.engine.level.BackgroundVisibilityUpdater import *
@@ -36,7 +33,10 @@ from game.engine.level.LevelValidator import *
 from game.engine.level.PersonInitializer import *
 from game.engine.person.AIDataInitializer import *
 from game.engine.person.AimStateSwitcher import *
+from game.engine.person.CameraScopeChecker import *
+from game.engine.person.CameraUpdater import *
 from game.engine.person.CowboyEasterEggUpdater import *
+from game.engine.person.DashboardUpdater import *
 from game.engine.person.EnemyLevelSegmentsUpdater import *
 from game.engine.person.EnemyLifeBarUpdater import *
 from game.engine.person.EnemyVisibilityUpdater import *
@@ -108,8 +108,6 @@ class EngineModule:
         binder.bindSingleton(EnemyAIUpdater)
         binder.bindSingleton(BSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal)
-        binder.bindSingleton(CameraScopeChecker)
-        binder.bindSingleton(CameraUpdater)
         binder.bindSingleton(ClientUpdater, resolveByFields=True)
         binder.bindSingleton(BulletCollisionDetector)
         binder.bindSingleton(BulletCollisionUpdater)
@@ -129,7 +127,6 @@ class EngineModule:
         binder.bindSingleton(RayCollisionUpdater)
         binder.bindSingleton(SphereCollisionDetector)
         binder.bindSingleton(VoidCollisionDetector)
-        binder.bindSingleton(DashboardUpdater)
         binder.bindSingleton(GameState)
         binder.bindSingleton(GameUpdater)
         binder.bindSingleton(BackgroundVisibilityUpdater)
@@ -142,7 +139,10 @@ class EngineModule:
         binder.bindSingleton(PersonInitializer)
         binder.bindSingleton(AIDataInitializer)
         binder.bindSingleton(AimStateSwitcher)
+        binder.bindSingleton(CameraScopeChecker)
+        binder.bindSingleton(CameraUpdater)
         binder.bindSingleton(CowboyEasterEggUpdater)
+        binder.bindSingleton(DashboardUpdater)
         binder.bindSingleton(EnemyLevelSegmentsUpdater)
         binder.bindSingleton(EnemyLifeBarUpdater)
         binder.bindSingleton(EnemyVisibilityUpdater)

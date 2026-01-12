@@ -1,6 +1,6 @@
-from game.engine.CameraUpdater import CameraUpdater
 from game.engine.GameState import GameState
 from game.engine.level.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
+from game.engine.person.CameraUpdater import CameraUpdater
 from game.engine.person.PersonPositionUpdater import PersonPositionUpdater
 from game.engine.person.PersonTurnUpdater import PersonTurnUpdater
 from game.engine.person.PersonUpdater import PersonUpdater

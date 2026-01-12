@@ -1,6 +1,5 @@
 from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
-from game.engine.CameraUpdater import CameraUpdater
 from game.engine.GameState import GameState
 from game.engine.level.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.level.LevelLoader import LevelLoader
@@ -9,6 +8,7 @@ from game.engine.level.LevelSegmentLightAnalyzer import LevelSegmentLightAnalyze
 from game.engine.level.LevelValidator import LevelValidator
 from game.engine.level.PersonInitializer import PersonInitializer
 from game.engine.person.AIDataInitializer import AIDataInitializer
+from game.engine.person.CameraUpdater import CameraUpdater
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.FragStatisticUpdater import FragStatisticUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *

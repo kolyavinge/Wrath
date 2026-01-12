@@ -1,9 +1,8 @@
-from game.engine.CameraUpdater import CameraUpdater
 from game.engine.cm.PersonCeilingCollisionUpdater import PersonCeilingCollisionUpdater
 from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
-from game.engine.GameState import GameState
 from game.engine.level.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
+from game.engine.person.CameraUpdater import CameraUpdater
 from game.engine.person.CowboyEasterEggUpdater import CowboyEasterEggUpdater
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.EnemyLifeBarUpdater import EnemyLifeBarUpdater
@@ -43,11 +42,11 @@ from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 
 class ClientUpdater:
 
-    cameraUpdater: CameraUpdater
     personCeilingCollisionUpdater: PersonCeilingCollisionUpdater
     personWallCollisionUpdater: PersonWallCollisionUpdater
     powerupCollisionUpdater: PowerupCollisionUpdater
     backgroundVisibilityUpdater: BackgroundVisibilityUpdater
+    cameraUpdater: CameraUpdater
     cowboyEasterEggUpdater: CowboyEasterEggUpdater
     enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater
     enemyLifeBarUpdater: EnemyLifeBarUpdater

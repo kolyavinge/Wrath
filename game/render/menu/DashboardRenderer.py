@@ -1,8 +1,8 @@
 from OpenGL.GL import *
 
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.DashboardUpdater import DashboardUpdater
 from game.engine.GameState import GameState
+from game.engine.person.DashboardUpdater import DashboardUpdater
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
 from game.gl.TexturedFramebuffer import TexturedFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
