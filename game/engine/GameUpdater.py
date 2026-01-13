@@ -23,5 +23,3 @@ class GameUpdater:
         # --- main game loop ---
         self.clientUpdater.update()
         self.serverUpdater.update()
-        self.gameState.collisionData.clear()
-        self.gameState.updateGlobalTime()

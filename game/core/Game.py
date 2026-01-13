@@ -13,7 +13,7 @@ class Game:
         levelManager: LevelManager,
         inputManager: InputManager,
         screenManager: ScreenManager,
-        eventManager: EventManager,
+        eventManager: EventManager,  # for App
     ):
         gameInitializer.init()
         self.levelManager = levelManager

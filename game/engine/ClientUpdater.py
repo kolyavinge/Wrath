@@ -1,3 +1,4 @@
+from game.engine.cm.BulletCollisionUpdater import BulletCollisionUpdater
 from game.engine.cm.PersonCeilingCollisionUpdater import PersonCeilingCollisionUpdater
 from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
@@ -42,6 +43,8 @@ from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 
 class ClientUpdater:
 
+    gameState: GameState
+    bulletCollisionUpdater: BulletCollisionUpdater
     personCeilingCollisionUpdater: PersonCeilingCollisionUpdater
     personWallCollisionUpdater: PersonWallCollisionUpdater
     powerupCollisionUpdater: PowerupCollisionUpdater
@@ -71,7 +74,7 @@ class ClientUpdater:
     playerWeaponSwingUpdater: PlayerWeaponSwingUpdater
     torchUpdater: TorchUpdater
     powerupUpdater: PowerupUpdater
-    bulletPositionUpdater: BulletPositionUpdater  # ???
+    bulletPositionUpdater: BulletPositionUpdater
     bulletTraceUpdater: BulletTraceUpdater
     bulletUpdater: BulletUpdater
     explosionUpdater: ExplosionUpdater
@@ -84,6 +87,7 @@ class ClientUpdater:
     selectWeaponRequestListener: SelectWeaponRequestListener
 
     def update(self):
+        # читаем и применяем текущие сообщения от сервера
         self.personTurnUpdater.updateForPlayer()
         self.personMovingTimeUpdater.updateForPlayer()
         self.personVelocityUpdater.updateForPlayer()
@@ -104,8 +108,13 @@ class ClientUpdater:
         self.weaponDelayUpdater.updateForPlayer()
         self.weaponFireUpdater.updateForPlayer()
         self.weaponAltFireUpdater.updateForPlayer()
+        # отправляем инфу о выстреле
         self.personLifeCycleUpdater.update()
+        self.bulletPositionUpdater.moveNextPosition()
+        self.bulletCollisionUpdater.updateForConstructions()
+        self.bulletPositionUpdater.commitNextPosition()
         self.powerupCollisionUpdater.updateForPlayer()
+        # отправляем если взяли поверап
         self.bulletUpdater.update()
         self.explosionUpdater.update()
         self.powerupUpdater.update()
@@ -127,3 +136,5 @@ class ClientUpdater:
         self.personUpdater.commitZStateForPlayer()
         self.personUpdater.updateDelaysForPlayer()
         self.bulletUpdater.removeNotAlive()
+        self.gameState.collisionData.clear()
+        self.gameState.updateGlobalTime()

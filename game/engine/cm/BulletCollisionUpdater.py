@@ -36,6 +36,12 @@ class BulletCollisionUpdater:
             if collisionResult is not None:
                 self.processCollision(bullet, collisionResult)
 
+    def updateForConstructions(self):
+        for bullet in self.gameState.bullets:
+            collisionResult = self.bulletCollisionDetector.getConstructionCollisionResultOrNone(bullet)
+            if collisionResult is not None:
+                self.processCollision(bullet, collisionResult)
+
     def processCollision(self, bullet, collisionResult):
         target, collisionResultData = collisionResult
         if target == CollidedTarget.construction:

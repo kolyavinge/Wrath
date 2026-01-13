@@ -29,6 +29,16 @@ class BulletCollisionDetector:
             lambda segment, start, end: self.getTotalCollisionResultOrNone(bullet, segment, start, end),
         )
 
+    def getConstructionCollisionResultOrNone(self, bullet):
+        return self.levelSegmentItemFinder.findItemOrNone(
+            self.gameState.collisionTree,
+            bullet.currentLevelSegment,
+            bullet.nextLevelSegment,
+            bullet.currentPosition,
+            bullet.nextPosition,
+            lambda segment, start, end: self.getOnlyConstructionCollisionResultOrNone(segment, start, end),
+        )
+
     def getTotalCollisionResultOrNone(self, bullet, levelSegment, startPoint, endPoint):
         # check person
         ownerPerson = bullet.ownerPerson
@@ -43,6 +53,13 @@ class BulletCollisionDetector:
                 return (CollidedTarget.onePerson, collisionResult)
 
         # check constructions
+        collisionResult = self.constructionCollisionDetector.getCollisionResultOrNone(levelSegment.allConstructions, startPoint, endPoint)
+        if collisionResult is not None:
+            return (CollidedTarget.construction, collisionResult)
+
+        return None
+
+    def getOnlyConstructionCollisionResultOrNone(self, levelSegment, startPoint, endPoint):
         collisionResult = self.constructionCollisionDetector.getCollisionResultOrNone(levelSegment.allConstructions, startPoint, endPoint)
         if collisionResult is not None:
             return (CollidedTarget.construction, collisionResult)

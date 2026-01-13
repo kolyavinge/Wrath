@@ -34,6 +34,7 @@ from game.engine.weapon.WeaponFireUpdater import WeaponFireUpdater
 
 class ServerUpdater:
 
+    gameState: GameState
     enemyAIUpdater: EnemyAIUpdater
     bulletCollisionUpdater: BulletCollisionUpdater
     explosionCollisionUpdater: ExplosionCollisionUpdater
@@ -57,7 +58,7 @@ class ServerUpdater:
     powerupUpdater: PowerupUpdater
     bulletPositionUpdater: BulletPositionUpdater
     bulletUpdater: BulletUpdater
-    explosionUpdater: ExplosionUpdater  # ???
+    explosionUpdater: ExplosionUpdater
     nonStandardBulletMovingUpdater: NonStandardBulletMovingUpdater
     rayPositionUpdater: RayPositionUpdater
     weaponAltFireUpdater: WeaponAltFireUpdater
@@ -94,6 +95,7 @@ class ServerUpdater:
         self.rayCollisionUpdater.update()
         self.powerupCollisionUpdater.updateForEnemies()
         self.explosionCollisionUpdater.update()
+        self.explosionUpdater.update()
         self.powerupUpdater.generateNew()
         self.enemyAIUpdater.update()
         self.personPositionUpdater.resetMovedAndTurned()
@@ -101,3 +103,6 @@ class ServerUpdater:
         self.personUpdater.updateDelaysForEnemies()
         self.bulletUpdater.removeNotAlive()
         self.fragStatisticUpdater.update()
+        self.gameState.collisionData.clear()
+        self.gameState.updateGlobalTime()
+        # формируем и отправляем новый сообщения клиентам
