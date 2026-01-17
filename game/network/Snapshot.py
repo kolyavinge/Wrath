@@ -8,10 +8,14 @@ class SnapshotDiff:
 
 class Snapshot:
 
-    def __init__(self, id):
-        self.id = id
+    lastId = 0
+
+    def __init__(self):
+        self.id = Snapshot.lastId
+        Snapshot.lastId += 1
         self.acknowledged = False
+
         # остальные поля добавляются динамически при создании
 
 
-Snapshot.empty = Snapshot(0)
+Snapshot.empty = Snapshot()

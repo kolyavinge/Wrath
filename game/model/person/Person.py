@@ -15,6 +15,7 @@ from game.model.person.PersonStates import LifeCycle, PersonZState
 class Person:
 
     def __init__(self):
+        self.id = 0
         self.lifeCycle = LifeCycle.alive
         self.lifeCycleDelay = DecrementCounter()
         self.zState = PersonZState.onFloor

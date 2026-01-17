@@ -1,4 +1,5 @@
 from game.anx.DebugSettings import DebugSettings
+from game.anx.PersonIdLogic import PersonIdLogic
 from game.engine.GameState import GameState
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
@@ -13,10 +14,12 @@ class PersonInitializer:
     def __init__(
         self,
         gameState: GameState,
+        personIdLogic: PersonIdLogic,
         personTurnLogic: PersonTurnLogic,
         weaponSelector: WeaponSelector,
     ):
         self.gameState = gameState
+        self.personIdLogic = personIdLogic
         self.personTurnLogic = personTurnLogic
         self.weaponSelector = weaponSelector
 
@@ -25,6 +28,7 @@ class PersonInitializer:
         self.initEnemies()
 
     def initPlayer(self):
+        self.gameState.player.id = self.personIdLogic.getPlayerId()
         level = self.gameState.level
         position, frontNormal, weaponType = level.getPlayerInitInfo()
         self.gameState.player.moveNextPositionTo(position)
@@ -41,6 +45,7 @@ class PersonInitializer:
 
     def initEnemy(self, position, frontNormal, weaponType):
         enemy = Enemy()
+        enemy.id = self.personIdLogic.getEnemyId()
         enemy.moveNextPositionTo(position)
         self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
         enemy.commitNextPosition()

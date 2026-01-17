@@ -36,6 +36,7 @@ class MultiplayerSynchronizer:
             message = Message(MessageType.updateGameState)
             message.body = diff
             if self.client.messageChannel.sendMessageToServer(message) == SendMessageResult.sended:
+                assert newSnapshot.id > self.client.lastAcknowledgedSnapshot.id
                 self.client.lastAcknowledgedSnapshot = newSnapshot
 
     def receiveGameStateFromClients(self):
@@ -55,4 +56,5 @@ class MultiplayerSynchronizer:
                 message = Message(MessageType.updateGameState)
                 message.body = diff
                 if client.messageChannel.sendMessageToClient(message) == SendMessageResult.sended:
+                    assert newSnapshot.id > self.client.lastAcknowledgedSnapshot.id
                     self.client.lastAcknowledgedSnapshot = newSnapshot
