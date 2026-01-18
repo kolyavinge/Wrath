@@ -1,6 +1,5 @@
 from game.anx.DebugSettings import DebugSettings
 from game.engine.ai.state.StateHandlerCollection import StateHandlerCollection
-from game.engine.GameState import GameState
 from game.model.person.PersonStates import LifeCycle
 from game.tools.CpuProfiler import cpuProfile
 
@@ -9,22 +8,20 @@ class EnemyAIUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         stateHandlerCollection: StateHandlerCollection,
     ):
-        self.gameState = gameState
         self.stateHandlerCollection = stateHandlerCollection
         if DebugSettings.enemyFreeze:
-            self.update = lambda: None
+            self.update = lambda gs: None
 
-    def init(self):
-        for enemy in self.gameState.enemies:
+    def init(self, gameState):
+        for enemy in gameState.enemies:
             self.stateHandlerCollection.getStateHandler(enemy.aiData.state).init(enemy)
 
     # @cpuProfile
-    def update(self):
-        for enemy in self.gameState.enemies:
-            inputData = self.gameState.enemyInputData[enemy]
+    def update(self, gameState):
+        for enemy in gameState.enemies:
+            inputData = gameState.enemyInputData[enemy]
             inputData.clear()
             if enemy.lifeCycle != LifeCycle.alive or enemy.isParalyzed():
                 return

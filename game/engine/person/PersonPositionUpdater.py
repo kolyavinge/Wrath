@@ -1,17 +1,13 @@
-from game.engine.GameState import GameState
 from game.model.person.PersonStates import PersonZState
 
 
 class PersonPositionUpdater:
 
-    def __init__(self, gameState: GameState):
-        self.gameState = gameState
+    def movePlayerNextPosition(self, gameState):
+        self.movePersonNextPosition(gameState.player)
 
-    def movePlayerNextPosition(self):
-        self.movePersonNextPosition(self.gameState.player)
-
-    def moveEnemyNextPosition(self):
-        for enemy in self.gameState.enemies:
+    def moveEnemyNextPosition(self, gameState):
+        for enemy in gameState.enemies:
             self.movePersonNextPosition(enemy)
 
     def movePersonNextPosition(self, person):
@@ -19,23 +15,23 @@ class PersonPositionUpdater:
             person.hasMoved = True
             person.moveNextPositionBy(person.velocityVector)
 
-    def commitPlayerNextPosition(self):
-        if self.gameState.player.hasMoved:
-            self.gameState.player.commitNextPosition()
+    def commitPlayerNextPosition(self, gameState):
+        if gameState.player.hasMoved:
+            gameState.player.commitNextPosition()
 
-    def commitEnemyNextPosition(self):
-        for enemy in self.gameState.enemies:
+    def commitEnemyNextPosition(self, gameState):
+        for enemy in gameState.enemies:
             if enemy.hasMoved:
                 enemy.commitNextPosition()
 
-    def resetMovedAndTurnedForPlayer(self):
-        player = self.gameState.player
+    def resetMovedAndTurnedForPlayer(self, gameState):
+        player = gameState.player
         player.hasTurned = False
         if player.hasMoved and player.zState == PersonZState.onFloor:
             player.hasMoved = False
 
-    def resetMovedAndTurned(self):
-        for person in self.gameState.allPerson:
+    def resetMovedAndTurned(self, gameState):
+        for person in gameState.allPerson:
             person.hasTurned = False
             if person.hasMoved and person.zState == PersonZState.onFloor:
                 person.hasMoved = False

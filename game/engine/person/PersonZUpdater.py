@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
@@ -11,26 +10,20 @@ class PersonZUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         personDamageLogic: PersonDamageLogic,
         eventManager: EventManager,
     ):
-        self.gameState = gameState
         self.personDamageLogic = personDamageLogic
         self.eventManager = eventManager
 
-    def updateIfMovedForPlayer(self):
-        if self.gameState.player.hasMoved:
-            self.updatePerson(self.gameState.player)
+    def updateIfMovedForPlayer(self, gameState):
+        if gameState.player.hasMoved:
+            self.updatePerson(gameState.player)
 
-    def updateIfMovedForEnemies(self):
-        for enemy in self.gameState.enemies:
+    def updateIfMovedForEnemies(self, gameState):
+        for enemy in gameState.enemies:
             if enemy.hasMoved:
                 self.updatePerson(enemy)
-
-    def update(self):
-        for person in self.gameState.allPerson:
-            self.updatePerson(person)
 
     def updatePerson(self, person):
         if person.nextFloor != NullFloor.instance:

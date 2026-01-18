@@ -1,22 +1,16 @@
-from game.engine.GameState import GameState
-
-
 class BulletUpdater:
 
-    def __init__(self, gameState: GameState):
-        self.gameState = gameState
-
-    def update(self):
-        for bullet in self.gameState.bullets:
+    def update(self, gameState):
+        for bullet in gameState.bullets:
             bullet.update()
 
-    def removeNotAlive(self):
-        if len(self.gameState.bulletsToRemove) == 0:
+    def removeNotAlive(self, gameState):
+        if len(gameState.bulletsToRemove) == 0:
             return
 
-        for bulletToRemove in self.gameState.bulletsToRemove:
-            self.gameState.bullets.remove(bulletToRemove)
+        for bulletToRemove in gameState.bulletsToRemove:
+            gameState.bullets.remove(bulletToRemove)
             if bulletToRemove.isVisible:
                 bulletToRemove.currentVisibilityLevelSegment.bullets.remove(bulletToRemove)
 
-        self.gameState.bulletsToRemove.clear()
+        gameState.bulletsToRemove.clear()

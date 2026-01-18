@@ -1,5 +1,4 @@
 from game.engine.cm.ExplosionCollisionDetector import ExplosionCollisionDetector
-from game.engine.GameState import GameState
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
 
 
@@ -7,16 +6,14 @@ class ExplosionCollisionUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         explosionCollisionDetector: ExplosionCollisionDetector,
         personDamageLogic: PersonDamageLogic,
     ):
-        self.gameState = gameState
         self.explosionCollisionDetector = explosionCollisionDetector
         self.personDamageLogic = personDamageLogic
 
-    def update(self):
-        for explosion in self.gameState.explosions:
+    def update(self, gameState):
+        for explosion in gameState.explosions:
             if explosion.damagePercent > 0:
                 collisionResult = self.explosionCollisionDetector.getCollisionResult(explosion)
                 for person in collisionResult:

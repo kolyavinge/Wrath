@@ -1,6 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
-from game.engine.GameState import GameState
 from game.engine.powerup.PowerupPositionGenerator import PowerupPositionGenerator
 from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Query import Query
@@ -14,11 +13,9 @@ class PowerupUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         positionGenerator: PowerupPositionGenerator,
         traversal: BSPTreeTraversal,
     ):
-        self.gameState = gameState
         self.positionGenerator = positionGenerator
         self.traversal = traversal
         self.delay = DecrementCounter()
@@ -28,36 +25,36 @@ class PowerupUpdater:
         self.powerupCount[LargeHealthPowerup] = 2
         self.powerupCount[VestPowerup] = 2
 
-    def update(self):
+    def update(self, gameState):
         self.delay.decrease()
-        for powerup in self.gameState.powerups:
+        for powerup in gameState.powerups:
             powerup.update()
 
-    def generateNew(self):
+    def generateNew(self, gameState):
         if not self.delay.isExpired():
             return
 
-        currentPowerups = self.gameState.powerups
+        currentPowerups = gameState.powerups
         newPowerups = []
         for powerupType, powerupCount in self.powerupCount.items():
             count = Query(currentPowerups).count(lambda x: type(x) == powerupType)
             while count < powerupCount:
-                powerup = self.makeNewPowerup(powerupType)
+                powerup = self.makeNewPowerup(gameState, powerupType)
                 newPowerups.append(powerup)
                 count += 1
 
         currentPowerups.extend(newPowerups)
         self.delay.set(200 * CommonConstants.mainTimerMsec)
 
-    def makeNewPowerup(self, powerupType):
+    def makeNewPowerup(self, gameState, powerupType):
         powerup = powerupType()
         powerup.setPosition(self.positionGenerator.getPosition())
 
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, powerup.position)
+        levelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, powerup.position)
         levelSegment.powerups.append(powerup)
         powerup.collisionLevelSegment = levelSegment
 
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.visibilityTree, powerup.position)
+        levelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, powerup.position)
         levelSegment.powerups.append(powerup)
         powerup.visibilityLevelSegment = levelSegment
 

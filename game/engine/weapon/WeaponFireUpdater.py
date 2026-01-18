@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.engine.weapon.WeaponFireLogic import WeaponFireLogic
 
 
@@ -6,21 +5,19 @@ class WeaponFireUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         weaponFireLogic: WeaponFireLogic,
     ):
-        self.gameState = gameState
         self.weaponFireLogic = weaponFireLogic
 
-    def updateForPlayer(self):
-        self.updateForPerson(self.gameState.player, self.gameState.playerInputData)
+    def updateForPlayer(self, gameState):
+        self.updateForPerson(gameState, gameState.player, gameState.playerInputData)
 
-    def updateForEnemies(self):
-        for enemy, inputData in self.gameState.enemyInputData.items():
-            self.updateForPerson(enemy, inputData)
+    def updateForEnemies(self, gameState):
+        for enemy, inputData in gameState.enemyInputData.items():
+            self.updateForPerson(gameState, enemy, inputData)
 
-    def updateForPerson(self, person, inputData):
-        personItems = self.gameState.allPersonItems[person]
+    def updateForPerson(self, gameState, person, inputData):
+        personItems = gameState.allPersonItems[person]
 
         # reset firing before process fire
         personItems.rightHandWeapon.isFiring = False

@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.engine.person.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
 
 
@@ -6,20 +5,19 @@ class PlayerLevelSegmentsUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         personLevelSegmentsUpdater: PersonLevelSegmentsUpdater,
     ):
-        self.gameState = gameState
         self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
 
-    def updateIfMoved(self):
-        if self.gameState.player.hasMoved:
-            self.update()
+    def updateIfMoved(self, gameState):
+        if gameState.player.hasMoved:
+            self.update(gameState)
 
-    def update(self):
-        self.removePlayerFromLevelSegments(self.gameState.player)
-        self.personLevelSegmentsUpdater.updatePerson(self.gameState.player)
-        self.addPlayerToLevelSegments(self.gameState.player)
+    def update(self, gameState):
+        player = gameState.player
+        self.removePlayerFromLevelSegments(player)
+        self.personLevelSegmentsUpdater.updatePerson(player)
+        self.addPlayerToLevelSegments(player)
 
     def removePlayerFromLevelSegments(self, player):
         for segment in player.collisionLevelSegments:

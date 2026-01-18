@@ -1,7 +1,6 @@
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.engine.cm.PersonWallCollisionDetector import PersonWallCollisionDetector
-from game.engine.GameState import GameState
 from game.lib.Math import Math
 from game.model.Orientation import Orientation
 
@@ -10,24 +9,22 @@ class PersonWallCollisionUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         personWallCollisionDetector: PersonWallCollisionDetector,
     ):
-        self.gameState = gameState
         self.personWallCollisionDetector = personWallCollisionDetector
 
-    def updateForPlayer(self):
-        if self.gameState.player.hasMoved:
-            self.updateForPerson(self.gameState.player)
+    def updateForPlayer(self, gameState):
+        if gameState.player.hasMoved:
+            self.updateForPerson(gameState, gameState.player)
 
-    def updateForEnemies(self):
-        for enemy in self.gameState.enemies:
+    def updateForEnemies(self, gameState):
+        for enemy in gameState.enemies:
             if enemy.hasMoved:
-                self.updateForPerson(enemy)
+                self.updateForPerson(gameState, enemy)
 
-    def updateForPerson(self, person):
+    def updateForPerson(self, gameState, person):
         collidedWalls = self.personWallCollisionDetector.getCollidedWalls(person)
-        self.gameState.collisionData.personWalls[person] = collidedWalls
+        gameState.collisionData.personWalls[person] = collidedWalls
         if len(collidedWalls) == 0:
             return
         self.processWall(person, collidedWalls[0])

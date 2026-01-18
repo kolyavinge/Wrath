@@ -1,44 +1,40 @@
-from game.engine.GameState import GameState
 from game.model.person.FragStatistic import FragStatistic
 from game.model.person.PersonStates import LifeCycle
 
 
 class FragStatisticUpdater:
 
-    def __init__(self, gameState: GameState):
-        self.gameState = gameState
+    def init(self, gameState):
+        gameState.personFragStatistic = {}
+        for person in gameState.allPerson:
+            gameState.personFragStatistic[person] = FragStatistic(person)
 
-    def init(self):
-        self.gameState.personFragStatistic = {}
-        for person in self.gameState.allPerson:
-            self.gameState.personFragStatistic[person] = FragStatistic(person)
-
-    def update(self):
-        collisionData = self.gameState.collisionData
+    def update(self, gameState):
+        collisionData = gameState.collisionData
 
         for person, bullet in collisionData.personBullet.items():
             if person.lifeCycle == LifeCycle.dead:
                 if bullet.ownerPerson is not None:  # if bullet is debris -> ownerPerson is None
-                    self.increaseFrags(bullet.ownerPerson)
-                self.increaseDeaths(person)
+                    self.increaseFrags(gameState, bullet.ownerPerson)
+                self.increaseDeaths(gameState, person)
 
         for person, ray in collisionData.personRay.items():
             if person.lifeCycle == LifeCycle.dead:
-                self.increaseFrags(ray.ownerPerson)
-                self.increaseDeaths(person)
+                self.increaseFrags(gameState, ray.ownerPerson)
+                self.increaseDeaths(gameState, person)
 
         for person, explosion in collisionData.personExplosion.items():
             if person.lifeCycle == LifeCycle.dead:
                 if explosion.bullet.ownerPerson != person:
-                    self.increaseFrags(explosion.bullet.ownerPerson)
-                self.increaseDeaths(person)
+                    self.increaseFrags(gameState, explosion.bullet.ownerPerson)
+                self.increaseDeaths(gameState, person)
 
         for person in collisionData.personFalling:
             if person.lifeCycle == LifeCycle.dead:
-                self.increaseDeaths(person)
+                self.increaseDeaths(gameState, person)
 
-    def increaseFrags(self, person):
-        self.gameState.personFragStatistic[person].frags += 1
+    def increaseFrags(self, gameState, person):
+        gameState.personFragStatistic[person].frags += 1
 
-    def increaseDeaths(self, person):
-        self.gameState.personFragStatistic[person].deaths += 1
+    def increaseDeaths(self, gameState, person):
+        gameState.personFragStatistic[person].deaths += 1

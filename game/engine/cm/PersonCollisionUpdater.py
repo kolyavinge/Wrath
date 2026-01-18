@@ -1,33 +1,30 @@
 from game.engine.cm.PersonCollisionDetector import PersonCollisionDetector
-from game.engine.GameState import GameState
 
 
 class PersonCollisionUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         personCollisionDetector: PersonCollisionDetector,
     ):
-        self.gameState = gameState
         self.personCollisionDetector = personCollisionDetector
 
-    def update(self):
-        for levelSegment in self.gameState.collisionTree.allLevelSegments:
+    def update(self, gameState):
+        for levelSegment in gameState.collisionTree.allLevelSegments:
             for person1 in levelSegment.allPerson:
                 for person2 in levelSegment.allPerson:
                     if person1 != person2:
                         if person1.hasMoved or person2.hasMoved:
-                            self.updateForPerson(person1, person2)
+                            self.updateForPerson(gameState, person1, person2)
 
-    def updateForPerson(self, person1, person2):
+    def updateForPerson(self, gameState, person1, person2):
         collisionLength = self.personCollisionDetector.getCollisionLengthOrNone(person1, person2)
         if collisionLength is not None:
             velocitySum = person1.velocityValue + person2.velocityValue
             self.movePerson(person1, collisionLength, velocitySum)
             self.movePerson(person2, collisionLength, velocitySum)
-            self.gameState.collisionData.personPerson[person1] = person2
-            self.gameState.collisionData.personPerson[person2] = person1
+            gameState.collisionData.personPerson[person1] = person2
+            gameState.collisionData.personPerson[person2] = person1
 
     def movePerson(self, person, collisionLength, velocitySum):
         if person.hasMoved:

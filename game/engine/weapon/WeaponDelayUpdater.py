@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.lib.EventManager import EventManager, Events
 
 
@@ -6,17 +5,15 @@ class WeaponDelayUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         eventManager: EventManager,
     ):
-        self.gameState = gameState
         self.eventManager = eventManager
 
-    def updateForPlayer(self):
-        self.updateForPerson(self.gameState.player, self.gameState.playerItems)
+    def updateForPlayer(self, gameState):
+        self.updateForPerson(gameState.player, gameState.playerItems)
 
-    def updateForEnemies(self):
-        for enemy, enemyItems in self.gameState.enemyItems.items():
+    def updateForEnemies(self, gameState):
+        for enemy, enemyItems in gameState.enemyItems.items():
             self.updateForPerson(enemy, enemyItems)
 
     def updateForPerson(self, person, personItems):

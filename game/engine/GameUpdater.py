@@ -26,9 +26,9 @@ class GameUpdater:
         # --- main game loop ---
 
         self.multiplayerSynchronizer.receiveGameStateFromServer()
-        self.clientUpdater.update()
+        self.clientUpdater.update(self.gameState)
         self.multiplayerSynchronizer.sendGameStateToServer()
 
         self.multiplayerSynchronizer.receiveGameStateFromClients()
-        self.serverUpdater.update()
+        self.serverUpdater.update(self.gameState)
         self.multiplayerSynchronizer.sendGameStateToClients()

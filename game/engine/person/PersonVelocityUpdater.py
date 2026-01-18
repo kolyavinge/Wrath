@@ -1,36 +1,32 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
-from game.engine.GameState import GameState
 from game.lib.Math import Math
 from game.model.person.PersonStates import PersonZState
 
 
 class PersonVelocityUpdater:
 
-    def __init__(self, gameState: GameState):
-        self.gameState = gameState
+    def updateForPlayer(self, gameState):
+        self.updateForPerson(gameState, gameState.player)
 
-    def updateForPlayer(self):
-        self.updateForPerson(self.gameState.player)
+    def updateForEnemies(self, gameState):
+        for enemy in gameState.enemies:
+            self.updateForPerson(gameState, enemy)
 
-    def updateForEnemies(self):
-        for enemy in self.gameState.enemies:
-            self.updateForPerson(enemy)
-
-    def updateForPerson(self, person):
+    def updateForPerson(self, gameState, person):
         person.prevVelocityValue = person.velocityValue
         if person.forwardMovingTime > 0 or person.backwardMovingTime > 0:
-            self.processForwardBackward(person)
+            self.processForwardBackward(gameState, person)
         elif person.leftStepMovingTime > 0 or person.rightStepMovingTime > 0:
-            self.processLeftRightStep(person)
+            self.processLeftRightStep(gameState, person)
         else:
             person.velocityValue = 0
             person.velocityVector.set(0, 0, 0)
 
-    def processForwardBackward(self, person):
+    def processForwardBackward(self, gameState, person):
         movingTime = person.forwardMovingTime - person.backwardMovingTime
         person.velocityValue = person.velocityFunc.getValue(Math.abs(movingTime))
-        self.slowdownIfNeeded(person)
+        self.slowdownIfNeeded(gameState, person)
         person.velocityVector = person.frontNormal.copy()
         person.velocityVector.setLength(person.velocityValue)
         if movingTime < 0:
@@ -53,20 +49,20 @@ class PersonVelocityUpdater:
 
         self.correctByFloor(person)
 
-    def processLeftRightStep(self, person):
+    def processLeftRightStep(self, gameState, person):
         movingTime = person.rightStepMovingTime - person.leftStepMovingTime
         person.velocityValue = person.velocityFunc.getValue(Math.abs(movingTime))
-        self.slowdownIfNeeded(person)
+        self.slowdownIfNeeded(gameState, person)
         person.velocityVector = person.rightNormal.copy()
         person.velocityVector.setLength(person.velocityValue)
         if movingTime < 0:
             person.velocityVector.mul(-1)
         self.correctByFloor(person)
 
-    def slowdownIfNeeded(self, person):
+    def slowdownIfNeeded(self, gameState, person):
         if person.zState == PersonZState.onFloor:
             person.velocityValue *= person.currentFloor.slowdownCoeff
-            person.velocityValue *= self.gameState.allPersonItems[person].currentWeapon.slowdownCoeff
+            person.velocityValue *= gameState.allPersonItems[person].currentWeapon.slowdownCoeff
 
     def correctByFloor(self, person):
         if not person.currentFloor.isHorizontal and (person.zState == PersonZState.onFloor or person.zState == PersonZState.landing):

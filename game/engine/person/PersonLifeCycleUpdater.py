@@ -1,14 +1,10 @@
-from game.engine.GameState import GameState
 from game.model.person.PersonStates import LifeCycle
 
 
 class PersonLifeCycleUpdater:
 
-    def __init__(self, gameState: GameState):
-        self.gameState = gameState
-
-    def update(self):
-        for person in self.gameState.allPerson:
+    def update(self, gameState):
+        for person in gameState.allPerson:
             self.updatePerson(person)
 
     def updatePerson(self, person):

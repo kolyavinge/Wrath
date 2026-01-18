@@ -2,7 +2,6 @@ from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.cm.BulletCollisionDetector import BulletCollisionDetector
 from game.engine.cm.CollidedTarget import CollidedTarget
 from game.engine.cm.PersonCollisionDetector import PersonCollisionTarget
-from game.engine.GameState import GameState
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.engine.weapon.BulletHoleLogic import BulletHoleLogic
 from game.engine.weapon.BulletLogic import BulletLogic
@@ -14,7 +13,6 @@ class BulletCollisionUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         traversal: BSPTreeTraversal,
         bulletCollisionDetector: BulletCollisionDetector,
         bulletHoleLogic: BulletHoleLogic,
@@ -22,7 +20,6 @@ class BulletCollisionUpdater:
         bulletLogic: BulletLogic,
         explosionLogic: ExplosionLogic,
     ):
-        self.gameState = gameState
         self.traversal = traversal
         self.bulletCollisionDetector = bulletCollisionDetector
         self.bulletHoleLogic = bulletHoleLogic
@@ -30,22 +27,22 @@ class BulletCollisionUpdater:
         self.bulletLogic = bulletLogic
         self.explosionLogic = explosionLogic
 
-    def update(self):
-        for bullet in self.gameState.bullets:
+    def update(self, gameState):
+        for bullet in gameState.bullets:
             collisionResult = self.bulletCollisionDetector.getCollisionResultOrNone(bullet)
             if collisionResult is not None:
-                self.processCollision(bullet, collisionResult)
+                self.processCollision(gameState, bullet, collisionResult)
 
-    def updateForConstructions(self):
-        for bullet in self.gameState.bullets:
+    def updateForConstructions(self, gameState):
+        for bullet in gameState.bullets:
             collisionResult = self.bulletCollisionDetector.getConstructionCollisionResultOrNone(bullet)
             if collisionResult is not None:
-                self.processCollision(bullet, collisionResult)
+                self.processCollision(gameState, bullet, collisionResult)
 
-    def processCollision(self, bullet, collisionResult):
+    def processCollision(self, gameState, bullet, collisionResult):
         target, collisionResultData = collisionResult
         if target == CollidedTarget.construction:
-            self.processConstructionCollision(bullet, collisionResultData)
+            self.processConstructionCollision(bullet, collisionResultData, gameState.visibilityTree)
         elif target == CollidedTarget.onePerson:
             self.processPersonCollision(bullet, collisionResultData)
         elif target == CollidedTarget.allPerson:
@@ -53,7 +50,7 @@ class BulletCollisionUpdater:
                 self.processPersonCollision(bullet, item)
         self.explosionLogic.makeExplosion(bullet)
 
-    def processConstructionCollision(self, bullet, collisionResult):
+    def processConstructionCollision(self, bullet, collisionResult, visibilityTree):
         collisionPoint, construction = collisionResult
         bullet.currentPosition = collisionPoint
         bullet.nextPosition = collisionPoint
@@ -66,8 +63,7 @@ class BulletCollisionUpdater:
         else:
             self.bulletLogic.removeBullet(bullet)
             bullet.damagedObject = construction
-            bspTree = self.gameState.visibilityTree
-            visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, collisionPoint)
+            visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(visibilityTree, collisionPoint)
             self.bulletHoleLogic.makeHole(collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
 
     def processPersonCollision(self, bullet, collisionResult):

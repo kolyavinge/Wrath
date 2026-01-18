@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.lib.EventManager import EventManager, Events
 from game.model.person.PersonStates import PersonZState
 
@@ -7,17 +6,15 @@ class PersonJumpUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         eventManager: EventManager,
     ):
-        self.gameState = gameState
         self.eventManager = eventManager
 
-    def updateForPlayer(self):
-        self.updateForPerson(self.gameState.player, self.gameState.playerInputData)
+    def updateForPlayer(self, gameState):
+        self.updateForPerson(gameState.player, gameState.playerInputData)
 
-    def updateForEnemies(self):
-        for enemy, inputData in self.gameState.enemyInputData.items():
+    def updateForEnemies(self, gameState):
+        for enemy, inputData in gameState.enemyInputData.items():
             self.updateForPerson(enemy, inputData)
 
     def updateForPerson(self, person, inputData):

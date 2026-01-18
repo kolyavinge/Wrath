@@ -1,6 +1,5 @@
 from game.anx.PersonConstants import PersonConstants
 from game.calc.Geometry import Geometry
-from game.engine.GameState import GameState
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 
 
@@ -8,17 +7,15 @@ class PersonTurnUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         personTurnLogic: PersonTurnLogic,
     ):
-        self.gameState = gameState
         self.personTurnLogic = personTurnLogic
 
-    def updateForPlayer(self):
-        self.updateForPerson(self.gameState.player, self.gameState.playerInputData)
+    def updateForPlayer(self, gameState):
+        self.updateForPerson(gameState.player, gameState.playerInputData)
 
-    def updateForEnemies(self):
-        for enemy, inputData in self.gameState.enemyInputData.items():
+    def updateForEnemies(self, gameState):
+        for enemy, inputData in gameState.enemyInputData.items():
             self.updateForPerson(enemy, inputData)
 
     def updateForPerson(self, person, inputData):

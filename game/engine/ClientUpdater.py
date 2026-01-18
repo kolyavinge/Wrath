@@ -43,7 +43,6 @@ from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 
 class ClientUpdater:
 
-    gameState: GameState
     bulletCollisionUpdater: BulletCollisionUpdater
     personCeilingCollisionUpdater: PersonCeilingCollisionUpdater
     personWallCollisionUpdater: PersonWallCollisionUpdater
@@ -86,38 +85,38 @@ class ClientUpdater:
     # event listeners
     selectWeaponRequestListener: SelectWeaponRequestListener
 
-    def update(self):
+    def update(self, gameState):
         # читаем и применяем текущие сообщения от сервера
-        self.personTurnUpdater.updateForPlayer()
-        self.personMovingTimeUpdater.updateForPlayer()
-        self.personVelocityUpdater.updateForPlayer()
-        self.personPositionUpdater.movePlayerNextPosition()
-        self.personFloorUpdater.updatePlayerNextFloor()
-        self.personJumpUpdater.updateForPlayer()
-        self.personWallCollisionUpdater.updateForPlayer()
-        self.personZUpdater.updateIfMovedForPlayer()
+        self.personTurnUpdater.updateForPlayer(gameState)
+        self.personMovingTimeUpdater.updateForPlayer(gameState)
+        self.personVelocityUpdater.updateForPlayer(gameState)
+        self.personPositionUpdater.movePlayerNextPosition(gameState)
+        self.personFloorUpdater.updatePlayerNextFloor(gameState)
+        self.personJumpUpdater.updateForPlayer(gameState)
+        self.personWallCollisionUpdater.updateForPlayer(gameState)
+        self.personZUpdater.updateIfMovedForPlayer(gameState)
         self.personCeilingCollisionUpdater.updateForPlayer()
-        self.personPositionUpdater.commitPlayerNextPosition()
-        self.personFloorUpdater.commitPlayerNextFloor()
+        self.personPositionUpdater.commitPlayerNextPosition(gameState)
+        self.personFloorUpdater.commitPlayerNextFloor(gameState)
         # асинхронно отправляем на сервер позицию игрока и направление взгляда
-        self.playerLevelSegmentsUpdater.updateIfMoved()
-        self.enemyLevelSegmentsUpdater.updateIfMoved()
+        self.playerLevelSegmentsUpdater.updateIfMoved(gameState)
+        self.enemyLevelSegmentsUpdater.updateIfMoved(gameState)
         self.personStepUpdater.update()
         self.personWeaponPositionUpdater.update()
         self.personSelectedWeaponPositionUpdater.update()
-        self.weaponDelayUpdater.updateForPlayer()
-        self.weaponFireUpdater.updateForPlayer()
-        self.weaponAltFireUpdater.updateForPlayer()
+        self.weaponDelayUpdater.updateForPlayer(gameState)
+        self.weaponFireUpdater.updateForPlayer(gameState)
+        self.weaponAltFireUpdater.updateForPlayer(gameState)
         # отправляем инфу о выстреле
-        self.personLifeCycleUpdater.update()
-        self.bulletPositionUpdater.moveNextPosition()
-        self.bulletCollisionUpdater.updateForConstructions()
-        self.bulletPositionUpdater.commitNextPosition()
-        self.powerupCollisionUpdater.updateForPlayer()
+        self.personLifeCycleUpdater.update(gameState)
+        self.bulletPositionUpdater.moveNextPosition(gameState)
+        self.bulletCollisionUpdater.updateForConstructions(gameState)
+        self.bulletPositionUpdater.commitNextPosition(gameState)
+        self.powerupCollisionUpdater.updateForPlayer(gameState)
         # отправляем если взяли поверап
-        self.bulletUpdater.update()
-        self.explosionUpdater.update()
-        self.powerupUpdater.update()
+        self.bulletUpdater.update(gameState)
+        self.explosionUpdater.update(gameState)
+        self.powerupUpdater.update(gameState)
         self.weaponFlashUpdater.update()
         self.bulletTraceUpdater.update()
         self.torchUpdater.update()
@@ -132,9 +131,9 @@ class ClientUpdater:
         self.enemyLifeBarUpdater.update()
         self.sniperAimFloatingUpdater.update()
         self.cowboyEasterEggUpdater.update()
-        self.personPositionUpdater.resetMovedAndTurnedForPlayer()
-        self.personUpdater.commitZStateForPlayer()
-        self.personUpdater.updateDelaysForPlayer()
-        self.bulletUpdater.removeNotAlive()
-        self.gameState.collisionData.clear()
-        self.gameState.updateGlobalTime()
+        self.personPositionUpdater.resetMovedAndTurnedForPlayer(gameState)
+        self.personUpdater.commitZStateForPlayer(gameState)
+        self.personUpdater.updateDelaysForPlayer(gameState)
+        self.bulletUpdater.removeNotAlive(gameState)
+        gameState.collisionData.clear()
+        gameState.updateGlobalTime()

@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.engine.weapon.alt.LauncherAltFireLogic import LauncherAltFireLogic
 from game.engine.weapon.alt.PistolAltFireLogic import PistolAltFireLogic
 from game.engine.weapon.alt.PlasmaAltFireLogic import PlasmaAltFireLogic
@@ -19,7 +18,6 @@ class WeaponAltFireUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         pistolAltFireLogic: PistolAltFireLogic,
         rifleAltFireLogic: RifleAltFireLogic,
         plasmaAltFireLogic: PlasmaAltFireLogic,
@@ -28,7 +26,6 @@ class WeaponAltFireUpdater:
         sniperAltFireLogic: SniperAltFireLogic,
         weaponAltFireStateSwitcher: WeaponAltFireStateSwitcher,
     ):
-        self.gameState = gameState
         self.altFireLogic = {}
         self.altFireLogic[Pistol] = pistolAltFireLogic
         self.altFireLogic[Rifle] = rifleAltFireLogic
@@ -38,15 +35,15 @@ class WeaponAltFireUpdater:
         self.altFireLogic[Sniper] = sniperAltFireLogic
         self.weaponAltFireStateSwitcher = weaponAltFireStateSwitcher
 
-    def updateForPlayer(self):
-        self.updateForPerson(self.gameState.player, self.gameState.playerInputData)
+    def updateForPlayer(self, gameState):
+        self.updateForPerson(gameState, gameState.player, gameState.playerInputData)
 
-    def updateForEnemies(self):
-        for enemy, inputData in self.gameState.enemyInputData.items():
-            self.updateForPerson(enemy, inputData)
+    def updateForEnemies(self, gameState):
+        for enemy, inputData in gameState.enemyInputData.items():
+            self.updateForPerson(gameState, enemy, inputData)
 
-    def updateForPerson(self, person, inputData):
-        personItems = self.gameState.allPersonItems[person]
+    def updateForPerson(self, gameState, person, inputData):
+        personItems = gameState.allPersonItems[person]
         weapon = personItems.currentWeapon
         weaponType = type(weapon)
         if inputData.fire and not weapon.allowFireWithAltFire:
