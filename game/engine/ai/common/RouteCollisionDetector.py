@@ -27,7 +27,7 @@ class RouteCollisionDetector:
         )
 
     def anyWallCollisions(self, startPoint, endPoint, startLevelSegment, endLevelSegment):
-        return self.personWallCollisionDetector.anyCollisions(startPoint, endPoint, startLevelSegment, endLevelSegment)
+        return self.personWallCollisionDetector.anyCollisions(startPoint, endPoint, startLevelSegment, endLevelSegment, self.gameState.collisionTree)
 
     def anyVoidCollisions(self, startPoint, endPoint, startLevelSegment, endLevelSegment):
-        return self.voidCollisionDetector.anyCollisions(startPoint, endPoint, startLevelSegment, endLevelSegment)
+        return self.voidCollisionDetector.anyCollisions(startPoint, endPoint, startLevelSegment, endLevelSegment, self.gameState.collisionTree)

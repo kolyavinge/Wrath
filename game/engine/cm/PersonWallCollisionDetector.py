@@ -1,5 +1,4 @@
 from game.engine.cm.ConstructionCollisionDetector import ConstructionCollisionDetector
-from game.engine.GameState import GameState
 from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
 
 
@@ -7,11 +6,9 @@ class PersonWallCollisionDetector:
 
     def __init__(
         self,
-        gameState: GameState,
         constructionCollisionDetector: ConstructionCollisionDetector,
         levelSegmentItemFinder: LevelSegmentItemFinder,
     ):
-        self.gameState = gameState
         self.constructionCollisionDetector = constructionCollisionDetector
         self.levelSegmentItemFinder = levelSegmentItemFinder
 
@@ -63,7 +60,7 @@ class PersonWallCollisionDetector:
 
         return result
 
-    def anyCollisions(self, startPoint, endPoint, startLevelSegment, endLevelSegment):
+    def anyCollisions(self, startPoint, endPoint, startLevelSegment, endLevelSegment, collisionTree):
 
         def checkCollisionOrNone(walls, start, end):
             for wall in walls:
@@ -74,7 +71,7 @@ class PersonWallCollisionDetector:
 
         return (
             self.levelSegmentItemFinder.findItemOrNone(
-                self.gameState.collisionTree,
+                collisionTree,
                 startLevelSegment,
                 endLevelSegment,
                 startPoint,

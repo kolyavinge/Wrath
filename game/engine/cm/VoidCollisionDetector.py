@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.engine.level.LevelSegmentItemFinder import LevelSegmentItemFinder
 
 
@@ -6,15 +5,13 @@ class VoidCollisionDetector:
 
     def __init__(
         self,
-        gameState: GameState,
         levelSegmentItemFinder: LevelSegmentItemFinder,
     ):
-        self.gameState = gameState
         self.levelSegmentItemFinder = levelSegmentItemFinder
 
-    def anyCollisions(self, startPoint, endPoint, startSegment, endSegment):
+    def anyCollisions(self, startPoint, endPoint, startSegment, endSegment, collisionTree):
         return self.levelSegmentItemFinder.findItemOrNone(
-            self.gameState.collisionTree,
+            collisionTree,
             startSegment,
             endSegment,
             startPoint,

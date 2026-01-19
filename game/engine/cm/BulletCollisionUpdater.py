@@ -29,13 +29,13 @@ class BulletCollisionUpdater:
 
     def update(self, gameState):
         for bullet in gameState.bullets:
-            collisionResult = self.bulletCollisionDetector.getCollisionResultOrNone(bullet)
+            collisionResult = self.bulletCollisionDetector.getCollisionResultOrNone(bullet, gameState.collisionTree)
             if collisionResult is not None:
                 self.processCollision(gameState, bullet, collisionResult)
 
     def updateForConstructions(self, gameState):
         for bullet in gameState.bullets:
-            collisionResult = self.bulletCollisionDetector.getConstructionCollisionResultOrNone(bullet)
+            collisionResult = self.bulletCollisionDetector.getConstructionCollisionResultOrNone(bullet, gameState.collisionTree)
             if collisionResult is not None:
                 self.processCollision(gameState, bullet, collisionResult)
 

@@ -24,7 +24,7 @@ class RayCollisionUpdater:
 
     def update(self, gameState):
         for ray in gameState.rays:
-            collisionResult = self.rayCollisionDetector.getCollisionResultOrNone(ray)
+            collisionResult = self.rayCollisionDetector.getCollisionResultOrNone(ray, gameState.collisionTree)
             if collisionResult is not None:
                 self.processCollision(ray, collisionResult, gameState.visibilityTree)
 
