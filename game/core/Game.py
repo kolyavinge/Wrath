@@ -33,7 +33,7 @@ class Game:
 
     def updateCurrentScreen(self):
         self.inputManager.update()
-        self.screenManager.currentScreen.processInput()
+        self.screenManager.currentScreen.processInput(self.client.gameState)
         self.screenManager.currentScreen.update()
 
     def renderCurrentScreen(self):

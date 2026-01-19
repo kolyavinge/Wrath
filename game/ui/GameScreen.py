@@ -21,5 +21,5 @@ class GameScreen:
     def update(self):
         self.gameUpdater.update()
 
-    def processInput(self):
-        self.playerInputManager.processInput()
+    def processInput(self, gameState):
+        self.playerInputManager.processInput(gameState)
