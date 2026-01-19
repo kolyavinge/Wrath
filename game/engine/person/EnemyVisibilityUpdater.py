@@ -17,12 +17,12 @@ class EnemyVisibilityUpdater:
     def updateEnemiesVisibility(self, gameState):
         for levelSegment in gameState.visibleLevelSegments:
             for enemy in levelSegment.enemies:
-                enemy.isVisibleForPlayer = enemy.lifeCycle != LifeCycle.respawnDelay and self.inCamera(enemy)
+                enemy.isVisibleForPlayer = enemy.lifeCycle != LifeCycle.respawnDelay and self.inCamera(enemy, gameState.camera)
 
-    def inCamera(self, enemy):
+    def inCamera(self, enemy, camera):
         shift = enemy.currentCenterPoint
         for initPoint in self.initVisibilityPoints:
-            if self.cameraScopeChecker.isPointInCamera(initPoint.x + shift.x, initPoint.y + shift.y, initPoint.z + shift.z):
+            if self.cameraScopeChecker.isPointInCamera(camera, initPoint.x + shift.x, initPoint.y + shift.y, initPoint.z + shift.z):
                 return True
 
         return False

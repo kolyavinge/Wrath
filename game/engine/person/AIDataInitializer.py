@@ -1,15 +1,11 @@
 from game.calc.Geometry import Geometry
-from game.engine.GameState import GameState
 from game.lib.Random import Random
 
 
 class AIDataInitializer:
 
-    def __init__(self, gameState: GameState):
-        self.gameState = gameState
-
-    def init(self):
-        for enemy in self.gameState.enemies:
+    def init(self, gameState):
+        for enemy in gameState.enemies:
             self.initForEnemy(enemy.aiData)
 
     def initForEnemy(self, aiData):

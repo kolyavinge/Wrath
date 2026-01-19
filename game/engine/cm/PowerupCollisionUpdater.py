@@ -27,8 +27,9 @@ class PowerupCollisionUpdater:
 
     def updateForPerson(self, gameState, person):
         powerup = self.powerupCollisionDetector.getCollisionResultOrNone(person)
-        if powerup is not None and self.powerupValidator.canApply(person, powerup):
-            self.powerupProcessor.apply(person, powerup)
+        personItems = gameState.allPersonItems[person]
+        if powerup is not None and self.powerupValidator.canApply(person, personItems, powerup):
+            self.powerupProcessor.apply(person, personItems, powerup)
             gameState.powerups.remove(powerup)
             powerup.collisionLevelSegment.powerups.remove(powerup)
             powerup.visibilityLevelSegment.powerups.remove(powerup)

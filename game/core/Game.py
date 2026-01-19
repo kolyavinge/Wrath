@@ -26,7 +26,7 @@ class Game:
         self.levelManager = levelManager
         self.inputManager = inputManager
         self.screenManager = screenManager
-        self.levelManager.loadFirstLevel()  # TODO: временно
+        self.levelManager.loadFirstLevel(gameState)  # TODO: временно
         self.screenManager.currentScreenRenderer.init()
         self.screenManager.currentScreenVox.init()
         self.eventManager = eventManager

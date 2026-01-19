@@ -1,6 +1,5 @@
 from game.anx.DebugSettings import DebugSettings
 from game.anx.PersonIdLogic import PersonIdLogic
-from game.engine.GameState import GameState
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.model.person.Enemy import Enemy
@@ -13,48 +12,46 @@ class PersonInitializer:
 
     def __init__(
         self,
-        gameState: GameState,
         personIdLogic: PersonIdLogic,
         personTurnLogic: PersonTurnLogic,
         weaponSelector: WeaponSelector,
     ):
-        self.gameState = gameState
         self.personIdLogic = personIdLogic
         self.personTurnLogic = personTurnLogic
         self.weaponSelector = weaponSelector
 
-    def init(self):
-        self.initPlayer()
-        self.initEnemies()
+    def init(self, gameState):
+        self.initPlayer(gameState)
+        self.initEnemies(gameState)
 
-    def initPlayer(self):
-        self.gameState.player.id = self.personIdLogic.getPlayerId()
-        level = self.gameState.level
+    def initPlayer(self, gameState):
+        gameState.player.id = self.personIdLogic.getPlayerId()
+        level = gameState.level
         position, frontNormal, weaponType = level.getPlayerInitInfo()
-        self.gameState.player.moveNextPositionTo(position)
-        self.personTurnLogic.orientToFrontNormal(self.gameState.player, frontNormal)
-        self.gameState.player.commitNextPosition()
-        self.weaponSelector.initWeaponByType(self.gameState.playerItems, weaponType)
+        gameState.player.moveNextPositionTo(position)
+        self.personTurnLogic.orientToFrontNormal(gameState.player, frontNormal)
+        gameState.player.commitNextPosition()
+        self.weaponSelector.initWeaponByType(gameState.playerItems, weaponType)
 
-    def initEnemies(self):
+    def initEnemies(self, gameState):
         if not DebugSettings.allowEnemies:
             return
 
-        for position, frontNormal, weaponType in self.gameState.level.getEnemyInitInfo():
-            self.initEnemy(position, frontNormal, weaponType)
+        for position, frontNormal, weaponType in gameState.level.getEnemyInitInfo():
+            self.initEnemy(gameState, position, frontNormal, weaponType)
 
-    def initEnemy(self, position, frontNormal, weaponType):
+    def initEnemy(self, gameState, position, frontNormal, weaponType):
         enemy = Enemy()
         enemy.id = self.personIdLogic.getEnemyId()
         enemy.moveNextPositionTo(position)
         self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
         enemy.commitNextPosition()
-        self.gameState.enemies.append(enemy)
-        self.gameState.allPerson.append(enemy)
+        gameState.enemies.append(enemy)
+        gameState.allPerson.append(enemy)
         personItems = PersonItems()
-        self.gameState.enemyItems[enemy] = personItems
-        self.gameState.enemyInputData[enemy] = PersonInputData()
-        self.gameState.allPersonItems[enemy] = self.gameState.enemyItems[enemy]
-        self.gameState.allPersonInputData[enemy] = self.gameState.enemyInputData[enemy]
-        self.gameState.enemyLifeBars[enemy] = EnemyLifeBar()
+        gameState.enemyItems[enemy] = personItems
+        gameState.enemyInputData[enemy] = PersonInputData()
+        gameState.allPersonItems[enemy] = gameState.enemyItems[enemy]
+        gameState.allPersonInputData[enemy] = gameState.enemyInputData[enemy]
+        gameState.enemyLifeBars[enemy] = EnemyLifeBar()
         self.weaponSelector.initWeaponByType(personItems, weaponType)

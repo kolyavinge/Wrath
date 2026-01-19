@@ -16,7 +16,7 @@ class PlayerLevelSegmentsUpdater:
     def update(self, gameState):
         player = gameState.player
         self.removePlayerFromLevelSegments(player)
-        self.personLevelSegmentsUpdater.updatePerson(player)
+        self.personLevelSegmentsUpdater.updatePerson(player, gameState.collisionTree, gameState.visibilityTree)
         self.addPlayerToLevelSegments(player)
 
     def removePlayerFromLevelSegments(self, player):

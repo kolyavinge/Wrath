@@ -31,26 +31,32 @@ class BackgroundVisibilityUpdater:
         )
 
     def update(self, gameState):
+        backgroundVisibility = gameState.backgroundVisibility
 
         def checkVisiblePoint(point):
             for element in point.joinedElements:
-                gameState.backgroundVisibility.visibleSphereElements.add(element)
+                backgroundVisibility.visibleSphereElements.add(element)
                 for joinedPoint in element.points:
                     if joinedPoint not in self.alreadyCheckedPoints:
                         self.alreadyCheckedPoints.add(joinedPoint)
-                        if self.cameraScopeChecker.isPointInCamera(joinedPoint.vertex.x, joinedPoint.vertex.y, joinedPoint.vertex.z):
+                        if self.cameraScopeChecker.isPointInCamera(
+                            gameState.camera,
+                            joinedPoint.vertex.x,
+                            joinedPoint.vertex.y,
+                            joinedPoint.vertex.z,
+                        ):
                             checkVisiblePoint(joinedPoint)
                         else:
                             for element in joinedPoint.joinedElements:
-                                gameState.backgroundVisibility.visibleSphereElements.add(element)
+                                backgroundVisibility.visibleSphereElements.add(element)
 
         self.alreadyCheckedPoints.clear()
         point = self.getAnyVisiblePointOrNone(gameState)
         if point is not None:
-            gameState.backgroundVisibility.visibleSphereElements = set()
+            backgroundVisibility.visibleSphereElements = set()
             checkVisiblePoint(point)
         else:
-            gameState.backgroundVisibility.visibleSphereElements = set(gameState.backgroundVisibility.sphere.elementsList)
+            backgroundVisibility.visibleSphereElements = set(backgroundVisibility.sphere.elementsList)
 
     def getAnyVisiblePointOrNone(self, gameState):
         self.lookDirectionPoint.copyFrom(gameState.camera.lookDirection)
@@ -58,7 +64,7 @@ class BackgroundVisibilityUpdater:
         self.lookDirectionPoint.add(gameState.camera.position)
         spherePoints = gameState.backgroundVisibility.sphereBSPTree.findNodeItemsByPoint(self.lookDirectionPoint)
         for point in spherePoints:
-            if self.cameraScopeChecker.isPointInCamera(point.vertex.x, point.vertex.y, point.vertex.z):
+            if self.cameraScopeChecker.isPointInCamera(gameState.camera, point.vertex.x, point.vertex.y, point.vertex.z):
                 self.alreadyCheckedPoints.add(point)
                 return point
 

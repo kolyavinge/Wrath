@@ -1,6 +1,5 @@
 from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
-from game.engine.GameState import GameState
 from game.engine.level.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.level.LevelLoader import LevelLoader
 from game.engine.level.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyzer
@@ -20,7 +19,6 @@ from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 
 class LevelManager:
 
-    gameState: GameState
     levelLoader: LevelLoader
     bspTreeBuilder: BSPTreeBuilder
     joinLineAnalyzer: LevelSegmentJoinLineAnalyzer
@@ -39,25 +37,25 @@ class LevelManager:
     fragStatisticUpdater: FragStatisticUpdater
     enemyAIUpdater: EnemyAIUpdater
 
-    def loadFirstLevel(self):
+    def loadFirstLevel(self, gameState):
         level = self.levelLoader.load()
-        self.gameState.level = level
-        self.bspTreeBuilder.build(self.gameState.collisionTree, level, list(level.getCollisionSplitPlanes()))
-        self.bspTreeBuilder.build(self.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
-        self.joinLineAnalyzer.analyzeJoinLines(level, self.gameState.visibilityTree)
-        self.levelValidator.validate(level, self.gameState.visibilityTree)
-        self.lightAnalyzer.analyzeLights(level, self.gameState.visibilityTree)
-        self.personInitializer.init()
-        self.personFloorUpdater.updatePlayerNextFloor(self.gameState)
-        self.personFloorUpdater.updateEnemyNextFloor(self.gameState)
-        self.personFloorUpdater.commitPlayerNextFloor(self.gameState)
-        self.personFloorUpdater.commitEnemyNextFloor(self.gameState)
-        self.aiDataInitializer.init()
-        self.playerLevelSegmentsUpdater.update(self.gameState)
-        self.enemyLevelSegmentsUpdater.update(self.gameState)
-        self.cameraUpdater.update(self.gameState)
-        self.levelSegmentVisibilityUpdater.update(self.gameState)
-        self.backgroundVisibilityDetector.update(self.gameState)
-        self.personWeaponPositionUpdater.update(self.gameState)
-        self.fragStatisticUpdater.init(self.gameState)
-        self.enemyAIUpdater.init(self.gameState)
+        gameState.level = level
+        self.bspTreeBuilder.build(gameState.collisionTree, level, list(level.getCollisionSplitPlanes()))
+        self.bspTreeBuilder.build(gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
+        self.joinLineAnalyzer.analyzeJoinLines(level, gameState.visibilityTree)
+        self.levelValidator.validate(level, gameState.visibilityTree)
+        self.lightAnalyzer.analyzeLights(level, gameState.visibilityTree)
+        self.personInitializer.init(gameState)
+        self.personFloorUpdater.updatePlayerNextFloor(gameState)
+        self.personFloorUpdater.updateEnemyNextFloor(gameState)
+        self.personFloorUpdater.commitPlayerNextFloor(gameState)
+        self.personFloorUpdater.commitEnemyNextFloor(gameState)
+        self.aiDataInitializer.init(gameState)
+        self.playerLevelSegmentsUpdater.update(gameState)
+        self.enemyLevelSegmentsUpdater.update(gameState)
+        self.cameraUpdater.update(gameState)
+        self.levelSegmentVisibilityUpdater.update(gameState)
+        self.backgroundVisibilityDetector.update(gameState)
+        self.personWeaponPositionUpdater.update(gameState)
+        self.fragStatisticUpdater.init(gameState)
+        self.enemyAIUpdater.init(gameState)

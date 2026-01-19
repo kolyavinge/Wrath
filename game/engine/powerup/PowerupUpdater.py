@@ -48,7 +48,7 @@ class PowerupUpdater:
 
     def makeNewPowerup(self, gameState, powerupType):
         powerup = powerupType()
-        powerup.setPosition(self.positionGenerator.getPosition())
+        powerup.setPosition(self.positionGenerator.getPosition(gameState))
 
         levelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, powerup.position)
         levelSegment.powerups.append(powerup)

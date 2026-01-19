@@ -18,14 +18,14 @@ class PersonZUpdater:
 
     def updateIfMovedForPlayer(self, gameState):
         if gameState.player.hasMoved:
-            self.updatePerson(gameState.player)
+            self.updatePerson(gameState.player, gameState.collisionData)
 
     def updateIfMovedForEnemies(self, gameState):
         for enemy in gameState.enemies:
             if enemy.hasMoved:
-                self.updatePerson(enemy)
+                self.updatePerson(enemy, gameState.collisionData)
 
-    def updatePerson(self, person):
+    def updatePerson(self, person, collisionData):
         if person.nextFloor != NullFloor.instance:
             floorZ = person.nextFloor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
             personOnFloor = Numeric.between(person.getZ() - floorZ, -0.4, 0.4)
@@ -43,7 +43,7 @@ class PersonZUpdater:
             person.zState = PersonZState.falling
         elif personOnFloor and person.zState == PersonZState.falling:
             person.setZ(floorZ)
-            self.personDamageLogic.damageByFalling(person)
+            self.personDamageLogic.damageByFalling(person, collisionData)
             person.landingTime = 0.8 * person.fallingTime
             person.fallingTime = 0
             person.zState = PersonZState.landing

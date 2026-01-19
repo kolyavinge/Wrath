@@ -1,19 +1,17 @@
-from game.engine.GameState import GameState
 from game.lib.Numeric import Numeric
 
 
 class CameraScopeChecker:
 
-    def __init__(self, gameState: GameState):
-        self.gameState = gameState
+    def __init__(self):
         self.width = 0
         self.height = 0
 
-    def isPointInCamera(self, px, py, pz, scale=1.0):
+    def isPointInCamera(self, camera, px, py, pz, scale=1.0):
         # проецируем точку на экран
         # и проверяем что она попадает в его пределы
 
-        m = self.gameState.camera.viewProjectionMatrix
+        m = camera.viewProjectionMatrix
 
         # для оптимизации, чтобы не создавать промежуточные обьекты Vector3 и Vector4
         # умножение матрицы на вектор делаем тут

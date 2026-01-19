@@ -15,17 +15,17 @@ class EnemyLevelSegmentsUpdater:
     def updateIfMoved(self, gameState):
         for enemy in gameState.enemies:
             if enemy.hasMoved:
-                self.updateEnemy(enemy, gameState.collisionTree)
+                self.updateEnemy(enemy, gameState)
 
     def update(self, gameState):
         for enemy in gameState.enemies:
-            self.updateEnemy(enemy, gameState.collisionTree)
+            self.updateEnemy(enemy, gameState)
 
-    def updateEnemy(self, enemy, collisionTree):
+    def updateEnemy(self, enemy, gameState):
         self.removeEnemyFromLevelSegments(enemy)
-        self.personLevelSegmentsUpdater.updatePerson(enemy)
+        self.personLevelSegmentsUpdater.updatePerson(enemy, gameState.collisionTree, gameState.visibilityTree)
         self.addEnemyToLevelSegments(enemy)
-        enemy.currentCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(collisionTree, enemy.currentCenterPoint)
+        enemy.currentCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, enemy.currentCenterPoint)
 
     def removeEnemyFromLevelSegments(self, enemy):
         for segment in enemy.collisionLevelSegments:

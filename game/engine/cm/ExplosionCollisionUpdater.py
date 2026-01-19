@@ -17,4 +17,5 @@ class ExplosionCollisionUpdater:
             if explosion.damagePercent > 0:
                 collisionResult = self.explosionCollisionDetector.getCollisionResult(explosion)
                 for person in collisionResult:
-                    self.personDamageLogic.damageByExplosion(person, explosion)
+                    personItems = gameState.allPersonItems[person]
+                    self.personDamageLogic.damageByExplosion(person, personItems, explosion, gameState.collisionData)

@@ -40,7 +40,7 @@ class DashboardRenderer:
         self.dashboardSpriteRenderer.init()
 
     def render(self):
-        self.dashboardUpdater.update()
+        self.dashboardUpdater.update(self.gameState)
         self.updateRenderDataIfDashboardChanged()
         self.renderDashboardData()
 
