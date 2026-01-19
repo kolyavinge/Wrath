@@ -59,7 +59,7 @@ class PlayerInputManager:
             inputData.jump = True
 
         if keyboard.isPressed(KeyboardButtons.f):
-            self.eventManager.raiseEvent(Events.torchSwitchRequested, self.gameState.player)
+            self.eventManager.raiseEvent(Events.torchSwitchRequested, self.gameState.playerItems.torch)
 
     def processMouse(self):
         inputData = self.gameState.playerInputData

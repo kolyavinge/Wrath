@@ -15,7 +15,6 @@ from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
-from game.engine.person.TorchUpdater import TorchUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 
 
@@ -29,7 +28,6 @@ class LevelManager:
     levelValidator: LevelValidator
     personFloorUpdater: PersonFloorUpdater
     personInitializer: PersonInitializer
-    torchUpdater: TorchUpdater
     aiDataInitializer: AIDataInitializer
     playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater
     enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater
@@ -50,7 +48,6 @@ class LevelManager:
         self.levelValidator.validate(level, self.gameState.visibilityTree)
         self.lightAnalyzer.analyzeLights(level, self.gameState.visibilityTree)
         self.personInitializer.init()
-        self.torchUpdater.init(self.gameState)
         self.personFloorUpdater.updatePlayerNextFloor(self.gameState)
         self.personFloorUpdater.updateEnemyNextFloor(self.gameState)
         self.personFloorUpdater.commitPlayerNextFloor(self.gameState)
