@@ -1,5 +1,4 @@
 from game.anx.PersonConstants import PersonConstants
-from game.engine.GameState import GameState
 from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
 from game.model.person.PersonStates import WeaponSelectState
@@ -10,14 +9,12 @@ class PersonSelectedWeaponPositionUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         eventManager: EventManager,
     ):
-        self.gameState = gameState
         self.eventManager = eventManager
 
-    def update(self):
-        for person, personItems in self.gameState.allPersonItems.items():
+    def update(self, gameState):
+        for person, personItems in gameState.allPersonItems.items():
             self.updateForPerson(person, personItems)
 
     def updateForPerson(self, person, personItems):

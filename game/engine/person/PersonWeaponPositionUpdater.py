@@ -1,26 +1,22 @@
 from game.anx.PersonConstants import PersonConstants
-from game.engine.GameState import GameState
 from game.model.person.Player import Player
 
 
 class PersonWeaponPositionUpdater:
 
-    def __init__(self, gameState: GameState):
-        self.gameState = gameState
+    def update(self, gameState):
+        self.updateForPlayer(gameState)
+        self.updateForEnemies(gameState)
 
-    def update(self):
-        self.updateForPlayer()
-        self.updateForEnemies()
+    def updateForPlayer(self, gameState):
+        self.updateForPerson(gameState, gameState.player)
 
-    def updateForPlayer(self):
-        self.updateForPerson(self.gameState.player)
+    def updateForEnemies(self, gameState):
+        for enemy in gameState.enemies:
+            self.updateForPerson(gameState, enemy)
 
-    def updateForEnemies(self):
-        for enemy in self.gameState.enemies:
-            self.updateForPerson(enemy)
-
-    def updateForPerson(self, person):
-        personItems = self.gameState.allPersonItems[person]
+    def updateForPerson(self, gameState, person):
+        personItems = gameState.allPersonItems[person]
         self.updateWeapon(person, personItems.rightHandWeapon, rightHand=True)
         if personItems.leftHandWeapon is not None:
             self.updateWeapon(person, personItems.leftHandWeapon, rightHand=False)

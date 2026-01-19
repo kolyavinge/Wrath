@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.lib.EventManager import EventManager, Events
 from game.lib.Random import Random
@@ -9,17 +8,17 @@ class SniperAimFloatingUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         personTurnLogic: PersonTurnLogic,
         eventManager: EventManager,
     ):
-        self.gameState = gameState
         self.personTurnLogic = personTurnLogic
         self.updateFunc = self.noUpdate
         eventManager.attachToEvent(Events.aimStateSwitched, self.onAimStateSwitched)
 
-    def onAimStateSwitched(self, aimState):
-        if type(aimState) == SniperAimState:
+    def onAimStateSwitched(self, args):
+        self.player, self.aimState = args
+        print(self.aimState)
+        if type(self.aimState) == SniperAimState:
             self.updateFunc = self.updateFloating
         else:
             self.updateFunc = self.noUpdate
@@ -28,7 +27,7 @@ class SniperAimFloatingUpdater:
         self.updateFunc()
 
     def updateFloating(self):
-        aimState = self.gameState.aimState
+        aimState = self.aimState
 
         aimState.aFloatingParam += Random.getFloat(0.0, 1.0)
         aimState.bFloatingParam += Random.getFloat(0.0, 1.0)
@@ -42,11 +41,10 @@ class SniperAimFloatingUpdater:
         aimState.aFloatingValue = aFloatingValue
         aimState.bFloatingValue = bFloatingValue
 
-        player = self.gameState.player
-        player.yawRadians += aDelta
-        player.pitchRadians += bDelta
+        self.player.yawRadians += aDelta
+        self.player.pitchRadians += bDelta
 
-        self.personTurnLogic.calculateDirectionVectors(player)
+        self.personTurnLogic.calculateDirectionVectors(self.player)
 
     def noUpdate(self):
         pass

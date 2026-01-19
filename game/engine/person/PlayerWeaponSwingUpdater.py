@@ -1,6 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
-from game.engine.GameState import GameState
 from game.lib.Math import Math
 from game.lib.mirrorRange import mirrorRange
 from game.model.person.PersonStates import PersonZState
@@ -8,25 +7,24 @@ from game.model.person.PersonStates import PersonZState
 
 class PlayerWeaponSwingUpdater:
 
-    def __init__(self, gameState: GameState):
-        self.gameState = gameState
+    def __init__(self):
         stepsCount = 15
         stepValue = Math.pi / stepsCount
         self.steps = [v for v in mirrorRange(stepValue, stepsCount)]
         self.lastStep = 0
 
-    def update(self):
-        self.updateMovingSwing()
-        self.updateLandingSwing()
+    def update(self, gameState):
+        self.updateMovingSwing(gameState)
+        self.updateLandingSwing(gameState)
 
-    def updateMovingSwing(self):
-        player = self.gameState.player
+    def updateMovingSwing(self, gameState):
+        player = gameState.player
         if player.zState != PersonZState.onFloor:
             self.lastStep = 0
         elif player.velocityValue == 0:
             self.lastStep = 0
         else:
-            self.lastStep += 1.0 * self.gameState.playerItems.currentWeapon.slowdownCoeff
+            self.lastStep += 1.0 * gameState.playerItems.currentWeapon.slowdownCoeff
             if self.lastStep >= len(self.steps):
                 self.lastStep = 0
 
@@ -34,14 +32,14 @@ class PlayerWeaponSwingUpdater:
         swing = Geometry.rotatePoint(player.rightNormal, player.frontNormal, CommonConstants.axisOrigin, radians)
         swing.setLength(0.015 * player.velocityValue)
 
-        self.gameState.playerItems.rightHandWeapon.position.add(swing)
-        if self.gameState.playerItems.leftHandWeapon is not None:
-            self.gameState.playerItems.leftHandWeapon.position.add(swing)
+        gameState.playerItems.rightHandWeapon.position.add(swing)
+        if gameState.playerItems.leftHandWeapon is not None:
+            gameState.playerItems.leftHandWeapon.position.add(swing)
 
-    def updateLandingSwing(self):
-        player = self.gameState.player
+    def updateLandingSwing(self, gameState):
+        player = gameState.player
         if player.zState == PersonZState.landing:
             swingValue = 0.05 * player.landingTime * Math.sin(player.landingTime)
-            self.gameState.playerItems.rightHandWeapon.position.z -= swingValue
-            if self.gameState.playerItems.leftHandWeapon is not None:
-                self.gameState.playerItems.leftHandWeapon.position.z -= swingValue
+            gameState.playerItems.rightHandWeapon.position.z -= swingValue
+            if gameState.playerItems.leftHandWeapon is not None:
+                gameState.playerItems.leftHandWeapon.position.z -= swingValue

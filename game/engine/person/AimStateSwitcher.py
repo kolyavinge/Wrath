@@ -21,7 +21,7 @@ class AimStateSwitcher:
             self.gameState.aimState = DefaultAimState()
             self.gameState.playerItems.currentWeapon.setPositionForDefaultAimState()
             self.updatePlayerWeaponPosition()
-            self.eventManager.raiseEvent(Events.aimStateSwitched, self.gameState.aimState)
+            self.eventManager.raiseEvent(Events.aimStateSwitched, (self.gameState.player, self.gameState.aimState))
 
     def switchDefaultOrSniper(self):
         if type(self.gameState.aimState) == DefaultAimState:
@@ -31,9 +31,9 @@ class AimStateSwitcher:
             self.gameState.aimState = DefaultAimState()
             self.gameState.playerItems.currentWeapon.setPositionForDefaultAimState()
         self.updatePlayerWeaponPosition()
-        self.eventManager.raiseEvent(Events.aimStateSwitched, self.gameState.aimState)
+        self.eventManager.raiseEvent(Events.aimStateSwitched, (self.gameState.player, self.gameState.aimState))
 
     def updatePlayerWeaponPosition(self):
         # обновляем позицию оружия сразу, не дожидаясь след цикла апдейта
         # иначе оружие может отрендерится на старой позиции
-        self.weaponPositionUpdater.updateForPerson(self.gameState.player)
+        self.weaponPositionUpdater.updateForPerson(self.gameState, self.gameState.player)

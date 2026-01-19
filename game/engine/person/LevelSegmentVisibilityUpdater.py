@@ -1,5 +1,4 @@
 from game.anx.CommonConstants import CommonConstants
-from game.engine.GameState import GameState
 from game.engine.person.CameraScopeChecker import CameraScopeChecker
 
 
@@ -7,43 +6,41 @@ class LevelSegmentVisibilityUpdater:
 
     def __init__(
         self,
-        gameState: GameState,
         cameraScopeChecker: CameraScopeChecker,
     ):
-        self.gameState = gameState
         self.cameraScopeChecker = cameraScopeChecker
 
-    def updateIfPlayerMovedOrTurned(self):
-        player = self.gameState.player
+    def updateIfPlayerMovedOrTurned(self, gameState):
+        player = gameState.player
         if player.hasMoved or player.hasTurned:
-            self.update()
+            self.update(gameState)
 
-    def update(self):
-        self.gameState.visibleLevelSegments = set()
+    def update(self, gameState):
+        gameState.visibleLevelSegments = set()
         self.checkedJoinLines = set()
-        self.checkLevelSegment(self.gameState.player.visibilityLevelSegment)
+        self.checkLevelSegment(gameState, gameState.player.visibilityLevelSegment)
 
-    def checkLevelSegment(self, levelSegment):
-        self.gameState.visibleLevelSegments.add(levelSegment)
+    def checkLevelSegment(self, gameState, levelSegment):
+        gameState.visibleLevelSegments.add(levelSegment)
         for joinLine in levelSegment.joinLines:
             if joinLine not in self.checkedJoinLines:
                 self.checkedJoinLines.add(joinLine)
-                if self.isJoinLineVisible(joinLine):
+                if self.isJoinLineVisible(joinLine, gameState.camera):
                     joinedLevelSegment = joinLine.getJoinedLevelSegment(levelSegment)
-                    self.checkLevelSegment(joinedLevelSegment)
+                    self.checkLevelSegment(gameState, joinedLevelSegment)
 
-    def isJoinLineVisible(self, joinLine):
+    def isJoinLineVisible(self, joinLine, camera):
         for point in joinLine.points:
-            if self.isPointVisible(point):
+            if self.isPointVisible(point, camera):
                 return True
 
         return False
 
-    def isPointVisible(self, point):
-        direction = self.gameState.camera.position.getDirectionTo(point)
+    def isPointVisible(self, point, camera):
+        direction = camera.position.getDirectionTo(point)
         if direction.getLength() > CommonConstants.maxDepth:
             return False
 
-        pointInFront = self.gameState.camera.lookDirection.dotProduct(direction) > 0
+        pointInFront = camera.lookDirection.dotProduct(direction) > 0
 
         return pointInFront

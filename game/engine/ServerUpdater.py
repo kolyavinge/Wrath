@@ -19,6 +19,7 @@ from game.engine.person.PersonSelectedWeaponPositionUpdater import *
 from game.engine.person.PersonTurnUpdater import PersonTurnUpdater
 from game.engine.person.PersonUpdater import PersonUpdater
 from game.engine.person.PersonVelocityUpdater import PersonVelocityUpdater
+from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.person.PersonZUpdater import PersonZUpdater
 from game.engine.powerup.PowerupUpdater import PowerupUpdater
 from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
@@ -53,6 +54,7 @@ class ServerUpdater:
     personTurnUpdater: PersonTurnUpdater
     personUpdater: PersonUpdater
     personVelocityUpdater: PersonVelocityUpdater
+    personWeaponPositionUpdater: PersonWeaponPositionUpdater
     personZUpdater: PersonZUpdater
     powerupUpdater: PowerupUpdater
     bulletPositionUpdater: BulletPositionUpdater
@@ -78,10 +80,11 @@ class ServerUpdater:
         self.personWallCollisionUpdater.updateForEnemies(gameState)
         self.personCollisionUpdater.update(gameState)
         self.personZUpdater.updateIfMovedForEnemies(gameState)
-        self.personCeilingCollisionUpdater.updateForEnemies()
+        self.personCeilingCollisionUpdater.updateForEnemies(gameState)
         self.personPositionUpdater.commitEnemyNextPosition(gameState)
         self.personFloorUpdater.commitEnemyNextFloor(gameState)
         self.enemyLevelSegmentsUpdater.updateIfMoved(gameState)
+        self.personWeaponPositionUpdater.updateForEnemies(gameState)
         self.weaponDelayUpdater.updateForEnemies(gameState)
         self.weaponFireUpdater.updateForEnemies(gameState)
         self.weaponAltFireUpdater.updateForEnemies(gameState)
