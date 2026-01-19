@@ -1,7 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTree import BSPTree
 from game.model.level.BackgroundVisibilityData import BackgroundVisibilityData
-from game.model.person.AimState import DefaultAimState
 from game.model.person.Camera import Camera
 from game.model.person.CollisionData import CollisionData
 from game.model.person.Dashboard import Dashboard
@@ -46,7 +45,6 @@ class GameState:
         self.bloodStains = []
         self.enemyLifeBars = {}
         self.camera = Camera()
-        self.aimState = DefaultAimState()
         self.backgroundVisibility = BackgroundVisibilityData()
         self.dashboard = Dashboard()
 

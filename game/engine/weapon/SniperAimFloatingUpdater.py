@@ -15,19 +15,17 @@ class SniperAimFloatingUpdater:
         self.updateFunc = self.noUpdate
         eventManager.attachToEvent(Events.aimStateSwitched, self.onAimStateSwitched)
 
-    def onAimStateSwitched(self, args):
-        self.player, self.aimState = args
-        print(self.aimState)
-        if type(self.aimState) == SniperAimState:
-            self.updateFunc = self.updateFloating
+    def onAimStateSwitched(self, player):
+        if type(player.aimState) == SniperAimState:
+            self.updateFunc = lambda: self.updateFloating(player)
         else:
             self.updateFunc = self.noUpdate
 
     def update(self):
         self.updateFunc()
 
-    def updateFloating(self):
-        aimState = self.aimState
+    def updateFloating(self, player):
+        aimState = player.aimState
 
         aimState.aFloatingParam += Random.getFloat(0.0, 1.0)
         aimState.bFloatingParam += Random.getFloat(0.0, 1.0)
@@ -41,10 +39,10 @@ class SniperAimFloatingUpdater:
         aimState.aFloatingValue = aFloatingValue
         aimState.bFloatingValue = bFloatingValue
 
-        self.player.yawRadians += aDelta
-        self.player.pitchRadians += bDelta
+        player.yawRadians += aDelta
+        player.pitchRadians += bDelta
 
-        self.personTurnLogic.calculateDirectionVectors(self.player)
+        self.personTurnLogic.calculateDirectionVectors(player)
 
     def noUpdate(self):
         pass

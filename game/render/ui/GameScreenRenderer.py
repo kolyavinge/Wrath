@@ -98,9 +98,8 @@ class GameScreenRenderer:
         self.enemyLifeBarRenderer.render()
         self.sniperCrosshairRenderer.render()
 
-    def onAimStateSwitched(self, args):
-        person, aimState = args
-        if type(aimState) == DefaultAimState:
+    def onAimStateSwitched(self, player):
+        if type(player.aimState) == DefaultAimState:
             self.renderFunc = self.renderDefaultAimState
         else:
             self.renderFunc = self.renderSniperAimState

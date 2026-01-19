@@ -68,7 +68,7 @@ class EnemyRenderer:
         self.model3dRenderer.renderForShadow(self.renderCollection.enemyModelForShadow)
 
     def animationNeedApply(self, enemy):
-        if type(self.gameState.aimState) == SniperAimState:
+        if type(self.gameState.player.aimState) == SniperAimState:
             return True
 
         enemyDirectionLength = self.gameState.camera.position.getLengthTo(enemy.middleCenterPoint)

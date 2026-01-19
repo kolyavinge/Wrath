@@ -88,7 +88,7 @@ class WeaponSelector:
             return
 
         if type(person) == Player:
-            self.aimStateSwitcher.setToDefaultIfNeeded()
+            self.aimStateSwitcher.setToDefaultIfNeeded(person, personItems)
 
         personItems.selectedRightHandWeapon = selectedRightHandWeapon
         personItems.selectedLeftHandWeapon = selectedLeftHandWeapon

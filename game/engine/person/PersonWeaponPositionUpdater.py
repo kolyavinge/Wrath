@@ -9,14 +9,13 @@ class PersonWeaponPositionUpdater:
         self.updateForEnemies(gameState)
 
     def updateForPlayer(self, gameState):
-        self.updateForPerson(gameState, gameState.player)
+        self.updateForPerson(gameState.player, gameState.playerItems)
 
     def updateForEnemies(self, gameState):
         for enemy in gameState.enemies:
-            self.updateForPerson(gameState, enemy)
+            self.updateForPerson(enemy, gameState.enemyItems[enemy])
 
-    def updateForPerson(self, gameState, person):
-        personItems = gameState.allPersonItems[person]
+    def updateForPerson(self, person, personItems):
         self.updateWeapon(person, personItems.rightHandWeapon, rightHand=True)
         if personItems.leftHandWeapon is not None:
             self.updateWeapon(person, personItems.leftHandWeapon, rightHand=False)

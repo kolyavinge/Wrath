@@ -64,7 +64,7 @@ class PlayerInputManager:
     def processMouse(self):
         inputData = self.gameState.playerInputData
         mouse = self.inputManager.mouse
-        aimState = self.gameState.aimState
+        aimState = self.gameState.player.aimState
 
         if mouse.dx < 0:
             inputData.turnLeftRadians = aimState.mouseSensibility * Math.abs(mouse.dx)
