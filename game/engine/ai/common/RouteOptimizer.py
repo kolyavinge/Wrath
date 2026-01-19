@@ -7,21 +7,21 @@ class RouteOptimizer:
     def __init__(self, collisionDetector: RouteCollisionDetector):
         self.collisionDetector = collisionDetector
 
-    def optimizeRoutePoints(self, routePoints):
+    def optimizeRoutePoints(self, routePoints, collisionTree):
         # пробуем распрямить отрезки маршрута
         # если они не попадают на препядствия
         middleIndex = int(len(routePoints) / 2)
-        self.straighten(routePoints, 0, middleIndex)
-        self.straighten(routePoints, middleIndex, len(routePoints) - 1)
+        self.straighten(routePoints, 0, middleIndex, collisionTree)
+        self.straighten(routePoints, middleIndex, len(routePoints) - 1, collisionTree)
 
         # начальную точку можно удалить. персонаж и так начнет с нее свое движение
         routePoints.remove(routePoints[0])
 
-    def straighten(self, routePoints, startIndex, endIndex):
+    def straighten(self, routePoints, startIndex, endIndex, collisionTree):
         if (endIndex - startIndex) < 4:  # короткий отрезок не обрабатываем
             return
 
-        if self.collisionDetector.anyCollisions(routePoints[startIndex], routePoints[endIndex]):
+        if self.collisionDetector.anyCollisions(routePoints[startIndex], routePoints[endIndex], collisionTree):
             middleIndex = int((endIndex - startIndex) / 2 + startIndex)
             self.straighten(routePoints, startIndex, middleIndex)
             self.straighten(routePoints, middleIndex, endIndex)

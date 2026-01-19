@@ -3,7 +3,6 @@ from game.engine.ai.common.RouteCollisionDetector import RouteCollisionDetector
 from game.engine.ai.common.RouteGraph import RouteGraph, Vertex
 from game.engine.ai.common.RouteOptimizer import RouteOptimizer
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
-from game.engine.GameState import GameState
 from game.lib.Query import Query
 from game.model.ai.Route import NullRoute, Route
 
@@ -12,12 +11,10 @@ class RouteFinder:
 
     def __init__(
         self,
-        gameState: GameState,
         collisionDetector: RouteCollisionDetector,
         routeOptimizer: RouteOptimizer,
         traversal: BSPTreeTraversal,
     ):
-        self.gameState = gameState
         self.collisionDetector = collisionDetector
         self.routeOptimizer = routeOptimizer
         self.traversal = traversal
@@ -34,21 +31,21 @@ class RouteFinder:
             right: {forward, backward, left},
         }
 
-    def getRoute(self, startPoint, endPoint):
-        if not self.collisionDetector.anyCollisions(startPoint, endPoint):
+    def getRoute(self, startPoint, endPoint, collisionTree):
+        if not self.collisionDetector.anyCollisions(startPoint, endPoint, collisionTree):
             return Route([endPoint])
         else:
             startVertex = Vertex(startPoint, 0)
             endVertex = Vertex(endPoint, None)
             route = NullRoute.instance
-            if self.calculateRouteGraph(startVertex, endVertex):
+            if self.calculateRouteGraph(startVertex, endVertex, collisionTree):
                 routePoints = self.getRoutePoints(startVertex, endVertex)
-                self.routeOptimizer.optimizeRoutePoints(routePoints)
+                self.routeOptimizer.optimizeRoutePoints(routePoints, collisionTree)
                 route = Route(routePoints)
 
             return route
 
-    def calculateRouteGraph(self, startVertex, endVertex):
+    def calculateRouteGraph(self, startVertex, endVertex, collisionTree):
         # поиск в ширину
         # идем во всех доступных направлениях из каждой точки
         # проверяем точки на соударение с препятствиями
@@ -67,9 +64,9 @@ class RouteFinder:
             for direction in self.availableDirectionsFrom[lastDirection]:
                 nextPoint = currentVertex.point.copy()
                 nextPoint.add(direction)
-                if self.collisionDetector.anyCollisions(currentVertex.point, nextPoint):
+                if self.collisionDetector.anyCollisions(currentVertex.point, nextPoint, collisionTree):
                     continue
-                nextPoint.z = self.getPointZ(nextPoint)
+                nextPoint.z = self.getPointZ(nextPoint, collisionTree)
                 if self.isEndPoint(nextPoint, endPoint):
                     endVertex.generationNumber = generationNumber
                     routeGraph.connectVertices(currentVertex, endVertex)
@@ -99,8 +96,8 @@ class RouteFinder:
 
         return routePoints
 
-    def getPointZ(self, point):
-        levelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, point)
+    def getPointZ(self, point, collisionTree):
+        levelSegment = self.traversal.findLevelSegmentOrNone(collisionTree, point)
         z = levelSegment.floors[0].getZ(point.x, point.y)
 
         return z

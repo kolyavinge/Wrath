@@ -1,5 +1,4 @@
 from game.engine.ai.common.RouteFinder import RouteFinder
-from game.engine.GameState import GameState
 from game.lib.Query import Query
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
@@ -11,35 +10,33 @@ class PowerupFinder:
 
     def __init__(
         self,
-        gameState: GameState,
         routeFinder: RouteFinder,
     ):
-        self.gameState = gameState
         self.routeFinder = routeFinder
 
-    def tryFindNearestHealthOrVest(self, enemy):
-        healthes = self.getNearestPowerups(enemy, lambda x: type(x) == SmallHealthPowerup or type(x) == LargeHealthPowerup)
+    def tryFindNearestHealthOrVest(self, enemy, powerups, collisionTree):
+        healthes = self.getNearestPowerups(enemy, powerups, lambda x: type(x) == SmallHealthPowerup or type(x) == LargeHealthPowerup)
         for health in healthes:
-            enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, health.pickupPosition)
+            enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, health.pickupPosition, collisionTree)
             if enemy.aiData.route.hasPoints():
                 return True
 
-        vests = self.getNearestPowerups(enemy, lambda x: type(x) == VestPowerup)
+        vests = self.getNearestPowerups(enemy, powerups, lambda x: type(x) == VestPowerup)
         for vest in vests:
-            enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, vest.pickupPosition)
+            enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, vest.pickupPosition, collisionTree)
             if enemy.aiData.route.hasPoints():
                 return True
 
         return False
 
-    def tryFindNearestWeapon(self, enemy):
-        weapons = self.getNearestPowerups(enemy, lambda x: type(x) == WeaponPowerup)
+    def tryFindNearestWeapon(self, enemy, powerups, collisionTree):
+        weapons = self.getNearestPowerups(enemy, powerups, lambda x: type(x) == WeaponPowerup)
         for weapon in weapons:
-            enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, weapon.pickupPosition)
+            enemy.aiData.route = self.routeFinder.getRoute(enemy.currentCenterPoint, weapon.pickupPosition, collisionTree)
             if enemy.aiData.route.hasPoints():
                 return True
 
         return False
 
-    def getNearestPowerups(self, enemy, conditionFunc):
-        return Query(self.gameState.powerups).where(conditionFunc).orderBy(lambda x: x.pickupPosition.getLengthTo(enemy.currentCenterPoint)).result
+    def getNearestPowerups(self, enemy, powerups, conditionFunc):
+        return Query(powerups).where(conditionFunc).orderBy(lambda x: x.pickupPosition.getLengthTo(enemy.currentCenterPoint)).result

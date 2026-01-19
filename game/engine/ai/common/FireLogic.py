@@ -1,6 +1,5 @@
 from game.anx.PersonConstants import PersonConstants
 from game.engine.ai.common.BurstFireLogic import BurstFireLogic
-from game.engine.GameState import GameState
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.model.person.PersonStates import LifeCycle
 
@@ -9,16 +8,14 @@ class FireLogic:
 
     def __init__(
         self,
-        gameState: GameState,
         personTurnLogic: PersonTurnLogic,
         burstFireLogic: BurstFireLogic,
     ):
-        self.gameState = gameState
         self.personTurnLogic = personTurnLogic
         self.burstFireLogic = burstFireLogic
 
-    def targetExists(self, enemy):
-        return self.isCurrentTargetAvailable(enemy) or self.isNewTargetFound(enemy)
+    def targetExists(self, enemy, allPerson):
+        return self.isCurrentTargetAvailable(enemy) or self.isNewTargetFound(enemy, allPerson)
 
     def isCurrentTargetAvailable(self, enemy):
         if enemy.aiData.targetPerson is None:
@@ -30,9 +27,9 @@ class FireLogic:
 
         return True
 
-    def isNewTargetFound(self, enemy):
+    def isNewTargetFound(self, enemy, allPerson):
         enemy.aiData.targetPerson = None
-        for otherEnemy in self.gameState.allPerson:
+        for otherEnemy in allPerson:
             if enemy != otherEnemy and self.canFireToOtherEnemy(enemy, otherEnemy):
                 enemy.aiData.targetPerson = otherEnemy
                 return True
@@ -69,21 +66,20 @@ class FireLogic:
         frontNormal = enemy.currentCenterPoint.getDirectionTo(targetPersonPosition).getNormalized()
         self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
 
-    def getEnemyWithinFireDistanceWhoFiringTo(self, enemy):
-        if enemy in self.gameState.collisionData.personBullet:
-            bullet = self.gameState.collisionData.personBullet[enemy]
+    def getEnemyWithinFireDistanceWhoFiringTo(self, enemy, collisionData):
+        if enemy in collisionData.personBullet:
+            bullet = collisionData.personBullet[enemy]
             if bullet.ownerPerson is not None and self.withinFireDistance(enemy, bullet.ownerPerson):
                 return bullet.ownerPerson
 
-        if enemy in self.gameState.collisionData.personRay:
-            ray = self.gameState.collisionData.personRay[enemy]
+        if enemy in collisionData.personRay:
+            ray = collisionData.personRay[enemy]
             if self.withinFireDistance(enemy, ray.ownerPerson):
                 return ray.ownerPerson
 
         return None
 
-    def applyInputData(self, enemy, inputData):
-        enemyItems = self.gameState.allPersonItems[enemy]
+    def applyInputData(self, enemy, enemyItems, inputData):
         if enemyItems.currentWeapon.isBurstModeEnabled:
             inputData.fire = self.burstFireLogic.fire(enemy, enemyItems)
         else:

@@ -1,27 +1,24 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.cm.PersonCollisionDetector import PersonCollisionDetector
 from game.engine.cm.PersonWallCollisionDetector import PersonWallCollisionDetector
-from game.engine.GameState import GameState
 
 
 class EnemyCollisionDetector:
 
     def __init__(
         self,
-        gameState: GameState,
         personWallCollisionDetector: PersonWallCollisionDetector,
         personCollisionDetector: PersonCollisionDetector,
         traversal: BSPTreeTraversal,
     ):
-        self.gameState = gameState
         self.personWallCollisionDetector = personWallCollisionDetector
         self.personCollisionDetector = personCollisionDetector
         self.traversal = traversal
 
-    def anyCollisions(self, enemy, direction):
+    def anyCollisions(self, enemy, direction, collisionTree):
         nextCenterPoint = enemy.currentFootRect.center.copy()
         nextCenterPoint.add(direction)
-        nextCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(self.gameState.collisionTree, nextCenterPoint)
+        nextCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(collisionTree, nextCenterPoint)
 
         return (
             self.anyWallCollisions(enemy, nextCenterPoint, nextCenterPointLevelSegment)

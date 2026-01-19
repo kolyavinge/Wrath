@@ -17,16 +17,16 @@ class WeaponSearchStateHandler:
         self.fireLogic = fireLogic
         self.powerupFinder = powerupFinder
 
-    def init(self, enemy):
+    def init(self, gameState, enemy):
         if not self.powerupFinder.tryFindNearestWeapon(enemy):
             enemy.aiData.weaponPowerupDelay.set(Random.getInt(200, 500))
 
-    def process(self, enemy, inputData):
+    def process(self, gameState, enemy, inputData):
         if enemy.aiData.route.hasPoints():
             self.movingLogic.followByRoute(enemy)
             inputData.goForward = True
 
-    def getNewStateOrNone(self, enemy):
+    def getNewStateOrNone(self, gameState, enemy, enemyItems):
         if not enemy.aiData.route.hasPoints():
             return EnemyState.patrolling
 

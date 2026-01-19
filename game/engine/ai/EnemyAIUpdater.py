@@ -16,21 +16,21 @@ class EnemyAIUpdater:
 
     def init(self, gameState):
         for enemy in gameState.enemies:
-            self.stateHandlerCollection.getStateHandler(enemy.aiData.state).init(enemy)
+            self.stateHandlerCollection.getStateHandler(enemy.aiData.state).init(gameState, enemy)
 
     # @cpuProfile
     def update(self, gameState):
-        for enemy in gameState.enemies:
+        for enemy, enemyItems in gameState.enemyItems.items():
             inputData = gameState.enemyInputData[enemy]
             inputData.clear()
             if enemy.lifeCycle != LifeCycle.alive or enemy.isParalyzed():
                 return
             aiData = enemy.aiData
             stateHandler = self.stateHandlerCollection.getStateHandler(aiData.state)
-            stateHandler.process(enemy, inputData)
+            stateHandler.process(gameState, enemy, inputData)
             aiData.stateTime += 1
-            newState = stateHandler.getNewStateOrNone(enemy)
+            newState = stateHandler.getNewStateOrNone(gameState, enemy, enemyItems)
             if newState is not None:
                 aiData.state = newState
                 aiData.stateTime = 0
-                self.stateHandlerCollection.getStateHandler(newState).init(enemy)
+                self.stateHandlerCollection.getStateHandler(newState).init(gameState, enemy)

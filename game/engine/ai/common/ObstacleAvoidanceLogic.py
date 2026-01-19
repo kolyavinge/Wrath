@@ -10,14 +10,14 @@ class ObstacleAvoidanceLogic:
     def __init__(self, collisionDetector: EnemyCollisionDetector):
         self.collisionDetector = collisionDetector
 
-    def getFrontNormalForNextStep(self, enemy):
+    def getFrontNormalForNextStep(self, enemy, collisionTree):
         resultFrontNormal = Vector3()
 
         aiData = enemy.aiData
         isStraightDirectionCorrect = False
         direction = enemy.frontNormal.copy()
         direction.setLength(aiData.checkCollisionLength)
-        if not self.collisionDetector.anyCollisions(enemy, direction):
+        if not self.collisionDetector.anyCollisions(enemy, direction, collisionTree):
             isStraightDirectionCorrect = True
             resultFrontNormal.add(direction)
 
@@ -29,13 +29,13 @@ class ObstacleAvoidanceLogic:
         for _ in range(0, aiData.checkCollisionDirectionsCount):
             direction = Geometry.rotatePoint(enemy.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, radians)
             direction.setLength(aiData.checkCollisionLength)
-            if not self.collisionDetector.anyCollisions(enemy, direction):
+            if not self.collisionDetector.anyCollisions(enemy, direction, collisionTree):
                 leftDirectionResult.add(direction)
                 leftDirectionsCount += 1
 
             direction = Geometry.rotatePoint(enemy.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, -radians)
             direction.setLength(aiData.checkCollisionLength)
-            if not self.collisionDetector.anyCollisions(enemy, direction):
+            if not self.collisionDetector.anyCollisions(enemy, direction, collisionTree):
                 rightDirectionResult.add(direction)
                 rightDirectionsCount += 1
 

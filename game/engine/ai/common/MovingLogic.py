@@ -14,8 +14,8 @@ class MovingLogic:
         self.personTurnLogic = personTurnLogic
         self.obstacleAvoidanceLogic = obstacleAvoidanceLogic
 
-    def orientToFreeDirection(self, enemy):
-        nextFrontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(enemy)
+    def orientToFreeDirection(self, enemy, collisionTree):
+        nextFrontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(enemy, collisionTree)
         if nextFrontNormal.isZero():
             nextFrontNormal = enemy.frontNormal.copy()
             nextFrontNormal.mul(-1)
