@@ -1,4 +1,4 @@
 class RifleAltFireLogic:
 
-    def apply(self, person, personItems, weapon):
+    def apply(self, gameState, person, personItems, weapon):
         pass

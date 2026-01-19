@@ -7,7 +7,7 @@ class PlasmaAltFireLogic:
     def __init__(self, rayFireLogic: RayFireLogic):
         self.rayFireLogic = rayFireLogic
 
-    def apply(self, person, personItems, weapon):
+    def apply(self, gameState, person, personItems, weapon):
         if weapon.altFireState == FireState.activated:
             self.rayFireLogic.activateRay(person, weapon)
         elif weapon.altFireState == FireState.active:

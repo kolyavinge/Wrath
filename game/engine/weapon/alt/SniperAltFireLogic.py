@@ -7,6 +7,6 @@ class SniperAltFireLogic:
     def __init__(self, aimStateSwitcher: AimStateSwitcher):
         self.aimStateSwitcher = aimStateSwitcher
 
-    def apply(self, person, personItems, weapon):
+    def apply(self, gameState, person, personItems, weapon):
         if weapon.altFireState == FireState.activated:
             self.aimStateSwitcher.switchDefaultOrSniper()

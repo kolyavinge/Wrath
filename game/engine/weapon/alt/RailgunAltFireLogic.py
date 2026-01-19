@@ -13,7 +13,7 @@ class RailgunAltFireLogic:
         self.weaponFireLogic = weaponFireLogic
         self.eventManager = eventManager
 
-    def apply(self, person, personItems, weapon):
+    def apply(self, gameState, person, personItems, weapon):
         if weapon.altFireState == FireState.activated:
             if weapon.delayRemain.isExpired():
                 weapon.chargeDelay.reset()
