@@ -37,7 +37,7 @@ class EnemyRenderer:
         if self.animationNeedApply(enemy):
             animation = self.enemyAnimationCollection.getPlayableAnimationOrNone(enemy)
             if animation is not None and self.animationNeedUpdate(enemy):
-                self.animationPlayer.update(animation)
+                self.animationPlayer.update(self.gameState.globalTimeMsec, animation)
             shader.hasAnimation(True)
             shader.setBoneTransformMatrices(animation.boneTransformMatrices)
 

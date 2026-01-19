@@ -1,5 +1,4 @@
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameState import GameState
 from game.gl.model3d.FrameInterpolator import FrameInterpolator
 
 
@@ -16,18 +15,16 @@ class AnimationPlayer:
 
     def __init__(
         self,
-        gameState: GameState,
         frameInterpolator: FrameInterpolator,
     ):
-        self.gameState = gameState
         self.frameInterpolator = frameInterpolator
 
-    def update(self, playableAnimation, deltaTimeFactor=0.001):
+    def update(self, globalTimeMsec, playableAnimation, deltaTimeFactor=0.001):
         self.calculateBoneTransformMatrices(playableAnimation, playableAnimation.animation.rootNode, TransformMatrix4.identity)
-        deltaTime = self.gameState.globalTimeMsec - playableAnimation.lastGlobalTimeMsec
+        deltaTime = globalTimeMsec - playableAnimation.lastGlobalTimeMsec
         playableAnimation.currentTime += playableAnimation.animation.ticksPerSecond * (deltaTime * deltaTimeFactor)
         playableAnimation.currentTime %= playableAnimation.animation.duration
-        playableAnimation.lastGlobalTimeMsec = self.gameState.globalTimeMsec
+        playableAnimation.lastGlobalTimeMsec = globalTimeMsec
 
     def calculateBoneTransformMatrices(self, playableAnimation, node, parentTransformMatrix):
         bone = None
