@@ -33,17 +33,17 @@ class PlayerInputManager:
         keyboard = self.inputManager.keyboard
 
         if keyboard.isPressed(KeyboardButtons.d1):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 1))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, self.gameState.playerItems, 1))
         elif keyboard.isPressed(KeyboardButtons.d2):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 2))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, self.gameState.playerItems, 2))
         elif keyboard.isPressed(KeyboardButtons.d3):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 3))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, self.gameState.playerItems, 3))
         elif keyboard.isPressed(KeyboardButtons.d4):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 4))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, self.gameState.playerItems, 4))
         elif keyboard.isPressed(KeyboardButtons.d5):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 5))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, self.gameState.playerItems, 5))
         elif keyboard.isPressed(KeyboardButtons.d6):
-            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, 6))
+            self.eventManager.raiseEvent(Events.selectWeaponRequested, (self.gameState.player, self.gameState.playerItems, 6))
 
         if keyboard.isPressedOrHeld(KeyboardButtons.w):
             inputData.goForward = True
@@ -85,9 +85,9 @@ class PlayerInputManager:
         if mouse.scrollDelta != 0:
             if type(aimState) == DefaultAimState:
                 if mouse.scrollDelta > 0:
-                    self.eventManager.raiseEvent(Events.selectNextWeaponRequested, self.gameState.player)
+                    self.eventManager.raiseEvent(Events.selectNextWeaponRequested, (self.gameState.player, self.gameState.playerItems))
                 elif mouse.scrollDelta < 0:
-                    self.eventManager.raiseEvent(Events.selectPrevWeaponRequested, self.gameState.player)
+                    self.eventManager.raiseEvent(Events.selectPrevWeaponRequested, (self.gameState.player, self.gameState.playerItems))
             elif type(aimState) == SniperAimState:
                 if mouse.scrollDelta > 0:
                     aimState.zoomIn()

@@ -47,9 +47,9 @@ class WeaponAltFireUpdater:
         weapon = personItems.currentWeapon
         weaponType = type(weapon)
         if inputData.fire and not weapon.allowFireWithAltFire:
-            self.deactivateAltFire(person, personItems, weaponType, weapon)
+            self.deactivateAltFire(gameState, person, personItems, weaponType, weapon)
         elif person.weaponSelectState is not None:
-            self.deactivateAltFire(person, personItems, weaponType, weapon)
+            self.deactivateAltFire(gameState, person, personItems, weaponType, weapon)
         else:
             self.applyAltFire(gameState, person, personItems, weaponType, weapon, inputData)
 
@@ -58,8 +58,8 @@ class WeaponAltFireUpdater:
         if weapon.altFireState != FireState.deactive:
             self.altFireLogic[weaponType].apply(gameState, person, personItems, weapon)
 
-    def deactivateAltFire(self, person, personItems, weaponType, weapon):
+    def deactivateAltFire(self, gameState, person, personItems, weaponType, weapon):
         if weapon.altFireState != FireState.deactive:
             weapon.altFireState = FireState.deactivated
-            self.altFireLogic[weaponType].apply(person, personItems, weapon)
+            self.altFireLogic[weaponType].apply(gameState, person, personItems, weapon)
             weapon.altFireState = FireState.deactive

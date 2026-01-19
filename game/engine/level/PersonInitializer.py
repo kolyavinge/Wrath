@@ -34,7 +34,7 @@ class PersonInitializer:
         self.gameState.player.moveNextPositionTo(position)
         self.personTurnLogic.orientToFrontNormal(self.gameState.player, frontNormal)
         self.gameState.player.commitNextPosition()
-        self.weaponSelector.initWeaponByType(self.gameState.player, weaponType)
+        self.weaponSelector.initWeaponByType(self.gameState.playerItems, weaponType)
 
     def initEnemies(self):
         if not DebugSettings.allowEnemies:
@@ -57,4 +57,4 @@ class PersonInitializer:
         self.gameState.allPersonItems[enemy] = self.gameState.enemyItems[enemy]
         self.gameState.allPersonInputData[enemy] = self.gameState.enemyInputData[enemy]
         self.gameState.enemyLifeBars[enemy] = EnemyLifeBar()
-        self.weaponSelector.initWeaponByType(enemy, weaponType)
+        self.weaponSelector.initWeaponByType(personItems, weaponType)

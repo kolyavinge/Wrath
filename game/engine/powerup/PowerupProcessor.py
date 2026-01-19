@@ -35,7 +35,7 @@ class PowerupProcessor:
             for _ in range(0, powerup.count):
                 personItems.weapons.add(powerup.weaponType())
             if selectThisWeapon:
-                self.weaponSelector.selectWeaponByType(person, powerup.weaponType)
+                self.weaponSelector.selectWeaponByType(person, personItems, powerup.weaponType)
 
     def applyHealthPowerup(self, person, powerup):
         person.addHealth(powerup.value)

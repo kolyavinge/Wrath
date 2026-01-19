@@ -25,4 +25,4 @@ class WeaponFireUpdater:
             personItems.leftHandWeapon.isFiring = False
 
         if inputData.fire and (not inputData.altFire or personItems.currentWeapon.allowFireWithAltFire):
-            self.weaponFireLogic.fireCurrentWeapon(person, personItems)
+            self.weaponFireLogic.fireCurrentWeapon(gameState, person, personItems)

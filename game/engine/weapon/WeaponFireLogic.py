@@ -18,11 +18,11 @@ class WeaponFireLogic:
         self.weaponSelector = weaponSelector
         self.eventManager = eventManager
 
-    def fireCurrentWeapon(self, person, personItems):
+    def fireCurrentWeapon(self, gameState, person, personItems):
         weapon = personItems.currentWeapon
-        self.fireWeapon(person, weapon, personItems)
+        self.fireWeapon(gameState, person, weapon, personItems)
 
-    def fireWeapon(self, person, weapon, personItems):
+    def fireWeapon(self, gameState, person, weapon, personItems):
         if self.canFire(person, weapon):
             weapon.isFiring = True
             weapon.bulletsCount -= 1
@@ -30,7 +30,7 @@ class WeaponFireLogic:
             if weapon.needReload:
                 weapon.reloadDelayRemain.set(weapon.reloadDelay)
             self.weaponFeedbackLogic.applyFeedback(weapon)
-            self.bulletLogic.makeBullet(person, weapon)
+            self.bulletLogic.makeBullet(gameState, person, weapon)
             self.weaponSelector.selectNextWeaponIfCurrentEmpty(person, personItems)
             self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
 

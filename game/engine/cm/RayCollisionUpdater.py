@@ -26,21 +26,21 @@ class RayCollisionUpdater:
         for ray in gameState.rays:
             collisionResult = self.rayCollisionDetector.getCollisionResultOrNone(ray, gameState.collisionTree)
             if collisionResult is not None:
-                self.processCollision(ray, collisionResult, gameState.visibilityTree)
+                self.processCollision(gameState, ray, collisionResult)
 
-    def processCollision(self, ray, collisionResult, visibilityTree):
+    def processCollision(self, gameState, ray, collisionResult):
         target, collisionResultData = collisionResult
         if target == CollidedTarget.construction:
-            self.processConstructionCollision(ray, collisionResultData, visibilityTree)
+            self.processConstructionCollision(gameState, ray, collisionResultData)
         elif target == CollidedTarget.onePerson:
             self.processPersonCollision(ray, collisionResultData)
 
-    def processConstructionCollision(self, ray, collisionResult, visibilityTree):
+    def processConstructionCollision(self, gameState, ray, collisionResult):
         collisionPoint, construction = collisionResult
         ray.endPosition = collisionPoint
         ray.damagedObject = construction
-        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(visibilityTree, collisionPoint)
-        self.bulletHoleLogic.makeHole(collisionPoint, construction.frontNormal, visibilityLevelSegment, ray.holeInfo)
+        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, collisionPoint)
+        self.bulletHoleLogic.makeHole(gameState, collisionPoint, construction.frontNormal, visibilityLevelSegment, ray.holeInfo)
 
     def processPersonCollision(self, ray, collisionResult):
         collisionPoint, person, target = collisionResult

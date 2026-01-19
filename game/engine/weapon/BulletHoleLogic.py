@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.engine.weapon.BulletHoleFactory import BulletHoleFactory
 from game.lib.EventManager import EventManager, Events
 
@@ -7,18 +6,16 @@ class BulletHoleLogic:
 
     def __init__(
         self,
-        gameState: GameState,
         bulletHoleFactory: BulletHoleFactory,
         eventManager: EventManager,
     ):
-        self.gameState = gameState
         self.bulletHoleFactory = bulletHoleFactory
         self.eventManager = eventManager
 
-    def makeHole(self, collisionPoint, frontNormal, levelSegment, bulletHoleInfo):
+    def makeHole(self, gameState, collisionPoint, frontNormal, levelSegment, bulletHoleInfo):
         bulletHolePoint = self.toBulletHolePoint(collisionPoint)
-        if bulletHolePoint not in self.gameState.bulletHolePoints:
-            self.gameState.bulletHolePoints.add(bulletHolePoint)
+        if bulletHolePoint not in gameState.bulletHolePoints:
+            gameState.bulletHolePoints.add(bulletHolePoint)
             bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, levelSegment, bulletHoleInfo)
             self.eventManager.raiseEvent(Events.bulletHoleAdded, bulletHole)
 

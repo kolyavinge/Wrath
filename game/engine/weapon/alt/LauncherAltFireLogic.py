@@ -17,5 +17,5 @@ class LauncherAltFireLogic:
         if weapon.altFireState == FireState.activated:
             personBullets = [bullet for bullet in gameState.bullets if bullet.ownerPerson == person]
             for bullet in personBullets:
-                self.explosionLogic.makeExplosion(bullet)
-                self.bulletLogic.removeBullet(bullet)
+                self.explosionLogic.makeExplosion(gameState, bullet)
+                self.bulletLogic.removeBullet(gameState, bullet)

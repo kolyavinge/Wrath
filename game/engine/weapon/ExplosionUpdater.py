@@ -13,4 +13,4 @@ class ExplosionUpdater:
         for explosion in gameState.explosions:
             explosion.update()
             if not explosion.isVisible:
-                self.explosionLogic.removeExplosion(explosion)
+                self.explosionLogic.removeExplosion(gameState, explosion)

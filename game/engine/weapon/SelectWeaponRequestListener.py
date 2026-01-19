@@ -16,12 +16,14 @@ class SelectWeaponRequestListener:
         eventManager.attachToEvent(Events.selectPrevWeaponRequested, self.onSelectPrevWeaponRequested)
 
     def onSelectWeaponRequested(self, args):
-        person, weaponNumber = args
+        person, personItems, weaponNumber = args
         requestedWeaponType = WeaponCollection.getWeaponTypeByNumber(weaponNumber)
-        self.weaponSelector.selectWeaponByType(person, requestedWeaponType)
+        self.weaponSelector.selectWeaponByType(person, personItems, requestedWeaponType)
 
-    def onSelectNextWeaponRequested(self, person):
-        self.weaponSelector.selectNextWeapon(person)
+    def onSelectNextWeaponRequested(self, args):
+        person, personItems = args
+        self.weaponSelector.selectNextWeapon(person, personItems)
 
-    def onSelectPrevWeaponRequested(self, person):
-        self.weaponSelector.selectPrevWeapon(person)
+    def onSelectPrevWeaponRequested(self, args):
+        person, personItems = args
+        self.weaponSelector.selectPrevWeapon(person, personItems)

@@ -9,5 +9,5 @@ class PistolAltFireLogic:
 
     def apply(self, gameState, person, personItems, weapon):
         if weapon.altFireState == FireState.activated or weapon.altFireState == FireState.active:
-            self.weaponFireLogic.fireWeapon(person, personItems.leftHandWeapon, personItems)
-            self.weaponFireLogic.fireWeapon(person, personItems.rightHandWeapon, personItems)
+            self.weaponFireLogic.fireWeapon(gameState, person, personItems.leftHandWeapon, personItems)
+            self.weaponFireLogic.fireWeapon(gameState, person, personItems.rightHandWeapon, personItems)

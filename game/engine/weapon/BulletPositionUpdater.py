@@ -27,7 +27,7 @@ class BulletPositionUpdater:
             bspTree = gameState.collisionTree
             bullet.nextLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.nextPosition)
         else:
-            self.bulletLogic.removeBullet(bullet)
+            self.bulletLogic.removeBullet(gameState, bullet)
 
     def commitNextPosition(self, gameState):
         visibilityTree = gameState.visibilityTree

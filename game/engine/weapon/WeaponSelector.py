@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
 from game.model.person.PersonStates import WeaponSelectState
 from game.model.person.Player import Player
@@ -11,14 +10,11 @@ class WeaponSelector:
 
     def __init__(
         self,
-        gameState: GameState,
         aimStateSwitcher: AimStateSwitcher,
     ):
-        self.gameState = gameState
         self.aimStateSwitcher = aimStateSwitcher
 
-    def initWeaponByType(self, person, weaponType):
-        personItems = self.gameState.allPersonItems[person]
+    def initWeaponByType(self, personItems, weaponType):
         if weaponType.defaultCount == 1:
             findedWeapon = personItems.getWeaponByTypeOrNone(weaponType)
             assert findedWeapon is not None
@@ -35,8 +31,7 @@ class WeaponSelector:
             personItems.leftHandWeapon = leftHandWeapon
             personItems.currentWeapon = currentWeapon
 
-    def selectWeaponByType(self, person, weaponType):
-        personItems = self.gameState.allPersonItems[person]
+    def selectWeaponByType(self, person, personItems, weaponType):
         if weaponType.defaultCount == 1:
             findedWeapon = personItems.getWeaponByTypeOrNone(weaponType)
             if findedWeapon is not None:
@@ -50,28 +45,26 @@ class WeaponSelector:
                 currentWeapon = rightHandWeapon if rightHandWeapon.bulletsCount == leftHandWeapon.bulletsCount else leftHandWeapon
                 self.selectWeapons(person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon)
 
-    def selectNextWeapon(self, person):
-        personItems = self.gameState.allPersonItems[person]
+    def selectNextWeapon(self, person, personItems):
         if personItems.hasWeapons():
             weaponType = type(personItems.selectedCurrentWeapon or personItems.currentWeapon)
             nextWeaponType = WeaponCollection.getNextWeaponTypeFor(weaponType)
             for _ in range(1, WeaponCollection.weaponTypesCount):
                 if personItems.hasWeaponByType(nextWeaponType):
-                    self.selectWeaponByType(person, nextWeaponType)
+                    self.selectWeaponByType(person, personItems, nextWeaponType)
                     return
                 else:
                     nextWeaponType = WeaponCollection.getNextWeaponTypeFor(nextWeaponType)
         else:
             self.selectWeapons(person, personItems, NullWeapon.instance, None, NullWeapon.instance)
 
-    def selectPrevWeapon(self, person):
-        personItems = self.gameState.allPersonItems[person]
+    def selectPrevWeapon(self, person, personItems):
         if personItems.hasWeapons():
             weaponType = type(personItems.selectedCurrentWeapon or personItems.currentWeapon)
             prevWeaponType = WeaponCollection.getPrevWeaponTypeFor(weaponType)
             for _ in range(1, WeaponCollection.weaponTypesCount):
                 if personItems.hasWeaponByType(prevWeaponType):
-                    self.selectWeaponByType(person, prevWeaponType)
+                    self.selectWeaponByType(person, personItems, prevWeaponType)
                     return
                 else:
                     prevWeaponType = WeaponCollection.getPrevWeaponTypeFor(prevWeaponType)
@@ -81,7 +74,7 @@ class WeaponSelector:
     def selectNextWeaponIfCurrentEmpty(self, person, personItems):
         if personItems.isCurrentWeaponEmpty():
             personItems.removeWeaponByType(personItems.getCurrentWeaponType())
-            self.selectNextWeapon(person)
+            self.selectNextWeapon(person, personItems)
 
     def selectWeapons(self, person, personItems, selectedRightHandWeapon, selectedLeftHandWeapon, selectedCurrentWeapon):
         if personItems.currentWeapon == selectedCurrentWeapon:
