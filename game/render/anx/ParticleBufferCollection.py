@@ -1,7 +1,8 @@
 class ParticleBufferCollection:
 
-    def __init__(self, bufferInitializer):
+    def __init__(self, bufferInitializer, extraInitData=None):
         self.bufferInitializer = bufferInitializer
+        self.extraInitData = extraInitData
         self.buffers = {}
 
     def getBufferFor(self, item):
@@ -11,7 +12,7 @@ class ParticleBufferCollection:
             buffer = self.findFreeBufferOrNone()
             if buffer is None:
                 buffer = self.bufferInitializer.makeEmpty(item)
-            self.bufferInitializer.init(buffer, item)
+            self.bufferInitializer.init(buffer, item, self.extraInitData)
             self.buffers[item] = buffer
 
             return buffer

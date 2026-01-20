@@ -2,7 +2,6 @@ from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Vector3 import Vector3
 from game.calc.Vector4 import Vector4
-from game.engine.GameState import GameState
 from game.gl.ParticleBuffer import ExtraParticleDataBuffers
 from game.gl.ParticleBufferFactory import ParticleBufferFactory
 from game.lib.Math import Math
@@ -13,10 +12,8 @@ class FireExplosionParticleBufferInitializer:
 
     def __init__(
         self,
-        gameState: GameState,
         particleBufferFactory: ParticleBufferFactory,
     ):
-        self.gameState = gameState
         self.particleBufferFactory = particleBufferFactory
         self.fireParticlesCount = 8
         self.flashParticlesCount = 1
@@ -32,15 +29,16 @@ class FireExplosionParticleBufferInitializer:
 
         return buffer
 
-    def init(self, buffer, explosion):
-        buffer.setPositionData(self.getPositionData(explosion))
+    def init(self, buffer, explosion, extraInitData):
+        camera = extraInitData
+        buffer.setPositionData(self.getPositionData(explosion, camera))
         buffer.setVelocityData(self.getVelocityData())
         buffer.setAgeData(self.getAgeData())
         buffer.setLifeTimeData(self.getLifeTimeData())
         buffer.setTexCoordData(self.getTexCoordData())
 
-    def getPositionData(self, explosion):
-        stepToCamera = self.gameState.camera.getCameraFacedNormal(explosion.position)
+    def getPositionData(self, explosion, camera):
+        stepToCamera = camera.getCameraFacedNormal(explosion.position)
         stepToCamera.mul(0.5)
         initPosition = explosion.position.copy()
         initPosition.add(stepToCamera)

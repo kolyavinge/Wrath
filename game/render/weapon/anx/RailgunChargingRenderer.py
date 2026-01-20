@@ -1,6 +1,5 @@
 from OpenGL.GL import *
 
-from game.engine.GameState import GameState
 from game.gl.ColorVector3 import ColorVector3
 from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 from game.gl.vbo.VBORenderer import VBORenderer
@@ -13,12 +12,10 @@ class RailgunChargingRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
         vboBuilderFactory: VBOBuilderFactory,
     ):
-        self.gameState = gameState
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
         self.vboBuilderFactory = vboBuilderFactory
@@ -26,7 +23,7 @@ class RailgunChargingRenderer:
         self.rangeColor.normalize()
         self.initVBOs()
 
-    def renderPlayerWeapon(self, railgun):
+    def renderPlayerWeapon(self, railgun, camera):
         if railgun.chargeDelay.isFull():
             return
 
@@ -37,8 +34,8 @@ class RailgunChargingRenderer:
         shader = self.shaderProgramCollection.plainColor
         shader.use()
         shader.setModelMatrix(railgun.getModelMatrix())
-        shader.setViewMatrix(self.gameState.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
+        shader.setViewMatrix(camera.viewMatrix)
+        shader.setProjectionMatrix(camera.projectionMatrix)
         shader.setColor(self.rangeColor)
 
         chargedRanges = self.getChargedRanges(railgun)

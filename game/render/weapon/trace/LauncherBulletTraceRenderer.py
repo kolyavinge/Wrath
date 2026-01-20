@@ -1,7 +1,6 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.engine.GameState import GameState
 from game.gl.FeedbackParticleRenderer import FeedbackParticleRenderer
 from game.render.anx.BlurRenderer import BlurRenderer
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
@@ -13,29 +12,27 @@ class LauncherBulletTraceRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         particleRenderer: FeedbackParticleRenderer,
         blurRenderer: BlurRenderer,
         bufferInitializer: LauncherBulletTraceParticleBufferInitializer,
         shaderProgramCollection: ShaderProgramCollection,
     ):
-        self.gameState = gameState
         self.particleRenderer = particleRenderer
         self.blurRenderer = blurRenderer
         self.bufferCollection = ParticleBufferCollection(bufferInitializer)
         self.shaderProgramCollection = shaderProgramCollection
 
-    def renderTraces(self, traces):
+    def renderTraces(self, traces, camera):
         self.blurRenderer.prepare()
-        self.prepareShader()
+        self.prepareShader(camera)
         self.updateAndRenderTraces(traces)
         self.blurRenderer.blur(32)
 
-    def prepareShader(self):
+    def prepareShader(self, camera):
         shader = self.shaderProgramCollection.launcherBulletTrace
         shader.use()
-        shader.setViewMatrix(self.gameState.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
+        shader.setViewMatrix(camera.viewMatrix)
+        shader.setProjectionMatrix(camera.projectionMatrix)
         shader.setDeltaTime(CommonConstants.renderTimerMsec)
         shader.unuse()
 

@@ -1,6 +1,5 @@
 from OpenGL.GL import *
 
-from game.engine.GameState import GameState
 from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.model.person.PersonStates import LifeCycle
 from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection
@@ -10,21 +9,19 @@ class WeaponRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         renderCollection: WeaponRenderCollection,
         model3dRenderer: Model3dRenderer,
     ):
-        self.gameState = gameState
         self.renderCollection = renderCollection
         self.model3dRenderer = model3dRenderer
 
-    def renderPlayerWeapon(self, shader):
-        self.renderWeapon(shader, self.gameState.playerItems.rightHandWeapon)
-        if self.gameState.playerItems.leftHandWeapon is not None:
-            self.renderWeapon(shader, self.gameState.playerItems.leftHandWeapon)
+    def renderPlayerWeapon(self, playerItems, shader):
+        self.renderWeapon(shader, playerItems.rightHandWeapon)
+        if playerItems.leftHandWeapon is not None:
+            self.renderWeapon(shader, playerItems.leftHandWeapon)
 
-    def renderEnemyWeapons(self, shader):
-        for enemy, enemyItems in self.gameState.enemyItems.items():
+    def renderEnemyWeapons(self, enemyItemsDic, shader):
+        for enemy, enemyItems in enemyItemsDic.items():
             if enemy.isVisibleForPlayer:
                 self.renderEnemyWeapon(enemy, enemyItems, shader)
 

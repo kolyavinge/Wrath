@@ -17,13 +17,13 @@ class RailgunBulletTraceRenderer:
         self.rayParams.rayColor = self.defaultRayColor
         self.rayParams.shineStrength = 0.002
 
-    def renderTraces(self, traces):
+    def renderTraces(self, traces, camera):
         charged, notCharged = Query(traces).split(lambda trace: trace.bullet.isCharged)
 
         if len(notCharged) > 0:
-            self.rayBulletTraceRenderer.renderTraces(notCharged, self.rayParams)
+            self.rayBulletTraceRenderer.renderTraces(notCharged, self.rayParams, camera)
 
         if len(charged) > 0:
             self.rayParams.rayColor = self.chargedRayColor
-            self.rayBulletTraceRenderer.renderTraces(charged, self.rayParams)
+            self.rayBulletTraceRenderer.renderTraces(charged, self.rayParams, camera)
             self.rayParams.rayColor = self.defaultRayColor

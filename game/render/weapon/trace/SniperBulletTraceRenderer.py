@@ -13,5 +13,5 @@ class SniperBulletTraceRenderer:
         self.rayParams.rayColor.normalize()
         self.rayParams.shineStrength = 0
 
-    def renderTraces(self, traces):
-        self.rayBulletTraceRenderer.renderTraces(traces, self.rayParams)
+    def renderTraces(self, traces, camera):
+        self.rayBulletTraceRenderer.renderTraces(traces, self.rayParams, camera)

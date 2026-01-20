@@ -36,7 +36,7 @@ class BulletTraceRenderer:
             return
 
         for traceType, traces in visibleTraces.items():
-            self.renderers[traceType].renderTraces(traces)
+            self.renderers[traceType].renderTraces(traces, self.gameState.camera)
 
     def getVisibleTracesDictionary(self):
         result = {}

@@ -62,8 +62,8 @@ class GameScreenRenderer:
         self.renderFunc = self.renderDefaultAimState
         eventManager.attachToEvent(Events.aimStateSwitched, self.onAimStateSwitched)
 
-    def init(self):
-        self.gameScreenInitializer.init()
+    def init(self, gameState):
+        self.gameScreenInitializer.init(gameState)
 
     # @timeProfile("Rendered", CommonConstants.renderTimerMsec / 1000.0, showOnlyLimited=True)
     # @cpuProfile

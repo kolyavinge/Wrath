@@ -15,7 +15,7 @@ class LauncherBulletTraceParticleBufferInitializer:
 
         return buffer
 
-    def init(self, buffer, trace):
+    def init(self, buffer, trace, extraInitData=None):
         buffer.setAgeData(self.getAgeData(trace))
         buffer.setRandomData(self.getRandomData(trace))
 

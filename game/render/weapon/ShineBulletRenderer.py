@@ -18,4 +18,4 @@ class ShineBulletRenderer:
         for bullet in self.gameState.bullets:
             if type(bullet) in self.renderers:
                 renderer = self.renderers[type(bullet)]
-                renderer.renderBullet(bullet)
+                renderer.renderBullet(bullet, self.gameState.player, self.gameState.camera)

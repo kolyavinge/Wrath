@@ -1,7 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.calc.Geometry import Geometry
 from game.calc.Plane import Plane
-from game.engine.GameState import GameState
 from game.gl.FeedbackParticleBufferFactory import FeedbackParticleBufferFactory
 from game.lib.Math import Math
 from game.lib.Random import Random
@@ -12,10 +11,8 @@ class PlasmaExplosionParticleBufferInitializer:
 
     def __init__(
         self,
-        gameState: GameState,
         particleBufferFactory: FeedbackParticleBufferFactory,
     ):
-        self.gameState = gameState
         self.particleBufferFactory = particleBufferFactory
 
     def makeEmpty(self, explosion):
@@ -24,17 +21,18 @@ class PlasmaExplosionParticleBufferInitializer:
 
         return buffer
 
-    def init(self, buffer, explosion):
-        buffer.setPositionData(self.getPositionData(explosion))
-        buffer.setVelocityData(self.getVelocityData(explosion))
+    def init(self, buffer, explosion, extraInitData):
+        camera = extraInitData
+        buffer.setPositionData(self.getPositionData(explosion, camera))
+        buffer.setVelocityData(self.getVelocityData(explosion, camera))
         buffer.setAgeData(self.getAgeData(explosion))
 
-    def getPositionData(self, explosion):
+    def getPositionData(self, explosion, camera):
         positionData = []
         particlesCount = explosion.particlesInGroup * explosion.particleGroupsCount
         damagedObject = explosion.bullet.damagedObject
         if isinstance(damagedObject, Person):
-            explosionPosition = self.gameState.camera.getCameraFacedNormal(explosion.position)
+            explosionPosition = camera.getCameraFacedNormal(explosion.position)
             explosionPosition.setLength(0.5)
             explosionPosition.add(explosion.position)
         else:
@@ -44,11 +42,11 @@ class PlasmaExplosionParticleBufferInitializer:
 
         return positionData
 
-    def getVelocityData(self, explosion):
+    def getVelocityData(self, explosion, camera):
         velocityDataForGroup = []
         damagedObject = explosion.bullet.damagedObject
         if isinstance(damagedObject, Person):
-            planeNormal = self.gameState.camera.getCameraFacedNormal(explosion.position)
+            planeNormal = camera.getCameraFacedNormal(explosion.position)
         else:
             planeNormal = damagedObject.frontNormal
         plane = Plane(planeNormal, explosion.position)

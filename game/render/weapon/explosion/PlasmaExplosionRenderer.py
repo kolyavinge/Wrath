@@ -22,7 +22,7 @@ class PlasmaExplosionRenderer:
         self.gameState = gameState
         self.particleRenderer = particleRenderer
         self.blurRenderer = blurRenderer
-        self.bufferCollection = ParticleBufferCollection(bufferInitializer)
+        self.bufferCollection = ParticleBufferCollection(bufferInitializer, self.gameState.camera)
         self.shaderProgramCollection = shaderProgramCollection
 
     def renderExplosions(self, explosions):

@@ -17,4 +17,4 @@ class WeaponAltRenderer:
     def renderPlayerWeapon(self):
         weaponType = self.gameState.playerItems.getCurrentWeaponType()
         if weaponType in self.renderers:
-            self.renderers[weaponType].renderPlayerWeapon(self.gameState.playerItems.currentWeapon)
+            self.renderers[weaponType].renderPlayerWeapon(self.gameState.playerItems.currentWeapon, self.gameState.camera)

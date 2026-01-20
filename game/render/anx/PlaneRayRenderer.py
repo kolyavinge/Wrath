@@ -3,7 +3,6 @@ from OpenGL.GL import *
 from game.anx.CommonConstants import CommonConstants
 from game.calc.PlaneOrientationLogic import PlaneOrientationLogic
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameState import GameState
 from game.gl.BufferIndices import BufferIndices
 from game.gl.ColorVector3 import ColorVector3
 from game.gl.vbo.VBORenderer import VBORenderer
@@ -23,13 +22,11 @@ class PlaneRayRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         planeOrientationLogic: PlaneOrientationLogic,
         vboUpdaterFactory: VBOUpdaterFactory,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
     ):
-        self.gameState = gameState
         self.planeOrientationLogic = planeOrientationLogic
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
         self.shaderProgramCollection = shaderProgramCollection
@@ -38,7 +35,7 @@ class PlaneRayRenderer:
             4 * CommonConstants.maxRaysCount, 2 * CommonConstants.maxRaysCount, [BufferIndices.vertices, BufferIndices.faces]
         )
 
-    def render(self, rays, params):
+    def render(self, rays, params, camera):
         self.vbo.reset()
         originPositions = []
         mainAxes = []
@@ -52,7 +49,7 @@ class PlaneRayRenderer:
                 ray.startPosition,
                 ray.currentPosition,
                 mainAxis,
-                self.gameState.camera.position,
+                camera.position,
             )
             self.addVerticesToVBO(vertices)
             originPositions.append(ray.startPosition)
@@ -67,8 +64,8 @@ class PlaneRayRenderer:
         shader = self.shaderProgramCollection.ray
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
-        shader.setViewMatrix(self.gameState.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
+        shader.setViewMatrix(camera.viewMatrix)
+        shader.setProjectionMatrix(camera.projectionMatrix)
         shader.setOriginPositions(originPositions)
         shader.setMainAxes(mainAxes)
         shader.setRayLengths(rayLengths)
