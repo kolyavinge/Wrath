@@ -10,18 +10,18 @@ from game.engine.person.PersonVelocityUpdater import PersonVelocityUpdater
 class LevelDebugGameUpdater:
 
     gameState: GameState
-    personTurnUpdater: PersonTurnUpdater
-    personVelocityUpdater: PersonVelocityUpdater
     backgroundVisibilityUpdater: BackgroundVisibilityUpdater
-    personPositionUpdater: PersonPositionUpdater
-    personUpdater: PersonUpdater
     cameraUpdater: CameraUpdater
+    personPositionUpdater: PersonPositionUpdater
+    personTurnUpdater: PersonTurnUpdater
+    personUpdater: PersonUpdater
+    personVelocityUpdater: PersonVelocityUpdater
 
     def update(self):
-        self.personTurnUpdater.update()
-        self.personVelocityUpdater.update()
-        self.personPositionUpdater.moveNextPosition()
-        self.personPositionUpdater.commitNextPosition()
-        self.cameraUpdater.update()
-        self.backgroundVisibilityUpdater.updateIfNeeded()
-        self.personPositionUpdater.resetMovedAndTurned()
+        self.personTurnUpdater.updateForPlayer(self.gameState)
+        self.personVelocityUpdater.updateForPlayer(self.gameState)
+        self.personPositionUpdater.movePlayerNextPosition(self.gameState)
+        self.personPositionUpdater.commitPlayerNextPosition(self.gameState)
+        self.cameraUpdater.update(self.gameState)
+        self.backgroundVisibilityUpdater.updateIfNeeded(self.gameState)
+        self.personPositionUpdater.resetMovedAndTurned(self.gameState)

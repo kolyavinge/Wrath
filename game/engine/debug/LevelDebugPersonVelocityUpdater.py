@@ -1,14 +1,7 @@
-from game.engine.GameState import GameState
-
-
 class LevelDebugPersonVelocityUpdater:
 
-    def __init__(self, gameState: GameState):
-        self.gameState = gameState
-
-    def update(self):
-        for person, inputData in self.gameState.allPersonInputData.items():
-            self.updateForPerson(person, inputData)
+    def updateForPlayer(self, gameState):
+        self.updateForPerson(gameState.player, gameState.playerInputData)
 
     def updateForPerson(self, person, inputData):
         person.prevVelocityValue = person.velocityValue
