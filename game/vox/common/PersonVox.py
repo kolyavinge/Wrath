@@ -1,5 +1,4 @@
 from game.audio.AudioPlayer import AudioPlayer
-from game.engine.GameState import GameState
 from game.lib.EventManager import EventManager, Events
 from game.model.Material import MaterialKind
 from game.vox.common.AudioSourceFactory import AudioSourceFactory
@@ -10,22 +9,20 @@ class PersonVox:
 
     def __init__(
         self,
-        gameState: GameState,
         audioSourceFactory: AudioSourceFactory,
         audioPlayer: AudioPlayer,
         eventManager: EventManager,
     ):
         self.sources = {}
-        self.gameState = gameState
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer
         eventManager.attachToEvent(Events.personStepDone, self.onPersonStepDone)
         eventManager.attachToEvent(Events.personJumped, self.onPersonJumped)
         eventManager.attachToEvent(Events.personLanded, self.onPersonLanded)
 
-    def init(self, allSources):
+    def init(self, gameState, allSources):
         self.sources = {}
-        for person in self.gameState.allPerson:
+        for person in gameState.allPerson:
             self.sources[person] = PersonAudioSources(person, self.audioSourceFactory)
         allSources.extend(self.sources.values())
 

@@ -1,5 +1,4 @@
 from game.audio.AudioPlayer import AudioPlayer
-from game.engine.GameState import GameState
 from game.vox.common.PersonVox import PersonVox
 from game.vox.common.PlayerItemsVox import PlayerItemsVox
 from game.vox.common.PowerupVox import PowerupVox
@@ -10,7 +9,6 @@ class GameScreenVox:
 
     def __init__(
         self,
-        gameState: GameState,
         audioPlayer: AudioPlayer,
         personVox: PersonVox,
         playerItemsVox: PlayerItemsVox,
@@ -18,24 +16,23 @@ class GameScreenVox:
         powerupVox: PowerupVox,
     ):
         self.allSources = []
-        self.gameState = gameState
         self.audioPlayer = audioPlayer
         self.personVox = personVox
         self.playerItemsVox = playerItemsVox
         self.weaponVox = weaponVox
         self.powerupVox = powerupVox
 
-    def init(self):
+    def init(self, gameState):
         for source in self.allSources:
             source.release()
 
         self.allSources = []
-        self.personVox.init(self.allSources)
-        self.playerItemsVox.init(self.allSources)
-        self.weaponVox.init(self.allSources)
-        self.powerupVox.init(self.allSources)
+        self.personVox.init(gameState, self.allSources)
+        self.playerItemsVox.init(gameState, self.allSources)
+        self.weaponVox.init(gameState, self.allSources)
+        self.powerupVox.init(gameState, self.allSources)
 
-    def update(self):
-        self.audioPlayer.setListenerPosition(self.gameState.player.currentCenterPoint)
+    def update(self, gameState):
+        self.audioPlayer.setListenerPosition(gameState.player.currentCenterPoint)
         for source in self.allSources:
             source.updatePosition()
