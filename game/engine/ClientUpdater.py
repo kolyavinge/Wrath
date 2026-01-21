@@ -96,12 +96,12 @@ class ClientUpdater:
         self.personWallCollisionUpdater.updateForPlayer(gameState)
         self.personZUpdater.updateIfMovedForPlayer(gameState)
         self.personCeilingCollisionUpdater.updateForPlayer(gameState)
+        self.personStepUpdater.update(gameState)
         self.personPositionUpdater.commitPlayerNextPosition(gameState)
         self.personFloorUpdater.commitPlayerNextFloor(gameState)
         # асинхронно отправляем на сервер позицию игрока и направление взгляда
         self.playerLevelSegmentsUpdater.updateIfMoved(gameState)
         self.enemyLevelSegmentsUpdater.updateIfMoved(gameState)
-        self.personStepUpdater.update(gameState)
         self.personWeaponPositionUpdater.update(gameState)
         self.personSelectedWeaponPositionUpdater.update(gameState)
         self.weaponDelayUpdater.updateForPlayer(gameState)
