@@ -12,24 +12,25 @@ class Game:
 
     def __init__(
         self,
-        gameState: GameState,
         gameInitializer: GameInitializer,
         levelManager: LevelManager,
         inputManager: InputManager,
         screenManager: ScreenManager,
         eventManager: EventManager,  # for App
     ):
-        self.client = Client()
-        self.client.gameState = gameState  # TODO delete
-        self.server = Server()
-        gameInitializer.init(self.client, self.server)
         self.levelManager = levelManager
         self.inputManager = inputManager
         self.screenManager = screenManager
-        self.levelManager.loadFirstLevel(gameState)  # TODO: временно
-        self.screenManager.currentScreenRenderer.init(gameState)
-        self.screenManager.currentScreenVox.init(gameState)
         self.eventManager = eventManager
+        self.client = Client()
+        self.server = Server()
+        gameState = GameState()
+        self.client.gameState = gameState
+        self.server.gameState = gameState
+        gameInitializer.init(self.client, self.server)
+        self.levelManager.loadFirstLevel(gameState)
+        self.screenManager.currentScreenRenderer.init(self.client.gameState)
+        self.screenManager.currentScreenVox.init(self.client.gameState)
 
     def updateCurrentScreen(self):
         self.inputManager.update()

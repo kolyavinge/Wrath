@@ -1,4 +1,5 @@
 from game.audio.AudioPlayer import AudioPlayer
+from game.engine.GameUpdater import GameUpdater
 from game.gl.TextRenderer import TextRenderer
 from game.network.NetworkConnectionInitializer import NetworkConnectionInitializer
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
@@ -12,6 +13,7 @@ class GameInitializer:
 
     def __init__(
         self,
+        gameUpdater: GameUpdater,
         textureCollection: TextureCollection,
         materialTextureCollection: MaterialTextureCollection,
         shaderCollection: ShaderCollection,
@@ -28,6 +30,7 @@ class GameInitializer:
         self.textRenderer = textRenderer
         self.audioPlayer = audioPlayer
         self.audioBufferCollection = audioBufferCollection
+        self.gameUpdater = gameUpdater
         self.networkConnectionInitializer = networkConnectionInitializer
 
     def init(self, client, server):
@@ -38,4 +41,5 @@ class GameInitializer:
         self.textRenderer.init()
         self.audioPlayer.init()
         self.audioBufferCollection.init()
+        self.gameUpdater.init(client.gameState)
         self.networkConnectionInitializer.init(client, server)

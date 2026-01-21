@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.engine.level.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.person.CameraUpdater import CameraUpdater
 from game.engine.person.PersonPositionUpdater import PersonPositionUpdater
@@ -9,13 +8,15 @@ from game.engine.person.PersonVelocityUpdater import PersonVelocityUpdater
 
 class LevelDebugGameUpdater:
 
-    gameState: GameState
     backgroundVisibilityUpdater: BackgroundVisibilityUpdater
     cameraUpdater: CameraUpdater
     personPositionUpdater: PersonPositionUpdater
     personTurnUpdater: PersonTurnUpdater
     personUpdater: PersonUpdater
     personVelocityUpdater: PersonVelocityUpdater
+
+    def init(self, gameState):
+        self.gameState = gameState
 
     def update(self):
         self.personTurnUpdater.updateForPlayer(self.gameState)
