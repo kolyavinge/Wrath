@@ -12,8 +12,14 @@ class LevelDebugMainSceneRenderer:
         self.shadowedObjectRenderer = shadowedObjectRenderer
         self.levelSegmentRenderer = levelSegmentRenderer
 
+    def init(self, gameState):
+        self.gameState = gameState
+
     def renderDefaultAimState(self):
-        self.shadowedObjectRenderer.render(self.defaultAimStateFunc, self.levelSegmentRenderer.renderShadowCasters)
+        self.shadowedObjectRenderer.render(self.gameState.camera, self.defaultAimStateFunc, self.renderShadowCasters)
 
     def defaultAimStateFunc(self, shader):
-        self.levelSegmentRenderer.render(shader)
+        self.levelSegmentRenderer.render(self.gameState, shader)
+
+    def renderShadowCasters(self, shader):
+        self.levelSegmentRenderer.renderShadowCasters(self.gameState.playerItems, self.gameState.visibleLevelSegments, shader)

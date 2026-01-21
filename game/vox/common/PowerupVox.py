@@ -1,5 +1,6 @@
 from game.audio.AudioPlayer import AudioPlayer
 from game.lib.EventManager import EventManager, Events
+from game.model.person.Player import Player
 from game.vox.common.AudioSourceFactory import AudioSourceFactory
 from game.vox.sources.PowerupAudioSources import PowerupAudioSources
 
@@ -23,5 +24,5 @@ class PowerupVox:
 
     def onPowerupPickedUp(self, args):
         person, powerup = args
-        if person == self.gameState.player:
+        if type(person) == Player:
             self.audioPlayer.play(self.source.powerups[type(powerup)])

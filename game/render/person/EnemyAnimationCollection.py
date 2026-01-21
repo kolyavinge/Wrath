@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.gl.model3d.AnimationPlayer import PlayableAnimation
 from game.model.person.PersonStates import PersonZState
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
@@ -8,17 +7,15 @@ class EnemyAnimationCollection:
 
     def __init__(
         self,
-        gameState: GameState,
         renderCollection: EnemyRenderCollection,
     ):
-        self.gameState = gameState
         self.renderCollection = renderCollection
         self.animationNames = {}
         self.animationNames[PersonZState.onFloor] = "group|Take 001|BaseLayer"
         self.animations = {}
 
-    def init(self):
-        for enemy in self.gameState.enemies:
+    def init(self, enemies):
+        for enemy in enemies:
             self.initForEnemy(enemy)
 
     def initForEnemy(self, enemy):

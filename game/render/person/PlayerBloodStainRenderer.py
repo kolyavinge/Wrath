@@ -1,7 +1,6 @@
 from OpenGL.GL import *
 
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameState import GameState
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager, Events
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -12,20 +11,18 @@ class PlayerBloodStainRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         renderCollection: PlayerBloodStainRenderCollection,
         shaderProgramCollection: ShaderProgramCollection,
         vboRenderer: VBORenderer,
         eventManager: EventManager,
     ):
-        self.gameState = gameState
         self.renderCollection = renderCollection
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
         eventManager.attachToEvent(Events.viewportSizeChanged, self.onViewportSizeChanged)
 
-    def render(self):
-        if len(self.gameState.bloodStains) == 0:
+    def render(self, bloodStains):
+        if len(bloodStains) == 0:
             return
 
         shader = self.shaderProgramCollection.mesh
@@ -37,7 +34,7 @@ class PlayerBloodStainRenderer:
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
 
-        for bloodStain in self.gameState.bloodStains:
+        for bloodStain in bloodStains:
             model = bloodStain.getModelMatrix(self.viewportWidth, self.viewportHeight)
             shader.setModelMatrix(model)
             shader.setAlphaFactor(bloodStain.brightness)

@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.model.weapon.Debris import DebrisBulletTrace
 from game.model.weapon.Launcher import LauncherBulletTrace
 from game.model.weapon.Pistol import PistolBulletTrace
@@ -15,13 +14,11 @@ class BulletTraceRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         rifleBulletTraceRenderer: RifleBulletTraceRenderer,
         launcherBulletTraceRenderer: LauncherBulletTraceRenderer,
         railgunBulletTraceRenderer: RailgunBulletTraceRenderer,
         sniperBulletTraceRenderer: SniperBulletTraceRenderer,
     ):
-        self.gameState = gameState
         self.renderers = {}
         self.renderers[PistolBulletTrace] = rifleBulletTraceRenderer
         self.renderers[RifleBulletTrace] = rifleBulletTraceRenderer
@@ -30,17 +27,17 @@ class BulletTraceRenderer:
         self.renderers[SniperBulletTrace] = sniperBulletTraceRenderer
         self.renderers[DebrisBulletTrace] = rifleBulletTraceRenderer
 
-    def render(self):
-        visibleTraces = self.getVisibleTracesDictionary()
+    def render(self, camera, visibleLevelSegments):
+        visibleTraces = self.getVisibleTracesDictionary(visibleLevelSegments)
         if len(visibleTraces) == 0:
             return
 
         for traceType, traces in visibleTraces.items():
-            self.renderers[traceType].renderTraces(traces, self.gameState.camera)
+            self.renderers[traceType].renderTraces(traces, camera)
 
-    def getVisibleTracesDictionary(self):
+    def getVisibleTracesDictionary(self, visibleLevelSegments):
         result = {}
-        for levelSegment in self.gameState.visibleLevelSegments:
+        for levelSegment in visibleLevelSegments:
             for trace in levelSegment.bulletTraces:
                 if type(trace) in result:
                     result[type(trace)].add(trace)

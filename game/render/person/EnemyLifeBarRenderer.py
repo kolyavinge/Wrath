@@ -2,7 +2,6 @@ from OpenGL.GL import *
 
 from game.anx.PersonConstants import PersonConstants
 from game.calc.Vector3 import Vector3
-from game.engine.GameState import GameState
 from game.gl.ColorVector3 import ColorVector3
 from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 from game.gl.vbo.VBORenderer import VBORenderer
@@ -13,12 +12,10 @@ class EnemyLifeBarRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         vboBuilderFactory: VBOBuilderFactory,
         vboRenderer: VBORenderer,
     ):
-        self.gameState = gameState
         self.shaderProgramCollection = shaderProgramCollection
         self.vboBuilderFactory = vboBuilderFactory
         self.vboRenderer = vboRenderer
@@ -26,17 +23,17 @@ class EnemyLifeBarRenderer:
         self.lifeBarColor.normalize()
         self.initQuadVBO()
 
-    def render(self):
+    def render(self, enemyLifeBars, camera):
         plainColor = self.shaderProgramCollection.plainColor
         plainColor.use()
-        plainColor.setViewMatrix(self.gameState.camera.viewMatrix)
-        plainColor.setProjectionMatrix(self.gameState.camera.projectionMatrix)
+        plainColor.setViewMatrix(camera.viewMatrix)
+        plainColor.setProjectionMatrix(camera.projectionMatrix)
         plainColor.setColor(self.lifeBarColor)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
 
-        for lifeBar in self.gameState.enemyLifeBars.values():
+        for lifeBar in enemyLifeBars.values():
             if lifeBar.isVisible:
                 plainColor.setModelMatrix(lifeBar.modelMatrix)
                 plainColor.setAlphaFactor(lifeBar.alpha)

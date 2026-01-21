@@ -2,7 +2,6 @@ from OpenGL.GL import *
 
 from game.calc.PlaneOrientationLogic import PlaneOrientationLogic
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameState import GameState
 from game.gl.BufferIndices import BufferIndices
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
 from game.gl.TexturedFramebuffer import TexturedFramebuffer
@@ -17,14 +16,12 @@ class PlasmaRayRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         planeOrientationLogic: PlaneOrientationLogic,
         shaderProgramCollection: ShaderProgramCollection,
         vboUpdaterFactory: VBOUpdaterFactory,
         vboRenderer: VBORenderer,
         screenQuadVBO: ScreenQuadVBO,
     ):
-        self.gameState = gameState
         self.planeOrientationLogic = planeOrientationLogic
         self.shaderProgramCollection = shaderProgramCollection
         self.vboUpdater = vboUpdaterFactory.makeVBOUpdater()
@@ -35,12 +32,12 @@ class PlasmaRayRenderer:
         rayCount = 1
         self.vbo = self.vboUpdater.buildUnfilled(4 * rayCount, 2 * rayCount, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces])
 
-    def renderRays(self, rays):
-        ethalonRay = Query(rays).firstOrNone(lambda r: r.ownerPerson == self.gameState.player) or rays[0]
-        self.renderEthalonRayToFramebuffer(ethalonRay)
-        self.renderAllRaysBasedOnEthalon(rays)
+    def renderRays(self, rays, player, camera, globalTimeSec):
+        ethalonRay = Query(rays).firstOrNone(lambda r: r.ownerPerson == player) or rays[0]
+        self.renderEthalonRayToFramebuffer(ethalonRay, globalTimeSec)
+        self.renderAllRaysBasedOnEthalon(rays, camera)
 
-    def renderEthalonRayToFramebuffer(self, ray):
+    def renderEthalonRayToFramebuffer(self, ray, globalTimeSec):
         glBindFramebuffer(GL_FRAMEBUFFER, self.rayFramebuffer.id)
         glClear(GL_COLOR_BUFFER_BIT)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
@@ -50,14 +47,14 @@ class PlasmaRayRenderer:
         shader.use()
         shader.setResolution(self.rayFramebuffer.textureWidth, self.rayFramebuffer.textureHeight)
         shader.setInitTimeSec(ray.initTimeSec)
-        shader.setCurrentTimeSec(self.gameState.globalTimeSec)
+        shader.setCurrentTimeSec(globalTimeSec)
         self.vboRenderer.render(self.screenQuadVBO.vbo)
         shader.unuse()
         glDisable(GL_ALPHA_TEST)
         glDisable(GL_BLEND)
         glBindFramebuffer(GL_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)
 
-    def renderAllRaysBasedOnEthalon(self, rays):
+    def renderAllRaysBasedOnEthalon(self, rays, camera):
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
@@ -65,15 +62,15 @@ class PlasmaRayRenderer:
         shader = self.shaderProgramCollection.mesh
         shader.use()
         shader.setModelMatrix(TransformMatrix4.identity)
-        shader.setViewMatrix(self.gameState.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
+        shader.setViewMatrix(camera.viewMatrix)
+        shader.setProjectionMatrix(camera.projectionMatrix)
         shader.setColorFactor(1.0)
         shader.setAlphaFactor(1.0)
         glActiveTexture(GL_TEXTURE0)
         glBindTexture(GL_TEXTURE_2D, self.rayFramebuffer.texture)
         for ray in rays:
             vertices = self.planeOrientationLogic.getVerticesOrientedToCamera(
-                ray.startPosition, ray.currentPosition, ray.direction, self.gameState.camera.position, 0.15
+                ray.startPosition, ray.currentPosition, ray.direction, camera.position, 0.15
             )
             self.vbo.reset()
             self.addVerticesToVBO(vertices)

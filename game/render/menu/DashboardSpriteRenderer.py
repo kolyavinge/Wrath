@@ -1,5 +1,4 @@
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameState import GameState
 from game.gl.SpriteRendererFactory import SpriteRendererFactory
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
@@ -15,12 +14,10 @@ class DashboardSpriteRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         spriteRendererFactory: SpriteRendererFactory,
         textureCollection: TextureCollection,
     ):
-        self.gameState = gameState
         self.shaderProgramCollection = shaderProgramCollection
         self.textureCollection = textureCollection
         self.spriteRenderer = spriteRendererFactory.make()
@@ -40,7 +37,7 @@ class DashboardSpriteRenderer:
         self.projectionMatrix = projectionMatrix
         self.viewportWidth = viewportWidth
 
-    def render(self):
+    def render(self, dashboard):
         model = TransformMatrix4()
         model.scale(1.2, 1.2, 1.0)
         shader = self.shaderProgramCollection.meshExt
@@ -48,15 +45,14 @@ class DashboardSpriteRenderer:
         shader.setModelMatrix(model)
         shader.setViewMatrix(TransformMatrix4.identity)
         shader.setProjectionMatrix(self.projectionMatrix)
-        self.updateSpriteData()
+        self.updateSpriteData(dashboard)
         shader.unuse()
 
-    def updateSpriteData(self):
-        spriteItems = list(self.getSpriteItems())
+    def updateSpriteData(self, dashboard):
+        spriteItems = list(self.getSpriteItems(dashboard))
         self.spriteRenderer.render(spriteItems)
 
-    def getSpriteItems(self):
-        dashboard = self.gameState.dashboard
+    def getSpriteItems(self, dashboard):
         for weaponType, spriteInfo in self.weaponSprite.items():
             if weaponType in dashboard.weaponTypesSet:
                 row, col, x, y = spriteInfo

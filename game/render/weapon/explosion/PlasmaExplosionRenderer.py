@@ -1,7 +1,6 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.engine.GameState import GameState
 from game.gl.FeedbackParticleRenderer import FeedbackParticleRenderer
 from game.render.anx.BlurRenderer import BlurRenderer
 from game.render.anx.ParticleBufferCollection import ParticleBufferCollection
@@ -13,19 +12,21 @@ class PlasmaExplosionRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         particleRenderer: FeedbackParticleRenderer,
         blurRenderer: BlurRenderer,
         bufferInitializer: PlasmaExplosionParticleBufferInitializer,
         shaderProgramCollection: ShaderProgramCollection,
     ):
-        self.gameState = gameState
         self.particleRenderer = particleRenderer
         self.blurRenderer = blurRenderer
-        self.bufferCollection = ParticleBufferCollection(bufferInitializer, self.gameState.camera)
+        self.bufferInitializer = bufferInitializer
         self.shaderProgramCollection = shaderProgramCollection
 
-    def renderExplosions(self, explosions):
+    def init(self, camera):
+        self.camera = camera
+        self.bufferCollection = ParticleBufferCollection(self.bufferInitializer, self.camera)
+
+    def renderExplosions(self, explosions, globalTimeSec):
         self.blurRenderer.prepare()
         self.prepareShader()
         self.updateAndRenderExplosions(explosions)
@@ -34,8 +35,8 @@ class PlasmaExplosionRenderer:
     def prepareShader(self):
         shader = self.shaderProgramCollection.plasmaExplosion
         shader.use()
-        shader.setViewMatrix(self.gameState.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
+        shader.setViewMatrix(self.camera.viewMatrix)
+        shader.setProjectionMatrix(self.camera.projectionMatrix)
         shader.setDeltaTime(CommonConstants.renderTimerMsec)
         shader.unuse()
 

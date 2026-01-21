@@ -15,9 +15,9 @@ class LevelDebugGameScreenRenderer:
         self.backgroundRenderer = backgroundRenderer
         self.mainSceneRenderer = mainSceneRenderer
 
-    def init(self):
-        self.gameScreenInitializer.init()
+    def init(self, gameState):
+        self.gameScreenInitializer.init(gameState)
 
-    def render(self):
+    def render(self, gameState):
         self.mainSceneRenderer.renderDefaultAimState()
-        self.backgroundRenderer.render()
+        self.backgroundRenderer.render(gameState.backgroundVisibility, gameState.camera)

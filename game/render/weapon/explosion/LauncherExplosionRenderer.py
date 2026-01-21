@@ -12,5 +12,5 @@ class LauncherExplosionRenderer:
         self.textureCollection = textureCollection
         self.fireExplosionRenderer = fireExplosionRenderer
 
-    def renderExplosions(self, explosions):
-        self.fireExplosionRenderer.renderExplosions(explosions, self.textureCollection.launcherExplosion)
+    def renderExplosions(self, explosions, globalTimeSec):
+        self.fireExplosionRenderer.renderExplosions(explosions, self.textureCollection.launcherExplosion, globalTimeSec)

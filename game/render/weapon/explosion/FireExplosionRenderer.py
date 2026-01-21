@@ -1,6 +1,5 @@
 from OpenGL.GL import GL_TEXTURE0
 
-from game.engine.GameState import GameState
 from game.gl.ParticleRenderer import ParticleRenderer
 from game.render.anx.FireExplosionParticleBufferInitializer import *
 from game.render.anx.ParticleBufferCollection import ParticleBufferCollection
@@ -11,22 +10,24 @@ class FireExplosionRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         particleRenderer: ParticleRenderer,
         bufferInitializer: FireExplosionParticleBufferInitializer,
         shaderProgramCollection: ShaderProgramCollection,
     ):
-        self.gameState = gameState
         self.particleRenderer = particleRenderer
-        self.bufferCollection = ParticleBufferCollection(bufferInitializer, self.gameState.camera)
+        self.bufferInitializer = bufferInitializer
         self.shaderProgramCollection = shaderProgramCollection
 
-    def renderExplosions(self, explosions, explosionTexture):
+    def init(self, camera):
+        self.camera = camera
+        self.bufferCollection = ParticleBufferCollection(self.bufferInitializer, self.camera)
+
+    def renderExplosions(self, explosions, explosionTexture, globalTimeSec):
         shader = self.shaderProgramCollection.fireExplosion
         shader.use()
-        shader.setViewMatrix(self.gameState.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
-        shader.setCurrentTimeSec(self.gameState.globalTimeSec)
+        shader.setViewMatrix(self.camera.viewMatrix)
+        shader.setProjectionMatrix(self.camera.projectionMatrix)
+        shader.setCurrentTimeSec(globalTimeSec)
         explosionTexture.bind(GL_TEXTURE0)
         for explosion in explosions:
             particleBuffer = self.bufferCollection.getBufferFor(explosion)

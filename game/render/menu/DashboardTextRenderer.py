@@ -1,5 +1,4 @@
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameState import GameState
 from game.gl.TextRenderer import TextRenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
@@ -8,11 +7,9 @@ class DashboardTextRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         shaderProgramCollection: ShaderProgramCollection,
         textRenderer: TextRenderer,
     ):
-        self.gameState = gameState
         self.shaderProgramCollection = shaderProgramCollection
         self.textRenderer = textRenderer
 
@@ -21,7 +18,7 @@ class DashboardTextRenderer:
         self.viewportWidth = viewportWidth
         self.viewportHeight = viewportHeight
 
-    def render(self):
+    def render(self, dashboard):
         modelMatrix = TransformMatrix4()
         shader = self.shaderProgramCollection.mesh
 
@@ -34,16 +31,15 @@ class DashboardTextRenderer:
 
         modelMatrix.scale(0.8, 1.0, 1.0)
         shader.setModelMatrix(modelMatrix)
-        self.updateMainData()
+        self.updateMainData(dashboard)
 
         modelMatrix.scale(0.4, 0.5, 1.0)
         shader.setModelMatrix(modelMatrix)
-        self.updateFragsData()
+        self.updateFragsData(dashboard)
 
         shader.unuse()
 
-    def updateMainData(self):
-        dashboard = self.gameState.dashboard
+    def updateMainData(self, dashboard):
         textItems = [
             (dashboard.healthStr, 10, 10),
             (dashboard.vestStr, 200, 10),
@@ -52,8 +48,7 @@ class DashboardTextRenderer:
         ]
         self.textRenderer.render(textItems)
 
-    def updateFragsData(self):
-        dashboard = self.gameState.dashboard
+    def updateFragsData(self, dashboard):
         textItems = []
         for index, stat in enumerate(dashboard.fragStatisticStr):
             y = 2.0 * self.viewportHeight - 80 - (index * 60)

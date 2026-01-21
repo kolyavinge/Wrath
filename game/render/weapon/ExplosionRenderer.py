@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.model.weapon.Launcher import LauncherExplosion
 from game.model.weapon.Plasma import PlasmaExplosion
 from game.render.weapon.explosion.LauncherExplosionRenderer import *
@@ -9,26 +8,24 @@ class ExplosionRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         plasmaExplosionRenderer: PlasmaExplosionRenderer,
         launcherExplosionRenderer: LauncherExplosionRenderer,
     ):
-        self.gameState = gameState
         self.renderers = {}
         self.renderers[PlasmaExplosion] = plasmaExplosionRenderer
         self.renderers[LauncherExplosion] = launcherExplosionRenderer
 
-    def render(self):
-        visibleExplosions = self.getVisibleExplosionsDictionary()
+    def render(self, visibleLevelSegments, globalTimeSec):
+        visibleExplosions = self.getVisibleExplosionsDictionary(visibleLevelSegments)
         if len(visibleExplosions) == 0:
             return
 
         for explosionType, explosions in visibleExplosions.items():
-            self.renderers[explosionType].renderExplosions(explosions)
+            self.renderers[explosionType].renderExplosions(explosions, globalTimeSec)
 
-    def getVisibleExplosionsDictionary(self):
+    def getVisibleExplosionsDictionary(self, visibleLevelSegments):
         result = {}
-        for levelSegment in self.gameState.visibleLevelSegments:
+        for levelSegment in visibleLevelSegments:
             for explosion in levelSegment.explosions:
                 if type(explosion) in result:
                     result[type(explosion)].add(explosion)

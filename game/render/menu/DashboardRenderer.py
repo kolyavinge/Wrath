@@ -1,7 +1,6 @@
 from OpenGL.GL import *
 
 from game.calc.TransformMatrix4 import TransformMatrix4
-from game.engine.GameState import GameState
 from game.engine.person.DashboardUpdater import DashboardUpdater
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
 from game.gl.TexturedFramebuffer import TexturedFramebuffer
@@ -17,7 +16,6 @@ class DashboardRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         dashboardUpdater: DashboardUpdater,
         dashboardTextRenderer: DashboardTextRenderer,
         dashboardSpriteRenderer: DashboardSpriteRenderer,
@@ -26,7 +24,6 @@ class DashboardRenderer:
         vboRenderer: VBORenderer,
         eventManager: EventManager,
     ):
-        self.gameState = gameState
         self.dashboardUpdater = dashboardUpdater
         self.dashboardTextRenderer = dashboardTextRenderer
         self.dashboardSpriteRenderer = dashboardSpriteRenderer
@@ -36,11 +33,12 @@ class DashboardRenderer:
         self.dashboardFramebuffer = TexturedFramebuffer()
         eventManager.attachToEvent(Events.viewportSizeChanged, self.onViewportSizeChanged)
 
-    def init(self):
+    def init(self, dashboard):
+        self.dashboard = dashboard
         self.dashboardSpriteRenderer.init()
 
-    def render(self):
-        self.dashboardUpdater.update(self.gameState)
+    def render(self, gameState):
+        self.dashboardUpdater.update(gameState)
         self.updateRenderDataIfDashboardChanged()
         self.renderDashboardData()
 
@@ -63,8 +61,8 @@ class DashboardRenderer:
         shader.unuse()
 
     def updateRenderDataIfDashboardChanged(self):
-        if self.gameState.dashboard.hasChanged:
-            self.gameState.dashboard.resetChanges()
+        if self.dashboard.hasChanged:
+            self.dashboard.resetChanges()
             self.updateRenderData()
 
     def updateRenderData(self):
@@ -73,8 +71,8 @@ class DashboardRenderer:
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
-        self.dashboardTextRenderer.render()
-        self.dashboardSpriteRenderer.render()
+        self.dashboardTextRenderer.render(self.dashboard)
+        self.dashboardSpriteRenderer.render(self.dashboard)
         glDisable(GL_ALPHA_TEST)
         glDisable(GL_BLEND)
         glBindFramebuffer(GL_FRAMEBUFFER, GL_DEFAULT_FRAMEBUFFER_ID)

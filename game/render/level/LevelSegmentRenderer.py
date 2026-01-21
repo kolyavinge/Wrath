@@ -1,4 +1,3 @@
-from game.engine.GameState import GameState
 from game.lib.Query import Query
 from game.render.level.LevelItemRenderer import LevelItemRenderer
 from game.render.level.ShadowCasterRenderer import ShadowCasterRenderer
@@ -11,33 +10,31 @@ class LevelSegmentRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         levelItemRenderer: LevelItemRenderer,
         bulletRenderer: BulletRenderer,
         powerupRenderer: PowerupRenderer,
         enemyRenderer: EnemyRenderer,
         shadowCasterRenderer: ShadowCasterRenderer,
     ):
-        self.gameState = gameState
         self.levelItemRenderer = levelItemRenderer
         self.bulletRenderer = bulletRenderer
         self.powerupRenderer = powerupRenderer
         self.enemyRenderer = enemyRenderer
         self.shadowCasterRenderer = shadowCasterRenderer
 
-    def render(self, shader):
-        for levelSegment in self.gameState.visibleLevelSegments:
-            shader.setLight(levelSegment.lightsWithJoined, self.gameState.playerItems.torch)
+    def render(self, gameState, shader):
+        for levelSegment in gameState.visibleLevelSegments:
+            shader.setLight(levelSegment.lightsWithJoined, gameState.playerItems.torch)
             self.levelItemRenderer.render(shader, levelSegment)
             self.bulletRenderer.render(shader, levelSegment)
             self.powerupRenderer.render(shader, levelSegment)
-            self.enemyRenderer.render(shader, levelSegment)
+            self.enemyRenderer.render(shader, levelSegment, gameState.player, gameState.camera, gameState.globalTimeMsec)
 
         # self.printDebugInfo()
 
-    def renderShadowCasters(self, shader):
-        for levelSegment in self.gameState.visibleLevelSegments:
-            shader.setLight(levelSegment.lightsWithJoined, self.gameState.playerItems.torch)
+    def renderShadowCasters(self, playerItems, visibleLevelSegments, shader):
+        for levelSegment in visibleLevelSegments:
+            shader.setLight(levelSegment.lightsWithJoined, playerItems.torch)
             self.shadowCasterRenderer.render(shader, levelSegment)
             self.powerupRenderer.renderForShadow(shader, levelSegment)
             self.enemyRenderer.renderForShadow(shader, levelSegment)

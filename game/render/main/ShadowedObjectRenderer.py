@@ -1,7 +1,6 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.engine.GameState import GameState
 from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleBlitFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
@@ -14,14 +13,12 @@ class ShadowedObjectRenderer:
 
     def __init__(
         self,
-        gameState: GameState,
         shadowedObjectFramebuffer: ShadowedObjectFramebuffer,
         vboRenderer: VBORenderer,
         shaderProgramCollection: ShaderProgramCollection,
         screenQuadVBO: ScreenQuadVBO,
         eventManager: EventManager,
     ):
-        self.gameState = gameState
         self.shadowedObjectFramebuffer = shadowedObjectFramebuffer
         self.vboRenderer = vboRenderer
         self.shaderProgramCollection = shaderProgramCollection
@@ -32,14 +29,14 @@ class ShadowedObjectRenderer:
         self.width, self.height = size
         self.shadowedObjectFramebuffer.init(self.width, self.height)
 
-    def render(self, renderObjectFunc, renderShadowCastersFunc):
-        self.calculateLightComponents(renderObjectFunc)
-        self.calculateShadowVolumes(renderShadowCastersFunc)
+    def render(self, camera, renderObjectFunc, renderShadowCastersFunc):
+        self.calculateLightComponents(camera, renderObjectFunc)
+        self.calculateShadowVolumes(camera, renderShadowCastersFunc)
         self.calculateStencilMask()
         self.composeScene()
         self.copySceneToDefaultFBO()
 
-    def calculateLightComponents(self, renderObjectFunc):
+    def calculateLightComponents(self, camera, renderObjectFunc):
         # calculate light components and write them in shadowedObjectFramebuffer
         # ambient light in ambientBuffer, diffuse + specular in diffuseSpecularTexture
         # draw scene normaly
@@ -52,15 +49,15 @@ class ShadowedObjectRenderer:
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT)
         shader = self.shaderProgramCollection.mainSceneLightComponents
         shader.use()
-        shader.setViewMatrix(self.gameState.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
+        shader.setViewMatrix(camera.viewMatrix)
+        shader.setProjectionMatrix(camera.projectionMatrix)
         shader.setMaxDepth(CommonConstants.maxDepth)
         renderObjectFunc(shader)
         shader.unuse()
         glDisable(GL_CULL_FACE)
         glDisable(GL_DEPTH_TEST)
 
-    def calculateShadowVolumes(self, renderShadowCastersFunc):
+    def calculateShadowVolumes(self, camera, renderShadowCastersFunc):
         # calculate shadow volumes by z-fail method
         # draw only shadow caster objects
         glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE)
@@ -76,8 +73,8 @@ class ShadowedObjectRenderer:
         glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP)
         shader = self.shaderProgramCollection.mainSceneShadowVolumes
         shader.use()
-        shader.setViewMatrix(self.gameState.camera.viewMatrix)
-        shader.setProjectionMatrix(self.gameState.camera.projectionMatrix)
+        shader.setViewMatrix(camera.viewMatrix)
+        shader.setProjectionMatrix(camera.projectionMatrix)
         renderShadowCastersFunc(shader)
         shader.unuse()
         glShadeModel(GL_SMOOTH)

@@ -67,35 +67,35 @@ class GameScreenRenderer:
 
     # @timeProfile("Rendered", CommonConstants.renderTimerMsec / 1000.0, showOnlyLimited=True)
     # @cpuProfile
-    def render(self):
-        self.renderFunc()
+    def render(self, gameState):
+        self.renderFunc(gameState)
 
-    def renderDefaultAimState(self):
+    def renderDefaultAimState(self, gameState):
         self.mainSceneRenderer.renderDefaultAimState()
-        # self.playerSegmentItemsRenderer.render()
-        self.backgroundRenderer.render()
-        self.bulletHoleRenderer.render()
-        self.rayRenderer.render()
-        self.shineBulletRenderer.render()
-        self.bulletTraceRenderer.render()
-        self.explosionRenderer.render()
-        self.weaponFlashRenderer.render()
-        self.enemyLifeBarRenderer.render()
+        # self.playerSegmentItemsRenderer.render(gameState.player, gameState.camera)
+        self.backgroundRenderer.render(gameState.backgroundVisibility, gameState.camera)
+        self.bulletHoleRenderer.render(gameState.camera, gameState.visibleLevelSegments)
+        self.rayRenderer.render(gameState.player, gameState.camera, gameState.visibleLevelSegments, gameState.globalTimeSec)
+        self.shineBulletRenderer.render(gameState.bullets, gameState.player, gameState.camera)
+        self.bulletTraceRenderer.render(gameState.camera, gameState.visibleLevelSegments)
+        self.explosionRenderer.render(gameState.visibleLevelSegments, gameState.globalTimeSec)
+        self.weaponFlashRenderer.render(gameState.camera, gameState.visibleLevelSegments)
+        self.enemyLifeBarRenderer.render(gameState.enemyLifeBars, gameState.camera)
         self.crosshairRenderer.render()
         self.vignetteRenderer.render()
-        self.playerBloodStainRenderer.render()
-        self.dashboardRenderer.render()
+        self.playerBloodStainRenderer.render(gameState.bloodStains)
+        self.dashboardRenderer.render(gameState)
 
-    def renderSniperAimState(self):
+    def renderSniperAimState(self, gameState):
         self.mainSceneRenderer.renderSniperAimState()
-        self.backgroundRenderer.render()
-        self.bulletHoleRenderer.render()
-        self.rayRenderer.render()
-        self.shineBulletRenderer.render()
-        self.bulletTraceRenderer.render()
-        self.explosionRenderer.render()
-        self.weaponFlashRenderer.render()
-        self.enemyLifeBarRenderer.render()
+        self.backgroundRenderer.render(gameState.backgroundVisibility, gameState.camera)
+        self.bulletHoleRenderer.render(gameState.camera, gameState.visibleLevelSegments)
+        self.rayRenderer.render(gameState.player, gameState.camera, gameState.visibleLevelSegments, gameState.globalTimeSec)
+        self.shineBulletRenderer.render(gameState.bullets, gameState.player, gameState.camera)
+        self.bulletTraceRenderer.render(gameState.camera, gameState.visibleLevelSegments)
+        self.explosionRenderer.render(gameState.visibleLevelSegments, gameState.globalTimeSec)
+        self.weaponFlashRenderer.render(gameState.camera, gameState.visibleLevelSegments)
+        self.enemyLifeBarRenderer.render(gameState.enemyLifeBars, gameState.camera)
         self.sniperCrosshairRenderer.render()
 
     def onAimStateSwitched(self, player):

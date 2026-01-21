@@ -37,7 +37,7 @@ class Game:
         self.screenManager.currentScreen.update()
 
     def renderCurrentScreen(self):
-        self.screenManager.currentScreenRenderer.render()
+        self.screenManager.currentScreenRenderer.render(self.client.gameState)
 
     def voxCurrentScreen(self):
         self.screenManager.currentScreenVox.update(self.client.gameState)
