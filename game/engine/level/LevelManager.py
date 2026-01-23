@@ -8,34 +8,45 @@ from game.engine.level.LevelValidator import LevelValidator
 from game.engine.level.PersonInitializer import PersonInitializer
 from game.engine.person.AIDataInitializer import AIDataInitializer
 from game.engine.person.CameraUpdater import CameraUpdater
-from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.FragStatisticUpdater import FragStatisticUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
-from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
-from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 
 
 class LevelManager:
 
-    levelLoader: LevelLoader
-    bspTreeBuilder: BSPTreeBuilder
-    joinLineAnalyzer: LevelSegmentJoinLineAnalyzer
-    lightAnalyzer: LevelSegmentLightAnalyzer
-    levelValidator: LevelValidator
-    personFloorUpdater: PersonFloorUpdater
-    personInitializer: PersonInitializer
-    aiDataInitializer: AIDataInitializer
-    playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater
-    enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater
-    levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater
-    cameraUpdater: CameraUpdater
-    backgroundVisibilityDetector: BackgroundVisibilityUpdater
-    personWeaponPositionUpdater: PersonWeaponPositionUpdater
-    weaponFlashUpdater: WeaponFlashUpdater
-    fragStatisticUpdater: FragStatisticUpdater
-    enemyAIUpdater: EnemyAIUpdater
+    def __init__(
+        self,
+        levelLoader: LevelLoader,
+        bspTreeBuilder: BSPTreeBuilder,
+        joinLineAnalyzer: LevelSegmentJoinLineAnalyzer,
+        lightAnalyzer: LevelSegmentLightAnalyzer,
+        levelValidator: LevelValidator,
+        personInitializer: PersonInitializer,
+        aiDataInitializer: AIDataInitializer,
+        levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater,
+        cameraUpdater: CameraUpdater,
+        backgroundVisibilityDetector: BackgroundVisibilityUpdater,
+        personWeaponPositionUpdater: PersonWeaponPositionUpdater,
+        weaponFlashUpdater: WeaponFlashUpdater,
+        fragStatisticUpdater: FragStatisticUpdater,
+        enemyAIUpdater: EnemyAIUpdater,
+    ):
+        self.levelLoader = levelLoader
+        self.bspTreeBuilder = bspTreeBuilder
+        self.joinLineAnalyzer = joinLineAnalyzer
+        self.lightAnalyzer = lightAnalyzer
+        self.levelValidator = levelValidator
+        self.personInitializer = personInitializer
+        self.aiDataInitializer = aiDataInitializer
+        self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
+        self.cameraUpdater = cameraUpdater
+        self.backgroundVisibilityDetector = backgroundVisibilityDetector
+        self.personWeaponPositionUpdater = personWeaponPositionUpdater
+        self.weaponFlashUpdater = weaponFlashUpdater
+        self.fragStatisticUpdater = fragStatisticUpdater
+        self.enemyAIUpdater = enemyAIUpdater
 
     def loadFirstLevel(self, gameState):
         level = self.levelLoader.load()
@@ -46,13 +57,7 @@ class LevelManager:
         self.levelValidator.validate(level, gameState.visibilityTree)
         self.lightAnalyzer.analyzeLights(level, gameState.visibilityTree)
         self.personInitializer.init(gameState)
-        self.personFloorUpdater.updatePlayerNextFloor(gameState)
-        self.personFloorUpdater.updateEnemyNextFloor(gameState)
-        self.personFloorUpdater.commitPlayerNextFloor(gameState)
-        self.personFloorUpdater.commitEnemyNextFloor(gameState)
         self.aiDataInitializer.init(gameState)
-        self.playerLevelSegmentsUpdater.update(gameState)
-        self.enemyLevelSegmentsUpdater.update(gameState)
         self.cameraUpdater.update(gameState)
         self.levelSegmentVisibilityUpdater.update(gameState)
         self.backgroundVisibilityDetector.update(gameState)

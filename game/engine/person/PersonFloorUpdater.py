@@ -14,7 +14,7 @@ class PersonFloorUpdater:
     def updatePlayerNextFloor(self, gameState):
         self.updateForPerson(gameState.player, gameState.collisionTree)
 
-    def updateEnemyNextFloor(self, gameState):
+    def updateEnemiesNextFloor(self, gameState):
         for enemy in gameState.enemies:
             self.updateForPerson(enemy, gameState.collisionTree)
 
@@ -40,6 +40,6 @@ class PersonFloorUpdater:
     def commitPlayerNextFloor(self, gameState):
         gameState.player.currentFloor = gameState.player.nextFloor
 
-    def commitEnemyNextFloor(self, gameState):
+    def commitEnemiesNextFloor(self, gameState):
         for enemy in gameState.enemies:
             enemy.currentFloor = enemy.nextFloor

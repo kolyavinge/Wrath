@@ -6,7 +6,7 @@ class PersonPositionUpdater:
     def movePlayerNextPosition(self, gameState):
         self.movePersonNextPosition(gameState.player)
 
-    def moveEnemyNextPosition(self, gameState):
+    def moveEnemiesNextPosition(self, gameState):
         for enemy in gameState.enemies:
             self.movePersonNextPosition(enemy)
 
@@ -19,7 +19,7 @@ class PersonPositionUpdater:
         if gameState.player.hasMoved:
             gameState.player.commitNextPosition()
 
-    def commitEnemyNextPosition(self, gameState):
+    def commitEnemiesNextPosition(self, gameState):
         for enemy in gameState.enemies:
             if enemy.hasMoved:
                 enemy.commitNextPosition()

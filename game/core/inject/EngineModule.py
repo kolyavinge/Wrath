@@ -129,7 +129,7 @@ class EngineModule:
         binder.bindSingleton(GameUpdater)
         binder.bindSingleton(BackgroundVisibilityUpdater)
         binder.bindSingleton(LevelLoader)
-        binder.bindSingleton(LevelManager, resolveByFields=True)
+        binder.bindSingleton(LevelManager)
         binder.bindSingleton(LevelSegmentItemFinder)
         binder.bindSingleton(LevelSegmentJoinLineAnalyzer)
         binder.bindSingleton(LevelSegmentLightAnalyzer)

@@ -41,5 +41,7 @@ class GameInitializer:
         self.textRenderer.init()
         self.audioPlayer.init()
         self.audioBufferCollection.init()
+
         self.gameUpdater.init(client.gameState)
+
         self.networkConnectionInitializer.init(client, server)
