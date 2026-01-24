@@ -9,7 +9,8 @@ class SnapshotFactory:
         snapshot.player = Person()
         snapshot.player.id = clientGameState.player.id
         snapshot.player.centerPoint = clientGameState.player.currentCenterPoint.copy()
-        snapshot.player.lookDirection = clientGameState.player.lookDirection.copy()
+        snapshot.player.yawRadians = clientGameState.player.yawRadians
+        snapshot.player.pitchRadians = clientGameState.player.pitchRadians
 
         return snapshot
 
