@@ -1,5 +1,20 @@
 from game.audio.AudioPlayer import AudioPlayer
+from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
+from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
+from game.engine.GameState import ClientGameState, ServerGameState
 from game.engine.GameUpdater import GameUpdater
+from game.engine.level.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
+from game.engine.level.LevelLoader import LevelLoader
+from game.engine.level.LevelSegmentJoinLineAnalyzer import LevelSegmentJoinLineAnalyzer
+from game.engine.level.LevelSegmentLightAnalyzer import LevelSegmentLightAnalyzer
+from game.engine.level.LevelValidator import LevelValidator
+from game.engine.person.AIDataInitializer import AIDataInitializer
+from game.engine.person.CameraUpdater import CameraUpdater
+from game.engine.person.FragStatisticUpdater import FragStatisticUpdater
+from game.engine.person.LevelSegmentVisibilityUpdater import *
+from game.engine.person.PersonInitializer import PersonInitializer
+from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
+from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 from game.gl.TextRenderer import TextRenderer
 from game.network.NetworkConnectionInitializer import NetworkConnectionInitializer
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
@@ -14,6 +29,20 @@ class GameInitializer:
     def __init__(
         self,
         gameUpdater: GameUpdater,
+        levelLoader: LevelLoader,
+        bspTreeBuilder: BSPTreeBuilder,
+        joinLineAnalyzer: LevelSegmentJoinLineAnalyzer,
+        lightAnalyzer: LevelSegmentLightAnalyzer,
+        levelValidator: LevelValidator,
+        personInitializer: PersonInitializer,
+        aiDataInitializer: AIDataInitializer,
+        levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater,
+        cameraUpdater: CameraUpdater,
+        backgroundVisibilityDetector: BackgroundVisibilityUpdater,
+        personWeaponPositionUpdater: PersonWeaponPositionUpdater,
+        weaponFlashUpdater: WeaponFlashUpdater,
+        fragStatisticUpdater: FragStatisticUpdater,
+        enemyAIUpdater: EnemyAIUpdater,
         textureCollection: TextureCollection,
         materialTextureCollection: MaterialTextureCollection,
         shaderCollection: ShaderCollection,
@@ -23,6 +52,20 @@ class GameInitializer:
         audioBufferCollection: AudioBufferCollection,
         networkConnectionInitializer: NetworkConnectionInitializer,
     ):
+        self.levelLoader = levelLoader
+        self.bspTreeBuilder = bspTreeBuilder
+        self.joinLineAnalyzer = joinLineAnalyzer
+        self.lightAnalyzer = lightAnalyzer
+        self.levelValidator = levelValidator
+        self.personInitializer = personInitializer
+        self.aiDataInitializer = aiDataInitializer
+        self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
+        self.cameraUpdater = cameraUpdater
+        self.backgroundVisibilityDetector = backgroundVisibilityDetector
+        self.personWeaponPositionUpdater = personWeaponPositionUpdater
+        self.weaponFlashUpdater = weaponFlashUpdater
+        self.fragStatisticUpdater = fragStatisticUpdater
+        self.enemyAIUpdater = enemyAIUpdater
         self.textureCollection = textureCollection
         self.materialTextureCollection = materialTextureCollection
         self.shaderCollection = shaderCollection
@@ -34,6 +77,30 @@ class GameInitializer:
         self.networkConnectionInitializer = networkConnectionInitializer
 
     def init(self, client, server):
+        server.gameState = ServerGameState()
+        level = self.levelLoader.load()
+        server.gameState.level = level
+        self.bspTreeBuilder.build(server.gameState.collisionTree, level, list(level.getCollisionSplitPlanes()))
+        self.bspTreeBuilder.build(server.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
+        self.joinLineAnalyzer.analyzeJoinLines(level, server.gameState.visibilityTree)
+        self.levelValidator.validate(level, server.gameState.visibilityTree)
+        self.lightAnalyzer.analyzeLights(level, server.gameState.visibilityTree)
+        self.personInitializer.init(server.gameState)
+        self.aiDataInitializer.init(server.gameState)
+        self.fragStatisticUpdater.init(server.gameState)
+        self.enemyAIUpdater.init(server.gameState)
+        self.personWeaponPositionUpdater.update(server.gameState)
+
+        client.gameState = ClientGameState()
+        client.gameState.level = server.gameState.level
+        client.gameState.collisionTree = server.gameState.collisionTree
+        client.gameState.visibilityTree = server.gameState.visibilityTree
+        self.personInitializer.initPlayer(client.gameState)
+        self.fragStatisticUpdater.init(client.gameState)
+        self.personWeaponPositionUpdater.updateForPlayer(client.gameState)
+        self.cameraUpdater.update(client.gameState)
+        self.levelSegmentVisibilityUpdater.update(client.gameState)
+        self.backgroundVisibilityDetector.update(client.gameState)
         self.textureCollection.init()
         self.materialTextureCollection.init()
         self.shaderCollection.init()

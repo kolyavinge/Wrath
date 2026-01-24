@@ -24,12 +24,10 @@ from game.engine.cm.VoidCollisionDetector import *
 from game.engine.GameUpdater import *
 from game.engine.level.BackgroundVisibilityUpdater import *
 from game.engine.level.LevelLoader import *
-from game.engine.level.LevelManager import *
 from game.engine.level.LevelSegmentItemFinder import *
 from game.engine.level.LevelSegmentJoinLineAnalyzer import *
 from game.engine.level.LevelSegmentLightAnalyzer import *
 from game.engine.level.LevelValidator import *
-from game.engine.level.PersonInitializer import *
 from game.engine.person.AIDataInitializer import *
 from game.engine.person.AimStateSwitcher import *
 from game.engine.person.CameraScopeChecker import *
@@ -43,6 +41,7 @@ from game.engine.person.FragStatisticUpdater import *
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonDamageLogic import *
 from game.engine.person.PersonFloorUpdater import *
+from game.engine.person.PersonInitializer import *
 from game.engine.person.PersonJumpUpdater import *
 from game.engine.person.PersonLevelSegmentsUpdater import *
 from game.engine.person.PersonLifeCycleUpdater import *
@@ -129,12 +128,10 @@ class EngineModule:
         binder.bindSingleton(GameUpdater)
         binder.bindSingleton(BackgroundVisibilityUpdater)
         binder.bindSingleton(LevelLoader)
-        binder.bindSingleton(LevelManager)
         binder.bindSingleton(LevelSegmentItemFinder)
         binder.bindSingleton(LevelSegmentJoinLineAnalyzer)
         binder.bindSingleton(LevelSegmentLightAnalyzer)
         binder.bindSingleton(LevelValidator)
-        binder.bindSingleton(PersonInitializer)
         binder.bindSingleton(AIDataInitializer)
         binder.bindSingleton(AimStateSwitcher)
         binder.bindSingleton(CameraScopeChecker)
@@ -148,6 +145,7 @@ class EngineModule:
         binder.bindSingleton(LevelSegmentVisibilityUpdater)
         binder.bindSingleton(PersonDamageLogic)
         binder.bindSingleton(PersonFloorUpdater)
+        binder.bindSingleton(PersonInitializer)
         binder.bindSingleton(PersonJumpUpdater)
         binder.bindSingleton(PersonLevelSegmentsUpdater)
         binder.bindSingleton(PersonLifeCycleUpdater)

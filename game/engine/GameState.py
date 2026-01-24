@@ -27,6 +27,7 @@ class GameState:
         self.enemyItems = {}
         self.enemyInputData = {}
         self.allPerson = [self.player]
+        self.allPersonById = {}
         self.allPersonItems = {}
         self.allPersonItems[self.player] = self.playerItems
         self.allPersonInputData = {}
@@ -51,3 +52,11 @@ class GameState:
     def updateGlobalTime(self):
         self.globalTimeMsec += CommonConstants.mainTimerMsec
         self.globalTimeSec = self.globalTimeMsec / 1000.0
+
+
+class ClientGameState(GameState):
+    pass
+
+
+class ServerGameState(GameState):
+    pass

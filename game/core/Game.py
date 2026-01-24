@@ -1,7 +1,5 @@
 from game.core.GameInitializer import GameInitializer
 from game.core.ScreenManager import ScreenManager
-from game.engine.GameState import GameState
-from game.engine.level.LevelManager import LevelManager
 from game.input.InputManager import InputManager
 from game.lib.EventManager import EventManager
 from game.network.Client import Client
@@ -13,22 +11,16 @@ class Game:
     def __init__(
         self,
         gameInitializer: GameInitializer,
-        levelManager: LevelManager,
         inputManager: InputManager,
         screenManager: ScreenManager,
         eventManager: EventManager,  # for App
     ):
-        self.levelManager = levelManager
         self.inputManager = inputManager
         self.screenManager = screenManager
         self.eventManager = eventManager
         self.client = Client()
         self.server = Server()
-        gameState = GameState()
-        self.client.gameState = gameState
-        self.server.gameState = gameState
         gameInitializer.init(self.client, self.server)
-        self.levelManager.loadFirstLevel(gameState)
         self.screenManager.currentScreenRenderer.init(self.client.gameState)
         self.screenManager.currentScreenVox.init(self.client.gameState)
 

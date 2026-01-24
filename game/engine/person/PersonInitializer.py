@@ -35,6 +35,7 @@ class PersonInitializer:
 
     def initPlayer(self, gameState):
         gameState.player.id = self.personIdLogic.getPlayerId()
+        gameState.allPersonById[gameState.player.id] = gameState.player
         level = gameState.level
         position, frontNormal, weaponType = level.getPlayerInitInfo()
         gameState.player.moveNextPositionTo(position)
