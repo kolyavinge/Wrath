@@ -20,6 +20,11 @@ class PersonTurnLogic:
             person.pitchRadians = 0
             self.calculateDirectionVectors(person)
 
+    def setYawPitchRadians(self, person, yawRadians, pitchRadians):
+        person.yawRadians = yawRadians
+        person.pitchRadians = pitchRadians
+        self.calculateDirectionVectors(person)
+
     def calculateDirectionVectors(self, person):
         person.frontNormal = Geometry.rotatePoint(CommonConstants.yAxis, CommonConstants.zAxis, CommonConstants.axisOrigin, person.yawRadians)
         person.rightNormal = Geometry.rotatePoint(person.frontNormal, CommonConstants.zAxis, CommonConstants.axisOrigin, -Math.piHalf)
