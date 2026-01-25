@@ -1,3 +1,4 @@
+from game.anx.PersonIdLogic import PersonIdLogic
 from game.audio.AudioPlayer import AudioPlayer
 from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
@@ -34,6 +35,7 @@ class GameInitializer:
         joinLineAnalyzer: LevelSegmentJoinLineAnalyzer,
         lightAnalyzer: LevelSegmentLightAnalyzer,
         levelValidator: LevelValidator,
+        personIdLogic: PersonIdLogic,
         personInitializer: PersonInitializer,
         aiDataInitializer: AIDataInitializer,
         levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater,
@@ -57,6 +59,7 @@ class GameInitializer:
         self.joinLineAnalyzer = joinLineAnalyzer
         self.lightAnalyzer = lightAnalyzer
         self.levelValidator = levelValidator
+        self.personIdLogic = personIdLogic
         self.personInitializer = personInitializer
         self.aiDataInitializer = aiDataInitializer
         self.levelSegmentVisibilityUpdater = levelSegmentVisibilityUpdater
@@ -93,11 +96,14 @@ class GameInitializer:
 
         client.gameState = ClientGameState()
         client.gameState.level = server.gameState.level
-        client.gameState.collisionTree = server.gameState.collisionTree
-        client.gameState.visibilityTree = server.gameState.visibilityTree
-        self.personInitializer.initPlayer(client.gameState)
-        self.fragStatisticUpdater.init(client.gameState)
+        self.bspTreeBuilder.build(client.gameState.collisionTree, level, list(level.getCollisionSplitPlanes()))
+        self.bspTreeBuilder.build(client.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
+        self.joinLineAnalyzer.analyzeJoinLines(level, client.gameState.visibilityTree)
+        self.lightAnalyzer.analyzeLights(level, client.gameState.visibilityTree)
+        self.personIdLogic.resetEnemyId()
+        self.personInitializer.init(client.gameState)
         self.personWeaponPositionUpdater.updateForPlayer(client.gameState)
+        self.fragStatisticUpdater.init(client.gameState)
         self.cameraUpdater.update(client.gameState)
         self.levelSegmentVisibilityUpdater.update(client.gameState)
         self.backgroundVisibilityDetector.update(client.gameState)
@@ -109,6 +115,6 @@ class GameInitializer:
         self.audioPlayer.init()
         self.audioBufferCollection.init()
 
-        self.gameUpdater.init(client.gameState)
+        self.gameUpdater.init(client.gameState, server.gameState)
 
         self.networkConnectionInitializer.init(client, server)

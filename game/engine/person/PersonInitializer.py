@@ -69,6 +69,7 @@ class PersonInitializer:
         gameState.enemyItems[enemy] = personItems
         gameState.enemyInputData[enemy] = PersonInputData()
         gameState.allPersonItems[enemy] = gameState.enemyItems[enemy]
+        gameState.allPersonById[enemy.id] = enemy
         gameState.allPersonInputData[enemy] = gameState.enemyInputData[enemy]
         gameState.enemyLifeBars[enemy] = EnemyLifeBar()
         self.weaponSelector.initWeaponByType(personItems, weaponType)

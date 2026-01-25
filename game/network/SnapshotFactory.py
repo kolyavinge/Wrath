@@ -6,15 +6,21 @@ class SnapshotFactory:
 
     def makeClientSnapshot(self, clientGameState):
         snapshot = Snapshot()
-        snapshot.player = Person()
-        snapshot.player.id = clientGameState.player.id
-        snapshot.player.centerPoint = clientGameState.player.currentCenterPoint.copy()
-        snapshot.player.yawRadians = clientGameState.player.yawRadians
-        snapshot.player.pitchRadians = clientGameState.player.pitchRadians
+        snapshot.player = self.makeSnapshotPersonFor(clientGameState.player)
 
         return snapshot
 
     def makeServerSnapshot(self, serverGameState):
         snapshot = Snapshot()
+        snapshot.enemies = [self.makeSnapshotPersonFor(enemy) for enemy in serverGameState.enemies]
 
         return snapshot
+
+    def makeSnapshotPersonFor(self, person):
+        snapshotPerson = Person()
+        snapshotPerson.id = person.id
+        snapshotPerson.centerPoint = person.currentCenterPoint.copy()
+        snapshotPerson.yawRadians = person.yawRadians
+        snapshotPerson.pitchRadians = person.pitchRadians
+
+        return snapshotPerson

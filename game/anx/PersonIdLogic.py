@@ -13,6 +13,9 @@ class PersonIdLogic:
 
         return self.lastEnemyId
 
+    def resetEnemyId(self):
+        self.lastEnemyId = 9
+
     def getNetPlayerId(self):
         self.lastNetPlayerId += 1
 

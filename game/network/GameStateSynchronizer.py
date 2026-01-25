@@ -11,7 +11,14 @@ class GameStateSynchronizer:
 
     def applySnapshotDiff(self, gameState, diff):
         if hasattr(diff, "player"):
-            person = gameState.allPersonById[diff.player.id]
-            person.moveNextPositionTo(diff.player.centerPoint)
-            self.personTurnLogic.setYawPitchRadians(person, diff.player.yawRadians, diff.player.pitchRadians)
-            person.commitNextPosition()
+            self.synchPerson(gameState, diff.player)
+
+        if hasattr(diff, "enemies"):
+            for enemy in diff.enemies:
+                self.synchPerson(gameState, enemy)
+
+    def synchPerson(self, gameState, diffPerson):
+        sychedPerson = gameState.allPersonById[diffPerson.id]
+        sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
+        self.personTurnLogic.setYawPitchRadians(sychedPerson, diffPerson.yawRadians, diffPerson.pitchRadians)
+        sychedPerson.commitNextPosition()
