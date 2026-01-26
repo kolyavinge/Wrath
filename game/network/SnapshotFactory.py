@@ -1,4 +1,4 @@
-from game.model.network.Person import Person
+from game.model.snapshot.Person import Person
 from game.network.Snapshot import Snapshot
 
 
