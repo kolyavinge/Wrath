@@ -19,6 +19,8 @@ class WeaponCollection:
     weaponByNumbers[5] = Railgun
     weaponByNumbers[6] = Sniper
 
+    weaponByTypes = {value: key for key, value in weaponByNumbers.items()}
+
     nextWeapons = {}
     nextWeapons[Pistol] = Rifle
     nextWeapons[Rifle] = Plasma
@@ -38,6 +40,10 @@ class WeaponCollection:
     @staticmethod
     def getWeaponTypeByNumber(number):
         return WeaponCollection.weaponByNumbers[number]
+
+    @staticmethod
+    def getWeaponNumberByType(type):
+        return WeaponCollection.weaponByTypes[type]
 
     @staticmethod
     def getNextWeaponTypeFor(weapon):
