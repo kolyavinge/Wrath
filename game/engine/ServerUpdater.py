@@ -84,7 +84,7 @@ class ServerUpdater:
         self.personPositionUpdater.commitEnemiesNextPosition(gameState)
         self.personFloorUpdater.commitEnemiesNextFloor(gameState)
         self.enemyLevelSegmentsUpdater.updateIfMoved(gameState)
-        self.personWeaponPositionUpdater.updateForEnemies(gameState)
+        self.personWeaponPositionUpdater.update(gameState)
         self.weaponDelayUpdater.updateForEnemies(gameState)
         self.weaponFireUpdater.updateForEnemies(gameState)
         self.weaponAltFireUpdater.updateForEnemies(gameState)

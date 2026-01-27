@@ -1,3 +1,7 @@
+# Quake III client-server architecture
+# https://fabiensanglard.net/quake3/network.php
+
+
 from game.network.GameStateSynchronizer import GameStateSynchronizer
 from game.network.Message import Message, MessageType
 from game.network.SendMessageResult import SendMessageResult
@@ -27,7 +31,6 @@ class MultiplayerSynchronizer:
             assert message.type == MessageType.updateGameState
             diff = message.body
             self.gameStateSynchronizer.applySnapshotDiff(self.client.gameState, diff)
-            print("receive from server")
 
     def sendGameStateToServer(self):
         newSnapshot = self.snapshotFactory.makeClientSnapshot(self.client.gameState)
@@ -46,7 +49,6 @@ class MultiplayerSynchronizer:
                 assert message.type == MessageType.updateGameState
                 diff = message.body
                 self.gameStateSynchronizer.applySnapshotDiff(self.server.gameState, diff)
-                print("receive from clients")
 
     def sendGameStateToClients(self):
         newSnapshot = self.snapshotFactory.makeServerSnapshot(self.server.gameState)
