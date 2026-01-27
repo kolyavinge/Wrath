@@ -10,6 +10,7 @@ class Bullet:
         self.explosionType = explosionType
         self.isAlive = True
         self.isVisible = False
+        self.prevCurrentPosition = Vector3()
         self.currentPosition = Vector3()
         self.nextPosition = Vector3()
         self.pitchRadians = 0
@@ -31,10 +32,12 @@ class Bullet:
         self.paralyze = False
         self.holeInfo = None
         self.traceShift = 0
+        self.weapon = None
         self.ownerPerson = None
         self.damagedObject = None
 
     def commitNextPosition(self):
+        self.prevCurrentPosition = self.currentPosition
         self.currentPosition = self.nextPosition.copy()
 
     def update(self):

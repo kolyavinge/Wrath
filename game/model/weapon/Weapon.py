@@ -59,6 +59,7 @@ class Weapon:
         bullet.directionTopNormal = self.directionTopNormal.copy()
         bullet.velocity = self.direction.copy()
         bullet.velocity.setLength(bullet.velocityValue)
+        bullet.weapon = self
         bullet.ownerPerson = ownerPerson
 
         return bullet
