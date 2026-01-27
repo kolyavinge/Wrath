@@ -43,7 +43,7 @@ class PersonInitializer:
         gameState.player.commitNextPosition()
         self.personFloorUpdater.updatePlayerNextFloor(gameState)
         self.personFloorUpdater.commitPlayerNextFloor(gameState)
-        self.weaponSelector.initWeaponByType(gameState.playerItems, weaponType)
+        self.weaponSelector.setWeaponByType(gameState.playerItems, weaponType)
         self.playerLevelSegmentsUpdater.update(gameState)
 
     def initEnemies(self, gameState):
@@ -72,4 +72,4 @@ class PersonInitializer:
         gameState.allPersonById[enemy.id] = enemy
         gameState.allPersonInputData[enemy] = gameState.enemyInputData[enemy]
         gameState.enemyLifeBars[enemy] = EnemyLifeBar()
-        self.weaponSelector.initWeaponByType(personItems, weaponType)
+        self.weaponSelector.setWeaponByType(personItems, weaponType)

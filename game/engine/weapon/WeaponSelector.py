@@ -14,7 +14,7 @@ class WeaponSelector:
     ):
         self.aimStateSwitcher = aimStateSwitcher
 
-    def initWeaponByType(self, personItems, weaponType):
+    def setWeaponByType(self, personItems, weaponType):
         if weaponType.defaultCount == 1:
             findedWeapon = personItems.getWeaponByTypeOrNone(weaponType)
             assert findedWeapon is not None
@@ -26,7 +26,7 @@ class WeaponSelector:
             assert len(findedWeapons) == 2
             rightHandWeapon = findedWeapons[0]
             leftHandWeapon = findedWeapons[1]
-            currentWeapon = rightHandWeapon
+            currentWeapon = self.getCurrentTwoHandedWeapon(leftHandWeapon, rightHandWeapon)
             personItems.rightHandWeapon = rightHandWeapon
             personItems.leftHandWeapon = leftHandWeapon
             personItems.currentWeapon = currentWeapon
@@ -41,9 +41,12 @@ class WeaponSelector:
             if len(findedWeapons) == 2:
                 rightHandWeapon = findedWeapons[0]
                 leftHandWeapon = findedWeapons[1]
-                # в левом стволе может быть на одну пулю больше, если последний раз кол-во выстрелов было непарным
-                currentWeapon = rightHandWeapon if rightHandWeapon.bulletsCount == leftHandWeapon.bulletsCount else leftHandWeapon
+                currentWeapon = self.getCurrentTwoHandedWeapon(leftHandWeapon, rightHandWeapon)
                 self.selectWeapons(person, personItems, rightHandWeapon, leftHandWeapon, currentWeapon)
+
+    def getCurrentTwoHandedWeapon(self, leftHandWeapon, rightHandWeapon):
+        # в левом стволе может быть на одну пулю больше, если последний раз кол-во выстрелов было непарным
+        return rightHandWeapon if rightHandWeapon.bulletsCount == leftHandWeapon.bulletsCount else leftHandWeapon
 
     def selectNextWeapon(self, person, personItems):
         if personItems.hasWeapons():
