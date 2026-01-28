@@ -1,7 +1,7 @@
 from game.model.person.Enemy import Enemy
 from game.model.person.Player import Player
-from game.model.snapshot.Bullet import Bullet
-from game.model.snapshot.Person import Person
+from game.model.snapshot.SnapshotBullet import SnapshotBullet
+from game.model.snapshot.SnapshotPerson import SnapshotPerson
 from game.model.weapon.WeaponCollection import WeaponCollection
 from game.network.Snapshot import Snapshot
 
@@ -24,7 +24,7 @@ class SnapshotFactory:
         return snapshot
 
     def makeSnapshotPerson(self, person):
-        snapshotPerson = Person()
+        snapshotPerson = SnapshotPerson()
         snapshotPerson.id = person.id
         snapshotPerson.centerPoint = person.currentCenterPoint.copy()
         snapshotPerson.yawRadians = person.yawRadians
@@ -33,7 +33,7 @@ class SnapshotFactory:
         return snapshotPerson
 
     def makeSnapshotBullet(self, bullet):
-        snapshotBullet = Bullet()
+        snapshotBullet = SnapshotBullet()
         snapshotBullet.id = bullet.id
         if bullet.ownerPerson is not None:  # if bullet is debris -> ownerPerson is None
             snapshotBullet.personId = bullet.ownerPerson.id

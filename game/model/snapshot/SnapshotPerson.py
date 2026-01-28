@@ -1,7 +1,7 @@
 from game.calc.Vector3 import Vector3
 
 
-class Person:
+class SnapshotPerson:
 
     def __init__(self):
         self.id = 0
