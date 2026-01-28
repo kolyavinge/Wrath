@@ -6,8 +6,8 @@ class SnapshotDiffLogic:
     def getSnapshotsDiff(self, snapshotOld, snapshotNew):
         diff = SnapshotDiff()
 
-        if hasattr(snapshotNew, "player"):  # TODO по хорошему нужно избавиться от этих проверок
-            if hasattr(snapshotOld, "player"):
+        if hasattr(snapshotNew, "player"):
+            if hasattr(snapshotOld, "player"):  # TODO по хорошему нужно избавиться от проверок snapshotOld
                 if snapshotOld.player != snapshotNew.player:
                     diff.player = snapshotNew.player
             else:
@@ -24,5 +24,8 @@ class SnapshotDiffLogic:
                     i += 1
             else:
                 diff.enemies = snapshotNew.enemies
+
+        if hasattr(snapshotNew, "bullets"):
+            diff.bullets = snapshotNew.bullets  # bullets always changed
 
         return diff

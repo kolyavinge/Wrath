@@ -1,3 +1,4 @@
+from game.anx.BulletIdLogic import BulletIdLogic
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 
 
@@ -6,12 +7,16 @@ class BulletLogic:
     def __init__(
         self,
         traversal: BSPTreeTraversal,
+        bulletIdLogic: BulletIdLogic,
     ):
         self.traversal = traversal
+        self.bulletIdLogic = bulletIdLogic
 
-    def makeBullet(self, gameState, person, weapon):
+    def makeBullet(self, gameState, person, weapon, id=None):
         bullet = weapon.makeBullet(person)
+        bullet.id = id or self.bulletIdLogic.getNextBulletId(person.id)
         gameState.bullets.append(bullet)
+        gameState.bulletsById[bullet.id] = bullet
         bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, bullet.currentPosition)
         bullet.nextLevelSegment = bullet.currentLevelSegment
 
@@ -30,6 +35,8 @@ class BulletLogic:
             gameState.bulletTraces.append(trace)
             visibilityLevelSegment.bulletTraces.append(trace)
             trace.visibilityLevelSegments.add(visibilityLevelSegment)
+
+        return bullet
 
     def makeDebris(self, gameState, explosion):
         debris = explosion.makeDebris()

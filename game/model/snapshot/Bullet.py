@@ -1,0 +1,15 @@
+from game.calc.Vector3 import Vector3
+
+
+class Bullet:
+
+    def __init__(self):
+        self.id = 0
+        self.personId = 0
+        self.weaponNumber = 0
+        self.position = Vector3()
+        self.direction = Vector3()
+        # self.velocityValue = 0
+
+    # __eq__() и __hash__() не реализованы, т.к. пули движутся всегда
+    # нет смысла проверять их на равенство

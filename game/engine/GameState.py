@@ -33,6 +33,7 @@ class GameState:
         self.allPersonInputData = {}
         self.allPersonInputData[self.player] = self.playerInputData
         self.bullets = []
+        self.bulletsById = {}
         self.bulletsToRemove = []
         self.bulletTraces = []
         self.bulletHolePoints = set()

@@ -10,6 +10,7 @@ class BulletUpdater:
 
         for bulletToRemove in gameState.bulletsToRemove:
             gameState.bullets.remove(bulletToRemove)
+            gameState.bulletsById.pop(bulletToRemove.id)
             if bulletToRemove.isVisible:
                 bulletToRemove.currentVisibilityLevelSegment.bullets.remove(bulletToRemove)
 
