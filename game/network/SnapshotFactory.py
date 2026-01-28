@@ -2,6 +2,7 @@ from game.model.person.Enemy import Enemy
 from game.model.person.Player import Player
 from game.model.snapshot.SnapshotBullet import SnapshotBullet
 from game.model.snapshot.SnapshotPerson import SnapshotPerson
+from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.weapon.WeaponCollection import WeaponCollection
 from game.network.Snapshot import Snapshot
 
@@ -20,6 +21,7 @@ class SnapshotFactory:
         snapshot = Snapshot()
         snapshot.enemies = [self.makeSnapshotPerson(enemy) for enemy in serverGameState.enemies]
         snapshot.bullets = [self.makeSnapshotBullet(bullet) for bullet in serverGameState.bullets if type(bullet.ownerPerson) == Enemy]
+        snapshot.powerups = {powerup.id: self.makeSnapshotPowerup(powerup) for powerup in serverGameState.powerups}
 
         return snapshot
 
@@ -44,3 +46,11 @@ class SnapshotFactory:
         # snapshotBullet.velocityValue = bullet.velocityValue
 
         return snapshotBullet
+
+    def makeSnapshotPowerup(self, powerup):
+        snapshotPowerup = SnapshotPowerup()
+        snapshotPowerup.id = powerup.id
+        snapshotPowerup.kind = powerup.kind
+        snapshotPowerup.position = powerup.pickupPosition
+
+        return snapshotPowerup

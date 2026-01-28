@@ -1,3 +1,4 @@
+from game.lib.Dictionary import Dictionary
 from game.network.Snapshot import SnapshotDiff
 
 
@@ -26,6 +27,16 @@ class SnapshotDiffLogic:
                 diff.enemies = snapshotNew.enemies
 
         if hasattr(snapshotNew, "bullets"):
-            diff.bullets = snapshotNew.bullets  # bullets always changed
+            diff.bullets = snapshotNew.bullets
+
+        if hasattr(snapshotNew, "powerups"):
+            if hasattr(snapshotOld, "powerups"):
+                addedPowerups, removedPowerups = Dictionary.getAddedAndRemovedItems(snapshotOld.powerups, snapshotNew.powerups)
+                if len(addedPowerups) > 0:
+                    diff.addedPowerups = addedPowerups
+                if len(removedPowerups) > 0:
+                    diff.removedPowerupIds = [p.id for p in removedPowerups]
+            else:
+                diff.addedPowerups = snapshotNew.powerups.values()
 
         return diff
