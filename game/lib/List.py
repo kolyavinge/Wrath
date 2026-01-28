@@ -21,3 +21,18 @@ class List:
     def removeItemsBetween(lst, startIndex, endIndex):
         for _ in range(startIndex + 1, endIndex):
             lst.remove(lst[startIndex + 1])
+
+    @staticmethod
+    def getAddedAndRemovedItems(oldList, newList, keyFunc=None):
+        if keyFunc is None:
+            oldListSet = set(oldList)
+            newListSet = set(newList)
+            addedItems = [newValue for newValue in newListSet if newValue not in oldListSet]
+            removedItems = [oldValue for oldValue in oldListSet if oldValue not in newListSet]
+        else:
+            oldListDict = {keyFunc(item): item for item in oldList}
+            newListDict = {keyFunc(item): item for item in newList}
+            addedItems = [newValue for newKey, newValue in newListDict if newKey not in oldListDict]
+            removedItems = [oldValue for oldKey, oldValue in oldListDict if oldKey not in newListDict]
+
+        return (addedItems, removedItems)
