@@ -9,6 +9,7 @@ from game.model.powerup.PowerupKind import PowerupKind
 class Powerup:
 
     def __init__(self):
+        self.id = 0
         self.kind = PowerupKind.unknown
         self.position = Vector3()
         self.pickupPosition = Vector3()

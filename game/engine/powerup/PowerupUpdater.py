@@ -1,4 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
+from game.anx.PowerupIdLogic import PowerupIdLogic
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 from game.engine.powerup.PowerupPositionGenerator import PowerupPositionGenerator
 from game.lib.DecrementCounter import DecrementCounter
@@ -15,9 +16,11 @@ class PowerupUpdater:
         self,
         positionGenerator: PowerupPositionGenerator,
         traversal: BSPTreeTraversal,
+        powerupIdLogic: PowerupIdLogic,
     ):
         self.positionGenerator = positionGenerator
         self.traversal = traversal
+        self.powerupIdLogic = powerupIdLogic
         self.delay = DecrementCounter()
         self.powerupCount = {}
         self.powerupCount[WeaponPowerup] = 8
@@ -48,6 +51,7 @@ class PowerupUpdater:
 
     def makeNewPowerup(self, gameState, powerupType):
         powerup = powerupType()
+        powerup.id = self.powerupIdLogic.getPowerupId()
         powerup.setPosition(self.positionGenerator.getPosition(gameState))
 
         levelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, powerup.position)
