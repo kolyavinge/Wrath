@@ -86,7 +86,6 @@ class ClientUpdater:
     selectWeaponRequestListener: SelectWeaponRequestListener
 
     def update(self, gameState):
-        # читаем и применяем текущие сообщения от сервера
         self.personTurnUpdater.updateForPlayer(gameState)
         self.personMovingTimeUpdater.updateForPlayer(gameState)
         self.personVelocityUpdater.updateForPlayer(gameState)
@@ -99,7 +98,6 @@ class ClientUpdater:
         self.personStepUpdater.update(gameState)
         self.personPositionUpdater.commitPlayerNextPosition(gameState)
         self.personFloorUpdater.commitPlayerNextFloor(gameState)
-        # асинхронно отправляем на сервер позицию игрока и направление взгляда
         self.playerLevelSegmentsUpdater.updateIfMoved(gameState)
         self.enemyLevelSegmentsUpdater.updateIfMoved(gameState)
         self.personWeaponPositionUpdater.update(gameState)
@@ -107,13 +105,11 @@ class ClientUpdater:
         self.weaponDelayUpdater.updateForPlayer(gameState)
         self.weaponFireUpdater.updateForPlayer(gameState)
         self.weaponAltFireUpdater.updateForPlayer(gameState)
-        # отправляем инфу о выстреле
         self.personLifeCycleUpdater.update(gameState)
         self.bulletPositionUpdater.moveNextPosition(gameState)
         self.bulletCollisionUpdater.updateForConstructions(gameState)
         self.bulletPositionUpdater.commitNextPosition(gameState)
         self.powerupCollisionUpdater.updateForPlayer(gameState)
-        # отправляем если взяли поверап
         self.bulletUpdater.update(gameState)
         self.explosionUpdater.update(gameState)
         self.powerupUpdater.update(gameState)

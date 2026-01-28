@@ -69,7 +69,6 @@ class ServerUpdater:
     selectWeaponRequestListener: SelectWeaponRequestListener
 
     def update(self, gameState):
-        # читаем и применяем текущие сообщения от всех клиентов
         self.personTurnUpdater.updateForEnemies(gameState)
         self.personMovingTimeUpdater.updateForEnemies(gameState)
         self.personVelocityUpdater.updateForEnemies(gameState)
@@ -107,4 +106,3 @@ class ServerUpdater:
         self.fragStatisticUpdater.update(gameState)
         gameState.collisionData.clear()
         gameState.updateGlobalTime()
-        # формируем и отправляем новый сообщения клиентам
