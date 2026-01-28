@@ -62,6 +62,7 @@ from game.engine.person.PlayerLevelSegmentsUpdater import *
 from game.engine.person.PlayerMovingSwingUpdater import *
 from game.engine.person.PlayerWeaponSwingUpdater import *
 from game.engine.person.TorchUpdater import *
+from game.engine.powerup.PowerupLogic import *
 from game.engine.powerup.PowerupPositionGenerator import *
 from game.engine.powerup.PowerupProcessor import *
 from game.engine.powerup.PowerupUpdater import *
@@ -166,6 +167,7 @@ class EngineModule:
         binder.bindSingleton(PlayerMovingSwingUpdater)
         binder.bindSingleton(PlayerWeaponSwingUpdater)
         binder.bindSingleton(TorchUpdater)
+        binder.bindSingleton(PowerupLogic)
         binder.bindSingleton(PowerupPositionGenerator)
         binder.bindSingleton(PowerupProcessor)
         binder.bindSingleton(PowerupUpdater)

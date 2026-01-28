@@ -1,6 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
-from game.anx.PowerupIdLogic import PowerupIdLogic
-from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.engine.powerup.PowerupLogic import PowerupLogic
 from game.engine.powerup.PowerupPositionGenerator import PowerupPositionGenerator
 from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Query import Query
@@ -15,12 +14,10 @@ class PowerupUpdater:
     def __init__(
         self,
         positionGenerator: PowerupPositionGenerator,
-        traversal: BSPTreeTraversal,
-        powerupIdLogic: PowerupIdLogic,
+        powerupLogic: PowerupLogic,
     ):
         self.positionGenerator = positionGenerator
-        self.traversal = traversal
-        self.powerupIdLogic = powerupIdLogic
+        self.powerupLogic = powerupLogic
         self.delay = DecrementCounter()
         self.powerupCount = {}
         self.powerupCount[WeaponPowerup] = 8
@@ -29,37 +26,20 @@ class PowerupUpdater:
         self.powerupCount[VestPowerup] = 2
 
     def update(self, gameState):
-        self.delay.decrease()
         for powerup in gameState.powerups:
             powerup.update()
 
     def generateNew(self, gameState):
+        self.delay.decrease()
         if not self.delay.isExpired():
             return
 
         currentPowerups = gameState.powerups
-        newPowerups = []
         for powerupType, powerupCount in self.powerupCount.items():
             count = Query(currentPowerups).count(lambda x: type(x) == powerupType)
             while count < powerupCount:
-                powerup = self.makeNewPowerup(gameState, powerupType)
-                newPowerups.append(powerup)
+                position = self.positionGenerator.getPosition(gameState)
+                self.powerupLogic.makePowerup(gameState, powerupType, position)
                 count += 1
 
-        currentPowerups.extend(newPowerups)
         self.delay.set(200 * CommonConstants.mainTimerMsec)
-
-    def makeNewPowerup(self, gameState, powerupType):
-        powerup = powerupType()
-        powerup.id = self.powerupIdLogic.getPowerupId()
-        powerup.setPosition(self.positionGenerator.getPosition(gameState))
-
-        levelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, powerup.position)
-        levelSegment.powerups.append(powerup)
-        powerup.collisionLevelSegment = levelSegment
-
-        levelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, powerup.position)
-        levelSegment.powerups.append(powerup)
-        powerup.visibilityLevelSegment = levelSegment
-
-        return powerup
