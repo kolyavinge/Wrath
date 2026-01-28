@@ -27,3 +27,8 @@ class PowerupLogic:
         powerup.visibilityLevelSegment = levelSegment
 
         return powerup
+
+    def removePowerup(self, gameState, powerup):
+        gameState.powerups.remove(powerup)
+        powerup.collisionLevelSegment.powerups.remove(powerup)
+        powerup.visibilityLevelSegment.powerups.remove(powerup)
