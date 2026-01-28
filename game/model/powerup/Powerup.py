@@ -3,11 +3,13 @@ from game.calc.TransformMatrix4 import TransformMatrix4
 from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.lib.Random import Random
+from game.model.powerup.PowerupKind import PowerupKind
 
 
 class Powerup:
 
     def __init__(self):
+        self.kind = PowerupKind.unknown
         self.position = Vector3()
         self.pickupPosition = Vector3()
         self.height = 0
