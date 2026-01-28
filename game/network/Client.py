@@ -7,4 +7,5 @@ class Client:
         self.id = 0
         self.gameState = None
         self.messageChannel = None
-        self.lastAcknowledgedSnapshot = Snapshot.empty
+        self.lastAcknowledgedClientSnapshot = Snapshot.empty
+        self.lastAcknowledgedServerSnapshot = Snapshot.empty
