@@ -1,4 +1,5 @@
-from game.network.Snapshot import Snapshot
+from game.model.snapshot.ClientSnapshot import ClientSnapshot
+from game.model.snapshot.ServerSnapshot import ServerSnapshot
 
 
 class Client:
@@ -7,5 +8,5 @@ class Client:
         self.id = 0
         self.gameState = None
         self.messageChannel = None
-        self.lastAcknowledgedClientSnapshot = Snapshot.empty
-        self.lastAcknowledgedServerSnapshot = Snapshot.empty
+        self.lastAcknowledgedClientSnapshot = ClientSnapshot.makeEmpty()
+        self.lastAcknowledgedServerSnapshot = ServerSnapshot.makeEmpty()

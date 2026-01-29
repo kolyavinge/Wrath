@@ -1,24 +1,24 @@
 from game.model.person.Enemy import Enemy
 from game.model.person.Player import Player
+from game.model.snapshot.ClientSnapshot import ClientSnapshot
+from game.model.snapshot.ServerSnapshot import ServerSnapshot
 from game.model.snapshot.SnapshotBullet import SnapshotBullet
 from game.model.snapshot.SnapshotPerson import SnapshotPerson
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.weapon.WeaponCollection import WeaponCollection
-from game.network.Snapshot import Snapshot
 
 
 class SnapshotFactory:
 
     def makeClientSnapshot(self, clientGameState):
-        # TODO сделать разделение на ClientSnapshot и ServerSnapshot
-        snapshot = Snapshot()
+        snapshot = ClientSnapshot()
         snapshot.player = self.makeSnapshotPerson(clientGameState.player)
         snapshot.bullets = [self.makeSnapshotBullet(bullet) for bullet in clientGameState.bullets if type(bullet.ownerPerson) == Player]
 
         return snapshot
 
     def makeServerSnapshot(self, serverGameState):
-        snapshot = Snapshot()
+        snapshot = ServerSnapshot()
         snapshot.enemies = [self.makeSnapshotPerson(enemy) for enemy in serverGameState.enemies]
         snapshot.bullets = [self.makeSnapshotBullet(bullet) for bullet in serverGameState.bullets if type(bullet.ownerPerson) == Enemy]
         snapshot.powerups = {powerup.id: self.makeSnapshotPowerup(powerup) for powerup in serverGameState.powerups}
