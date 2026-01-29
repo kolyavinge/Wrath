@@ -11,6 +11,7 @@ from game.model.weapon.ExplosionKind import ExplosionKind
 class Explosion:
 
     def __init__(self, debrisType=None):
+        self.id = 0
         self.kind = ExplosionKind.unknown
         self.debrisType = debrisType
         self.bullet = None
