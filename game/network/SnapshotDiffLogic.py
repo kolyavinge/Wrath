@@ -13,13 +13,15 @@ class SnapshotDiffLogic:
 
         if hasattr(snapshotNew, "enemies"):
             if len(snapshotOld.enemies) == len(snapshotNew.enemies):
-                diff.enemies = []
+                enemies = []
                 i = 0
                 while i < len(snapshotOld.enemies):
                     if snapshotOld.enemies[i] != snapshotNew.enemies[i]:
-                        diff.enemies.append(snapshotNew.enemies[i])
+                        enemies.append(snapshotNew.enemies[i])
                     i += 1
-            else:
+                if len(enemies) > 0:
+                    diff.enemies = enemies
+            elif len(snapshotNew.enemies) > 0:
                 diff.enemies = snapshotNew.enemies
 
         if hasattr(snapshotNew, "bullets"):
