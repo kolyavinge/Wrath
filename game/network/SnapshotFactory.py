@@ -13,7 +13,7 @@ class SnapshotFactory:
     def makeClientSnapshot(self, clientGameState):
         snapshot = ClientSnapshot()
         snapshot.player = self.makeSnapshotPerson(clientGameState.player)
-        snapshot.bullets = [self.makeSnapshotBullet(bullet) for bullet in clientGameState.bullets if type(bullet.ownerPerson) == Player]
+        snapshot.bullets = {bullet.id: self.makeSnapshotBullet(bullet) for bullet in clientGameState.bullets if type(bullet.ownerPerson) == Player}
         snapshot.notPickedupPowerupIds = set([powerup.id for powerup in clientGameState.powerups])
 
         return snapshot
@@ -21,7 +21,7 @@ class SnapshotFactory:
     def makeServerSnapshot(self, serverGameState):
         snapshot = ServerSnapshot()
         snapshot.enemies = [self.makeSnapshotPerson(enemy) for enemy in serverGameState.enemies]
-        snapshot.bullets = [self.makeSnapshotBullet(bullet) for bullet in serverGameState.bullets if type(bullet.ownerPerson) == Enemy]
+        snapshot.bullets = {bullet.id: self.makeSnapshotBullet(bullet) for bullet in serverGameState.bullets if type(bullet.ownerPerson) == Enemy}
         snapshot.powerups = {powerup.id: self.makeSnapshotPowerup(powerup) for powerup in serverGameState.powerups}
 
         return snapshot

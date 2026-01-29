@@ -35,9 +35,9 @@ class GameStateSynchronizer:
             for enemy in diff.enemies:
                 self.synchPerson(gameState, enemy)
 
-        if hasattr(diff, "bullets"):
-            for bullet in diff.bullets:
-                self.synchBullet(gameState, bullet)
+        if hasattr(diff, "addedBullets"):
+            for bullet in diff.addedBullets:
+                self.synchAddedBullet(gameState, bullet)
 
         if hasattr(diff, "addedPowerups"):
             for powerup in diff.addedPowerups:
@@ -57,22 +57,21 @@ class GameStateSynchronizer:
         self.personTurnLogic.setYawPitchRadians(sychedPerson, diffPerson.yawRadians, diffPerson.pitchRadians)
         sychedPerson.commitNextPosition()
 
-    def synchBullet(self, gameState, diffBullet):
-        if diffBullet.id not in gameState.bulletsById:
-            person = gameState.allPersonById[diffBullet.personId]
-            personItems = gameState.allPersonItems[person]
-            diffBulletWeapon = personItems.getWeaponByTypeOrNone(WeaponCollection.getWeaponTypeByNumber(diffBullet.weaponNumber))
-            if diffBulletWeapon is None:
-                return
-            if personItems.currentWeapon != diffBulletWeapon:
-                self.weaponSelector.setWeaponByType(personItems, type(diffBulletWeapon))
-                self.personWeaponPositionUpdater.updateForPerson(person, personItems)
-            newBullet = self.bulletLogic.makeBullet(gameState, person, personItems.currentWeapon, diffBullet.id)
-            newBullet.direction = diffBullet.direction.copy()
-            # newBullet.velocityValue = diffBullet.velocityValue
-            # newBullet.velocity.setLength(diffBullet.velocityValue)
-            self.bulletPositionUpdater.moveBulletNextPositionTo(gameState, newBullet, diffBullet.position)
-            self.bulletPositionUpdater.commitBulletNextPosition(newBullet, gameState.visibilityTree)
+    def synchAddedBullet(self, gameState, diffBullet):
+        person = gameState.allPersonById[diffBullet.personId]
+        personItems = gameState.allPersonItems[person]
+        diffBulletWeapon = personItems.getWeaponByTypeOrNone(WeaponCollection.getWeaponTypeByNumber(diffBullet.weaponNumber))
+        if diffBulletWeapon is None:
+            return
+        if personItems.currentWeapon != diffBulletWeapon:
+            self.weaponSelector.setWeaponByType(personItems, type(diffBulletWeapon))
+            self.personWeaponPositionUpdater.updateForPerson(person, personItems)
+        newBullet = self.bulletLogic.makeBullet(gameState, person, personItems.currentWeapon, diffBullet.id)
+        newBullet.direction = diffBullet.direction.copy()
+        # newBullet.velocityValue = diffBullet.velocityValue
+        # newBullet.velocity.setLength(diffBullet.velocityValue)
+        self.bulletPositionUpdater.moveBulletNextPositionTo(gameState, newBullet, diffBullet.position)
+        self.bulletPositionUpdater.commitBulletNextPosition(newBullet, gameState.visibilityTree)
 
     def synchAddedPowerup(self, gameState, diffPowerup):
         powerupType = PowerupType.getPowerupTypeFromKind(diffPowerup.kind)

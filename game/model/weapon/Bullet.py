@@ -6,6 +6,7 @@ from game.calc.Vector3 import Vector3
 class Bullet:
 
     def __init__(self, traceType=None, explosionType=None):
+        self.id = 0
         self.traceType = traceType
         self.explosionType = explosionType
         self.isAlive = True

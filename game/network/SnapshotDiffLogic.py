@@ -26,7 +26,9 @@ class SnapshotDiffLogic:
                 diff.enemies = snapshotNew.enemies
 
         if hasattr(snapshotNew, "bullets"):
-            diff.bullets = snapshotNew.bullets
+            addedBullets = Dictionary.getAddedItems(snapshotOld.bullets, snapshotNew.bullets)
+            if len(addedBullets) > 0:
+                diff.addedBullets = addedBullets
 
         if hasattr(snapshotNew, "powerups"):
             addedPowerups = Dictionary.getAddedItems(snapshotOld.powerups, snapshotNew.powerups)
