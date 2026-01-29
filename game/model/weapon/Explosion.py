@@ -5,11 +5,13 @@ from game.calc.Vector3 import Vector3
 from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Math import Math
 from game.lib.Random import Random
+from game.model.weapon.ExplosionKind import ExplosionKind
 
 
 class Explosion:
 
     def __init__(self, debrisType=None):
+        self.kind = ExplosionKind.unknown
         self.debrisType = debrisType
         self.bullet = None
         self.radius = 0

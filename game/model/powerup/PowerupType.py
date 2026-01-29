@@ -12,10 +12,10 @@ class PowerupType:
         if PowerupKind.isWeaponPowerup(kind):
             return WeaponPowerup
         else:
-            types = {
+            kinds = {
                 PowerupKind.largeHealth: LargeHealthPowerup,
                 PowerupKind.smallHealth: SmallHealthPowerup,
                 PowerupKind.vest: VestPowerup,
             }
 
-            return types[kind]
+            return kinds[kind]

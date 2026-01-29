@@ -5,6 +5,7 @@ from game.lib.Random import Random
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
 from game.model.weapon.Explosion import Explosion
+from game.model.weapon.ExplosionKind import ExplosionKind
 from game.model.weapon.Ray import Ray
 from game.model.weapon.Weapon import Weapon
 
@@ -13,6 +14,7 @@ class PlasmaExplosion(Explosion):
 
     def __init__(self):
         super().__init__()
+        self.kind = ExplosionKind.plasmaExplosion
         self.velocityValue = 0.1
         self.particlesInGroup = 1000
         self.particleGroupsCount = 10

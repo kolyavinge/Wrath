@@ -5,6 +5,7 @@ from game.model.weapon.BulletHoleInfo import BulletHoleInfo
 from game.model.weapon.BulletTrace import BulletTrace
 from game.model.weapon.Debris import Debris
 from game.model.weapon.Explosion import Explosion
+from game.model.weapon.ExplosionKind import ExplosionKind
 from game.model.weapon.Weapon import Weapon
 
 
@@ -25,6 +26,7 @@ class LauncherExplosion(Explosion):
 
     def __init__(self):
         super().__init__(Debris)
+        self.kind = ExplosionKind.launcherExplosion
         self.maxRadius = 4
         self.velocityValue = 0.1
         self.damagePercent = 0.02
