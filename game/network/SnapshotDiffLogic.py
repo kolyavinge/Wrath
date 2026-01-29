@@ -26,7 +26,8 @@ class SnapshotDiffLogic:
             diff.bullets = snapshotNew.bullets
 
         if hasattr(snapshotNew, "powerups"):
-            addedPowerups, removedPowerups = Dictionary.getAddedAndRemovedItems(snapshotOld.powerups, snapshotNew.powerups)
+            addedPowerups = Dictionary.getAddedItems(snapshotOld.powerups, snapshotNew.powerups)
+            removedPowerups = Dictionary.getRemovedItems(snapshotOld.powerups, snapshotNew.powerups)
             if len(addedPowerups) > 0:
                 diff.addedPowerups = addedPowerups
             if len(removedPowerups) > 0:

@@ -13,8 +13,9 @@ class Dictionary:
         return groups
 
     @staticmethod
-    def getAddedAndRemovedItems(oldDict, newDict):
-        addedItems = [newValue for newKey, newValue in newDict.items() if newKey not in oldDict]
-        removedItems = [oldValue for oldKey, oldValue in oldDict.items() if oldKey not in newDict]
+    def getAddedItems(oldDict, newDict):
+        return [newValue for newKey, newValue in newDict.items() if newKey not in oldDict]
 
-        return (addedItems, removedItems)
+    @staticmethod
+    def getRemovedItems(oldDict, newDict):
+        return [oldValue for oldKey, oldValue in oldDict.items() if oldKey not in newDict]

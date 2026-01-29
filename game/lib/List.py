@@ -23,16 +23,23 @@ class List:
             lst.remove(lst[startIndex + 1])
 
     @staticmethod
-    def getAddedAndRemovedItems(oldList, newList, keyFunc=None):
+    def getAddedItems(oldList, newList, keyFunc=None):
         if keyFunc is None:
             oldListSet = set(oldList)
-            newListSet = set(newList)
-            addedItems = [newValue for newValue in newListSet if newValue not in oldListSet]
-            removedItems = [oldValue for oldValue in oldListSet if oldValue not in newListSet]
+            addedItems = [newValue for newValue in newList if newValue not in oldListSet]
         else:
-            oldListDict = {keyFunc(item): item for item in oldList}
-            newListDict = {keyFunc(item): item for item in newList}
-            addedItems = [newValue for newKey, newValue in newListDict if newKey not in oldListDict]
-            removedItems = [oldValue for oldKey, oldValue in oldListDict if oldKey not in newListDict]
+            oldListSet = set([keyFunc(item) for item in oldList])
+            addedItems = [newValue for newValue in newList if keyFunc(newValue) not in oldListSet]
 
-        return (addedItems, removedItems)
+        return addedItems
+
+    @staticmethod
+    def getRemovedItems(oldList, newList, keyFunc=None):
+        if keyFunc is None:
+            newListSet = set(newList)
+            removedItems = [oldValue for oldValue in oldList if oldValue not in newListSet]
+        else:
+            newListDict = set([keyFunc(item) for item in newList])
+            removedItems = [oldValue for oldValue in oldList if keyFunc(oldValue) not in newListDict]
+
+        return removedItems
