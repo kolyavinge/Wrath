@@ -47,6 +47,10 @@ class GameStateSynchronizer:
             for powerupId in diff.removedPowerupIds:
                 self.synchRemovedPowerup(gameState, powerupId)
 
+        if hasattr(diff, "pickedupPowerupIds"):
+            for powerupId in diff.pickedupPowerupIds:
+                self.synchRemovedPowerup(gameState, powerupId)
+
     def synchPerson(self, gameState, diffPerson):
         sychedPerson = gameState.allPersonById[diffPerson.id]
         sychedPerson.moveNextPositionTo(diffPerson.centerPoint)

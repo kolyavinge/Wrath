@@ -1,4 +1,5 @@
 from game.lib.Dictionary import Dictionary
+from game.lib.Set import Set
 from game.model.snapshot.SnapshotDiff import SnapshotDiff
 
 
@@ -34,5 +35,10 @@ class SnapshotDiffLogic:
                 diff.addedPowerups = addedPowerups
             if len(removedPowerups) > 0:
                 diff.removedPowerupIds = [p.id for p in removedPowerups]
+
+        if hasattr(snapshotNew, "notPickedupPowerupIds"):
+            pickedupPowerupIds = Set.getRemovedItems(snapshotOld.notPickedupPowerupIds, snapshotNew.notPickedupPowerupIds)
+            if len(pickedupPowerupIds) > 0:
+                diff.pickedupPowerupIds = pickedupPowerupIds
 
         return diff

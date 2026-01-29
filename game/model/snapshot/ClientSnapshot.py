@@ -10,6 +10,7 @@ class ClientSnapshot:
         empty = ClientSnapshot()
         empty.player = SnapshotPerson()
         empty.bullets = []
+        empty.notPickedupPowerupIds = []
 
         return empty
 
@@ -19,3 +20,4 @@ class ClientSnapshot:
         self.acknowledged = False
         self.player = None
         self.bullets = None
+        self.notPickedupPowerupIds = None

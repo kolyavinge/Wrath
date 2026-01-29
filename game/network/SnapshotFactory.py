@@ -14,6 +14,7 @@ class SnapshotFactory:
         snapshot = ClientSnapshot()
         snapshot.player = self.makeSnapshotPerson(clientGameState.player)
         snapshot.bullets = [self.makeSnapshotBullet(bullet) for bullet in clientGameState.bullets if type(bullet.ownerPerson) == Player]
+        snapshot.notPickedupPowerupIds = set([powerup.id for powerup in clientGameState.powerups])
 
         return snapshot
 
