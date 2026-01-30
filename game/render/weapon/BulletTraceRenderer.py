@@ -4,6 +4,7 @@ from game.model.weapon.Pistol import PistolBulletTrace
 from game.model.weapon.Railgun import RailgunBulletTrace
 from game.model.weapon.Rifle import RifleBulletTrace
 from game.model.weapon.Sniper import SniperBulletTrace
+from game.render.weapon.trace.DebrisTraceRenderer import DebrisTraceRenderer
 from game.render.weapon.trace.LauncherBulletTraceRenderer import *
 from game.render.weapon.trace.RailgunBulletTraceRenderer import *
 from game.render.weapon.trace.RifleBulletTraceRenderer import *
@@ -18,6 +19,7 @@ class BulletTraceRenderer:
         launcherBulletTraceRenderer: LauncherBulletTraceRenderer,
         railgunBulletTraceRenderer: RailgunBulletTraceRenderer,
         sniperBulletTraceRenderer: SniperBulletTraceRenderer,
+        debrisTraceRenderer: DebrisTraceRenderer,
     ):
         self.renderers = {}
         self.renderers[PistolBulletTrace] = rifleBulletTraceRenderer
@@ -25,7 +27,7 @@ class BulletTraceRenderer:
         self.renderers[LauncherBulletTrace] = launcherBulletTraceRenderer
         self.renderers[RailgunBulletTrace] = railgunBulletTraceRenderer
         self.renderers[SniperBulletTrace] = sniperBulletTraceRenderer
-        self.renderers[DebrisBulletTrace] = rifleBulletTraceRenderer
+        self.renderers[DebrisBulletTrace] = debrisTraceRenderer
 
     def render(self, camera, visibleLevelSegments):
         visibleTraces = self.getVisibleTracesDictionary(visibleLevelSegments)
