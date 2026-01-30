@@ -30,6 +30,7 @@ class Bullet:
         self.currentVisibilityLevelSegment = None
         self.goThroughPerson = False
         self.isHeadshotEnabled = False
+        self.canIncreaseFrags = True
         self.paralyze = False
         self.holeInfo = None
         self.traceShift = 0

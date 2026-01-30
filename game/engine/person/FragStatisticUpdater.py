@@ -14,7 +14,7 @@ class FragStatisticUpdater:
 
         for person, bullet in collisionData.personBullet.items():
             if person.lifeCycle == LifeCycle.dead:
-                if bullet.ownerPerson is not None:  # if bullet is debris -> ownerPerson is None
+                if bullet.canIncreaseFrags:
                     self.increaseFrags(gameState, bullet.ownerPerson)
                 self.increaseDeaths(gameState, person)
 

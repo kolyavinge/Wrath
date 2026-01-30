@@ -18,4 +18,5 @@ class Debris(Bullet):
         super().__init__(DebrisBulletTrace)
         self.velocityValue = 1
         self.damagePercent = 0.05
+        self.canIncreaseFrags = False
         self.holeInfo = BulletHoleInfo.smallHole
