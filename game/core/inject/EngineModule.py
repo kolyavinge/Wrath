@@ -80,6 +80,7 @@ from game.engine.weapon.BulletLogic import *
 from game.engine.weapon.BulletPositionUpdater import *
 from game.engine.weapon.BulletTraceUpdater import *
 from game.engine.weapon.BulletUpdater import *
+from game.engine.weapon.DebrisLogic import *
 from game.engine.weapon.ExplosionLogic import *
 from game.engine.weapon.ExplosionUpdater import *
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
@@ -185,6 +186,7 @@ class EngineModule:
         binder.bindSingleton(BulletPositionUpdater)
         binder.bindSingleton(BulletTraceUpdater)
         binder.bindSingleton(BulletUpdater)
+        binder.bindSingleton(DebrisLogic)
         binder.bindSingleton(ExplosionLogic)
         binder.bindSingleton(ExplosionUpdater)
         binder.bindSingleton(NonStandardBulletMovingUpdater)

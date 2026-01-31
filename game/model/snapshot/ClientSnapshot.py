@@ -9,8 +9,9 @@ class ClientSnapshot:
     def makeEmpty():
         empty = ClientSnapshot()
         empty.player = SnapshotPerson()
-        empty.bullets = []
-        empty.notPickedupPowerupIds = []
+        empty.bullets = {}
+        empty.debris = {}
+        empty.notPickedupPowerupIds = {}
 
         return empty
 
@@ -20,4 +21,5 @@ class ClientSnapshot:
         self.acknowledged = False
         self.player = None
         self.bullets = None
+        self.debris = None
         self.notPickedupPowerupIds = None

@@ -6,7 +6,8 @@ class ServerSnapshot:
     def makeEmpty():
         empty = ServerSnapshot()
         empty.enemies = []
-        empty.bullets = []
+        empty.bullets = {}
+        empty.debris = {}
         empty.powerups = {}
 
         return empty
@@ -17,4 +18,5 @@ class ServerSnapshot:
         self.acknowledged = False
         self.enemies = None
         self.bullets = None
+        self.debris = None
         self.powerups = None

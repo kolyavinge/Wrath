@@ -3,9 +3,11 @@ from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionU
 from game.engine.powerup.PowerupLogic import PowerupLogic
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
+from game.engine.weapon.DebrisLogic import DebrisLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.Query import Query
 from game.model.powerup.PowerupType import PowerupType
+from game.model.weapon.Debris import Debris
 from game.model.weapon.WeaponCollection import WeaponCollection
 
 
@@ -15,6 +17,7 @@ class GameStateSynchronizer:
         self,
         personTurnLogic: PersonTurnLogic,
         bulletLogic: BulletLogic,
+        debrisLogic: DebrisLogic,
         bulletPositionUpdater: BulletPositionUpdater,
         weaponSelector: WeaponSelector,
         personWeaponPositionUpdater: PersonWeaponPositionUpdater,
@@ -22,6 +25,7 @@ class GameStateSynchronizer:
     ):
         self.personTurnLogic = personTurnLogic
         self.bulletLogic = bulletLogic
+        self.debrisLogic = debrisLogic
         self.bulletPositionUpdater = bulletPositionUpdater
         self.weaponSelector = weaponSelector
         self.personWeaponPositionUpdater = personWeaponPositionUpdater
@@ -38,6 +42,10 @@ class GameStateSynchronizer:
         if hasattr(diff, "addedBullets"):
             for bullet in diff.addedBullets:
                 self.synchAddedBullet(gameState, bullet)
+
+        if hasattr(diff, "addedDebris"):
+            for debris in diff.addedDebris:
+                self.synchAddedDebris(gameState, debris)
 
         if hasattr(diff, "addedPowerups"):
             for powerup in diff.addedPowerups:
@@ -72,6 +80,10 @@ class GameStateSynchronizer:
         # newBullet.velocity.setLength(diffBullet.velocityValue)
         self.bulletPositionUpdater.moveBulletNextPositionTo(gameState, newBullet, diffBullet.position)
         self.bulletPositionUpdater.commitBulletNextPosition(newBullet, gameState.visibilityTree)
+
+    def synchAddedDebris(self, gameState, diffDebris):
+        person = gameState.allPersonById[diffDebris.personId]
+        self.debrisLogic.makeDebrisManually(gameState, diffDebris.id, Debris, person, diffDebris.position, diffDebris.direction)
 
     def synchAddedPowerup(self, gameState, diffPowerup):
         powerupType = PowerupType.getPowerupTypeFromKind(diffPowerup.kind)
