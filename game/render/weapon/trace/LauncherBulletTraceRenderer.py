@@ -46,7 +46,7 @@ class LauncherBulletTraceRenderer:
     def updateAndRenderTrace(self, trace, shader):
         shader.setTracePosition(trace.currentPosition)
         shader.setBulletDirection(trace.bullet.direction)
-        shader.setBulletDirectionTopNormal(trace.bullet.directionTopNormal)
+        shader.setBulletDirectionTopNormal(trace.bullet.weapon.directionTopNormal)
         shader.setBulletNozzleRadius(trace.bullet.nozzleRadius)
         shader.setIsBulletAlive(trace.bullet.isAlive)
         shader.setParticleLifeTime(trace.particleLifeTimeMsec)
