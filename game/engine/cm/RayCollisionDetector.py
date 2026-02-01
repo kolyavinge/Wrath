@@ -26,6 +26,16 @@ class RayCollisionDetector:
             lambda segment, start, end: self.getTotalCollisionResultOrNone(ray, segment, start, end),
         )
 
+    def getConstructionCollisionResultOrNone(self, ray, collisionTree):
+        return self.levelSegmentItemFinder.findItemOrNone(
+            collisionTree,
+            ray.startLevelSegment,
+            ray.currentLevelSegment,
+            ray.startPosition,
+            ray.currentPosition,
+            lambda segment, start, end: self.getOnlyConstructionCollisionResultOrNone(segment, start, end),
+        )
+
     def getTotalCollisionResultOrNone(self, ray, levelSegment, startPoint, endPoint):
         # check person
         collisionResult = self.personCollisionDetector.getNearestCollisionResultOrNone(ray.ownerPerson, levelSegment.allPerson, startPoint, endPoint)
@@ -33,6 +43,13 @@ class RayCollisionDetector:
             return (CollidedTarget.onePerson, collisionResult)
 
         # check constructions
+        collisionResult = self.constructionCollisionDetector.getCollisionResultOrNone(levelSegment.allConstructions, startPoint, endPoint)
+        if collisionResult is not None:
+            return (CollidedTarget.construction, collisionResult)
+
+        return None
+
+    def getOnlyConstructionCollisionResultOrNone(self, levelSegment, startPoint, endPoint):
         collisionResult = self.constructionCollisionDetector.getCollisionResultOrNone(levelSegment.allConstructions, startPoint, endPoint)
         if collisionResult is not None:
             return (CollidedTarget.construction, collisionResult)

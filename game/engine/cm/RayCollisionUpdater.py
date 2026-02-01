@@ -28,6 +28,12 @@ class RayCollisionUpdater:
             if collisionResult is not None:
                 self.processCollision(gameState, ray, collisionResult)
 
+    def updateForConstructions(self, gameState):
+        for ray in gameState.rays:
+            collisionResult = self.rayCollisionDetector.getConstructionCollisionResultOrNone(ray, gameState.collisionTree)
+            if collisionResult is not None:
+                self.processCollision(gameState, ray, collisionResult)
+
     def processCollision(self, gameState, ray, collisionResult):
         target, collisionResultData = collisionResult
         if target == CollidedTarget.construction:
