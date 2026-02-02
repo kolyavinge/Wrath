@@ -4,10 +4,12 @@ from game.engine.powerup.PowerupLogic import PowerupLogic
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.weapon.DebrisLogic import DebrisLogic
+from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.Query import Query
 from game.model.powerup.PowerupType import PowerupType
 from game.model.weapon.Debris import Debris
+from game.model.weapon.Plasma import Plasma
 from game.model.weapon.WeaponCollection import WeaponCollection
 
 
@@ -18,6 +20,7 @@ class GameStateSynchronizer:
         personTurnLogic: PersonTurnLogic,
         bulletLogic: BulletLogic,
         debrisLogic: DebrisLogic,
+        rayLogic: RayLogic,
         bulletPositionUpdater: BulletPositionUpdater,
         weaponSelector: WeaponSelector,
         personWeaponPositionUpdater: PersonWeaponPositionUpdater,
@@ -26,6 +29,7 @@ class GameStateSynchronizer:
         self.personTurnLogic = personTurnLogic
         self.bulletLogic = bulletLogic
         self.debrisLogic = debrisLogic
+        self.rayLogic = rayLogic
         self.bulletPositionUpdater = bulletPositionUpdater
         self.weaponSelector = weaponSelector
         self.personWeaponPositionUpdater = personWeaponPositionUpdater
@@ -46,6 +50,14 @@ class GameStateSynchronizer:
         if hasattr(diff, "addedDebris"):
             for debris in diff.addedDebris:
                 self.synchAddedDebris(gameState, debris)
+
+        if hasattr(diff, "addedRays"):
+            for ray in diff.addedRays:
+                self.synchAddedRay(gameState, ray)
+
+        if hasattr(diff, "removedRayPersonIds"):
+            for rayPersonId in diff.removedRayPersonIds:
+                self.synchRemovedRay(gameState, rayPersonId)
 
         if hasattr(diff, "addedPowerups"):
             for powerup in diff.addedPowerups:
@@ -84,6 +96,22 @@ class GameStateSynchronizer:
     def synchAddedDebris(self, gameState, diffDebris):
         person = gameState.allPersonById[diffDebris.personId]
         self.debrisLogic.makeDebrisManually(gameState, diffDebris.id, Debris, person, diffDebris.position, diffDebris.direction)
+
+    def synchAddedRay(self, gameState, diffRay):
+        person = gameState.allPersonById[diffRay.personId]
+        personItems = gameState.allPersonItems[person]
+        weapon = personItems.getWeaponByTypeOrNone(Plasma)
+        if weapon is None:
+            return
+        if personItems.currentWeapon != weapon:
+            self.weaponSelector.setWeaponByType(personItems, type(weapon))
+            self.personWeaponPositionUpdater.updateForPerson(person, personItems)
+        self.rayLogic.makeRay(gameState, person, weapon)
+
+    def synchRemovedRay(self, gameState, diffRayPersonId):
+        ray = Query(gameState.rays).firstOrNone(lambda x: x.ownerPerson.id == diffRayPersonId)
+        if ray is not None:
+            self.rayLogic.removeRay(gameState, ray)
 
     def synchAddedPowerup(self, gameState, diffPowerup):
         powerupType = PowerupType.getPowerupTypeFromKind(diffPowerup.kind)

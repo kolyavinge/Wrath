@@ -6,6 +6,7 @@ from game.model.snapshot.SnapshotBullet import SnapshotBullet
 from game.model.snapshot.SnapshotDebris import SnapshotDebris
 from game.model.snapshot.SnapshotPerson import SnapshotPerson
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
+from game.model.snapshot.SnapshotRay import SnapshotRay
 from game.model.weapon.Debris import Debris
 from game.model.weapon.WeaponCollection import WeaponCollection
 
@@ -25,6 +26,7 @@ class SnapshotFactory:
             for debris in clientGameState.bullets
             if isinstance(debris, Debris) and type(debris.ownerPerson) == Player
         }
+        snapshot.rays = {ray.ownerPerson.id: self.makeSnapshotRay(ray) for ray in clientGameState.rays if type(ray.ownerPerson) == Player}
         snapshot.notPickedupPowerupIds = set([powerup.id for powerup in clientGameState.powerups])
 
         return snapshot
@@ -38,6 +40,7 @@ class SnapshotFactory:
             for debris in serverGameState.bullets
             if isinstance(debris, Debris) and type(debris.ownerPerson) == Enemy
         }
+        snapshot.rays = {ray.ownerPerson.id: self.makeSnapshotRay(ray) for ray in serverGameState.rays if type(ray.ownerPerson) == Enemy}
         snapshot.powerups = {powerup.id: self.makeSnapshotPowerup(powerup) for powerup in serverGameState.powerups}
 
         return snapshot
@@ -70,6 +73,12 @@ class SnapshotFactory:
         snapshotDebris.direction = debris.direction.copy()
 
         return snapshotDebris
+
+    def makeSnapshotRay(self, ray):
+        snapshotRay = SnapshotRay()
+        snapshotRay.personId = ray.ownerPerson.id
+
+        return snapshotRay
 
     def makeSnapshotPowerup(self, powerup):
         snapshotPowerup = SnapshotPowerup()

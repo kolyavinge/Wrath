@@ -86,6 +86,7 @@ from game.engine.weapon.ExplosionUpdater import *
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
 from game.engine.weapon.PlasmaBulletMovingLogic import *
 from game.engine.weapon.RayFireLogic import *
+from game.engine.weapon.RayLogic import *
 from game.engine.weapon.RayPositionUpdater import *
 from game.engine.weapon.SelectWeaponRequestListener import *
 from game.engine.weapon.SniperAimFloatingUpdater import *
@@ -192,6 +193,7 @@ class EngineModule:
         binder.bindSingleton(NonStandardBulletMovingUpdater)
         binder.bindSingleton(PlasmaBulletMovingLogic)
         binder.bindSingleton(RayFireLogic)
+        binder.bindSingleton(RayLogic)
         binder.bindSingleton(RayPositionUpdater)
         binder.bindSingleton(SelectWeaponRequestListener)
         binder.bindSingleton(SniperAimFloatingUpdater)

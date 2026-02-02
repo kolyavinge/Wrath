@@ -9,7 +9,3 @@ class SnapshotBullet:
         self.weaponNumber = 0
         self.position = Vector3()
         self.direction = Vector3()
-        # self.velocityValue = 0
-
-    # __eq__() и __hash__() не реализованы, т.к. пули движутся всегда
-    # нет смысла проверять их на равенство

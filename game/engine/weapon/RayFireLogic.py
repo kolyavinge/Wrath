@@ -1,4 +1,4 @@
-from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.EventManager import EventManager, Events
 from game.lib.Query import Query
@@ -8,23 +8,17 @@ class RayFireLogic:
 
     def __init__(
         self,
-        traversal: BSPTreeTraversal,
+        rayLogic: RayLogic,
         weaponSelector: WeaponSelector,
         eventManager: EventManager,
     ):
-        self.traversal = traversal
+        self.rayLogic = rayLogic
         self.weaponSelector = weaponSelector
         self.eventManager = eventManager
 
     def activateRay(self, gameState, person, weapon):
         if self.canFire(person, weapon):
-            ray = weapon.makeRay(person)
-            ray.startLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, ray.startPosition)
-            ray.endLevelSegment = ray.startLevelSegment
-            ray.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, ray.startPosition)
-            ray.visibilityLevelSegment.rays.append(ray)
-            ray.initTimeSec = gameState.globalTimeSec
-            gameState.rays.append(ray)
+            ray = self.rayLogic.makeRay(gameState, person, weapon)
             self.eventManager.raiseEvent(Events.rayActivated, (person, weapon, ray))
 
     def fire(self, person, personItems):
@@ -41,7 +35,6 @@ class RayFireLogic:
 
     def deactivateRay(self, gameState, person, weapon):
         ray = Query(gameState.rays).first(lambda r: r.weapon == weapon)
-        gameState.rays.remove(ray)
-        ray.visibilityLevelSegment.rays.remove(ray)
+        self.rayLogic.removeRay(gameState, ray)
         weapon.delayRemain.set(2 * weapon.delay)
         self.eventManager.raiseEvent(Events.rayDeactivated, (person, weapon, ray))

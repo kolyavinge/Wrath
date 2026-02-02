@@ -8,6 +8,7 @@ class ServerSnapshot:
         empty.enemies = []
         empty.bullets = {}
         empty.debris = {}
+        empty.rays = {}
         empty.powerups = {}
 
         return empty
@@ -19,4 +20,5 @@ class ServerSnapshot:
         self.enemies = None
         self.bullets = None
         self.debris = None
+        self.rays = None
         self.powerups = None
