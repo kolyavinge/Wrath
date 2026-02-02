@@ -8,9 +8,15 @@ class SnapshotPerson:
         self.centerPoint = Vector3()
         self.yawRadians = 0
         self.pitchRadians = 0
+        self.health = 0
 
     def __eq__(self, value):
-        return self.centerPoint == value.centerPoint and self.yawRadians == value.yawRadians and self.pitchRadians == value.pitchRadians
+        return (
+            self.centerPoint == value.centerPoint
+            and self.yawRadians == value.yawRadians
+            and self.pitchRadians == value.pitchRadians
+            and self.health == value.health
+        )
 
     def __hash__(self):
-        return hash((self.centerPoint.__hash__(), self.yawRadians.__hash__(), self.pitchRadians.__hash__()))
+        return hash((self.centerPoint.__hash__(), self.yawRadians.__hash__(), self.pitchRadians.__hash__(), self.health.__hash__()))

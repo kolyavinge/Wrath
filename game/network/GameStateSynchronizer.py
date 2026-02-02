@@ -76,6 +76,7 @@ class GameStateSynchronizer:
         sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
         self.personTurnLogic.setYawPitchRadians(sychedPerson, diffPerson.yawRadians, diffPerson.pitchRadians)
         sychedPerson.commitNextPosition()
+        sychedPerson.health = diffPerson.health
 
     def synchAddedBullet(self, gameState, diffBullet):
         person = gameState.allPersonById[diffBullet.personId]

@@ -51,6 +51,7 @@ class SnapshotFactory:
         snapshotPerson.centerPoint = person.currentCenterPoint.copy()
         snapshotPerson.yawRadians = person.yawRadians
         snapshotPerson.pitchRadians = person.pitchRadians
+        snapshotPerson.health = person.health
 
         return snapshotPerson
 
