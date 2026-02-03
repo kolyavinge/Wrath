@@ -1,9 +1,5 @@
-from typing import Sized
-
-# хранит ограниченное кол-во обьектов с возможностью поиска по ключу
-
-
-class LimitedCollection(Sized):
+# хранит ограниченное кол-во элементов с возможностью поиска по ключу
+class LimitedCollection:
 
     def __init__(self, maxCount, getKeyFunc):
         self.maxCount = maxCount
@@ -20,8 +16,11 @@ class LimitedCollection(Sized):
         self.listItems.append(item)
         self.dictItems[self.getKeyFunc(item)] = item
 
-    def getByKey(self, key):
-        return self.dictItems[key]
+    def getByKeyOrNone(self, key):
+        if key in self.dictItems:
+            return self.dictItems[key]
+        else:
+            return None
 
     def getItems(self):
         return self.listItems
@@ -30,5 +29,5 @@ class LimitedCollection(Sized):
         self.listItems.clear()
         self.dictItems.clear()
 
-    def __len__(self) -> int:
+    def __len__(self):
         return len(self.listItems)
