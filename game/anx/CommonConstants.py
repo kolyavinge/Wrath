@@ -22,3 +22,4 @@ class CommonConstants:
     maxBulletHoles = 1000
     maxRaysCount = 100
     maxBloodStains = 5
+    maxRemovedBulletsCount = 100

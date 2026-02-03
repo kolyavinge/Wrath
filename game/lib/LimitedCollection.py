@@ -1,7 +1,9 @@
 from typing import Sized
 
+# хранит ограниченное кол-во обьектов с возможностью поиска по ключу
 
-class LimitedDictionary(Sized):
+
+class LimitedCollection(Sized):
 
     def __init__(self, maxCount, getKeyFunc):
         self.maxCount = maxCount
@@ -21,7 +23,7 @@ class LimitedDictionary(Sized):
     def getByKey(self, key):
         return self.dictItems[key]
 
-    def values(self):
+    def getItems(self):
         return self.listItems
 
     def clear(self):
