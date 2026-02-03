@@ -1,5 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTree import BSPTree
+from game.lib.LimitedDictionary import LimitedDictionary
 from game.model.level.BackgroundVisibilityData import BackgroundVisibilityData
 from game.model.person.Camera import Camera
 from game.model.person.CollisionData import CollisionData
@@ -34,7 +35,7 @@ class GameState:
         self.allPersonInputData[self.player] = self.playerInputData
         self.bullets = []
         self.bulletsById = {}
-        self.bulletsToRemove = []
+        self.removedBullets = LimitedDictionary(100, lambda bullet: bullet.id)
         self.bulletTraces = []
         self.bulletHolePoints = set()
         self.rays = []

@@ -38,6 +38,10 @@ class BulletLogic:
 
         return bullet
 
-    def removeBullet(self, gameState, bullet):
-        bullet.isAlive = False
-        gameState.bulletsToRemove.append(bullet)
+    def removeBullet(self, gameState, removedBullet):
+        removedBullet.isAlive = False
+        gameState.removedBullets.append(removedBullet)
+        gameState.bullets.remove(removedBullet)
+        gameState.bulletsById.pop(removedBullet.id)
+        if removedBullet.isVisible:
+            removedBullet.currentVisibilityLevelSegment.bullets.remove(removedBullet)

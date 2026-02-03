@@ -136,6 +136,5 @@ class ClientUpdater:
         self.personPositionUpdater.resetMovedAndTurnedForPlayer(gameState)
         self.personUpdater.commitZStateForPlayer(gameState)
         self.personUpdater.updateDelaysForPlayer(gameState)
-        self.bulletUpdater.removeNotAlive(gameState)
         gameState.collisionData.clear()
         gameState.updateGlobalTime()

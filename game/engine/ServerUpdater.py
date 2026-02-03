@@ -102,7 +102,6 @@ class ServerUpdater:
         self.personPositionUpdater.resetMovedAndTurned(gameState)
         self.personUpdater.commitZStateForEnemies(gameState)
         self.personUpdater.updateDelaysForEnemies(gameState)
-        self.bulletUpdater.removeNotAlive(gameState)
         self.fragStatisticUpdater.update(gameState)
         gameState.collisionData.clear()
         gameState.updateGlobalTime()
