@@ -82,6 +82,14 @@ class GameStateSynchronizer:
             for rayCollision in diff.addedPersonRayCollisions:
                 self.synchAddedPersonRayCollision(gameState, rayCollision)
 
+        if hasattr(diff, "addedPersonFrags"):
+            for frags in diff.addedPersonFrags:
+                self.synchAddedPersonFrags(gameState, frags)
+
+        if hasattr(diff, "addedPersonDeaths"):
+            for deaths in diff.addedPersonDeaths:
+                self.synchAddedPersonDeaths(gameState, deaths)
+
     def synchPerson(self, gameState, diffPerson):
         sychedPerson = gameState.allPersonById[diffPerson.id]
         sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
@@ -158,3 +166,11 @@ class GameStateSynchronizer:
         gameState.collisionData.personRay[damagedPerson] = ray
         ray.damagedObject = damagedPerson
         ray.stopOnPosition(diffRayCollision.collisionPoint)
+
+    def synchAddedPersonFrags(self, gameState, diffFrags):
+        person = gameState.allPersonById[diffFrags.personId]
+        gameState.personFragStatistic[person].frags = diffFrags.value
+
+    def synchAddedPersonDeaths(self, gameState, diffDeaths):
+        person = gameState.allPersonById[diffDeaths.personId]
+        gameState.personFragStatistic[person].deaths = diffDeaths.value

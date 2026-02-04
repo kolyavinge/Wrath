@@ -66,4 +66,14 @@ class SnapshotDiffLogic:
             if len(addedPersonRayCollisions) > 0:
                 diff.addedPersonRayCollisions = addedPersonRayCollisions
 
+        if hasattr(snapshotNew, "personFrags"):
+            addedPersonDeaths = Set.getAddedItems(snapshotOld.personFrags, snapshotNew.personFrags)
+            if len(addedPersonDeaths) > 0:
+                diff.addedPersonFrags = addedPersonDeaths
+
+        if hasattr(snapshotNew, "personDeaths"):
+            addedPersonDeaths = Set.getAddedItems(snapshotOld.personDeaths, snapshotNew.personDeaths)
+            if len(addedPersonDeaths) > 0:
+                diff.addedPersonDeaths = addedPersonDeaths
+
         return diff

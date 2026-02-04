@@ -5,6 +5,7 @@ from game.model.snapshot.ServerSnapshot import ServerSnapshot
 from game.model.snapshot.SnapshotBullet import SnapshotBullet
 from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
 from game.model.snapshot.SnapshotDebris import SnapshotDebris
+from game.model.snapshot.SnapshotFragStatistic import SnapshotFragStatistic
 from game.model.snapshot.SnapshotPerson import SnapshotPerson
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.snapshot.SnapshotRay import SnapshotRay
@@ -52,6 +53,8 @@ class SnapshotFactory:
             collisionId: self.makeSnapshotRayCollision(damagedPerson, ray)
             for collisionId, damagedPerson, ray in serverGameState.reservedCollisionData.personRay
         }
+        snapshot.personFrags = set([self.makeSnapshotFragStatistic(person, stat) for person, stat in serverGameState.personFragStatistic.items()])
+        snapshot.personDeaths = set([self.makeSnapshotDeathStatistic(person, stat) for person, stat in serverGameState.personFragStatistic.items()])
 
         return snapshot
 
@@ -115,3 +118,17 @@ class SnapshotFactory:
         snapshotRayCollision.collisionPoint = ray.currentPosition.copy()
 
         return snapshotRayCollision
+
+    def makeSnapshotFragStatistic(self, person, stat):
+        snapshotFragStatistic = SnapshotFragStatistic()
+        snapshotFragStatistic.personId = person.id
+        snapshotFragStatistic.value = stat.frags
+
+        return snapshotFragStatistic
+
+    def makeSnapshotDeathStatistic(self, person, stat):
+        snapshotFragStatistic = SnapshotFragStatistic()
+        snapshotFragStatistic.personId = person.id
+        snapshotFragStatistic.value = stat.deaths
+
+        return snapshotFragStatistic
