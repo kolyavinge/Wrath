@@ -136,21 +136,22 @@ class GameStateSynchronizer:
         if powerup is not None:
             self.powerupLogic.removePowerup(gameState, powerup)
 
-    def synchAddedPersonBulletCollision(self, gameState, diffCollision):
-        damagedPersonId, bulletId = diffCollision
-        bullet = gameState.removedBullets.getByKeyOrNone(bulletId)
-        if bullet is None and bulletId in gameState.bulletsById:
-            bullet = gameState.bulletsById[bulletId]
+    def synchAddedPersonBulletCollision(self, gameState, diffBulletCollision):
+        bullet = gameState.removedBullets.getByKeyOrNone(diffBulletCollision.bulletId)
+        if bullet is None and diffBulletCollision.bulletId in gameState.bulletsById:
+            bullet = gameState.bulletsById[diffBulletCollision.bulletId]
         else:
             return
-        damagedPerson = gameState.allPersonById[damagedPersonId]
+        damagedPerson = gameState.allPersonById[diffBulletCollision.damagedPersonId]
         gameState.collisionData.personBullet[damagedPerson] = bullet
         bullet.damagedObject = damagedPerson
+        bullet.currentPosition = diffBulletCollision.collisionPoint.copy()
+        bullet.nextPosition = bullet.currentPosition
         self.bulletLogic.removeBullet(gameState, bullet)
         self.explosionLogic.makeExplosion(gameState, bullet)
 
-    def synchAddedPersonRayCollision(self, gameState, diffCollision):
-        damagedPersonId, rayId = diffCollision
+    def synchAddedPersonRayCollision(self, gameState, diffRayCollision):
+        damagedPersonId, rayId = diffRayCollision
         ray = Query(gameState.rays).firstOrNone(lambda x: x.id == rayId)
         if ray is None:
             return

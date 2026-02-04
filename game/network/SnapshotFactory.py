@@ -3,6 +3,7 @@ from game.model.person.Player import Player
 from game.model.snapshot.ClientSnapshot import ClientSnapshot
 from game.model.snapshot.ServerSnapshot import ServerSnapshot
 from game.model.snapshot.SnapshotBullet import SnapshotBullet
+from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
 from game.model.snapshot.SnapshotDebris import SnapshotDebris
 from game.model.snapshot.SnapshotPerson import SnapshotPerson
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
@@ -42,8 +43,11 @@ class SnapshotFactory:
         }
         snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in serverGameState.rays if type(ray.ownerPerson) == Enemy}
         snapshot.powerups = {powerup.id: self.makeSnapshotPowerup(powerup) for powerup in serverGameState.powerups}
-        snapshot.personBulletCollisions = set((person.id, bullet.id) for person, bullet in serverGameState.reservedCollisionData.personBullet)
-        snapshot.personRayCollisions = set((person.id, ray.id) for person, ray in serverGameState.reservedCollisionData.personRay)
+        snapshot.personBulletCollisions = {
+            bullet.id: self.makeSnapshotBulletCollision(damagedPerson, bullet)
+            for damagedPerson, bullet in serverGameState.reservedCollisionData.personBullet
+        }
+        snapshot.personRayCollisions = set((damagedPerson.id, ray.id) for damagedPerson, ray in serverGameState.reservedCollisionData.personRay)
 
         return snapshot
 
@@ -91,3 +95,11 @@ class SnapshotFactory:
         snapshotPowerup.position = powerup.pickupPosition.copy()
 
         return snapshotPowerup
+
+    def makeSnapshotBulletCollision(self, damagedPerson, bullet):
+        snapshotBulletCollision = SnapshotBulletCollision()
+        snapshotBulletCollision.damagedPersonId = damagedPerson.id
+        snapshotBulletCollision.bulletId = bullet.id
+        snapshotBulletCollision.collisionPoint = bullet.currentPosition.copy()
+
+        return snapshotBulletCollision
