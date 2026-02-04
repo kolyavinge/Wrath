@@ -151,10 +151,10 @@ class GameStateSynchronizer:
         self.explosionLogic.makeExplosion(gameState, bullet)
 
     def synchAddedPersonRayCollision(self, gameState, diffRayCollision):
-        damagedPersonId, rayId = diffRayCollision
-        ray = Query(gameState.rays).firstOrNone(lambda x: x.id == rayId)
+        ray = Query(gameState.rays).firstOrNone(lambda x: x.id == diffRayCollision.rayId)
         if ray is None:
             return
-        damagedPerson = gameState.allPersonById[damagedPersonId]
+        damagedPerson = gameState.allPersonById[diffRayCollision.damagedPersonId]
         gameState.collisionData.personRay[damagedPerson] = ray
         ray.damagedObject = damagedPerson
+        ray.currentPosition = diffRayCollision.collisionPoint.copy()

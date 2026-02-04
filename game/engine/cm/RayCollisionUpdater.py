@@ -43,7 +43,7 @@ class RayCollisionUpdater:
 
     def processConstructionCollision(self, gameState, ray, collisionResult):
         collisionPoint, construction = collisionResult
-        ray.endPosition = collisionPoint
+        ray.currentPosition = collisionPoint
         ray.damagedObject = construction
         visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, collisionPoint)
         self.bulletHoleLogic.makeHole(gameState, collisionPoint, construction.frontNormal, visibilityLevelSegment, ray.holeInfo)
@@ -51,6 +51,6 @@ class RayCollisionUpdater:
     def processPersonCollision(self, gameState, ray, collisionResult):
         collisionPoint, person, target = collisionResult
         ray.damagedObject = person
-        ray.endPosition = collisionPoint
+        ray.currentPosition = collisionPoint
         personItems = gameState.allPersonItems[person]
         self.personDamageLogic.damageByRay(person, personItems, ray, gameState.collisionData)

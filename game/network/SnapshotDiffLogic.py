@@ -62,7 +62,7 @@ class SnapshotDiffLogic:
                 diff.addedPersonBulletCollisions = addedPersonBulletCollisions
 
         if hasattr(snapshotNew, "personRayCollisions"):
-            addedPersonRayCollisions = Set.getAddedItems(snapshotOld.personRayCollisions, snapshotNew.personRayCollisions)
+            addedPersonRayCollisions = Dictionary.getAddedItems(snapshotOld.personRayCollisions, snapshotNew.personRayCollisions)
             if len(addedPersonRayCollisions) > 0:
                 diff.addedPersonRayCollisions = addedPersonRayCollisions
 
