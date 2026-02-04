@@ -71,6 +71,14 @@ class GameStateSynchronizer:
             for powerupId in diff.pickedupPowerupIds:
                 self.synchRemovedPowerup(gameState, powerupId)
 
+        if hasattr(diff, "addedPersonBulletCollisions"):
+            for rayCollision in diff.addedPersonBulletCollisions:
+                self.synchAddedPersonBulletCollision(gameState, rayCollision)
+
+        if hasattr(diff, "addedPersonRayCollisions"):
+            for rayCollision in diff.addedPersonRayCollisions:
+                self.synchAddedPersonRayCollision(gameState, rayCollision)
+
     def synchPerson(self, gameState, diffPerson):
         sychedPerson = gameState.allPersonById[diffPerson.id]
         sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
@@ -79,6 +87,8 @@ class GameStateSynchronizer:
         sychedPerson.health = diffPerson.health
 
     def synchAddedBullet(self, gameState, diffBullet):
+        # TODO подумать как при рассинхроне обработать на клиенте тот путь
+        # который пуля пролетела на сервере до передачи клиенту
         person = gameState.allPersonById[diffBullet.personId]
         personItems = gameState.allPersonItems[person]
         diffBulletWeapon = personItems.getWeaponByTypeOrNone(WeaponCollection.getWeaponTypeByNumber(diffBullet.weaponNumber))
@@ -122,3 +132,21 @@ class GameStateSynchronizer:
         powerup = Query(gameState.powerups).firstOrNone(lambda x: x.id == diffPowerupId)
         if powerup is not None:
             self.powerupLogic.removePowerup(gameState, powerup)
+
+    def synchAddedPersonBulletCollision(self, gameState, diffCollision):
+        personId, bulletId = diffCollision
+        bullet = gameState.removedBullets.getByKeyOrNone(bulletId)
+        if bullet is None and bulletId in gameState.bulletsById:
+            bullet = gameState.bulletsById[bulletId]
+        else:
+            return
+        person = gameState.allPersonById[personId]
+        gameState.collisionData.personBullet[person] = bullet
+
+    def synchAddedPersonRayCollision(self, gameState, diffCollision):
+        personId, rayId = diffCollision
+        ray = Query(gameState.rays).firstOrNone(lambda x: x.id == rayId)
+        if ray is None:
+            return
+        person = gameState.allPersonById[personId]
+        gameState.collisionData.personRay[person] = ray

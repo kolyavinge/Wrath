@@ -42,6 +42,8 @@ class SnapshotFactory:
         }
         snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in serverGameState.rays if type(ray.ownerPerson) == Enemy}
         snapshot.powerups = {powerup.id: self.makeSnapshotPowerup(powerup) for powerup in serverGameState.powerups}
+        snapshot.personBulletCollisions = set((person.id, bullet.id) for person, bullet in serverGameState.reservedCollisionData.personBullet)
+        snapshot.personRayCollisions = set((person.id, ray.id) for person, ray in serverGameState.reservedCollisionData.personRay)
 
         return snapshot
 

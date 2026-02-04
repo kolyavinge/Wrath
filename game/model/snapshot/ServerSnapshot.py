@@ -10,6 +10,8 @@ class ServerSnapshot:
         empty.debris = {}
         empty.rays = {}
         empty.powerups = {}
+        empty.personBulletCollisions = {}
+        empty.personRayCollisions = {}
 
         return empty
 
@@ -22,3 +24,5 @@ class ServerSnapshot:
         self.debris = None
         self.rays = None
         self.powerups = None
+        self.personBulletCollisions = None
+        self.personRayCollisions = None

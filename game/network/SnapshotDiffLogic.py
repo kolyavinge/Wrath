@@ -56,4 +56,14 @@ class SnapshotDiffLogic:
             if len(pickedupPowerupIds) > 0:
                 diff.pickedupPowerupIds = pickedupPowerupIds
 
+        if hasattr(snapshotNew, "personBulletCollisions"):
+            addedPersonBulletCollisions = Set.getAddedItems(snapshotOld.personBulletCollisions, snapshotNew.personBulletCollisions)
+            if len(addedPersonBulletCollisions) > 0:
+                diff.addedPersonBulletCollisions = addedPersonBulletCollisions
+
+        if hasattr(snapshotNew, "personRayCollisions"):
+            addedPersonRayCollisions = Set.getAddedItems(snapshotOld.personRayCollisions, snapshotNew.personRayCollisions)
+            if len(addedPersonRayCollisions) > 0:
+                diff.addedPersonRayCollisions = addedPersonRayCollisions
+
         return diff
