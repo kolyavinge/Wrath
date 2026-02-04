@@ -1,4 +1,3 @@
-from game.anx.ExplosionIdLogic import ExplosionIdLogic
 from game.engine.weapon.DebrisLogic import DebrisLogic
 from game.lib.EventManager import EventManager, Events
 
@@ -8,17 +7,14 @@ class ExplosionLogic:
     def __init__(
         self,
         debrisLogic: DebrisLogic,
-        explosionIdLogic: ExplosionIdLogic,
         eventManager: EventManager,
     ):
         self.debrisLogic = debrisLogic
-        self.explosionIdLogic = explosionIdLogic
         self.eventManager = eventManager
 
-    def makeExplosion(self, gameState, bullet, id=None):
+    def makeExplosion(self, gameState, bullet):
         explosion = bullet.makeExplosion()
         if explosion is not None:
-            explosion.id = id or self.explosionIdLogic.getExplosionId()
             explosion.collisionLevelSegment = bullet.currentLevelSegment
             explosion.visibilityLevelSegment = bullet.currentVisibilityLevelSegment
             explosion.collisionLevelSegment.explosions.append(explosion)
