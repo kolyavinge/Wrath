@@ -26,7 +26,7 @@ class SnapshotFactory:
             for debris in clientGameState.bullets
             if isinstance(debris, Debris) and type(debris.ownerPerson) == Player
         }
-        snapshot.rays = {ray.ownerPerson.id: self.makeSnapshotRay(ray) for ray in clientGameState.rays if type(ray.ownerPerson) == Player}
+        snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in clientGameState.rays if type(ray.ownerPerson) == Player}
         snapshot.notPickedupPowerupIds = set([powerup.id for powerup in clientGameState.powerups])
 
         return snapshot
@@ -40,7 +40,7 @@ class SnapshotFactory:
             for debris in serverGameState.bullets
             if isinstance(debris, Debris) and type(debris.ownerPerson) == Enemy
         }
-        snapshot.rays = {ray.ownerPerson.id: self.makeSnapshotRay(ray) for ray in serverGameState.rays if type(ray.ownerPerson) == Enemy}
+        snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in serverGameState.rays if type(ray.ownerPerson) == Enemy}
         snapshot.powerups = {powerup.id: self.makeSnapshotPowerup(powerup) for powerup in serverGameState.powerups}
 
         return snapshot
@@ -77,6 +77,7 @@ class SnapshotFactory:
 
     def makeSnapshotRay(self, ray):
         snapshotRay = SnapshotRay()
+        snapshotRay.id = ray.id
         snapshotRay.personId = ray.ownerPerson.id
 
         return snapshotRay

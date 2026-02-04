@@ -1,3 +1,4 @@
+from game.anx.BulletIdLogic import BulletIdLogic
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
 
 
@@ -6,11 +7,14 @@ class RayLogic:
     def __init__(
         self,
         traversal: BSPTreeTraversal,
+        bulletIdLogic: BulletIdLogic,
     ):
         self.traversal = traversal
+        self.bulletIdLogic = bulletIdLogic
 
-    def makeRay(self, gameState, person, weapon):
+    def makeRay(self, gameState, person, weapon, id=None):
         ray = weapon.makeRay(person)
+        ray.id = id or self.bulletIdLogic.getNextBulletId(person.id)
         ray.startLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, ray.startPosition)
         ray.endLevelSegment = ray.startLevelSegment
         ray.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, ray.startPosition)

@@ -41,7 +41,7 @@ class SnapshotDiffLogic:
             if len(addedRays) > 0:
                 diff.addedRays = addedRays
             if len(removedRays) > 0:
-                diff.removedRayPersonIds = [ray.personId for ray in removedRays]
+                diff.removedRayIds = [ray.id for ray in removedRays]
 
         if hasattr(snapshotNew, "powerups"):
             addedPowerups = Dictionary.getAddedItems(snapshotOld.powerups, snapshotNew.powerups)

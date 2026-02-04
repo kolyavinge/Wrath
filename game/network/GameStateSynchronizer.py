@@ -55,9 +55,9 @@ class GameStateSynchronizer:
             for ray in diff.addedRays:
                 self.synchAddedRay(gameState, ray)
 
-        if hasattr(diff, "removedRayPersonIds"):
-            for rayPersonId in diff.removedRayPersonIds:
-                self.synchRemovedRay(gameState, rayPersonId)
+        if hasattr(diff, "removedRayIds"):
+            for rayId in diff.removedRayIds:
+                self.synchRemovedRay(gameState, rayId)
 
         if hasattr(diff, "addedPowerups"):
             for powerup in diff.addedPowerups:
@@ -107,10 +107,10 @@ class GameStateSynchronizer:
         if personItems.currentWeapon != weapon:
             self.weaponSelector.setWeaponByType(personItems, type(weapon))
             self.personWeaponPositionUpdater.updateForPerson(person, personItems)
-        self.rayLogic.makeRay(gameState, person, weapon)
+        self.rayLogic.makeRay(gameState, person, weapon, diffRay.id)
 
-    def synchRemovedRay(self, gameState, diffRayPersonId):
-        ray = Query(gameState.rays).firstOrNone(lambda x: x.ownerPerson.id == diffRayPersonId)
+    def synchRemovedRay(self, gameState, diffRayId):
+        ray = Query(gameState.rays).firstOrNone(lambda x: x.id == diffRayId)
         if ray is not None:
             self.rayLogic.removeRay(gameState, ray)
 
