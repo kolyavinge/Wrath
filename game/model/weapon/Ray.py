@@ -21,3 +21,8 @@ class Ray:
         self.ownerPerson = None
         self.damagedObject = None
         self.initTimeSec = 0
+
+    def stopOnPosition(self, position):
+        self.currentPosition = position.copy()
+        self.length = self.startPosition.getLengthTo(self.currentPosition)
+        self.velocityValue = 0

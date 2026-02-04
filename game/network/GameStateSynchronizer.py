@@ -157,4 +157,4 @@ class GameStateSynchronizer:
         damagedPerson = gameState.allPersonById[diffRayCollision.damagedPersonId]
         gameState.collisionData.personRay[damagedPerson] = ray
         ray.damagedObject = damagedPerson
-        ray.currentPosition = diffRayCollision.collisionPoint.copy()
+        ray.stopOnPosition(diffRayCollision.collisionPoint)

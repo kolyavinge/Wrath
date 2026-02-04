@@ -24,12 +24,14 @@ class RayCollisionUpdater:
 
     def update(self, gameState):
         for ray in gameState.rays:
+            ray.damagedObject = None
             collisionResult = self.rayCollisionDetector.getCollisionResultOrNone(ray, gameState.collisionTree)
             if collisionResult is not None:
                 self.processCollision(gameState, ray, collisionResult)
 
     def updateForConstructions(self, gameState):
         for ray in gameState.rays:
+            ray.damagedObject = None
             collisionResult = self.rayCollisionDetector.getConstructionCollisionResultOrNone(ray, gameState.collisionTree)
             if collisionResult is not None:
                 self.processCollision(gameState, ray, collisionResult)
@@ -51,6 +53,5 @@ class RayCollisionUpdater:
     def processPersonCollision(self, gameState, ray, collisionResult):
         collisionPoint, person, target = collisionResult
         ray.damagedObject = person
-        ray.currentPosition = collisionPoint
         personItems = gameState.allPersonItems[person]
         self.personDamageLogic.damageByRay(person, personItems, ray, gameState.collisionData)

@@ -12,8 +12,9 @@ class RayPositionUpdater:
 
     def update(self, gameState):
         for ray in gameState.rays:
-            ray.velocityValue += ray.accelValue
-            ray.length = Math.min(ray.length + ray.velocityValue, ray.maxLength)
+            if ray.damagedObject is None:
+                ray.velocityValue += ray.accelValue
+                ray.length = Math.min(ray.length + ray.velocityValue, ray.maxLength)
             ray.startPosition = ray.weapon.barrelPosition
             ray.currentPosition = ray.weapon.direction.copy()
             ray.currentPosition.setLength(ray.length)
