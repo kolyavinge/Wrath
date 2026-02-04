@@ -4,6 +4,7 @@ from game.lib.TimeLimitedCollection import TimeLimitedCollection
 class ReservedCollisionData:
 
     def __init__(self):
+        self.lastCollisionId = 1
         timeLimit = 100
         self.personBullet = TimeLimitedCollection(timeLimit)
         self.personRay = TimeLimitedCollection(timeLimit)
@@ -15,5 +16,6 @@ class ReservedCollisionData:
         self.personRay.deleteTimeLimitedItems()
 
     def reserve(self, sourceDic, reservedCollection):
-        for personItemPair in sourceDic.items():
-            reservedCollection.append(personItemPair)
+        for person, item in sourceDic.items():
+            reservedCollection.append((self.lastCollisionId, person, item))
+            self.lastCollisionId += 1
