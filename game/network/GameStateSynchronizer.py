@@ -4,6 +4,7 @@ from game.engine.powerup.PowerupLogic import PowerupLogic
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.weapon.DebrisLogic import DebrisLogic
+from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.Query import Query
@@ -21,6 +22,7 @@ class GameStateSynchronizer:
         bulletLogic: BulletLogic,
         debrisLogic: DebrisLogic,
         rayLogic: RayLogic,
+        explosionLogic: ExplosionLogic,
         bulletPositionUpdater: BulletPositionUpdater,
         weaponSelector: WeaponSelector,
         personWeaponPositionUpdater: PersonWeaponPositionUpdater,
@@ -30,6 +32,7 @@ class GameStateSynchronizer:
         self.bulletLogic = bulletLogic
         self.debrisLogic = debrisLogic
         self.rayLogic = rayLogic
+        self.explosionLogic = explosionLogic
         self.bulletPositionUpdater = bulletPositionUpdater
         self.weaponSelector = weaponSelector
         self.personWeaponPositionUpdater = personWeaponPositionUpdater
@@ -72,8 +75,8 @@ class GameStateSynchronizer:
                 self.synchRemovedPowerup(gameState, powerupId)
 
         if hasattr(diff, "addedPersonBulletCollisions"):
-            for rayCollision in diff.addedPersonBulletCollisions:
-                self.synchAddedPersonBulletCollision(gameState, rayCollision)
+            for bulletCollision in diff.addedPersonBulletCollisions:
+                self.synchAddedPersonBulletCollision(gameState, bulletCollision)
 
         if hasattr(diff, "addedPersonRayCollisions"):
             for rayCollision in diff.addedPersonRayCollisions:
@@ -134,19 +137,23 @@ class GameStateSynchronizer:
             self.powerupLogic.removePowerup(gameState, powerup)
 
     def synchAddedPersonBulletCollision(self, gameState, diffCollision):
-        personId, bulletId = diffCollision
+        damagedPersonId, bulletId = diffCollision
         bullet = gameState.removedBullets.getByKeyOrNone(bulletId)
         if bullet is None and bulletId in gameState.bulletsById:
             bullet = gameState.bulletsById[bulletId]
         else:
             return
-        person = gameState.allPersonById[personId]
-        gameState.collisionData.personBullet[person] = bullet
+        damagedPerson = gameState.allPersonById[damagedPersonId]
+        gameState.collisionData.personBullet[damagedPerson] = bullet
+        bullet.damagedObject = damagedPerson
+        self.bulletLogic.removeBullet(gameState, bullet)
+        self.explosionLogic.makeExplosion(gameState, bullet)
 
     def synchAddedPersonRayCollision(self, gameState, diffCollision):
-        personId, rayId = diffCollision
+        damagedPersonId, rayId = diffCollision
         ray = Query(gameState.rays).firstOrNone(lambda x: x.id == rayId)
         if ray is None:
             return
-        person = gameState.allPersonById[personId]
-        gameState.collisionData.personRay[person] = ray
+        damagedPerson = gameState.allPersonById[damagedPersonId]
+        gameState.collisionData.personRay[damagedPerson] = ray
+        ray.damagedObject = damagedPerson
