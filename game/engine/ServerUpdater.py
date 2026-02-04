@@ -103,5 +103,6 @@ class ServerUpdater:
         self.personUpdater.commitZStateForEnemies(gameState)
         self.personUpdater.updateDelaysForEnemies(gameState)
         self.fragStatisticUpdater.update(gameState)
+        gameState.reservedCollisionData.update(gameState.collisionData)
         gameState.collisionData.clear()
         gameState.updateGlobalTime()

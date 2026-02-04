@@ -8,6 +8,7 @@ from game.model.person.Dashboard import Dashboard
 from game.model.person.PersonInputData import PersonInputData
 from game.model.person.PersonItems import PersonItems
 from game.model.person.Player import Player
+from game.model.person.ReservedCollisionData import ReservedCollisionData
 
 
 class GameState:
@@ -43,6 +44,7 @@ class GameState:
         self.powerups = []
         self.personFragStatistic = {}
         self.collisionData = CollisionData()
+        self.reservedCollisionData = ReservedCollisionData()
 
         # data for client
         self.bloodStains = []
