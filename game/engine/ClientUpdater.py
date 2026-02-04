@@ -1,5 +1,6 @@
 from game.engine.cm.BulletCollisionUpdater import BulletCollisionUpdater
 from game.engine.cm.PersonCeilingCollisionUpdater import PersonCeilingCollisionUpdater
+from game.engine.cm.PersonCollisionUpdater import PersonCollisionUpdater
 from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
 from game.engine.cm.RayCollisionUpdater import RayCollisionUpdater
@@ -47,6 +48,7 @@ class ClientUpdater:
 
     bulletCollisionUpdater: BulletCollisionUpdater
     personCeilingCollisionUpdater: PersonCeilingCollisionUpdater
+    personCollisionUpdater: PersonCollisionUpdater
     personWallCollisionUpdater: PersonWallCollisionUpdater
     powerupCollisionUpdater: PowerupCollisionUpdater
     rayCollisionUpdater: RayCollisionUpdater
@@ -97,6 +99,7 @@ class ClientUpdater:
         self.personFloorUpdater.updatePlayerNextFloor(gameState)
         self.personJumpUpdater.updateForPlayer(gameState)
         self.personWallCollisionUpdater.updateForPlayer(gameState)
+        self.personCollisionUpdater.update(gameState)
         self.personZUpdater.updateIfMovedForPlayer(gameState)
         self.personCeilingCollisionUpdater.updateForPlayer(gameState)
         self.personStepUpdater.update(gameState)
