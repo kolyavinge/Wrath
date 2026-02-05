@@ -25,7 +25,7 @@ class RifleBullet(Bullet):
 
     def __init__(self):
         super().__init__(RifleBulletTrace)
-        self.velocityValue = 8
+        self.velocityValue = 16
         self.damagePercent = 0.2
         self.ricochetPossibility = 0.2
         self.holeInfo = BulletHoleInfo.smallHole
@@ -41,7 +41,7 @@ class Rifle(Weapon):
         self.maxBurstCount = 4
         self.bulletsCount = 50
         self.maxBulletsCount = 50
-        self.delay = 8
+        self.delay = 4
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6

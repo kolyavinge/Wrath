@@ -18,5 +18,5 @@ class PersonConstants:
     maxDamagePercent = 2.0
     maxPitchRadians = Math.piHalf - 0.1
     maxVest = 100
-    stepTimeLimit = 15
-    weaponSelectRadianStep = Math.piHalf / 20.0
+    stepTimeLimit = 10
+    weaponSelectRadianStep = Math.piHalf / 10.0

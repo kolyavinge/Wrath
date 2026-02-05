@@ -26,7 +26,7 @@ class SniperBullet(Bullet):
 
     def __init__(self):
         super().__init__(SniperBulletTrace)
-        self.velocityValue = 10.0
+        self.velocityValue = 20.0
         self.damagePercent = 0.9
         self.isHeadshotEnabled = True
         self.holeInfo = BulletHoleInfo.largeHole
@@ -38,10 +38,10 @@ class Sniper(Weapon):
         super().__init__(SniperBullet, SniperFlash)
         self.bulletsCount = 8
         self.maxBulletsCount = 8
-        self.delay = 70
+        self.delay = 35
         self.needReload = True
         self.allowFireWithAltFire = True
-        self.reloadDelay = 15
+        self.reloadDelay = 8
         self.reloadDelayRemain = DecrementCounter()
         self.jitterFade = 0.9
         self.jitterDelta = 0.05

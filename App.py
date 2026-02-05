@@ -35,17 +35,13 @@ class App:
         self.game = GameFactory.makeGame()
         # self.game = GameFactory.makeGame(levelDebugMode=True)  # отладочный режим для рисования местности
         glutTimerFunc(CommonConstants.mainTimerMsec, self.mainTimerCallback, 0)
-        glutTimerFunc(CommonConstants.renderTimerMsec, self.renderCallback, 0)
         glutMainLoop()
 
     def mainTimerCallback(self, value):
         self.game.updateCurrentScreen()
         self.game.voxCurrentScreen()
-        glutTimerFunc(CommonConstants.mainTimerMsec, self.mainTimerCallback, 0)
-
-    def renderCallback(self, value):
         glutPostRedisplay()
-        glutTimerFunc(CommonConstants.renderTimerMsec, self.renderCallback, 0)
+        glutTimerFunc(CommonConstants.mainTimerMsec, self.mainTimerCallback, 0)
 
     def render(self):
         self.game.renderCurrentScreen()

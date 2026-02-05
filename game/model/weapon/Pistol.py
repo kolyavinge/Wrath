@@ -25,7 +25,7 @@ class PistolBullet(Bullet):
 
     def __init__(self):
         super().__init__(PistolBulletTrace)
-        self.velocityValue = 4
+        self.velocityValue = 8
         self.damagePercent = 0.1
         self.ricochetPossibility = 0.3
         self.holeInfo = BulletHoleInfo.smallHole
@@ -43,7 +43,7 @@ class Pistol(Weapon):
         self.maxBurstCount = 8
         self.bulletsCount = 25
         self.maxBulletsCount = 25
-        self.delay = 10
+        self.delay = 5
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6

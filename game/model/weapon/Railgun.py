@@ -19,7 +19,7 @@ class RailgunBulletTrace(RayBulletTrace):
 class RailgunBullet(Bullet):
     def __init__(self):
         super().__init__(RailgunBulletTrace)
-        self.velocityValue = 3
+        self.velocityValue = 6
         self.chargedVelocityFactor = 10
         self.damagePercent = 0.8
         self.goThroughPerson = True
@@ -37,7 +37,7 @@ class Railgun(Weapon):
         self.barrelPoint = Vector3(0.003, -0.02, 0.01)
         self.bulletsCount = 10
         self.maxBulletsCount = 10
-        self.delay = 40
+        self.delay = 20
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6
@@ -46,8 +46,8 @@ class Railgun(Weapon):
         self.enemyShift = Vector3(0.16, 0.5, -0.1)
         self.selectionShift = Vector3(0, -0.25, 0)
         self.cannotBeChangedWhileAltFire = True
-        self.chargeDelay = DecrementCounter(80)
-        self.altFireLimitDelay = DecrementCounter(200)
+        self.chargeDelay = DecrementCounter(40)
+        self.altFireLimitDelay = DecrementCounter(100)
         self.isCharged = False
 
     def makeBullet(self, ownerPerson):

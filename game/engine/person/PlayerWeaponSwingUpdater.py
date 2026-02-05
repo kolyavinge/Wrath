@@ -8,7 +8,7 @@ from game.model.person.PersonStates import PersonZState
 class PlayerWeaponSwingUpdater:
 
     def __init__(self):
-        stepsCount = 15
+        stepsCount = 10
         stepValue = Math.pi / stepsCount
         self.steps = [v for v in mirrorRange(stepValue, stepsCount)]
         self.lastStep = 0

@@ -33,7 +33,7 @@ class LauncherBulletTraceRenderer:
         shader.use()
         shader.setViewMatrix(camera.viewMatrix)
         shader.setProjectionMatrix(camera.projectionMatrix)
-        shader.setDeltaTime(CommonConstants.renderTimerMsec)
+        shader.setDeltaTime(CommonConstants.mainTimerMsec)
         shader.unuse()
 
     def updateAndRenderTraces(self, traces):

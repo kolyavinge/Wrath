@@ -37,8 +37,8 @@ class LauncherBullet(Bullet):
     def __init__(self):
         super().__init__(LauncherBulletTrace, LauncherExplosion)
         self.isVisible = True
-        self.velocityValue = 0.1
-        self.accelValue = 0.1
+        self.velocityValue = 0.2
+        self.accelValue = 0.2
         self.damagePercent = 0.5
         self.holeInfo = BulletHoleInfo.explosionHole
         self.traceShift = 0.5
@@ -55,7 +55,7 @@ class Launcher(Weapon):
         self.barrelPoint = Vector3(0, 0, 0.05)
         self.bulletsCount = 5
         self.maxBulletsCount = 5
-        self.delay = 40
+        self.delay = 30
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6

@@ -27,7 +27,7 @@ class PlasmaBullet(Bullet):
     def __init__(self):
         super().__init__(None, PlasmaExplosion)
         self.isVisible = True
-        self.velocityValue = 0.8
+        self.velocityValue = 1.6
         self.damagePercent = 0.25
         self.holeInfo = BulletHoleInfo.plasmaHole
         self.pitchRadians = Random.getFloat(0, Math.piDouble)
@@ -48,8 +48,8 @@ class PlasmaRay(Ray):
     def __init__(self):
         super().__init__()
         self.maxLength = 10
-        self.velocityValue = 0.1
-        self.accelValue = 0.1
+        self.velocityValue = 0.2
+        self.accelValue = 0.2
         self.damagePercent = 0.01
         self.holeInfo = BulletHoleInfo.plasmaHole
 
@@ -64,7 +64,7 @@ class Plasma(Weapon):
         self.maxBurstCount = 5
         self.bulletsCount = 50
         self.maxBulletsCount = 50
-        self.delay = 15
+        self.delay = 8
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6

@@ -37,7 +37,7 @@ class PlasmaExplosionRenderer:
         shader.use()
         shader.setViewMatrix(self.camera.viewMatrix)
         shader.setProjectionMatrix(self.camera.projectionMatrix)
-        shader.setDeltaTime(CommonConstants.renderTimerMsec)
+        shader.setDeltaTime(CommonConstants.mainTimerMsec)
         shader.unuse()
 
     def updateAndRenderExplosions(self, explosions):
