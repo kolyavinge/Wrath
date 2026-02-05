@@ -12,8 +12,8 @@ class ServerSnapshot:
         empty.powerups = {}
         empty.personBulletCollisions = {}
         empty.personRayCollisions = {}
-        empty.personFrags = []
-        empty.personDeaths = []
+        empty.personFrags = set()
+        empty.personDeaths = set()
 
         return empty
 

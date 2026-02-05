@@ -17,4 +17,3 @@ class TorchUpdater:
 
     def switchTorch(self, torch):
         torch.switch()
-        self.eventManager.raiseEvent(Events.torchSwitched)

@@ -69,6 +69,7 @@ class ServerUpdater:
     selectWeaponRequestListener: SelectWeaponRequestListener
 
     def update(self, gameState):
+        gameState.updateStatistic.clear()
         self.personTurnUpdater.updateForEnemies(gameState)
         self.personMovingTimeUpdater.updateForEnemies(gameState)
         self.personVelocityUpdater.updateForEnemies(gameState)

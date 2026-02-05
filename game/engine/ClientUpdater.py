@@ -92,6 +92,7 @@ class ClientUpdater:
     selectWeaponRequestListener: SelectWeaponRequestListener
 
     def update(self, gameState):
+        gameState.updateStatistic.clear()
         self.personTurnUpdater.updateForPlayer(gameState)
         self.personMovingTimeUpdater.updateForPlayer(gameState)
         self.personVelocityUpdater.updateForPlayer(gameState)

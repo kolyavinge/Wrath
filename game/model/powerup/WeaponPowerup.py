@@ -20,10 +20,10 @@ class WeaponPowerup(Powerup):
         self.kind = WeaponCollection.getWeaponNumberByType(self.weaponType)
 
     def setZShift(self):
-        shift = 0.002
+        shift = 0.004
         self.zShift = CircularIterator([shift for _ in range(0, 20)] + [-shift for _ in range(0, 20)])
 
     def update(self):
         self.position.z += self.zShift.getItem()
         self.zShift.move()
-        self.rotateRadians = Geometry.normalizeRadians(self.rotateRadians + 0.1)
+        self.rotateRadians = Geometry.normalizeRadians(self.rotateRadians + 0.2)

@@ -1,6 +1,5 @@
 from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
-from game.lib.EventManager import EventManager, Events
 from game.lib.Query import Query
 
 
@@ -10,16 +9,14 @@ class RayFireLogic:
         self,
         rayLogic: RayLogic,
         weaponSelector: WeaponSelector,
-        eventManager: EventManager,
     ):
         self.rayLogic = rayLogic
         self.weaponSelector = weaponSelector
-        self.eventManager = eventManager
 
     def activateRay(self, gameState, person, weapon):
         if self.canFire(person, weapon):
             ray = self.rayLogic.makeRay(gameState, person, weapon)
-            self.eventManager.raiseEvent(Events.rayActivated, (person, weapon, ray))
+            gameState.updateStatistic.activatedRays.append((person, weapon, ray))
 
     def fire(self, person, personItems):
         weapon = personItems.currentWeapon
@@ -37,4 +34,4 @@ class RayFireLogic:
         ray = Query(gameState.rays).first(lambda r: r.weapon == weapon)
         self.rayLogic.removeRay(gameState, ray)
         weapon.delayRemain.set(2 * weapon.delay)
-        self.eventManager.raiseEvent(Events.rayDeactivated, (person, weapon, ray))
+        gameState.updateStatistic.deactivatedRays.append((person, weapon, ray))

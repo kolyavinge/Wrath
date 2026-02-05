@@ -1,23 +1,16 @@
 from game.anx.PersonConstants import PersonConstants
-from game.lib.EventManager import EventManager, Events
 from game.model.level.Stair import Stair
 from game.model.person.PersonStates import PersonZState
 
 
 class PersonStepUpdater:
 
-    def __init__(
-        self,
-        eventManager: EventManager,
-    ):
-        self.eventManager = eventManager
-
     def update(self, gameState):
         for person, personItems in gameState.allPersonItems.items():
             if person.hasMoved:
-                self.updateForPerson(person, personItems)
+                self.updateForPerson(person, personItems, gameState.updateStatistic)
 
-    def updateForPerson(self, person, personItems):
+    def updateForPerson(self, person, personItems, updateStatistic):
         doStep = False
         if person.zState == PersonZState.onFloor:
             person.stepTime += 1.0 * personItems.currentWeapon.slowdownCoeff
@@ -28,4 +21,4 @@ class PersonStepUpdater:
 
         if doStep:
             person.stepTime = 0
-            self.eventManager.raiseEvent(Events.personStepDone, person)
+            updateStatistic.stepedPerson.append(person)

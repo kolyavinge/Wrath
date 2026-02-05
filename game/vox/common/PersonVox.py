@@ -1,5 +1,4 @@
 from game.audio.AudioPlayer import AudioPlayer
-from game.lib.EventManager import EventManager, Events
 from game.model.Material import MaterialKind
 from game.vox.common.AudioSourceFactory import AudioSourceFactory
 from game.vox.sources.PersonAudioSources import PersonAudioSources
@@ -11,14 +10,10 @@ class PersonVox:
         self,
         audioSourceFactory: AudioSourceFactory,
         audioPlayer: AudioPlayer,
-        eventManager: EventManager,
     ):
         self.sources = {}
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer
-        eventManager.attachToEvent(Events.personStepDone, self.onPersonStepDone)
-        eventManager.attachToEvent(Events.personJumped, self.onPersonJumped)
-        eventManager.attachToEvent(Events.personLanded, self.onPersonLanded)
 
     def init(self, gameState, allSources):
         self.sources = {}
@@ -26,18 +21,19 @@ class PersonVox:
             self.sources[person] = PersonAudioSources(person, self.audioSourceFactory)
         allSources.extend(self.sources.values())
 
-    def onPersonStepDone(self, person):
-        source = self.sources[person]
-        if person.currentFloor.material.kind == MaterialKind.concrete:
-            self.audioPlayer.play(source.stepConcrete)
-        elif person.currentFloor.material.kind == MaterialKind.metal:
-            self.audioPlayer.play(source.stepMetal)
+    def vox(self, updateStatistic):
+        for person in updateStatistic.stepedPerson:
+            source = self.sources[person]
+            if person.currentFloor.material.kind == MaterialKind.concrete:
+                self.audioPlayer.play(source.stepConcrete)
+            elif person.currentFloor.material.kind == MaterialKind.metal:
+                self.audioPlayer.play(source.stepMetal)
 
-    def onPersonJumped(self, person):
-        source = self.sources[person]
-        self.audioPlayer.play(source.jumping)
+        for person in updateStatistic.jumpedPerson:
+            source = self.sources[person]
+            self.audioPlayer.play(source.jumping)
 
-    def onPersonLanded(self, person):
-        self.onPersonStepDone(person)
-        source = self.sources[person]
-        self.audioPlayer.play(source.landing)
+        for person in updateStatistic.landedPerson:
+            self.onPersonStepDone(person)
+            source = self.sources[person]
+            self.audioPlayer.play(source.landing)

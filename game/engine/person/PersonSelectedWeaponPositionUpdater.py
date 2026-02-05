@@ -1,5 +1,4 @@
 from game.anx.PersonConstants import PersonConstants
-from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
 from game.model.person.PersonStates import WeaponSelectState
 from game.model.weapon.NullWeapon import NullWeapon
@@ -7,24 +6,18 @@ from game.model.weapon.NullWeapon import NullWeapon
 
 class PersonSelectedWeaponPositionUpdater:
 
-    def __init__(
-        self,
-        eventManager: EventManager,
-    ):
-        self.eventManager = eventManager
-
     def update(self, gameState):
         for person, personItems in gameState.allPersonItems.items():
-            self.updateForPerson(person, personItems)
+            self.updateForPerson(person, personItems, gameState.updateStatistic)
 
-    def updateForPerson(self, person, personItems):
+    def updateForPerson(self, person, personItems, updateStatistic):
         if person.weaponSelectState is None:
             return
 
         # startSelection
         if person.weaponSelectState == WeaponSelectState.startSelection:
             if personItems.currentWeapon != NullWeapon.instance:
-                self.eventManager.raiseEvent(Events.weaponPutDown, (person, personItems.currentWeapon))
+                updateStatistic.putDownWeapons.append((person, personItems.currentWeapon))
                 person.weaponSelectState = WeaponSelectState.putWeaponDown
             else:
                 person.weaponSelectState = WeaponSelectState.startRaising
@@ -39,7 +32,7 @@ class PersonSelectedWeaponPositionUpdater:
             personItems.resetSelectedWeapon()
             if personItems.currentWeapon != NullWeapon.instance:
                 self.setCurrentWeaponSelectionPitchRadians(personItems, -Math.piHalf)
-                self.eventManager.raiseEvent(Events.weaponRaised, (person, personItems.currentWeapon))
+                updateStatistic.raisedWeapons.append((person, personItems.currentWeapon))
                 person.weaponSelectState = WeaponSelectState.raiseWeaponUp
             else:
                 person.weaponSelectState = None

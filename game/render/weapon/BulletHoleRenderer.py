@@ -18,7 +18,9 @@ class BulletHoleRenderer:
         self.shaderProgramCollection = shaderProgramCollection
         self.vboRenderer = vboRenderer
 
-    def render(self, camera, visibleLevelSegments):
+    def render(self, camera, visibleLevelSegments, updateStatistic):
+        self.bulletHoleRenderCollection.updateBulletHoles(updateStatistic.newBulletHoles)
+
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         glEnable(GL_BLEND)
         glEnable(GL_ALPHA_TEST)

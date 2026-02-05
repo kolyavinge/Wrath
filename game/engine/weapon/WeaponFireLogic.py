@@ -1,7 +1,6 @@
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.WeaponFeedbackLogic import WeaponFeedbackLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
-from game.lib.EventManager import EventManager, Events
 
 
 class WeaponFireLogic:
@@ -11,12 +10,10 @@ class WeaponFireLogic:
         weaponFeedbackLogic: WeaponFeedbackLogic,
         bulletLogic: BulletLogic,
         weaponSelector: WeaponSelector,
-        eventManager: EventManager,
     ):
         self.weaponFeedbackLogic = weaponFeedbackLogic
         self.bulletLogic = bulletLogic
         self.weaponSelector = weaponSelector
-        self.eventManager = eventManager
 
     def fireCurrentWeapon(self, gameState, person, personItems):
         weapon = personItems.currentWeapon
@@ -32,7 +29,7 @@ class WeaponFireLogic:
             self.weaponFeedbackLogic.applyFeedback(weapon)
             self.bulletLogic.makeBullet(gameState, person, weapon)
             self.weaponSelector.selectNextWeaponIfCurrentEmpty(person, personItems)
-            self.eventManager.raiseEvent(Events.weaponFired, (person, weapon))
+            gameState.updateStatistic.firedWeapons.append((person, weapon))
 
     def canFire(self, person, weapon):
         return weapon.delayRemain.isExpired() and person.weaponSelectState is None and weapon.bulletsCount > 0

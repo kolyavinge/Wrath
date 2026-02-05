@@ -1,5 +1,4 @@
 from game.audio.AudioPlayer import AudioPlayer
-from game.lib.EventManager import EventManager, Events
 from game.vox.common.AudioSourceFactory import AudioSourceFactory
 from game.vox.sources.PlayertemsAudioSources import PlayertemsAudioSources
 
@@ -10,15 +9,14 @@ class PlayerItemsVox:
         self,
         audioSourceFactory: AudioSourceFactory,
         audioPlayer: AudioPlayer,
-        eventManager: EventManager,
     ):
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer
-        eventManager.attachToEvent(Events.torchSwitched, self.onTorchSwitched)
 
     def init(self, gameState, allSources):
         self.source = PlayertemsAudioSources(gameState.player, self.audioSourceFactory)
         allSources.append(self.source)
 
-    def onTorchSwitched(self, _):
-        self.audioPlayer.play(self.source.switchTorch)
+    def vox(self, updateStatistic):
+        if updateStatistic.isSwitchedTorch:
+            self.audioPlayer.play(self.source.switchTorch)

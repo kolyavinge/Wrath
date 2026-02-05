@@ -65,7 +65,7 @@ class GameScreenRenderer:
     def init(self, gameState):
         self.gameScreenInitializer.init(gameState)
 
-    # @timeProfile("Rendered", CommonConstants.renderTimerMsec / 1000.0, showOnlyLimited=True)
+    # @timeProfile("Rendered", CommonConstants.mainTimerMsec / 1000.0, showOnlyLimited=True)
     # @cpuProfile
     def render(self, gameState):
         self.renderFunc(gameState)
@@ -74,7 +74,7 @@ class GameScreenRenderer:
         self.mainSceneRenderer.renderDefaultAimState()
         # self.playerSegmentItemsRenderer.render(gameState.player, gameState.camera)
         self.backgroundRenderer.render(gameState.backgroundVisibility, gameState.camera)
-        self.bulletHoleRenderer.render(gameState.camera, gameState.visibleLevelSegments)
+        self.bulletHoleRenderer.render(gameState.camera, gameState.visibleLevelSegments, gameState.updateStatistic)
         self.rayRenderer.render(gameState.player, gameState.camera, gameState.visibleLevelSegments, gameState.globalTimeSec)
         self.shineBulletRenderer.render(gameState.bullets, gameState.player, gameState.camera)
         self.bulletTraceRenderer.render(gameState.camera, gameState.visibleLevelSegments)
@@ -89,7 +89,7 @@ class GameScreenRenderer:
     def renderSniperAimState(self, gameState):
         self.mainSceneRenderer.renderSniperAimState()
         self.backgroundRenderer.render(gameState.backgroundVisibility, gameState.camera)
-        self.bulletHoleRenderer.render(gameState.camera, gameState.visibleLevelSegments)
+        self.bulletHoleRenderer.render(gameState.camera, gameState.visibleLevelSegments, gameState.updateStatistic)
         self.rayRenderer.render(gameState.player, gameState.camera, gameState.visibleLevelSegments, gameState.globalTimeSec)
         self.shineBulletRenderer.render(gameState.bullets, gameState.player, gameState.camera)
         self.bulletTraceRenderer.render(gameState.camera, gameState.visibleLevelSegments)

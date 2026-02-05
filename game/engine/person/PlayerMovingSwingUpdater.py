@@ -30,4 +30,4 @@ class PlayerMovingSwingUpdater:
     def updateLandingSwing(self, player):
         if player.zState == PersonZState.landing:
             swingValue = 0.5 * player.landingTime * Math.sin(4.0 * player.landingTime)
-            player.eyePosition.z += swingValue
+            player.eyePosition.z += swingValue  # TODO не работает

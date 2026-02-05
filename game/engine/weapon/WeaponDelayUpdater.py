@@ -1,27 +1,18 @@
-from game.lib.EventManager import EventManager, Events
-
-
 class WeaponDelayUpdater:
 
-    def __init__(
-        self,
-        eventManager: EventManager,
-    ):
-        self.eventManager = eventManager
-
     def updateForPlayer(self, gameState):
-        self.updateForPerson(gameState.player, gameState.playerItems)
+        self.updateForPerson(gameState.player, gameState.playerItems, gameState.updateStatistic)
 
     def updateForEnemies(self, gameState):
         for enemy, enemyItems in gameState.enemyItems.items():
-            self.updateForPerson(enemy, enemyItems)
+            self.updateForPerson(enemy, enemyItems, gameState.updateStatistic)
 
-    def updateForPerson(self, person, personItems):
-        self.updateWeapon(person, personItems, personItems.rightHandWeapon)
+    def updateForPerson(self, person, personItems, updateStatistic):
+        self.updateWeapon(person, personItems, personItems.rightHandWeapon, updateStatistic)
         if personItems.leftHandWeapon is not None:
-            self.updateWeapon(person, personItems, personItems.leftHandWeapon)
+            self.updateWeapon(person, personItems, personItems.leftHandWeapon, updateStatistic)
 
-    def updateWeapon(self, person, personItems, weapon):
+    def updateWeapon(self, person, personItems, weapon, updateStatistic):
         if not weapon.delayRemain.isExpired():
             weapon.delayRemain.decrease()
             if weapon.delayRemain.isExpired():
@@ -30,4 +21,4 @@ class WeaponDelayUpdater:
         if weapon.needReload and not weapon.reloadDelayRemain.isExpired():
             weapon.reloadDelayRemain.decrease()
             if weapon.reloadDelayRemain.isExpired():
-                self.eventManager.raiseEvent(Events.weaponReloaded, (person, weapon))
+                updateStatistic.reloadedWeapons.append((person, weapon))

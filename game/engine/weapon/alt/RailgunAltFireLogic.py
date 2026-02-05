@@ -1,5 +1,4 @@
 from game.engine.weapon.WeaponFireLogic import WeaponFireLogic
-from game.lib.EventManager import EventManager, Events
 from game.model.weapon.Weapon import FireState
 
 
@@ -8,17 +7,15 @@ class RailgunAltFireLogic:
     def __init__(
         self,
         weaponFireLogic: WeaponFireLogic,
-        eventManager: EventManager,
     ):
         self.weaponFireLogic = weaponFireLogic
-        self.eventManager = eventManager
 
     def apply(self, gameState, person, personItems, weapon):
         if weapon.altFireState == FireState.activated:
             if weapon.delayRemain.isExpired():
                 weapon.chargeDelay.reset()
                 weapon.altFireLimitDelay.reset()
-                self.eventManager.raiseEvent(Events.railgunChargingActivated, (person, weapon))
+                gameState.updateStatistic.activatedRailgunCharging.append((person, weapon))
             else:
                 weapon.altFireState = FireState.deactive
         elif weapon.altFireState == FireState.active:
@@ -35,4 +32,4 @@ class RailgunAltFireLogic:
         self.weaponFireLogic.fireCurrentWeapon(gameState, person, personItems)
         weapon.chargeDelay.reset()
         weapon.altFireLimitDelay.reset()
-        self.eventManager.raiseEvent(Events.railgunChargingDeactivated, (person, weapon))
+        gameState.updateStatistic.deactivatedRailgunCharging.append((person, weapon))

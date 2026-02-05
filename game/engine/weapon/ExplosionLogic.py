@@ -1,5 +1,4 @@
 from game.engine.weapon.DebrisLogic import DebrisLogic
-from game.lib.EventManager import EventManager, Events
 
 
 class ExplosionLogic:
@@ -7,10 +6,8 @@ class ExplosionLogic:
     def __init__(
         self,
         debrisLogic: DebrisLogic,
-        eventManager: EventManager,
     ):
         self.debrisLogic = debrisLogic
-        self.eventManager = eventManager
 
     def makeExplosion(self, gameState, bullet):
         explosion = bullet.makeExplosion()
@@ -22,7 +19,7 @@ class ExplosionLogic:
             explosion.initTimeSec = gameState.globalTimeSec
             gameState.explosions.append(explosion)
             self.debrisLogic.makeDebrisFromExplosion(gameState, explosion)
-            self.eventManager.raiseEvent(Events.exploded, explosion)
+            gameState.updateStatistic.newExplosions.append(explosion)
 
     def removeExplosion(self, gameState, explosion):
         explosion.collisionLevelSegment.explosions.remove(explosion)

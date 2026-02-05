@@ -1,5 +1,4 @@
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
-from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 from game.model.level.NullFloor import NullFloor
@@ -11,21 +10,19 @@ class PersonZUpdater:
     def __init__(
         self,
         personDamageLogic: PersonDamageLogic,
-        eventManager: EventManager,
     ):
         self.personDamageLogic = personDamageLogic
-        self.eventManager = eventManager
 
     def updateIfMovedForPlayer(self, gameState):
         if gameState.player.hasMoved:
-            self.updatePerson(gameState.player, gameState.collisionData)
+            self.updatePerson(gameState.player, gameState.collisionData, gameState.updateStatistic)
 
     def updateIfMovedForEnemies(self, gameState):
         for enemy in gameState.enemies:
             if enemy.hasMoved:
-                self.updatePerson(enemy, gameState.collisionData)
+                self.updatePerson(enemy, gameState.collisionData, gameState.updateStatistic)
 
-    def updatePerson(self, person, collisionData):
+    def updatePerson(self, person, collisionData, updateStatistic):
         if person.nextFloor != NullFloor.instance:
             floorZ = person.nextFloor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
             personOnFloor = Numeric.between(person.getZ() - floorZ, -0.4, 0.4)
@@ -47,8 +44,8 @@ class PersonZUpdater:
             person.landingTime = 0.8 * person.fallingTime
             person.fallingTime = 0
             person.zState = PersonZState.landing
-            if person.landingTime > 0.9:
-                self.eventManager.raiseEvent(Events.personLanded, person)
+            if person.landingTime > 0.6:
+                updateStatistic.landedPerson.append(person)
         elif personOnFloor and person.zState == PersonZState.landing:
             person.landingTime -= 0.1
             if person.landingTime <= 0:

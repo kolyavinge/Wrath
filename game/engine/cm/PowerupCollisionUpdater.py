@@ -2,7 +2,6 @@ from game.engine.cm.PowerupCollisionDetector import PowerupCollisionDetector
 from game.engine.powerup.PowerupLogic import PowerupLogic
 from game.engine.powerup.PowerupProcessor import PowerupProcessor
 from game.engine.powerup.PowerupValidator import PowerupValidator
-from game.lib.EventManager import EventManager, Events
 
 
 class PowerupCollisionUpdater:
@@ -13,13 +12,11 @@ class PowerupCollisionUpdater:
         powerupValidator: PowerupValidator,
         powerupProcessor: PowerupProcessor,
         powerupLogic: PowerupLogic,
-        eventManager: EventManager,
     ):
         self.powerupCollisionDetector = powerupCollisionDetector
         self.powerupValidator = powerupValidator
         self.powerupProcessor = powerupProcessor
         self.powerupLogic = powerupLogic
-        self.eventManager = eventManager
 
     def updateForPlayer(self, gameState):
         self.updateForPerson(gameState, gameState.player)
@@ -34,4 +31,4 @@ class PowerupCollisionUpdater:
         if powerup is not None and self.powerupValidator.canApply(person, personItems, powerup):
             self.powerupProcessor.apply(person, personItems, powerup)
             self.powerupLogic.removePowerup(gameState, powerup)
-            self.eventManager.raiseEvent(Events.powerupPickedUp, (person, powerup))
+            gameState.updateStatistic.pickedUpPowerups.append(powerup)
