@@ -18,4 +18,3 @@ class UpdateStatistic:
         self.deactivatedRays = []
         self.activatedRailgunCharging = []
         self.deactivatedRailgunCharging = []
-        self.isSwitchedTorch = False

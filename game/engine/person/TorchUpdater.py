@@ -7,8 +7,7 @@ class TorchUpdater:
         self,
         eventManager: EventManager,
     ):
-        self.eventManager = eventManager
-        self.eventManager.attachToEvent(Events.torchSwitchRequested, self.switchTorch)
+        eventManager.attachToEvent(Events.torchSwitchRequested, self.switchTorch)
 
     def update(self, gameState):
         torch = gameState.playerItems.torch
