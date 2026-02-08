@@ -34,6 +34,5 @@ class PersonVox:
             self.audioPlayer.play(source.jumping)
 
         for person in updateStatistic.landedPerson:
-            self.onPersonStepDone(person)
             source = self.sources[person]
             self.audioPlayer.play(source.landing)
