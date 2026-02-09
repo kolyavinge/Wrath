@@ -1,0 +1,3 @@
+to run the tests use this:
+
+python -m unittest game\tests\BinaryReaderWriterIntegration.py
