@@ -30,3 +30,33 @@ class SnapshotBullet:
             )
         )
 
+    def toBytes(self, writer):
+        writer.write(
+            "iibffffff",
+            self.id,
+            self.personId,
+            self.weaponNumber,
+            self.position.x,
+            self.position.y,
+            self.position.z,
+            self.direction.x,
+            self.direction.y,
+            self.direction.z,
+        )
+
+    @staticmethod
+    def fromBytes(reader):
+        bullet = SnapshotBullet()
+        (
+            bullet.id,
+            bullet.personId,
+            bullet.weaponNumber,
+            bullet.position.x,
+            bullet.position.y,
+            bullet.position.z,
+            bullet.direction.x,
+            bullet.direction.y,
+            bullet.direction.z,
+        ) = reader.read("iibffffff")
+
+        return bullet

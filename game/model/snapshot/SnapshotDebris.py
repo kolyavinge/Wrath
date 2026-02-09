@@ -22,3 +22,31 @@ class SnapshotDebris:
             )
         )
 
+    def toBytes(self, writer):
+        writer.write(
+            "iiffffff",
+            self.id,
+            self.personId,
+            self.position.x,
+            self.position.y,
+            self.position.z,
+            self.direction.x,
+            self.direction.y,
+            self.direction.z,
+        )
+
+    @staticmethod
+    def fromBytes(reader):
+        debris = SnapshotDebris()
+        (
+            debris.id,
+            debris.personId,
+            debris.position.x,
+            debris.position.y,
+            debris.position.z,
+            debris.direction.x,
+            debris.direction.y,
+            debris.direction.z,
+        ) = reader.read("iiffffff")
+
+        return debris

@@ -10,3 +10,12 @@ class SnapshotFragStatistic:
     def __hash__(self):
         return hash((self.personId.__hash__(), self.value.__hash__()))
 
+    def toBytes(self, writer):
+        writer.write("iB", self.personId, self.value)
+
+    @staticmethod
+    def fromBytes(reader):
+        stat = SnapshotFragStatistic()
+        stat.personId, stat.value = reader.read("iB")
+
+        return stat

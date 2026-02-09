@@ -24,3 +24,14 @@ class SnapshotPerson:
             (self.id.__hash__(), self.centerPoint.__hash__(), self.yawRadians.__hash__(), self.pitchRadians.__hash__(), self.health.__hash__())
         )
 
+    def toBytes(self, writer):
+        writer.write("ifffffB", self.id, self.centerPoint.x, self.centerPoint.y, self.centerPoint.z, self.yawRadians, self.pitchRadians, self.health)
+
+    @staticmethod
+    def fromBytes(reader):
+        person = SnapshotPerson()
+        person.id, person.centerPoint.x, person.centerPoint.y, person.centerPoint.z, person.yawRadians, person.pitchRadians, person.health = (
+            reader.read("ifffffB")
+        )
+
+        return person

@@ -14,3 +14,14 @@ class SnapshotBulletCollision:
     def __hash__(self):
         return hash((self.damagedPersonId.__hash__(), self.bulletId.__hash__(), self.collisionPoint.__hash__()))
 
+    def toBytes(self, writer):
+        writer.write("iifff", self.damagedPersonId, self.bulletId, self.collisionPoint.x, self.collisionPoint.y, self.collisionPoint.z)
+
+    @staticmethod
+    def fromBytes(reader):
+        collision = SnapshotBulletCollision()
+        collision.damagedPersonId, collision.bulletId, collision.collisionPoint.x, collision.collisionPoint.y, collision.collisionPoint.z = (
+            reader.read("iifff")
+        )
+
+        return collision

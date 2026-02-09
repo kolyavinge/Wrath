@@ -12,3 +12,12 @@ class SnapshotRay:
     def __hash__(self):
         return hash((self.id.__hash__(), self.personId.__hash__()))
 
+    def toBytes(self, writer):
+        writer.write("ii", self.id, self.personId)
+
+    @staticmethod
+    def fromBytes(reader):
+        ray = SnapshotRay()
+        ray.id, ray.personId = reader.read("ii")
+
+        return ray
