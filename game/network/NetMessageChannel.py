@@ -1,4 +1,10 @@
+from game.network.MessageSerializer import MessageSerializer
+
+
 class NetMessageChannel:
+
+    def __init__(self):
+        self.messageSerializer = MessageSerializer()
 
     def sendMessageToClient(self, message):
         pass
