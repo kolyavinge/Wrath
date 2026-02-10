@@ -42,6 +42,10 @@ class GameStateSynchronizer:
         if hasattr(diff, "player"):
             self.synchPerson(gameState, diff.player)
 
+        if hasattr(diff, "players"):
+            for player in diff.players:
+                self.synchPlayer(gameState, player)
+
         if hasattr(diff, "enemies"):
             for enemy in diff.enemies:
                 self.synchPerson(gameState, enemy)
@@ -96,6 +100,10 @@ class GameStateSynchronizer:
         self.personTurnLogic.setYawPitchRadians(sychedPerson, diffPerson.yawRadians, diffPerson.pitchRadians)
         sychedPerson.commitNextPosition()
         sychedPerson.health = diffPerson.health
+
+    def synchPlayer(self, gameState, diffPlayer):
+        sychedPlayer = gameState.allPersonById[diffPlayer.id]
+        sychedPlayer.health = diffPlayer.health
 
     def synchAddedBullet(self, gameState, diffBullet):
         # TODO подумать как при рассинхроне обработать на клиенте тот путь

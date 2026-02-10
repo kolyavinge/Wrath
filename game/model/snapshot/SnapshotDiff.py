@@ -4,6 +4,7 @@ from game.model.snapshot.SnapshotDebris import SnapshotDebris
 from game.model.snapshot.SnapshotDiffFields import SnapshotDiffFields
 from game.model.snapshot.SnapshotFragStatistic import SnapshotFragStatistic
 from game.model.snapshot.SnapshotPerson import SnapshotPerson
+from game.model.snapshot.SnapshotPlayer import SnapshotPlayer
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.snapshot.SnapshotRay import SnapshotRay
 from game.model.snapshot.SnapshotRayCollision import SnapshotRayCollision
@@ -22,6 +23,11 @@ class SnapshotDiff:
 
         if hasattr(self, "player"):
             self.player.toBytes(writer)
+
+        if hasattr(self, "players"):
+            writer.write("b", len(self.players))
+            for player in self.players:
+                player.toBytes(writer)
 
         if hasattr(self, "enemies"):
             writer.write("b", len(self.enemies))
@@ -90,6 +96,10 @@ class SnapshotDiff:
 
         if fieldsBitMask & SnapshotDiffFields.player > 0:
             diff.player = SnapshotPerson.fromBytes(reader)
+
+        if fieldsBitMask & SnapshotDiffFields.players > 0:
+            count = reader.read("b")
+            diff.players = [SnapshotPlayer.fromBytes(reader) for _ in range(0, count)]
 
         if fieldsBitMask & SnapshotDiffFields.enemies > 0:
             count = reader.read("b")

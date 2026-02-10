@@ -12,6 +12,11 @@ class SnapshotDiffLogic:
             if snapshotOld.player != snapshotNew.player:
                 diff.player = snapshotNew.player
 
+        if hasattr(snapshotNew, "players"):
+            changedPlayers = Set.getAddedItems(snapshotOld.players, snapshotNew.players)
+            if len(changedPlayers) > 0:
+                diff.players = changedPlayers
+
         if hasattr(snapshotNew, "enemies"):
             changedEnemies = Set.getAddedItems(snapshotOld.enemies, snapshotNew.enemies)
             if len(changedEnemies) > 0:

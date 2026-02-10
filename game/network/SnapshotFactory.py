@@ -7,6 +7,7 @@ from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
 from game.model.snapshot.SnapshotDebris import SnapshotDebris
 from game.model.snapshot.SnapshotFragStatistic import SnapshotFragStatistic
 from game.model.snapshot.SnapshotPerson import SnapshotPerson
+from game.model.snapshot.SnapshotPlayer import SnapshotPlayer
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.snapshot.SnapshotRay import SnapshotRay
 from game.model.snapshot.SnapshotRayCollision import SnapshotRayCollision
@@ -36,6 +37,7 @@ class SnapshotFactory:
 
     def makeServerSnapshot(self, serverGameState):
         snapshot = ServerSnapshot()
+        snapshot.players = set([self.makeSnapshotPlayer(serverGameState.player)])  # list.extend(netPlayers)
         snapshot.enemies = set(self.makeSnapshotPerson(enemy) for enemy in serverGameState.enemies)
         snapshot.bullets = {bullet.id: self.makeSnapshotBullet(bullet) for bullet in serverGameState.bullets if type(bullet.ownerPerson) == Enemy}
         snapshot.debris = {
@@ -67,6 +69,13 @@ class SnapshotFactory:
         snapshotPerson.health = person.health
 
         return snapshotPerson
+
+    def makeSnapshotPlayer(self, player):
+        snapshotPlayer = SnapshotPlayer()
+        snapshotPlayer.id = player.id
+        snapshotPlayer.health = player.health
+
+        return snapshotPlayer
 
     def makeSnapshotBullet(self, bullet):
         snapshotBullet = SnapshotBullet()
