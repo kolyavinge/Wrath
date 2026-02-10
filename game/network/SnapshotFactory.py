@@ -36,7 +36,7 @@ class SnapshotFactory:
 
     def makeServerSnapshot(self, serverGameState):
         snapshot = ServerSnapshot()
-        snapshot.enemies = [self.makeSnapshotPerson(enemy) for enemy in serverGameState.enemies]
+        snapshot.enemies = set(self.makeSnapshotPerson(enemy) for enemy in serverGameState.enemies)
         snapshot.bullets = {bullet.id: self.makeSnapshotBullet(bullet) for bullet in serverGameState.bullets if type(bullet.ownerPerson) == Enemy}
         snapshot.debris = {
             debris.id: self.makeSnapshotDebris(debris)

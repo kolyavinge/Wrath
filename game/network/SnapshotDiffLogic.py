@@ -13,17 +13,9 @@ class SnapshotDiffLogic:
                 diff.player = snapshotNew.player
 
         if hasattr(snapshotNew, "enemies"):
-            if len(snapshotOld.enemies) == len(snapshotNew.enemies):
-                enemies = []
-                i = 0
-                while i < len(snapshotOld.enemies):
-                    if snapshotOld.enemies[i] != snapshotNew.enemies[i]:
-                        enemies.append(snapshotNew.enemies[i])
-                    i += 1
-                if len(enemies) > 0:
-                    diff.enemies = enemies
-            elif len(snapshotNew.enemies) > 0:
-                diff.enemies = snapshotNew.enemies
+            changedEnemies = Set.getAddedItems(snapshotOld.enemies, snapshotNew.enemies)
+            if len(changedEnemies) > 0:
+                diff.enemies = changedEnemies
 
         if hasattr(snapshotNew, "bullets"):
             addedBullets = Dictionary.getAddedItems(snapshotOld.bullets, snapshotNew.bullets)
