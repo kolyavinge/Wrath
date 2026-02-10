@@ -12,6 +12,7 @@ class LifeCycle:
     dead = 1
     respawnDelay = 2
     respawn = 3
+    respawned = 4
 
 
 class WeaponSelectState:

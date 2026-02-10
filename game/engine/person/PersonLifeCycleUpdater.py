@@ -18,6 +18,8 @@ class PersonLifeCycleUpdater:
                 if person.lifeCycle == LifeCycle.dead:
                     person.lifeCycle = LifeCycle.respawn
                 elif person.lifeCycle == LifeCycle.respawn:
+                    person.lifeCycle = LifeCycle.respawned
+                elif person.lifeCycle == LifeCycle.respawned:
                     person.lifeCycle = LifeCycle.respawnDelay
                     person.lifeCycleDelay.set(50)
                 elif person.lifeCycle == LifeCycle.respawnDelay:
