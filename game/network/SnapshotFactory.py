@@ -1,4 +1,5 @@
 from game.model.person.Enemy import Enemy
+from game.model.person.PersonStates import LifeCycle
 from game.model.person.Player import Player
 from game.model.snapshot.ClientSnapshot import ClientSnapshot
 from game.model.snapshot.ServerSnapshot import ServerSnapshot
@@ -11,6 +12,7 @@ from game.model.snapshot.SnapshotPlayer import SnapshotPlayer
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.snapshot.SnapshotRay import SnapshotRay
 from game.model.snapshot.SnapshotRayCollision import SnapshotRayCollision
+from game.model.snapshot.SnapshotRespawnedPerson import SnapshotRespawnedPerson
 from game.model.weapon.Debris import Debris
 from game.model.weapon.WeaponCollection import WeaponCollection
 
@@ -39,6 +41,9 @@ class SnapshotFactory:
         snapshot = ServerSnapshot()
         snapshot.players = set([self.makeSnapshotPlayer(serverGameState.player)])  # list.extend(netPlayers)
         snapshot.enemies = set(self.makeSnapshotPerson(enemy) for enemy in serverGameState.enemies)
+        snapshot.respawnedPerson = set(
+            [self.makeSnapshotRespawnedPerson(person) for person in serverGameState.allPerson if person.lifeCycle == LifeCycle.respawned]
+        )
         snapshot.bullets = {bullet.id: self.makeSnapshotBullet(bullet) for bullet in serverGameState.bullets if type(bullet.ownerPerson) == Enemy}
         snapshot.debris = {
             debris.id: self.makeSnapshotDebris(debris)
@@ -76,6 +81,13 @@ class SnapshotFactory:
         snapshotPlayer.health = player.health
 
         return snapshotPlayer
+
+    def makeSnapshotRespawnedPerson(self, person):
+        snapshotRespawnedPerson = SnapshotRespawnedPerson()
+        snapshotRespawnedPerson.id = person.id
+        snapshotRespawnedPerson.centerPoint = person.currentCenterPoint.copy()
+
+        return snapshotRespawnedPerson
 
     def makeSnapshotBullet(self, bullet):
         snapshotBullet = SnapshotBullet()

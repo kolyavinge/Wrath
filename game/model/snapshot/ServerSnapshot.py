@@ -7,6 +7,7 @@ class ServerSnapshot:
         empty = ServerSnapshot()
         empty.players = set()
         empty.enemies = set()
+        empty.respawnedPerson = set()
         empty.bullets = {}
         empty.debris = {}
         empty.rays = {}
@@ -24,6 +25,7 @@ class ServerSnapshot:
         self.acknowledged = False
         self.players = None
         self.enemies = None
+        self.respawnedPerson = None
         self.bullets = None
         self.debris = None
         self.rays = None

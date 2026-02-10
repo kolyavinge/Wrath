@@ -50,6 +50,10 @@ class GameStateSynchronizer:
             for enemy in diff.enemies:
                 self.synchPerson(gameState, enemy)
 
+        if hasattr(diff, "respawnedPerson"):
+            for person in diff.respawnedPerson:
+                self.synchRespawnedPerson(gameState, person)
+
         if hasattr(diff, "addedBullets"):
             for bullet in diff.addedBullets:
                 self.synchAddedBullet(gameState, bullet)
@@ -104,6 +108,11 @@ class GameStateSynchronizer:
     def synchPlayer(self, gameState, diffPlayer):
         sychedPlayer = gameState.allPersonById[diffPlayer.id]
         sychedPlayer.health = diffPlayer.health
+
+    def synchRespawnedPerson(self, gameState, diffPerson):
+        sychedPerson = gameState.allPersonById[diffPerson.id]
+        sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
+        sychedPerson.commitNextPosition()
 
     def synchAddedBullet(self, gameState, diffBullet):
         # TODO подумать как при рассинхроне обработать на клиенте тот путь

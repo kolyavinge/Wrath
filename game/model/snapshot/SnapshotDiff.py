@@ -8,6 +8,7 @@ from game.model.snapshot.SnapshotPlayer import SnapshotPlayer
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.snapshot.SnapshotRay import SnapshotRay
 from game.model.snapshot.SnapshotRayCollision import SnapshotRayCollision
+from game.model.snapshot.SnapshotRespawnedPerson import SnapshotRespawnedPerson
 
 
 class SnapshotDiff:
@@ -33,6 +34,11 @@ class SnapshotDiff:
             writer.write("b", len(self.enemies))
             for enemy in self.enemies:
                 enemy.toBytes(writer)
+
+        if hasattr(self, "respawnedPerson"):
+            writer.write("b", len(self.respawnedPerson))
+            for person in self.respawnedPerson:
+                person.toBytes(writer)
 
         if hasattr(self, "addedBullets"):
             writer.write("b", len(self.addedBullets))
@@ -104,6 +110,10 @@ class SnapshotDiff:
         if fieldsBitMask & SnapshotDiffFields.enemies > 0:
             count = reader.read("b")
             diff.enemies = [SnapshotPerson.fromBytes(reader) for _ in range(0, count)]
+
+        if fieldsBitMask & SnapshotDiffFields.respawnedPerson > 0:
+            count = reader.read("b")
+            diff.respawnedPerson = [SnapshotRespawnedPerson.fromBytes(reader) for _ in range(0, count)]
 
         if fieldsBitMask & SnapshotDiffFields.addedBullets > 0:
             count = reader.read("b")

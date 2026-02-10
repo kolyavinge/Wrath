@@ -22,6 +22,11 @@ class SnapshotDiffLogic:
             if len(changedEnemies) > 0:
                 diff.enemies = changedEnemies
 
+        if hasattr(snapshotNew, "respawnedPerson"):
+            changedRespawnedPerson = Set.getAddedItems(snapshotOld.respawnedPerson, snapshotNew.respawnedPerson)
+            if len(changedRespawnedPerson) > 0:
+                diff.respawnedPerson = changedRespawnedPerson
+
         if hasattr(snapshotNew, "bullets"):
             addedBullets = Dictionary.getAddedItems(snapshotOld.bullets, snapshotNew.bullets)
             if len(addedBullets) > 0:
