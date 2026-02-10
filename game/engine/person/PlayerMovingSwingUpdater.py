@@ -19,7 +19,7 @@ class PlayerMovingSwingUpdater:
             self.movingParam = 0
         else:
             self.movingParam += 0.1
-        player.swingValue = 0.2 * player.velocityValue * Math.sin(4.0 * self.movingParam)
+        player.swingValue = 0.3 * player.velocityValue * Math.sin(5.0 * self.movingParam)
 
     def updateLookSwing(self, player):
         if player.swingValue != 0:
@@ -29,5 +29,5 @@ class PlayerMovingSwingUpdater:
 
     def updateLandingSwing(self, player):
         if player.zState == PersonZState.landing:
-            swingValue = 0.5 * player.landingTime * Math.sin(4.0 * player.landingTime)
-            player.eyePosition.z += swingValue  # TODO не работает
+            swingValue = 1.5 * player.landingTime * Math.sin(4.0 * player.landingTime)
+            player.eyePosition.z -= swingValue
