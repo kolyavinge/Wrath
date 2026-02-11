@@ -91,6 +91,12 @@ class PersonItems:
             else:
                 self.currentWeapon = self.rightHandWeapon
 
+    def setLeftHandWeaponAsCurrent(self):
+        self.currentWeapon = self.leftHandWeapon
+
+    def setRightHandWeaponAsCurrent(self):
+        self.currentWeapon = self.rightHandWeapon
+
     def getNonemptyWeaponTypesSet(self):
         return set([type(weapon) for weapon in self.weapons])
 

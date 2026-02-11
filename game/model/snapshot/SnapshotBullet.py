@@ -1,6 +1,11 @@
 from game.calc.Vector3 import Vector3
 
 
+class WeaponExtraBit:
+
+    leftHandWeapon = 1 << 7
+
+
 class SnapshotBullet:
 
     def __init__(self, id=0, personId=0, weaponNumber=0, position=Vector3(), direction=Vector3()):
@@ -32,7 +37,7 @@ class SnapshotBullet:
 
     def toBytes(self, writer):
         writer.write(
-            "iibffffff",
+            "iiBffffff",
             self.id,
             self.personId,
             self.weaponNumber,
@@ -57,6 +62,6 @@ class SnapshotBullet:
             bullet.direction.x,
             bullet.direction.y,
             bullet.direction.z,
-        ) = reader.read("iibffffff")
+        ) = reader.read("iiBffffff")
 
         return bullet

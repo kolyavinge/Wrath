@@ -9,6 +9,7 @@ from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.Query import Query
 from game.model.powerup.PowerupType import PowerupType
+from game.model.snapshot.SnapshotBullet import WeaponExtraBit
 from game.model.weapon.Debris import Debris
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.WeaponCollection import WeaponCollection
@@ -117,20 +118,32 @@ class GameStateSynchronizer:
     def synchAddedBullet(self, gameState, diffBullet):
         # TODO подумать как при рассинхроне обработать на клиенте тот путь
         # который пуля пролетела на сервере до передачи клиенту
+        # сюда же: если у пули перед выстрелом изменилась скорость (Railgun charge)
         person = gameState.allPersonById[diffBullet.personId]
         personItems = gameState.allPersonItems[person]
-        diffBulletWeapon = personItems.getWeaponByTypeOrNone(WeaponCollection.getWeaponTypeByNumber(diffBullet.weaponNumber))
-        if diffBulletWeapon is None:
+        isLeftHandWeapon = diffBullet.weaponNumber & WeaponExtraBit.leftHandWeapon > 0
+        if isLeftHandWeapon:
+            # remove leftHandWeapon bit from weaponNumber
+            diffBullet.weaponNumber &= ~WeaponExtraBit.leftHandWeapon
+        diffBulletWeaponType = WeaponCollection.getWeaponTypeByNumber(diffBullet.weaponNumber)
+        if not personItems.hasWeaponByType(diffBulletWeaponType):
             return
-        if personItems.currentWeapon != diffBulletWeapon:
-            self.weaponSelector.setWeaponByType(personItems, type(diffBulletWeapon))
+        if personItems.getCurrentWeaponType() != diffBulletWeaponType:
+            self.weaponSelector.setWeaponByType(personItems, diffBulletWeaponType)
             self.personWeaponPositionUpdater.updateForPerson(person, personItems)
+        if diffBulletWeaponType.defaultCount == 2:
+            if isLeftHandWeapon:
+                personItems.setLeftHandWeaponAsCurrent()
+            else:
+                personItems.setRightHandWeaponAsCurrent()
         newBullet = self.bulletLogic.makeBullet(gameState, person, personItems.currentWeapon, diffBullet.id)
         newBullet.direction = diffBullet.direction.copy()
         # newBullet.velocityValue = diffBullet.velocityValue
         # newBullet.velocity.setLength(diffBullet.velocityValue)
         self.bulletPositionUpdater.moveBulletNextPositionTo(gameState, newBullet, diffBullet.position)
         self.bulletPositionUpdater.commitBulletNextPosition(newBullet, gameState.visibilityTree)
+        diffBulletWeapon = personItems.getWeaponByTypeOrNone(diffBulletWeaponType)
+        gameState.updateStatistic.firedWeapons.append((person, diffBulletWeapon))
 
     def synchAddedDebris(self, gameState, diffDebris):
         person = gameState.allPersonById[diffDebris.personId]

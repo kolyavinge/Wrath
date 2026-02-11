@@ -3,7 +3,7 @@ from game.model.person.PersonStates import LifeCycle
 from game.model.person.Player import Player
 from game.model.snapshot.ClientSnapshot import ClientSnapshot
 from game.model.snapshot.ServerSnapshot import ServerSnapshot
-from game.model.snapshot.SnapshotBullet import SnapshotBullet
+from game.model.snapshot.SnapshotBullet import SnapshotBullet, WeaponExtraBit
 from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
 from game.model.snapshot.SnapshotDebris import SnapshotDebris
 from game.model.snapshot.SnapshotFragStatistic import SnapshotFragStatistic
@@ -23,7 +23,7 @@ class SnapshotFactory:
         snapshot = ClientSnapshot()
         snapshot.player = self.makeSnapshotPerson(clientGameState.player)
         snapshot.bullets = {
-            bullet.id: self.makeSnapshotBullet(bullet)
+            bullet.id: self.makeSnapshotBullet(bullet, clientGameState.allPersonItems)
             for bullet in clientGameState.bullets
             if bullet.weapon is not None and type(bullet.ownerPerson) == Player
         }
@@ -44,7 +44,11 @@ class SnapshotFactory:
         snapshot.respawnedPerson = set(
             [self.makeSnapshotRespawnedPerson(person) for person in serverGameState.allPerson if person.lifeCycle == LifeCycle.respawned]
         )
-        snapshot.bullets = {bullet.id: self.makeSnapshotBullet(bullet) for bullet in serverGameState.bullets if type(bullet.ownerPerson) == Enemy}
+        snapshot.bullets = {
+            bullet.id: self.makeSnapshotBullet(bullet, serverGameState.allPersonItems)
+            for bullet in serverGameState.bullets
+            if type(bullet.ownerPerson) == Enemy
+        }
         snapshot.debris = {
             debris.id: self.makeSnapshotDebris(debris)
             for debris in serverGameState.bullets
@@ -89,11 +93,15 @@ class SnapshotFactory:
 
         return snapshotRespawnedPerson
 
-    def makeSnapshotBullet(self, bullet):
+    def makeSnapshotBullet(self, bullet, allPersonItems):
         snapshotBullet = SnapshotBullet()
         snapshotBullet.id = bullet.id
         snapshotBullet.personId = bullet.ownerPerson.id
         snapshotBullet.weaponNumber = WeaponCollection.getWeaponNumberByType(type(bullet.weapon))
+        if bullet.weapon.defaultCount == 2:
+            personItems = allPersonItems[bullet.ownerPerson]
+            if bullet.weapon == personItems.leftHandWeapon:
+                snapshotBullet.weaponNumber |= WeaponExtraBit.leftHandWeapon
         snapshotBullet.position = bullet.prevCurrentPosition.copy()
         snapshotBullet.direction = bullet.direction.copy()
         # snapshotBullet.velocityValue = bullet.velocityValue
