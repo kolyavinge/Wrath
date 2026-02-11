@@ -69,7 +69,6 @@ class ServerUpdater:
     selectWeaponRequestListener: SelectWeaponRequestListener
 
     def update(self, gameState):
-        gameState.updateStatistic.clear()
         self.personTurnUpdater.updateForEnemies(gameState)
         self.personMovingTimeUpdater.updateForEnemies(gameState)
         self.personVelocityUpdater.updateForEnemies(gameState)
@@ -104,6 +103,9 @@ class ServerUpdater:
         self.personUpdater.commitZStateForEnemies(gameState)
         self.personUpdater.updateDelaysForEnemies(gameState)
         self.fragStatisticUpdater.update(gameState)
+        gameState.updateGlobalTime()
+
+    def clear(self, gameState):
+        gameState.updateStatistic.clear()
         gameState.reservedCollisionData.update(gameState.collisionData)
         gameState.collisionData.clear()
-        gameState.updateGlobalTime()

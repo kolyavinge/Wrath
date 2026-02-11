@@ -92,7 +92,6 @@ class ClientUpdater:
     selectWeaponRequestListener: SelectWeaponRequestListener
 
     def update(self, gameState):
-        gameState.updateStatistic.clear()
         self.personTurnUpdater.updateForPlayer(gameState)
         self.personMovingTimeUpdater.updateForPlayer(gameState)
         self.personVelocityUpdater.updateForPlayer(gameState)
@@ -140,5 +139,8 @@ class ClientUpdater:
         self.personPositionUpdater.resetMovedAndTurnedForPlayer(gameState)
         self.personUpdater.commitZStateForPlayer(gameState)
         self.personUpdater.updateDelaysForPlayer(gameState)
-        gameState.collisionData.clear()
         gameState.updateGlobalTime()
+
+    def clear(self, gameState):
+        gameState.updateStatistic.clear()
+        gameState.collisionData.clear()

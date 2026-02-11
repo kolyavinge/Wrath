@@ -26,10 +26,12 @@ class GameUpdater:
     def update(self):
         # --- main game loop ---
 
+        self.clientUpdater.clear(self.clientGameState)
         self.multiplayerSynchronizer.receiveGameStateFromServer()
         self.clientUpdater.update(self.clientGameState)
         self.multiplayerSynchronizer.sendGameStateToServer()
 
+        self.serverUpdater.clear(self.serverGameState)
         self.multiplayerSynchronizer.receiveGameStateFromClients()
         self.serverUpdater.update(self.serverGameState)
         self.multiplayerSynchronizer.sendGameStateToClients()
