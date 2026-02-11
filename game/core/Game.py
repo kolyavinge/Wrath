@@ -1,9 +1,9 @@
+from game.core.Client import Client
 from game.core.GameInitializer import GameInitializer
 from game.core.ScreenManager import ScreenManager
+from game.core.Server import Server
 from game.input.InputManager import InputManager
 from game.lib.EventManager import EventManager
-from game.network.Client import Client
-from game.network.Server import Server
 
 
 class Game:

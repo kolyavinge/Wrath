@@ -1,5 +1,5 @@
 from game.anx.PersonIdLogic import PersonIdLogic
-from game.network import Client
+from game.core import Client
 from game.network.LocalMessageChannel import LocalMessageChannel
 from game.network.NetMessageChannel import NetMessageChannel
 
