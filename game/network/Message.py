@@ -1,20 +1,22 @@
 from game.model.snapshot.SnapshotDiff import SnapshotDiff
+from game.network.contracts import *
 
 
 class MessageType:
 
-    connectToServer = 1
-    updateGameState = 2
+    connectToServerRequest = 1
+    connectToServerResponse = 2
+    updateGameState = 3
 
 
 class Message:
 
-    def __init__(self, type):
-        if type is None:
-            raise Exception("Message type cannot be None.")
+    # кол-во байт для передачи общей длины сообщения
+    byteMessageSize = 2
 
+    def __init__(self, type, body):
         self.type = type
-        self.body = None
+        self.body = body
 
     def toBytes(self, writer):
         writer.write("b", self.type)
@@ -22,11 +24,12 @@ class Message:
 
     @staticmethod
     def fromBytes(reader):
-        message = Message()
-        message.type = reader.read("b")
-        if message.type == MessageType.connectToServer:
-            pass
-        elif message.type == MessageType.updateGameState:
-            message.body = SnapshotDiff.fromBytes(reader)
+        type = reader.read("b")
+        if type == MessageType.connectToServerRequest:
+            body = ConnectToServerRequest.fromBytes(reader)
+        elif type == MessageType.connectToServerResponse:
+            body = ConnectToServerResponse.fromBytes(reader)
+        elif type == MessageType.updateGameState:
+            body = SnapshotDiff.fromBytes(reader)
 
-        return message
+        return Message(type, body)

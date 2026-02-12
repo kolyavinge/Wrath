@@ -1,5 +1,6 @@
 from game.anx.PersonIdLogic import PersonIdLogic
 from game.audio.AudioPlayer import AudioPlayer
+from game.core.GameStartMode import GameStartMode
 from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.GameState import ClientGameState, ServerGameState
@@ -17,6 +18,7 @@ from game.engine.person.PersonInitializer import PersonInitializer
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 from game.gl.TextRenderer import TextRenderer
+from game.network.GameService import GameService
 from game.network.NetworkConnectionInitializer import NetworkConnectionInitializer
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
 from game.render.common.ShaderCollection import ShaderCollection
@@ -53,6 +55,7 @@ class GameInitializer:
         audioPlayer: AudioPlayer,
         audioBufferCollection: AudioBufferCollection,
         networkConnectionInitializer: NetworkConnectionInitializer,
+        gameService: GameService,
     ):
         self.levelLoader = levelLoader
         self.bspTreeBuilder = bspTreeBuilder
@@ -78,24 +81,28 @@ class GameInitializer:
         self.audioBufferCollection = audioBufferCollection
         self.gameUpdater = gameUpdater
         self.networkConnectionInitializer = networkConnectionInitializer
+        self.gameService = gameService
 
-    def init(self, client, server):
-        server.gameState = ServerGameState()
-        level = self.levelLoader.load()
-        server.gameState.level = level
-        self.bspTreeBuilder.build(server.gameState.collisionTree, level, list(level.getCollisionSplitPlanes()))
-        self.bspTreeBuilder.build(server.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
-        self.joinLineAnalyzer.analyzeJoinLines(level, server.gameState.visibilityTree)
-        self.levelValidator.validate(level, server.gameState.visibilityTree)
-        self.lightAnalyzer.analyzeLights(level, server.gameState.visibilityTree)
-        self.personInitializer.init(server.gameState)
-        self.aiDataInitializer.init(server.gameState)
-        self.fragStatisticUpdater.init(server.gameState)
-        self.enemyAIUpdater.init(server.gameState)
-        self.personWeaponPositionUpdater.update(server.gameState)
+    def init(self, gameStartMode, client, server):
+        if gameStartMode == GameStartMode.clientServerMode:
+            server.gameState = ServerGameState()
+            level = self.levelLoader.load()
+            server.gameState.level = level
+            self.bspTreeBuilder.build(server.gameState.collisionTree, level, list(level.getCollisionSplitPlanes()))
+            self.bspTreeBuilder.build(server.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
+            self.joinLineAnalyzer.analyzeJoinLines(level, server.gameState.visibilityTree)
+            self.levelValidator.validate(level, server.gameState.visibilityTree)
+            self.lightAnalyzer.analyzeLights(level, server.gameState.visibilityTree)
+            self.personInitializer.init(server.gameState)
+            self.aiDataInitializer.init(server.gameState)
+            self.fragStatisticUpdater.init(server.gameState)
+            self.enemyAIUpdater.init(server.gameState)
+            self.personWeaponPositionUpdater.update(server.gameState)
+            self.gameService.runAsync()
 
         client.gameState = ClientGameState()
-        client.gameState.level = server.gameState.level
+        level = self.levelLoader.load()
+        client.gameState.level = level
         self.bspTreeBuilder.build(client.gameState.collisionTree, level, list(level.getCollisionSplitPlanes()))
         self.bspTreeBuilder.build(client.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
         self.joinLineAnalyzer.analyzeJoinLines(level, client.gameState.visibilityTree)
@@ -115,6 +122,9 @@ class GameInitializer:
         self.audioPlayer.init()
         self.audioBufferCollection.init()
 
-        self.gameUpdater.init(client.gameState, server.gameState)
+        if gameStartMode == GameStartMode.clientServerMode:
+            self.networkConnectionInitializer.connectByLocal(client, server)
+        else:
+            self.networkConnectionInitializer.connectByNet(client)
 
-        self.networkConnectionInitializer.init(client, server)
+        self.gameUpdater.init(client.gameState, server.gameState)

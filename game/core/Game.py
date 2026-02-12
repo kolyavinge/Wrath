@@ -15,12 +15,16 @@ class Game:
         screenManager: ScreenManager,
         eventManager: EventManager,  # for App
     ):
+        self.gameInitializer = gameInitializer
         self.inputManager = inputManager
         self.screenManager = screenManager
         self.eventManager = eventManager
+
+    def init(self, gameStartMode):
+        print("GameStartMode", gameStartMode)
         self.client = Client()
         self.server = Server()
-        gameInitializer.init(self.client, self.server)
+        self.gameInitializer.init(gameStartMode, self.client, self.server)
         self.screenManager.currentScreenRenderer.init(self.client.gameState)
         self.screenManager.currentScreenVox.init(self.client.gameState)
 

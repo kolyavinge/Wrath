@@ -36,8 +36,7 @@ class MultiplayerSynchronizer:
         newSnapshot = self.snapshotFactory.makeClientSnapshot(self.client.gameState)
         diff = self.snapshotDiffLogic.getSnapshotsDiff(self.client.lastAcknowledgedClientSnapshot, newSnapshot)
         if not diff.isEmpty():
-            message = Message(MessageType.updateGameState)
-            message.body = diff
+            message = Message(MessageType.updateGameState, diff)
             if self.client.messageChannel.sendMessageToServer(message) == SendMessageResult.sended:
                 assert newSnapshot.id > self.client.lastAcknowledgedClientSnapshot.id
                 self.client.lastAcknowledgedClientSnapshot = newSnapshot
@@ -55,8 +54,7 @@ class MultiplayerSynchronizer:
         for client in self.server.clients.values():
             diff = self.snapshotDiffLogic.getSnapshotsDiff(client.lastAcknowledgedServerSnapshot, newSnapshot)
             if not diff.isEmpty():
-                message = Message(MessageType.updateGameState)
-                message.body = diff
+                message = Message(MessageType.updateGameState, diff)
                 if client.messageChannel.sendMessageToClient(message) == SendMessageResult.sended:
-                    assert newSnapshot.id > self.client.lastAcknowledgedServerSnapshot.id
-                    self.client.lastAcknowledgedServerSnapshot = newSnapshot
+                    assert newSnapshot.id > client.lastAcknowledgedServerSnapshot.id
+                    client.lastAcknowledgedServerSnapshot = newSnapshot

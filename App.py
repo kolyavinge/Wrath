@@ -1,3 +1,5 @@
+import sys
+
 import OpenGL
 
 OpenGL.ERROR_CHECKING = False
@@ -7,6 +9,7 @@ from OpenGL.GLUT import *
 
 from game.anx.CommonConstants import CommonConstants
 from game.core.GameFactory import GameFactory
+from game.core.GameStartMode import GameStartMode
 from game.input.Keyboard import KeyboardButtons
 from game.lib.EventManager import Events
 from game.lib.Screen import Screen
@@ -32,8 +35,9 @@ class App:
         glutReshapeFunc(self.resize)
         glutKeyboardUpFunc(self.keyup)
         glutSetCursor(GLUT_CURSOR_NONE)
-        self.game = GameFactory.makeGame()
-        # self.game = GameFactory.makeGame(levelDebugMode=True)  # отладочный режим для рисования местности
+        gameStartMode = GameStartMode.clientMode if "clientMode" in sys.argv else GameStartMode.clientServerMode
+        self.game = GameFactory.makeGame(gameStartMode)
+        # self.game = GameFactory.makeGame(GameStartMode.clientServerMode, levelDebugMode=True)  # отладочный режим для рисования местности
         glutTimerFunc(CommonConstants.mainTimerMsec, self.mainTimerCallback, 0)
         glutMainLoop()
 

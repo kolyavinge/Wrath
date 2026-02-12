@@ -3,6 +3,7 @@ from game.anx.PersonIdLogic import *
 from game.anx.PowerupIdLogic import *
 from game.lib.EventManager import *
 from game.lib.FileSystem import *
+from game.lib.NetPortManager import *
 
 
 class CommonModule:
@@ -13,3 +14,4 @@ class CommonModule:
         binder.bindSingleton(PowerupIdLogic)
         binder.bindSingleton(EventManager)
         binder.bindSingleton(FileSystem)
+        binder.bindSingleton(NetPortManager)

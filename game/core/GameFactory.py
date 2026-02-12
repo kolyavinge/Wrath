@@ -14,7 +14,7 @@ from game.lib.DependencyContainer import DependencyContainer
 class GameFactory:
 
     @staticmethod
-    def makeGame(levelDebugMode=False):
+    def makeGame(gameStartMode, levelDebugMode=False):
         container = DependencyContainer()
         container.initFromModule(AIModule())
         container.initFromModule(CommonModule())
@@ -29,6 +29,7 @@ class GameFactory:
             container.initFromModule(LevelDebugModule())
 
         game = container.resolve(Game)
+        game.init(gameStartMode)
 
         if not levelDebugMode:
             container.errorIfUnusedInstances()
