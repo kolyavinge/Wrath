@@ -2,11 +2,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug",
+            "name": "Debug Client/Server Mode",
             "type": "debugpy",
             "request": "launch",
             "program": "App.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Debug Client Mode",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "App.py",
+            "console": "integratedTerminal",
+            "args": [
+                "clientMode"
+            ]
         }
     ]
 }
