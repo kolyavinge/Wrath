@@ -6,6 +6,7 @@ class Events:
     selectPrevWeaponRequested = "selectPrevWeaponRequested"
     viewportSizeChanged = "viewportSizeChanged"
     aimStateSwitched = "aimStateSwitched"
+    appExited = "appExited"
 
 
 class EventManager:

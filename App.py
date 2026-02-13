@@ -29,12 +29,13 @@ class App:
         x, y = Screen.getCenterWindowPosition(self.windowWidth, self.windowHeight)
         glutInitWindowPosition(x, y)
         glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH)
-        glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION)
+        glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_EXIT)
         glutCreateWindow(CommonConstants.gameTitle)
         glutDisplayFunc(self.render)
         glutReshapeFunc(self.resize)
         glutKeyboardUpFunc(self.keyup)
         glutSetCursor(GLUT_CURSOR_NONE)
+        glutWMCloseFunc(self.closeWindow)
         gameStartMode = GameStartMode.clientMode if "clientMode" in sys.argv else GameStartMode.clientServerMode
         self.game = GameFactory.makeGame(gameStartMode)
         # self.game = GameFactory.makeGame(GameStartMode.clientServerMode, levelDebugMode=True)  # отладочный режим для рисования местности
@@ -72,6 +73,9 @@ class App:
             glutReshapeWindow(self.windowWidth, self.windowHeight)
             x, y = Screen.getCenterWindowPosition(self.windowWidth, self.windowHeight)
             glutPositionWindow(x, y)
+
+    def closeWindow(self):
+        self.game.eventManager.raiseEvent(Events.appExited)
 
 
 print("\r\nStart the app")
