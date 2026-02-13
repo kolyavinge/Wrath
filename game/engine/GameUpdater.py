@@ -19,16 +19,25 @@ class GameUpdater:
         self.serverUpdater = serverUpdater
         self.clientMultiplayerSynchronizer = clientMultiplayerSynchronizer
         self.serverMultiplayerSynchronizer = serverMultiplayerSynchronizer
+        self.clientGameState = None
+        self.serverGameState = None
 
-    def init(self, clientGameState, serverGameState):
+    def initForClientServer(self, clientGameState, serverGameState):
         self.clientGameState = clientGameState
         self.serverGameState = serverGameState
+        self.update = self.updateClientServer
+
+    def initForClient(self, clientGameState):
+        self.clientGameState = clientGameState
+        self.update = self.updateClient
 
     # @timeProfile("Game updated", CommonConstants.mainTimerMsec / 1000.0, showOnlyLimited=True)
     # @cpuProfile
+    # --- main game loop ---
     def update(self):
-        # --- main game loop ---
+        pass
 
+    def updateClientServer(self):
         self.clientUpdater.clear(self.clientGameState)
         self.clientMultiplayerSynchronizer.receiveGameStateFromServer()
         self.clientUpdater.update(self.clientGameState)
@@ -38,3 +47,9 @@ class GameUpdater:
         self.serverMultiplayerSynchronizer.receiveGameStateFromClients()
         self.serverUpdater.update(self.serverGameState)
         self.serverMultiplayerSynchronizer.sendGameStateToClients()
+
+    def updateClient(self):
+        self.clientUpdater.clear(self.clientGameState)
+        self.clientMultiplayerSynchronizer.receiveGameStateFromServer()
+        self.clientUpdater.update(self.clientGameState)
+        self.clientMultiplayerSynchronizer.sendGameStateToServer()

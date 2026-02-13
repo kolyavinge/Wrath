@@ -1,21 +1,20 @@
 from game.network.GameServiceClient import GameServiceClient
+from game.network.LocalMessageChannel import LocalMessageChannel
 from game.network.NetMessageChannel import NetMessageChannel
-from game.network.ServerConnector import ServerConnector
 
 
-# client connection logic
-class NetworkConnectionInitializer:
+class ClientConnectionLogic:
 
     def __init__(
         self,
-        serverConnector: ServerConnector,
         gameServiceClient: GameServiceClient,
     ):
-        self.serverConnector = serverConnector
         self.gameServiceClient = gameServiceClient
 
     def connectByLocal(self, localClient, server):
-        self.serverConnector.connectByLocal(localClient, server)
+        localClient.id = 1
+        localClient.messageChannel = LocalMessageChannel()
+        server.clients[localClient.id] = localClient
 
     def connectByNet(self, netClient):
         connectionResult = self.gameServiceClient.connectToServer()
