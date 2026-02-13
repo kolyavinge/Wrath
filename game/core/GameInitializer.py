@@ -20,8 +20,8 @@ from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 from game.gl.TextRenderer import TextRenderer
 from game.network.ClientMultiplayerSynchronizer import ClientMultiplayerSynchronizer
 from game.network.GameService import GameService
-from game.network.MultiplayerSynchronizer import MultiplayerSynchronizer
 from game.network.NetworkConnectionInitializer import NetworkConnectionInitializer
+from game.network.ServerMultiplayerSynchronizer import ServerMultiplayerSynchronizer
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
 from game.render.common.ShaderCollection import ShaderCollection
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
@@ -58,7 +58,7 @@ class GameInitializer:
         audioBufferCollection: AudioBufferCollection,
         networkConnectionInitializer: NetworkConnectionInitializer,
         clientMultiplayerSynchronizer: ClientMultiplayerSynchronizer,
-        multiplayerSynchronizer: MultiplayerSynchronizer,
+        serverMultiplayerSynchronizer: ServerMultiplayerSynchronizer,
         gameService: GameService,
     ):
         self.levelLoader = levelLoader
@@ -86,7 +86,7 @@ class GameInitializer:
         self.gameUpdater = gameUpdater
         self.networkConnectionInitializer = networkConnectionInitializer
         self.clientMultiplayerSynchronizer = clientMultiplayerSynchronizer
-        self.multiplayerSynchronizer = multiplayerSynchronizer
+        self.serverMultiplayerSynchronizer = serverMultiplayerSynchronizer
         self.gameService = gameService
 
     def init(self, gameStartMode, client, server):
@@ -95,7 +95,7 @@ class GameInitializer:
             self.initServer(server)
             self.networkConnectionInitializer.connectByLocal(client, server)
             self.clientMultiplayerSynchronizer.init(client)
-            self.multiplayerSynchronizer.init(server)
+            self.serverMultiplayerSynchronizer.init(server)
             self.gameUpdater.init(client.gameState, server.gameState)
         elif gameStartMode == GameStartMode.clientMode:
             self.initClient(client)

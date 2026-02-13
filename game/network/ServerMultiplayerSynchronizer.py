@@ -9,7 +9,7 @@ from game.network.SnapshotDiffLogic import SnapshotDiffLogic
 from game.network.SnapshotFactory import SnapshotFactory
 
 
-class MultiplayerSynchronizer:
+class ServerMultiplayerSynchronizer:
 
     def __init__(
         self,

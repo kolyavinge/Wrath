@@ -1,7 +1,7 @@
 from game.engine.ClientUpdater import ClientUpdater
 from game.engine.ServerUpdater import ServerUpdater
 from game.network.ClientMultiplayerSynchronizer import ClientMultiplayerSynchronizer
-from game.network.MultiplayerSynchronizer import MultiplayerSynchronizer
+from game.network.ServerMultiplayerSynchronizer import ServerMultiplayerSynchronizer
 from game.tools.CpuProfiler import cpuProfile
 from game.tools.timeProfile import timeProfile
 
@@ -13,12 +13,12 @@ class GameUpdater:
         clientUpdater: ClientUpdater,
         serverUpdater: ServerUpdater,
         clientMultiplayerSynchronizer: ClientMultiplayerSynchronizer,
-        multiplayerSynchronizer: MultiplayerSynchronizer,
+        serverMultiplayerSynchronizer: ServerMultiplayerSynchronizer,
     ):
         self.clientUpdater = clientUpdater
         self.serverUpdater = serverUpdater
         self.clientMultiplayerSynchronizer = clientMultiplayerSynchronizer
-        self.multiplayerSynchronizer = multiplayerSynchronizer
+        self.serverMultiplayerSynchronizer = serverMultiplayerSynchronizer
 
     def init(self, clientGameState, serverGameState):
         self.clientGameState = clientGameState
@@ -35,6 +35,6 @@ class GameUpdater:
         self.clientMultiplayerSynchronizer.sendGameStateToServer()
 
         self.serverUpdater.clear(self.serverGameState)
-        self.multiplayerSynchronizer.receiveGameStateFromClients()
+        self.serverMultiplayerSynchronizer.receiveGameStateFromClients()
         self.serverUpdater.update(self.serverGameState)
-        self.multiplayerSynchronizer.sendGameStateToClients()
+        self.serverMultiplayerSynchronizer.sendGameStateToClients()
