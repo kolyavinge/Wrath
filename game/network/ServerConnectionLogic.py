@@ -9,15 +9,15 @@ class ServerConnectionLogic:
     def __init__(self, personIdLogic: PersonIdLogic):
         self.personIdLogic = personIdLogic
 
-    def connectByNet(self, netClient):
+    def connect(self, netClient, server):
         netClient.id = 0
         netClient.messageChannel = NetMessageChannel()
         netClient.gameState.player.id = self.personIdLogic.getNetPlayerId()
-        # server.clients[netClient.id] = netClient
+        server.clients[netClient.id] = netClient
 
         return (netClient.id, netClient.gameState.player.id)
 
-    def disconnect(self, client, server):
-        client.id = 0
-        client.messageChannel = None
-        server.clients.remove(client.id)
+    def disconnect(self, netClient, server):
+        netClient.id = 0
+        netClient.messageChannel = None
+        server.clients.remove(netClient.id)

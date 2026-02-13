@@ -18,6 +18,14 @@ class ClientConnectionLogic:
 
     def connectByNet(self, netClient):
         connectionResult = self.gameServiceClient.connectToServer()
-        netClient.id = 0
+        netClient.id = connectionResult.clientId
         netClient.messageChannel = NetMessageChannel()
-        netClient.gameState.player.id = self.personIdLogic.getNetPlayerId()
+        netClient.gameState.player.id = connectionResult.playerId
+
+    def disconnectByLocal(self, localClient, server):
+        localClient.id = 0
+        localClient.messageChannel = None
+        server.clients.remove(localClient.id)
+
+    def disconnectByNet(self, netClient):
+        pass
