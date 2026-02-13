@@ -5,7 +5,7 @@ from game.lib.NetPortManager import NetPortManager
 from game.network.contracts import ConnectToServerResponse
 from game.network.Message import Message, MessageType
 from game.network.MessageSerializer import MessageSerializer
-from game.network.ServerConnector import ServerConnector
+from game.network.ServerConnectionLogic import ServerConnectionLogic
 
 
 class GameService:
@@ -13,11 +13,11 @@ class GameService:
     def __init__(
         self,
         messageSerializer: MessageSerializer,
-        serverConnector: ServerConnector,
+        serverConnectionLogic: ServerConnectionLogic,
         netPortManager: NetPortManager,
     ):
         self.messageSerializer = messageSerializer
-        self.serverConnector = serverConnector
+        self.serverConnectionLogic = serverConnectionLogic
         self.netPortManager = netPortManager
 
     def runAsync(self):

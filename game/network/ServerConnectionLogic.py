@@ -4,15 +4,10 @@ from game.network.LocalMessageChannel import LocalMessageChannel
 from game.network.NetMessageChannel import NetMessageChannel
 
 
-class ServerConnector:
+class ServerConnectionLogic:
 
     def __init__(self, personIdLogic: PersonIdLogic):
         self.personIdLogic = personIdLogic
-
-    def connectByLocal(self, localClient, server):
-        localClient.id = 1
-        localClient.messageChannel = LocalMessageChannel()
-        server.clients[localClient.id] = localClient
 
     def connectByNet(self, netClient):
         netClient.id = 0

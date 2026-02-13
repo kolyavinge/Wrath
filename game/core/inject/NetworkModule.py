@@ -4,7 +4,7 @@ from game.network.GameService import *
 from game.network.GameServiceClient import *
 from game.network.GameStateSynchronizer import *
 from game.network.MessageSerializer import *
-from game.network.ServerConnector import *
+from game.network.ServerConnectionLogic import *
 from game.network.ServerMultiplayerSynchronizer import *
 from game.network.SnapshotDiffLogic import *
 from game.network.SnapshotFactory import *
@@ -19,7 +19,7 @@ class NetworkModule:
         binder.bindSingleton(GameServiceClient)
         binder.bindSingleton(GameStateSynchronizer)
         binder.bindSingleton(MessageSerializer)
-        binder.bindSingleton(ServerConnector)
+        binder.bindSingleton(ServerConnectionLogic)
         binder.bindSingleton(ServerMultiplayerSynchronizer)
         binder.bindSingleton(SnapshotDiffLogic)
         binder.bindSingleton(SnapshotFactory)
