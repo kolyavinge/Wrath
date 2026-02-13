@@ -18,7 +18,9 @@ from game.engine.person.PersonInitializer import PersonInitializer
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
 from game.gl.TextRenderer import TextRenderer
+from game.network.ClientMultiplayerSynchronizer import ClientMultiplayerSynchronizer
 from game.network.GameService import GameService
+from game.network.MultiplayerSynchronizer import MultiplayerSynchronizer
 from game.network.NetworkConnectionInitializer import NetworkConnectionInitializer
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
 from game.render.common.ShaderCollection import ShaderCollection
@@ -55,6 +57,8 @@ class GameInitializer:
         audioPlayer: AudioPlayer,
         audioBufferCollection: AudioBufferCollection,
         networkConnectionInitializer: NetworkConnectionInitializer,
+        clientMultiplayerSynchronizer: ClientMultiplayerSynchronizer,
+        multiplayerSynchronizer: MultiplayerSynchronizer,
         gameService: GameService,
     ):
         self.levelLoader = levelLoader
@@ -81,25 +85,25 @@ class GameInitializer:
         self.audioBufferCollection = audioBufferCollection
         self.gameUpdater = gameUpdater
         self.networkConnectionInitializer = networkConnectionInitializer
+        self.clientMultiplayerSynchronizer = clientMultiplayerSynchronizer
+        self.multiplayerSynchronizer = multiplayerSynchronizer
         self.gameService = gameService
 
     def init(self, gameStartMode, client, server):
         if gameStartMode == GameStartMode.clientServerMode:
-            server.gameState = ServerGameState()
-            level = self.levelLoader.load()
-            server.gameState.level = level
-            self.bspTreeBuilder.build(server.gameState.collisionTree, level, list(level.getCollisionSplitPlanes()))
-            self.bspTreeBuilder.build(server.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
-            self.joinLineAnalyzer.analyzeJoinLines(level, server.gameState.visibilityTree)
-            self.levelValidator.validate(level, server.gameState.visibilityTree)
-            self.lightAnalyzer.analyzeLights(level, server.gameState.visibilityTree)
-            self.personInitializer.init(server.gameState)
-            self.aiDataInitializer.init(server.gameState)
-            self.fragStatisticUpdater.init(server.gameState)
-            self.enemyAIUpdater.init(server.gameState)
-            self.personWeaponPositionUpdater.update(server.gameState)
-            self.gameService.runAsync()
+            self.initClient(client)
+            self.initServer(server)
+            self.networkConnectionInitializer.connectByLocal(client, server)
+            self.clientMultiplayerSynchronizer.init(client)
+            self.multiplayerSynchronizer.init(server)
+            self.gameUpdater.init(client.gameState, server.gameState)
+        elif gameStartMode == GameStartMode.clientMode:
+            self.initClient(client)
+            self.networkConnectionInitializer.connectByNet(client)
+            self.clientMultiplayerSynchronizer.init(client)
+            self.gameUpdater.init(client.gameState, server.gameState)
 
+    def initClient(self, client):
         client.gameState = ClientGameState()
         level = self.levelLoader.load()
         client.gameState.level = level
@@ -122,9 +126,18 @@ class GameInitializer:
         self.audioPlayer.init()
         self.audioBufferCollection.init()
 
-        if gameStartMode == GameStartMode.clientServerMode:
-            self.networkConnectionInitializer.connectByLocal(client, server)
-        else:
-            self.networkConnectionInitializer.connectByNet(client)
-
-        self.gameUpdater.init(client.gameState, server.gameState)
+    def initServer(self, server):
+        server.gameState = ServerGameState()
+        level = self.levelLoader.load()
+        server.gameState.level = level
+        self.bspTreeBuilder.build(server.gameState.collisionTree, level, list(level.getCollisionSplitPlanes()))
+        self.bspTreeBuilder.build(server.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
+        self.joinLineAnalyzer.analyzeJoinLines(level, server.gameState.visibilityTree)
+        self.levelValidator.validate(level, server.gameState.visibilityTree)
+        self.lightAnalyzer.analyzeLights(level, server.gameState.visibilityTree)
+        self.personInitializer.init(server.gameState)
+        self.aiDataInitializer.init(server.gameState)
+        self.fragStatisticUpdater.init(server.gameState)
+        self.enemyAIUpdater.init(server.gameState)
+        self.personWeaponPositionUpdater.update(server.gameState)
+        self.gameService.runAsync()

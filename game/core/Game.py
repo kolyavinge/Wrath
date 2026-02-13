@@ -1,5 +1,6 @@
 from game.core.Client import Client
 from game.core.GameInitializer import GameInitializer
+from game.core.GameStartMode import GameStartMode
 from game.core.ScreenManager import ScreenManager
 from game.core.Server import Server
 from game.input.InputManager import InputManager
@@ -19,11 +20,14 @@ class Game:
         self.inputManager = inputManager
         self.screenManager = screenManager
         self.eventManager = eventManager
+        self.client = None
+        self.server = None
 
     def init(self, gameStartMode):
         print("GameStartMode", gameStartMode)
         self.client = Client()
-        self.server = Server()
+        if gameStartMode == GameStartMode.clientServerMode:
+            self.server = Server()
         self.gameInitializer.init(gameStartMode, self.client, self.server)
         self.screenManager.currentScreenRenderer.init(self.client.gameState)
         self.screenManager.currentScreenVox.init(self.client.gameState)

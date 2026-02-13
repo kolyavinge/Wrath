@@ -21,25 +21,8 @@ class MultiplayerSynchronizer:
         self.snapshotDiffLogic = snapshotDiffLogic
         self.gameStateSynchronizer = gameStateSynchronizer
 
-    def init(self, client, server):
-        self.client = client
+    def init(self, server):
         self.server = server
-
-    def receiveGameStateFromServer(self):
-        message = self.client.messageChannel.receiveMessageFromServerOrNone()
-        if message is not None:
-            assert message.type == MessageType.updateGameState
-            diff = message.body
-            self.gameStateSynchronizer.applySnapshotDiff(self.client.gameState, diff)
-
-    def sendGameStateToServer(self):
-        newSnapshot = self.snapshotFactory.makeClientSnapshot(self.client.gameState)
-        diff = self.snapshotDiffLogic.getSnapshotsDiff(self.client.lastAcknowledgedClientSnapshot, newSnapshot)
-        if not diff.isEmpty():
-            message = Message(MessageType.updateGameState, diff)
-            if self.client.messageChannel.sendMessageToServer(message) == SendMessageResult.sended:
-                assert newSnapshot.id > self.client.lastAcknowledgedClientSnapshot.id
-                self.client.lastAcknowledgedClientSnapshot = newSnapshot
 
     def receiveGameStateFromClients(self):
         for client in self.server.clients.values():

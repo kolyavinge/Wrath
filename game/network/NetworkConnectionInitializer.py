@@ -1,25 +1,24 @@
 from game.network.GameServiceClient import GameServiceClient
-from game.network.MultiplayerSynchronizer import MultiplayerSynchronizer
+from game.network.NetMessageChannel import NetMessageChannel
 from game.network.ServerConnector import ServerConnector
 
 
+# client connection logic
 class NetworkConnectionInitializer:
 
     def __init__(
         self,
         serverConnector: ServerConnector,
         gameServiceClient: GameServiceClient,
-        multiplayerSynchronizer: MultiplayerSynchronizer,
     ):
         self.serverConnector = serverConnector
         self.gameServiceClient = gameServiceClient
-        self.multiplayerSynchronizer = multiplayerSynchronizer
 
-    def connectByLocal(self, client, server):
-        self.serverConnector.connectByLocal(client, server)
-        self.multiplayerSynchronizer.init(client, server)
+    def connectByLocal(self, localClient, server):
+        self.serverConnector.connectByLocal(localClient, server)
 
-    def connectByNet(self, client):
+    def connectByNet(self, netClient):
         connectionResult = self.gameServiceClient.connectToServer()
-        self.serverConnector.connectByNet(client)
-        self.multiplayerSynchronizer.init(client, None)
+        netClient.id = 0
+        netClient.messageChannel = NetMessageChannel()
+        netClient.gameState.player.id = self.personIdLogic.getNetPlayerId()
