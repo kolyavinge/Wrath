@@ -16,15 +16,10 @@ class GameService(TcpService):
         self.serverConnectionLogic = serverConnectionLogic
 
     def accept(self, clientSocket, clientAddress):
-        messageLengthBytes = clientSocket.recv(Message.byteMessageSize)
-        messageLength = int.from_bytes(messageLengthBytes)
-        if messageLength == 0:
-            return
-        messageBytes = clientSocket.recv(messageLength)
+        messageBytes = clientSocket.recv(Message.maxMessageSizeBytes)
         requestMessage = self.messageSerializer.fromBytes(messageBytes)
         responseMessage = self.processMessage(requestMessage)
         messageBytes, messageLength = self.messageSerializer.toBytes(responseMessage)
-        clientSocket.sendall(messageLength.to_bytes(Message.byteMessageSize))
         clientSocket.sendall(messageBytes[:messageLength])
 
     def processMessage(self, requestMessage):

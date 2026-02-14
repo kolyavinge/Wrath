@@ -24,9 +24,9 @@ class NetMessageChannel:
     def sendMessage(self, message):
         with socket(AF_INET, SOCK_DGRAM) as udpSender:
             messageBytes, messageLength = self.messageSerializer.toBytes(message)
-            udpSender.sendto(messageLength.to_bytes(Message.byteMessageSize) + messageBytes[:messageLength], ("127.0.0.1", self.portForSending))
+            udpSender.sendto(messageBytes[:messageLength], ("127.0.0.1", self.portForSending))
             acknowledgeByte = udpSender.recv(1)
-            if acknowledgeByte[0] == 1:
+            if acknowledgeByte[0] == SendMessageResult.sended:
                 return SendMessageResult.sended
             else:
                 return SendMessageResult.notSended
@@ -49,12 +49,8 @@ class NetMessageChannel:
         with socket(AF_INET, SOCK_DGRAM) as udpListener:
             udpListener.bind(("127.0.0.1", self.portForReceiving))
             while self.isListenerRunning:
-                bytes, serverAddress = udpListener.recvfrom(2048)
-                messageLength = int.from_bytes(bytes[:2])
-                if messageLength == 0:
-                    return
-                messageBytes = bytes[2:]
+                messageBytes, serverAddress = udpListener.recvfrom(Message.maxMessageSizeBytes)
                 message = self.messageSerializer.fromBytes(messageBytes)
                 self.receivedMessages.append(message)
-                sentBytes = udpListener.sendto(SendMessageResult.sended.to_bytes(1), serverAddress)
-                assert sentBytes > 0
+                sentBytes = udpListener.sendto(SendMessageResult.sendedAsBytes, serverAddress)
+                assert sentBytes == 1

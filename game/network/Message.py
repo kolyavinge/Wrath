@@ -11,8 +11,7 @@ class MessageType:
 
 class Message:
 
-    # кол-во байт для передачи общей длины сообщения
-    byteMessageSize = 2
+    maxMessageSizeBytes = 4 * 1024
 
     def __init__(self, type, body):
         self.type = type

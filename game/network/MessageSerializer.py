@@ -7,7 +7,7 @@ class MessageSerializer:
 
     def __init__(self):
         self.reader = BinaryReader()
-        self.writer = BinaryWriter(4 * 1024)
+        self.writer = BinaryWriter(Message.maxMessageSizeBytes)
 
     def toBytes(self, message):
         self.writer.init()

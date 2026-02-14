@@ -25,11 +25,8 @@ class GameServiceClient:
         with socket(AF_INET, SOCK_STREAM) as tcpSender:
             tcpSender.connect(("127.0.0.1", 6464))
             messageBytes, messageLength = self.messageSerializer.toBytes(requestMessage)
-            tcpSender.sendall(messageLength.to_bytes(Message.byteMessageSize))
             tcpSender.sendall(messageBytes[:messageLength])
-            messageLengthBytes = tcpSender.recv(Message.byteMessageSize)
-            messageLength = int.from_bytes(messageLengthBytes)
-            messageBytes = tcpSender.recv(messageLength)
+            messageBytes = tcpSender.recv(Message.maxMessageSizeBytes)
             responseMessage = self.messageSerializer.fromBytes(messageBytes)
 
             return responseMessage
