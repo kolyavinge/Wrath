@@ -1,6 +1,6 @@
 from socket import AF_INET, SOCK_STREAM, socket
 
-from game.network.contracts import ConnectToServerRequest
+from game.network.contracts import EmptyRequest
 from game.network.Message import Message, MessageType
 from game.network.MessageSerializer import MessageSerializer
 
@@ -14,8 +14,7 @@ class GameServiceClient:
         self.messageSerializer = messageSerializer
 
     def connectToServer(self):
-        request = ConnectToServerRequest()
-        requestMessage = Message(MessageType.connectToServerRequest, request)
+        requestMessage = Message(MessageType.connectToServerRequest, EmptyRequest())
         responseMessage = self.sendRequest(requestMessage)
         assert responseMessage.type == MessageType.connectToServerResponse
         response = responseMessage.body

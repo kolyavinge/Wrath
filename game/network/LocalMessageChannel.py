@@ -1,30 +1,25 @@
 from game.network.SendMessageResult import SendMessageResult
 
 
-class LocalMessageChannel:
+class MessageHolder:
 
     def __init__(self):
-        self.lastClientMessage = None
-        self.lastServerMessage = None
+        self.message = None
 
-    def sendMessageToClient(self, message):
-        self.lastServerMessage = message
 
-        return SendMessageResult.sended
+class LocalMessageChannel:
 
-    def receiveMessageFromClientOrNone(self):
-        result = self.lastClientMessage
-        self.lastClientMessage = None
+    def __init__(self, holderForSending, holderForReceiving):
+        self.holderForSending = holderForSending
+        self.holderForReceiving = holderForReceiving
 
-        return result
-
-    def sendMessageToServer(self, message):
-        self.lastClientMessage = message
+    def sendMessage(self, message):
+        self.holderForSending.message = message
 
         return SendMessageResult.sended
 
-    def receiveMessageFromServerOrNone(self):
-        result = self.lastServerMessage
-        self.lastServerMessage = None
+    def receiveMessageOrNone(self):
+        result = self.holderForReceiving.message
+        self.holderForReceiving.message = None
 
         return result

@@ -21,6 +21,7 @@ from game.gl.TextRenderer import TextRenderer
 from game.network.ClientConnectionLogic import ClientConnectionLogic
 from game.network.ClientMultiplayerSynchronizer import ClientMultiplayerSynchronizer
 from game.network.GameService import GameService
+from game.network.ServerConnectionLogic import ServerConnectionLogic
 from game.network.ServerMultiplayerSynchronizer import ServerMultiplayerSynchronizer
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
 from game.render.common.ShaderCollection import ShaderCollection
@@ -57,6 +58,7 @@ class GameInitializer:
         audioPlayer: AudioPlayer,
         audioBufferCollection: AudioBufferCollection,
         clientConnectionLogic: ClientConnectionLogic,
+        serverConnectionLogic: ServerConnectionLogic,
         clientMultiplayerSynchronizer: ClientMultiplayerSynchronizer,
         serverMultiplayerSynchronizer: ServerMultiplayerSynchronizer,
         gameService: GameService,
@@ -85,6 +87,7 @@ class GameInitializer:
         self.audioBufferCollection = audioBufferCollection
         self.gameUpdater = gameUpdater
         self.clientConnectionLogic = clientConnectionLogic
+        self.serverConnectionLogic = serverConnectionLogic
         self.clientMultiplayerSynchronizer = clientMultiplayerSynchronizer
         self.serverMultiplayerSynchronizer = serverMultiplayerSynchronizer
         self.gameService = gameService
@@ -93,7 +96,8 @@ class GameInitializer:
         if gameStartMode == GameStartMode.clientServerMode:
             self.initClient(client)
             self.initServer(server)
-            self.clientConnectionLogic.connectByLocal(client, server)
+            self.serverConnectionLogic.init(server)
+            self.serverConnectionLogic.connectByLocal(client)
             self.clientMultiplayerSynchronizer.init(client)
             self.serverMultiplayerSynchronizer.init(server)
             self.gameUpdater.initForClientServer(client.gameState, server.gameState)
@@ -135,6 +139,7 @@ class GameInitializer:
         self.joinLineAnalyzer.analyzeJoinLines(level, server.gameState.visibilityTree)
         self.levelValidator.validate(level, server.gameState.visibilityTree)
         self.lightAnalyzer.analyzeLights(level, server.gameState.visibilityTree)
+        self.personIdLogic.resetEnemyId()
         self.personInitializer.init(server.gameState)
         self.aiDataInitializer.init(server.gameState)
         self.fragStatisticUpdater.init(server.gameState)

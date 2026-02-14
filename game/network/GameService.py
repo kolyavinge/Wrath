@@ -1,7 +1,6 @@
 from socket import AF_INET, SOCK_STREAM, socket
 from threading import Thread
 
-from game.lib.NetPortManager import NetPortManager
 from game.network.contracts import ConnectToServerResponse
 from game.network.Message import Message, MessageType
 from game.network.MessageSerializer import MessageSerializer
@@ -14,11 +13,9 @@ class GameService:
         self,
         messageSerializer: MessageSerializer,
         serverConnectionLogic: ServerConnectionLogic,
-        netPortManager: NetPortManager,
     ):
         self.messageSerializer = messageSerializer
         self.serverConnectionLogic = serverConnectionLogic
-        self.netPortManager = netPortManager
 
     def runAsync(self):
         self.thread = Thread(target=self.run)
@@ -48,7 +45,8 @@ class GameService:
 
     def processMessage(self, requestMessage):
         if requestMessage.type == MessageType.connectToServerRequest:
-            response = ConnectToServerResponse()
+            playerId, portForSendingToServer, portForReceivingFromServer = self.serverConnectionLogic.connectByNet()
+            response = ConnectToServerResponse(playerId, portForSendingToServer, portForReceivingFromServer)
             responseMessage = Message(MessageType.connectToServerResponse, response)
 
             return responseMessage

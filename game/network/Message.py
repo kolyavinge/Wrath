@@ -26,7 +26,7 @@ class Message:
     def fromBytes(reader):
         type = reader.read("b")
         if type == MessageType.connectToServerRequest:
-            body = ConnectToServerRequest.fromBytes(reader)
+            body = EmptyRequest.fromBytes(reader)
         elif type == MessageType.connectToServerResponse:
             body = ConnectToServerResponse.fromBytes(reader)
         elif type == MessageType.updateGameState:

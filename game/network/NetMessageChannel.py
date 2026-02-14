@@ -3,17 +3,13 @@ from game.network.MessageSerializer import MessageSerializer
 
 class NetMessageChannel:
 
-    def __init__(self):
+    def __init__(self, portForSending, portForReceiving):
+        self.portForSending = portForSending
+        self.portForReceiving = portForReceiving
         self.messageSerializer = MessageSerializer()
 
-    def sendMessageToClient(self, message):
+    def sendMessage(self, message):
         pass
 
-    def receiveMessageFromClientOrNone(self):
-        pass
-
-    def sendMessageToServer(self, message):
-        pass
-
-    def receiveMessageFromServerOrNone(self):
+    def receiveMessageOrNone(self):
         pass

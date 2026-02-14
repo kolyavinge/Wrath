@@ -26,7 +26,7 @@ class ServerMultiplayerSynchronizer:
 
     def receiveGameStateFromClients(self):
         for client in self.server.clients.values():
-            message = client.messageChannel.receiveMessageFromClientOrNone()
+            message = client.channelToClient.receiveMessageOrNone()
             if message is not None:
                 assert message.type == MessageType.updateGameState
                 diff = message.body
@@ -38,6 +38,6 @@ class ServerMultiplayerSynchronizer:
             diff = self.snapshotDiffLogic.getSnapshotsDiff(client.lastAcknowledgedServerSnapshot, newSnapshot)
             if not diff.isEmpty():
                 message = Message(MessageType.updateGameState, diff)
-                if client.messageChannel.sendMessageToClient(message) == SendMessageResult.sended:
+                if client.channelToClient.sendMessage(message) == SendMessageResult.sended:
                     assert newSnapshot.id > client.lastAcknowledgedServerSnapshot.id
                     client.lastAcknowledgedServerSnapshot = newSnapshot
