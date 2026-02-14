@@ -13,10 +13,12 @@ class ClientConnectionLogic:
     def connectByNet(self, netClient):
         connectionResult = self.gameServiceClient.connectToServer()
         netClient.id = connectionResult.playerId
-        netClient.channelToServer = NetMessageChannel(connectionResult.portForSendingToServer, connectionResult.portForReceivingFromServer)
         netClient.gameState.player.id = connectionResult.playerId
+        netClient.channelToServer = NetMessageChannel(connectionResult.portForSendingToServer, connectionResult.portForReceivingFromServer)
+        netClient.channelToServer.open()
 
     def disconnectByNet(self, netClient):
-        netClient.id = 0
+        netClient.channelToServer.close()
         netClient.channelToServer = None
+        netClient.id = 0
         netClient.gameState.player.id = 0

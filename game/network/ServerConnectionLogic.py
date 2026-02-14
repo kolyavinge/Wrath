@@ -36,10 +36,12 @@ class ServerConnectionLogic:
         connectedNetClient.id = playerId
         connectedNetClient.channelToClient = NetMessageChannel(portForReceivingFromServer, portForSendingToServer)
         self.server.clients[connectedNetClient.id] = connectedNetClient
+        connectedNetClient.channelToClient.open()
 
         return (playerId, portForSendingToServer, portForReceivingFromServer)
 
     def disconnectByNet(self, netClient):
         self.server.clients.remove(netClient.id)
+        netClient.messageChannel.close()
         netClient.messageChannel = None
         netClient.id = 0
