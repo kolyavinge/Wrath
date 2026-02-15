@@ -1,3 +1,4 @@
+from queue import Queue
 from socket import AF_INET, SOCK_DGRAM, socket
 from threading import Thread
 
@@ -12,7 +13,7 @@ class NetMessageChannel:
         self.portForSending = portForSending
         self.portForReceiving = portForReceiving
         self.messageSerializer = MessageSerializer()
-        self.receivedMessages = []
+        self.receivedMessages = Queue()
         self.isListenerRunning = False
 
     def open(self):
@@ -32,13 +33,10 @@ class NetMessageChannel:
                 return SendMessageResult.notSended
 
     def receiveMessageOrNone(self):
-        if len(self.receivedMessages) == 0:
+        if not self.receivedMessages.empty():
+            return self.receivedMessages.get()
+        else:
             return None
-
-        message = self.receivedMessages[0]
-        self.receivedMessages.clear()
-
-        return message
 
     def runListenerAsync(self):
         self.thread = Thread(target=self.runListener)
@@ -51,6 +49,6 @@ class NetMessageChannel:
             while self.isListenerRunning:
                 messageBytes, serverAddress = udpListener.recvfrom(Message.maxMessageSizeBytes)
                 message = self.messageSerializer.fromBytes(messageBytes)
-                self.receivedMessages.append(message)
                 sentBytes = udpListener.sendto(SendMessageResult.sendedAsBytes, serverAddress)
                 assert sentBytes == 1
+                self.receivedMessages.put(message)
