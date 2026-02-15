@@ -16,17 +16,23 @@ class GameServiceClient:
     def connectToServer(self):
         requestMessage = Message(MessageType.connectToServerRequest, EmptyRequest())
         responseMessage = self.sendRequest(requestMessage)
+        if responseMessage is None:
+            return None
+
         assert responseMessage.type == MessageType.connectToServerResponse
         response = responseMessage.body
 
         return response
 
     def sendRequest(self, requestMessage):
-        with socket(AF_INET, SOCK_STREAM) as tcpSender:
-            tcpSender.connect(("127.0.0.1", 6464))
-            messageBytes, messageLength = self.messageSerializer.toBytes(requestMessage)
-            tcpSender.sendall(messageBytes[:messageLength])
-            messageBytes = tcpSender.recv(Message.maxMessageSizeBytes)
-            responseMessage = self.messageSerializer.fromBytes(messageBytes)
+        try:
+            with socket(AF_INET, SOCK_STREAM) as tcpSender:
+                tcpSender.connect(("127.0.0.1", 6464))
+                messageBytes, messageLength = self.messageSerializer.toBytes(requestMessage)
+                tcpSender.sendall(messageBytes[:messageLength])
+                messageBytes = tcpSender.recv(Message.maxMessageSizeBytes)
+                responseMessage = self.messageSerializer.fromBytes(messageBytes)
 
-            return responseMessage
+                return responseMessage
+        except ConnectionRefusedError:
+            return None

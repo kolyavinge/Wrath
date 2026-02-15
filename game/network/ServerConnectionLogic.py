@@ -1,6 +1,7 @@
 from game.anx.PersonIdLogic import PersonIdLogic
 from game.core.Server import ConnectedClient
 from game.lib.NetPortManager import NetPortManager
+from game.network.EmptyMessageChannel import EmptyMessageChannel
 from game.network.LocalMessageChannel import LocalMessageChannel, MessageHolder
 from game.network.NetMessageChannel import NetMessageChannel
 
@@ -42,6 +43,6 @@ class ServerConnectionLogic:
 
     def disconnectByNet(self, netClient):
         self.server.clients.remove(netClient.id)
-        netClient.messageChannel.close()
-        netClient.messageChannel = None
+        netClient.channelToServer.close()
+        netClient.channelToServer = EmptyMessageChannel.instance
         netClient.id = 0
