@@ -15,12 +15,15 @@ class NetMessageChannel:
         self.messageSerializer = MessageSerializer()
         self.receivedMessages = Queue()
         self.isListenerRunning = False
+        self.udpListener = None
 
     def open(self):
         self.runListenerAsync()
 
     def close(self):
         self.isListenerRunning = False
+        if self.udpListener is not None:
+            self.udpListener.close()
 
     def sendMessage(self, message):
         with socket(AF_INET, SOCK_DGRAM) as udpSender:
@@ -44,11 +47,11 @@ class NetMessageChannel:
 
     def runListener(self):
         self.isListenerRunning = True
-        with socket(AF_INET, SOCK_DGRAM) as udpListener:
-            udpListener.bind(("127.0.0.1", self.portForReceiving))
-            while self.isListenerRunning:
-                messageBytes, serverAddress = udpListener.recvfrom(Message.maxMessageSizeBytes)
-                message = self.messageSerializer.fromBytes(messageBytes)
-                sentBytes = udpListener.sendto(SendMessageResult.sendedAsBytes, serverAddress)
-                assert sentBytes == 1
-                self.receivedMessages.put(message)
+        self.udpListener = socket(AF_INET, SOCK_DGRAM)
+        self.udpListener.bind(("127.0.0.1", self.portForReceiving))
+        while self.isListenerRunning:
+            messageBytes, serverAddress = self.udpListener.recvfrom(Message.maxMessageSizeBytes)
+            message = self.messageSerializer.fromBytes(messageBytes)
+            sentBytes = self.udpListener.sendto(SendMessageResult.sendedAsBytes, serverAddress)
+            assert sentBytes == 1
+            self.receivedMessages.put(message)

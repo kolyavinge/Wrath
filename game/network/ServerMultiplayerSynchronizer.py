@@ -1,7 +1,3 @@
-# Quake III client-server architecture
-# https://fabiensanglard.net/quake3/network.php
-
-
 from game.network.GameStateSynchronizer import GameStateSynchronizer
 from game.network.Message import Message, MessageType
 from game.network.SendMessageResult import SendMessageResult

@@ -15,7 +15,7 @@ class GameService(TcpService):
         self.messageSerializer = messageSerializer
         self.serverConnectionLogic = serverConnectionLogic
 
-    def accept(self, clientSocket, clientAddress):
+    def receive(self, clientSocket, clientAddress):
         messageBytes = clientSocket.recv(Message.maxMessageSizeBytes)
         requestMessage = self.messageSerializer.fromBytes(messageBytes)
         responseMessage = self.processMessage(requestMessage)

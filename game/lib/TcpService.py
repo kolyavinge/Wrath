@@ -16,11 +16,11 @@ class TcpService:
             while True:
                 clientSocket, clientAddress = tcpListener.accept()
                 with clientSocket:
-                    self.accept(clientSocket, clientAddress)
+                    self.receive(clientSocket, clientAddress)
 
         self.onEndListen()
 
-    def accept(self, clientSocket, clientAddress):
+    def receive(self, clientSocket, clientAddress):
         pass
 
     def onBeginListen(self):
