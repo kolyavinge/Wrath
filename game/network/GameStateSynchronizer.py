@@ -43,9 +43,8 @@ class GameStateSynchronizer:
         if hasattr(diff, "person"):
             self.synchPerson(gameState, diff.person)
 
-        if hasattr(diff, "players"):
-            for player in diff.players:
-                self.synchPlayer(gameState, player)
+        if hasattr(diff, "player"):
+            self.synchPlayer(gameState, diff.player)
 
         if hasattr(diff, "enemies"):
             for enemy in diff.enemies:

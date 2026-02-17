@@ -5,7 +5,7 @@ class ServerSnapshot:
     @staticmethod
     def makeEmpty():
         empty = ServerSnapshot()
-        empty.players = set()
+        empty.players = {}
         empty.allPerson = {}
         empty.respawnedPerson = set()
         empty.bullets = {}

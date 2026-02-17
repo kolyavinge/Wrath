@@ -14,9 +14,13 @@ class SnapshotDiffLogic:
                 diff.person = snapshotNew.person
 
         if hasattr(snapshotNew, "players"):
-            changedPlayers = Set.getAddedItems(snapshotOld.players, snapshotNew.players)
-            if len(changedPlayers) > 0:
-                diff.players = changedPlayers
+            assert clientPlayerId != None
+            for playerId, player in snapshotNew.players.items():
+                if playerId == clientPlayerId:
+                    if playerId in snapshotOld.players and player != snapshotOld.players[playerId]:
+                        diff.player = player
+                    else:
+                        break
 
         if hasattr(snapshotNew, "allPerson"):
             assert clientPlayerId != None

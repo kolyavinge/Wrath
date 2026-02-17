@@ -1,7 +1,7 @@
 class SnapshotDiffFields:
 
     person = 1 << 0
-    players = 1 << 1
+    player = 1 << 1
     enemies = 1 << 2
     respawnedPerson = 1 << 3
     addedBullets = 1 << 4

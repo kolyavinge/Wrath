@@ -21,7 +21,7 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
     def test(self):
         diff = SnapshotDiff()
         diff.person = SnapshotPerson(1, Vector3(0, 0, 0), 1.5, -1.5, 10)
-        diff.players = [SnapshotPlayer(12, 85)]
+        diff.player = SnapshotPlayer(12, 85)
         diff.respawnedPerson = [SnapshotRespawnedPerson(10, Vector3(0, 0, 0))]
         diff.enemies = [SnapshotPerson(10, Vector3(0, 0, 0), 2.5, -2.5, 50), SnapshotPerson(20, Vector3(0, 0, 0), 2.0, -2.0, 60)]
         diff.addedBullets = [SnapshotBullet(12, 1, 2, Vector3(0, 0, 0), Vector3(0, 0, 0))]
@@ -48,7 +48,7 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
         self.assertEqual(writtenBytesCount, reader.readedBytesCount)
 
         self.assertEqual(diffDeser.person, diff.person)
-        self.assertEqual(diffDeser.players, diff.players)
+        self.assertEqual(diffDeser.player, diff.player)
         self.assertEqual(diffDeser.enemies, diff.enemies)
         self.assertEqual(diffDeser.respawnedPerson, diff.respawnedPerson)
         self.assertEqual(diffDeser.addedBullets, diff.addedBullets)

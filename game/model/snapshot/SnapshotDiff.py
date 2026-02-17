@@ -25,10 +25,8 @@ class SnapshotDiff:
         if hasattr(self, "person"):
             self.person.toBytes(writer)
 
-        if hasattr(self, "players"):
-            writer.write("b", len(self.players))
-            for player in self.players:
-                player.toBytes(writer)
+        if hasattr(self, "player"):
+            self.player.toBytes(writer)
 
         if hasattr(self, "enemies"):
             writer.write("b", len(self.enemies))
@@ -103,9 +101,8 @@ class SnapshotDiff:
         if fieldsBitMask & SnapshotDiffFields.person > 0:
             diff.person = SnapshotPerson.fromBytes(reader)
 
-        if fieldsBitMask & SnapshotDiffFields.players > 0:
-            count = reader.read("b")
-            diff.players = [SnapshotPlayer.fromBytes(reader) for _ in range(0, count)]
+        if fieldsBitMask & SnapshotDiffFields.player > 0:
+            diff.player = SnapshotPlayer.fromBytes(reader)
 
         if fieldsBitMask & SnapshotDiffFields.enemies > 0:
             count = reader.read("b")
