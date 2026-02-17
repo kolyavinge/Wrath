@@ -39,8 +39,8 @@ class SnapshotFactory:
 
     def makeServerSnapshot(self, serverGameState):
         snapshot = ServerSnapshot()
-        snapshot.players = set([self.makeSnapshotPlayer(serverGameState.player)])  # list.extend(netPlayers)
-        snapshot.enemies = set(self.makeSnapshotPerson(enemy) for enemy in serverGameState.enemies)
+        snapshot.players = set([self.makeSnapshotPlayer(serverGameState.player)])
+        snapshot.allPerson = {person.id: self.makeSnapshotPerson(person) for person in serverGameState.allPerson}
         snapshot.respawnedPerson = set(
             [self.makeSnapshotRespawnedPerson(person) for person in serverGameState.allPerson if person.lifeCycle == LifeCycle.respawned]
         )

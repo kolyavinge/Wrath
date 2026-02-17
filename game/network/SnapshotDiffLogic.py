@@ -5,7 +5,8 @@ from game.model.snapshot.SnapshotDiff import SnapshotDiff
 
 class SnapshotDiffLogic:
 
-    def getSnapshotsDiff(self, snapshotOld, snapshotNew):
+    # clientPlayerId - id клиента которому предназначается этот diff
+    def getSnapshotsDiff(self, snapshotOld, snapshotNew, clientPlayerId=None):
         diff = SnapshotDiff()
 
         if hasattr(snapshotNew, "person"):
@@ -17,8 +18,17 @@ class SnapshotDiffLogic:
             if len(changedPlayers) > 0:
                 diff.players = changedPlayers
 
-        if hasattr(snapshotNew, "enemies"):
-            changedEnemies = Set.getAddedItems(snapshotOld.enemies, snapshotNew.enemies)
+        if hasattr(snapshotNew, "allPerson"):
+            assert clientPlayerId != None
+            changedEnemies = []
+            for personId, newPerson in snapshotNew.allPerson.items():
+                if personId != clientPlayerId:
+                    if personId in snapshotOld.allPerson:
+                        if newPerson != snapshotOld.allPerson[personId]:
+                            changedEnemies.append(newPerson)
+                    else:
+                        pass  # new added person
+
             if len(changedEnemies) > 0:
                 diff.enemies = changedEnemies
 
