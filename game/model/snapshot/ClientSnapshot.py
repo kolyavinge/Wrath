@@ -8,7 +8,7 @@ class ClientSnapshot:
     @staticmethod
     def makeEmpty():
         empty = ClientSnapshot()
-        empty.player = SnapshotPerson()
+        empty.person = SnapshotPerson()
         empty.bullets = {}
         empty.debris = {}
         empty.rays = {}
@@ -20,7 +20,7 @@ class ClientSnapshot:
         self.id = ClientSnapshot.lastId
         ClientSnapshot.lastId += 1
         self.acknowledged = False
-        self.player = None
+        self.person = None
         self.bullets = None
         self.debris = None
         self.rays = None

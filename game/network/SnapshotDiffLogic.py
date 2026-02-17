@@ -8,9 +8,9 @@ class SnapshotDiffLogic:
     def getSnapshotsDiff(self, snapshotOld, snapshotNew):
         diff = SnapshotDiff()
 
-        if hasattr(snapshotNew, "player"):
-            if snapshotOld.player != snapshotNew.player:
-                diff.player = snapshotNew.player
+        if hasattr(snapshotNew, "person"):
+            if snapshotOld.person != snapshotNew.person:
+                diff.person = snapshotNew.person
 
         if hasattr(snapshotNew, "players"):
             changedPlayers = Set.getAddedItems(snapshotOld.players, snapshotNew.players)

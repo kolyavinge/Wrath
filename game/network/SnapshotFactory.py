@@ -21,7 +21,7 @@ class SnapshotFactory:
 
     def makeClientSnapshot(self, clientGameState):
         snapshot = ClientSnapshot()
-        snapshot.player = self.makeSnapshotPerson(clientGameState.player)
+        snapshot.person = self.makeSnapshotPerson(clientGameState.player)
         snapshot.bullets = {
             bullet.id: self.makeSnapshotBullet(bullet, clientGameState.allPersonItems)
             for bullet in clientGameState.bullets

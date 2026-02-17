@@ -22,8 +22,8 @@ class SnapshotDiff:
         fieldsBitMask = SnapshotDiffFields.toBitMask(self)
         writer.write("h", fieldsBitMask)
 
-        if hasattr(self, "player"):
-            self.player.toBytes(writer)
+        if hasattr(self, "person"):
+            self.person.toBytes(writer)
 
         if hasattr(self, "players"):
             writer.write("b", len(self.players))
@@ -100,8 +100,8 @@ class SnapshotDiff:
         diff = SnapshotDiff()
         fieldsBitMask = reader.read("h")
 
-        if fieldsBitMask & SnapshotDiffFields.player > 0:
-            diff.player = SnapshotPerson.fromBytes(reader)
+        if fieldsBitMask & SnapshotDiffFields.person > 0:
+            diff.person = SnapshotPerson.fromBytes(reader)
 
         if fieldsBitMask & SnapshotDiffFields.players > 0:
             count = reader.read("b")

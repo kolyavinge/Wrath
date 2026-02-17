@@ -40,8 +40,8 @@ class GameStateSynchronizer:
         self.powerupLogic = powerupLogic
 
     def applySnapshotDiff(self, gameState, diff):
-        if hasattr(diff, "player"):
-            self.synchPerson(gameState, diff.player)
+        if hasattr(diff, "person"):
+            self.synchPerson(gameState, diff.person)
 
         if hasattr(diff, "players"):
             for player in diff.players:
