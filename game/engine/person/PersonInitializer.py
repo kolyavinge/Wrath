@@ -29,15 +29,9 @@ class PersonInitializer:
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
 
-    def init(self, gameState):
-        self.initPlayer(gameState)
-        self.initEnemies(gameState)
-
-    def initPlayer(self, gameState):
+    def initPlayer(self, gameState, position, frontNormal, weaponType):
         gameState.player.id = self.personIdLogic.getPlayerId()
         gameState.allPersonById[gameState.player.id] = gameState.player
-        level = gameState.level
-        position, frontNormal, weaponType = level.getPlayerInitInfo()
         gameState.player.moveNextPositionTo(position)
         self.personTurnLogic.orientToFrontNormal(gameState.player, frontNormal)
         gameState.player.commitNextPosition()
@@ -46,11 +40,11 @@ class PersonInitializer:
         self.weaponSelector.setWeaponByType(gameState.playerItems, weaponType)
         self.playerLevelSegmentsUpdater.update(gameState)
 
-    def initEnemies(self, gameState):
+    def initEnemiesForLevel(self, gameState, level):
         if not DebugSettings.allowEnemies:
             return
 
-        for position, frontNormal, weaponType in gameState.level.getEnemyInitInfo():
+        for position, frontNormal, weaponType in level.getEnemyInitInfo():
             self.initEnemy(gameState, position, frontNormal, weaponType)
 
         self.personFloorUpdater.updateEnemiesNextFloor(gameState)
