@@ -15,8 +15,6 @@ from game.model.person.ReservedCollisionData import ReservedCollisionData
 class GameState:
 
     def __init__(self):
-
-        # common data for client and server
         self.globalTimeMsec = 0
         self.globalTimeSec = 0
         self.level = None
@@ -48,12 +46,7 @@ class GameState:
         self.reservedCollisionData = ReservedCollisionData()
         self.updateStatistic = UpdateStatistic()
 
-        # data for client
-        self.bloodStains = []
         self.enemyLifeBars = {}
-        self.camera = Camera()
-        self.backgroundVisibility = BackgroundVisibilityData()
-        self.dashboard = Dashboard()
 
     def updateGlobalTime(self):
         self.globalTimeMsec += CommonConstants.mainTimerMsec
@@ -61,7 +54,13 @@ class GameState:
 
 
 class ClientGameState(GameState):
-    pass
+
+    def __init__(self):
+        super().__init__()
+        self.bloodStains = []
+        self.camera = Camera()
+        self.backgroundVisibility = BackgroundVisibilityData()
+        self.dashboard = Dashboard()
 
 
 class ServerGameState(GameState):
