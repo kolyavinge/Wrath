@@ -22,27 +22,27 @@ class ServerConnectionLogic:
     def connectByLocal(self, localClient):
         clientHolder = MessageHolder()
         serverHolder = MessageHolder()
-        localClient.id = 1
+        localClient.playerId = 1
         localClient.channelToServer = LocalMessageChannel(clientHolder, serverHolder)
         connectedLocalClient = ConnectedClient()
-        connectedLocalClient.id = localClient.id
+        connectedLocalClient.playerId = localClient.playerId
         connectedLocalClient.channelToClient = LocalMessageChannel(serverHolder, clientHolder)
-        self.server.clients[localClient.id] = connectedLocalClient
+        self.server.clients[localClient.playerId] = connectedLocalClient
 
     def connectByNet(self):
         playerId = self.personIdLogic.getNetPlayerId()
         portForSendingToServer = self.netPortManager.getFreePort()
         portForReceivingFromServer = self.netPortManager.getFreePort()
         connectedNetClient = ConnectedClient()
-        connectedNetClient.id = playerId
+        connectedNetClient.playerId = playerId
         connectedNetClient.channelToClient = NetMessageChannel(portForReceivingFromServer, portForSendingToServer)
-        self.server.clients[connectedNetClient.id] = connectedNetClient
+        self.server.clients[connectedNetClient.playerId] = connectedNetClient
         connectedNetClient.channelToClient.open()
 
         return (playerId, portForSendingToServer, portForReceivingFromServer)
 
     def disconnectByNet(self, netClient):
-        self.server.clients.remove(netClient.id)
+        self.server.clients.remove(netClient.playerId)
         netClient.channelToServer.close()
         netClient.channelToServer = EmptyMessageChannel.instance
-        netClient.id = 0
+        netClient.playerId = 0

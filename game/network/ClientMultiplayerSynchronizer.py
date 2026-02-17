@@ -31,7 +31,7 @@ class ClientMultiplayerSynchronizer:
         newSnapshot = self.snapshotFactory.makeClientSnapshot(self.client.gameState)
         diff = self.snapshotDiffLogic.getSnapshotsDiff(self.client.lastAcknowledgedClientSnapshot, newSnapshot)
         if not diff.isEmpty():
-            print(f"Client id: {self.client.id} is sending diff to server")
+            print(f"Client id: {self.client.playerId} is sending diff to server")
             message = Message(MessageType.updateGameState, diff)
             if self.client.channelToServer.sendMessage(message) == SendMessageResult.sended:
                 assert newSnapshot.id > self.client.lastAcknowledgedClientSnapshot.id
