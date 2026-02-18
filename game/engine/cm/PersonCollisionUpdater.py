@@ -21,10 +21,11 @@ class PersonCollisionUpdater:
         collisionLength = self.personCollisionDetector.getCollisionLengthOrNone(person1, person2)
         if collisionLength is not None:
             velocitySum = person1.velocityValue + person2.velocityValue
-            self.movePerson(person1, collisionLength, velocitySum)
-            self.movePerson(person2, collisionLength, velocitySum)
-            gameState.collisionData.personPerson[person1] = person2
-            gameState.collisionData.personPerson[person2] = person1
+            if velocitySum > 0:
+                self.movePerson(person1, collisionLength, velocitySum)
+                self.movePerson(person2, collisionLength, velocitySum)
+                gameState.collisionData.personPerson[person1] = person2
+                gameState.collisionData.personPerson[person2] = person1
 
     def movePerson(self, person, collisionLength, velocitySum):
         if person.hasMoved:
