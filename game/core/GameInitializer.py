@@ -102,12 +102,12 @@ class GameInitializer:
             self.serverMultiplayerSynchronizer.init(server)
             self.gameUpdater.initForClientServer(client.gameState, server.gameState)
         elif gameStartMode == GameStartMode.clientMode:
-            self.initClient(client)
-            self.clientConnectionLogic.connectByNet(client)
+            playerId = self.clientConnectionLogic.connectByNet(client)
+            self.initClient(client, playerId)
             self.clientMultiplayerSynchronizer.init(client)
             self.gameUpdater.initForClient(client.gameState)
 
-    def initClient(self, client):
+    def initClient(self, client, playerId=None):
         client.gameState = ClientGameState()
         level = self.levelLoader.load()
         client.gameState.level = level
@@ -115,7 +115,7 @@ class GameInitializer:
         self.bspTreeBuilder.build(client.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
         self.joinLineAnalyzer.analyzeJoinLines(level, client.gameState.visibilityTree)
         self.lightAnalyzer.analyzeLights(level, client.gameState.visibilityTree)
-        self.personInitializer.initPlayer(client.gameState, *level.getPlayerInitInfo())
+        self.personInitializer.initPlayer(client.gameState, *level.getPlayerInitInfo(), playerId)
         self.personWeaponPositionUpdater.updateForPlayer(client.gameState)
         self.cameraUpdater.update(client.gameState)
         self.levelSegmentVisibilityUpdater.update(client.gameState)
@@ -140,5 +140,4 @@ class GameInitializer:
         self.personInitializer.addEnemiesToServer(server.gameState, level)
         self.aiDataInitializer.init(server.gameState)
         self.enemyAIUpdater.init(server.gameState)
-        self.personWeaponPositionUpdater.update(server.gameState)
         self.gameService.runAsync()

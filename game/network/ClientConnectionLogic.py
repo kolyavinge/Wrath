@@ -13,11 +13,14 @@ class ClientConnectionLogic:
 
     def connectByNet(self, netClient):
         connectionResult = self.gameServiceClient.connectToServer()
-        if connectionResult is not None:
-            netClient.playerId = connectionResult.playerId
-            netClient.gameState.player.id = connectionResult.playerId
-            netClient.channelToServer = NetMessageChannel(connectionResult.portForSendingToServer, connectionResult.portForReceivingFromServer)
-            netClient.channelToServer.open()
+        if connectionResult is None:
+            raise Exception("Unable to connect to server.")
+
+        netClient.playerId = connectionResult.playerId
+        netClient.channelToServer = NetMessageChannel(connectionResult.portForSendingToServer, connectionResult.portForReceivingFromServer)
+        netClient.channelToServer.open()
+
+        return connectionResult.playerId
 
     def disconnectByNet(self, netClient):
         netClient.channelToServer.close()

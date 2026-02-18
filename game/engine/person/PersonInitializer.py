@@ -66,9 +66,9 @@ class PersonInitializer:
 
         return person
 
-    def initPlayer(self, gameState, position, frontNormal, weaponType):
+    def initPlayer(self, gameState, position, frontNormal, weaponType, playerId=None):
         player = Player()
-        player.id = self.personIdLogic.getPlayerId()
+        player.id = playerId or self.personIdLogic.getPlayerId()
         player.moveNextPositionTo(position)
         self.personTurnLogic.orientToFrontNormal(player, frontNormal)
         player.commitNextPosition()
