@@ -1,5 +1,6 @@
 from game.anx.PersonIdLogic import PersonIdLogic
 from game.core.Server import ConnectedClient
+from game.engine.person.PersonInitializer import PersonInitializer
 from game.lib.NetPortManager import NetPortManager
 from game.network.EmptyMessageChannel import EmptyMessageChannel
 from game.network.LocalMessageChannel import LocalMessageChannel, MessageHolder
@@ -10,9 +11,11 @@ class ServerConnectionLogic:
 
     def __init__(
         self,
+        personInitializer: PersonInitializer,
         personIdLogic: PersonIdLogic,
         netPortManager: NetPortManager,
     ):
+        self.personInitializer = personInitializer
         self.personIdLogic = personIdLogic
         self.netPortManager = netPortManager
 
@@ -28,6 +31,7 @@ class ServerConnectionLogic:
         connectedLocalClient.playerId = localClient.playerId
         connectedLocalClient.channelToClient = LocalMessageChannel(serverHolder, clientHolder)
         self.server.clients[localClient.playerId] = connectedLocalClient
+        self.personInitializer.addPlayerToServer(self.server.gameState, localClient.playerId)
 
     def connectByNet(self):
         playerId = self.personIdLogic.getNetPlayerId()
@@ -37,6 +41,7 @@ class ServerConnectionLogic:
         connectedNetClient.playerId = playerId
         connectedNetClient.channelToClient = NetMessageChannel(portForReceivingFromServer, portForSendingToServer)
         self.server.clients[connectedNetClient.playerId] = connectedNetClient
+        self.personInitializer.addPlayerToServer(self.server.gameState, connectedNetClient.playerId)
         connectedNetClient.channelToClient.open()
 
         return (playerId, portForSendingToServer, portForReceivingFromServer)

@@ -105,7 +105,7 @@ class ClientUpdater:
         self.personStepUpdater.update(gameState)
         self.personPositionUpdater.commitPlayerNextPosition(gameState)
         self.personFloorUpdater.commitPlayerNextFloor(gameState)
-        self.playerLevelSegmentsUpdater.update(gameState)
+        self.playerLevelSegmentsUpdater.updateForPlayer(gameState)
         self.enemyLevelSegmentsUpdater.update(gameState)
         self.playerMovingSwingUpdater.update(gameState)
         self.personWeaponPositionUpdater.update(gameState)

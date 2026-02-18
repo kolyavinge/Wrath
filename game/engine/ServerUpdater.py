@@ -21,6 +21,7 @@ from game.engine.person.PersonUpdater import PersonUpdater
 from game.engine.person.PersonVelocityUpdater import PersonVelocityUpdater
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.person.PersonZUpdater import PersonZUpdater
+from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.powerup.PowerupUpdater import PowerupUpdater
 from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.weapon.BulletUpdater import BulletUpdater
@@ -56,6 +57,7 @@ class ServerUpdater:
     personVelocityUpdater: PersonVelocityUpdater
     personWeaponPositionUpdater: PersonWeaponPositionUpdater
     personZUpdater: PersonZUpdater
+    playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater
     powerupUpdater: PowerupUpdater
     bulletPositionUpdater: BulletPositionUpdater
     bulletUpdater: BulletUpdater
@@ -82,6 +84,7 @@ class ServerUpdater:
         self.personCeilingCollisionUpdater.updateForEnemies(gameState)
         self.personPositionUpdater.commitEnemiesNextPosition(gameState)
         self.personFloorUpdater.commitEnemiesNextFloor(gameState)
+        self.playerLevelSegmentsUpdater.updateForPlayers(gameState)
         self.enemyLevelSegmentsUpdater.update(gameState)
         self.personWeaponPositionUpdater.update(gameState)
         self.weaponDelayUpdater.updateForEnemies(gameState)

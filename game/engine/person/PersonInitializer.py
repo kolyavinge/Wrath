@@ -11,6 +11,7 @@ from game.model.person.FragStatistic import FragStatistic
 from game.model.person.Person import Person
 from game.model.person.PersonInputData import PersonInputData
 from game.model.person.PersonItems import PersonItems
+from game.model.person.Player import Player
 from game.model.weapon.Pistol import Pistol
 
 
@@ -41,7 +42,7 @@ class PersonInitializer:
         personItems = PersonItems()
         gameState.enemyItems[person] = personItems
         gameState.enemyInputData[person] = PersonInputData()
-        gameState.allPersonItems[person] = gameState.enemyItems[person]
+        gameState.allPersonItems[person] = personItems
         gameState.allPersonById[person.id] = person
         gameState.allPersonInputData[person] = gameState.enemyInputData[person]
         gameState.personFragStatistic[person] = FragStatistic(person)
@@ -50,17 +51,40 @@ class PersonInitializer:
 
         return person
 
+    def addPlayerToServer(self, gameState, personId):
+        person = Person()
+        person.id = personId
+        person.commitNextPosition()
+        gameState.players.append(person)
+        gameState.allPerson.append(person)
+        personItems = PersonItems()
+        gameState.playersItems[person] = personItems
+        gameState.allPersonItems[person] = personItems
+        gameState.allPersonById[person.id] = person
+        gameState.personFragStatistic[person] = FragStatistic(person)
+        self.weaponSelector.setWeaponByType(personItems, Pistol)
+
+        return person
+
     def initPlayer(self, gameState, position, frontNormal, weaponType):
-        gameState.player.id = self.personIdLogic.getPlayerId()
-        gameState.allPersonById[gameState.player.id] = gameState.player
-        gameState.player.moveNextPositionTo(position)
-        self.personTurnLogic.orientToFrontNormal(gameState.player, frontNormal)
-        gameState.player.commitNextPosition()
+        player = Player()
+        player.id = self.personIdLogic.getPlayerId()
+        player.moveNextPositionTo(position)
+        self.personTurnLogic.orientToFrontNormal(player, frontNormal)
+        player.commitNextPosition()
+        gameState.player = player
+        gameState.allPerson.append(player)
+        personItems = PersonItems()
+        gameState.playerItems = personItems
+        gameState.playerInputData = PersonInputData()
+        gameState.allPersonItems[player] = personItems
+        gameState.allPersonById[player.id] = player
+        gameState.allPersonInputData[player] = gameState.playerInputData
+        gameState.personFragStatistic[player] = FragStatistic(player)
+        self.weaponSelector.setWeaponByType(personItems, weaponType)
         self.personFloorUpdater.updatePlayerNextFloor(gameState)
         self.personFloorUpdater.commitPlayerNextFloor(gameState)
-        self.weaponSelector.setWeaponByType(gameState.playerItems, weaponType)
-        gameState.personFragStatistic[gameState.player] = FragStatistic(gameState.player)
-        self.playerLevelSegmentsUpdater.update(gameState)
+        self.playerLevelSegmentsUpdater.updateForPlayer(gameState)
 
     def addEnemiesToServer(self, gameState, level):
         if not DebugSettings.allowEnemies:
@@ -84,7 +108,7 @@ class PersonInitializer:
         personItems = PersonItems()
         gameState.enemyItems[enemy] = personItems
         gameState.enemyInputData[enemy] = PersonInputData()
-        gameState.allPersonItems[enemy] = gameState.enemyItems[enemy]
+        gameState.allPersonItems[enemy] = personItems
         gameState.allPersonById[enemy.id] = enemy
         gameState.allPersonInputData[enemy] = gameState.enemyInputData[enemy]
         gameState.personFragStatistic[enemy] = FragStatistic(enemy)

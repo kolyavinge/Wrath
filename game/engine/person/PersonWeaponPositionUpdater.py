@@ -5,15 +5,11 @@ from game.model.person.Player import Player
 class PersonWeaponPositionUpdater:
 
     def update(self, gameState):
-        self.updateForPlayer(gameState)
-        self.updateForEnemies(gameState)
+        for person, personItems in gameState.allPersonItems.items():
+            self.updateForPerson(person, personItems)
 
     def updateForPlayer(self, gameState):
         self.updateForPerson(gameState.player, gameState.playerItems)
-
-    def updateForEnemies(self, gameState):
-        for enemy in gameState.enemies:
-            self.updateForPerson(enemy, gameState.enemyItems[enemy])
 
     def updateForPerson(self, person, personItems):
         self.updateWeapon(person, personItems.rightHandWeapon, rightHand=True)

@@ -137,7 +137,6 @@ class GameInitializer:
         self.joinLineAnalyzer.analyzeJoinLines(level, server.gameState.visibilityTree)
         self.levelValidator.validate(level, server.gameState.visibilityTree)
         self.lightAnalyzer.analyzeLights(level, server.gameState.visibilityTree)
-        self.personInitializer.initPlayer(server.gameState, *level.getPlayerInitInfo())  # TODO убрать
         self.personInitializer.addEnemiesToServer(server.gameState, level)
         self.aiDataInitializer.init(server.gameState)
         self.enemyAIUpdater.init(server.gameState)

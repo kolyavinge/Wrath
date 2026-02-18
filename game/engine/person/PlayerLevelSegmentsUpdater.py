@@ -9,11 +9,18 @@ class PlayerLevelSegmentsUpdater:
     ):
         self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
 
-    def update(self, gameState):
+    def updateForPlayers(self, gameState):
+        for player in gameState.players:
+            self.updateForPerson(player, gameState.collisionTree, gameState.visibilityTree)
+
+    def updateForPlayer(self, gameState):
         player = gameState.player
-        self.removePlayerFromLevelSegments(player)
-        self.personLevelSegmentsUpdater.updatePerson(player, gameState.collisionTree, gameState.visibilityTree)
-        self.addPlayerToLevelSegments(player)
+        self.updateForPerson(player, gameState.collisionTree, gameState.visibilityTree)
+
+    def updateForPerson(self, person, collisionTree, visibilityTree):
+        self.removePlayerFromLevelSegments(person)
+        self.personLevelSegmentsUpdater.updatePerson(person, collisionTree, visibilityTree)
+        self.addPlayerToLevelSegments(person)
 
     def removePlayerFromLevelSegments(self, player):
         for segment in player.collisionLevelSegments:

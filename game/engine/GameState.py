@@ -6,9 +6,6 @@ from game.model.level.BackgroundVisibilityData import BackgroundVisibilityData
 from game.model.person.Camera import Camera
 from game.model.person.CollisionData import CollisionData
 from game.model.person.Dashboard import Dashboard
-from game.model.person.PersonInputData import PersonInputData
-from game.model.person.PersonItems import PersonItems
-from game.model.person.Player import Player
 from game.model.person.ReservedCollisionData import ReservedCollisionData
 
 
@@ -21,18 +18,13 @@ class GameState:
         self.collisionTree = BSPTree()
         self.visibilityTree = BSPTree()
         self.visibleLevelSegments = set()
-        self.player = Player()
-        self.playerItems = PersonItems()
-        self.playerInputData = PersonInputData()
         self.enemies = []
         self.enemyItems = {}
         self.enemyInputData = {}
-        self.allPerson = [self.player]
+        self.allPerson = []
         self.allPersonById = {}
         self.allPersonItems = {}
-        self.allPersonItems[self.player] = self.playerItems
         self.allPersonInputData = {}
-        self.allPersonInputData[self.player] = self.playerInputData
         self.bullets = []
         self.bulletsById = {}
         self.removedBullets = LimitedCollection(CommonConstants.maxRemovedBulletsCount, lambda bullet: bullet.id)
@@ -55,6 +47,9 @@ class ClientGameState(GameState):
 
     def __init__(self):
         super().__init__()
+        self.player = None
+        self.playerItems = None
+        self.playerInputData = None
         self.bloodStains = []
         self.camera = Camera()
         self.backgroundVisibility = BackgroundVisibilityData()
@@ -66,3 +61,5 @@ class ServerGameState(GameState):
 
     def __init__(self):
         super().__init__()
+        self.players = []
+        self.playersItems = {}
