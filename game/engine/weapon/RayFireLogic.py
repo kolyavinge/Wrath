@@ -31,7 +31,11 @@ class RayFireLogic:
         return person.weaponSelectState is None and weapon.bulletsCount > 0
 
     def deactivateRay(self, gameState, person, weapon):
-        ray = Query(gameState.rays).first(lambda r: r.weapon == weapon)
-        self.rayLogic.removeRay(gameState, ray)
-        weapon.delayRemain.set(2 * weapon.delay)
-        gameState.updateStatistic.deactivatedRays.append((person, weapon, ray))
+        # метод может быть вызван два раза подряд: если луч исчез и игрок тут же сменил оружие
+        # по этому firstOrNone() и проверка на None
+
+        ray = Query(gameState.rays).firstOrNone(lambda r: r.weapon == weapon)
+        if ray is not None:
+            self.rayLogic.removeRay(gameState, ray)
+            weapon.delayRemain.set(2 * weapon.delay)
+            gameState.updateStatistic.deactivatedRays.append((person, weapon, ray))

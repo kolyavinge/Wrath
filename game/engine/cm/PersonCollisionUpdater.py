@@ -29,7 +29,8 @@ class PersonCollisionUpdater:
     def movePerson(self, person, collisionLength, velocitySum):
         if person.hasMoved:
             personCollisionLength = collisionLength * person.velocityValue / velocitySum
-            collisionVelocity = person.velocityVector.copy()
-            collisionVelocity.setLength(personCollisionLength)
-            collisionVelocity.mul(-1)
-            person.moveNextPositionBy(collisionVelocity)
+            if personCollisionLength > 0:
+                collisionVelocity = person.velocityVector.copy()
+                collisionVelocity.setLength(personCollisionLength)
+                collisionVelocity.mul(-1)
+                person.moveNextPositionBy(collisionVelocity)
