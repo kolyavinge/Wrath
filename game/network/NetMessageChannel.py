@@ -26,7 +26,8 @@ class NetMessageChannel:
             self.udpListener.close()
 
     def sendMessage(self, message):
-        with socket(AF_INET, SOCK_DGRAM) as udpSender:
+        try:
+            udpSender = socket(AF_INET, SOCK_DGRAM)
             messageBytes, messageLength = self.messageSerializer.toBytes(message)
             udpSender.sendto(messageBytes[:messageLength], ("127.0.0.1", self.portForSending))
             acknowledgeByte = udpSender.recv(1)
@@ -34,6 +35,10 @@ class NetMessageChannel:
                 return SendMessageResult.sended
             else:
                 return SendMessageResult.notSended
+        except ConnectionResetError:
+            return SendMessageResult.notSended
+        finally:
+            udpSender.close()
 
     def receiveMessageOrNone(self):
         if not self.receivedMessages.empty():
