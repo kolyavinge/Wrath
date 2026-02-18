@@ -16,9 +16,13 @@ class WeaponVox:
 
     def init(self, gameState, allSources):
         self.sources = {}
-        for person in gameState.allPerson:
-            self.sources[person] = WeaponAudioSources(person, self.audioSourceFactory)
-        allSources.extend(self.sources.values())
+        self.allSources = allSources
+        self.addPerson(gameState.player)
+
+    def addPerson(self, person):
+        source = WeaponAudioSources(person, self.audioSourceFactory)
+        self.sources[person] = source
+        self.allSources.append(source)
 
     def vox(self, updateStatistic):
         for person, weapon in updateStatistic.firedWeapons:

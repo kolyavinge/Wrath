@@ -1,3 +1,4 @@
+from game.core.ClientPersonInitializer import ClientPersonInitializer
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.powerup.PowerupLogic import PowerupLogic
@@ -19,6 +20,7 @@ class GameStateSynchronizer:
 
     def __init__(
         self,
+        clientPersonInitializer: ClientPersonInitializer,
         personTurnLogic: PersonTurnLogic,
         bulletLogic: BulletLogic,
         debrisLogic: DebrisLogic,
@@ -29,6 +31,7 @@ class GameStateSynchronizer:
         personWeaponPositionUpdater: PersonWeaponPositionUpdater,
         powerupLogic: PowerupLogic,
     ):
+        self.clientPersonInitializer = clientPersonInitializer
         self.personTurnLogic = personTurnLogic
         self.bulletLogic = bulletLogic
         self.debrisLogic = debrisLogic
@@ -41,7 +44,8 @@ class GameStateSynchronizer:
 
     def applySnapshotDiff(self, gameState, diff):
         if hasattr(diff, "addedPersonIds"):
-            pass
+            for addedPersonId in diff.addedPersonIds:
+                self.clientPersonInitializer.addPerson(gameState, addedPersonId)
 
         if hasattr(diff, "person"):
             self.synchPerson(gameState, diff.person)

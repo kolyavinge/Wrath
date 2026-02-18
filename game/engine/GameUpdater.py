@@ -1,3 +1,4 @@
+from game.anx.CommonConstants import CommonConstants
 from game.engine.ClientUpdater import ClientUpdater
 from game.engine.ServerUpdater import ServerUpdater
 from game.network.ClientMultiplayerSynchronizer import ClientMultiplayerSynchronizer
@@ -31,12 +32,12 @@ class GameUpdater:
         self.clientGameState = clientGameState
         self.update = self.updateClient
 
-    # @timeProfile("Game updated", CommonConstants.mainTimerMsec / 1000.0, showOnlyLimited=True)
-    # @cpuProfile
     # --- main game loop ---
     def update(self):
         pass
 
+    # @timeProfile("Game updated", CommonConstants.mainTimerMsec / 1000.0, showOnlyLimited=False)
+    # @cpuProfile
     def updateClientServer(self):
         self.clientUpdater.clear(self.clientGameState)
         self.clientMultiplayerSynchronizer.receiveGameStateFromServer()
@@ -48,6 +49,8 @@ class GameUpdater:
         self.serverUpdater.update(self.serverGameState)
         self.serverMultiplayerSynchronizer.sendGameStateToClients()
 
+    # @timeProfile("Game updated", CommonConstants.mainTimerMsec / 1000.0, showOnlyLimited=False)
+    # @cpuProfile
     def updateClient(self):
         self.clientUpdater.clear(self.clientGameState)
         self.clientMultiplayerSynchronizer.receiveGameStateFromServer()

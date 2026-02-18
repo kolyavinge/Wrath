@@ -7,8 +7,10 @@ from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpd
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.model.person.Enemy import Enemy
 from game.model.person.EnemyLifeBar import EnemyLifeBar
+from game.model.person.FragStatistic import FragStatistic
 from game.model.person.PersonInputData import PersonInputData
 from game.model.person.PersonItems import PersonItems
+from game.model.weapon.Pistol import Pistol
 
 
 class PersonInitializer:
@@ -29,6 +31,29 @@ class PersonInitializer:
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
 
+    def addPersonToClient(self, gameState, personId):
+        enemy = Enemy()
+        enemy.id = personId
+        enemy.commitNextPosition()
+        enemy.hasMoved = True
+        enemy.hasTurned = True
+        gameState.enemies.append(enemy)
+        gameState.allPerson.append(enemy)
+        personItems = PersonItems()
+        gameState.enemyItems[enemy] = personItems
+        gameState.enemyInputData[enemy] = PersonInputData()
+        gameState.allPersonItems[enemy] = gameState.enemyItems[enemy]
+        gameState.allPersonById[enemy.id] = enemy
+        gameState.allPersonInputData[enemy] = gameState.enemyInputData[enemy]
+        gameState.personFragStatistic[enemy] = FragStatistic(enemy)
+        gameState.enemyLifeBars[enemy] = EnemyLifeBar()
+        self.weaponSelector.setWeaponByType(personItems, Pistol)
+        self.personFloorUpdater.updateEnemiesNextFloor(gameState)
+        self.personFloorUpdater.commitEnemiesNextFloor(gameState)
+        self.enemyLevelSegmentsUpdater.update(gameState)
+
+        return enemy
+
     def initPlayer(self, gameState, position, frontNormal, weaponType):
         gameState.player.id = self.personIdLogic.getPlayerId()
         gameState.allPersonById[gameState.player.id] = gameState.player
@@ -38,20 +63,21 @@ class PersonInitializer:
         self.personFloorUpdater.updatePlayerNextFloor(gameState)
         self.personFloorUpdater.commitPlayerNextFloor(gameState)
         self.weaponSelector.setWeaponByType(gameState.playerItems, weaponType)
+        gameState.personFragStatistic[gameState.player] = FragStatistic(gameState.player)
         self.playerLevelSegmentsUpdater.update(gameState)
 
-    def initEnemiesForLevel(self, gameState, level):
+    def addEnemiesToServer(self, gameState, level):
         if not DebugSettings.allowEnemies:
             return
 
         for position, frontNormal, weaponType in level.getEnemyInitInfo():
-            self.initEnemy(gameState, position, frontNormal, weaponType)
+            self.addEnemyToServer(gameState, position, frontNormal, weaponType)
 
         self.personFloorUpdater.updateEnemiesNextFloor(gameState)
         self.personFloorUpdater.commitEnemiesNextFloor(gameState)
         self.enemyLevelSegmentsUpdater.update(gameState)
 
-    def initEnemy(self, gameState, position, frontNormal, weaponType):
+    def addEnemyToServer(self, gameState, position, frontNormal, weaponType):
         enemy = Enemy()
         enemy.id = self.personIdLogic.getEnemyId()
         enemy.moveNextPositionTo(position)
@@ -65,5 +91,5 @@ class PersonInitializer:
         gameState.allPersonItems[enemy] = gameState.enemyItems[enemy]
         gameState.allPersonById[enemy.id] = enemy
         gameState.allPersonInputData[enemy] = gameState.enemyInputData[enemy]
-        gameState.enemyLifeBars[enemy] = EnemyLifeBar()
+        gameState.personFragStatistic[enemy] = FragStatistic(enemy)
         self.weaponSelector.setWeaponByType(personItems, weaponType)

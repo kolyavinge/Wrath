@@ -68,6 +68,5 @@ class GameScreenInitializer:
         self.plasmaExplosionRenderer.init(gameState.camera)
         self.playerBloodStainRenderCollection.init()
         self.enemyRenderCollection.init()
-        self.enemyAnimationCollection.init(gameState.enemies)
         self.dashboardRenderer.init(gameState.dashboard)
         self.mainSceneRenderer.init(gameState)

@@ -17,9 +17,13 @@ class PersonVox:
 
     def init(self, gameState, allSources):
         self.sources = {}
-        for person in gameState.allPerson:
-            self.sources[person] = PersonAudioSources(person, self.audioSourceFactory)
-        allSources.extend(self.sources.values())
+        self.allSources = allSources
+        self.addPerson(gameState.player)
+
+    def addPerson(self, person):
+        source = PersonAudioSources(person, self.audioSourceFactory)
+        self.sources[person] = source
+        self.allSources.append(source)
 
     def vox(self, updateStatistic):
         for person in updateStatistic.stepedPerson:

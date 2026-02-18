@@ -46,8 +46,6 @@ class GameState:
         self.reservedCollisionData = ReservedCollisionData()
         self.updateStatistic = UpdateStatistic()
 
-        self.enemyLifeBars = {}
-
     def updateGlobalTime(self):
         self.globalTimeMsec += CommonConstants.mainTimerMsec
         self.globalTimeSec = self.globalTimeMsec / 1000.0
@@ -60,8 +58,11 @@ class ClientGameState(GameState):
         self.bloodStains = []
         self.camera = Camera()
         self.backgroundVisibility = BackgroundVisibilityData()
+        self.enemyLifeBars = {}
         self.dashboard = Dashboard()
 
 
 class ServerGameState(GameState):
-    pass
+
+    def __init__(self):
+        super().__init__()

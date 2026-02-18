@@ -14,26 +14,22 @@ class EnemyAnimationCollection:
         self.animationNames[PersonZState.onFloor] = "group|Take 001|BaseLayer"
         self.animations = {}
 
-    def init(self, enemies):
-        for enemy in enemies:
-            self.initForEnemy(enemy)
-
-    def initForEnemy(self, enemy):
+    def addPerson(self, person):
         modelAnimations = self.renderCollection.enemyModel.animations
         animationName = self.animationNames[PersonZState.onFloor]
-        self.animations[enemy] = PlayableAnimation(modelAnimations[animationName])
+        self.animations[person] = PlayableAnimation(modelAnimations[animationName])
 
-    def getPlayableAnimationOrNone(self, enemy):
-        if enemy.zState == enemy.prevZState:
-            return self.animations[enemy]
+    def getPlayableAnimationOrNone(self, person):
+        if person.zState == person.prevZState:
+            return self.animations[person]
 
-        if enemy.zState in self.animationNames:
+        if person.zState in self.animationNames:
             modelAnimations = self.renderCollection.enemyModel.animations
-            animationName = self.animationNames[enemy.zState]
+            animationName = self.animationNames[person.zState]
             animation = PlayableAnimation(modelAnimations[animationName])
         else:
             animation = None
 
-        self.animations[enemy] = animation
+        self.animations[person] = animation
 
         return animation

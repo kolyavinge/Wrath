@@ -138,6 +138,7 @@ class ClientUpdater:
         self.cowboyEasterEggUpdater.update(gameState)
         self.personPositionUpdater.resetMovedAndTurnedForPlayer(gameState)
         self.personUpdater.commitZStateForPlayer(gameState)
+        self.personUpdater.commitZStateForEnemies(gameState)
         self.personUpdater.updateDelaysForPlayer(gameState)
         gameState.updateGlobalTime()
 

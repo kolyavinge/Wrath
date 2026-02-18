@@ -1,13 +1,7 @@
-from game.model.person.FragStatistic import FragStatistic
 from game.model.person.PersonStates import LifeCycle
 
 
 class FragStatisticUpdater:
-
-    def init(self, gameState):
-        gameState.personFragStatistic = {}
-        for person in gameState.allPerson:
-            gameState.personFragStatistic[person] = FragStatistic(person)
 
     def update(self, gameState):
         collisionData = gameState.collisionData
