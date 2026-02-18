@@ -11,7 +11,6 @@ class PersonTurnLogic:
         dotProduct = Numeric.limitBy(dotProduct, -1.0, 1.0)
         radians = Math.arccos(dotProduct)
         if not Numeric.floatEquals(radians, 0.0):
-            person.hasTurned = True
             vectorProduct = person.frontNormal.copy()
             vectorProduct.vectorProduct(frontNormal)
             if vectorProduct.z < 0.0:

@@ -35,8 +35,6 @@ class PersonInitializer:
         enemy = Enemy()
         enemy.id = personId
         enemy.commitNextPosition()
-        enemy.hasMoved = True
-        enemy.hasTurned = True
         gameState.enemies.append(enemy)
         gameState.allPerson.append(enemy)
         personItems = PersonItems()

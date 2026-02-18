@@ -31,19 +31,16 @@ class PersonTurnUpdater:
 
     def turnLeft(self, person, radians):
         assert radians > 0
-        person.hasTurned = True
         person.yawRadians = Geometry.normalizeRadians(person.yawRadians + radians)
         self.personTurnLogic.calculateDirectionVectors(person)
 
     def turnRight(self, person, radians):
         assert radians > 0
-        person.hasTurned = True
         person.yawRadians = Geometry.normalizeRadians(person.yawRadians - radians)
         self.personTurnLogic.calculateDirectionVectors(person)
 
     def lookUp(self, person, radians):
         assert radians > 0
-        person.hasTurned = True
         person.pitchRadians = Geometry.normalizeRadians(person.pitchRadians + radians)
         if person.pitchRadians >= PersonConstants.maxPitchRadians:
             person.pitchRadians = PersonConstants.maxPitchRadians
@@ -51,7 +48,6 @@ class PersonTurnUpdater:
 
     def lookDown(self, person, radians):
         assert radians > 0
-        person.hasTurned = True
         person.pitchRadians = Geometry.normalizeRadians(person.pitchRadians - radians)
         if person.pitchRadians <= -PersonConstants.maxPitchRadians:
             person.pitchRadians = -PersonConstants.maxPitchRadians

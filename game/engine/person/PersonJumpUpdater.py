@@ -26,4 +26,3 @@ class PersonJumpUpdater:
             person.jumpingTime = 0
 
         person.jumpingValue = person.jumpingFunc.getValue(person.jumpingTime)
-        person.hasMoved = True

@@ -13,14 +13,12 @@ class PersonZUpdater:
     ):
         self.personDamageLogic = personDamageLogic
 
-    def updateIfMovedForPlayer(self, gameState):
-        if gameState.player.hasMoved:
-            self.updatePerson(gameState.player, gameState.collisionData, gameState.updateStatistic)
+    def updateForPlayer(self, gameState):
+        self.updatePerson(gameState.player, gameState.collisionData, gameState.updateStatistic)
 
-    def updateIfMovedForEnemies(self, gameState):
+    def updateForEnemies(self, gameState):
         for enemy in gameState.enemies:
-            if enemy.hasMoved:
-                self.updatePerson(enemy, gameState.collisionData, gameState.updateStatistic)
+            self.updatePerson(enemy, gameState.collisionData, gameState.updateStatistic)
 
     def updatePerson(self, person, collisionData, updateStatistic):
         if person.nextFloor != NullFloor.instance:

@@ -10,11 +10,6 @@ class LevelSegmentVisibilityUpdater:
     ):
         self.cameraScopeChecker = cameraScopeChecker
 
-    def updateIfPlayerMovedOrTurned(self, gameState):
-        player = gameState.player
-        if player.hasMoved or player.hasTurned:
-            self.update(gameState)
-
     def update(self, gameState):
         gameState.visibleLevelSegments = set()
         self.checkedJoinLines = set()

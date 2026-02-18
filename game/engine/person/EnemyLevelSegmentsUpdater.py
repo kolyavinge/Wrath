@@ -12,11 +12,6 @@ class EnemyLevelSegmentsUpdater:
         self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
         self.traversal = traversal
 
-    def updateIfMoved(self, gameState):
-        for enemy in gameState.enemies:
-            if enemy.hasMoved:
-                self.updateEnemy(enemy, gameState)
-
     def update(self, gameState):
         for enemy in gameState.enemies:
             self.updateEnemy(enemy, gameState)

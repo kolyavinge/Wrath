@@ -9,10 +9,6 @@ class PlayerLevelSegmentsUpdater:
     ):
         self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
 
-    def updateIfMoved(self, gameState):
-        if gameState.player.hasMoved:
-            self.update(gameState)
-
     def update(self, gameState):
         player = gameState.player
         self.removePlayerFromLevelSegments(player)

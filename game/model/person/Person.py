@@ -41,8 +41,6 @@ class Person:
         self.lookDirectionNormal = CommonConstants.zAxis
         self.frontNormal = CommonConstants.yAxis
         self.rightNormal = CommonConstants.xAxis
-        self.hasMoved = False
-        self.hasTurned = False
         self.forwardMovingTime = 0
         self.backwardMovingTime = 0
         self.leftStepMovingTime = 0

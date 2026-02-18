@@ -7,8 +7,7 @@ class PersonStepUpdater:
 
     def update(self, gameState):
         for person, personItems in gameState.allPersonItems.items():
-            if person.hasMoved:
-                self.updateForPerson(person, personItems, gameState.updateStatistic)
+            self.updateForPerson(person, personItems, gameState.updateStatistic)
 
     def updateForPerson(self, person, personItems, updateStatistic):
         doStep = False

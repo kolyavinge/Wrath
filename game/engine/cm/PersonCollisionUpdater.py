@@ -14,8 +14,7 @@ class PersonCollisionUpdater:
             for person1 in levelSegment.allPerson:
                 for person2 in levelSegment.allPerson:
                     if person1 != person2:
-                        if person1.hasMoved or person2.hasMoved:
-                            self.updateForPerson(gameState, person1, person2)
+                        self.updateForPerson(gameState, person1, person2)
 
     def updateForPerson(self, gameState, person1, person2):
         collisionLength = self.personCollisionDetector.getCollisionLengthOrNone(person1, person2)
@@ -28,10 +27,9 @@ class PersonCollisionUpdater:
                 gameState.collisionData.personPerson[person2] = person1
 
     def movePerson(self, person, collisionLength, velocitySum):
-        if person.hasMoved:
-            personCollisionLength = collisionLength * person.velocityValue / velocitySum
-            if personCollisionLength > 0:
-                collisionVelocity = person.velocityVector.copy()
-                collisionVelocity.setLength(personCollisionLength)
-                collisionVelocity.mul(-1)
-                person.moveNextPositionBy(collisionVelocity)
+        personCollisionLength = collisionLength * person.velocityValue / velocitySum
+        if personCollisionLength > 0:
+            collisionVelocity = person.velocityVector.copy()
+            collisionVelocity.setLength(personCollisionLength)
+            collisionVelocity.mul(-1)
+            person.moveNextPositionBy(collisionVelocity)

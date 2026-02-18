@@ -14,13 +14,11 @@ class PersonWallCollisionUpdater:
         self.personWallCollisionDetector = personWallCollisionDetector
 
     def updateForPlayer(self, gameState):
-        if gameState.player.hasMoved:
-            self.updateForPerson(gameState, gameState.player)
+        self.updateForPerson(gameState, gameState.player)
 
     def updateForEnemies(self, gameState):
         for enemy in gameState.enemies:
-            if enemy.hasMoved:
-                self.updateForPerson(gameState, enemy)
+            self.updateForPerson(gameState, enemy)
 
     def updateForPerson(self, gameState, person):
         collidedWalls = self.personWallCollisionDetector.getCollidedWalls(person)
