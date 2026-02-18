@@ -20,7 +20,12 @@ class SnapshotDiff:
 
     def toBytes(self, writer):
         fieldsBitMask = SnapshotDiffFields.toBitMask(self)
-        writer.write("h", fieldsBitMask)
+        writer.write("H", fieldsBitMask)
+
+        if hasattr(self, "addedPersonIds"):
+            writer.write("b", len(self.addedPersonIds))
+            for addedPersonId in self.addedPersonIds:
+                writer.write("i", addedPersonId)
 
         if hasattr(self, "person"):
             self.person.toBytes(writer)
@@ -96,7 +101,11 @@ class SnapshotDiff:
     @staticmethod
     def fromBytes(reader):
         diff = SnapshotDiff()
-        fieldsBitMask = reader.read("h")
+        fieldsBitMask = reader.read("H")
+
+        if fieldsBitMask & SnapshotDiffFields.addedPersonIds > 0:
+            count = reader.read("b")
+            diff.addedPersonIds = [reader.read("i") for _ in range(0, count)]
 
         if fieldsBitMask & SnapshotDiffFields.person > 0:
             diff.person = SnapshotPerson.fromBytes(reader)

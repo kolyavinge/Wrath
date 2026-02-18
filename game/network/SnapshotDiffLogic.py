@@ -25,16 +25,19 @@ class SnapshotDiffLogic:
         if hasattr(snapshotNew, "allPerson"):
             assert clientPlayerId != None
             changedEnemies = []
+            addedPersonIds = []
             for personId, newPerson in snapshotNew.allPerson.items():
                 if personId != clientPlayerId:
                     if personId in snapshotOld.allPerson:
                         if newPerson != snapshotOld.allPerson[personId]:
                             changedEnemies.append(newPerson)
                     else:
-                        pass  # new added person
+                        addedPersonIds.append(personId)
 
             if len(changedEnemies) > 0:
                 diff.enemies = changedEnemies
+            if len(addedPersonIds) > 0:
+                diff.addedPersonIds = addedPersonIds
 
         if hasattr(snapshotNew, "respawnedPerson"):
             changedRespawnedPerson = Set.getAddedItems(snapshotOld.respawnedPerson, snapshotNew.respawnedPerson)
