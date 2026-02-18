@@ -7,7 +7,8 @@ class PersonStepUpdater:
 
     def update(self, gameState):
         for person, personItems in gameState.allPersonItems.items():
-            self.updateForPerson(person, personItems, gameState.updateStatistic)
+            if person.velocityValue > 0:  # TODO сейчас работает только для игрока. исправить
+                self.updateForPerson(person, personItems, gameState.updateStatistic)
 
     def updateForPerson(self, person, personItems, updateStatistic):
         doStep = False

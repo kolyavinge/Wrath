@@ -6,6 +6,5 @@ class Enemy(Person):
 
     def __init__(self):
         super().__init__()
-        self.isVisibleForPlayer = False
         self.currentCenterPointLevelSegment = None
         self.aiData = AIData()
