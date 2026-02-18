@@ -42,3 +42,6 @@ class Game:
 
     def voxCurrentScreen(self):
         self.screenManager.currentScreenVox.update(self.client.gameState)
+
+    def finalize(self):
+        pass  # TODO stop server, ...

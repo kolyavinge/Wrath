@@ -76,6 +76,7 @@ class App:
 
     def closeWindow(self):
         self.game.eventManager.raiseEvent(Events.appExited)
+        self.game.finalize()
 
 
 print("\r\nStart the app")
