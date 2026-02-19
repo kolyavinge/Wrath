@@ -21,6 +21,8 @@ class WeaponCollection:
 
     weaponByTypes = {value: key for key, value in weaponByNumbers.items()}
 
+    weaponNumbers = list(weaponByNumbers.keys())
+
     nextWeapons = {}
     nextWeapons[Pistol] = Rifle
     nextWeapons[Rifle] = Plasma

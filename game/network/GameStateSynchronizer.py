@@ -9,7 +9,6 @@ from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.Query import Query
-from game.model.powerup.PowerupType import PowerupType
 from game.model.snapshot.SnapshotBullet import WeaponExtraBit
 from game.model.weapon.Debris import Debris
 from game.model.weapon.Plasma import Plasma
@@ -172,8 +171,7 @@ class GameStateSynchronizer:
             self.rayLogic.removeRay(gameState, ray)
 
     def synchAddedPowerup(self, gameState, diffPowerup):
-        powerupType = PowerupType.getPowerupTypeFromKind(diffPowerup.kind)
-        self.powerupLogic.makePowerup(gameState, powerupType, diffPowerup.position, diffPowerup.id)
+        self.powerupLogic.makePowerupFromKind(gameState, diffPowerup.id, diffPowerup.kind, diffPowerup.position)
 
     def synchRemovedPowerup(self, gameState, diffPowerupId):
         powerup = Query(gameState.powerups).firstOrNone(lambda x: x.id == diffPowerupId)

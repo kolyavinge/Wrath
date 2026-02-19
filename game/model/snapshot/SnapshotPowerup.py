@@ -24,12 +24,11 @@ class SnapshotPowerup:
         return hash((self.id.__hash__(), self.kind.__hash__(), self.position.__hash__()))
 
     def toBytes(self, writer):
-        writer.write("ibfff", self.id, self.kind, self.position.x, self.position.y, self.position.z)
+        writer.write("iBfff", self.id, self.kind, self.position.x, self.position.y, self.position.z)
 
     @staticmethod
     def fromBytes(reader):
         pu = SnapshotPowerup()
-        pu.position = Vector3()
-        pu.id, pu.kind, pu.position.x, pu.position.y, pu.position.z = reader.read("ibfff")
+        pu.id, pu.kind, pu.position.x, pu.position.y, pu.position.z = reader.read("iBfff")
 
         return pu
