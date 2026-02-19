@@ -24,11 +24,15 @@ class SnapshotPowerup:
         return hash((self.id.__hash__(), self.kind.__hash__(), self.position.__hash__()))
 
     def toBytes(self, writer):
-        writer.write("iBfff", self.id, self.kind, self.position.x, self.position.y, self.position.z)
+        # position.z записываем как double (64bit)
+        # чтобы на принимающей стороне этот поверап попал в тот же сегмент (collision level segment)
+        # иначе он может 'провалиться' сквозь пол
+
+        writer.write("iBffd", self.id, self.kind, self.position.x, self.position.y, self.position.z)
 
     @staticmethod
     def fromBytes(reader):
         pu = SnapshotPowerup()
-        pu.id, pu.kind, pu.position.x, pu.position.y, pu.position.z = reader.read("iBfff")
+        pu.id, pu.kind, pu.position.x, pu.position.y, pu.position.z = reader.read("iBffd")
 
         return pu

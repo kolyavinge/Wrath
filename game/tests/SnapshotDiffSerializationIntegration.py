@@ -1,5 +1,7 @@
 import unittest
 
+from numpy import float32
+
 from game.calc.Vector3 import Vector3
 from game.lib.BinaryReader import BinaryReader
 from game.lib.BinaryWriter import BinaryWriter
@@ -21,19 +23,26 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
     def test(self):
         diff = SnapshotDiff()
         diff.addedPersonIds = [1, 2, 3, 4, 5]
-        diff.person = SnapshotPerson.make(1, Vector3(0, 0, 0), 1.5, -1.5, 10)
+        diff.person = SnapshotPerson.make(1, Vector3(float32(3.2), float32(-6.9), float32(44.2)), 1.5, -1.5, 10)
         diff.player = SnapshotPlayer.make(12, 85)
-        diff.respawnedPerson = [SnapshotRespawnedPerson.make(10, Vector3(0, 0, 0))]
-        diff.enemies = [SnapshotPerson.make(10, Vector3(0, 0, 0), 2.5, -2.5, 50), SnapshotPerson.make(20, Vector3(0, 0, 0), 2.0, -2.0, 60)]
-        diff.addedBullets = [SnapshotBullet.make(12, 1, 2, Vector3(0, 0, 0), Vector3(0, 0, 0))]
-        diff.addedDebris = [SnapshotDebris.make(5, 2, Vector3(0, 0, 0), Vector3(0, 0, 0))]
+        diff.respawnedPerson = [SnapshotRespawnedPerson.make(10, Vector3(float32(3.2), float32(-6.9), float32(44.2)))]
+        diff.enemies = [
+            SnapshotPerson.make(10, Vector3(float32(3.2), float32(-6.9), float32(44.2)), 2.5, -2.5, 50),
+            SnapshotPerson.make(20, Vector3(float32(3.2), float32(-6.9), float32(44.2)), 2.0, -2.0, 60),
+        ]
+        diff.addedBullets = [
+            SnapshotBullet.make(12, 1, 2, Vector3(float32(3.2), float32(-6.9), float32(44.2)), Vector3(float32(3.2), float32(-6.9), float32(44.2)))
+        ]
+        diff.addedDebris = [
+            SnapshotDebris.make(5, 2, Vector3(float32(3.2), float32(-6.9), float32(44.2)), Vector3(float32(3.2), float32(-6.9), float32(44.2)))
+        ]
         diff.addedRays = [SnapshotRay.make(1, 2)]
         diff.removedRayIds = [1, 2, 3]
-        diff.addedPowerups = [SnapshotPowerup.make(2, 4, Vector3(0, 0, 0))]
+        diff.addedPowerups = [SnapshotPowerup.make(2, 4, Vector3(float32(3.2), float32(-6.9), 0.15487157943974397845))]
         diff.removedPowerupIds = [4, 5, 6]
         diff.pickedupPowerupIds = [7, 8, 9]
-        diff.addedPersonBulletCollisions = [SnapshotBulletCollision.make(2, 4, Vector3(0, 0, 0))]
-        diff.addedPersonRayCollisions = [SnapshotRayCollision.make(4, 2, Vector3(0, 0, 0))]
+        diff.addedPersonBulletCollisions = [SnapshotBulletCollision.make(2, 4, Vector3(float32(3.2), float32(-6.9), float32(44.2)))]
+        diff.addedPersonRayCollisions = [SnapshotRayCollision.make(4, 2, Vector3(float32(3.2), float32(-6.9), float32(44.2)))]
         diff.addedPersonFrags = [SnapshotFragStatistic.make(4, 9)]
         diff.addedPersonDeaths = [SnapshotFragStatistic.make(5, 11)]
 
