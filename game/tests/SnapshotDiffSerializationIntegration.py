@@ -21,21 +21,21 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
     def test(self):
         diff = SnapshotDiff()
         diff.addedPersonIds = [1, 2, 3, 4, 5]
-        diff.person = SnapshotPerson(1, Vector3(0, 0, 0), 1.5, -1.5, 10)
-        diff.player = SnapshotPlayer(12, 85)
-        diff.respawnedPerson = [SnapshotRespawnedPerson(10, Vector3(0, 0, 0))]
-        diff.enemies = [SnapshotPerson(10, Vector3(0, 0, 0), 2.5, -2.5, 50), SnapshotPerson(20, Vector3(0, 0, 0), 2.0, -2.0, 60)]
-        diff.addedBullets = [SnapshotBullet(12, 1, 2, Vector3(0, 0, 0), Vector3(0, 0, 0))]
-        diff.addedDebris = [SnapshotDebris(5, 2, Vector3(0, 0, 0), Vector3(0, 0, 0))]
-        diff.addedRays = [SnapshotRay(1, 2)]
+        diff.person = SnapshotPerson.make(1, Vector3(0, 0, 0), 1.5, -1.5, 10)
+        diff.player = SnapshotPlayer.make(12, 85)
+        diff.respawnedPerson = [SnapshotRespawnedPerson.make(10, Vector3(0, 0, 0))]
+        diff.enemies = [SnapshotPerson.make(10, Vector3(0, 0, 0), 2.5, -2.5, 50), SnapshotPerson.make(20, Vector3(0, 0, 0), 2.0, -2.0, 60)]
+        diff.addedBullets = [SnapshotBullet.make(12, 1, 2, Vector3(0, 0, 0), Vector3(0, 0, 0))]
+        diff.addedDebris = [SnapshotDebris.make(5, 2, Vector3(0, 0, 0), Vector3(0, 0, 0))]
+        diff.addedRays = [SnapshotRay.make(1, 2)]
         diff.removedRayIds = [1, 2, 3]
-        diff.addedPowerups = [SnapshotPowerup(2, 4, Vector3(0, 0, 0))]
+        diff.addedPowerups = [SnapshotPowerup.make(2, 4, Vector3(0, 0, 0))]
         diff.removedPowerupIds = [4, 5, 6]
         diff.pickedupPowerupIds = [7, 8, 9]
-        diff.addedPersonBulletCollisions = [SnapshotBulletCollision(2, 4, Vector3(0, 0, 0))]
-        diff.addedPersonRayCollisions = [SnapshotRayCollision(4, 2, Vector3(0, 0, 0))]
-        diff.addedPersonFrags = [SnapshotFragStatistic(4, 9)]
-        diff.addedPersonDeaths = [SnapshotFragStatistic(5, 11)]
+        diff.addedPersonBulletCollisions = [SnapshotBulletCollision.make(2, 4, Vector3(0, 0, 0))]
+        diff.addedPersonRayCollisions = [SnapshotRayCollision.make(4, 2, Vector3(0, 0, 0))]
+        diff.addedPersonFrags = [SnapshotFragStatistic.make(4, 9)]
+        diff.addedPersonDeaths = [SnapshotFragStatistic.make(5, 11)]
 
         writer = BinaryWriter(1024)
         writer.init()

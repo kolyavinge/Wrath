@@ -1,8 +1,16 @@
 class SnapshotFragStatistic:
 
-    def __init__(self, personId=0, value=0):
-        self.personId = personId
-        self.value = value
+    @staticmethod
+    def make(personId, value):
+        stat = SnapshotFragStatistic()
+        stat.personId = personId
+        stat.value = value
+
+        return stat
+
+    def __init__(self):
+        self.personId = 0
+        self.value = 0
 
     def __eq__(self, value):
         return self.personId == value.personId and self.value == value.value

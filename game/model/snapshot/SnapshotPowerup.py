@@ -3,10 +3,19 @@ from game.calc.Vector3 import Vector3
 
 class SnapshotPowerup:
 
-    def __init__(self, id=0, kind=0, position=Vector3()):
-        self.id = id
-        self.kind = kind
-        self.position = position
+    @staticmethod
+    def make(id, kind, position):
+        pu = SnapshotPowerup()
+        pu.id = id
+        pu.kind = kind
+        pu.position = position
+
+        return pu
+
+    def __init__(self):
+        self.id = 0
+        self.kind = 0
+        self.position = Vector3()
 
     def __eq__(self, value):
         return self.id == value.id and self.kind == value.kind and self.position == value.position
@@ -20,6 +29,7 @@ class SnapshotPowerup:
     @staticmethod
     def fromBytes(reader):
         pu = SnapshotPowerup()
+        pu.position = Vector3()
         pu.id, pu.kind, pu.position.x, pu.position.y, pu.position.z = reader.read("ibfff")
 
         return pu

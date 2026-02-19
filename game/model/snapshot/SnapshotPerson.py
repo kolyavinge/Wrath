@@ -3,12 +3,23 @@ from game.calc.Vector3 import Vector3
 
 class SnapshotPerson:
 
-    def __init__(self, id=0, centerPoint=Vector3(), yawRadians=0, pitchRadians=0, health=0):
-        self.id = id
-        self.centerPoint = centerPoint
-        self.yawRadians = yawRadians
-        self.pitchRadians = pitchRadians
-        self.health = health
+    @staticmethod
+    def make(id, centerPoint, yawRadians, pitchRadians, health):
+        person = SnapshotPerson()
+        person.id = id
+        person.centerPoint = centerPoint
+        person.yawRadians = yawRadians
+        person.pitchRadians = pitchRadians
+        person.health = health
+
+        return person
+
+    def __init__(self):
+        self.id = 0
+        self.centerPoint = Vector3()
+        self.yawRadians = 0
+        self.pitchRadians = 0
+        self.health = 0
 
     def __eq__(self, value):
         return (

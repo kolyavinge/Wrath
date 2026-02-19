@@ -3,11 +3,21 @@ from game.calc.Vector3 import Vector3
 
 class SnapshotDebris:
 
-    def __init__(self, id=0, personId=0, position=Vector3(), direction=Vector3()):
-        self.id = id
-        self.personId = personId
-        self.position = position
-        self.direction = direction
+    @staticmethod
+    def make(id, personId, position, direction):
+        debris = SnapshotDebris()
+        debris.id = id
+        debris.personId = personId
+        debris.position = position
+        debris.direction = direction
+
+        return debris
+
+    def __init__(self):
+        self.id = 0
+        self.personId = 0
+        self.position = Vector3()
+        self.direction = Vector3()
 
     def __eq__(self, value):
         return self.id == value.id and self.personId == value.personId and self.position == value.position and self.direction == value.direction

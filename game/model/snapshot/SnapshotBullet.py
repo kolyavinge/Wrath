@@ -8,12 +8,23 @@ class WeaponExtraBit:
 
 class SnapshotBullet:
 
-    def __init__(self, id=0, personId=0, weaponNumber=0, position=Vector3(), direction=Vector3()):
-        self.id = id
-        self.personId = personId
-        self.weaponNumber = weaponNumber
-        self.position = position
-        self.direction = direction
+    @staticmethod
+    def make(id, personId, weaponNumber, position, direction):
+        bullet = SnapshotBullet()
+        bullet.id = id
+        bullet.personId = personId
+        bullet.weaponNumber = weaponNumber
+        bullet.position = position
+        bullet.direction = direction
+
+        return bullet
+
+    def __init__(self):
+        self.id = 0
+        self.personId = 0
+        self.weaponNumber = 0
+        self.position = Vector3()
+        self.direction = Vector3()
 
     def __eq__(self, value):
         return (

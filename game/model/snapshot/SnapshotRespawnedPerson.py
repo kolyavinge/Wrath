@@ -3,9 +3,17 @@ from game.calc.Vector3 import Vector3
 
 class SnapshotRespawnedPerson:
 
-    def __init__(self, id=0, centerPoint=Vector3()):
-        self.id = id
-        self.centerPoint = centerPoint
+    @staticmethod
+    def make(id, centerPoint):
+        person = SnapshotRespawnedPerson()
+        person.id = id
+        person.centerPoint = centerPoint
+
+        return person
+
+    def __init__(self):
+        self.id = 0
+        self.centerPoint = Vector3()
 
     def __eq__(self, value):
         return self.id == value.id and self.centerPoint == value.centerPoint

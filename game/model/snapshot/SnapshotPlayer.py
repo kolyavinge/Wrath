@@ -1,8 +1,16 @@
 class SnapshotPlayer:
 
-    def __init__(self, id=0, health=0):
-        self.id = id
-        self.health = health
+    @staticmethod
+    def make(id, health):
+        person = SnapshotPlayer()
+        person.id = id
+        person.health = health
+
+        return person
+
+    def __init__(self):
+        self.id = 0
+        self.health = 0
 
     def __eq__(self, value):
         return self.id == value.id and self.health == value.health

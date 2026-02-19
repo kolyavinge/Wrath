@@ -3,10 +3,19 @@ from game.calc.Vector3 import Vector3
 
 class SnapshotBulletCollision:
 
-    def __init__(self, damagedPersonId=0, bulletId=0, collisionPoint=Vector3()):
-        self.damagedPersonId = damagedPersonId
-        self.bulletId = bulletId
-        self.collisionPoint = collisionPoint
+    @staticmethod
+    def make(damagedPersonId, bulletId, collisionPoint):
+        collision = SnapshotBulletCollision()
+        collision.damagedPersonId = damagedPersonId
+        collision.bulletId = bulletId
+        collision.collisionPoint = collisionPoint
+
+        return collision
+
+    def __init__(self):
+        self.damagedPersonId = 0
+        self.bulletId = 0
+        self.collisionPoint = Vector3()
 
     def __eq__(self, value):
         return self.damagedPersonId == value.damagedPersonId and self.bulletId == value.bulletId and self.collisionPoint == value.collisionPoint

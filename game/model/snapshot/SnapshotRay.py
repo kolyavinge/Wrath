@@ -1,9 +1,16 @@
 class SnapshotRay:
 
-    def __init__(self, id=0, personId=0):
+    @staticmethod
+    def make(id, personId):
+        ray = SnapshotRay()
+        ray.id = id
+        ray.personId = personId
 
-        self.id = id
-        self.personId = personId
+        return ray
+
+    def __init__(self):
+        self.id = 0
+        self.personId = 0
         # weaponNumber не нужен, пока только одно оружие Plasma
 
     def __eq__(self, value):
