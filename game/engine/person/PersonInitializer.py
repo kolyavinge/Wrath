@@ -33,42 +33,40 @@ class PersonInitializer:
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
         self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
 
-    def addPersonToClient(self, gameState, personId):
-        person = Person()
-        person.id = personId
-        person.commitNextPosition()
-        gameState.enemies.append(person)
-        gameState.allPerson.append(person)
+    def addEnemyToClient(self, gameState, personId):
+        enemy = Person()
+        enemy.id = personId
+        gameState.enemies.append(enemy)
+        gameState.allPerson.append(enemy)
         personItems = PersonItems()
-        gameState.enemyItems[person] = personItems
-        gameState.enemyInputData[person] = PersonInputData()
-        gameState.allPersonItems[person] = personItems
-        gameState.allPersonById[person.id] = person
-        gameState.allPersonInputData[person] = gameState.enemyInputData[person]
-        gameState.personFragStatistic[person] = FragStatistic(person)
-        gameState.enemyLifeBars[person] = EnemyLifeBar()
+        gameState.enemyItems[enemy] = personItems
+        gameState.enemyInputData[enemy] = PersonInputData()
+        gameState.allPersonItems[enemy] = personItems
+        gameState.allPersonById[enemy.id] = enemy
+        gameState.allPersonInputData[enemy] = gameState.enemyInputData[enemy]
+        gameState.personFragStatistic[enemy] = FragStatistic(enemy)
+        gameState.enemyLifeBars[enemy] = EnemyLifeBar()
         self.weaponSelector.setWeaponByType(personItems, Pistol)
 
-        return person
+        return enemy
 
     def addPlayerToServer(self, gameState, personId):
-        person = Person()
-        person.id = personId
-        person.commitNextPosition()
-        gameState.players.append(person)
-        gameState.allPerson.append(person)
+        player = Person()
+        player.id = personId
+        gameState.players.append(player)
+        gameState.allPerson.append(player)
         personItems = PersonItems()
-        gameState.playersItems[person] = personItems
-        gameState.allPersonItems[person] = personItems
-        gameState.allPersonById[person.id] = person
-        gameState.personFragStatistic[person] = FragStatistic(person)
+        gameState.playersItems[player] = personItems
+        gameState.allPersonItems[player] = personItems
+        gameState.allPersonById[player.id] = player
+        gameState.personFragStatistic[player] = FragStatistic(player)
         self.weaponSelector.setWeaponByType(personItems, Pistol)
 
-        return person
+        return player
 
-    def initPlayer(self, gameState, position, frontNormal, weaponType, playerId=None):
+    def initPlayerForClient(self, gameState, position, frontNormal, weaponType, playerId):
         player = Player()
-        player.id = playerId or self.personIdLogic.getPlayerId()
+        player.id = playerId
         player.moveNextPositionTo(position)
         self.personTurnLogic.orientToFrontNormal(player, frontNormal)
         player.commitNextPosition()

@@ -23,15 +23,18 @@ class ServerConnectionLogic:
         self.server = server
 
     def connectByLocal(self, localClient):
+        playerId = self.personIdLogic.getPlayerId()
         clientHolder = MessageHolder()
         serverHolder = MessageHolder()
-        localClient.playerId = 1
+        localClient.playerId = playerId
         localClient.channelToServer = LocalMessageChannel(clientHolder, serverHolder)
         connectedLocalClient = ConnectedClient()
-        connectedLocalClient.playerId = localClient.playerId
+        connectedLocalClient.playerId = playerId
         connectedLocalClient.channelToClient = LocalMessageChannel(serverHolder, clientHolder)
         self.server.clients[localClient.playerId] = connectedLocalClient
         self.personInitializer.addPlayerToServer(self.server.gameState, localClient.playerId)
+
+        return playerId
 
     def connectByNet(self):
         playerId = self.personIdLogic.getNetPlayerId()

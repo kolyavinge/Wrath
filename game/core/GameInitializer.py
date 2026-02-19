@@ -94,12 +94,12 @@ class GameInitializer:
 
     def init(self, gameStartMode, client, server):
         if gameStartMode == GameStartMode.clientServerMode:
-            self.initClient(client)
             self.initServer(server)
             self.serverConnectionLogic.init(server)
-            self.serverConnectionLogic.connectByLocal(client)
-            self.clientMultiplayerSynchronizer.init(client)
             self.serverMultiplayerSynchronizer.init(server)
+            playerId = self.serverConnectionLogic.connectByLocal(client)
+            self.initClient(client, playerId)
+            self.clientMultiplayerSynchronizer.init(client)
             self.gameUpdater.initForClientServer(client.gameState, server.gameState)
         elif gameStartMode == GameStartMode.clientMode:
             playerId = self.clientConnectionLogic.connectByNet(client)
@@ -107,7 +107,7 @@ class GameInitializer:
             self.clientMultiplayerSynchronizer.init(client)
             self.gameUpdater.initForClient(client.gameState)
 
-    def initClient(self, client, playerId=None):
+    def initClient(self, client, playerId):
         client.gameState = ClientGameState()
         level = self.levelLoader.load()
         client.gameState.level = level
@@ -115,7 +115,7 @@ class GameInitializer:
         self.bspTreeBuilder.build(client.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
         self.joinLineAnalyzer.analyzeJoinLines(level, client.gameState.visibilityTree)
         self.lightAnalyzer.analyzeLights(level, client.gameState.visibilityTree)
-        self.personInitializer.initPlayer(client.gameState, *level.getPlayerInitInfo(), playerId)
+        self.personInitializer.initPlayerForClient(client.gameState, *level.getPlayerInitInfo(), playerId)
         self.personWeaponPositionUpdater.updateForPlayer(client.gameState)
         self.cameraUpdater.update(client.gameState)
         self.levelSegmentVisibilityUpdater.update(client.gameState)
@@ -136,7 +136,6 @@ class GameInitializer:
         self.bspTreeBuilder.build(server.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
         self.joinLineAnalyzer.analyzeJoinLines(level, server.gameState.visibilityTree)
         self.levelValidator.validate(level, server.gameState.visibilityTree)
-        self.lightAnalyzer.analyzeLights(level, server.gameState.visibilityTree)
         self.personInitializer.addEnemiesToServer(server.gameState, level)
         self.aiDataInitializer.init(server.gameState)
         self.enemyAIUpdater.init(server.gameState)

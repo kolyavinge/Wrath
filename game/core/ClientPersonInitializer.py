@@ -16,6 +16,6 @@ class ClientPersonInitializer:
         self.voxManager = voxManager
 
     def addPerson(self, gameState, personId):
-        person = self.personInitializer.addPersonToClient(gameState, personId)
+        person = self.personInitializer.addEnemyToClient(gameState, personId)
         self.enemyAnimationCollection.addPerson(person)
         self.voxManager.addPerson(person)
