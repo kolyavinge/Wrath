@@ -20,7 +20,7 @@ class App:
 
     def __init__(self):
         self.isFullscreen = False
-        self.windowWidth = 1400
+        self.windowWidth = 1000
         self.windowHeight = (int)(self.windowWidth / CommonConstants.screenAspect)
 
     def run(self):
