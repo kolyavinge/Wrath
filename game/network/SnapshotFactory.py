@@ -3,7 +3,7 @@ from game.model.person.PersonStates import LifeCycle
 from game.model.person.Player import Player
 from game.model.snapshot.ClientSnapshot import ClientSnapshot
 from game.model.snapshot.ServerSnapshot import ServerSnapshot
-from game.model.snapshot.SnapshotBullet import SnapshotBullet, WeaponExtraBit
+from game.model.snapshot.SnapshotBullet import SnapshotBullet, WeaponInfoExtraBit
 from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
 from game.model.snapshot.SnapshotFragStatistic import SnapshotFragStatistic
 from game.model.snapshot.SnapshotPerson import SnapshotPerson
@@ -86,11 +86,11 @@ class SnapshotFactory:
         snapshotBullet = SnapshotBullet()
         snapshotBullet.id = bullet.id
         snapshotBullet.personId = bullet.ownerPerson.id
-        snapshotBullet.weaponNumber = WeaponCollection.getWeaponNumberByType(type(bullet.weapon))
+        snapshotBullet.weaponInfo = WeaponCollection.getWeaponNumberByType(type(bullet.weapon))
         if bullet.weapon.defaultCount == 2:
             personItems = allPersonItems[bullet.ownerPerson]
             if bullet.weapon == personItems.leftHandWeapon:
-                snapshotBullet.weaponNumber |= WeaponExtraBit.leftHandWeapon
+                snapshotBullet.weaponInfo |= WeaponInfoExtraBit.leftHandWeapon
         snapshotBullet.position = bullet.prevCurrentPosition.copy()
         snapshotBullet.direction = bullet.direction.copy()
         snapshotBullet.randomSeed = bullet.randomSeed

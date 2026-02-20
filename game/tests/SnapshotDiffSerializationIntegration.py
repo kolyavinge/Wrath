@@ -5,7 +5,7 @@ from numpy import float32
 from game.calc.Vector3 import Vector3
 from game.lib.BinaryReader import BinaryReader
 from game.lib.BinaryWriter import BinaryWriter
-from game.model.snapshot.SnapshotBullet import SnapshotBullet
+from game.model.snapshot.SnapshotBullet import SnapshotBullet, WeaponInfoExtraBit
 from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
 from game.model.snapshot.SnapshotDebris import SnapshotDebris
 from game.model.snapshot.SnapshotDiff import SnapshotDiff
@@ -33,6 +33,17 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
         diff.addedBullets = [
             SnapshotBullet.make(
                 12, 1, 2, Vector3(float32(3.2), float32(-6.9), float32(44.2)), Vector3(float32(3.2), float32(-6.9), float32(44.2)), None
+            ),
+            SnapshotBullet.make(
+                12, 1, 1, Vector3(float32(3.2), float32(-6.9), float32(44.2)), Vector3(float32(3.2), float32(-6.9), float32(44.2)), None
+            ),
+            SnapshotBullet.make(
+                12,
+                1,
+                1 | WeaponInfoExtraBit.leftHandWeapon,
+                Vector3(float32(3.2), float32(-6.9), float32(44.2)),
+                Vector3(float32(3.2), float32(-6.9), float32(44.2)),
+                None,
             ),
             SnapshotBullet.make(
                 12, 1, 4, Vector3(float32(3.2), float32(-6.9), float32(44.2)), Vector3(float32(3.2), float32(-6.9), float32(44.2)), 42789

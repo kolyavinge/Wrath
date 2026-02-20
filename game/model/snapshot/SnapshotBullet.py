@@ -2,7 +2,7 @@ from game.calc.Vector3 import Vector3
 from game.model.weapon.WeaponCollection import WeaponCollection
 
 
-class WeaponExtraBit:
+class WeaponInfoExtraBit:
 
     leftHandWeapon = 1 << 7
 
@@ -10,11 +10,18 @@ class WeaponExtraBit:
 class SnapshotBullet:
 
     @staticmethod
-    def make(id, personId, weaponNumber, position, direction, randomSeed):
+    def readWeaponInfo(weaponInfo):
+        weaponNumber = weaponInfo & ~WeaponInfoExtraBit.leftHandWeapon
+        isLeftHandWeapon = weaponInfo & WeaponInfoExtraBit.leftHandWeapon > 0
+
+        return (weaponNumber, isLeftHandWeapon)
+
+    @staticmethod
+    def make(id, personId, weaponInfo, position, direction, randomSeed):
         bullet = SnapshotBullet()
         bullet.id = id
         bullet.personId = personId
-        bullet.weaponNumber = weaponNumber
+        bullet.weaponInfo = weaponInfo
         bullet.position = position
         bullet.direction = direction
         bullet.randomSeed = randomSeed
@@ -24,7 +31,7 @@ class SnapshotBullet:
     def __init__(self):
         self.id = 0
         self.personId = 0
-        self.weaponNumber = 0
+        self.weaponInfo = 0
         self.position = Vector3()
         self.direction = Vector3()
         self.randomSeed = None
@@ -33,7 +40,7 @@ class SnapshotBullet:
         return (
             self.id == value.id
             and self.personId == value.personId
-            and self.weaponNumber == value.weaponNumber
+            and self.weaponInfo == value.weaponInfo
             and self.position == value.position
             and self.direction == value.direction
             and self.randomSeed == value.randomSeed
@@ -44,7 +51,7 @@ class SnapshotBullet:
             (
                 self.id.__hash__(),
                 self.personId.__hash__(),
-                self.weaponNumber.__hash__(),
+                self.weaponInfo.__hash__(),
                 self.position.__hash__(),
                 self.direction.__hash__(),
                 self.randomSeed.__hash__(),
@@ -56,7 +63,7 @@ class SnapshotBullet:
             "iiBffffff",
             self.id,
             self.personId,
-            self.weaponNumber,
+            self.weaponInfo,
             self.position.x,
             self.position.y,
             self.position.z,
@@ -65,7 +72,7 @@ class SnapshotBullet:
             self.direction.z,
         )
 
-        if WeaponCollection.getWeaponTypeByNumber(self.weaponNumber).hasDebrisAfterExplosion:
+        if self.randomSeed is not None:
             writer.write("H", self.randomSeed)
 
     @staticmethod
@@ -74,7 +81,7 @@ class SnapshotBullet:
         (
             bullet.id,
             bullet.personId,
-            bullet.weaponNumber,
+            bullet.weaponInfo,
             bullet.position.x,
             bullet.position.y,
             bullet.position.z,
@@ -83,7 +90,8 @@ class SnapshotBullet:
             bullet.direction.z,
         ) = reader.read("iiBffffff")
 
-        if WeaponCollection.getWeaponTypeByNumber(bullet.weaponNumber).hasDebrisAfterExplosion:
+        weaponNumber, _ = SnapshotBullet.readWeaponInfo(bullet.weaponInfo)
+        if WeaponCollection.getWeaponTypeByNumber(weaponNumber).hasDebrisAfterExplosion:
             bullet.randomSeed = reader.read("H")
 
         return bullet

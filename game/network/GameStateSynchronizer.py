@@ -8,7 +8,7 @@ from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.Query import Query
-from game.model.snapshot.SnapshotBullet import WeaponExtraBit
+from game.model.snapshot.SnapshotBullet import SnapshotBullet, WeaponInfoExtraBit
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.WeaponCollection import WeaponCollection
 
@@ -118,11 +118,8 @@ class GameStateSynchronizer:
         # сюда же: если у пули перед выстрелом изменилась скорость (Railgun charge)
         person = gameState.allPerson.getById(diffBullet.personId)
         personItems = gameState.allPersonItems[person]
-        isLeftHandWeapon = diffBullet.weaponNumber & WeaponExtraBit.leftHandWeapon > 0
-        if isLeftHandWeapon:
-            # remove leftHandWeapon bit from weaponNumber
-            diffBullet.weaponNumber &= ~WeaponExtraBit.leftHandWeapon
-        diffBulletWeaponType = WeaponCollection.getWeaponTypeByNumber(diffBullet.weaponNumber)
+        weaponNumber, isLeftHandWeapon = SnapshotBullet.readWeaponInfo(diffBullet.weaponInfo)
+        diffBulletWeaponType = WeaponCollection.getWeaponTypeByNumber(weaponNumber)
         if not personItems.hasWeaponByType(diffBulletWeaponType):
             return
         if personItems.getCurrentWeaponType() != diffBulletWeaponType:
