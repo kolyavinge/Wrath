@@ -50,6 +50,8 @@ class LauncherBullet(Bullet):
 
 class Launcher(Weapon):
 
+    hasDebrisAfterExplosion = True
+
     def __init__(self):
         super().__init__(LauncherBullet)
         self.barrelPoint = Vector3(0, 0, 0.05)

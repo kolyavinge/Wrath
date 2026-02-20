@@ -49,11 +49,6 @@ class SnapshotDiffLogic:
             if len(addedBullets) > 0:
                 diff.addedBullets = addedBullets
 
-        if hasattr(snapshotNew, "debris"):
-            addedDebris = Dictionary.getAddedItems(snapshotOld.debris, snapshotNew.debris)
-            if len(addedDebris) > 0:
-                diff.addedDebris = addedDebris
-
         if hasattr(snapshotNew, "rays"):
             addedRays = Dictionary.getAddedItems(snapshotOld.rays, snapshotNew.rays)
             removedRays = Dictionary.getRemovedItems(snapshotOld.rays, snapshotNew.rays)

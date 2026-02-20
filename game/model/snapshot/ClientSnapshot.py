@@ -10,7 +10,6 @@ class ClientSnapshot:
         empty = ClientSnapshot()
         empty.person = SnapshotPerson()
         empty.bullets = {}
-        empty.debris = {}
         empty.rays = {}
         empty.notPickedupPowerupIds = {}
 
@@ -22,6 +21,5 @@ class ClientSnapshot:
         self.acknowledged = False
         self.person = None
         self.bullets = None
-        self.debris = None
         self.rays = None
         self.notPickedupPowerupIds = None

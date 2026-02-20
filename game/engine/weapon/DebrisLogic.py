@@ -4,8 +4,8 @@ from game.calc.Geometry import Geometry
 from game.calc.Plane import Plane
 from game.calc.Vector3 import Vector3
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.lib.LinearRandomGenerator import LinearRandomGenerator
 from game.lib.Math import Math
-from game.lib.Random import Random
 
 
 class DebrisLogic:
@@ -61,23 +61,27 @@ class DebrisLogic:
             trace.visibilityLevelSegments.add(visibilityLevelSegment)
 
     def makeDebrisWithRandomPositions(self, explosion):
+        # позиции осколков не передаются между клиентом и сервером
+        # для восстановления позиций на принимающей стороне используется randomSeed сгенерированный при создании пули
+
+        assert explosion.debrisCount <= CommonConstants.maxDebrisCount
         result = []
-        ownerPerson = explosion.bullet.ownerPerson
-        for _ in range(0, explosion.debrisCount):
+        rand = LinearRandomGenerator(explosion.bullet.randomSeed)
+        for n in range(0, explosion.debrisCount):
             piece = explosion.debrisType()
-            piece.id = self.bulletIdLogic.getNextBulletId(ownerPerson.id)
+            piece.id = self.bulletIdLogic.getDebrisPieceId(explosion.bullet.id, n)
             piece.currentPosition = explosion.position.copy()
             piece.nextPosition = piece.currentPosition.copy()
-            planeNormal = Vector3(Random.getFloat(-0.1, 0.1), Random.getFloat(-0.1, 0.1), 1.0)
+            planeNormal = Vector3(rand.getFloat(-0.1, 0.1), rand.getFloat(-0.1, 0.1), 1.0)
             planeNormal.normalize()
             plane = Plane(planeNormal, CommonConstants.axisOrigin)
             piece.direction = Geometry.rotatePoint(
-                plane.getAnyVector(), planeNormal, CommonConstants.axisOrigin, Random.getFloat(-Math.piDouble, Math.piDouble)
+                plane.getAnyVector(), planeNormal, CommonConstants.axisOrigin, rand.getFloat(-Math.piDouble, Math.piDouble)
             )
             piece.direction.normalize()
             piece.velocity = piece.direction.copy()
             piece.velocity.setLength(piece.velocityValue)
-            piece.ownerPerson = ownerPerson
+            piece.ownerPerson = explosion.bullet.ownerPerson
             result.append(piece)
 
         return result

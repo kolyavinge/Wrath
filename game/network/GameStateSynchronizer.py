@@ -4,13 +4,11 @@ from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionU
 from game.engine.powerup.PowerupLogic import PowerupLogic
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
-from game.engine.weapon.DebrisLogic import DebrisLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.lib.Query import Query
 from game.model.snapshot.SnapshotBullet import WeaponExtraBit
-from game.model.weapon.Debris import Debris
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.WeaponCollection import WeaponCollection
 
@@ -22,7 +20,6 @@ class GameStateSynchronizer:
         clientPersonInitializer: ClientPersonInitializer,
         personTurnLogic: PersonTurnLogic,
         bulletLogic: BulletLogic,
-        debrisLogic: DebrisLogic,
         rayLogic: RayLogic,
         explosionLogic: ExplosionLogic,
         bulletPositionUpdater: BulletPositionUpdater,
@@ -33,7 +30,6 @@ class GameStateSynchronizer:
         self.clientPersonInitializer = clientPersonInitializer
         self.personTurnLogic = personTurnLogic
         self.bulletLogic = bulletLogic
-        self.debrisLogic = debrisLogic
         self.rayLogic = rayLogic
         self.explosionLogic = explosionLogic
         self.bulletPositionUpdater = bulletPositionUpdater
@@ -63,10 +59,6 @@ class GameStateSynchronizer:
         if hasattr(diff, "addedBullets"):
             for bullet in diff.addedBullets:
                 self.synchAddedBullet(gameState, bullet)
-
-        if hasattr(diff, "addedDebris"):
-            for debris in diff.addedDebris:
-                self.synchAddedDebris(gameState, debris)
 
         if hasattr(diff, "addedRays"):
             for ray in diff.addedRays:
@@ -141,7 +133,7 @@ class GameStateSynchronizer:
                 personItems.setLeftHandWeaponAsCurrent()
             else:
                 personItems.setRightHandWeaponAsCurrent()
-        newBullet = self.bulletLogic.makeBullet(gameState, person, personItems.currentWeapon, diffBullet.id)
+        newBullet = self.bulletLogic.makeBullet(gameState, person, personItems.currentWeapon, diffBullet.id, diffBullet.randomSeed)
         newBullet.direction = diffBullet.direction.copy()
         # newBullet.velocityValue = diffBullet.velocityValue
         # newBullet.velocity.setLength(diffBullet.velocityValue)
@@ -149,10 +141,6 @@ class GameStateSynchronizer:
         self.bulletPositionUpdater.commitBulletNextPosition(newBullet, gameState.visibilityTree)
         diffBulletWeapon = personItems.getWeaponByTypeOrNone(diffBulletWeaponType)
         gameState.updateStatistic.firedWeapons.append((person, diffBulletWeapon))
-
-    def synchAddedDebris(self, gameState, diffDebris):
-        person = gameState.allPersonById[diffDebris.personId]
-        self.debrisLogic.makeDebrisManually(gameState, diffDebris.id, Debris, person, diffDebris.position, diffDebris.direction)
 
     def synchAddedRay(self, gameState, diffRay):
         person = gameState.allPersonById[diffRay.personId]

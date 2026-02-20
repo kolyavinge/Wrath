@@ -9,7 +9,6 @@ class ServerSnapshot:
         empty.allPerson = {}
         empty.respawnedPerson = set()
         empty.bullets = {}
-        empty.debris = {}
         empty.rays = {}
         empty.powerups = {}
         empty.personBulletCollisions = {}
@@ -27,7 +26,6 @@ class ServerSnapshot:
         self.allPerson = None
         self.respawnedPerson = None
         self.bullets = None
-        self.debris = None
         self.rays = None
         self.powerups = None
         self.personBulletCollisions = None

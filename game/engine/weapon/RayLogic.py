@@ -14,7 +14,7 @@ class RayLogic:
 
     def makeRay(self, gameState, person, weapon, id=None):
         ray = weapon.makeRay(person)
-        ray.id = id or self.bulletIdLogic.getNextBulletId(person.id)
+        ray.id = id or self.bulletIdLogic.getBulletId(person.id)
         ray.startLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, ray.startPosition)
         ray.endLevelSegment = ray.startLevelSegment
         ray.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, ray.startPosition)

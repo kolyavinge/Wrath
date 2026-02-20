@@ -36,6 +36,7 @@ class Bullet:
         self.weapon = None
         self.ownerPerson = None
         self.damagedObject = None
+        self.randomSeed = None
 
     def commitNextPosition(self):
         self.prevCurrentPosition = self.currentPosition

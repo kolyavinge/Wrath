@@ -16,6 +16,7 @@ class FireState:
 class Weapon:
 
     defaultCount = 1
+    hasDebrisAfterExplosion = False
 
     def __init__(self, bulletType, flashType=None):
         self.bulletType = bulletType

@@ -5,7 +5,6 @@ from game.model.snapshot.ClientSnapshot import ClientSnapshot
 from game.model.snapshot.ServerSnapshot import ServerSnapshot
 from game.model.snapshot.SnapshotBullet import SnapshotBullet, WeaponExtraBit
 from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
-from game.model.snapshot.SnapshotDebris import SnapshotDebris
 from game.model.snapshot.SnapshotFragStatistic import SnapshotFragStatistic
 from game.model.snapshot.SnapshotPerson import SnapshotPerson
 from game.model.snapshot.SnapshotPlayer import SnapshotPlayer
@@ -27,11 +26,6 @@ class SnapshotFactory:
             for bullet in clientGameState.bullets
             if bullet.weapon is not None and type(bullet.ownerPerson) == Player
         }
-        snapshot.debris = {
-            debris.id: self.makeSnapshotDebris(debris)
-            for debris in clientGameState.bullets
-            if isinstance(debris, Debris) and type(debris.ownerPerson) == Player
-        }
         snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in clientGameState.rays if type(ray.ownerPerson) == Player}
         snapshot.notPickedupPowerupIds = set([powerup.id for powerup in clientGameState.powerups])
 
@@ -48,11 +42,6 @@ class SnapshotFactory:
             bullet.id: self.makeSnapshotBullet(bullet, serverGameState.allPersonItems)
             for bullet in serverGameState.bullets
             if type(bullet.ownerPerson) == Enemy
-        }
-        snapshot.debris = {
-            debris.id: self.makeSnapshotDebris(debris)
-            for debris in serverGameState.bullets
-            if isinstance(debris, Debris) and type(debris.ownerPerson) == Enemy
         }
         snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in serverGameState.rays if type(ray.ownerPerson) == Enemy}
         snapshot.powerups = {powerup.id: self.makeSnapshotPowerup(powerup) for powerup in serverGameState.powerups}
@@ -104,18 +93,10 @@ class SnapshotFactory:
                 snapshotBullet.weaponNumber |= WeaponExtraBit.leftHandWeapon
         snapshotBullet.position = bullet.prevCurrentPosition.copy()
         snapshotBullet.direction = bullet.direction.copy()
+        snapshotBullet.randomSeed = bullet.randomSeed
         # snapshotBullet.velocityValue = bullet.velocityValue
 
         return snapshotBullet
-
-    def makeSnapshotDebris(self, debris):
-        snapshotDebris = SnapshotDebris()
-        snapshotDebris.id = debris.id
-        snapshotDebris.personId = debris.ownerPerson.id
-        snapshotDebris.position = debris.currentPosition.copy()
-        snapshotDebris.direction = debris.direction.copy()
-
-        return snapshotDebris
 
     def makeSnapshotRay(self, ray):
         snapshotRay = SnapshotRay()

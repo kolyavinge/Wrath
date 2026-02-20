@@ -48,11 +48,6 @@ class SnapshotDiff:
             for addedBullet in self.addedBullets:
                 addedBullet.toBytes(writer)
 
-        if hasattr(self, "addedDebris"):
-            writer.write("b", len(self.addedDebris))
-            for addedPiece in self.addedDebris:
-                addedPiece.toBytes(writer)
-
         if hasattr(self, "addedRays"):
             writer.write("b", len(self.addedRays))
             for addedRay in self.addedRays:
@@ -124,10 +119,6 @@ class SnapshotDiff:
         if fieldsBitMask & SnapshotDiffFields.addedBullets > 0:
             count = reader.read("b")
             diff.addedBullets = [SnapshotBullet.fromBytes(reader) for _ in range(0, count)]
-
-        if fieldsBitMask & SnapshotDiffFields.addedDebris > 0:
-            count = reader.read("b")
-            diff.addedDebris = [SnapshotDebris.fromBytes(reader) for _ in range(0, count)]
 
         if fieldsBitMask & SnapshotDiffFields.addedRays > 0:
             count = reader.read("b")

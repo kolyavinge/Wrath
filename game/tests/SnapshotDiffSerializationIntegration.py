@@ -31,10 +31,12 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
             SnapshotPerson.make(20, Vector3(float32(3.2), float32(-6.9), float32(44.2)), 2.0, -2.0, 60),
         ]
         diff.addedBullets = [
-            SnapshotBullet.make(12, 1, 2, Vector3(float32(3.2), float32(-6.9), float32(44.2)), Vector3(float32(3.2), float32(-6.9), float32(44.2)))
-        ]
-        diff.addedDebris = [
-            SnapshotDebris.make(5, 2, Vector3(float32(3.2), float32(-6.9), float32(44.2)), Vector3(float32(3.2), float32(-6.9), float32(44.2)))
+            SnapshotBullet.make(
+                12, 1, 2, Vector3(float32(3.2), float32(-6.9), float32(44.2)), Vector3(float32(3.2), float32(-6.9), float32(44.2)), None
+            ),
+            SnapshotBullet.make(
+                12, 1, 4, Vector3(float32(3.2), float32(-6.9), float32(44.2)), Vector3(float32(3.2), float32(-6.9), float32(44.2)), 42789
+            ),
         ]
         diff.addedRays = [SnapshotRay.make(1, 2)]
         diff.removedRayIds = [1, 2, 3]
@@ -63,7 +65,6 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
         self.assertEqual(diffDeser.enemies, diff.enemies)
         self.assertEqual(diffDeser.respawnedPerson, diff.respawnedPerson)
         self.assertEqual(diffDeser.addedBullets, diff.addedBullets)
-        self.assertEqual(diffDeser.addedDebris, diff.addedDebris)
         self.assertEqual(diffDeser.addedRays, diff.addedRays)
         self.assertEqual(diffDeser.removedRayIds, diff.removedRayIds)
         self.assertEqual(diffDeser.addedPowerups, diff.addedPowerups)

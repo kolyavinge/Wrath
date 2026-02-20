@@ -1,4 +1,5 @@
 from game.calc.Vector3 import Vector3
+from game.model.weapon.WeaponCollection import WeaponCollection
 
 
 class WeaponExtraBit:
@@ -9,13 +10,14 @@ class WeaponExtraBit:
 class SnapshotBullet:
 
     @staticmethod
-    def make(id, personId, weaponNumber, position, direction):
+    def make(id, personId, weaponNumber, position, direction, randomSeed):
         bullet = SnapshotBullet()
         bullet.id = id
         bullet.personId = personId
         bullet.weaponNumber = weaponNumber
         bullet.position = position
         bullet.direction = direction
+        bullet.randomSeed = randomSeed
 
         return bullet
 
@@ -25,6 +27,7 @@ class SnapshotBullet:
         self.weaponNumber = 0
         self.position = Vector3()
         self.direction = Vector3()
+        self.randomSeed = None
 
     def __eq__(self, value):
         return (
@@ -33,6 +36,7 @@ class SnapshotBullet:
             and self.weaponNumber == value.weaponNumber
             and self.position == value.position
             and self.direction == value.direction
+            and self.randomSeed == value.randomSeed
         )
 
     def __hash__(self):
@@ -43,6 +47,7 @@ class SnapshotBullet:
                 self.weaponNumber.__hash__(),
                 self.position.__hash__(),
                 self.direction.__hash__(),
+                self.randomSeed.__hash__(),
             )
         )
 
@@ -60,6 +65,9 @@ class SnapshotBullet:
             self.direction.z,
         )
 
+        if WeaponCollection.getWeaponTypeByNumber(self.weaponNumber).hasDebrisAfterExplosion:
+            writer.write("H", self.randomSeed)
+
     @staticmethod
     def fromBytes(reader):
         bullet = SnapshotBullet()
@@ -74,5 +82,8 @@ class SnapshotBullet:
             bullet.direction.y,
             bullet.direction.z,
         ) = reader.read("iiBffffff")
+
+        if WeaponCollection.getWeaponTypeByNumber(bullet.weaponNumber).hasDebrisAfterExplosion:
+            bullet.randomSeed = reader.read("H")
 
         return bullet
