@@ -174,7 +174,8 @@ class GameStateSynchronizer:
         bullet.damagedObject = damagedPerson
         bullet.currentPosition = diffBulletCollision.collisionPoint.copy()
         bullet.nextPosition = bullet.currentPosition
-        self.bulletLogic.removeBullet(gameState, bullet)
+        if bullet.isAlive:  # might have been removed
+            self.bulletLogic.removeBullet(gameState, bullet)
         self.explosionLogic.makeExplosion(gameState, bullet)
 
     def synchAddedPersonRayCollision(self, gameState, diffRayCollision):
