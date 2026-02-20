@@ -1,19 +1,25 @@
+from game.anx.CommonConstants import CommonConstants
+
+
 class PersonIdLogic:
 
+    idStep = 1000
+
     def __init__(self):
-        self.lastEnemyId = 9
-        self.lastNetPlayerId = 99
+        self.lastNetPlayerId = 2000
+        self.lastEnemyId = 10000 * CommonConstants.maxServerPlayers
 
     def getPlayerId(self):
-        return 1
-
-    def getEnemyId(self):
-        self.lastEnemyId += 1
-        assert self.lastEnemyId < 100
-
-        return self.lastEnemyId
+        return 1000
 
     def getNetPlayerId(self):
-        self.lastNetPlayerId += 1
+        result = self.lastNetPlayerId
+        self.lastNetPlayerId += self.idStep
 
-        return self.lastNetPlayerId
+        return result
+
+    def getEnemyId(self):
+        result = self.lastEnemyId
+        self.lastEnemyId += self.idStep
+
+        return result

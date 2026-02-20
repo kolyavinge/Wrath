@@ -1,13 +1,23 @@
+from game.anx.CommonConstants import CommonConstants
+from game.anx.PersonIdLogic import PersonIdLogic
+
+
 class BulletIdLogic:
 
+    idStep = 2 * CommonConstants.maxDebrisCount
+
     def __init__(self):
-        self.lastBulletId = 0
-        self.maxBulletId = 500
+        self.lastBulletId = self.idStep
+        self.maxBulletId = PersonIdLogic.idStep
 
-    def getNextBulletId(self, personId):
+    def getBulletId(self, personId):
         if self.lastBulletId > self.maxBulletId:
-            self.lastBulletId = 0
+            self.lastBulletId = self.idStep
 
-        self.lastBulletId += 1
+        result = self.lastBulletId
+        self.lastBulletId += self.idStep
 
-        return personId + self.lastBulletId
+        return personId + result
+
+    def getDebrisPieceId(self, bulletId, pieceNumber):
+        return bulletId + pieceNumber + 1

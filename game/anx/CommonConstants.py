@@ -22,3 +22,6 @@ class CommonConstants:
     maxRaysCount = 100
     maxBloodStains = 5
     maxRemovedBulletsCount = 100
+    maxBulletSeed = (1 << 16) - 1  # 2 bytes
+    maxDebrisCount = 10
+    maxServerPlayers = 10
