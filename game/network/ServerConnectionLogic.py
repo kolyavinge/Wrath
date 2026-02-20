@@ -1,3 +1,4 @@
+from game.anx.CommonConstants import CommonConstants
 from game.anx.PersonIdLogic import PersonIdLogic
 from game.core.Server import ConnectedClient
 from game.engine.person.PersonInitializer import PersonInitializer
@@ -37,6 +38,9 @@ class ServerConnectionLogic:
         return playerId
 
     def connectByNet(self):
+        if len(self.server.clients) == CommonConstants.maxServerPlayers:
+            raise Exception("Max server players has exceeded.")
+
         playerId = self.personIdLogic.getNetPlayerId()
         portForSendingToServer = self.netPortManager.getFreePort()
         portForReceivingFromServer = self.netPortManager.getFreePort()

@@ -1,3 +1,4 @@
+from game.anx.CommonConstants import CommonConstants
 from game.anx.DebugSettings import DebugSettings
 from game.anx.PersonIdLogic import PersonIdLogic
 from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
@@ -88,7 +89,11 @@ class PersonInitializer:
         if not DebugSettings.allowEnemies:
             return
 
-        for position, frontNormal, weaponType in level.getEnemyInitInfo():
+        enemyInitInfoList = level.getEnemyInitInfo()
+        if len(enemyInitInfoList) > CommonConstants.maxBots:
+            raise Exception("Max bots has exceeded.")
+
+        for position, frontNormal, weaponType in enemyInitInfoList:
             self.addEnemyToServer(gameState, position, frontNormal, weaponType)
 
         self.personFloorUpdater.updateEnemiesNextFloor(gameState)

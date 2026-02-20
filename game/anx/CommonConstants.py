@@ -25,3 +25,4 @@ class CommonConstants:
     maxBulletSeed = (1 << 16) - 1  # 2 bytes
     maxDebrisCount = 10
     maxServerPlayers = 10
+    maxBots = 10
