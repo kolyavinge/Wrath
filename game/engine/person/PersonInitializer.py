@@ -43,7 +43,6 @@ class PersonInitializer:
         gameState.enemyItems[enemy] = personItems
         gameState.enemyInputData[enemy] = PersonInputData()
         gameState.allPersonItems[enemy] = personItems
-        gameState.allPersonById[enemy.id] = enemy
         gameState.allPersonInputData[enemy] = gameState.enemyInputData[enemy]
         gameState.personFragStatistic[enemy] = FragStatistic(enemy)
         gameState.enemyLifeBars[enemy] = EnemyLifeBar()
@@ -59,7 +58,6 @@ class PersonInitializer:
         personItems = PersonItems()
         gameState.playersItems[player] = personItems
         gameState.allPersonItems[player] = personItems
-        gameState.allPersonById[player.id] = player
         gameState.personFragStatistic[player] = FragStatistic(player)
         self.weaponSelector.setWeaponByType(personItems, Pistol)
 
@@ -77,7 +75,6 @@ class PersonInitializer:
         gameState.playerItems = personItems
         gameState.playerInputData = PersonInputData()
         gameState.allPersonItems[player] = personItems
-        gameState.allPersonById[player.id] = player
         gameState.allPersonInputData[player] = gameState.playerInputData
         gameState.personFragStatistic[player] = FragStatistic(player)
         self.weaponSelector.setWeaponByType(personItems, weaponType)
@@ -112,7 +109,6 @@ class PersonInitializer:
         gameState.enemyItems[enemy] = personItems
         gameState.enemyInputData[enemy] = PersonInputData()
         gameState.allPersonItems[enemy] = personItems
-        gameState.allPersonById[enemy.id] = enemy
         gameState.allPersonInputData[enemy] = gameState.enemyInputData[enemy]
         gameState.personFragStatistic[enemy] = FragStatistic(enemy)
         self.weaponSelector.setWeaponByType(personItems, weaponType)

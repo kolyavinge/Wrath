@@ -97,18 +97,18 @@ class GameStateSynchronizer:
                 self.synchAddedPersonDeaths(gameState, deaths)
 
     def synchPerson(self, gameState, diffPerson):
-        sychedPerson = gameState.allPersonById[diffPerson.id]
+        sychedPerson = gameState.allPerson.getById(diffPerson.id)
         sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
         self.personTurnLogic.setYawPitchRadians(sychedPerson, diffPerson.yawRadians, diffPerson.pitchRadians)
         sychedPerson.commitNextPosition()
         sychedPerson.health = diffPerson.health
 
     def synchPlayer(self, gameState, diffPlayer):
-        sychedPlayer = gameState.allPersonById[diffPlayer.id]
+        sychedPlayer = gameState.allPerson.getById(diffPlayer.id)
         sychedPlayer.health = diffPlayer.health
 
     def synchRespawnedPerson(self, gameState, diffPerson):
-        sychedPerson = gameState.allPersonById[diffPerson.id]
+        sychedPerson = gameState.allPerson.getById(diffPerson.id)
         sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
         sychedPerson.commitNextPosition()
 
@@ -116,7 +116,7 @@ class GameStateSynchronizer:
         # TODO подумать как при рассинхроне обработать на клиенте тот путь
         # который пуля пролетела на сервере до передачи клиенту
         # сюда же: если у пули перед выстрелом изменилась скорость (Railgun charge)
-        person = gameState.allPersonById[diffBullet.personId]
+        person = gameState.allPerson.getById(diffBullet.personId)
         personItems = gameState.allPersonItems[person]
         isLeftHandWeapon = diffBullet.weaponNumber & WeaponExtraBit.leftHandWeapon > 0
         if isLeftHandWeapon:
@@ -143,7 +143,7 @@ class GameStateSynchronizer:
         gameState.updateStatistic.firedWeapons.append((person, diffBulletWeapon))
 
     def synchAddedRay(self, gameState, diffRay):
-        person = gameState.allPersonById[diffRay.personId]
+        person = gameState.allPerson.getById(diffRay.personId)
         personItems = gameState.allPersonItems[person]
         weapon = personItems.getWeaponByTypeOrNone(Plasma)
         if weapon is None:
@@ -172,7 +172,7 @@ class GameStateSynchronizer:
             bullet = gameState.bullets.getByIdOrNone(diffBulletCollision.bulletId)
         if bullet is None:
             return
-        damagedPerson = gameState.allPersonById[diffBulletCollision.damagedPersonId]
+        damagedPerson = gameState.allPerson.getById(diffBulletCollision.damagedPersonId)
         gameState.collisionData.personBullet[damagedPerson] = bullet
         bullet.damagedObject = damagedPerson
         bullet.currentPosition = diffBulletCollision.collisionPoint.copy()
@@ -184,15 +184,15 @@ class GameStateSynchronizer:
         ray = Query(gameState.rays).firstOrNone(lambda x: x.id == diffRayCollision.rayId)
         if ray is None:
             return
-        damagedPerson = gameState.allPersonById[diffRayCollision.damagedPersonId]
+        damagedPerson = gameState.allPerson.getById(diffRayCollision.damagedPersonId)
         gameState.collisionData.personRay[damagedPerson] = ray
         ray.damagedObject = damagedPerson
         ray.stopOnPosition(diffRayCollision.collisionPoint)
 
     def synchAddedPersonFrags(self, gameState, diffFrags):
-        person = gameState.allPersonById[diffFrags.personId]
+        person = gameState.allPerson.getById(diffFrags.personId)
         gameState.personFragStatistic[person].frags = diffFrags.value
 
     def synchAddedPersonDeaths(self, gameState, diffDeaths):
-        person = gameState.allPersonById[diffDeaths.personId]
+        person = gameState.allPerson.getById(diffDeaths.personId)
         gameState.personFragStatistic[person].deaths = diffDeaths.value

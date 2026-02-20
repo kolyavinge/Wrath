@@ -22,8 +22,7 @@ class GameState:
         self.enemies = []
         self.enemyItems = {}
         self.enemyInputData = {}
-        self.allPerson = []
-        self.allPersonById = {}
+        self.allPerson = IdList()
         self.allPersonItems = {}
         self.allPersonInputData = {}
         self.bullets = IdList()
