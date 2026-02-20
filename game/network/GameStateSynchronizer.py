@@ -168,9 +168,9 @@ class GameStateSynchronizer:
 
     def synchAddedPersonBulletCollision(self, gameState, diffBulletCollision):
         bullet = gameState.removedBullets.getByKeyOrNone(diffBulletCollision.bulletId)
-        if bullet is None and diffBulletCollision.bulletId in gameState.bulletsById:
-            bullet = gameState.bulletsById[diffBulletCollision.bulletId]
-        else:
+        if bullet is None:
+            bullet = gameState.bullets.getByIdOrNone(diffBulletCollision.bulletId)
+        if bullet is None:
             return
         damagedPerson = gameState.allPersonById[diffBulletCollision.damagedPersonId]
         gameState.collisionData.personBullet[damagedPerson] = bullet

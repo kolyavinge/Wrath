@@ -1,6 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.bsp.BSPTree import BSPTree
 from game.engine.UpdateStatistic import UpdateStatistic
+from game.lib.IdList import IdList
 from game.lib.LimitedCollection import LimitedCollection
 from game.model.level.BackgroundVisibilityData import BackgroundVisibilityData
 from game.model.person.Camera import Camera
@@ -25,8 +26,7 @@ class GameState:
         self.allPersonById = {}
         self.allPersonItems = {}
         self.allPersonInputData = {}
-        self.bullets = []
-        self.bulletsById = {}
+        self.bullets = IdList()
         self.removedBullets = LimitedCollection(CommonConstants.maxRemovedBulletsCount, lambda bullet: bullet.id)
         self.bulletTraces = []
         self.bulletHolePoints = set()  # TODO ограничить кол-во CommonConstants.maxBulletHoles

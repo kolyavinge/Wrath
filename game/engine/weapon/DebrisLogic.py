@@ -48,7 +48,6 @@ class DebrisLogic:
 
     def addToGameState(self, gameState, piece, currentLevelSegment, visibilityLevelSegment):
         gameState.bullets.append(piece)
-        gameState.bulletsById[piece.id] = piece
         piece.currentLevelSegment = currentLevelSegment
         piece.nextLevelSegment = currentLevelSegment
         if piece.isVisible:
