@@ -1,6 +1,5 @@
 from game.model.snapshot.SnapshotBullet import SnapshotBullet
 from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
-from game.model.snapshot.SnapshotDebris import SnapshotDebris
 from game.model.snapshot.SnapshotDiffFields import SnapshotDiffFields
 from game.model.snapshot.SnapshotFragStatistic import SnapshotFragStatistic
 from game.model.snapshot.SnapshotPerson import SnapshotPerson

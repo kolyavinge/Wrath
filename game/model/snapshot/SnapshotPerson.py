@@ -36,13 +36,14 @@ class SnapshotPerson:
         )
 
     def toBytes(self, writer):
-        writer.write("ifffffB", self.id, self.centerPoint.x, self.centerPoint.y, self.centerPoint.z, self.yawRadians, self.pitchRadians, self.health)
+        # centerPoint.z передаем как double 64bit, чтобы избежать 'проваливания' персонажа сквозь пол
+        writer.write("iffdffB", self.id, self.centerPoint.x, self.centerPoint.y, self.centerPoint.z, self.yawRadians, self.pitchRadians, self.health)
 
     @staticmethod
     def fromBytes(reader):
         person = SnapshotPerson()
         person.id, person.centerPoint.x, person.centerPoint.y, person.centerPoint.z, person.yawRadians, person.pitchRadians, person.health = (
-            reader.read("ifffffB")
+            reader.read("iffdffB")
         )
 
         return person

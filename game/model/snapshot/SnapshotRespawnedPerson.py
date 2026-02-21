@@ -22,11 +22,12 @@ class SnapshotRespawnedPerson:
         return hash((self.id.__hash__(), self.centerPoint.__hash__()))
 
     def toBytes(self, writer):
-        writer.write("ifff", self.id, self.centerPoint.x, self.centerPoint.y, self.centerPoint.z)
+        # centerPoint.z передаем как double 64bit, чтобы избежать 'проваливания' персонажа сквозь пол
+        writer.write("iffd", self.id, self.centerPoint.x, self.centerPoint.y, self.centerPoint.z)
 
     @staticmethod
     def fromBytes(reader):
         person = SnapshotRespawnedPerson()
-        person.id, person.centerPoint.x, person.centerPoint.y, person.centerPoint.z = reader.read("ifff")
+        person.id, person.centerPoint.x, person.centerPoint.y, person.centerPoint.z = reader.read("iffd")
 
         return person
