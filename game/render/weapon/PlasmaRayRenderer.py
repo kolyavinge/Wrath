@@ -33,7 +33,7 @@ class PlasmaRayRenderer:
         self.vbo = self.vboUpdater.buildUnfilled(4 * rayCount, 2 * rayCount, [BufferIndices.vertices, BufferIndices.texCoords, BufferIndices.faces])
 
     def renderRays(self, rays, player, camera, globalTimeSec):
-        ethalonRay = Query(rays).firstOrNone(lambda r: r.ownerPerson == player) or rays[0]
+        ethalonRay = Query(rays).firstOrNone(lambda r: r.ownerPerson == player) or Query(rays).first()
         self.renderEthalonRayToFramebuffer(ethalonRay, globalTimeSec)
         self.renderAllRaysBasedOnEthalon(rays, camera)
 

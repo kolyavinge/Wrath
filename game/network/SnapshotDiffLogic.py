@@ -48,7 +48,7 @@ class SnapshotDiffLogic:
         if hasattr(snapshotNew, "bullets"):
             if clientPlayerId is not None:
                 addedBullets = Dictionary.getAddedItemsWithFilter(
-                    snapshotOld.bullets, snapshotNew.bullets, lambda newBulletId, _: newBulletId != clientPlayerId
+                    snapshotOld.bullets, snapshotNew.bullets, lambda _, newBullet: newBullet.personId != clientPlayerId
                 )
             else:
                 addedBullets = Dictionary.getAddedItems(snapshotOld.bullets, snapshotNew.bullets)
@@ -57,8 +57,17 @@ class SnapshotDiffLogic:
                 diff.addedBullets = addedBullets
 
         if hasattr(snapshotNew, "rays"):
-            addedRays = Dictionary.getAddedItems(snapshotOld.rays, snapshotNew.rays)
-            removedRays = Dictionary.getRemovedItems(snapshotOld.rays, snapshotNew.rays)
+            if clientPlayerId is not None:
+                addedRays = Dictionary.getAddedItemsWithFilter(
+                    snapshotOld.rays, snapshotNew.rays, lambda _, newRay: newRay.personId != clientPlayerId
+                )
+                removedRays = Dictionary.getAddedItemsWithFilter(
+                    snapshotOld.rays, snapshotNew.rays, lambda _, oldRay: oldRay.personId != clientPlayerId
+                )
+            else:
+                addedRays = Dictionary.getAddedItems(snapshotOld.rays, snapshotNew.rays)
+                removedRays = Dictionary.getRemovedItems(snapshotOld.rays, snapshotNew.rays)
+
             if len(addedRays) > 0:
                 diff.addedRays = addedRays
             if len(removedRays) > 0:

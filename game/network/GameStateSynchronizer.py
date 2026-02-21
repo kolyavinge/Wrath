@@ -7,8 +7,7 @@ from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
-from game.lib.Query import Query
-from game.model.snapshot.SnapshotBullet import SnapshotBullet, WeaponInfoExtraBit
+from game.model.snapshot.SnapshotBullet import SnapshotBullet
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.WeaponCollection import WeaponCollection
 

@@ -22,3 +22,7 @@ class Dictionary:
     @staticmethod
     def getRemovedItems(oldDict, newDict):
         return [oldValue for oldKey, oldValue in oldDict.items() if oldKey not in newDict]
+
+    @staticmethod
+    def getRemovedItemsWithFilter(oldDict, newDict, filter):
+        return [oldValue for oldKey, oldValue in oldDict.items() if oldKey not in newDict and filter(oldKey, oldValue)]
