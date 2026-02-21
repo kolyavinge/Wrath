@@ -38,14 +38,14 @@ class BulletCollisionDetector:
 
     def getTotalCollisionResultOrNone(self, bullet, levelSegment, startPoint, endPoint):
         # check person
-        ownerPerson = bullet.ownerPerson
+        excludedPerson = None if bullet.canDamageOwner else bullet.ownerPerson
         allPerson = levelSegment.allPerson
         if bullet.goThroughPerson:
-            collisionResult = self.personCollisionDetector.getAllCollisionResultOrNone(ownerPerson, allPerson, startPoint, endPoint)
+            collisionResult = self.personCollisionDetector.getAllCollisionResultOrNone(excludedPerson, allPerson, startPoint, endPoint)
             if collisionResult is not None:
                 return (CollidedTarget.allPerson, collisionResult)
         else:
-            collisionResult = self.personCollisionDetector.getNearestCollisionResultOrNone(ownerPerson, allPerson, startPoint, endPoint)
+            collisionResult = self.personCollisionDetector.getNearestCollisionResultOrNone(excludedPerson, allPerson, startPoint, endPoint)
             if collisionResult is not None:
                 return (CollidedTarget.onePerson, collisionResult)
 
