@@ -29,7 +29,7 @@ class GameState:
         self.removedBullets = LimitedIdList(CommonConstants.maxRemovedBulletsCount)
         self.bulletTraces = []
         self.bulletHolePoints = set()  # TODO ограничить кол-во CommonConstants.maxBulletHoles
-        self.rays = []
+        self.rays = IdList()
         self.explosions = []
         self.powerups = []
         self.personFragStatistic = {}

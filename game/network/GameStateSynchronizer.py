@@ -151,7 +151,7 @@ class GameStateSynchronizer:
         self.rayLogic.makeRay(gameState, person, weapon, diffRay.id)
 
     def synchRemovedRay(self, gameState, diffRayId):
-        ray = Query(gameState.rays).firstOrNone(lambda x: x.id == diffRayId)
+        ray = gameState.rays.getByIdOrNone(diffRayId)
         if ray is not None:
             self.rayLogic.removeRay(gameState, ray)
 
@@ -181,7 +181,7 @@ class GameStateSynchronizer:
         self.explosionLogic.makeExplosion(gameState, aliveOrRemovedBullet)
 
     def synchAddedPersonRayCollision(self, gameState, diffRayCollision):
-        ray = Query(gameState.rays).firstOrNone(lambda x: x.id == diffRayCollision.rayId)
+        ray = gameState.rays.getByIdOrNone(diffRayCollision.rayId)
         if ray is None:
             return
         damagedPerson = gameState.allPerson.getById(diffRayCollision.damagedPersonId)
