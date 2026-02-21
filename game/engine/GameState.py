@@ -28,7 +28,7 @@ class GameState:
         self.bulletHolePoints = set()  # TODO ограничить кол-во CommonConstants.maxBulletHoles
         self.rays = IdList()
         self.explosions = []
-        self.powerups = []
+        self.powerups = IdList()
         self.personFragStatistic = {}
         self.collisionData = CollisionData()
         self.reservedCollisionData = ReservedCollisionData()

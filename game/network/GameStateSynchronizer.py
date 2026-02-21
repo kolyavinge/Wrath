@@ -159,7 +159,7 @@ class GameStateSynchronizer:
         self.powerupLogic.makePowerupFromKind(gameState, diffPowerup.id, diffPowerup.kind, diffPowerup.position)
 
     def synchRemovedPowerup(self, gameState, diffPowerupId):
-        powerup = Query(gameState.powerups).firstOrNone(lambda x: x.id == diffPowerupId)
+        powerup = gameState.powerups.getByIdOrNone(diffPowerupId)
         if powerup is not None:
             self.powerupLogic.removePowerup(gameState, powerup)
 
