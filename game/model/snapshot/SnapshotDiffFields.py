@@ -1,6 +1,6 @@
 class SnapshotDiffFields:
 
-    addedPersonIds = 1 << 0
+    addedEnemyIds = 1 << 0
     person = 1 << 1
     player = 1 << 2
     enemies = 1 << 3
