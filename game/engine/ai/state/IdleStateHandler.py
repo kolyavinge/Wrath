@@ -3,7 +3,7 @@ from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.lib.Random import Random
-from game.model.ai.AIData import EnemyState
+from game.model.ai.AIData import BotState
 
 
 class IdleStateHandler:
@@ -18,34 +18,34 @@ class IdleStateHandler:
         self.fireLogic = fireLogic
         self.personTurnLogic = personTurnLogic
 
-    def init(self, gameState, enemy):
-        enemy.aiData.idleTimeLimit.set(Random.getInt(100, 400))
-        enemy.aiData.turnTimeLimit.set(Random.getInt(50, 200))
+    def init(self, gameState, bot):
+        bot.aiData.idleTimeLimit.set(Random.getInt(100, 400))
+        bot.aiData.turnTimeLimit.set(Random.getInt(50, 200))
 
-    def process(self, gameState, enemy, inputData):
-        enemy.aiData.healthPowerupDelay.decrease()
-        enemy.aiData.weaponPowerupDelay.decrease()
+    def process(self, gameState, bot, inputData):
+        bot.aiData.healthPowerupDelay.decrease()
+        bot.aiData.weaponPowerupDelay.decrease()
 
-        if self.movingLogic.isTurnTimeLimited(enemy):
-            self.personTurnLogic.orientToFrontNormal(enemy, Vector3.getRandomNormalVector())
+        if self.movingLogic.isTurnTimeLimited(bot):
+            self.personTurnLogic.orientToFrontNormal(bot, Vector3.getRandomNormalVector())
 
-    def getNewStateOrNone(self, gameState, enemy, enemyItems):
-        if enemy.aiData.stateTime > enemy.aiData.idleTimeLimit.value:
-            return EnemyState.patrolling
+    def getNewStateOrNone(self, gameState, bot, botItems):
+        if bot.aiData.stateTime > bot.aiData.idleTimeLimit.value:
+            return BotState.patrolling
 
-        if enemy.health < enemy.aiData.criticalHealth and enemy.aiData.healthPowerupDelay.isExpired():
-            return EnemyState.healthSearch
+        if bot.health < bot.aiData.criticalHealth and bot.aiData.healthPowerupDelay.isExpired():
+            return BotState.healthSearch
 
-        if enemyItems.hasWeapons():
-            otherEnemy = self.fireLogic.getEnemyWithinFireDistanceWhoFiringTo(enemy, gameState.collisionData)
+        if botItems.hasWeapons():
+            otherEnemy = self.fireLogic.getEnemyWithinFireDistanceWhoFiringTo(bot, gameState.collisionData)
             if otherEnemy is not None:
-                enemy.aiData.targetPerson = otherEnemy
-                return EnemyState.attack
+                bot.aiData.targetPerson = otherEnemy
+                return BotState.attack
 
-        if enemyItems.hasWeapons() and self.fireLogic.targetExists(enemy, gameState.allPerson):
-            return EnemyState.attack
+        if botItems.hasWeapons() and self.fireLogic.targetExists(bot, gameState.allPerson):
+            return BotState.attack
 
-        if not enemyItems.hasWeapons() and enemy.aiData.weaponPowerupDelay.isExpired():
-            return EnemyState.weaponSearch
+        if not botItems.hasWeapons() and bot.aiData.weaponPowerupDelay.isExpired():
+            return BotState.weaponSearch
 
         return None

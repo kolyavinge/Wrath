@@ -1,4 +1,4 @@
-from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
+from game.engine.ai.BotAIUpdater import BotAIUpdater
 from game.engine.cm.BulletCollisionUpdater import BulletCollisionUpdater
 from game.engine.cm.ExplosionCollisionUpdater import ExplosionCollisionUpdater
 from game.engine.cm.PersonCeilingCollisionUpdater import PersonCeilingCollisionUpdater
@@ -35,7 +35,7 @@ from game.engine.weapon.WeaponFireUpdater import WeaponFireUpdater
 
 class ServerUpdater:
 
-    enemyAIUpdater: EnemyAIUpdater
+    botAIUpdater: BotAIUpdater
     bulletCollisionUpdater: BulletCollisionUpdater
     explosionCollisionUpdater: ExplosionCollisionUpdater
     personCeilingCollisionUpdater: PersonCeilingCollisionUpdater
@@ -98,7 +98,7 @@ class ServerUpdater:
         self.explosionUpdater.update(gameState)
         self.powerupUpdater.generateNew(gameState)
         self.personLifeCycleUpdater.update(gameState)
-        self.enemyAIUpdater.update(gameState)
+        self.botAIUpdater.update(gameState)
         self.personUpdater.commitZStateForBots(gameState)
         self.personUpdater.updateDelaysForBots(gameState)
         self.fragStatisticUpdater.update(gameState)

@@ -1,6 +1,6 @@
 from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Math import Math
-from game.model.ai.EnemyState import EnemyState
+from game.model.ai.BotState import BotState
 from game.model.ai.MoveDirections import MoveDirections
 from game.model.ai.Route import NullRoute
 
@@ -8,7 +8,7 @@ from game.model.ai.Route import NullRoute
 class AIData:
 
     def __init__(self):
-        self.state = EnemyState.patrolling
+        self.state = BotState.patrolling
         self.stateTime = 0
         self.horizontalFieldViewRadians = 0
         self.checkCollisionLength = 0

@@ -3,7 +3,7 @@ from game.engine.ai.state.HealthSearchStateHandler import HealthSearchStateHandl
 from game.engine.ai.state.IdleStateHandler import IdleStateHandler
 from game.engine.ai.state.PatrollingStateHandler import PatrollingStateHandler
 from game.engine.ai.state.WeaponSearchStateHandler import WeaponSearchStateHandler
-from game.model.ai.AIData import EnemyState
+from game.model.ai.AIData import BotState
 
 
 class StateHandlerCollection:
@@ -17,11 +17,11 @@ class StateHandlerCollection:
         weaponSearchState: WeaponSearchStateHandler,
     ):
         self.states = {}
-        self.states[EnemyState.idle] = idleState
-        self.states[EnemyState.patrolling] = patrollingState
-        self.states[EnemyState.attack] = attackState
-        self.states[EnemyState.healthSearch] = healthSearchState
-        self.states[EnemyState.weaponSearch] = weaponSearchState
+        self.states[BotState.idle] = idleState
+        self.states[BotState.patrolling] = patrollingState
+        self.states[BotState.attack] = attackState
+        self.states[BotState.healthSearch] = healthSearchState
+        self.states[BotState.weaponSearch] = weaponSearchState
 
-    def getStateHandler(self, enemyState):
-        return self.states[enemyState]
+    def getStateHandler(self, botState):
+        return self.states[botState]

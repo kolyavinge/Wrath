@@ -14,73 +14,73 @@ class FireLogic:
         self.personTurnLogic = personTurnLogic
         self.burstFireLogic = burstFireLogic
 
-    def targetExists(self, enemy, allPerson):
-        return self.isCurrentTargetAvailable(enemy) or self.isNewTargetFound(enemy, allPerson)
+    def targetExists(self, bot, allPerson):
+        return self.isCurrentTargetAvailable(bot) or self.isNewTargetFound(bot, allPerson)
 
-    def isCurrentTargetAvailable(self, enemy):
-        if enemy.aiData.targetPerson is None:
+    def isCurrentTargetAvailable(self, bot):
+        if bot.aiData.targetPerson is None:
             return False
 
-        if not self.canFireToOtherEnemy(enemy, enemy.aiData.targetPerson):
-            enemy.aiData.targetPerson = None
+        if not self.canFireToOtherEnemy(bot, bot.aiData.targetPerson):
+            bot.aiData.targetPerson = None
             return False
 
         return True
 
-    def isNewTargetFound(self, enemy, allPerson):
-        enemy.aiData.targetPerson = None
+    def isNewTargetFound(self, bot, allPerson):
+        bot.aiData.targetPerson = None
         for otherEnemy in allPerson:
-            if enemy != otherEnemy and self.canFireToOtherEnemy(enemy, otherEnemy):
-                enemy.aiData.targetPerson = otherEnemy
+            if bot != otherEnemy and self.canFireToOtherEnemy(bot, otherEnemy):
+                bot.aiData.targetPerson = otherEnemy
                 return True
 
         return False
 
-    def canFireToOtherEnemy(self, enemy, otherEnemy):
+    def canFireToOtherEnemy(self, bot, otherEnemy):
         if otherEnemy.lifeCycle != LifeCycle.alive:
             return False
 
-        otherEnemyDirection = enemy.currentCenterPoint.getDirectionTo(otherEnemy.currentCenterPoint)
+        otherEnemyDirection = bot.currentCenterPoint.getDirectionTo(otherEnemy.currentCenterPoint)
         otherEnemyDistance = otherEnemyDirection.getLength()
 
-        if otherEnemyDistance > enemy.aiData.fireDistance:
+        if otherEnemyDistance > bot.aiData.fireDistance:
             return False
 
-        dotProduct = enemy.frontNormal.dotProduct(otherEnemyDirection) / otherEnemyDistance
-        if dotProduct < enemy.aiData.horizontalFieldViewHalfCos:
+        dotProduct = bot.frontNormal.dotProduct(otherEnemyDirection) / otherEnemyDistance
+        if dotProduct < bot.aiData.horizontalFieldViewHalfCos:
             return False
 
         return True
 
-    def withinFireDistance(self, enemy, otherEnemy):
-        return enemy.currentCenterPoint.getLengthTo(otherEnemy.currentCenterPoint) < enemy.aiData.fireDistance
+    def withinFireDistance(self, bot, otherEnemy):
+        return bot.currentCenterPoint.getLengthTo(otherEnemy.currentCenterPoint) < bot.aiData.fireDistance
 
-    def orientToTargetPerson(self, enemy):
-        targetPerson = enemy.aiData.targetPerson
+    def orientToTargetPerson(self, bot):
+        targetPerson = bot.aiData.targetPerson
         if targetPerson.velocityValue > 0:  # цель двигается - целится на опережение
             targetPersonPosition = targetPerson.velocityVector.copy()
             targetPersonPosition.setLength(PersonConstants.xyLengthHalf)
             targetPersonPosition.add(targetPerson.currentCenterPoint)
         else:
             targetPersonPosition = targetPerson.currentCenterPoint
-        frontNormal = enemy.currentCenterPoint.getDirectionTo(targetPersonPosition).getNormalized()
-        self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
+        frontNormal = bot.currentCenterPoint.getDirectionTo(targetPersonPosition).getNormalized()
+        self.personTurnLogic.orientToFrontNormal(bot, frontNormal)
 
-    def getEnemyWithinFireDistanceWhoFiringTo(self, enemy, collisionData):
-        if enemy in collisionData.personBullet:
-            bullet = collisionData.personBullet[enemy]
-            if bullet.ownerPerson is not None and self.withinFireDistance(enemy, bullet.ownerPerson):
+    def getEnemyWithinFireDistanceWhoFiringTo(self, bot, collisionData):
+        if bot in collisionData.personBullet:
+            bullet = collisionData.personBullet[bot]
+            if bullet.ownerPerson is not None and self.withinFireDistance(bot, bullet.ownerPerson):
                 return bullet.ownerPerson
 
-        if enemy in collisionData.personRay:
-            ray = collisionData.personRay[enemy]
-            if self.withinFireDistance(enemy, ray.ownerPerson):
+        if bot in collisionData.personRay:
+            ray = collisionData.personRay[bot]
+            if self.withinFireDistance(bot, ray.ownerPerson):
                 return ray.ownerPerson
 
         return None
 
-    def applyInputData(self, enemy, enemyItems, inputData):
+    def applyInputData(self, bot, enemyItems, inputData):
         if enemyItems.currentWeapon.isBurstModeEnabled:
-            inputData.fire = self.burstFireLogic.fire(enemy, enemyItems)
+            inputData.fire = self.burstFireLogic.fire(bot, enemyItems)
         else:
             inputData.fire = True

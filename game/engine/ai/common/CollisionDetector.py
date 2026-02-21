@@ -3,7 +3,7 @@ from game.engine.cm.PersonCollisionDetector import PersonCollisionDetector
 from game.engine.cm.PersonWallCollisionDetector import PersonWallCollisionDetector
 
 
-class EnemyCollisionDetector:
+class CollisionDetector:
 
     def __init__(
         self,
@@ -15,38 +15,38 @@ class EnemyCollisionDetector:
         self.personCollisionDetector = personCollisionDetector
         self.traversal = traversal
 
-    def anyCollisions(self, enemy, direction, collisionTree):
-        nextCenterPoint = enemy.currentFootRect.center.copy()
+    def anyCollisions(self, bot, direction, collisionTree):
+        nextCenterPoint = bot.currentFootRect.center.copy()
         nextCenterPoint.add(direction)
         nextCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(collisionTree, nextCenterPoint)
 
         return (
-            self.anyWallCollisions(enemy, nextCenterPoint, nextCenterPointLevelSegment)
-            or self.anyOtherPersonCollisions(enemy, nextCenterPoint, nextCenterPointLevelSegment)
+            self.anyWallCollisions(bot, nextCenterPoint, nextCenterPointLevelSegment)
+            or self.anyOtherPersonCollisions(bot, nextCenterPoint, nextCenterPointLevelSegment)
             or self.anyVoidCollisions(nextCenterPointLevelSegment)
         )
 
-    def anyWallCollisions(self, enemy, nextCenterPoint, nextCenterPointLevelSegment):
-        for wall in enemy.currentCenterPointLevelSegment.walls:
-            if self.personWallCollisionDetector.isCollidedWall(wall, enemy.currentFootRect.center, nextCenterPoint):
+    def anyWallCollisions(self, bot, nextCenterPoint, nextCenterPointLevelSegment):
+        for wall in bot.currentCenterPointLevelSegment.walls:
+            if self.personWallCollisionDetector.isCollidedWall(wall, bot.currentFootRect.center, nextCenterPoint):
                 return True
 
-        if enemy.currentCenterPointLevelSegment != nextCenterPointLevelSegment:
+        if bot.currentCenterPointLevelSegment != nextCenterPointLevelSegment:
             for wall in nextCenterPointLevelSegment.walls:
-                if self.personWallCollisionDetector.isCollidedWall(wall, enemy.currentFootRect.center, nextCenterPoint):
+                if self.personWallCollisionDetector.isCollidedWall(wall, bot.currentFootRect.center, nextCenterPoint):
                     return True
 
         return False
 
-    def anyOtherPersonCollisions(self, enemy, nextCenterPoint, nextCenterPointLevelSegment):
-        for person in enemy.currentCenterPointLevelSegment.allPerson:
-            if person != enemy:
+    def anyOtherPersonCollisions(self, bot, nextCenterPoint, nextCenterPointLevelSegment):
+        for person in bot.currentCenterPointLevelSegment.allPerson:
+            if person != bot:
                 if self.personCollisionDetector.getCollisionLengthBetweenPointsOrNone(person.currentCenterPoint, nextCenterPoint) is not None:
                     return True
 
-        if enemy.currentCenterPointLevelSegment != nextCenterPointLevelSegment:
+        if bot.currentCenterPointLevelSegment != nextCenterPointLevelSegment:
             for person in nextCenterPointLevelSegment.allPerson:
-                if person != enemy:
+                if person != bot:
                     if self.personCollisionDetector.getCollisionLengthBetweenPointsOrNone(person.currentCenterPoint, nextCenterPoint) is not None:
                         return True
 

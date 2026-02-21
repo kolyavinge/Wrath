@@ -2,7 +2,7 @@ from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
 from game.engine.ai.common.PowerupFinder import PowerupFinder
 from game.lib.Random import Random
-from game.model.ai.EnemyState import EnemyState
+from game.model.ai.BotState import BotState
 
 
 class HealthSearchStateHandler:
@@ -17,20 +17,20 @@ class HealthSearchStateHandler:
         self.fireLogic = fireLogic
         self.powerupFinder = powerupFinder
 
-    def init(self, gameState, enemy):
-        if not self.powerupFinder.tryFindNearestHealthOrVest(enemy, gameState.powerups, gameState.collisionTree):
-            enemy.aiData.healthPowerupDelay.set(Random.getInt(200, 500))
+    def init(self, gameState, bot):
+        if not self.powerupFinder.tryFindNearestHealthOrVest(bot, gameState.powerups, gameState.collisionTree):
+            bot.aiData.healthPowerupDelay.set(Random.getInt(200, 500))
 
-    def process(self, gameState, enemy, inputData):
-        if enemy.aiData.route.hasPoints():
-            self.movingLogic.followByRoute(enemy)
+    def process(self, gameState, bot, inputData):
+        if bot.aiData.route.hasPoints():
+            self.movingLogic.followByRoute(bot)
             inputData.goForward = True
 
-    def getNewStateOrNone(self, gameState, enemy, enemyItems):
-        if enemy.health >= enemy.aiData.criticalHealth:
-            return EnemyState.patrolling
+    def getNewStateOrNone(self, gameState, bot, botItems):
+        if bot.health >= bot.aiData.criticalHealth:
+            return BotState.patrolling
 
-        if not enemy.aiData.route.hasPoints():
-            return EnemyState.patrolling
+        if not bot.aiData.route.hasPoints():
+            return BotState.patrolling
 
         return None

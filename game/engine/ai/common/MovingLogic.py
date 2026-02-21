@@ -14,42 +14,42 @@ class MovingLogic:
         self.personTurnLogic = personTurnLogic
         self.obstacleAvoidanceLogic = obstacleAvoidanceLogic
 
-    def orientToFreeDirection(self, enemy, collisionTree):
-        nextFrontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(enemy, collisionTree)
+    def orientToFreeDirection(self, bot, collisionTree):
+        nextFrontNormal = self.obstacleAvoidanceLogic.getFrontNormalForNextStep(bot, collisionTree)
         if nextFrontNormal.isZero():
-            nextFrontNormal = enemy.frontNormal.copy()
+            nextFrontNormal = bot.frontNormal.copy()
             nextFrontNormal.mul(-1)
-        if not enemy.frontNormal.isParallel(nextFrontNormal):
-            self.personTurnLogic.orientToFrontNormal(enemy, nextFrontNormal)
+        if not bot.frontNormal.isParallel(nextFrontNormal):
+            self.personTurnLogic.orientToFrontNormal(bot, nextFrontNormal)
 
-    def followByRoute(self, enemy):
-        route = enemy.aiData.route
+    def followByRoute(self, bot):
+        route = bot.aiData.route
         routePoint = route.getCurrentPoint()
-        direction = enemy.currentCenterPoint.getDirectionTo(routePoint)
+        direction = bot.currentCenterPoint.getDirectionTo(routePoint)
         directionLength = direction.getLength()
         if directionLength > 1.0:
             direction.div(directionLength)  # normalize
-            if not enemy.frontNormal.isParallel(direction):
-                self.personTurnLogic.orientToFrontNormal(enemy, direction)
+            if not bot.frontNormal.isParallel(direction):
+                self.personTurnLogic.orientToFrontNormal(bot, direction)
         else:
             route.removeCurrentPoint()
 
-    def updateMoveDirection(self, enemy):
-        aiData = enemy.aiData
+    def updateMoveDirection(self, bot):
+        aiData = bot.aiData
         aiData.moveDirectionRemain.decrease()
         if aiData.moveDirectionRemain.isExpired():
             aiData.moveDirection = Random.getListItem(MoveDirections.all)
             aiData.moveDirectionRemain.set(Random.getInt(50, 200))
             aiData.runAwayFromObstacle = False
 
-    def setOppositeMoveDirection(self, enemy):
-        aiData = enemy.aiData
+    def setOppositeMoveDirection(self, bot):
+        aiData = bot.aiData
         aiData.moveDirection = aiData.moveDirection.opposite
         aiData.moveDirectionRemain.set(Random.getInt(50, 200))
 
-    def isTurnTimeLimited(self, enemy):
-        enemy.aiData.turnTimeLimit.decrease()
-        return enemy.aiData.turnTimeLimit.isExpired()
+    def isTurnTimeLimited(self, bot):
+        bot.aiData.turnTimeLimit.decrease()
+        return bot.aiData.turnTimeLimit.isExpired()
 
-    def applyMoveDirectionInputData(self, enemy, inputData):
-        enemy.aiData.moveDirection.applyInputData(inputData)
+    def applyMoveDirectionInputData(self, bot, inputData):
+        bot.aiData.moveDirection.applyInputData(inputData)

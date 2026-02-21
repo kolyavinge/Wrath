@@ -4,7 +4,7 @@ from game.model.person.PersonStates import LifeCycle
 from game.tools.CpuProfiler import cpuProfile
 
 
-class EnemyAIUpdater:
+class BotAIUpdater:
 
     def __init__(
         self,

@@ -1,4 +1,4 @@
-class EnemyState:
+class BotState:
 
     idle = 1
     patrolling = 2

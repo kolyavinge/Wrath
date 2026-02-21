@@ -1,7 +1,7 @@
 from game.anx.PersonIdLogic import PersonIdLogic
 from game.audio.AudioPlayer import AudioPlayer
 from game.core.GameStartMode import GameStartMode
-from game.engine.ai.EnemyAIUpdater import EnemyAIUpdater
+from game.engine.ai.BotAIUpdater import BotAIUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
 from game.engine.GameState import ClientGameState, ServerGameState
 from game.engine.GameUpdater import GameUpdater
@@ -49,7 +49,7 @@ class GameInitializer:
         personWeaponPositionUpdater: PersonWeaponPositionUpdater,
         weaponFlashUpdater: WeaponFlashUpdater,
         fragStatisticUpdater: FragStatisticUpdater,
-        enemyAIUpdater: EnemyAIUpdater,
+        botAIUpdater: BotAIUpdater,
         textureCollection: TextureCollection,
         materialTextureCollection: MaterialTextureCollection,
         shaderCollection: ShaderCollection,
@@ -77,7 +77,7 @@ class GameInitializer:
         self.personWeaponPositionUpdater = personWeaponPositionUpdater
         self.weaponFlashUpdater = weaponFlashUpdater
         self.fragStatisticUpdater = fragStatisticUpdater
-        self.enemyAIUpdater = enemyAIUpdater
+        self.botAIUpdater = botAIUpdater
         self.textureCollection = textureCollection
         self.materialTextureCollection = materialTextureCollection
         self.shaderCollection = shaderCollection
@@ -138,5 +138,5 @@ class GameInitializer:
         self.levelValidator.validate(level, server.gameState.visibilityTree)
         self.personInitializer.addBotsToServer(server.gameState, level)
         self.aiDataInitializer.init(server.gameState)
-        self.enemyAIUpdater.init(server.gameState)
+        self.botAIUpdater.init(server.gameState)
         self.gameService.runAsync()

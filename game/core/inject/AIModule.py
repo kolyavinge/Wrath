@@ -1,5 +1,6 @@
+from game.engine.ai.BotAIUpdater import *
 from game.engine.ai.common.BurstFireLogic import *
-from game.engine.ai.common.EnemyCollisionDetector import *
+from game.engine.ai.common.CollisionDetector import *
 from game.engine.ai.common.FireLogic import *
 from game.engine.ai.common.MovingLogic import *
 from game.engine.ai.common.ObstacleAvoidanceLogic import *
@@ -7,7 +8,6 @@ from game.engine.ai.common.PowerupFinder import *
 from game.engine.ai.common.RouteCollisionDetector import *
 from game.engine.ai.common.RouteFinder import *
 from game.engine.ai.common.RouteOptimizer import *
-from game.engine.ai.EnemyAIUpdater import *
 from game.engine.ai.state.AttackStateHandler import *
 from game.engine.ai.state.HealthSearchStateHandler import *
 from game.engine.ai.state.IdleStateHandler import *
@@ -19,8 +19,9 @@ from game.engine.ai.state.WeaponSearchStateHandler import *
 class AIModule:
 
     def init(self, binder):
+        binder.bindSingleton(BotAIUpdater)
         binder.bindSingleton(BurstFireLogic)
-        binder.bindSingleton(EnemyCollisionDetector)
+        binder.bindSingleton(CollisionDetector)
         binder.bindSingleton(FireLogic)
         binder.bindSingleton(MovingLogic)
         binder.bindSingleton(ObstacleAvoidanceLogic)

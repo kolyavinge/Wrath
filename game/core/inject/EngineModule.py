@@ -1,5 +1,4 @@
 from game.calc.PlaneOrientationLogic import *
-from game.engine.ai.EnemyAIUpdater import *
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
 from game.engine.ClientUpdater import *
@@ -106,7 +105,6 @@ class EngineModule:
 
     def init(self, binder):
         binder.bindSingleton(PlaneOrientationLogic)
-        binder.bindSingleton(EnemyAIUpdater)
         binder.bindSingleton(BSPTreeBuilder)
         binder.bindSingleton(BSPTreeTraversal)
         binder.bindSingleton(ClientUpdater, resolveByFields=True)

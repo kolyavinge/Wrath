@@ -3,10 +3,10 @@ from game.lib.Random import Random
 
 class BurstFireLogic:
 
-    def fire(self, enemy, enemyItems):
-        aiData = enemy.aiData
+    def fire(self, bot, botItems):
+        aiData = bot.aiData
         if aiData.fireDelayRemain.isExpired() and aiData.fireBurstRemain.isExpired():
-            weapon = enemyItems.currentWeapon
+            weapon = botItems.currentWeapon
             aiData.fireBurstRemain.set(Random.getInt(weapon.minBurstCount, weapon.maxBurstCount))
             return True
 
@@ -14,7 +14,7 @@ class BurstFireLogic:
         if not aiData.fireDelayRemain.isExpired():
             return False
 
-        if enemyItems.currentWeapon.isFiring:
+        if botItems.currentWeapon.isFiring:
             aiData.fireBurstRemain.decrease()
             if aiData.fireBurstRemain.isExpired():
                 aiData.fireDelayRemain.set(Random.getInt(10, 50))

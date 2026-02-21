@@ -2,7 +2,7 @@ from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
 from game.engine.ai.common.PowerupFinder import PowerupFinder
 from game.lib.Random import Random
-from game.model.ai.EnemyState import EnemyState
+from game.model.ai.BotState import BotState
 
 
 class WeaponSearchStateHandler:
@@ -17,17 +17,17 @@ class WeaponSearchStateHandler:
         self.fireLogic = fireLogic
         self.powerupFinder = powerupFinder
 
-    def init(self, gameState, enemy):
-        if not self.powerupFinder.tryFindNearestWeapon(enemy):
-            enemy.aiData.weaponPowerupDelay.set(Random.getInt(200, 500))
+    def init(self, gameState, bot):
+        if not self.powerupFinder.tryFindNearestWeapon(bot):
+            bot.aiData.weaponPowerupDelay.set(Random.getInt(200, 500))
 
-    def process(self, gameState, enemy, inputData):
-        if enemy.aiData.route.hasPoints():
-            self.movingLogic.followByRoute(enemy)
+    def process(self, gameState, bot, inputData):
+        if bot.aiData.route.hasPoints():
+            self.movingLogic.followByRoute(bot)
             inputData.goForward = True
 
-    def getNewStateOrNone(self, gameState, enemy, enemyItems):
-        if not enemy.aiData.route.hasPoints():
-            return EnemyState.patrolling
+    def getNewStateOrNone(self, gameState, bot, botItems):
+        if not bot.aiData.route.hasPoints():
+            return BotState.patrolling
 
         return None
