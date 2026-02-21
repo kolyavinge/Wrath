@@ -1,4 +1,3 @@
-from game.model.person.Bot import Bot
 from game.model.person.PersonStates import LifeCycle
 from game.model.person.Player import Player
 from game.model.snapshot.ClientSnapshot import ClientSnapshot
@@ -40,9 +39,9 @@ class SnapshotFactory:
         snapshot.bullets = {
             bullet.id: self.makeSnapshotBullet(bullet, serverGameState.allPersonItems)
             for bullet in serverGameState.bullets
-            if type(bullet.ownerPerson) == Bot
+            if bullet.weapon is not None
         }
-        snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in serverGameState.rays if type(ray.ownerPerson) == Bot}
+        snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in serverGameState.rays}
         snapshot.powerups = {powerup.id: self.makeSnapshotPowerup(powerup) for powerup in serverGameState.powerups}
         snapshot.personBulletCollisions = {
             collisionId: self.makeSnapshotBulletCollision(damagedPerson, bullet)

@@ -16,6 +16,9 @@ class Dictionary:
     def getAddedItems(oldDict, newDict):
         return [newValue for newKey, newValue in newDict.items() if newKey not in oldDict]
 
+    def getAddedItemsWithFilter(oldDict, newDict, filter):
+        return [newValue for newKey, newValue in newDict.items() if newKey not in oldDict and filter(newKey, newValue)]
+
     @staticmethod
     def getRemovedItems(oldDict, newDict):
         return [oldValue for oldKey, oldValue in oldDict.items() if oldKey not in newDict]

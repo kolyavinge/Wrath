@@ -46,7 +46,13 @@ class SnapshotDiffLogic:
                 diff.respawnedPerson = changedRespawnedPerson
 
         if hasattr(snapshotNew, "bullets"):
-            addedBullets = Dictionary.getAddedItems(snapshotOld.bullets, snapshotNew.bullets)
+            if clientPlayerId is not None:
+                addedBullets = Dictionary.getAddedItemsWithFilter(
+                    snapshotOld.bullets, snapshotNew.bullets, lambda newBulletId, _: newBulletId != clientPlayerId
+                )
+            else:
+                addedBullets = Dictionary.getAddedItems(snapshotOld.bullets, snapshotNew.bullets)
+
             if len(addedBullets) > 0:
                 diff.addedBullets = addedBullets
 
