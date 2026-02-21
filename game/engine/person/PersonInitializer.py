@@ -1,12 +1,11 @@
 from game.anx.CommonConstants import CommonConstants
 from game.anx.DebugSettings import DebugSettings
 from game.anx.PersonIdLogic import PersonIdLogic
-from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
 from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.weapon.WeaponSelector import WeaponSelector
-from game.model.person.Enemy import Enemy
+from game.model.person.Bot import Bot
 from game.model.person.EnemyLifeBar import EnemyLifeBar
 from game.model.person.FragStatistic import FragStatistic
 from game.model.person.Person import Person
@@ -25,14 +24,12 @@ class PersonInitializer:
         personFloorUpdater: PersonFloorUpdater,
         weaponSelector: WeaponSelector,
         playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater,
-        enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater,
     ):
         self.personIdLogic = personIdLogic
         self.personTurnLogic = personTurnLogic
         self.personFloorUpdater = personFloorUpdater
         self.weaponSelector = weaponSelector
         self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
-        self.enemyLevelSegmentsUpdater = enemyLevelSegmentsUpdater
 
     def addEnemyToClient(self, gameState, personId):
         enemy = Person()
@@ -82,33 +79,33 @@ class PersonInitializer:
         self.personFloorUpdater.commitPlayerNextFloor(gameState)
         self.playerLevelSegmentsUpdater.updateForPlayer(gameState)
 
-    def addEnemiesToServer(self, gameState, level):
-        if not DebugSettings.allowEnemies:
+    def addBotsToServer(self, gameState, level):
+        if not DebugSettings.allowBots:
             return
 
-        enemyInitInfoList = level.getEnemyInitInfo()
-        if len(enemyInitInfoList) > CommonConstants.maxBots:
+        botInitInfoList = level.getBotInitInfo()
+        if len(botInitInfoList) > CommonConstants.maxBots:
             raise Exception("Max bots has exceeded.")
 
-        for position, frontNormal, weaponType in enemyInitInfoList:
-            self.addEnemyToServer(gameState, position, frontNormal, weaponType)
+        for position, frontNormal, weaponType in botInitInfoList:
+            self.addBotToServer(gameState, position, frontNormal, weaponType)
 
-        self.personFloorUpdater.updateEnemiesNextFloor(gameState)
-        self.personFloorUpdater.commitEnemiesNextFloor(gameState)
-        self.enemyLevelSegmentsUpdater.update(gameState)
+        self.personFloorUpdater.updateBotsNextFloor(gameState)
+        self.personFloorUpdater.commitBotsNextFloor(gameState)
+        self.playerLevelSegmentsUpdater.updateForAllPerson(gameState)
 
-    def addEnemyToServer(self, gameState, position, frontNormal, weaponType):
-        enemy = Enemy()
-        enemy.id = self.personIdLogic.getEnemyId()
-        enemy.moveNextPositionTo(position)
-        self.personTurnLogic.orientToFrontNormal(enemy, frontNormal)
-        enemy.commitNextPosition()
-        gameState.enemies.append(enemy)
-        gameState.allPerson.append(enemy)
+    def addBotToServer(self, gameState, position, frontNormal, weaponType):
+        bot = Bot()
+        bot.id = self.personIdLogic.getBotId()
+        bot.moveNextPositionTo(position)
+        self.personTurnLogic.orientToFrontNormal(bot, frontNormal)
+        bot.commitNextPosition()
+        gameState.bots.append(bot)
+        gameState.allPerson.append(bot)
         personItems = PersonItems()
-        gameState.enemyItems[enemy] = personItems
-        gameState.enemyInputData[enemy] = PersonInputData()
-        gameState.allPersonItems[enemy] = personItems
-        gameState.allPersonInputData[enemy] = gameState.enemyInputData[enemy]
-        gameState.personFragStatistic[enemy] = FragStatistic(enemy)
+        gameState.botItems[bot] = personItems
+        gameState.botInputData[bot] = PersonInputData()
+        gameState.allPersonItems[bot] = personItems
+        gameState.allPersonInputData[bot] = gameState.botInputData[bot]
+        gameState.personFragStatistic[bot] = FragStatistic(bot)
         self.weaponSelector.setWeaponByType(personItems, weaponType)

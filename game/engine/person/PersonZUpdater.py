@@ -16,9 +16,9 @@ class PersonZUpdater:
     def updateForPlayer(self, gameState):
         self.updatePerson(gameState.player, gameState.collisionData, gameState.updateStatistic)
 
-    def updateForEnemies(self, gameState):
-        for enemy in gameState.enemies:
-            self.updatePerson(enemy, gameState.collisionData, gameState.updateStatistic)
+    def updateForBots(self, gameState):
+        for bot in gameState.bots:
+            self.updatePerson(bot, gameState.collisionData, gameState.updateStatistic)
 
     def updatePerson(self, person, collisionData, updateStatistic):
         if person.nextFloor != NullFloor.instance:

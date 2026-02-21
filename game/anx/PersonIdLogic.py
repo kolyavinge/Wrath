@@ -7,7 +7,7 @@ class PersonIdLogic:
 
     def __init__(self):
         self.lastNetPlayerId = 2000
-        self.lastEnemyId = 10000 * CommonConstants.maxServerPlayers
+        self.lastBotId = 10000 * CommonConstants.maxServerPlayers
 
     def getPlayerId(self):
         return 1000
@@ -18,8 +18,8 @@ class PersonIdLogic:
 
         return result
 
-    def getEnemyId(self):
-        result = self.lastEnemyId
-        self.lastEnemyId += self.idStep
+    def getBotId(self):
+        result = self.lastBotId
+        self.lastBotId += self.idStep
 
         return result

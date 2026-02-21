@@ -3,9 +3,9 @@ class WeaponDelayUpdater:
     def updateForPlayer(self, gameState):
         self.updateForPerson(gameState.player, gameState.playerItems, gameState.updateStatistic)
 
-    def updateForEnemies(self, gameState):
-        for enemy, enemyItems in gameState.enemyItems.items():
-            self.updateForPerson(enemy, enemyItems, gameState.updateStatistic)
+    def updateForBots(self, gameState):
+        for bot, botItems in gameState.botItems.items():
+            self.updateForPerson(bot, botItems, gameState.updateStatistic)
 
     def updateForPerson(self, person, personItems, updateStatistic):
         self.updateWeapon(person, personItems, personItems.rightHandWeapon, updateStatistic)

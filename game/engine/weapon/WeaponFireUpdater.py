@@ -13,8 +13,8 @@ class WeaponFireUpdater:
         self.updateForPerson(gameState, gameState.player, gameState.playerInputData)
 
     def updateForEnemies(self, gameState):
-        for enemy, inputData in gameState.enemyInputData.items():
-            self.updateForPerson(gameState, enemy, inputData)
+        for bot, inputData in gameState.botInputData.items():
+            self.updateForPerson(gameState, bot, inputData)
 
     def updateForPerson(self, gameState, person, inputData):
         personItems = gameState.allPersonItems[person]

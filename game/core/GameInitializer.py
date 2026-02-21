@@ -136,7 +136,7 @@ class GameInitializer:
         self.bspTreeBuilder.build(server.gameState.visibilityTree, level, list(level.getVisibilitySplitPlanes()))
         self.joinLineAnalyzer.analyzeJoinLines(level, server.gameState.visibilityTree)
         self.levelValidator.validate(level, server.gameState.visibilityTree)
-        self.personInitializer.addEnemiesToServer(server.gameState, level)
+        self.personInitializer.addBotsToServer(server.gameState, level)
         self.aiDataInitializer.init(server.gameState)
         self.enemyAIUpdater.init(server.gameState)
         self.gameService.runAsync()

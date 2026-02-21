@@ -1,15 +1,16 @@
 class PersonUpdater:
 
-    def commitZStateForPlayer(self, gameState):
-        gameState.player.prevZState = gameState.player.zState
+    def commitZState(self, gameState):
+        for person in gameState.allPerson:
+            person.prevZState = person.zState
 
-    def commitZStateForEnemies(self, gameState):
-        for enemy in gameState.enemies:
-            enemy.prevZState = enemy.zState
+    def commitZStateForBots(self, gameState):
+        for bot in gameState.bots:
+            bot.prevZState = bot.zState
 
     def updateDelaysForPlayer(self, gameState):
         gameState.player.paralyzeDelay.decrease()
 
-    def updateDelaysForEnemies(self, gameState):
-        for enemy in gameState.enemies:
-            enemy.paralyzeDelay.decrease()
+    def updateDelaysForBots(self, gameState):
+        for bot in gameState.bots:
+            bot.paralyzeDelay.decrease()

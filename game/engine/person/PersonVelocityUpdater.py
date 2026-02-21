@@ -9,9 +9,9 @@ class PersonVelocityUpdater:
     def updateForPlayer(self, gameState):
         self.updateForPerson(gameState, gameState.player)
 
-    def updateForEnemies(self, gameState):
-        for enemy in gameState.enemies:
-            self.updateForPerson(gameState, enemy)
+    def updateForBots(self, gameState):
+        for bot in gameState.bots:
+            self.updateForPerson(gameState, bot)
 
     def updateForPerson(self, gameState, person):
         person.prevVelocityValue = person.velocityValue

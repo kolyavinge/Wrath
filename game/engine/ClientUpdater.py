@@ -136,8 +136,7 @@ class ClientUpdater:
         self.enemyLifeBarUpdater.update(gameState)
         self.sniperAimFloatingUpdater.update()
         self.cowboyEasterEggUpdater.update(gameState)
-        self.personUpdater.commitZStateForPlayer(gameState)
-        self.personUpdater.commitZStateForEnemies(gameState)
+        self.personUpdater.commitZState(gameState)
         self.personUpdater.updateDelaysForPlayer(gameState)
         gameState.updateGlobalTime()
 

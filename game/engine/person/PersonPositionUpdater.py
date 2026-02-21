@@ -3,9 +3,9 @@ class PersonPositionUpdater:
     def movePlayerNextPosition(self, gameState):
         self.movePersonNextPosition(gameState.player)
 
-    def moveEnemiesNextPosition(self, gameState):
-        for enemy in gameState.enemies:
-            self.movePersonNextPosition(enemy)
+    def moveBotsNextPosition(self, gameState):
+        for bot in gameState.bots:
+            self.movePersonNextPosition(bot)
 
     def movePersonNextPosition(self, person):
         if person.velocityValue > 0:
@@ -14,6 +14,6 @@ class PersonPositionUpdater:
     def commitPlayerNextPosition(self, gameState):
         gameState.player.commitNextPosition()
 
-    def commitEnemiesNextPosition(self, gameState):
-        for enemy in gameState.enemies:
-            enemy.commitNextPosition()
+    def commitBotsNextPosition(self, gameState):
+        for bot in gameState.bots:
+            bot.commitNextPosition()

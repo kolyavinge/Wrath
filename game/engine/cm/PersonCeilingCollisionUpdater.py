@@ -14,9 +14,9 @@ class PersonCeilingCollisionUpdater:
     def updateForPlayer(self, gameState):
         self.updateForPerson(gameState.player)
 
-    def updateForEnemies(self, gameState):
-        for enemy in gameState.enemies:
-            self.updateForPerson(enemy)
+    def updateForBots(self, gameState):
+        for bot in gameState.bots:
+            self.updateForPerson(bot)
 
     def updateForPerson(self, person):
         if person.zState == PersonZState.jumping:

@@ -6,7 +6,6 @@ from game.engine.cm.PersonCollisionUpdater import PersonCollisionUpdater
 from game.engine.cm.PersonWallCollisionUpdater import PersonWallCollisionUpdater
 from game.engine.cm.PowerupCollisionUpdater import PowerupCollisionUpdater
 from game.engine.cm.RayCollisionUpdater import RayCollisionUpdater
-from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.FragStatisticUpdater import FragStatisticUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
@@ -44,7 +43,6 @@ class ServerUpdater:
     personWallCollisionUpdater: PersonWallCollisionUpdater
     powerupCollisionUpdater: PowerupCollisionUpdater
     rayCollisionUpdater: RayCollisionUpdater
-    enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater
     fragStatisticUpdater: FragStatisticUpdater
     personFloorUpdater: PersonFloorUpdater
     personJumpUpdater: PersonJumpUpdater
@@ -71,39 +69,38 @@ class ServerUpdater:
     selectWeaponRequestListener: SelectWeaponRequestListener
 
     def update(self, gameState):
-        self.personTurnUpdater.updateForEnemies(gameState)
-        self.personMovingTimeUpdater.updateForEnemies(gameState)
-        self.personVelocityUpdater.updateForEnemies(gameState)
-        self.personPositionUpdater.moveEnemiesNextPosition(gameState)
+        self.personTurnUpdater.updateForBots(gameState)
+        self.personMovingTimeUpdater.updateForBots(gameState)
+        self.personVelocityUpdater.updateForBots(gameState)
+        self.personPositionUpdater.moveBotsNextPosition(gameState)
         self.personRespawnUpdater.update(gameState)
-        self.personFloorUpdater.updateEnemiesNextFloor(gameState)
-        self.personJumpUpdater.updateForEnemies(gameState)
-        self.personWallCollisionUpdater.updateForEnemies(gameState)
+        self.personFloorUpdater.updateBotsNextFloor(gameState)
+        self.personJumpUpdater.updateForBots(gameState)
+        self.personWallCollisionUpdater.updateForBots(gameState)
         self.personCollisionUpdater.update(gameState)
-        self.personZUpdater.updateForEnemies(gameState)
-        self.personCeilingCollisionUpdater.updateForEnemies(gameState)
-        self.personPositionUpdater.commitEnemiesNextPosition(gameState)
-        self.personFloorUpdater.commitEnemiesNextFloor(gameState)
-        self.playerLevelSegmentsUpdater.updateForPlayers(gameState)
-        self.enemyLevelSegmentsUpdater.update(gameState)
+        self.personZUpdater.updateForBots(gameState)
+        self.personCeilingCollisionUpdater.updateForBots(gameState)
+        self.personPositionUpdater.commitBotsNextPosition(gameState)
+        self.personFloorUpdater.commitBotsNextFloor(gameState)
+        self.playerLevelSegmentsUpdater.updateForAllPerson(gameState)
         self.personWeaponPositionUpdater.update(gameState)
-        self.weaponDelayUpdater.updateForEnemies(gameState)
+        self.weaponDelayUpdater.updateForBots(gameState)
         self.weaponFireUpdater.updateForEnemies(gameState)
-        self.weaponAltFireUpdater.updateForEnemies(gameState)
+        self.weaponAltFireUpdater.updateForBots(gameState)
         self.nonStandardBulletMovingUpdater.update(gameState)
         self.bulletPositionUpdater.moveNextPosition(gameState)
         self.bulletCollisionUpdater.update(gameState)
         self.bulletPositionUpdater.commitNextPosition(gameState)
         self.rayPositionUpdater.update(gameState)
         self.rayCollisionUpdater.update(gameState)
-        self.powerupCollisionUpdater.updateForEnemies(gameState)
+        self.powerupCollisionUpdater.updateForBots(gameState)
         self.explosionCollisionUpdater.update(gameState)
         self.explosionUpdater.update(gameState)
         self.powerupUpdater.generateNew(gameState)
         self.personLifeCycleUpdater.update(gameState)
         self.enemyAIUpdater.update(gameState)
-        self.personUpdater.commitZStateForEnemies(gameState)
-        self.personUpdater.updateDelaysForEnemies(gameState)
+        self.personUpdater.commitZStateForBots(gameState)
+        self.personUpdater.updateDelaysForBots(gameState)
         self.fragStatisticUpdater.update(gameState)
         gameState.updateGlobalTime()
 

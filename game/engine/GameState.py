@@ -19,9 +19,6 @@ class GameState:
         self.collisionTree = BSPTree()
         self.visibilityTree = BSPTree()
         self.visibleLevelSegments = set()
-        self.enemies = []
-        self.enemyItems = {}
-        self.enemyInputData = {}
         self.allPerson = IdList()
         self.allPersonItems = {}
         self.allPersonInputData = {}
@@ -49,6 +46,9 @@ class ClientGameState(GameState):
         self.player = None
         self.playerItems = None
         self.playerInputData = None
+        self.enemies = []
+        self.enemyItems = {}
+        self.enemyInputData = {}
         self.bloodStains = []
         self.camera = Camera()
         self.backgroundVisibility = BackgroundVisibilityData()
@@ -62,3 +62,6 @@ class ServerGameState(GameState):
         super().__init__()
         self.players = []
         self.playersItems = {}
+        self.bots = []
+        self.botItems = {}
+        self.botInputData = {}

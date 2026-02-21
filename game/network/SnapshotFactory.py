@@ -1,4 +1,4 @@
-from game.model.person.Enemy import Enemy
+from game.model.person.Bot import Bot
 from game.model.person.PersonStates import LifeCycle
 from game.model.person.Player import Player
 from game.model.snapshot.ClientSnapshot import ClientSnapshot
@@ -12,7 +12,6 @@ from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.snapshot.SnapshotRay import SnapshotRay
 from game.model.snapshot.SnapshotRayCollision import SnapshotRayCollision
 from game.model.snapshot.SnapshotRespawnedPerson import SnapshotRespawnedPerson
-from game.model.weapon.Debris import Debris
 from game.model.weapon.WeaponCollection import WeaponCollection
 
 
@@ -41,9 +40,9 @@ class SnapshotFactory:
         snapshot.bullets = {
             bullet.id: self.makeSnapshotBullet(bullet, serverGameState.allPersonItems)
             for bullet in serverGameState.bullets
-            if type(bullet.ownerPerson) == Enemy
+            if type(bullet.ownerPerson) == Bot
         }
-        snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in serverGameState.rays if type(ray.ownerPerson) == Enemy}
+        snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in serverGameState.rays if type(ray.ownerPerson) == Bot}
         snapshot.powerups = {powerup.id: self.makeSnapshotPowerup(powerup) for powerup in serverGameState.powerups}
         snapshot.personBulletCollisions = {
             collisionId: self.makeSnapshotBulletCollision(damagedPerson, bullet)

@@ -27,6 +27,7 @@ class Person:
         self.headCenterPoint = Vector3()
         self.collisionLevelSegments = set()
         self.visibilityLevelSegment = LevelSegment()
+        self.currentCenterPointLevelSegment = None
         self.isVisibleForPlayer = False
         self.currentBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)
         self.nextBorder = Box3d(PersonConstants.xyLength, PersonConstants.xyLength, PersonConstants.zLength)

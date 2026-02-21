@@ -11,26 +11,26 @@ class EnemyAIUpdater:
         stateHandlerCollection: StateHandlerCollection,
     ):
         self.stateHandlerCollection = stateHandlerCollection
-        if DebugSettings.enemyFreeze:
+        if DebugSettings.botFreeze:
             self.update = lambda gs: None
 
     def init(self, gameState):
-        for enemy in gameState.enemies:
-            self.stateHandlerCollection.getStateHandler(enemy.aiData.state).init(gameState, enemy)
+        for bot in gameState.bots:
+            self.stateHandlerCollection.getStateHandler(bot.aiData.state).init(gameState, bot)
 
     # @cpuProfile
     def update(self, gameState):
-        for enemy, enemyItems in gameState.enemyItems.items():
-            inputData = gameState.enemyInputData[enemy]
+        for bot, botItems in gameState.botItems.items():
+            inputData = gameState.botInputData[bot]
             inputData.clear()
-            if enemy.lifeCycle != LifeCycle.alive or enemy.isParalyzed():
+            if bot.lifeCycle != LifeCycle.alive or bot.isParalyzed():
                 return
-            aiData = enemy.aiData
+            aiData = bot.aiData
             stateHandler = self.stateHandlerCollection.getStateHandler(aiData.state)
-            stateHandler.process(gameState, enemy, inputData)
+            stateHandler.process(gameState, bot, inputData)
             aiData.stateTime += 1
-            newState = stateHandler.getNewStateOrNone(gameState, enemy, enemyItems)
+            newState = stateHandler.getNewStateOrNone(gameState, bot, botItems)
             if newState is not None:
                 aiData.state = newState
                 aiData.stateTime = 0
-                self.stateHandlerCollection.getStateHandler(newState).init(gameState, enemy)
+                self.stateHandlerCollection.getStateHandler(newState).init(gameState, bot)

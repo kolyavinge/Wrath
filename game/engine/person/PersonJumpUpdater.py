@@ -6,9 +6,9 @@ class PersonJumpUpdater:
     def updateForPlayer(self, gameState):
         self.updateForPerson(gameState.player, gameState.playerInputData, gameState.updateStatistic)
 
-    def updateForEnemies(self, gameState):
-        for enemy, inputData in gameState.enemyInputData.items():
-            self.updateForPerson(enemy, inputData, gameState.updateStatistic)
+    def updateForBots(self, gameState):
+        for bot, inputData in gameState.botInputData.items():
+            self.updateForPerson(bot, inputData, gameState.updateStatistic)
 
     def updateForPerson(self, person, inputData, updateStatistic):
         isJumpAvailable = inputData.jump and (person.zState == PersonZState.onFloor or person.zState == PersonZState.jumping)

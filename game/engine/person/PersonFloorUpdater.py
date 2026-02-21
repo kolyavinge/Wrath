@@ -14,9 +14,9 @@ class PersonFloorUpdater:
     def updatePlayerNextFloor(self, gameState):
         self.updateForPerson(gameState.player, gameState.collisionTree)
 
-    def updateEnemiesNextFloor(self, gameState):
-        for enemy in gameState.enemies:
-            self.updateForPerson(enemy, gameState.collisionTree)
+    def updateBotsNextFloor(self, gameState):
+        for bot in gameState.bots:
+            self.updateForPerson(bot, gameState.collisionTree)
 
     def updateForPerson(self, person, collisionTree):
         personPosition = person.nextCenterPoint
@@ -40,6 +40,6 @@ class PersonFloorUpdater:
     def commitPlayerNextFloor(self, gameState):
         gameState.player.currentFloor = gameState.player.nextFloor
 
-    def commitEnemiesNextFloor(self, gameState):
-        for enemy in gameState.enemies:
-            enemy.currentFloor = enemy.nextFloor
+    def commitBotsNextFloor(self, gameState):
+        for bot in gameState.bots:
+            bot.currentFloor = bot.nextFloor
