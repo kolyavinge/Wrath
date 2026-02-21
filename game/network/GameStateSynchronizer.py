@@ -164,19 +164,21 @@ class GameStateSynchronizer:
             self.powerupLogic.removePowerup(gameState, powerup)
 
     def synchAddedPersonBulletCollision(self, gameState, diffBulletCollision):
-        bullet = gameState.removedBullets.getByKeyOrNone(diffBulletCollision.bulletId)
-        if bullet is None:
-            bullet = gameState.bullets.getByIdOrNone(diffBulletCollision.bulletId)
-        if bullet is None:
+        aliveOrRemovedBullet = gameState.removedBullets.getByIdOrNone(diffBulletCollision.bulletId) or gameState.bullets.getByIdOrNone(
+            diffBulletCollision.bulletId
+        )
+        if aliveOrRemovedBullet is None:
             return
         damagedPerson = gameState.allPerson.getById(diffBulletCollision.damagedPersonId)
-        gameState.collisionData.personBullet[damagedPerson] = bullet
-        bullet.damagedObject = damagedPerson
-        bullet.currentPosition = diffBulletCollision.collisionPoint.copy()
-        bullet.nextPosition = bullet.currentPosition
-        if bullet.isAlive:  # might have been removed
-            self.bulletLogic.removeBullet(gameState, bullet)
-        self.explosionLogic.makeExplosion(gameState, bullet)
+        gameState.collisionData.personBullet[damagedPerson] = aliveOrRemovedBullet
+        aliveOrRemovedBullet.damagedObject = damagedPerson
+        aliveOrRemovedBullet.currentPosition = diffBulletCollision.collisionPoint.copy()
+        aliveOrRemovedBullet.nextPosition = aliveOrRemovedBullet.currentPosition
+        if aliveOrRemovedBullet.isAlive:
+            self.bulletLogic.removeBullet(gameState, aliveOrRemovedBullet)
+        else:
+            gameState.removedBullets.remove(aliveOrRemovedBullet)
+        self.explosionLogic.makeExplosion(gameState, aliveOrRemovedBullet)
 
     def synchAddedPersonRayCollision(self, gameState, diffRayCollision):
         ray = Query(gameState.rays).firstOrNone(lambda x: x.id == diffRayCollision.rayId)
