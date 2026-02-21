@@ -33,7 +33,6 @@ from game.engine.person.CameraScopeChecker import *
 from game.engine.person.CameraUpdater import *
 from game.engine.person.CowboyEasterEggUpdater import *
 from game.engine.person.DashboardUpdater import *
-from game.engine.person.EnemyLevelSegmentsUpdater import *
 from game.engine.person.EnemyLifeBarUpdater import *
 from game.engine.person.EnemyVisibilityUpdater import *
 from game.engine.person.FragStatisticUpdater import *
@@ -57,7 +56,6 @@ from game.engine.person.PersonWeaponPositionUpdater import *
 from game.engine.person.PersonZUpdater import *
 from game.engine.person.PlayerBloodStainUpdater import *
 from game.engine.person.PlayerBreathUpdater import *
-from game.engine.person.PlayerLevelSegmentsUpdater import *
 from game.engine.person.PlayerMovingSwingUpdater import *
 from game.engine.person.PlayerWeaponSwingUpdater import *
 from game.engine.person.TorchUpdater import *
@@ -139,7 +137,6 @@ class EngineModule:
         binder.bindSingleton(CameraUpdater)
         binder.bindSingleton(CowboyEasterEggUpdater)
         binder.bindSingleton(DashboardUpdater)
-        binder.bindSingleton(EnemyLevelSegmentsUpdater)
         binder.bindSingleton(EnemyLifeBarUpdater)
         binder.bindSingleton(EnemyVisibilityUpdater)
         binder.bindSingleton(FragStatisticUpdater)
@@ -163,7 +160,6 @@ class EngineModule:
         binder.bindSingleton(PersonZUpdater)
         binder.bindSingleton(PlayerBloodStainUpdater)
         binder.bindSingleton(PlayerBreathUpdater)
-        binder.bindSingleton(PlayerLevelSegmentsUpdater)
         binder.bindSingleton(PlayerMovingSwingUpdater)
         binder.bindSingleton(PlayerWeaponSwingUpdater)
         binder.bindSingleton(TorchUpdater)

@@ -2,8 +2,8 @@ from game.anx.CommonConstants import CommonConstants
 from game.anx.DebugSettings import DebugSettings
 from game.anx.PersonIdLogic import PersonIdLogic
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
+from game.engine.person.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
-from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.weapon.WeaponSelector import WeaponSelector
 from game.model.person.Bot import Bot
 from game.model.person.EnemyLifeBar import EnemyLifeBar
@@ -23,13 +23,13 @@ class PersonInitializer:
         personTurnLogic: PersonTurnLogic,
         personFloorUpdater: PersonFloorUpdater,
         weaponSelector: WeaponSelector,
-        playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater,
+        personLevelSegmentsUpdater: PersonLevelSegmentsUpdater,
     ):
         self.personIdLogic = personIdLogic
         self.personTurnLogic = personTurnLogic
         self.personFloorUpdater = personFloorUpdater
         self.weaponSelector = weaponSelector
-        self.playerLevelSegmentsUpdater = playerLevelSegmentsUpdater
+        self.personLevelSegmentsUpdater = personLevelSegmentsUpdater
 
     def addEnemyToClient(self, gameState, personId):
         enemy = Person()
@@ -77,7 +77,7 @@ class PersonInitializer:
         self.weaponSelector.setWeaponByType(personItems, weaponType)
         self.personFloorUpdater.updatePlayerNextFloor(gameState)
         self.personFloorUpdater.commitPlayerNextFloor(gameState)
-        self.playerLevelSegmentsUpdater.updateForPlayer(gameState)
+        self.personLevelSegmentsUpdater.updateForPlayer(gameState)
 
     def addBotsToServer(self, gameState, level):
         if not DebugSettings.allowBots:
@@ -92,7 +92,7 @@ class PersonInitializer:
 
         self.personFloorUpdater.updateBotsNextFloor(gameState)
         self.personFloorUpdater.commitBotsNextFloor(gameState)
-        self.playerLevelSegmentsUpdater.updateForAllPerson(gameState)
+        self.personLevelSegmentsUpdater.updateForAllPerson(gameState)
 
     def addBotToServer(self, gameState, position, frontNormal, weaponType):
         bot = Bot()

@@ -10,6 +10,7 @@ from game.engine.person.FragStatisticUpdater import FragStatisticUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
 from game.engine.person.PersonJumpUpdater import PersonJumpUpdater
+from game.engine.person.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
 from game.engine.person.PersonLifeCycleUpdater import PersonLifeCycleUpdater
 from game.engine.person.PersonMovingTimeUpdater import PersonMovingTimeUpdater
 from game.engine.person.PersonPositionUpdater import PersonPositionUpdater
@@ -20,7 +21,6 @@ from game.engine.person.PersonUpdater import PersonUpdater
 from game.engine.person.PersonVelocityUpdater import PersonVelocityUpdater
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.person.PersonZUpdater import PersonZUpdater
-from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.powerup.PowerupUpdater import PowerupUpdater
 from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.weapon.BulletUpdater import BulletUpdater
@@ -46,6 +46,7 @@ class ServerUpdater:
     fragStatisticUpdater: FragStatisticUpdater
     personFloorUpdater: PersonFloorUpdater
     personJumpUpdater: PersonJumpUpdater
+    personLevelSegmentsUpdater: PersonLevelSegmentsUpdater
     personLifeCycleUpdater: PersonLifeCycleUpdater
     personMovingTimeUpdater: PersonMovingTimeUpdater
     personPositionUpdater: PersonPositionUpdater
@@ -55,7 +56,6 @@ class ServerUpdater:
     personVelocityUpdater: PersonVelocityUpdater
     personWeaponPositionUpdater: PersonWeaponPositionUpdater
     personZUpdater: PersonZUpdater
-    playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater
     powerupUpdater: PowerupUpdater
     bulletPositionUpdater: BulletPositionUpdater
     bulletUpdater: BulletUpdater
@@ -82,7 +82,7 @@ class ServerUpdater:
         self.personCeilingCollisionUpdater.updateForBots(gameState)
         self.personPositionUpdater.commitBotsNextPosition(gameState)
         self.personFloorUpdater.commitBotsNextFloor(gameState)
-        self.playerLevelSegmentsUpdater.updateForAllPerson(gameState)
+        self.personLevelSegmentsUpdater.updateForAllPerson(gameState)
         self.personWeaponPositionUpdater.update(gameState)
         self.weaponDelayUpdater.updateForBots(gameState)
         self.weaponFireUpdater.updateForEnemies(gameState)

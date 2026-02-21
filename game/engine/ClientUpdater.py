@@ -7,12 +7,12 @@ from game.engine.cm.RayCollisionUpdater import RayCollisionUpdater
 from game.engine.level.BackgroundVisibilityUpdater import BackgroundVisibilityUpdater
 from game.engine.person.CameraUpdater import CameraUpdater
 from game.engine.person.CowboyEasterEggUpdater import CowboyEasterEggUpdater
-from game.engine.person.EnemyLevelSegmentsUpdater import EnemyLevelSegmentsUpdater
 from game.engine.person.EnemyLifeBarUpdater import EnemyLifeBarUpdater
 from game.engine.person.EnemyVisibilityUpdater import EnemyVisibilityUpdater
 from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonFloorUpdater import PersonFloorUpdater
 from game.engine.person.PersonJumpUpdater import PersonJumpUpdater
+from game.engine.person.PersonLevelSegmentsUpdater import PersonLevelSegmentsUpdater
 from game.engine.person.PersonLifeCycleUpdater import PersonLifeCycleUpdater
 from game.engine.person.PersonMovingTimeUpdater import PersonMovingTimeUpdater
 from game.engine.person.PersonPositionUpdater import PersonPositionUpdater
@@ -25,7 +25,6 @@ from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionU
 from game.engine.person.PersonZUpdater import PersonZUpdater
 from game.engine.person.PlayerBloodStainUpdater import PlayerBloodStainUpdater
 from game.engine.person.PlayerBreathUpdater import PlayerBreathUpdater
-from game.engine.person.PlayerLevelSegmentsUpdater import PlayerLevelSegmentsUpdater
 from game.engine.person.PlayerMovingSwingUpdater import PlayerMovingSwingUpdater
 from game.engine.person.PlayerWeaponSwingUpdater import PlayerWeaponSwingUpdater
 from game.engine.person.TorchUpdater import TorchUpdater
@@ -55,12 +54,12 @@ class ClientUpdater:
     backgroundVisibilityUpdater: BackgroundVisibilityUpdater
     cameraUpdater: CameraUpdater
     cowboyEasterEggUpdater: CowboyEasterEggUpdater
-    enemyLevelSegmentsUpdater: EnemyLevelSegmentsUpdater
     enemyLifeBarUpdater: EnemyLifeBarUpdater
     enemyVisibilityUpdater: EnemyVisibilityUpdater
     levelSegmentVisibilityUpdater: LevelSegmentVisibilityUpdater
     personFloorUpdater: PersonFloorUpdater
     personJumpUpdater: PersonJumpUpdater
+    personLevelSegmentsUpdater: PersonLevelSegmentsUpdater
     personLifeCycleUpdater: PersonLifeCycleUpdater
     personMovingTimeUpdater: PersonMovingTimeUpdater
     personPositionUpdater: PersonPositionUpdater
@@ -73,7 +72,6 @@ class ClientUpdater:
     personZUpdater: PersonZUpdater
     playerBloodStainUpdater: PlayerBloodStainUpdater
     playerBreathUpdater: PlayerBreathUpdater
-    playerLevelSegmentsUpdater: PlayerLevelSegmentsUpdater
     playerMovingSwingUpdater: PlayerMovingSwingUpdater
     playerWeaponSwingUpdater: PlayerWeaponSwingUpdater
     torchUpdater: TorchUpdater
@@ -105,8 +103,8 @@ class ClientUpdater:
         self.personStepUpdater.update(gameState)
         self.personPositionUpdater.commitPlayerNextPosition(gameState)
         self.personFloorUpdater.commitPlayerNextFloor(gameState)
-        self.playerLevelSegmentsUpdater.updateForPlayer(gameState)
-        self.enemyLevelSegmentsUpdater.update(gameState)
+        self.personLevelSegmentsUpdater.updateForPlayer(gameState)
+        self.personLevelSegmentsUpdater.updateForEnemies(gameState)
         self.playerMovingSwingUpdater.update(gameState)
         self.personWeaponPositionUpdater.update(gameState)
         self.playerWeaponSwingUpdater.update(gameState)
