@@ -16,8 +16,8 @@ class RouteCollisionDetector:
         self.traversal = traversal
 
     def anyCollisions(self, startPoint, endPoint, collisionTree):
-        startLevelSegment = self.traversal.findLevelSegmentOrNone(collisionTree, startPoint)
-        endLevelSegment = self.traversal.findLevelSegmentOrNone(collisionTree, endPoint)
+        startLevelSegment = self.traversal.findLevelSegment(collisionTree, startPoint)
+        endLevelSegment = self.traversal.findLevelSegment(collisionTree, endPoint)
 
         return self.anyWallCollisions(startPoint, endPoint, startLevelSegment, endLevelSegment, collisionTree) or self.anyVoidCollisions(
             startPoint, endPoint, startLevelSegment, endLevelSegment, collisionTree

@@ -22,16 +22,16 @@ class DebrisLogic:
         if explosion.debrisType is None:
             return None
 
-        currentLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, explosion.position)
-        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, explosion.position)
+        currentLevelSegment = self.traversal.findLevelSegment(gameState.collisionTree, explosion.position)
+        visibilityLevelSegment = self.traversal.findLevelSegment(gameState.visibilityTree, explosion.position)
 
         debris = self.makeDebrisWithRandomPositions(explosion)
         for piece in debris:
             self.addToGameState(gameState, piece, currentLevelSegment, visibilityLevelSegment)
 
     def makeDebrisManually(self, gameState, id, debrisType, ownerPerson, position, direction):
-        currentLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, position)
-        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, position)
+        currentLevelSegment = self.traversal.findLevelSegment(gameState.collisionTree, position)
+        visibilityLevelSegment = self.traversal.findLevelSegment(gameState.visibilityTree, position)
 
         piece = debrisType()
         piece.id = id

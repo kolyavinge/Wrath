@@ -25,14 +25,14 @@ class BulletPositionUpdater:
         if bullet.totalDistance < CommonConstants.maxLevelSize:
             bullet.nextPosition.add(bullet.velocity)
             bspTree = gameState.collisionTree
-            bullet.nextLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.nextPosition)
+            bullet.nextLevelSegment = self.traversal.findLevelSegment(bspTree, bullet.nextPosition)
         else:
             self.bulletLogic.removeBullet(gameState, bullet)
 
     def moveBulletNextPositionTo(self, gameState, bullet, position):
         bullet.nextPosition = position.copy()
         bspTree = gameState.collisionTree
-        bullet.nextLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, bullet.nextPosition)
+        bullet.nextLevelSegment = self.traversal.findLevelSegment(bspTree, bullet.nextPosition)
 
     def commitNextPosition(self, gameState):
         visibilityTree = gameState.visibilityTree
@@ -44,7 +44,7 @@ class BulletPositionUpdater:
             oldVisibilityLevelSegment = bullet.currentVisibilityLevelSegment
             bullet.commitNextPosition()
             bullet.currentLevelSegment = bullet.nextLevelSegment
-            bullet.currentVisibilityLevelSegment = self.traversal.findLevelSegmentOrNone(visibilityTree, bullet.currentPosition)
+            bullet.currentVisibilityLevelSegment = self.traversal.findLevelSegment(visibilityTree, bullet.currentPosition)
             self.moveBulletToNewVisibilityLevelSegment(bullet, oldVisibilityLevelSegment, bullet.currentVisibilityLevelSegment)
         else:
             bullet.commitNextPosition()

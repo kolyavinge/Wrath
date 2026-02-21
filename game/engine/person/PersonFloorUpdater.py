@@ -20,8 +20,7 @@ class PersonFloorUpdater:
 
     def updateForPerson(self, person, collisionTree):
         personPosition = person.nextCenterPoint
-        levelSegment = self.traversal.findLevelSegmentOrNone(collisionTree, personPosition)
-        assert levelSegment is not None
+        levelSegment = self.traversal.findLevelSegment(collisionTree, personPosition)
         if len(levelSegment.floors) == 0:
             person.nextFloor = NullFloor.instance
         elif len(levelSegment.floors) == 1:

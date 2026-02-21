@@ -97,7 +97,7 @@ class RouteFinder:
         return routePoints
 
     def getPointZ(self, point, collisionTree):
-        levelSegment = self.traversal.findLevelSegmentOrNone(collisionTree, point)
+        levelSegment = self.traversal.findLevelSegment(collisionTree, point)
         z = levelSegment.floors[0].getZ(point.x, point.y)
 
         return z

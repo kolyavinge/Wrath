@@ -33,11 +33,11 @@ class PowerupLogic:
         return powerup
 
     def initLevelSegments(self, gameState, powerup):
-        levelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, powerup.position)
+        levelSegment = self.traversal.findLevelSegment(gameState.collisionTree, powerup.position)
         levelSegment.powerups.append(powerup)
         powerup.collisionLevelSegment = levelSegment
 
-        levelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, powerup.position)
+        levelSegment = self.traversal.findLevelSegment(gameState.visibilityTree, powerup.position)
         levelSegment.powerups.append(powerup)
         powerup.visibilityLevelSegment = levelSegment
 

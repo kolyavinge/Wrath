@@ -16,13 +16,11 @@ class LevelSegmentJoinLineAnalyzer:
             point = joinLine.middlePoint.copy()
 
             point.add(joinLine.frontNormal)
-            frontLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, point)
-            assert frontLevelSegment is not None
+            frontLevelSegment = self.traversal.findLevelSegment(bspTree, point)
 
             point.sub(joinLine.frontNormal)
             point.sub(joinLine.frontNormal)
-            backLevelSegment = self.traversal.findLevelSegmentOrNone(bspTree, point)
-            assert backLevelSegment is not None
+            backLevelSegment = self.traversal.findLevelSegment(bspTree, point)
 
             if frontLevelSegment != backLevelSegment:
                 joinLine.frontLevelSegment = frontLevelSegment

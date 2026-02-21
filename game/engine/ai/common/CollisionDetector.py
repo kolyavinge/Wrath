@@ -18,7 +18,7 @@ class CollisionDetector:
     def anyCollisions(self, bot, direction, collisionTree):
         nextCenterPoint = bot.currentFootRect.center.copy()
         nextCenterPoint.add(direction)
-        nextCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(collisionTree, nextCenterPoint)
+        nextCenterPointLevelSegment = self.traversal.findLevelSegment(collisionTree, nextCenterPoint)
 
         return (
             self.anyWallCollisions(bot, nextCenterPoint, nextCenterPointLevelSegment)

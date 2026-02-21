@@ -1,9 +1,11 @@
 class BSPTreeTraversal:
 
-    def findLevelSegmentOrNone(self, bspTree, point):
+    def findLevelSegment(self, bspTree, point):
         self.point = point
         self.findedLevelSegment = None
         self.findLevelSegmentRec(bspTree.root)
+        if self.findedLevelSegment is None:
+            raise Exception(f"Cannot find a level segment at {point}")
 
         return self.findedLevelSegment
 

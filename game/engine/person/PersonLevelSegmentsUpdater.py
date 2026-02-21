@@ -24,7 +24,7 @@ class PersonLevelSegmentsUpdater:
         self.removePersonFromLevelSegments(person)
         self.updatePerson(person, collisionTree, visibilityTree)
         self.addPersonToLevelSegments(person)
-        person.currentCenterPointLevelSegment = self.traversal.findLevelSegmentOrNone(collisionTree, person.currentCenterPoint)
+        person.currentCenterPointLevelSegment = self.traversal.findLevelSegment(collisionTree, person.currentCenterPoint)
 
     def updateEnemy(self, enemy, gameState):
         self.removeEnemyFromLevelSegments(enemy)
@@ -35,14 +35,14 @@ class PersonLevelSegmentsUpdater:
         person.collisionLevelSegments = set()
         self.updateCollisionLevelSegments(person, collisionTree, person.currentBorder.bottom)
         self.updateCollisionLevelSegments(person, collisionTree, person.currentBorder.top)
-        person.visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(visibilityTree, person.currentCenterPoint)
+        person.visibilityLevelSegment = self.traversal.findLevelSegment(visibilityTree, person.currentCenterPoint)
 
     def updateCollisionLevelSegments(self, person, bspTree, border):
         segments = person.collisionLevelSegments
-        segments.add(self.traversal.findLevelSegmentOrNone(bspTree, border.downLeft))
-        segments.add(self.traversal.findLevelSegmentOrNone(bspTree, border.downRight))
-        segments.add(self.traversal.findLevelSegmentOrNone(bspTree, border.upLeft))
-        segments.add(self.traversal.findLevelSegmentOrNone(bspTree, border.upRight))
+        segments.add(self.traversal.findLevelSegment(bspTree, border.downLeft))
+        segments.add(self.traversal.findLevelSegment(bspTree, border.downRight))
+        segments.add(self.traversal.findLevelSegment(bspTree, border.upLeft))
+        segments.add(self.traversal.findLevelSegment(bspTree, border.upRight))
 
     def addPersonToLevelSegments(self, person):
         for segment in person.collisionLevelSegments:

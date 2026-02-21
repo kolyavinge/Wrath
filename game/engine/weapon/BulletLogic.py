@@ -22,10 +22,10 @@ class BulletLogic:
         elif weapon.hasDebrisAfterExplosion:
             bullet.randomSeed = Random.getInt(0, CommonConstants.maxBulletSeed)
         gameState.bullets.append(bullet)
-        bullet.currentLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.collisionTree, bullet.currentPosition)
+        bullet.currentLevelSegment = self.traversal.findLevelSegment(gameState.collisionTree, bullet.currentPosition)
         bullet.nextLevelSegment = bullet.currentLevelSegment
 
-        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, bullet.currentPosition)
+        visibilityLevelSegment = self.traversal.findLevelSegment(gameState.visibilityTree, bullet.currentPosition)
         if bullet.isVisible:
             bullet.currentVisibilityLevelSegment = visibilityLevelSegment
             visibilityLevelSegment.bullets.append(bullet)

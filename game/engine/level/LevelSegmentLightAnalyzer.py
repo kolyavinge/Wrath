@@ -22,8 +22,7 @@ class LevelSegmentLightAnalyzer:
         for levelSegment in allLevelSegments:
             levelSegment.lightsWithJoined = levelSegment.lights.copy()
             for light in level.lights:
-                lightLevelSegment = self.traversal.findLevelSegmentOrNone(self.bspTree, light.position)
-                assert lightLevelSegment is not None
+                lightLevelSegment = self.traversal.findLevelSegment(self.bspTree, light.position)
                 if lightLevelSegment != levelSegment:
                     if self.isLightJoinedToSegment(light, lightLevelSegment, levelSegment):
                         levelSegment.lightsWithJoined.append(light)

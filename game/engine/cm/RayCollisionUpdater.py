@@ -47,7 +47,7 @@ class RayCollisionUpdater:
         collisionPoint, construction = collisionResult
         ray.currentPosition = collisionPoint
         ray.damagedObject = construction
-        visibilityLevelSegment = self.traversal.findLevelSegmentOrNone(gameState.visibilityTree, collisionPoint)
+        visibilityLevelSegment = self.traversal.findLevelSegment(gameState.visibilityTree, collisionPoint)
         self.bulletHoleLogic.makeHole(gameState, collisionPoint, construction.frontNormal, visibilityLevelSegment, ray.holeInfo)
 
     def processPersonCollision(self, gameState, ray, collisionResult):
