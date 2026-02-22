@@ -14,7 +14,7 @@ class SnapshotDiffLogic:
                 diff.person = snapshotNew.person
 
         if hasattr(snapshotNew, "players"):
-            assert clientPlayerId != None
+            assert clientPlayerId is not None
             for playerId, player in snapshotNew.players.items():
                 if playerId == clientPlayerId:
                     if playerId in snapshotOld.players and player != snapshotOld.players[playerId]:
@@ -23,7 +23,7 @@ class SnapshotDiffLogic:
                         break
 
         if hasattr(snapshotNew, "allPerson"):
-            assert clientPlayerId != None
+            assert clientPlayerId is not None
             changedEnemies = []
             addedEnemyIds = []
             for personId, newPerson in snapshotNew.allPerson.items():
@@ -57,10 +57,7 @@ class SnapshotDiffLogic:
                 diff.addedBullets = addedBullets
 
         if hasattr(snapshotNew, "rays"):
-
             if clientPlayerId is not None:
-                if len(snapshotNew.rays) > 0:
-                    pass
                 addedRays = Dictionary.getAddedItemsWithFilter(
                     snapshotOld.rays, snapshotNew.rays, lambda _, newRay: newRay.personId != clientPlayerId
                 )
