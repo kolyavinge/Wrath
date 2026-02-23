@@ -89,6 +89,8 @@ class SnapshotFactory:
             personItems = allPersonItems[bullet.ownerPerson]
             if bullet.weapon == personItems.leftHandWeapon:
                 snapshotBullet.weaponInfo |= WeaponInfoExtraBit.leftHandWeapon
+        if bullet.isCharged:
+            snapshotBullet.weaponInfo |= WeaponInfoExtraBit.isCharged
         snapshotBullet.position = bullet.prevCurrentPosition.copy()
         snapshotBullet.direction = bullet.direction.copy()
         snapshotBullet.randomSeed = bullet.randomSeed

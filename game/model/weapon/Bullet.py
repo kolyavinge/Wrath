@@ -31,6 +31,7 @@ class Bullet:
         self.isHeadshotEnabled = False
         self.canDamageOwner = False
         self.canIncreaseFrags = True
+        self.isCharged = None
         self.paralyze = False
         self.holeInfo = None
         self.traceShift = 0

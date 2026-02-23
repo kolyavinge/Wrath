@@ -5,16 +5,19 @@ from game.model.weapon.WeaponCollection import WeaponCollection
 class WeaponInfoExtraBit:
 
     leftHandWeapon = 1 << 7
+    isCharged = 1 << 6
+    weaponNumber = 0b00001111
 
 
 class SnapshotBullet:
 
     @staticmethod
     def readWeaponInfo(weaponInfo):
-        weaponNumber = weaponInfo & ~WeaponInfoExtraBit.leftHandWeapon
+        weaponNumber = weaponInfo & WeaponInfoExtraBit.weaponNumber
         isLeftHandWeapon = weaponInfo & WeaponInfoExtraBit.leftHandWeapon > 0
+        isCharged = weaponInfo & WeaponInfoExtraBit.isCharged > 0
 
-        return (weaponNumber, isLeftHandWeapon)
+        return (weaponNumber, isLeftHandWeapon, isCharged)
 
     @staticmethod
     def make(id, personId, weaponInfo, position, direction, randomSeed):
@@ -90,7 +93,7 @@ class SnapshotBullet:
             bullet.direction.z,
         ) = reader.read("iiBffffff")
 
-        weaponNumber, _ = SnapshotBullet.readWeaponInfo(bullet.weaponInfo)
+        weaponNumber, _, _ = SnapshotBullet.readWeaponInfo(bullet.weaponInfo)
         if WeaponCollection.getWeaponTypeByNumber(weaponNumber).hasDebrisAfterExplosion:
             bullet.randomSeed = reader.read("H")
 

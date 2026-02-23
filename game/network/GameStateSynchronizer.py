@@ -117,7 +117,7 @@ class GameStateSynchronizer:
         # сюда же: если у пули перед выстрелом изменилась скорость (Railgun charge)
         person = gameState.allPerson.getById(diffBullet.personId)
         personItems = gameState.allPersonItems[person]
-        weaponNumber, isLeftHandWeapon = SnapshotBullet.readWeaponInfo(diffBullet.weaponInfo)
+        weaponNumber, isLeftHandWeapon, isCharged = SnapshotBullet.readWeaponInfo(diffBullet.weaponInfo)
         diffBulletWeaponType = WeaponCollection.getWeaponTypeByNumber(weaponNumber)
         if not personItems.hasWeaponByType(diffBulletWeaponType):
             return
@@ -129,6 +129,8 @@ class GameStateSynchronizer:
                 personItems.setLeftHandWeaponAsCurrent()
             else:
                 personItems.setRightHandWeaponAsCurrent()
+        if isCharged:
+            personItems.currentWeapon.isCharged = True
         newBullet = self.bulletLogic.makeBullet(gameState, person, personItems.currentWeapon, diffBullet.id, diffBullet.randomSeed)
         newBullet.direction = diffBullet.direction.copy()
         # newBullet.velocityValue = diffBullet.velocityValue
