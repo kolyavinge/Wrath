@@ -139,5 +139,6 @@ class ClientUpdater:
         gameState.updateGlobalTime()
 
     def clear(self, gameState):
+        self.bulletUpdater.updateNotAliveBullets(gameState)
         gameState.updateStatistic.clear()
         gameState.collisionData.clear()

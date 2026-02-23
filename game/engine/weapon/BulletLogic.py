@@ -43,9 +43,7 @@ class BulletLogic:
 
         return bullet
 
-    def removeBullet(self, gameState, removedBullet):
+    def removeBullet(self, removedBullet):
         removedBullet.isAlive = False
-        gameState.removedBullets.append(removedBullet)
-        gameState.bullets.remove(removedBullet)
         if removedBullet.isVisible:
             removedBullet.currentVisibilityLevelSegment.bullets.remove(removedBullet)

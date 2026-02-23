@@ -61,7 +61,7 @@ class BulletCollisionUpdater:
             bullet.velocity.setLength(bullet.velocityValue)
             bullet.totalDistance = 0
         else:
-            self.bulletLogic.removeBullet(gameState, bullet)
+            self.bulletLogic.removeBullet(bullet)
             bullet.damagedObject = construction
             visibilityLevelSegment = self.traversal.findLevelSegment(gameState.visibilityTree, collisionPoint)
             self.bulletHoleLogic.makeHole(gameState, collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
@@ -74,7 +74,7 @@ class BulletCollisionUpdater:
                 self.personDamageLogic.damageByBullet(person, gameState.allPersonItems[person], bullet, gameState.collisionData)
                 bullet.damagedPersonSet.add(person)  # one person damaged only once
         else:
-            self.bulletLogic.removeBullet(gameState, bullet)
+            self.bulletLogic.removeBullet(bullet)
             bullet.currentPosition = collisionPoint
             bullet.nextPosition = collisionPoint
             if bullet.isHeadshotEnabled and target == PersonCollisionTarget.head:

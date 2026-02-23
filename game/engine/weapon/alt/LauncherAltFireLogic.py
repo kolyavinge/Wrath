@@ -18,4 +18,4 @@ class LauncherAltFireLogic:
             personBullets = [bullet for bullet in gameState.bullets if bullet.ownerPerson == person]
             for bullet in personBullets:
                 self.explosionLogic.makeExplosion(gameState, bullet)
-                self.bulletLogic.removeBullet(gameState, bullet)
+                self.bulletLogic.removeBullet(bullet)

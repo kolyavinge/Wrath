@@ -105,6 +105,7 @@ class ServerUpdater:
         gameState.updateGlobalTime()
 
     def clear(self, gameState):
+        self.bulletUpdater.updateNotAliveBullets(gameState)
         gameState.updateStatistic.clear()
         gameState.reservedCollisionData.update(gameState.collisionData)
         gameState.collisionData.clear()
