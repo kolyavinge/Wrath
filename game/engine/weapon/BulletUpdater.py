@@ -1,3 +1,6 @@
+from game.lib.IdList import IdList
+
+
 class BulletUpdater:
 
     def update(self, gameState):
@@ -12,4 +15,4 @@ class BulletUpdater:
                 gameState.bullets.remove(removedBullet)
                 hasRemovedBullets = True
         if hasRemovedBullets:
-            gameState.bullets = [bullet for bullet in gameState.bullets if bullet.isAlive]
+            gameState.bullets = IdList([bullet for bullet in gameState.bullets if bullet.isAlive])
