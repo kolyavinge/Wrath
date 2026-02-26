@@ -4,7 +4,7 @@ from termcolor import colored
 
 
 def warn(message):
-    print(colored(f"Warning: {message}", "yellow"))
+    print(colored(f"Warning: {message}.", "yellow"))
 
 
 def convertListToLPLPChar(lst):

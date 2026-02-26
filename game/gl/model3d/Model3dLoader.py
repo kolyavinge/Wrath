@@ -40,7 +40,7 @@ class Model3dLoader:
                 self.animationLoader.loadAnimations(model3d, aiScene)
             procSw.stop()
 
-        print(f"Load model {modelFilePath} {loadSw.elapsed:.8f} (process {procSw.elapsed:.8f})")
+        print(f"Load model {modelFilePath} {loadSw.elapsed:.8f} (process {procSw.elapsed:.8f}).")
 
         return model3d
 

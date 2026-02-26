@@ -54,9 +54,9 @@ def analyzeProjectDir(parentPath):
 
 analyzeProjectDir("D:\\Projects\\Wrath\\game")
 
-print(f"python files count: {pyFilesCount}")
-print(f"python files lines count: {linesCount:,d}")
-print(f"classes count: {classesCount}")
-print(f"big files count: {bigFilesCount}")
+print(f"python files count: {pyFilesCount}.")
+print(f"python files lines count: {linesCount:,d}.")
+print(f"classes count: {classesCount}.")
+print(f"big files count: {bigFilesCount}.")
 if len(bigFileNames) > 0:
     print(bigFileNames)

@@ -14,4 +14,4 @@ class Stopwatch:
         self.elapsed += self.stopedAt - self.startedAt
 
     def printElapsed(self):
-        print(f"{self.elapsed:.8}")
+        print(f"{self.elapsed:.8}.")

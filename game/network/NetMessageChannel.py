@@ -56,6 +56,7 @@ class NetMessageChannel:
         self.isListenerRunning = True
         self.udpListener = socket(AF_INET, SOCK_DGRAM)
         self.udpListener.bind((self.addressForReceiving, self.portForReceiving))
+        print(f"NetMessageChannel Listener is running on {self.addressForReceiving}:{self.portForReceiving}.")
         while self.isListenerRunning:
             messageBytes, serverAddress = self.udpListener.recvfrom(Message.maxMessageSizeBytes)
             message = self.messageSerializer.fromBytes(messageBytes)

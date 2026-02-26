@@ -53,7 +53,7 @@ class App:
         glutSwapBuffers()
         error = glGetError()
         if error != GL_NO_ERROR:
-            raise Exception(f"OpenGL error: {gluErrorString(error)}")
+            raise Exception(f"OpenGL error: {gluErrorString(error)}.")
 
     def resize(self, width, height):
         glViewport(0, 0, width, height)
@@ -79,7 +79,7 @@ class App:
         self.game.finalize()
 
 
-print("\r\nStart the app")
+print("\r\nStart the app.")
 
 app = App()
 app.run()

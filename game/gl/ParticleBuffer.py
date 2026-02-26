@@ -39,13 +39,13 @@ class ParticleBuffer:
 
     def setLifeTimeData(self, lifeTimeData):
         if self.lifeTimeBuffer is None:
-            raise Exception("LifeTime buffer is not initialized")
+            raise Exception("LifeTime buffer is not initialized.")
         data = numpy.array(lifeTimeData, dtype=numpy.float32)
         self.setData(self.lifeTimeBuffer, data)
 
     def setColorData(self, colorData):
         if self.colorBuffer is None:
-            raise Exception("Color buffer is not initialized")
+            raise Exception("Color buffer is not initialized.")
         plainData = []
         for vector in colorData:
             plainData.append(vector.x)
@@ -57,7 +57,7 @@ class ParticleBuffer:
 
     def setTexCoordData(self, texCoordData):
         if self.texCoordBuffer is None:
-            raise Exception("TexCoord buffer is not initialized")
+            raise Exception("TexCoord buffer is not initialized.")
         plainData = []
         for vector in texCoordData:
             plainData.append(vector.x)
@@ -69,7 +69,7 @@ class ParticleBuffer:
 
     def setRandomData(self, randomData):
         if self.randomBuffer is None:
-            raise Exception("Random buffer is not initialized")
+            raise Exception("Random buffer is not initialized.")
         data = numpy.array(randomData, dtype=numpy.float32)
         self.setData(self.randomBuffer, data)
 

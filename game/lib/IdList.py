@@ -5,7 +5,7 @@ class IdList(list):
         if item is not None:
             return item
         else:
-            raise Exception(f"List has no item with id={id}")
+            raise Exception(f"List has no item with id={id}.")
 
     def getByIdOrNone(self, id):
         for item in self:

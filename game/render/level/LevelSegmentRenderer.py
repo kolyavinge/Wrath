@@ -41,4 +41,4 @@ class LevelSegmentRenderer:
 
     def printDebugInfo(self):
         constructions = Query([segment.allConstructions for segment in self.gameState.visibleLevelSegments]).flatten().result
-        print(f"all {len(constructions)}, unique {len(set(constructions))} {(len(set(constructions)) / len(constructions)):f}")
+        print(f"all {len(constructions)}, unique {len(set(constructions))} {(len(set(constructions)) / len(constructions)):f}.")
