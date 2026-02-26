@@ -13,6 +13,13 @@ class FileSystem:
         with open(filePath, "r") as f:
             return f.read()
 
+    def readAllLines(self, filePath):
+        if filePath is None or len(filePath) == 0:
+            raise Exception("Path cannot be empty.")
+
+        with open(filePath, "r") as f:
+            return f.readlines()
+
     def getDirectoryName(self, path):
         return os.path.dirname(path)
 

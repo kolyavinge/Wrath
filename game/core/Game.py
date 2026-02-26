@@ -1,3 +1,4 @@
+from game.anx.ConfigManager import ConfigManager
 from game.core.Client import Client
 from game.core.GameInitializer import GameInitializer
 from game.core.GameStartMode import GameStartMode
@@ -11,11 +12,13 @@ class Game:
 
     def __init__(
         self,
+        configManager: ConfigManager,
         gameInitializer: GameInitializer,
         inputManager: InputManager,
         screenManager: ScreenManager,
         eventManager: EventManager,  # for App
     ):
+        self.configManager = configManager
         self.gameInitializer = gameInitializer
         self.inputManager = inputManager
         self.screenManager = screenManager
@@ -25,6 +28,7 @@ class Game:
 
     def init(self, gameStartMode):
         print("GameStartMode", gameStartMode)
+        self.configManager.readConfig()
         self.client = Client()
         if gameStartMode == GameStartMode.clientServerMode:
             self.server = Server()
