@@ -37,9 +37,7 @@ class GameService:
         if requestMessage.type == MessageType.connectToServerRequest:
             print("GameService has received connection request.")
             playerId, portForSendingToServer, portForReceivingFromServer = self.serverConnectionLogic.connectByNet(clientAddressAndPort)
-            print(
-                f"New client has been connected: playerId={playerId}, portForSendingToServer={portForSendingToServer}, portForReceivingFromServer={portForReceivingFromServer}."
-            )
+            print(f"Client connected: id={playerId}, portSendToServer={portForSendingToServer}, portReceiveFromServer={portForReceivingFromServer}.")
             response = ConnectToServerResponse(playerId, portForSendingToServer, portForReceivingFromServer)
             responseMessage = Message(MessageType.connectToServerResponse, response)
 

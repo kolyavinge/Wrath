@@ -8,8 +8,8 @@ class CowboyEasterEggUpdater:
     # если игрок стоит неподвижно с пистолетами 20 секунд, то он их начинает крутить
 
     def __init__(self):
-        self.remainInit = 120
-        self.radianStep = 7 * Math.piDouble / self.remainInit
+        self.remainInit = 50
+        self.radianStep = 5 * Math.piDouble / self.remainInit
 
     def update(self, gameState):
         playerItems = gameState.playerItems

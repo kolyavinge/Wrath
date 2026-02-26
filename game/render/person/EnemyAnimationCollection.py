@@ -15,6 +15,9 @@ class EnemyAnimationCollection:
         self.animations = {}
 
     def addPerson(self, person):
+        if not self.renderCollection.isInitialized():
+            self.renderCollection.init(forced=True)
+
         modelAnimations = self.renderCollection.enemyModel.animations
         animationName = self.animationNames[PersonZState.onFloor]
         self.animations[person] = PlayableAnimation(modelAnimations[animationName])

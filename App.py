@@ -11,6 +11,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.core.GameFactory import GameFactory
 from game.core.GameStartMode import GameStartMode
 from game.input.Keyboard import KeyboardButtons
+from game.lib.Environment import Environment
 from game.lib.EventManager import Events
 from game.lib.Screen import Screen
 from game.tools.CpuProfiler import CpuProfiler
@@ -79,7 +80,7 @@ class App:
         self.game.finalize()
 
 
-print("\r\nStart the app.")
+print(f"\r\nStart the app ({Environment.programRootPath}).")
 
 app = App()
 app.run()

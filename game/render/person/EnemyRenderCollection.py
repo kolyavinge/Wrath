@@ -16,8 +16,11 @@ class EnemyRenderCollection:
         self.enemyModel = None
         self.withAdjacency = True
 
-    def init(self):
-        if not DebugSettings.allowBots:
+    def isInitialized(self):
+        return self.enemyModel is not None
+
+    def init(self, forced=False):
+        if not forced and not DebugSettings.allowBots:
             return
 
         if self.enemyModel is not None:
