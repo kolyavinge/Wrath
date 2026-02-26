@@ -1,3 +1,4 @@
+from game.anx.ConfigManager import ConfigManager
 from game.network.EmptyMessageChannel import EmptyMessageChannel
 from game.network.GameServiceClient import GameServiceClient
 from game.network.NetMessageChannel import NetMessageChannel
@@ -8,8 +9,11 @@ class ClientConnectionLogic:
     def __init__(
         self,
         gameServiceClient: GameServiceClient,
+        configManager: ConfigManager,
     ):
         self.gameServiceClient = gameServiceClient
+        self.clientAddress = configManager.clientAddress
+        self.serverAddress = configManager.serverAddress
 
     def connectByNet(self, netClient):
         connectionResult = self.gameServiceClient.connectToServer()
@@ -17,7 +21,12 @@ class ClientConnectionLogic:
             raise Exception("Unable to connect to server.")
 
         netClient.playerId = connectionResult.playerId
-        netClient.channelToServer = NetMessageChannel(connectionResult.portForSendingToServer, connectionResult.portForReceivingFromServer)
+        netClient.channelToServer = NetMessageChannel(
+            self.serverAddress,
+            connectionResult.portForSendingToServer,
+            self.clientAddress,
+            connectionResult.portForReceivingFromServer,
+        )
         netClient.channelToServer.open()
 
         return connectionResult.playerId

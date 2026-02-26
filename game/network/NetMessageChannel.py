@@ -9,8 +9,10 @@ from game.network.SendMessageResult import SendMessageResult
 
 class NetMessageChannel:
 
-    def __init__(self, portForSending, portForReceiving):
+    def __init__(self, addressForSending, portForSending, addressForReceiving, portForReceiving):
+        self.addressForSending = addressForSending
         self.portForSending = portForSending
+        self.addressForReceiving = addressForReceiving
         self.portForReceiving = portForReceiving
         self.messageSerializer = MessageSerializer()
         self.receivedMessages = Queue()
@@ -29,7 +31,7 @@ class NetMessageChannel:
         try:
             udpSender = socket(AF_INET, SOCK_DGRAM)
             messageBytes, messageLength = self.messageSerializer.toBytes(message)
-            udpSender.sendto(messageBytes[:messageLength], ("127.0.0.1", self.portForSending))
+            udpSender.sendto(messageBytes[:messageLength], (self.addressForSending, self.portForSending))
             acknowledgeByte = udpSender.recv(1)
             if acknowledgeByte[0] == SendMessageResult.sended:
                 return SendMessageResult.sended
@@ -53,7 +55,7 @@ class NetMessageChannel:
     def runListener(self):
         self.isListenerRunning = True
         self.udpListener = socket(AF_INET, SOCK_DGRAM)
-        self.udpListener.bind(("127.0.0.1", self.portForReceiving))
+        self.udpListener.bind((self.addressForReceiving, self.portForReceiving))
         while self.isListenerRunning:
             messageBytes, serverAddress = self.udpListener.recvfrom(Message.maxMessageSizeBytes)
             message = self.messageSerializer.fromBytes(messageBytes)

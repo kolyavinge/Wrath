@@ -1,4 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
+from game.anx.ConfigManager import ConfigManager
 from game.anx.PersonIdLogic import PersonIdLogic
 from game.core.Server import ConnectedClient
 from game.engine.person.PersonInitializer import PersonInitializer
@@ -15,10 +16,12 @@ class ServerConnectionLogic:
         personInitializer: PersonInitializer,
         personIdLogic: PersonIdLogic,
         netPortManager: NetPortManager,
+        configManager: ConfigManager,
     ):
         self.personInitializer = personInitializer
         self.personIdLogic = personIdLogic
         self.netPortManager = netPortManager
+        self.serverAddress = configManager.serverAddress
 
     def init(self, server):
         self.server = server
@@ -37,16 +40,17 @@ class ServerConnectionLogic:
 
         return playerId
 
-    def connectByNet(self):
+    def connectByNet(self, clientAddressAndPort):
         if len(self.server.clients) == CommonConstants.maxServerPlayers:
             raise Exception("Max server players has exceeded.")
 
+        clientAddress, _ = clientAddressAndPort
         playerId = self.personIdLogic.getNetPlayerId()
         portForSendingToServer = self.netPortManager.getFreePort()
         portForReceivingFromServer = self.netPortManager.getFreePort()
         connectedNetClient = ConnectedClient()
         connectedNetClient.playerId = playerId
-        connectedNetClient.channelToClient = NetMessageChannel(portForReceivingFromServer, portForSendingToServer)
+        connectedNetClient.channelToClient = NetMessageChannel(clientAddress, portForReceivingFromServer, self.serverAddress, portForSendingToServer)
         self.server.clients[connectedNetClient.playerId] = connectedNetClient
         self.personInitializer.addPlayerToServer(self.server.gameState, connectedNetClient.playerId)
         connectedNetClient.channelToClient.open()

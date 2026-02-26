@@ -1,5 +1,6 @@
 from socket import AF_INET, SOCK_STREAM, socket
 
+from game.anx.ConfigManager import ConfigManager
 from game.network.contracts import EmptyRequest
 from game.network.Message import Message, MessageType
 from game.network.MessageSerializer import MessageSerializer
@@ -10,8 +11,11 @@ class GameServiceClient:
     def __init__(
         self,
         messageSerializer: MessageSerializer,
+        configManager: ConfigManager,
     ):
         self.messageSerializer = messageSerializer
+        self.serverAddress = configManager.serverAddress
+        self.serverPort = configManager.serverPort
 
     def connectToServer(self):
         requestMessage = Message(MessageType.connectToServerRequest, EmptyRequest())
@@ -27,7 +31,7 @@ class GameServiceClient:
     def sendRequest(self, requestMessage):
         try:
             with socket(AF_INET, SOCK_STREAM) as tcpSender:
-                tcpSender.connect(("127.0.0.1", 6464))
+                tcpSender.connect((self.serverAddress, self.serverPort))
                 messageBytes, messageLength = self.messageSerializer.toBytes(requestMessage)
                 tcpSender.sendall(messageBytes[:messageLength])
                 messageBytes = tcpSender.recv(Message.maxMessageSizeBytes)
