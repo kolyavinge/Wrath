@@ -4,6 +4,7 @@ from game.anx.PersonIdLogic import PersonIdLogic
 from game.core.Server import ConnectedClient
 from game.engine.person.PersonInitializer import PersonInitializer
 from game.lib.NetPortManager import NetPortManager
+from game.lib.Query import Query
 from game.network.EmptyMessageChannel import EmptyMessageChannel
 from game.network.LocalMessageChannel import LocalMessageChannel, MessageHolder
 from game.network.NetMessageChannel import NetMessageChannel
@@ -45,15 +46,36 @@ class ServerConnectionLogic:
             raise Exception("Max server players has exceeded.")
 
         clientAddress, _ = clientAddressAndPort
+        alreadyConnectedClient = Query(self.server.clients.values()).firstOrNone(lambda x: x.ipAddress == clientAddress)
+        if alreadyConnectedClient is None:
+            return self.connectNewClient(clientAddress)
+        else:
+            return self.reconnectExistClient(clientAddress, alreadyConnectedClient)
+
+    def connectNewClient(self, clientAddress):
         playerId = self.personIdLogic.getNetPlayerId()
         portForSendingToServer = self.netPortManager.getFreePort()
         portForReceivingFromServer = self.netPortManager.getFreePort()
         connectedNetClient = ConnectedClient()
         connectedNetClient.playerId = playerId
+        connectedNetClient.ipAddress = clientAddress
         connectedNetClient.channelToClient = NetMessageChannel(clientAddress, portForReceivingFromServer, self.serverAddress, portForSendingToServer)
         self.server.clients[connectedNetClient.playerId] = connectedNetClient
         self.personInitializer.addPlayerToServer(self.server.gameState, connectedNetClient.playerId)
         connectedNetClient.channelToClient.open()
+
+        return (playerId, portForSendingToServer, portForReceivingFromServer)
+
+    def reconnectExistClient(self, clientAddress, alreadyConnectedClient):
+        playerId = alreadyConnectedClient.playerId
+        portForSendingToServer = self.netPortManager.getFreePort()
+        portForReceivingFromServer = self.netPortManager.getFreePort()
+        alreadyConnectedClient.resetLastSnapshot()
+        alreadyConnectedClient.channelToClient.close()
+        alreadyConnectedClient.channelToClient = NetMessageChannel(
+            clientAddress, portForReceivingFromServer, self.serverAddress, portForSendingToServer
+        )
+        alreadyConnectedClient.channelToClient.open()
 
         return (playerId, portForSendingToServer, portForReceivingFromServer)
 

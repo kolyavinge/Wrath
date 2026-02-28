@@ -6,7 +6,11 @@ class ConnectedClient:
 
     def __init__(self):
         self.playerId = 0
+        self.ipAddress = ""
         self.channelToClient = EmptyMessageChannel.instance
+        self.lastAcknowledgedServerSnapshot = ServerSnapshot.makeEmpty()
+
+    def resetLastSnapshot(self):
         self.lastAcknowledgedServerSnapshot = ServerSnapshot.makeEmpty()
 
 
