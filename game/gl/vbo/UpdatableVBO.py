@@ -3,10 +3,14 @@ from OpenGL.GL import *
 from game.gl.vbo.VBO import VBO
 
 
-class UpdatableVBO(VBO):
+class UpdatableVBO:
 
     def __init__(self, vaoId, vboIds, elementsCount, maxVerticesCount, maxFacesCount):
-        super().__init__(vaoId, vboIds, elementsCount, GL_TRIANGLES)
+        self.vbo = VBO(vaoId, vboIds, elementsCount, GL_TRIANGLES)
+        self.vaoId = vaoId
+        self.vboIds = vboIds
+        self.elementsCount = elementsCount
+        self.format = GL_TRIANGLES
         self.maxVerticesCount = maxVerticesCount
         self.maxFacesCount = maxFacesCount
         self.maxElementsCount = 3 * maxFacesCount
@@ -26,3 +30,6 @@ class UpdatableVBO(VBO):
     def reset(self):
         self.elementsCount = 0
         self.refill()
+
+    def release(self):
+        self.vbo.release()
