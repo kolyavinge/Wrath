@@ -36,3 +36,7 @@ class FileSystem:
             raise Exception("Extension cannot be empty.")
 
         return [f"{path}\\{file}" for file in os.listdir(path) if file.endswith(extension)]
+
+    def createFileWithContent(self, path, content):
+        with open(path, "w") as file:
+            file.write(content)

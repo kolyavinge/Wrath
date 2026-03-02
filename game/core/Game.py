@@ -28,7 +28,6 @@ class Game:
 
     def init(self, gameStartMode):
         print("GameStartMode", gameStartMode)
-        self.configManager.readConfig()
         self.client = Client()
         if gameStartMode == GameStartMode.clientServerMode:
             self.server = Server()

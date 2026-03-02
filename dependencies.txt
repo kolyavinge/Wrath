@@ -1,9 +1,8 @@
 1. opengl for python
-    pip install PyOpenGL
-    или из репы
-    https://github.com/mcfletch/pyopengl
+   pip install PyOpenGL
+   (https://github.com/mcfletch/pyopengl)
 
-1.a. pip install PyOpenGL-accelerate
+1.a. (optional) pip install PyOpenGL-accelerate
 
 2. pip install keyboard
 
@@ -26,3 +25,5 @@
 11. PyAssimp
     1. Python package get from 'https://github.com/assimp/assimp/tree/master/port/PyAssimp'
     2. Build main assimp library from this source and copy 'assimp-vc143-mt.dll' to python packages folder '\Lib\site-packages\pyassimp'
+
+12. Microsoft Visual C++ Redistributable 64-bit

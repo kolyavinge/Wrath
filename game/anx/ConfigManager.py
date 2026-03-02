@@ -10,19 +10,19 @@ class ConfigManager:
         fileSystem: FileSystem,
     ):
         self.fileSystem = fileSystem
-        self.setDefault()
+        self.setDefaultValues()
+        self.readConfigOrCreateDefault()
 
-    def setDefault(self):
-        self.clientAddress = "127.0.0.1"
-        self.serverAddress = "127.0.0.1"
-        self.serverPort = 6464
+    def readConfigOrCreateDefault(self):
+        configFilePath = self.getConfigFilePath()
+        if self.fileSystem.fileExists(configFilePath):
+            self.readConfig(configFilePath)
+        else:
+            warn("File config.app doesn't exist. Create default.")
+            self.createDefault()
 
-    def readConfig(self):
-        configFIlePath = f"{Environment.programRootPath}\\app.config"
-        if not self.fileSystem.fileExists(configFIlePath):
-            raise Exception("Config.app file doesn't exist.")
-
-        lines = self.fileSystem.readAllLines(configFIlePath)
+    def readConfig(self, configFilePath):
+        lines = self.fileSystem.readAllLines(configFilePath)
         for line in lines:
             split = line.split("=")
             name = split[0].strip()
@@ -33,8 +33,29 @@ class ConfigManager:
             else:
                 warn(f"Wrong setting name '{name}'")
 
+    def createDefault(self):
+        content = ""
+        for name, value in self.getDefaultValues().items():
+            content += f"{name}={value}\n"
+        configFilePath = self.getConfigFilePath()
+        self.fileSystem.createFileWithContent(configFilePath, content)
+
+    def getDefaultValues(self):
+        return {
+            "clientAddress": "127.0.0.1",
+            "serverAddress": "127.0.0.1",
+            "serverPort": 6464,
+        }
+
+    def setDefaultValues(self):
+        for name, value in self.getDefaultValues().items():
+            setattr(self, name, value)
+
     def convertValue(self, name, value):
         if type(getattr(self, name)) == int:
             return int(value)
 
         return value
+
+    def getConfigFilePath(self):
+        return f"{Environment.programRootPath}\\app.config"
