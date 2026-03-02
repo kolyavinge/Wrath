@@ -25,6 +25,10 @@ class PersonVox:
         self.sources[person] = source
         self.allSources.append(source)
 
+    def removePerson(self, person):
+        source = self.sources.pop(person)
+        self.allSources.remove(source)
+
     def vox(self, updateStatistic):
         for person in updateStatistic.stepedPerson:
             source = self.sources[person]

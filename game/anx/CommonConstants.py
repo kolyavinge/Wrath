@@ -26,3 +26,4 @@ class CommonConstants:
     maxDebrisCount = 10
     maxServerPlayers = 10
     maxBots = 10
+    disconnectTimelimitSec = 60

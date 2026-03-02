@@ -19,3 +19,8 @@ class ClientPersonInitializer:
         person = self.personInitializer.addEnemyToClient(gameState, personId)
         self.enemyAnimationCollection.addPerson(person)
         self.voxManager.addPerson(person)
+
+    def removePerson(self, gameState, personId):
+        person = self.personInitializer.removeEnemyFromClient(gameState, personId)
+        self.enemyAnimationCollection.removePerson(person)
+        self.voxManager.removePerson(person)

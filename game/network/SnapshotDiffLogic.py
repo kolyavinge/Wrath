@@ -35,10 +35,14 @@ class SnapshotDiffLogic:
                         addedEnemyIds.append(personId)
                         changedEnemies.append(newPerson)
 
+            removedEnemies = Dictionary.getRemovedItems(snapshotOld.allPerson, snapshotNew.allPerson)
+
             if len(changedEnemies) > 0:
                 diff.enemies = changedEnemies
             if len(addedEnemyIds) > 0:
                 diff.addedEnemyIds = addedEnemyIds
+            if len(removedEnemies) > 0:
+                diff.removedEnemyIds = [enemy.id for enemy in removedEnemies]
 
         if hasattr(snapshotNew, "respawnedPerson"):
             changedRespawnedPerson = Set.getAddedItems(snapshotOld.respawnedPerson, snapshotNew.respawnedPerson)

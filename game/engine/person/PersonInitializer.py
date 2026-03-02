@@ -47,6 +47,20 @@ class PersonInitializer:
 
         return enemy
 
+    def removeEnemyFromClient(self, gameState, personId):
+        enemy = gameState.allPerson.getByIdOrNone(personId)
+        gameState.enemies.remove(enemy)
+        gameState.allPerson.remove(enemy)
+        gameState.enemyItems.pop(enemy)
+        gameState.enemyInputData.pop(enemy)
+        gameState.allPersonItems.pop(enemy)
+        gameState.allPersonInputData.pop(enemy)
+        gameState.personFragStatistic.pop(enemy)
+        gameState.enemyLifeBars.pop(enemy)
+        self.personLevelSegmentsUpdater.removeEnemyFromLevelSegments(enemy)
+
+        return enemy
+
     def addPlayerToServer(self, gameState, personId):
         player = Person()
         player.id = personId
@@ -59,6 +73,15 @@ class PersonInitializer:
         self.weaponSelector.setWeaponByType(personItems, Pistol)
 
         return player
+
+    def removePlayerFromServer(self, gameState, personId):
+        player = gameState.players.getByIdOrNone(personId)
+        gameState.players.remove(player)
+        gameState.allPerson.remove(player)
+        gameState.playersItems.pop(player)
+        gameState.allPersonItems.pop(player)
+        gameState.personFragStatistic.pop(player)
+        self.personLevelSegmentsUpdater.removePersonFromLevelSegments(player)
 
     def initPlayerForClient(self, gameState, position, frontNormal, weaponType, playerId):
         player = Player()

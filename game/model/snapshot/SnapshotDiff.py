@@ -26,6 +26,11 @@ class SnapshotDiff:
             for addedEnemyId in self.addedEnemyIds:
                 writer.write("i", addedEnemyId)
 
+        if hasattr(self, "removedEnemyIds"):
+            writer.write("b", len(self.removedEnemyIds))
+            for removedEnemyId in self.removedEnemyIds:
+                writer.write("i", removedEnemyId)
+
         if hasattr(self, "person"):
             self.person.toBytes(writer)
 
@@ -100,6 +105,10 @@ class SnapshotDiff:
         if fieldsBitMask & SnapshotDiffFields.addedEnemyIds > 0:
             count = reader.read("b")
             diff.addedEnemyIds = [reader.read("i") for _ in range(0, count)]
+
+        if fieldsBitMask & SnapshotDiffFields.removedEnemyIds > 0:
+            count = reader.read("b")
+            diff.removedEnemyIds = [reader.read("i") for _ in range(0, count)]
 
         if fieldsBitMask & SnapshotDiffFields.person > 0:
             diff.person = SnapshotPerson.fromBytes(reader)

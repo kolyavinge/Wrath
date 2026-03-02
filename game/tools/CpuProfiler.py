@@ -1,7 +1,8 @@
 import cProfile
 import os
 import pstats
-import time
+
+from game.lib.Time import Time
 
 
 class CpuProfiler:
@@ -13,7 +14,7 @@ class CpuProfiler:
     @staticmethod
     def init():
         CpuProfiler.profiler = cProfile.Profile()
-        CpuProfiler.profileName = time.time()
+        CpuProfiler.profileName = Time.getCurrentTimeSec()
 
     @staticmethod
     def start():

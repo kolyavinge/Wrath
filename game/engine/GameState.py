@@ -60,7 +60,7 @@ class ServerGameState(GameState):
 
     def __init__(self):
         super().__init__()
-        self.players = []
+        self.players = IdList()
         self.playersItems = {}
         self.bots = []
         self.botItems = {}

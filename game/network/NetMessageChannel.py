@@ -37,7 +37,7 @@ class NetMessageChannel:
                 return SendMessageResult.sended
             else:
                 return SendMessageResult.notSended
-        except ConnectionResetError:
+        except (ConnectionResetError, OSError):
             return SendMessageResult.notSended
         finally:
             udpSender.close()
@@ -58,8 +58,11 @@ class NetMessageChannel:
         self.udpListener.bind((self.addressForReceiving, self.portForReceiving))
         print(f"NetMessageChannel Listener is running on {self.addressForReceiving}:{self.portForReceiving}.")
         while self.isListenerRunning:
-            messageBytes, serverAddress = self.udpListener.recvfrom(Message.maxMessageSizeBytes)
-            message = self.messageSerializer.fromBytes(messageBytes)
-            sentBytes = self.udpListener.sendto(SendMessageResult.sendedAsBytes, serverAddress)
-            assert sentBytes == 1
-            self.receivedMessages.put(message)
+            try:
+                messageBytes, serverAddress = self.udpListener.recvfrom(Message.maxMessageSizeBytes)
+                message = self.messageSerializer.fromBytes(messageBytes)
+                sentBytes = self.udpListener.sendto(SendMessageResult.sendedAsBytes, serverAddress)
+                assert sentBytes == 1
+                self.receivedMessages.put(message)
+            except OSError:
+                pass  # ignore

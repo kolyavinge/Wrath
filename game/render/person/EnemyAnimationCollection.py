@@ -22,6 +22,9 @@ class EnemyAnimationCollection:
         animationName = self.animationNames[PersonZState.onFloor]
         self.animations[person] = PlayableAnimation(modelAnimations[animationName])
 
+    def removePerson(self, person):
+        self.animations.pop(person)
+
     def getPlayableAnimationOrNone(self, person):
         if person.zState == person.prevZState:
             return self.animations[person]

@@ -15,3 +15,7 @@ class VoxManager:
     def addPerson(self, person):
         self.personVox.addPerson(person)
         self.weaponVox.addPerson(person)
+
+    def removePerson(self, person):
+        self.personVox.removePerson(person)
+        self.weaponVox.removePerson(person)

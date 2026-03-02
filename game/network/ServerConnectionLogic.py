@@ -70,7 +70,7 @@ class ServerConnectionLogic:
         playerId = alreadyConnectedClient.playerId
         portForSendingToServer = self.netPortManager.getFreePort()
         portForReceivingFromServer = self.netPortManager.getFreePort()
-        alreadyConnectedClient.resetLastSnapshot()
+        alreadyConnectedClient.init()
         alreadyConnectedClient.channelToClient.close()
         alreadyConnectedClient.channelToClient = NetMessageChannel(
             clientAddress, portForReceivingFromServer, self.serverAddress, portForSendingToServer
@@ -80,7 +80,7 @@ class ServerConnectionLogic:
         return (playerId, portForSendingToServer, portForReceivingFromServer)
 
     def disconnectByNet(self, netClient):
-        self.server.clients.remove(netClient.playerId)
-        netClient.channelToServer.close()
-        netClient.channelToServer = EmptyMessageChannel.instance
+        self.personInitializer.removePlayerFromServer(self.server.gameState, netClient.playerId)
+        netClient.channelToClient.close()
+        netClient.channelToClient = EmptyMessageChannel.instance
         netClient.playerId = 0

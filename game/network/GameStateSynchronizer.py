@@ -41,6 +41,10 @@ class GameStateSynchronizer:
             for addedEnemyId in diff.addedEnemyIds:
                 self.clientPersonInitializer.addPerson(gameState, addedEnemyId)
 
+        if hasattr(diff, "removedEnemyIds"):
+            for removedEnemyId in diff.removedEnemyIds:
+                self.clientPersonInitializer.removePerson(gameState, removedEnemyId)
+
         if hasattr(diff, "person"):
             self.synchPerson(gameState, diff.person)
 
