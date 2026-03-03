@@ -47,4 +47,5 @@ class Game:
         self.screenManager.currentScreenVox.update(self.client.gameState)
 
     def finalize(self):
-        pass  # TODO stop server, ...
+        if self.server is not None:
+            self.gameInitializer.stopServer(self.server)

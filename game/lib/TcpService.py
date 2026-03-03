@@ -7,6 +7,7 @@ class TcpService:
     def __init__(self, serverAddress, serverPort):
         self.serverAddress = serverAddress
         self.serverPort = serverPort
+        self.tcpListener = None
 
     def runAsync(self):
         self.thread = Thread(target=self.run)
@@ -14,6 +15,7 @@ class TcpService:
 
     def run(self):
         with socket(AF_INET, SOCK_STREAM) as tcpListener:
+            self.tcpListener = tcpListener
             tcpListener.bind((self.serverAddress, self.serverPort))
             tcpListener.listen()
             self.onBeginListen()
@@ -26,6 +28,10 @@ class TcpService:
 
     def receive(self, clientSocket, clientAddress):
         pass
+
+    def stop(self):
+        if self.tcpListener is not None:
+            self.tcpListener.close()
 
     def onBeginListen(self):
         pass

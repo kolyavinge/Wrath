@@ -26,6 +26,9 @@ class GameService:
     def runAsync(self):
         self.tcpService.runAsync()
 
+    def stop(self):
+        self.tcpService.stop()
+
     def receive(self, clientSocket, clientAddressAndPort):
         messageBytes = clientSocket.recv(Message.maxMessageSizeBytes)
         requestMessage = self.messageSerializer.fromBytes(messageBytes)

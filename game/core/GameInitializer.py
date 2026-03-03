@@ -140,3 +140,9 @@ class GameInitializer:
         self.aiDataInitializer.init(server.gameState)
         self.botAIUpdater.init(server.gameState)
         self.gameService.runAsync()
+
+    def stopServer(self, server):
+        for client in server.clients.values():
+            self.serverConnectionLogic.disconnectByNet(client)
+
+        self.gameService.stop()

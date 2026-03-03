@@ -13,6 +13,12 @@ class LocalMessageChannel:
         self.holderForSending = holderForSending
         self.holderForReceiving = holderForReceiving
 
+    def open(self):
+        pass
+
+    def close(self):
+        pass
+
     def sendMessage(self, message):
         self.holderForSending.message = message
 
