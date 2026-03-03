@@ -11,6 +11,10 @@ class PersonFloorUpdater:
     ):
         self.traversal = traversal
 
+    def updateAllPersonNextFloor(self, gameState):
+        for person in gameState.allPerson:
+            self.updateForPerson(person, gameState.collisionTree)
+
     def updatePlayerNextFloor(self, gameState):
         self.updateForPerson(gameState.player, gameState.collisionTree)
 
@@ -36,9 +40,16 @@ class PersonFloorUpdater:
                 .firstOrNone()
             ) or NullFloor.instance
 
+    def commitAllPersonNextFloor(self, gameState):
+        for person in gameState.allPerson:
+            self.commitForPerson(person)
+
     def commitPlayerNextFloor(self, gameState):
-        gameState.player.currentFloor = gameState.player.nextFloor
+        self.commitForPerson(gameState.player)
 
     def commitBotsNextFloor(self, gameState):
         for bot in gameState.bots:
-            bot.currentFloor = bot.nextFloor
+            self.commitForPerson(bot)
+
+    def commitForPerson(self, person):
+        person.currentFloor = person.nextFloor

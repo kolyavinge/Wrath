@@ -52,6 +52,7 @@ class Person:
         self.velocityValue = 0
         self.velocityVector = Vector3()
         self.velocityFunc = VelocityFunc()
+        self.hasMoved = False
         self.jumpingTime = 0
         self.jumpingValue = 0
         self.jumpingFunc = JumpingFunc()

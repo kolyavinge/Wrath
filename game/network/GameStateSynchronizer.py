@@ -101,6 +101,7 @@ class GameStateSynchronizer:
 
     def synchPerson(self, gameState, diffPerson):
         sychedPerson = gameState.allPerson.getById(diffPerson.id)
+        sychedPerson.hasMoved = sychedPerson.nextCenterPoint != diffPerson.centerPoint
         sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
         self.personTurnLogic.setYawPitchRadians(sychedPerson, diffPerson.yawRadians, diffPerson.pitchRadians)
         sychedPerson.commitNextPosition()

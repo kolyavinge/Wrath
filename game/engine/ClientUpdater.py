@@ -94,7 +94,7 @@ class ClientUpdater:
         self.personMovingTimeUpdater.updateForPlayer(gameState)
         self.personVelocityUpdater.updateForPlayer(gameState)
         self.personPositionUpdater.movePlayerNextPosition(gameState)
-        self.personFloorUpdater.updatePlayerNextFloor(gameState)
+        self.personFloorUpdater.updateAllPersonNextFloor(gameState)
         self.personJumpUpdater.updateForPlayer(gameState)
         self.personWallCollisionUpdater.updateForPlayer(gameState)
         self.personCollisionUpdater.update(gameState)
@@ -102,7 +102,7 @@ class ClientUpdater:
         self.personCeilingCollisionUpdater.updateForPlayer(gameState)
         self.personStepUpdater.update(gameState)
         self.personPositionUpdater.commitPlayerNextPosition(gameState)
-        self.personFloorUpdater.commitPlayerNextFloor(gameState)
+        self.personFloorUpdater.commitAllPersonNextFloor(gameState)
         self.personLevelSegmentsUpdater.updateForPlayer(gameState)
         self.personLevelSegmentsUpdater.updateForEnemies(gameState)
         self.playerMovingSwingUpdater.update(gameState)
@@ -136,6 +136,7 @@ class ClientUpdater:
         self.cowboyEasterEggUpdater.update(gameState)
         self.personUpdater.commitZState(gameState)
         self.personUpdater.updateDelaysForPlayer(gameState)
+        self.personUpdater.resetHasMovedForEnemies(gameState)
         gameState.updateGlobalTime()
 
     def clear(self, gameState):

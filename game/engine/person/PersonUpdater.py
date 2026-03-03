@@ -14,3 +14,7 @@ class PersonUpdater:
     def updateDelaysForBots(self, gameState):
         for bot in gameState.bots:
             bot.paralyzeDelay.decrease()
+
+    def resetHasMovedForEnemies(self, gameState):
+        for enemy in gameState.enemies:
+            enemy.hasMoved = False
