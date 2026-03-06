@@ -8,6 +8,7 @@ from game.network.ServerConnectionLogic import *
 from game.network.ServerMultiplayerSynchronizer import *
 from game.network.SnapshotDiffLogic import *
 from game.network.SnapshotFactory import *
+from game.network.SnapshotPersonDiffLogic import *
 
 
 class NetworkModule:
@@ -23,3 +24,4 @@ class NetworkModule:
         binder.bindSingleton(ServerMultiplayerSynchronizer)
         binder.bindSingleton(SnapshotDiffLogic)
         binder.bindSingleton(SnapshotFactory)
+        binder.bindSingleton(SnapshotPersonDiffLogic)

@@ -1,39 +1,52 @@
 from game.lib.Dictionary import Dictionary
 from game.lib.Set import Set
 from game.model.snapshot.SnapshotDiff import SnapshotDiff
+from game.network.SnapshotPersonDiffLogic import SnapshotPersonDiffLogic
 
 
 class SnapshotDiffLogic:
+
+    def __init__(
+        self,
+        snapshotPersonDiffLogic: SnapshotPersonDiffLogic,
+    ):
+        self.snapshotPersonDiffLogic = snapshotPersonDiffLogic
 
     # clientPlayerId - id клиента которому предназначается этот diff
     def getSnapshotsDiff(self, snapshotOld, snapshotNew, clientPlayerId=None):
         diff = SnapshotDiff()
 
         if hasattr(snapshotNew, "person"):
-            if snapshotOld.person != snapshotNew.person:
-                diff.person = snapshotNew.person
+            personDiff = self.snapshotPersonDiffLogic.getSnapshotsDiff(snapshotOld.person, snapshotNew.person)
+            if not personDiff.isEmpty():
+                diff.person = personDiff
 
         if hasattr(snapshotNew, "players"):
             assert clientPlayerId is not None
             for playerId, player in snapshotNew.players.items():
-                if playerId == clientPlayerId:
-                    if playerId in snapshotOld.players and player != snapshotOld.players[playerId]:
-                        diff.player = player
-                    else:
-                        break
+                if playerId != clientPlayerId:
+                    continue
+                if playerId not in snapshotOld.players:
+                    break
+                personDiff = self.snapshotPersonDiffLogic.getSnapshotsDiff(snapshotOld.players[playerId], player)
+                if not personDiff.isEmpty():
+                    diff.player = personDiff
+                    break
 
         if hasattr(snapshotNew, "allPerson"):
             assert clientPlayerId is not None
             changedEnemies = []
             addedEnemyIds = []
             for personId, newPerson in snapshotNew.allPerson.items():
-                if personId != clientPlayerId:
-                    if personId in snapshotOld.allPerson:
-                        if newPerson != snapshotOld.allPerson[personId]:
-                            changedEnemies.append(newPerson)
-                    else:
-                        addedEnemyIds.append(personId)
-                        changedEnemies.append(newPerson)
+                if personId == clientPlayerId:
+                    continue
+                if personId in snapshotOld.allPerson:
+                    personDiff = self.snapshotPersonDiffLogic.getSnapshotsDiff(snapshotOld.allPerson[personId], newPerson)
+                    if not personDiff.isEmpty():
+                        changedEnemies.append(personDiff)
+                else:
+                    addedEnemyIds.append(personId)
+                    changedEnemies.append(self.snapshotPersonDiffLogic.makeDiffFromPerson(newPerson))
 
             removedEnemies = Dictionary.getRemovedItems(snapshotOld.allPerson, snapshotNew.allPerson)
 

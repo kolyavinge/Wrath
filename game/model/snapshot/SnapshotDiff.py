@@ -2,8 +2,7 @@ from game.model.snapshot.SnapshotBullet import SnapshotBullet
 from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
 from game.model.snapshot.SnapshotDiffFields import SnapshotDiffFields
 from game.model.snapshot.SnapshotFragStatistic import SnapshotFragStatistic
-from game.model.snapshot.SnapshotPerson import SnapshotPerson
-from game.model.snapshot.SnapshotPlayer import SnapshotPlayer
+from game.model.snapshot.SnapshotPersonDiff import SnapshotPersonDiff
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.snapshot.SnapshotRay import SnapshotRay
 from game.model.snapshot.SnapshotRayCollision import SnapshotRayCollision
@@ -111,14 +110,14 @@ class SnapshotDiff:
             diff.removedEnemyIds = [reader.read("i") for _ in range(0, count)]
 
         if fieldsBitMask & SnapshotDiffFields.person > 0:
-            diff.person = SnapshotPerson.fromBytes(reader)
+            diff.person = SnapshotPersonDiff.fromBytes(reader)
 
         if fieldsBitMask & SnapshotDiffFields.player > 0:
-            diff.player = SnapshotPlayer.fromBytes(reader)
+            diff.player = SnapshotPersonDiff.fromBytes(reader)
 
         if fieldsBitMask & SnapshotDiffFields.enemies > 0:
             count = reader.read("b")
-            diff.enemies = [SnapshotPerson.fromBytes(reader) for _ in range(0, count)]
+            diff.enemies = [SnapshotPersonDiff.fromBytes(reader) for _ in range(0, count)]
 
         if fieldsBitMask & SnapshotDiffFields.respawnedPerson > 0:
             count = reader.read("b")

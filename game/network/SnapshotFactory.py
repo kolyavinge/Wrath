@@ -6,7 +6,6 @@ from game.model.snapshot.SnapshotBullet import SnapshotBullet, WeaponInfoExtraBi
 from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
 from game.model.snapshot.SnapshotFragStatistic import SnapshotFragStatistic
 from game.model.snapshot.SnapshotPerson import SnapshotPerson
-from game.model.snapshot.SnapshotPlayer import SnapshotPlayer
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.snapshot.SnapshotRay import SnapshotRay
 from game.model.snapshot.SnapshotRayCollision import SnapshotRayCollision
@@ -67,11 +66,11 @@ class SnapshotFactory:
         return snapshotPerson
 
     def makeSnapshotPlayer(self, player):
-        snapshotPlayer = SnapshotPlayer()
-        snapshotPlayer.id = player.id
-        snapshotPlayer.health = player.health
+        snapshotPerson = SnapshotPerson()
+        snapshotPerson.id = player.id
+        snapshotPerson.health = player.health
 
-        return snapshotPlayer
+        return snapshotPerson
 
     def makeSnapshotRespawnedPerson(self, person):
         snapshotRespawnedPerson = SnapshotRespawnedPerson()

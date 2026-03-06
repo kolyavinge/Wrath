@@ -9,8 +9,7 @@ from game.model.snapshot.SnapshotBullet import SnapshotBullet, WeaponInfoExtraBi
 from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
 from game.model.snapshot.SnapshotDiff import SnapshotDiff
 from game.model.snapshot.SnapshotFragStatistic import SnapshotFragStatistic
-from game.model.snapshot.SnapshotPerson import SnapshotPerson
-from game.model.snapshot.SnapshotPlayer import SnapshotPlayer
+from game.model.snapshot.SnapshotPersonDiff import SnapshotPersonDiff
 from game.model.snapshot.SnapshotPowerup import SnapshotPowerup
 from game.model.snapshot.SnapshotRay import SnapshotRay
 from game.model.snapshot.SnapshotRayCollision import SnapshotRayCollision
@@ -23,12 +22,12 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
         diff = SnapshotDiff()
         diff.addedEnemyIds = [1, 2, 3, 4, 5]
         diff.removedEnemyIds = [10, 20, 30, 40]
-        diff.person = SnapshotPerson.make(1, Vector3(float32(3.2), float32(-6.9), 4345434.87532), 1.5, -1.5, 10)
-        diff.player = SnapshotPlayer.make(12, 85)
+        diff.person = SnapshotPersonDiff.makeFull(1, Vector3(float32(3.2), float32(-6.9), 4345434.87532), 1.5, -1.5, 10)
+        diff.player = SnapshotPersonDiff.makeWithHealth(12, 85)
         diff.respawnedPerson = [SnapshotRespawnedPerson.make(10, Vector3(float32(3.2), float32(-6.9), 34.435345345))]
         diff.enemies = [
-            SnapshotPerson.make(10, Vector3(float32(3.2), float32(-6.9), float32(44.2)), 2.5, -2.5, 50),
-            SnapshotPerson.make(20, Vector3(float32(3.2), float32(-6.9), float32(44.2)), 2.0, -2.0, 60),
+            SnapshotPersonDiff.makeFull(10, Vector3(float32(3.2), float32(-6.9), float32(44.2)), 2.5, -2.5, 50),
+            SnapshotPersonDiff.makeFull(20, Vector3(float32(3.2), float32(-6.9), float32(44.2)), 2.0, -2.0, 60),
         ]
         diff.addedBullets = [
             SnapshotBullet.make(

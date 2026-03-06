@@ -8,7 +8,7 @@ class ClientSnapshot:
     @staticmethod
     def makeEmpty():
         empty = ClientSnapshot()
-        empty.person = SnapshotPerson()
+        empty.person = SnapshotPerson.makeWithDefaultValues()
         empty.bullets = {}
         empty.rays = {}
         empty.notPickedupPowerupIds = {}

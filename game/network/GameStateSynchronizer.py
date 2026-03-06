@@ -49,7 +49,7 @@ class GameStateSynchronizer:
             self.synchPerson(gameState, diff.person)
 
         if hasattr(diff, "player"):
-            self.synchPlayer(gameState, diff.player)
+            self.synchPerson(gameState, diff.player)
 
         if hasattr(diff, "enemies"):
             for enemy in diff.enemies:
@@ -101,15 +101,18 @@ class GameStateSynchronizer:
 
     def synchPerson(self, gameState, diffPerson):
         sychedPerson = gameState.allPerson.getById(diffPerson.id)
-        sychedPerson.hasMoved = sychedPerson.nextCenterPoint != diffPerson.centerPoint
-        sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
-        self.personTurnLogic.setYawPitchRadians(sychedPerson, diffPerson.yawRadians, diffPerson.pitchRadians)
-        sychedPerson.commitNextPosition()
-        sychedPerson.health = diffPerson.health
-
-    def synchPlayer(self, gameState, diffPlayer):
-        sychedPlayer = gameState.allPerson.getById(diffPlayer.id)
-        sychedPlayer.health = diffPlayer.health
+        if hasattr(diffPerson, "centerPoint"):
+            sychedPerson.hasMoved = True
+            sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
+            sychedPerson.commitNextPosition()
+        if hasattr(diffPerson, "yawRadians"):
+            sychedPerson.yawRadians = diffPerson.yawRadians
+        if hasattr(diffPerson, "pitchRadians"):
+            sychedPerson.pitchRadians = diffPerson.pitchRadians
+        if hasattr(diffPerson, "yawRadians") or hasattr(diffPerson, "pitchRadians"):
+            self.personTurnLogic.calculateDirectionVectors(sychedPerson)
+        if hasattr(diffPerson, "health"):
+            sychedPerson.health = diffPerson.health
 
     def synchRespawnedPerson(self, gameState, diffPerson):
         sychedPerson = gameState.allPerson.getById(diffPerson.id)
