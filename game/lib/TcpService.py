@@ -8,6 +8,7 @@ class TcpService:
         self.serverAddress = serverAddress
         self.serverPort = serverPort
         self.tcpListener = None
+        self.isRunning = False
 
     def runAsync(self):
         self.thread = Thread(target=self.run)
@@ -18,11 +19,15 @@ class TcpService:
             self.tcpListener = tcpListener
             tcpListener.bind((self.serverAddress, self.serverPort))
             tcpListener.listen()
+            self.isRunning = True
             self.onBeginListen()
-            while True:
-                clientSocket, clientAddress = tcpListener.accept()
-                with clientSocket:
-                    self.receive(clientSocket, clientAddress)
+            while self.isRunning:
+                try:
+                    clientSocket, clientAddress = tcpListener.accept()
+                    with clientSocket:
+                        self.receive(clientSocket, clientAddress)
+                except Exception:
+                    pass
 
         self.onEndListen()
 
@@ -31,7 +36,9 @@ class TcpService:
 
     def stop(self):
         if self.tcpListener is not None:
+            self.isRunning = False
             self.tcpListener.close()
+            self.tcpListener = None
 
     def onBeginListen(self):
         pass
