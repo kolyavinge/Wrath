@@ -7,10 +7,10 @@ class VignetteShaderProgram(ShaderProgram):
         super().__init__(shaders)
 
     def setResolution(self, width, height):
-        self.setVector2("resolution", width, height)
+        self.uniformSetter.setVector2("resolution", width, height)
 
     def setRadius(self, radius):
-        self.setFloat32("radius", radius)
+        self.uniformSetter.setFloat32("radius", radius)
 
     def setAlphaFactor(self, factor):
-        self.setFloat32("alphaFactor", factor)
+        self.uniformSetter.setFloat32("alphaFactor", factor)

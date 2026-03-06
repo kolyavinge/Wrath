@@ -7,4 +7,4 @@ class CrossshairShaderProgram(ShaderProgram):
         super().__init__(shaders)
 
     def setResolution(self, width, height):
-        self.setVector2("resolution", width, height)
+        self.uniformSetter.setVector2("resolution", width, height)

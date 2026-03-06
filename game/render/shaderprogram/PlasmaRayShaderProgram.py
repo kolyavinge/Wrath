@@ -7,10 +7,10 @@ class PlasmaRayShaderProgram(ShaderProgram):
         super().__init__(shaders)
 
     def setResolution(self, width, height):
-        self.setVector2("resolution", width, height)
+        self.uniformSetter.setVector2("resolution", width, height)
 
     def setInitTimeSec(self, initTimeSec):
-        self.setFloat32("initTimeSec", initTimeSec)
+        self.uniformSetter.setFloat32("initTimeSec", initTimeSec)
 
     def setCurrentTimeSec(self, currentTimeSec):
-        self.setFloat32("currentTimeSec", currentTimeSec)
+        self.uniformSetter.setFloat32("currentTimeSec", currentTimeSec)

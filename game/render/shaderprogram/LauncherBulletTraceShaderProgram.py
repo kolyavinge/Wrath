@@ -10,34 +10,34 @@ class LauncherBulletTraceShaderProgram(ShaderProgram):
         self.setOutputNamesForTransformFeedback(["UpdatedPosition", "UpdatedVelocity", "UpdatedAge"])
 
     def setPassNumber(self, passNumber):
-        self.setInt32("passNumber", passNumber)
+        self.uniformSetter.setInt32("passNumber", passNumber)
 
     def setTracePosition(self, tracePosition):
-        self.setVector3("tracePosition", tracePosition)
+        self.uniformSetter.setVector3("tracePosition", tracePosition)
 
     def setBulletDirection(self, bulletDirection):
-        self.setVector3("bulletDirection", bulletDirection)
+        self.uniformSetter.setVector3("bulletDirection", bulletDirection)
 
     def setBulletDirectionTopNormal(self, bulletDirectionTopNormal):
-        self.setVector3("bulletDirectionTopNormal", bulletDirectionTopNormal)
+        self.uniformSetter.setVector3("bulletDirectionTopNormal", bulletDirectionTopNormal)
 
     def setBulletNozzleRadius(self, bulletNozzleRadius):
-        self.setFloat32("bulletNozzleRadius", bulletNozzleRadius)
+        self.uniformSetter.setFloat32("bulletNozzleRadius", bulletNozzleRadius)
 
     def setIsBulletAlive(self, isBulletAlive):
-        self.setBoolean("isBulletAlive", isBulletAlive)
+        self.uniformSetter.setBoolean("isBulletAlive", isBulletAlive)
 
     def setViewMatrix(self, viewMatrix):
-        self.setTransformMatrix4("viewMatrix", viewMatrix)
+        self.uniformSetter.setTransformMatrix4("viewMatrix", viewMatrix)
 
     def setProjectionMatrix(self, projectionMatrix):
-        self.setTransformMatrix4("projectionMatrix", projectionMatrix)
+        self.uniformSetter.setTransformMatrix4("projectionMatrix", projectionMatrix)
 
     def setParticleLifeTime(self, particleLifeTime):
-        self.setFloat32("particleLifeTime", particleLifeTime)
+        self.uniformSetter.setFloat32("particleLifeTime", particleLifeTime)
 
     def setParticleSize(self, particleSize):
-        self.setFloat32("particleSize", particleSize)
+        self.uniformSetter.setFloat32("particleSize", particleSize)
 
     def setDeltaTime(self, deltaTime):
-        self.setFloat32("deltaTime", deltaTime)
+        self.uniformSetter.setFloat32("deltaTime", deltaTime)

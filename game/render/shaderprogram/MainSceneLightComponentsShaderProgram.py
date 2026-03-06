@@ -8,32 +8,32 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
         super().__init__(shaders)
 
     def setModelMatrix(self, modelMatrix):
-        self.setTransformMatrix4("modelMatrix", modelMatrix)
+        self.uniformSetter.setTransformMatrix4("modelMatrix", modelMatrix)
 
     def setViewMatrix(self, viewMatrix):
-        self.setTransformMatrix4("viewMatrix", viewMatrix)
+        self.uniformSetter.setTransformMatrix4("viewMatrix", viewMatrix)
 
     def setProjectionMatrix(self, projectionMatrix):
-        self.setTransformMatrix4("projectionMatrix", projectionMatrix)
+        self.uniformSetter.setTransformMatrix4("projectionMatrix", projectionMatrix)
 
     def setMaxDepth(self, maxDepth):
-        self.setFloat32("maxDepth", maxDepth)
+        self.uniformSetter.setFloat32("maxDepth", maxDepth)
 
     def setAlphaFactor(self, factor):
-        self.setFloat32("alphaFactor", factor)
+        self.uniformSetter.setFloat32("alphaFactor", factor)
 
     def setMaterial(self, material):
-        self.setFloat32("material.ambient", material.ambient)
-        self.setFloat32("material.diffuse", material.diffuse)
-        self.setFloat32("material.specular", material.specular)
-        self.setFloat32("material.shininess", material.shininess)
+        self.uniformSetter.setFloat32("material.ambient", material.ambient)
+        self.uniformSetter.setFloat32("material.diffuse", material.diffuse)
+        self.uniformSetter.setFloat32("material.specular", material.specular)
+        self.uniformSetter.setFloat32("material.shininess", material.shininess)
 
     def hasAnimation(self, value):
-        self.setBoolean("hasAnimation", value)
+        self.uniformSetter.setBoolean("hasAnimation", value)
 
     def setBoneTransformMatrices(self, boneTransformMatrices):
         for index, matrix in enumerate(boneTransformMatrices):
-            self.setTransformMatrix4(f"boneTransformMatrices[{index}]", matrix)
+            self.uniformSetter.setTransformMatrix4(f"boneTransformMatrices[{index}]", matrix)
 
     def setLight(self, lights, torch):
         # lights
@@ -41,23 +41,23 @@ class MainSceneLightComponentsShaderProgram(ShaderProgram):
         spotIndex = 0
         for light in lights:
             if isinstance(light, Spot):
-                self.setVector3(f"spots[{spotIndex}].color", light.color)
-                self.setVector3(f"spots[{spotIndex}].position", light.lightPosition)
-                self.setVector3(f"spots[{spotIndex}].direction", light.direction)
-                self.setFloat32(f"spots[{spotIndex}].attenuation", light.attenuation)
-                self.setFloat32(f"spots[{spotIndex}].cutoffCos", light.cutoffCos)
+                self.uniformSetter.setVector3(f"spots[{spotIndex}].color", light.color)
+                self.uniformSetter.setVector3(f"spots[{spotIndex}].position", light.lightPosition)
+                self.uniformSetter.setVector3(f"spots[{spotIndex}].direction", light.direction)
+                self.uniformSetter.setFloat32(f"spots[{spotIndex}].attenuation", light.attenuation)
+                self.uniformSetter.setFloat32(f"spots[{spotIndex}].cutoffCos", light.cutoffCos)
                 spotIndex += 1
             else:
-                self.setVector3(f"lights[{lightIndex}].color", light.color)
-                self.setVector3(f"lights[{lightIndex}].position", light.lightPosition)
+                self.uniformSetter.setVector3(f"lights[{lightIndex}].color", light.color)
+                self.uniformSetter.setVector3(f"lights[{lightIndex}].position", light.lightPosition)
                 lightIndex += 1
         # player torch
         if torch.isActive:
-            self.setVector3(f"spots[{spotIndex}].color", torch.color)
-            self.setVector3(f"spots[{spotIndex}].position", torch.position)
-            self.setVector3(f"spots[{spotIndex}].direction", torch.direction)
-            self.setFloat32(f"spots[{spotIndex}].attenuation", torch.attenuation)
-            self.setFloat32(f"spots[{spotIndex}].cutoffCos", torch.cutoffCos)
+            self.uniformSetter.setVector3(f"spots[{spotIndex}].color", torch.color)
+            self.uniformSetter.setVector3(f"spots[{spotIndex}].position", torch.position)
+            self.uniformSetter.setVector3(f"spots[{spotIndex}].direction", torch.direction)
+            self.uniformSetter.setFloat32(f"spots[{spotIndex}].attenuation", torch.attenuation)
+            self.uniformSetter.setFloat32(f"spots[{spotIndex}].cutoffCos", torch.cutoffCos)
             spotIndex += 1
-        self.setInt32("lightsCount", lightIndex)
-        self.setInt32("spotsCount", spotIndex)
+        self.uniformSetter.setInt32("lightsCount", lightIndex)
+        self.uniformSetter.setInt32("spotsCount", spotIndex)

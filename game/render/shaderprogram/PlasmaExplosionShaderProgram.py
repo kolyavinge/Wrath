@@ -10,19 +10,19 @@ class PlasmaExplosionShaderProgram(ShaderProgram):
         self.setOutputNamesForTransformFeedback(["UpdatedPosition", "UpdatedVelocity", "UpdatedAge"])
 
     def setPassNumber(self, passNumber):
-        self.setInt32("passNumber", passNumber)
+        self.uniformSetter.setInt32("passNumber", passNumber)
 
     def setViewMatrix(self, viewMatrix):
-        self.setTransformMatrix4("viewMatrix", viewMatrix)
+        self.uniformSetter.setTransformMatrix4("viewMatrix", viewMatrix)
 
     def setProjectionMatrix(self, projectionMatrix):
-        self.setTransformMatrix4("projectionMatrix", projectionMatrix)
+        self.uniformSetter.setTransformMatrix4("projectionMatrix", projectionMatrix)
 
     def setParticleLifeTime(self, particleLifeTime):
-        self.setFloat32("particleLifeTime", particleLifeTime)
+        self.uniformSetter.setFloat32("particleLifeTime", particleLifeTime)
 
     def setParticleSize(self, particleSize):
-        self.setFloat32("particleSize", particleSize)
+        self.uniformSetter.setFloat32("particleSize", particleSize)
 
     def setDeltaTime(self, deltaTime):
-        self.setFloat32("deltaTime", deltaTime)
+        self.uniformSetter.setFloat32("deltaTime", deltaTime)

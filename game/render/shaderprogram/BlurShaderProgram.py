@@ -7,7 +7,7 @@ class BlurShaderProgram(ShaderProgram):
         super().__init__(shaders)
 
     def setResolution(self, width, height):
-        self.setVector2("resolution", width, height)
+        self.uniformSetter.setVector2("resolution", width, height)
 
     def setOffsetsCount(self, offsetsCount):
-        self.setInt32("offsetsCount", offsetsCount)
+        self.uniformSetter.setInt32("offsetsCount", offsetsCount)
