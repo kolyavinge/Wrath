@@ -12,6 +12,7 @@ class SnapshotPerson:
         person.pitchRadians = 0
         person.health = 0
         person.jumpingValue = 0
+        person.selectedWeaponNumber = 0
 
         return person
 
@@ -22,3 +23,4 @@ class SnapshotPerson:
         self.pitchRadians = None
         self.health = None
         self.jumpingValue = None
+        self.selectedWeaponNumber = None

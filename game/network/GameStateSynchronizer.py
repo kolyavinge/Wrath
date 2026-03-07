@@ -7,6 +7,7 @@ from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
+from game.model.person.PersonStates import WeaponSelectState
 from game.model.snapshot.SnapshotBullet import SnapshotBullet
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.WeaponCollection import WeaponCollection
@@ -115,6 +116,11 @@ class GameStateSynchronizer:
             sychedPerson.health = diffPerson.health
         if hasattr(diffPerson, "jumpingValue"):
             sychedPerson.jumpingValue = diffPerson.jumpingValue
+        if hasattr(diffPerson, "selectedWeaponNumber"):
+            personItems = gameState.allPersonItems[sychedPerson]
+            weaponType = WeaponCollection.getWeaponTypeByNumber(diffPerson.selectedWeaponNumber)
+            if personItems.hasWeaponByType(weaponType):
+                self.weaponSelector.selectWeaponByType(sychedPerson, personItems, weaponType)
 
     def synchRespawnedPerson(self, gameState, diffPerson):
         sychedPerson = gameState.allPerson.getById(diffPerson.id)

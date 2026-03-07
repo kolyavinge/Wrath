@@ -22,6 +22,9 @@ class SnapshotPersonDiffLogic:
         if newSnapshotPerson.jumpingValue is not None and oldSnapshotPerson.jumpingValue != newSnapshotPerson.jumpingValue:
             diff.jumpingValue = newSnapshotPerson.jumpingValue
 
+        if newSnapshotPerson.selectedWeaponNumber is not None and oldSnapshotPerson.selectedWeaponNumber != newSnapshotPerson.selectedWeaponNumber:
+            diff.selectedWeaponNumber = newSnapshotPerson.selectedWeaponNumber
+
         return diff
 
     def makeDiffFromPerson(self, person):
@@ -42,5 +45,8 @@ class SnapshotPersonDiffLogic:
 
         if person.jumpingValue is not None:
             diff.jumpingValue = person.jumpingValue
+
+        if person.selectedWeaponNumber is not None:
+            diff.selectedWeaponNumber = person.selectedWeaponNumber
 
         return diff

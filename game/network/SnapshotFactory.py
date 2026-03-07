@@ -17,7 +17,7 @@ class SnapshotFactory:
 
     def makeClientSnapshot(self, clientGameState):
         snapshot = ClientSnapshot()
-        snapshot.person = self.makeSnapshotClientPlayer(clientGameState.player)
+        snapshot.person = self.makeSnapshotClientPlayer(clientGameState.player, clientGameState.playerItems)
         snapshot.bullets = {
             bullet.id: self.makeSnapshotBullet(bullet, clientGameState.allPersonItems)
             for bullet in clientGameState.bullets
@@ -31,7 +31,9 @@ class SnapshotFactory:
     def makeServerSnapshot(self, serverGameState):
         snapshot = ServerSnapshot()
         snapshot.players = {player.id: self.makeSnapshotServerPlayer(player) for player in serverGameState.players}
-        snapshot.allPerson = {person.id: self.makeSnapshotPerson(person) for person in serverGameState.allPerson}
+        snapshot.allPerson = {
+            person.id: self.makeSnapshotPerson(person, personItems) for person, personItems in serverGameState.allPersonItems.items()
+        }
         snapshot.respawnedPerson = set(
             [self.makeSnapshotRespawnedPerson(person) for person in serverGameState.allPerson if person.lifeCycle == LifeCycle.respawned]
         )
@@ -55,23 +57,27 @@ class SnapshotFactory:
 
         return snapshot
 
-    def makeSnapshotClientPlayer(self, player):
+    def makeSnapshotClientPlayer(self, player, playerItems):
         snapshotPerson = SnapshotPerson()
         snapshotPerson.id = player.id
         snapshotPerson.centerPoint = player.currentCenterPoint.copy()
         snapshotPerson.yawRadians = player.yawRadians
         snapshotPerson.pitchRadians = player.pitchRadians
         snapshotPerson.jumpingValue = player.jumpingValue
+        if playerItems.selectedCurrentWeapon is not None:
+            snapshotPerson.selectedWeaponNumber = WeaponCollection.getWeaponNumberByType(type(playerItems.selectedCurrentWeapon))
 
         return snapshotPerson
 
-    def makeSnapshotPerson(self, person):
+    def makeSnapshotPerson(self, person, personItems):
         snapshotPerson = SnapshotPerson()
         snapshotPerson.id = person.id
         snapshotPerson.centerPoint = person.currentCenterPoint.copy()
         snapshotPerson.yawRadians = person.yawRadians
         snapshotPerson.pitchRadians = person.pitchRadians
         snapshotPerson.health = person.health
+        if personItems.selectedCurrentWeapon is not None:
+            snapshotPerson.selectedWeaponNumber = WeaponCollection.getWeaponNumberByType(type(personItems.selectedCurrentWeapon))
 
         return snapshotPerson
 

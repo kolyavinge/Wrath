@@ -8,6 +8,7 @@ class SnapshotPersonDiffFields:
     pitchRadians = 1 << 2
     health = 1 << 3
     jumpingValue = 1 << 4
+    selectedWeaponNumber = 1 << 5
 
     @staticmethod
     def toBitMask(diff):
@@ -23,7 +24,7 @@ class SnapshotPersonDiffFields:
 class SnapshotPersonDiff:
 
     @staticmethod
-    def makeFull(id, centerPoint, yawRadians, pitchRadians, health, jumpingValue):
+    def makeFull(id, centerPoint, yawRadians, pitchRadians, health, jumpingValue, selectedWeaponNumber):
         diff = SnapshotPersonDiff()
         diff.id = id
         diff.centerPoint = centerPoint
@@ -31,6 +32,7 @@ class SnapshotPersonDiff:
         diff.pitchRadians = pitchRadians
         diff.health = health
         diff.jumpingValue = jumpingValue
+        diff.selectedWeaponNumber = selectedWeaponNumber
 
         return diff
 
@@ -56,6 +58,10 @@ class SnapshotPersonDiff:
             and ((not hasattr(self, "pitchRadians") and not hasattr(value, "pitchRadians")) or self.pitchRadians == value.pitchRadians)
             and ((not hasattr(self, "health") and not hasattr(value, "health")) or self.health == value.health)
             and ((not hasattr(self, "jumpingValue") and not hasattr(value, "jumpingValue")) or self.jumpingValue == value.jumpingValue)
+            and (
+                (not hasattr(self, "selectedWeaponNumber") and not hasattr(value, "selectedWeaponNumber"))
+                or self.selectedWeaponNumber == value.selectedWeaponNumber
+            )
         )
 
     def __hash__(self):
@@ -67,6 +73,7 @@ class SnapshotPersonDiff:
                 self.pitchRadians.__hash__(),
                 self.health.__hash__(),
                 self.jumpingValue.__hash__(),
+                self.selectedWeaponNumber.__hash__(),
             )
         )
 
@@ -92,6 +99,9 @@ class SnapshotPersonDiff:
         if hasattr(self, "jumpingValue"):
             writer.write("f", self.jumpingValue)
 
+        if hasattr(self, "selectedWeaponNumber"):
+            writer.write("B", self.selectedWeaponNumber)
+
     @staticmethod
     def fromBytes(reader):
         fieldsBitMask = reader.read("H")
@@ -114,5 +124,8 @@ class SnapshotPersonDiff:
 
         if fieldsBitMask & SnapshotPersonDiffFields.jumpingValue > 0:
             diff.jumpingValue = reader.read("f")
+
+        if fieldsBitMask & SnapshotPersonDiffFields.selectedWeaponNumber > 0:
+            diff.selectedWeaponNumber = reader.read("B")
 
         return diff
