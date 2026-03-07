@@ -11,6 +11,7 @@ class SnapshotPerson:
         person.yawRadians = 0
         person.pitchRadians = 0
         person.health = 0
+        person.jumpingValue = 0
 
         return person
 
@@ -20,3 +21,4 @@ class SnapshotPerson:
         self.yawRadians = None
         self.pitchRadians = None
         self.health = None
+        self.jumpingValue = None

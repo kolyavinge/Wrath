@@ -29,6 +29,11 @@ class PersonDamageLogic:
             collisionData.personFalling.add(person)
             person.damage(damagePercent * PersonConstants.maxPersonHealth)
 
+    def setCollisionByFalling(self, person, collisionData):
+        damagePercent = person.fallingDamageFunc.getValue(person.fallingTime)
+        if damagePercent > 0:
+            collisionData.personFalling.add(person)
+
     def damage(self, person, personItems, damagePercent):
         if personItems.vest > 0:
             personItems.damageVest(damagePercent * PersonConstants.maxVest)

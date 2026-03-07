@@ -113,6 +113,8 @@ class GameStateSynchronizer:
             self.personTurnLogic.calculateDirectionVectors(sychedPerson)
         if hasattr(diffPerson, "health"):
             sychedPerson.health = diffPerson.health
+        if hasattr(diffPerson, "jumpingValue"):
+            sychedPerson.jumpingValue = diffPerson.jumpingValue
 
     def synchRespawnedPerson(self, gameState, diffPerson):
         sychedPerson = gameState.allPerson.getById(diffPerson.id)

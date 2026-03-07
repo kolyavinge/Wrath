@@ -7,17 +7,20 @@ class SnapshotPersonDiffLogic:
         diff = SnapshotPersonDiff()
         diff.id = newSnapshotPerson.id
 
-        if oldSnapshotPerson.centerPoint != newSnapshotPerson.centerPoint:
+        if newSnapshotPerson.centerPoint is not None and oldSnapshotPerson.centerPoint != newSnapshotPerson.centerPoint:
             diff.centerPoint = newSnapshotPerson.centerPoint
 
-        if oldSnapshotPerson.yawRadians != newSnapshotPerson.yawRadians:
+        if newSnapshotPerson.yawRadians is not None and oldSnapshotPerson.yawRadians != newSnapshotPerson.yawRadians:
             diff.yawRadians = newSnapshotPerson.yawRadians
 
-        if oldSnapshotPerson.pitchRadians != newSnapshotPerson.pitchRadians:
+        if newSnapshotPerson.pitchRadians is not None and oldSnapshotPerson.pitchRadians != newSnapshotPerson.pitchRadians:
             diff.pitchRadians = newSnapshotPerson.pitchRadians
 
-        if oldSnapshotPerson.health != newSnapshotPerson.health:
+        if newSnapshotPerson.health is not None and oldSnapshotPerson.health != newSnapshotPerson.health:
             diff.health = newSnapshotPerson.health
+
+        if newSnapshotPerson.jumpingValue is not None and oldSnapshotPerson.jumpingValue != newSnapshotPerson.jumpingValue:
+            diff.jumpingValue = newSnapshotPerson.jumpingValue
 
         return diff
 
@@ -36,5 +39,8 @@ class SnapshotPersonDiffLogic:
 
         if person.health is not None:
             diff.health = person.health
+
+        if person.jumpingValue is not None:
+            diff.jumpingValue = person.jumpingValue
 
         return diff

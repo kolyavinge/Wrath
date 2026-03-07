@@ -1,3 +1,4 @@
+from game.engine.GameState import ServerGameState
 from game.engine.person.PersonDamageLogic import PersonDamageLogic
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
@@ -13,14 +14,21 @@ class PersonZUpdater:
     ):
         self.personDamageLogic = personDamageLogic
 
+    def updateForAllPerson(self, gameState):
+        isServer = type(gameState) == ServerGameState
+        for person in gameState.allPerson:
+            self.updatePerson(person, gameState.collisionData, gameState.updateStatistic, isServer)
+
     def updateForPlayer(self, gameState):
-        self.updatePerson(gameState.player, gameState.collisionData, gameState.updateStatistic)
+        isServer = type(gameState) == ServerGameState
+        self.updatePerson(gameState.player, gameState.collisionData, gameState.updateStatistic, isServer)
 
     def updateForBots(self, gameState):
+        isServer = type(gameState) == ServerGameState
         for bot in gameState.bots:
-            self.updatePerson(bot, gameState.collisionData, gameState.updateStatistic)
+            self.updatePerson(bot, gameState.collisionData, gameState.updateStatistic, isServer)
 
-    def updatePerson(self, person, collisionData, updateStatistic):
+    def updatePerson(self, person, collisionData, updateStatistic, isServer):
         if person.nextFloor != NullFloor.instance:
             floorZ = person.nextFloor.getZ(person.nextCenterPoint.x, person.nextCenterPoint.y)
             personOnFloor = Numeric.between(person.getZ() - floorZ, -0.4, 0.4)
@@ -37,8 +45,11 @@ class PersonZUpdater:
         elif person.zState == PersonZState.jumping and person.jumpingValue == 0:
             person.zState = PersonZState.falling
         elif personOnFloor and person.zState == PersonZState.falling:
+            if isServer:
+                self.personDamageLogic.damageByFalling(person, collisionData)
+            else:
+                self.personDamageLogic.setCollisionByFalling(person, collisionData)
             person.setZ(floorZ)
-            self.personDamageLogic.damageByFalling(person, collisionData)
             person.landingTime = 0.8 * person.fallingTime
             person.fallingTime = 0
             person.zState = PersonZState.landing

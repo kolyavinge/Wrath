@@ -17,7 +17,7 @@ class SnapshotFactory:
 
     def makeClientSnapshot(self, clientGameState):
         snapshot = ClientSnapshot()
-        snapshot.person = self.makeSnapshotPerson(clientGameState.player)
+        snapshot.person = self.makeSnapshotClientPlayer(clientGameState.player)
         snapshot.bullets = {
             bullet.id: self.makeSnapshotBullet(bullet, clientGameState.allPersonItems)
             for bullet in clientGameState.bullets
@@ -30,7 +30,7 @@ class SnapshotFactory:
 
     def makeServerSnapshot(self, serverGameState):
         snapshot = ServerSnapshot()
-        snapshot.players = {player.id: self.makeSnapshotPlayer(player) for player in serverGameState.players}
+        snapshot.players = {player.id: self.makeSnapshotServerPlayer(player) for player in serverGameState.players}
         snapshot.allPerson = {person.id: self.makeSnapshotPerson(person) for person in serverGameState.allPerson}
         snapshot.respawnedPerson = set(
             [self.makeSnapshotRespawnedPerson(person) for person in serverGameState.allPerson if person.lifeCycle == LifeCycle.respawned]
@@ -55,6 +55,16 @@ class SnapshotFactory:
 
         return snapshot
 
+    def makeSnapshotClientPlayer(self, player):
+        snapshotPerson = SnapshotPerson()
+        snapshotPerson.id = player.id
+        snapshotPerson.centerPoint = player.currentCenterPoint.copy()
+        snapshotPerson.yawRadians = player.yawRadians
+        snapshotPerson.pitchRadians = player.pitchRadians
+        snapshotPerson.jumpingValue = player.jumpingValue
+
+        return snapshotPerson
+
     def makeSnapshotPerson(self, person):
         snapshotPerson = SnapshotPerson()
         snapshotPerson.id = person.id
@@ -65,7 +75,7 @@ class SnapshotFactory:
 
         return snapshotPerson
 
-    def makeSnapshotPlayer(self, player):
+    def makeSnapshotServerPlayer(self, player):
         snapshotPerson = SnapshotPerson()
         snapshotPerson.id = player.id
         snapshotPerson.health = player.health
