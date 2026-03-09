@@ -85,7 +85,7 @@ void render()
 {
     if (0 <= in_Age && in_Age < particleLifeTime)
     {
-        ParticleColor = vec4(vec3(in_Random.w), clamp(1.0 - in_Age / particleLifeTime, 0.0, 1.0));
+        ParticleColor = vec4(10.0 * vec3(in_Random.w), clamp(1.0 - in_Age / particleLifeTime, 0.0, 1.0));
         vec3 viewPosition = (viewMatrix * vec4(in_Position, 1.0)).xyz + vertices[gl_VertexID] * particleSize;
         gl_Position = projectionMatrix * vec4(viewPosition, 1.0);
     }

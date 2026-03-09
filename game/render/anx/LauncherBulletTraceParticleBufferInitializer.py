@@ -34,6 +34,6 @@ class LauncherBulletTraceParticleBufferInitializer:
             randomData.append(Random.getFloat(0.0, 1.0))
             randomData.append(Random.getFloat(0.0, 2.0))
             randomData.append(Random.getFloat(-Math.piDouble, Math.piDouble))
-            randomData.append(Random.getFloat(0.5, 2.0))
+            randomData.append(Random.getFloat(0.05, 0.2))
 
         return randomData

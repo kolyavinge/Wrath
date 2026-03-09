@@ -1,4 +1,11 @@
-from OpenGL.GL import *
+from OpenGL.GL import (
+    GL_DRAW_FRAMEBUFFER,
+    GL_READ_FRAMEBUFFER,
+    GL_VIEWPORT,
+    glBindFramebuffer,
+    glBlitFramebuffer,
+    glGetIntegerv,
+)
 
 GL_DEFAULT_FRAMEBUFFER_ID = 0
 

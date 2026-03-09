@@ -1,4 +1,4 @@
-from OpenGL.GL import *
+from OpenGL.GL import GL_TRIANGLES
 
 from game.gl.vbo.VBO import VBO
 
