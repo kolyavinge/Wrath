@@ -12,7 +12,7 @@ class BulletHoleLogic:
     def makeHole(self, gameState, collisionPoint, frontNormal, levelSegment, bulletHoleInfo):
         bulletHolePoint = self.toBulletHolePoint(collisionPoint)
         if bulletHolePoint not in gameState.bulletHolePoints:
-            gameState.bulletHolePoints.add(bulletHolePoint)
+            gameState.bulletHolePoints.append(bulletHolePoint)
             bulletHole = self.bulletHoleFactory.make(collisionPoint, frontNormal, levelSegment, bulletHoleInfo)
             gameState.updateStatistic.newBulletHoles.append(bulletHole)
 

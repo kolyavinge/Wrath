@@ -3,6 +3,7 @@ from game.engine.bsp.BSPTree import BSPTree
 from game.engine.UpdateStatistic import UpdateStatistic
 from game.lib.IdList import IdList
 from game.lib.LimitedIdList import LimitedIdList
+from game.lib.LimitedSet import LimitedSet
 from game.model.level.BackgroundVisibilityData import BackgroundVisibilityData
 from game.model.person.Camera import Camera
 from game.model.person.CollisionData import CollisionData
@@ -25,7 +26,7 @@ class GameState:
         self.bullets = IdList()
         self.removedBullets = LimitedIdList(CommonConstants.maxRemovedBulletsCount)
         self.bulletTraces = []
-        self.bulletHolePoints = set()  # TODO ограничить кол-во CommonConstants.maxBulletHoles
+        self.bulletHolePoints = LimitedSet(CommonConstants.maxBulletHoles)
         self.rays = IdList()
         self.explosions = []
         self.powerups = IdList()

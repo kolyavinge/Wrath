@@ -7,7 +7,6 @@ from game.engine.weapon.BulletPositionUpdater import BulletPositionUpdater
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
 from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
-from game.model.person.PersonStates import WeaponSelectState
 from game.model.snapshot.SnapshotBullet import SnapshotBullet
 from game.model.weapon.Plasma import Plasma
 from game.model.weapon.WeaponCollection import WeaponCollection
@@ -130,7 +129,6 @@ class GameStateSynchronizer:
     def synchAddedBullet(self, gameState, diffBullet):
         # TODO подумать как при рассинхроне обработать на клиенте тот путь
         # который пуля пролетела на сервере до передачи клиенту
-        # сюда же: если у пули перед выстрелом изменилась скорость (Railgun charge)
         person = gameState.allPerson.getById(diffBullet.personId)
         personItems = gameState.allPersonItems[person]
         weaponNumber, isLeftHandWeapon, isCharged = SnapshotBullet.readWeaponInfo(diffBullet.weaponInfo)
@@ -149,8 +147,6 @@ class GameStateSynchronizer:
             personItems.currentWeapon.isCharged = True
         newBullet = self.bulletLogic.makeBullet(gameState, person, personItems.currentWeapon, diffBullet.id, diffBullet.randomSeed)
         newBullet.direction = diffBullet.direction.copy()
-        # newBullet.velocityValue = diffBullet.velocityValue
-        # newBullet.velocity.setLength(diffBullet.velocityValue)
         self.bulletPositionUpdater.moveBulletNextPositionTo(gameState, newBullet, diffBullet.position)
         self.bulletPositionUpdater.commitBulletNextPosition(newBullet, gameState.visibilityTree)
         diffBulletWeapon = personItems.getWeaponByTypeOrNone(diffBulletWeaponType)
