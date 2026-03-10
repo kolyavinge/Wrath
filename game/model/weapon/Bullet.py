@@ -11,7 +11,7 @@ class Bullet:
         self.explosionType = explosionType
         self.isAlive = True
         self.isVisible = False
-        self.prevCurrentPosition = Vector3()
+        self.startPosition = Vector3()
         self.currentPosition = Vector3()
         self.nextPosition = Vector3()
         self.pitchRadians = 0
@@ -41,7 +41,6 @@ class Bullet:
         self.randomSeed = None
 
     def commitNextPosition(self):
-        self.prevCurrentPosition = self.currentPosition
         self.currentPosition = self.nextPosition.copy()
 
     def update(self):

@@ -52,8 +52,9 @@ class Weapon:
 
     def makeBullet(self, ownerPerson):
         bullet = self.bulletType()
+        bullet.startPosition = self.barrelPosition.copy()
         bullet.currentPosition = self.barrelPosition.copy()
-        bullet.nextPosition = bullet.currentPosition.copy()
+        bullet.nextPosition = self.barrelPosition.copy()
         bullet.yawRadians = self.yawRadians
         bullet.pitchRadians = self.pitchRadians
         bullet.direction = self.direction.copy()

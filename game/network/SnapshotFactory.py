@@ -106,10 +106,9 @@ class SnapshotFactory:
                 snapshotBullet.weaponInfo |= WeaponInfoExtraBit.leftHandWeapon
         if bullet.isCharged:
             snapshotBullet.weaponInfo |= WeaponInfoExtraBit.isCharged
-        snapshotBullet.position = bullet.prevCurrentPosition.copy()
+        snapshotBullet.position = bullet.startPosition.copy()
         snapshotBullet.direction = bullet.direction.copy()
         snapshotBullet.randomSeed = bullet.randomSeed
-        # snapshotBullet.velocityValue = bullet.velocityValue
 
         return snapshotBullet
 
