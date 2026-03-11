@@ -69,4 +69,5 @@ class PersonVelocityUpdater:
             person.velocityVector.add(person.currentCenterPoint)
             person.velocityVector.z = person.currentFloor.getZ(person.velocityVector.x, person.velocityVector.y)
             person.velocityVector.sub(person.currentCenterPoint)
-            person.velocityVector.setLength(person.velocityValue)
+            # по хорошему нужно еще привести velocityVector к длине velocityValue
+            # но это может исказить его направление
