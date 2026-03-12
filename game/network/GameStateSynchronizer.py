@@ -188,7 +188,8 @@ class GameStateSynchronizer:
         aliveOrRemovedBullet.currentPosition = diffBulletCollision.collisionPoint.copy()
         aliveOrRemovedBullet.nextPosition = aliveOrRemovedBullet.currentPosition
         if aliveOrRemovedBullet.isAlive:
-            self.bulletLogic.removeBullet(aliveOrRemovedBullet)
+            gameState.bullets.remove(aliveOrRemovedBullet)
+            self.bulletLogic.removeFromVisibilityLevelSegment(aliveOrRemovedBullet)
         else:
             gameState.removedBullets.remove(aliveOrRemovedBullet)
         self.explosionLogic.makeExplosion(gameState, aliveOrRemovedBullet)

@@ -43,7 +43,9 @@ class BulletLogic:
 
         return bullet
 
-    def removeBullet(self, removedBullet):
+    def setNotAlive(self, removedBullet):
         removedBullet.isAlive = False
+
+    def removeFromVisibilityLevelSegment(self, removedBullet):
         if removedBullet.isVisible:
             removedBullet.currentVisibilityLevelSegment.bullets.remove(removedBullet)
