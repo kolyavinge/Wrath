@@ -21,6 +21,7 @@ class LevelSegment:
         self.powerups = []
         self.bullets = []
         self.bulletTraces = []
+        self.grenades = []
         self.rays = []
         self.weaponFlashes = []
         self.explosions = []

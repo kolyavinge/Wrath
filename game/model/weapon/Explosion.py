@@ -6,7 +6,7 @@ class Explosion:
 
     def __init__(self, debrisType=None):
         self.debrisType = debrisType
-        self.bullet = None
+        self.bullet = None  # TODO projectile ???
         self.radius = 0
         self.maxRadius = 0
         self.velocityValue = 0

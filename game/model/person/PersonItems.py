@@ -65,7 +65,7 @@ class PersonItems:
             self.weapons.remove(weapon)
 
     def isCurrentWeaponEmpty(self):
-        return (self.rightHandWeapon.bulletsCount == 0) and (self.leftHandWeapon is None or self.leftHandWeapon.bulletsCount == 0)
+        return self.rightHandWeapon.isEmpty() and (self.leftHandWeapon is None or self.leftHandWeapon.isEmpty())
 
     def getCurrentWeaponType(self):
         return type(self.rightHandWeapon)

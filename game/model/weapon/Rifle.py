@@ -1,8 +1,12 @@
 from game.calc.Vector3 import Vector3
+from game.lib.DecrementCounter import DecrementCounter
 from game.model.Material import Material
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
 from game.model.weapon.BulletTrace import RayBulletTrace
+from game.model.weapon.Debris import Debris
+from game.model.weapon.Explosion import Explosion
+from game.model.weapon.Grenade import Grenade
 from game.model.weapon.SimpleFlash import SimpleFlash
 from game.model.weapon.Weapon import Weapon
 
@@ -31,6 +35,26 @@ class RifleBullet(Bullet):
         self.holeInfo = BulletHoleInfo.smallHole
 
 
+class RifleExplosion(Explosion):
+
+    def __init__(self):
+        super().__init__(Debris)
+        self.maxRadius = 4
+        self.velocityValue = 0.1
+        self.damagePercent = 0.02
+        self.debrisCount = 10
+        self.aliveRemainCounter.set(150)
+
+
+class RifleGrenade(Grenade):
+
+    def __init__(self):
+        super().__init__(RifleExplosion)
+        self.damagePercent = 0.4
+        self.detonationTimeout = DecrementCounter(50)
+        self.holeInfo = BulletHoleInfo.explosionHole
+
+
 class Rifle(Weapon):
 
     def __init__(self):
@@ -41,6 +65,8 @@ class Rifle(Weapon):
         self.maxBurstCount = 4
         self.bulletsCount = 50
         self.maxBulletsCount = 50
+        self.grenadesCount = 10
+        self.maxGrenadesCount = 10
         self.delay = 4
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
@@ -49,3 +75,19 @@ class Rifle(Weapon):
         self.playerShift = Vector3(0.1, 0.2, -0.11)
         self.enemyShift = Vector3(0.15, 0.3, -0.1)
         self.selectionShift = Vector3(0, -0.25, 0)
+
+    def makeGrenade(self, ownerPerson):
+        grenade = RifleGrenade()
+        grenade.startPosition = self.barrelPosition.copy()
+        grenade.currentPosition = self.barrelPosition.copy()
+        grenade.nextPosition = self.barrelPosition.copy()
+        grenade.direction = self.direction.copy()
+        grenade.velocity = self.direction.copy()
+        grenade.velocity.setLength(grenade.velocityValue)
+        grenade.weapon = self
+        grenade.ownerPerson = ownerPerson
+
+        return grenade
+
+    def isEmpty(self):
+        return super().isEmpty() and self.grenadesCount == 0

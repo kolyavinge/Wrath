@@ -78,6 +78,9 @@ class Weapon:
     def addBullets(self, count):
         self.bulletsCount = Math.min(self.bulletsCount + count, self.maxBulletsCount)
 
+    def isEmpty(self):
+        return self.bulletsCount == 0
+
     def getModelMatrix(self):
         if self.selectionPitchRadians == 0:
             return (
