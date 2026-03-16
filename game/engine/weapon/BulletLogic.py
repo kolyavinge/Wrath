@@ -18,9 +18,13 @@ class BulletLogic:
         bullet = weapon.makeBullet(person)
         self.initBullet(gameState, person, weapon, bullet, id, randomSeed)
 
+        return bullet
+
     def makeAltBullet(self, gameState, person, weapon, id=None, randomSeed=None):
         bullet = weapon.makeAltBullet(person)
         self.initBullet(gameState, person, weapon, bullet, id, randomSeed)
+
+        return bullet
 
     def initBullet(self, gameState, person, weapon, bullet, id=None, randomSeed=None):
         bullet.id = id or self.bulletIdLogic.getBulletId(person.id)

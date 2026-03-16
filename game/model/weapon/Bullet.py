@@ -11,6 +11,7 @@ class Bullet:
         self.explosionType = explosionType
         self.isAlive = True
         self.isVisible = False
+        self.isAltBullet = False
         self.startPosition = Vector3()
         self.currentPosition = Vector3()
         self.nextPosition = Vector3()

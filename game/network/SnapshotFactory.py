@@ -106,6 +106,8 @@ class SnapshotFactory:
                 snapshotBullet.weaponInfo |= WeaponInfoExtraBit.leftHandWeapon
         if bullet.isCharged:
             snapshotBullet.weaponInfo |= WeaponInfoExtraBit.isCharged
+        if bullet.isAltBullet:
+            snapshotBullet.weaponInfo |= WeaponInfoExtraBit.isAltBullet
         snapshotBullet.position = bullet.startPosition.copy()
         snapshotBullet.direction = bullet.direction.copy()
         snapshotBullet.randomSeed = bullet.randomSeed

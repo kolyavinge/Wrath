@@ -62,6 +62,7 @@ class Weapon:
 
     def makeBulletByType(self, ownerPerson, bulletType):
         bullet = bulletType()
+        bullet.isAltBullet = bulletType == self.altBulletType
         bullet.startPosition = self.barrelPosition.copy()
         bullet.currentPosition = self.barrelPosition.copy()
         bullet.nextPosition = self.barrelPosition.copy()

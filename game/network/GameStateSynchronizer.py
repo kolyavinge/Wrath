@@ -131,7 +131,7 @@ class GameStateSynchronizer:
         # который пуля пролетела на сервере до передачи клиенту
         person = gameState.allPerson.getById(diffBullet.personId)
         personItems = gameState.allPersonItems[person]
-        weaponNumber, isLeftHandWeapon, isCharged = SnapshotBullet.readWeaponInfo(diffBullet.weaponInfo)
+        weaponNumber, isLeftHandWeapon, isCharged, isAltBullet = SnapshotBullet.readWeaponInfo(diffBullet.weaponInfo)
         diffBulletWeaponType = WeaponCollection.getWeaponTypeByNumber(weaponNumber)
         if not personItems.hasWeaponByType(diffBulletWeaponType):
             return
@@ -145,7 +145,10 @@ class GameStateSynchronizer:
                 personItems.setRightHandWeaponAsCurrent()
         if isCharged:
             personItems.currentWeapon.isCharged = True
-        newBullet = self.bulletLogic.makeBullet(gameState, person, personItems.currentWeapon, diffBullet.id, diffBullet.randomSeed)
+        if not isAltBullet:
+            newBullet = self.bulletLogic.makeBullet(gameState, person, personItems.currentWeapon, diffBullet.id, diffBullet.randomSeed)
+        else:
+            newBullet = self.bulletLogic.makeAltBullet(gameState, person, personItems.currentWeapon, diffBullet.id, diffBullet.randomSeed)
         newBullet.direction = diffBullet.direction.copy()
         self.bulletPositionUpdater.moveBulletNextPositionTo(gameState, newBullet, diffBullet.position)
         self.bulletPositionUpdater.commitBulletNextPosition(newBullet, gameState.visibilityTree)
