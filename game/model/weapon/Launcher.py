@@ -51,7 +51,7 @@ class LauncherBullet(Bullet):
 
 class Launcher(Weapon):
 
-    hasDebrisAfterExplosion = True
+    hasBulletDebris = True
 
     def __init__(self):
         super().__init__(LauncherBullet)

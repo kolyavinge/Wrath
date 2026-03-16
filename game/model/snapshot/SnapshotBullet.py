@@ -95,8 +95,10 @@ class SnapshotBullet:
             bullet.direction.z,
         ) = reader.read("iiBffffff")
 
-        weaponNumber, _, _, _ = SnapshotBullet.readWeaponInfo(bullet.weaponInfo)
-        if WeaponCollection.getWeaponTypeByNumber(weaponNumber).hasDebrisAfterExplosion:
+        weaponNumber, _, _, isAltBullet = SnapshotBullet.readWeaponInfo(bullet.weaponInfo)
+        if not isAltBullet and WeaponCollection.getWeaponTypeByNumber(weaponNumber).hasBulletDebris:
+            bullet.randomSeed = reader.read("H")
+        elif isAltBullet and WeaponCollection.getWeaponTypeByNumber(weaponNumber).hasAltBulletDebris:
             bullet.randomSeed = reader.read("H")
 
         return bullet

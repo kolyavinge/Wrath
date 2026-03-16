@@ -31,7 +31,7 @@ class BulletLogic:
 
         if randomSeed is not None:
             bullet.randomSeed = randomSeed
-        elif weapon.hasDebrisAfterExplosion:
+        elif (not bullet.isAltBullet and weapon.hasBulletDebris) or (bullet.isAltBullet and weapon.hasAltBulletDebris):
             bullet.randomSeed = Random.getInt(0, CommonConstants.maxBulletSeed)
 
         gameState.bullets.append(bullet)

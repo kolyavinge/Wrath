@@ -9,7 +9,8 @@ from game.model.weapon.FireState import FireState
 class Weapon:
 
     defaultCount = 1
-    hasDebrisAfterExplosion = False
+    hasBulletDebris = False
+    hasAltBulletDebris = False
 
     def __init__(self, bulletType, flashType=None, altBulletType=None):
         self.bulletType = bulletType

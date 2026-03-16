@@ -39,7 +39,7 @@ class RifleBullet(Bullet):
 class RifleGrenadeExplosion(Explosion):
 
     def __init__(self):
-        super().__init__()  # TODO Debris
+        super().__init__(Debris)
         self.maxRadius = 4
         self.velocityValue = 0.1
         self.damagePercent = 0.02
@@ -64,6 +64,8 @@ class RifleGrenade(Grenade):
 
 
 class Rifle(Weapon):
+
+    hasAltBulletDebris = True
 
     def __init__(self):
         super().__init__(RifleBullet, RifleFlash, RifleGrenade)
