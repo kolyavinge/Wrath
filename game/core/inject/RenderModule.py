@@ -74,6 +74,7 @@ from game.render.weapon.CrosshairRenderer import *
 from game.render.weapon.explosion.FireExplosionRenderer import *
 from game.render.weapon.explosion.LauncherExplosionRenderer import *
 from game.render.weapon.explosion.PlasmaExplosionRenderer import *
+from game.render.weapon.explosion.RifleGrenadeExplosionRenderer import *
 from game.render.weapon.ExplosionRenderer import *
 from game.render.weapon.PlasmaRayRenderer import *
 from game.render.weapon.RayRenderer import *
@@ -173,6 +174,7 @@ class RenderModule:
         binder.bindSingleton(FireExplosionRenderer)
         binder.bindSingleton(LauncherExplosionRenderer)
         binder.bindSingleton(PlasmaExplosionRenderer)
+        binder.bindSingleton(RifleGrenadeExplosionRenderer)
         binder.bindSingleton(ExplosionRenderer)
         binder.bindSingleton(PlasmaRayRenderer)
         binder.bindSingleton(RayRenderer)

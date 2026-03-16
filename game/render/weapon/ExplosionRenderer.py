@@ -3,17 +3,19 @@ from game.model.weapon.Plasma import PlasmaExplosion
 from game.model.weapon.Rifle import RifleGrenadeExplosion
 from game.render.weapon.explosion.LauncherExplosionRenderer import *
 from game.render.weapon.explosion.PlasmaExplosionRenderer import PlasmaExplosionRenderer
+from game.render.weapon.explosion.RifleGrenadeExplosionRenderer import *
 
 
 class ExplosionRenderer:
 
     def __init__(
         self,
+        rifleGrenadeExplosionRenderer: RifleGrenadeExplosionRenderer,
         plasmaExplosionRenderer: PlasmaExplosionRenderer,
         launcherExplosionRenderer: LauncherExplosionRenderer,
     ):
         self.renderers = {}
-        self.renderers[RifleGrenadeExplosion] = launcherExplosionRenderer
+        self.renderers[RifleGrenadeExplosion] = rifleGrenadeExplosionRenderer
         self.renderers[PlasmaExplosion] = plasmaExplosionRenderer
         self.renderers[LauncherExplosion] = launcherExplosionRenderer
 
