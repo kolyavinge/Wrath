@@ -33,6 +33,11 @@ class DashboardTextRenderer:
         shader.setModelMatrix(modelMatrix)
         self.updateMainData(dashboard)
 
+        if dashboard.altBulletsCountStr is not None:
+            modelMatrix.scale(0.6, 0.8, 1.0)
+            shader.setModelMatrix(modelMatrix)
+            self.updateAltBulletsData(dashboard)
+
         modelMatrix.scale(0.4, 0.5, 1.0)
         shader.setModelMatrix(modelMatrix)
         self.updateFragsData(dashboard)
@@ -44,7 +49,12 @@ class DashboardTextRenderer:
             (dashboard.healthStr, 10, 10),
             (dashboard.vestStr, 200, 10),
             (dashboard.bulletsCountStr, self.viewportWidth + 220, 10),
-            (dashboard.bulletsCountStr, self.viewportWidth + 220, 10),
+        ]
+        self.textRenderer.render(textItems)
+
+    def updateAltBulletsData(self, dashboard):
+        textItems = [
+            (dashboard.altBulletsCountStr, self.viewportWidth + 1000, 100),
         ]
         self.textRenderer.render(textItems)
 

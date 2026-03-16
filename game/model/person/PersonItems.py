@@ -84,6 +84,20 @@ class PersonItems:
 
         return maxBulletsCount
 
+    def getLeftRightWeaponAltBulletsCount(self):
+        altBulletsCount = self.rightHandWeapon.altBulletsCount
+        if self.leftHandWeapon is not None:
+            altBulletsCount += self.leftHandWeapon.altBulletsCount
+
+        return altBulletsCount
+
+    def getLeftRightWeaponMaxAltBulletsCount(self):
+        maxAltBulletsCount = self.rightHandWeapon.maxAltBulletsCount
+        if self.leftHandWeapon is not None:
+            maxAltBulletsCount += self.leftHandWeapon.maxAltBulletsCount
+
+        return maxAltBulletsCount
+
     def switchTwoHandedWeaponIfNeeded(self):
         if self.leftHandWeapon is not None:
             if self.rightHandWeapon == self.currentWeapon:

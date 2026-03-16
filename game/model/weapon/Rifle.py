@@ -43,7 +43,7 @@ class RifleGrenadeExplosion(Explosion):
         self.maxRadius = 4
         self.velocityValue = 0.1
         self.damagePercent = 0.02
-        self.debrisCount = 10
+        self.debrisCount = 8
         self.aliveRemainCounter.set(150)
 
 

@@ -13,6 +13,8 @@ class DashboardUpdater:
         dashboard.vest = playerItems.vest
         dashboard.bulletsCount = playerItems.getLeftRightWeaponBulletsCount()
         dashboard.maxBulletsCount = playerItems.getLeftRightWeaponMaxBulletsCount()
+        dashboard.altBulletsCount = playerItems.getLeftRightWeaponAltBulletsCount()
+        dashboard.maxAltBulletsCount = playerItems.getLeftRightWeaponMaxAltBulletsCount()
         dashboard.selectedWeaponType = type(playerItems.selectedCurrentWeapon or playerItems.currentWeapon)
         dashboard.weaponTypesSet = playerItems.getNonemptyWeaponTypesSet()
         dashboard.fragStatisticSet = set(gameState.personFragStatistic.values())
@@ -23,6 +25,8 @@ class DashboardUpdater:
             or dashboard.lastVest != dashboard.vest
             or dashboard.lastBulletsCount != dashboard.bulletsCount
             or dashboard.lastMaxBulletsCount != dashboard.maxBulletsCount
+            or dashboard.lastAltBulletsCount != dashboard.altBulletsCount
+            or dashboard.lastMaxAltBulletsCount != dashboard.maxAltBulletsCount
             or dashboard.lastSelectedWeaponType != dashboard.selectedWeaponType
             or dashboard.lastWeaponTypesSet != dashboard.weaponTypesSet
             or dashboard.lastFragStatisticSet != dashboard.fragStatisticSet
@@ -36,8 +40,15 @@ class DashboardUpdater:
         dashboard.vestStr = self.getAlignedNumber(dashboard.vest)
         if playerItems.currentWeapon != NullWeapon.instance:
             dashboard.bulletsCountStr = self.getAlignedNumber(f"{self.getAlignedNumber(dashboard.bulletsCount)}/{dashboard.maxBulletsCount}")
+            if playerItems.currentWeapon.hasAltBullets:
+                dashboard.altBulletsCountStr = self.getAlignedNumber(
+                    f"{self.getAlignedNumber(dashboard.altBulletsCount)}/{dashboard.maxAltBulletsCount}"
+                )
+            else:
+                dashboard.altBulletsCountStr = None
         else:
             dashboard.bulletsCountStr = ""
+            dashboard.altBulletsCountStr = None
         dashboard.fragStatisticStr = []
         stat = gameState.personFragStatistic[gameState.player]
         dashboard.fragStatisticStr.append(("player", str(stat.frags), str(stat.deaths)))
