@@ -3,14 +3,7 @@ from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.calc.Vector3 import Vector3
 from game.lib.DecrementCounter import DecrementCounter
 from game.lib.Math import Math
-
-
-class FireState:
-
-    deactive = 0
-    activated = 1
-    active = 2
-    deactivated = 3
+from game.model.weapon.FireState import FireState
 
 
 class Weapon:

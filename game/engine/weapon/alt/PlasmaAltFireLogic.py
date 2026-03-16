@@ -1,5 +1,5 @@
 from game.engine.weapon.RayFireLogic import RayFireLogic
-from game.model.weapon.Weapon import FireState
+from game.model.weapon.FireState import FireState
 
 
 class PlasmaAltFireLogic:

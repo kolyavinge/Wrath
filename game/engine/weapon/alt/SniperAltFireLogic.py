@@ -1,5 +1,5 @@
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
-from game.model.weapon.Weapon import FireState
+from game.model.weapon.FireState import FireState
 
 
 class SniperAltFireLogic:

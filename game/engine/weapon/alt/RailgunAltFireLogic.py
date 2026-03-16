@@ -1,5 +1,5 @@
 from game.engine.weapon.WeaponFireLogic import WeaponFireLogic
-from game.model.weapon.Weapon import FireState
+from game.model.weapon.FireState import FireState
 
 
 class RailgunAltFireLogic:

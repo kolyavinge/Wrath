@@ -1,4 +1,4 @@
-from game.model.weapon.Weapon import FireState
+from game.model.weapon.FireState import FireState
 
 
 class WeaponAltFireStateSwitcher:

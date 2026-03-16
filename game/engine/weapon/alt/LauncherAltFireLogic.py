@@ -1,6 +1,6 @@
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
-from game.model.weapon.Weapon import FireState
+from game.model.weapon.FireState import FireState
 
 
 class LauncherAltFireLogic:

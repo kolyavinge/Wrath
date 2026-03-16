@@ -11,7 +11,7 @@ from game.model.weapon.Plasma import Plasma
 from game.model.weapon.Railgun import Railgun
 from game.model.weapon.Rifle import Rifle
 from game.model.weapon.Sniper import Sniper
-from game.model.weapon.Weapon import FireState
+from game.model.weapon.FireState import FireState
 
 
 class WeaponAltFireUpdater:
