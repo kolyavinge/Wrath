@@ -18,6 +18,10 @@ class WeaponDelayUpdater:
             if weapon.delayRemain.isExpired():
                 personItems.switchTwoHandedWeaponIfNeeded()
 
+        if weapon.hasAltBullets:
+            if not weapon.altDelayRemain.isExpired():
+                weapon.altDelayRemain.decrease()
+
         if weapon.needReload and not weapon.reloadDelayRemain.isExpired():
             weapon.reloadDelayRemain.decrease()
             if weapon.reloadDelayRemain.isExpired():

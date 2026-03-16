@@ -38,7 +38,7 @@ class WeaponFireLogic:
         if self.canFireAltBullet(person, weapon):
             weapon.isFiring = True
             weapon.altBulletsCount -= 1
-            weapon.delayRemain.set(weapon.delay)
+            weapon.altDelayRemain.set(weapon.altDelay)
             if weapon.needReload:
                 weapon.reloadDelayRemain.set(weapon.reloadDelay)
             self.weaponFeedbackLogic.applyFeedback(weapon)
@@ -47,4 +47,4 @@ class WeaponFireLogic:
             gameState.updateStatistic.firedWeapons.append((person, weapon))
 
     def canFireAltBullet(self, person, weapon):
-        return weapon.delayRemain.isExpired() and person.weaponSelectState is None and weapon.altBulletsCount > 0
+        return weapon.altDelayRemain.isExpired() and person.weaponSelectState is None and weapon.altBulletsCount > 0

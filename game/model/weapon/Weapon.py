@@ -32,6 +32,8 @@ class Weapon:
         self.maxAltBulletsCount = 0
         self.delay = 0
         self.delayRemain = DecrementCounter()
+        self.altDelay = 0
+        self.altDelayRemain = DecrementCounter()
         self.needReload = False
         self.altFireState = FireState.deactive
         self.allowFireWithAltFire = False

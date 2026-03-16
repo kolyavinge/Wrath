@@ -76,6 +76,7 @@ class Rifle(Weapon):
         self.altBulletsCount = 10
         self.maxAltBulletsCount = 10
         self.delay = 4
+        self.altDelay = 25
         self.jitterFade = 0.9
         self.jitterDelta = 0.05
         self.feedbackFade = 0.6
