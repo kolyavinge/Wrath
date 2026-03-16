@@ -21,6 +21,9 @@ class BulletPositionUpdater:
         if bullet.accelValue > 0:
             bullet.velocityValue += bullet.accelValue
             bullet.velocity.setLength(bullet.velocityValue)
+        if bullet.gravityValue > 0:
+            bullet.velocity.z -= bullet.gravityValue
+            bullet.velocityValue = bullet.velocity.getLength()
         bullet.totalDistance += bullet.velocityValue
         if bullet.totalDistance < CommonConstants.maxLevelSize:
             bullet.nextPosition.add(bullet.velocity)

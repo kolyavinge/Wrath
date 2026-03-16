@@ -1,6 +1,9 @@
 class LinearRandomGenerator:
 
     def __init__(self, seed=0):
+        if seed is None:
+            raise Exception("Seed cannot be None.")
+
         self.a = 9459654965476
         self.c = 6745675467549
         self.m = 4643578547845

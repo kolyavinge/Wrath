@@ -569,7 +569,7 @@ class NebulaLevel(Level):
         yield SplitPlane(Vector3(45, 50, self.firstFloorZ + 1), Vector3(1, 0, 0))
 
     def getPlayerInitInfo(self):
-        return (Vector3(80, 53, self.firstFloorZ), Vector3(-1, 0, 0).getNormalized(), Pistol)
+        return (Vector3(80, 53, self.firstFloorZ), Vector3(-1, 0, 0).getNormalized(), Rifle)
 
     def getBotInitInfo(self):
         return [

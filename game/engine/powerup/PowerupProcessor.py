@@ -26,6 +26,8 @@ class PowerupProcessor:
         if len(findedWeapons) > 0:
             for findedWeapon in findedWeapons:
                 findedWeapon.addBullets(findedWeapon.maxBulletsCount)
+                if findedWeapon.hasAltBullets:
+                    findedWeapon.addAltBullets(findedWeapon.maxAltBulletsCount)
         else:
             selectThisWeapon = not personItems.hasWeapons()
             for _ in range(0, powerup.count):

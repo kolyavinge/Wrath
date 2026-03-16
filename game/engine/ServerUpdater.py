@@ -94,6 +94,7 @@ class ServerUpdater:
         self.rayPositionUpdater.update(gameState)
         self.rayCollisionUpdater.update(gameState)
         self.powerupCollisionUpdater.updateForBots(gameState)
+        self.bulletUpdater.updateGrenadesDetonationTimeout(gameState)
         self.explosionCollisionUpdater.update(gameState)
         self.explosionUpdater.update(gameState)
         self.powerupUpdater.generateNew(gameState)

@@ -1,5 +1,6 @@
 from game.model.weapon.Launcher import LauncherExplosion
 from game.model.weapon.Plasma import PlasmaExplosion
+from game.model.weapon.Rifle import RifleGrenadeExplosion
 from game.render.weapon.explosion.LauncherExplosionRenderer import *
 from game.render.weapon.explosion.PlasmaExplosionRenderer import PlasmaExplosionRenderer
 
@@ -12,6 +13,7 @@ class ExplosionRenderer:
         launcherExplosionRenderer: LauncherExplosionRenderer,
     ):
         self.renderers = {}
+        self.renderers[RifleGrenadeExplosion] = launcherExplosionRenderer
         self.renderers[PlasmaExplosion] = plasmaExplosionRenderer
         self.renderers[LauncherExplosion] = launcherExplosionRenderer
 

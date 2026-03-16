@@ -39,6 +39,7 @@ class LauncherBullet(Bullet):
         self.isVisible = True
         self.velocityValue = 0.2
         self.accelValue = 0.2
+        self.gravityValue = 0.001
         self.damagePercent = 0.5
         self.holeInfo = BulletHoleInfo.explosionHole
         self.traceShift = 0.5

@@ -16,12 +16,22 @@ class BulletLogic:
 
     def makeBullet(self, gameState, person, weapon, id=None, randomSeed=None):
         bullet = weapon.makeBullet(person)
+        self.initBullet(gameState, person, weapon, bullet, id, randomSeed)
+
+    def makeAltBullet(self, gameState, person, weapon, id=None, randomSeed=None):
+        bullet = weapon.makeAltBullet(person)
+        self.initBullet(gameState, person, weapon, bullet, id, randomSeed)
+
+    def initBullet(self, gameState, person, weapon, bullet, id=None, randomSeed=None):
         bullet.id = id or self.bulletIdLogic.getBulletId(person.id)
+
         if randomSeed is not None:
             bullet.randomSeed = randomSeed
         elif weapon.hasDebrisAfterExplosion:
             bullet.randomSeed = Random.getInt(0, CommonConstants.maxBulletSeed)
+
         gameState.bullets.append(bullet)
+
         bullet.currentLevelSegment = self.traversal.findLevelSegment(gameState.collisionTree, bullet.currentPosition)
         bullet.nextLevelSegment = bullet.currentLevelSegment
 

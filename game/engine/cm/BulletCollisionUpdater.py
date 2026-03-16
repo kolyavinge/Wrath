@@ -48,7 +48,6 @@ class BulletCollisionUpdater:
         elif target == CollidedTarget.allPerson:
             for item in collisionResultData:
                 self.processPersonCollision(gameState, bullet, item)
-        self.explosionLogic.makeExplosion(gameState, bullet)
 
     def processConstructionCollision(self, gameState, bullet, collisionResult):
         collisionPoint, construction = collisionResult
@@ -56,15 +55,17 @@ class BulletCollisionUpdater:
         bullet.nextPosition = collisionPoint
         if bullet.ricochetPossibility > 0 and Random.getFloat(0.0, 1.0) <= bullet.ricochetPossibility:
             bullet.direction.reflectBy(construction.frontNormal)
-            bullet.velocityValue /= 2.0
+            bullet.velocityValue *= bullet.ricochetVelocityCoeff
             bullet.velocity = bullet.direction.copy()
             bullet.velocity.setLength(bullet.velocityValue)
+            bullet.accelValue = 0
             bullet.totalDistance = 0
         else:
             self.bulletLogic.setNotAlive(bullet)
             bullet.damagedObject = construction
             visibilityLevelSegment = self.traversal.findLevelSegment(gameState.visibilityTree, collisionPoint)
             self.bulletHoleLogic.makeHole(gameState, collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
+            self.explosionLogic.makeExplosion(gameState, bullet)
 
     def processPersonCollision(self, gameState, bullet, collisionResult):
         collisionPoint, person, target = collisionResult
@@ -83,3 +84,4 @@ class BulletCollisionUpdater:
                 self.personDamageLogic.damageByBullet(person, gameState.allPersonItems[person], bullet, gameState.collisionData)
         if bullet.paralyze and person.health > 0:
             person.paralyzeDelay.set(bullet.paralyzeTime)
+        self.explosionLogic.makeExplosion(gameState, bullet)

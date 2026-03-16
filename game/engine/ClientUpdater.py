@@ -119,6 +119,7 @@ class ClientUpdater:
         self.rayCollisionUpdater.updateForConstructions(gameState)
         self.powerupCollisionUpdater.updateForPlayer(gameState)
         self.bulletUpdater.update(gameState)
+        self.bulletUpdater.updateGrenadesDetonationTimeout(gameState)
         self.explosionUpdater.update(gameState)
         self.powerupUpdater.update(gameState)
         self.personLifeCycleUpdater.update(gameState)

@@ -18,8 +18,9 @@ class Weapon:
     defaultCount = 1
     hasDebrisAfterExplosion = False
 
-    def __init__(self, bulletType, flashType=None):
+    def __init__(self, bulletType, flashType=None, altBulletType=None):
         self.bulletType = bulletType
+        self.altBulletType = altBulletType
         self.flashType = flashType
         self.position = Vector3()
         self.direction = Vector3()
@@ -33,6 +34,9 @@ class Weapon:
         self.selectionPitchRadians = 0
         self.bulletsCount = 0
         self.maxBulletsCount = 0
+        self.hasAltBullets = altBulletType is not None
+        self.altBulletsCount = 0
+        self.maxAltBulletsCount = 0
         self.delay = 0
         self.delayRemain = DecrementCounter()
         self.needReload = False
@@ -51,7 +55,13 @@ class Weapon:
         self.cannotBeChangedWhileAltFire = False
 
     def makeBullet(self, ownerPerson):
-        bullet = self.bulletType()
+        return self.makeBulletByType(ownerPerson, self.bulletType)
+
+    def makeAltBullet(self, ownerPerson):
+        return self.makeBulletByType(ownerPerson, self.altBulletType)
+
+    def makeBulletByType(self, ownerPerson, bulletType):
+        bullet = bulletType()
         bullet.startPosition = self.barrelPosition.copy()
         bullet.currentPosition = self.barrelPosition.copy()
         bullet.nextPosition = self.barrelPosition.copy()
@@ -78,8 +88,11 @@ class Weapon:
     def addBullets(self, count):
         self.bulletsCount = Math.min(self.bulletsCount + count, self.maxBulletsCount)
 
+    def addAltBullets(self, count):
+        self.altBulletsCount = Math.min(self.altBulletsCount + count, self.maxAltBulletsCount)
+
     def isEmpty(self):
-        return self.bulletsCount == 0
+        return self.bulletsCount == 0 and (not self.hasAltBullets or self.altBulletsCount == 0)
 
     def getModelMatrix(self):
         if self.selectionPitchRadians == 0:
