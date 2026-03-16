@@ -25,6 +25,8 @@ class PowerupValidator:
         for findedWeapon in findedWeapons:
             if findedWeapon.bulletsCount < findedWeapon.maxBulletsCount:
                 return True
+            if findedWeapon.hasAltBullets and findedWeapon.altBulletsCount < findedWeapon.maxAltBulletsCount:
+                return True
 
         return False
 
