@@ -23,6 +23,7 @@ class CommonConstants:
     maxBloodStains = 5
     maxRemovedBulletsCount = 10
     maxBulletSeed = (1 << 16) - 1  # 2 bytes
+    minBulletVelocityValue = 0.01
     maxDebrisCount = 10
     maxServerPlayers = 10
     maxBots = 10

@@ -18,6 +18,8 @@ class BulletPositionUpdater:
             self.moveBulletNextPosition(gameState, bullet)
 
     def moveBulletNextPosition(self, gameState, bullet):
+        if bullet.velocityValue < CommonConstants.minBulletVelocityValue:
+            return
         if bullet.accelValue > 0:
             bullet.velocityValue += bullet.accelValue
             bullet.velocity.setLength(bullet.velocityValue)

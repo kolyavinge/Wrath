@@ -64,8 +64,8 @@ class BulletCollisionUpdater:
             self.bulletLogic.setNotAlive(bullet)
             bullet.damagedObject = construction
             visibilityLevelSegment = self.traversal.findLevelSegment(gameState.visibilityTree, collisionPoint)
-            self.bulletHoleLogic.makeHole(gameState, collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
             self.explosionLogic.makeExplosion(gameState, bullet)
+            self.bulletHoleLogic.makeHole(gameState, collisionPoint, construction.frontNormal, visibilityLevelSegment, bullet.holeInfo)
 
     def processPersonCollision(self, gameState, bullet, collisionResult):
         collisionPoint, person, target = collisionResult

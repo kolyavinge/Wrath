@@ -51,7 +51,7 @@ class RifleGrenade(Grenade):
 
     def __init__(self):
         super().__init__(None, RifleGrenadeExplosion)
-        self.velocityValue = 1.0
+        self.velocityValue = 0.5
         self.accelValue = 0.05
         self.gravityValue = 0.01
         self.damagePercent = 0

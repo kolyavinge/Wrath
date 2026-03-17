@@ -44,7 +44,7 @@ class BulletLogic:
             bullet.currentVisibilityLevelSegment = visibilityLevelSegment
             visibilityLevelSegment.bullets.append(bullet)
 
-        if visibilityLevelSegment in gameState.visibleLevelSegments:
+        if visibilityLevelSegment in gameState.visibleLevelSegments and not bullet.isAltBullet:
             flash = weapon.makeFlash()
             if flash is not None:
                 visibilityLevelSegment.weaponFlashes.append(flash)
