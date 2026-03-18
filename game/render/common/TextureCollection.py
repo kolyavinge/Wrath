@@ -8,43 +8,54 @@ class TextureCollection:
         self.textureLoader = textureLoader
 
     def init(self):
-        # textures
-        path = Environment.programRootPath + "\\res\\textures\\"
-        self.blank = self.textureLoader.load(path + "blank.png")
-        self.construction1 = self.textureLoader.load(path + "construction1.jpg")
-        self.construction2 = self.textureLoader.load(path + "construction2.jpg")
-        self.construction3 = self.textureLoader.load(path + "construction3.jpg")
-        self.construction4 = self.textureLoader.load(path + "construction4.jpg")
-        self.construction5 = self.textureLoader.load(path + "construction5.jpg")
-        self.construction6 = self.textureLoader.load(path + "construction6.jpg")
-        self.construction7 = self.textureLoader.load(path + "construction7.jpg")
-        self.construction8 = self.textureLoader.load(path + "construction8.jpg")
-        self.construction9 = self.textureLoader.load(path + "construction9.jpg")
-        self.construction10 = self.textureLoader.load(path + "construction10.jpg")
-        self.construction11 = self.textureLoader.load(path + "construction11.jpg")
-        self.construction12 = self.textureLoader.load(path + "construction12.jpg")
-        self.construction13 = self.textureLoader.load(path + "construction13.jpg")
-        self.construction14 = self.textureLoader.load(path + "construction14.jpg")
-        self.construction15 = self.textureLoader.load(path + "construction15.jpg")
-        self.construction16 = self.textureLoader.load(path + "construction16.jpg")
-        self.construction17 = self.textureLoader.load(path + "construction17.jpg")
-        self.rock1 = self.textureLoader.load(path + "rock1.jpg")
-        self.edgeMetal1 = self.textureLoader.load(path + "edgeMetal1.jpg")
-        self.edgeMetal2 = self.textureLoader.load(path + "edgeMetal2.jpg")
-        self.edgeMetal3 = self.textureLoader.load(path + "edgeMetal3.jpg")
-        self.bulletHole = self.textureLoader.load(path + "bulletHole.png")
-        self.blackHole = self.textureLoader.load(path + "blackHole.png")
-        self.explosionHole = self.textureLoader.load(path + "explosionHole.png")
-        self.pistolFlash = self.textureLoader.load(path + "pistolFlash.png")
-        self.rifleFlash = self.textureLoader.load(path + "rifleFlash.png")
-        self.sniperFlash = self.textureLoader.load(path + "sniperFlash.png")
-        self.sniperCrosshair = self.textureLoader.load(path + "sniperCrosshair.png")
-        self.bloodStain1 = self.textureLoader.load(path + "bloodStain1.png")
-        self.launcherExplosion = self.textureLoader.load(path + "launcherExplosion.png")
-        self.background1 = self.textureLoader.load(path + "background1.jpg")
-        # self.background1 = self.textureLoader.load(path + "sphereTest.png")
+        self.initTextures()
+        self.initMenu()
 
-        # menu
-        path = Environment.programRootPath + "\\res\\menu\\"
-        self.alphabet = self.textureLoader.load(path + "alphabet.png")
-        self.sprites = self.textureLoader.load(path + "sprites.png")
+    def initTextures(self):
+        texturesFolder = f"{Environment.programRootPath}\\res\\textures\\"
+
+        def load(imageFileName):
+            return self.textureLoader.load(f"{texturesFolder}{imageFileName}")
+
+        self.blank = load("blank.png")
+        self.construction1 = load("construction1.jpg")
+        self.construction2 = load("construction2.jpg")
+        self.construction3 = load("construction3.jpg")
+        self.construction4 = load("construction4.jpg")
+        self.construction5 = load("construction5.jpg")
+        self.construction6 = load("construction6.jpg")
+        self.construction7 = load("construction7.jpg")
+        self.construction8 = load("construction8.jpg")
+        self.construction9 = load("construction9.jpg")
+        self.construction10 = load("construction10.jpg")
+        self.construction11 = load("construction11.jpg")
+        self.construction12 = load("construction12.jpg")
+        self.construction13 = load("construction13.jpg")
+        self.construction14 = load("construction14.jpg")
+        self.construction15 = load("construction15.jpg")
+        self.construction16 = load("construction16.jpg")
+        self.construction17 = load("construction17.jpg")
+        self.rock1 = load("rock1.jpg")
+        self.edgeMetal1 = load("edgeMetal1.jpg")
+        self.edgeMetal2 = load("edgeMetal2.jpg")
+        self.edgeMetal3 = load("edgeMetal3.jpg")
+        self.bulletHole = load("bulletHole.png")
+        self.blackHole = load("blackHole.png")
+        self.explosionHole = load("explosionHole.png")
+        self.pistolFlash = load("pistolFlash.png")
+        self.rifleFlash = load("rifleFlash.png")
+        self.sniperFlash = load("sniperFlash.png")
+        self.sniperCrosshair = load("sniperCrosshair.png")
+        self.bloodStain1 = load("bloodStain1.png")
+        self.launcherExplosion = load("launcherExplosion.png")
+        self.background1 = load("background1.jpg")
+        # self.background1 = load("sphereTest.png")
+
+    def initMenu(self):
+        menuFolder = f"{Environment.programRootPath}\\res\\menu\\"
+
+        def load(imageFileName):
+            return self.textureLoader.load(f"{menuFolder}{imageFileName}")
+
+        self.alphabet = load("alphabet.png")
+        self.sprites = load("sprites.png")
