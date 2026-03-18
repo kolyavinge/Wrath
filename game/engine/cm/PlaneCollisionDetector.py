@@ -35,4 +35,6 @@ class PlaneCollisionDetector:
             length /= 2.0
             middlePoint = startPoint.getMiddleTo(endPoint)
 
-        return middlePoint
+        # в качестве окончательной точки пересечения берем startPoint
+        # результирующая точка должна лежать перед лицевой стороной плоскости
+        return startPoint
