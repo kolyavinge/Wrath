@@ -29,9 +29,9 @@ class WeaponVox:
         self.allSources.remove(source)
 
     def vox(self, updateStatistic):
-        for person, weapon in updateStatistic.firedWeapons:
+        for person, weapon, bullet in updateStatistic.firedWeapons:
             source = self.sources[person]
-            self.audioPlayer.play(source.shots[type(weapon)])
+            self.audioPlayer.play(source.shots[type(bullet)])
 
         for person, weapon in updateStatistic.reloadedWeapons:
             source = self.sources[person]

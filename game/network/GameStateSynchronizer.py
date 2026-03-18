@@ -153,7 +153,7 @@ class GameStateSynchronizer:
         self.bulletPositionUpdater.moveBulletNextPositionTo(gameState, newBullet, diffBullet.position)
         self.bulletPositionUpdater.commitBulletNextPosition(newBullet, gameState.visibilityTree)
         diffBulletWeapon = personItems.getWeaponByTypeOrNone(diffBulletWeaponType)
-        gameState.updateStatistic.firedWeapons.append((person, diffBulletWeapon))
+        gameState.updateStatistic.firedWeapons.append((person, diffBulletWeapon, newBullet))
 
     def synchAddedRay(self, gameState, diffRay):
         person = gameState.allPerson.getById(diffRay.personId)

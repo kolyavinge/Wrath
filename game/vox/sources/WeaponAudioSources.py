@@ -1,9 +1,9 @@
-from game.model.weapon.Launcher import Launcher
-from game.model.weapon.Pistol import Pistol
-from game.model.weapon.Plasma import Plasma
-from game.model.weapon.Railgun import Railgun
-from game.model.weapon.Rifle import Rifle
-from game.model.weapon.Sniper import Sniper
+from game.model.weapon.Launcher import Launcher, LauncherBullet
+from game.model.weapon.Pistol import Pistol, PistolBullet
+from game.model.weapon.Plasma import Plasma, PlasmaBullet
+from game.model.weapon.Railgun import Railgun, RailgunBullet
+from game.model.weapon.Rifle import Rifle, RifleBullet, RifleGrenade
+from game.model.weapon.Sniper import Sniper, SniperBullet
 
 
 class WeaponAudioSources:
@@ -12,14 +12,16 @@ class WeaponAudioSources:
         self.person = person
 
         self.shots = {}
-        self.shots[Pistol] = audioSourceFactory.makePistolShot()
-        self.shots[Pistol].setGain(0.8)
-        self.shots[Rifle] = audioSourceFactory.makeRifleShot()
-        self.shots[Plasma] = audioSourceFactory.makePlasmaShot()
-        self.shots[Launcher] = audioSourceFactory.makeLauncherShot()
-        self.shots[Railgun] = audioSourceFactory.makeRailgunShot()
-        self.shots[Sniper] = audioSourceFactory.makeSniperShot()
-        self.shots[Sniper].setGain(0.8)
+        self.shots[PistolBullet] = audioSourceFactory.makePistolShot()
+        self.shots[PistolBullet].setGain(0.8)
+        self.shots[RifleBullet] = audioSourceFactory.makeRifleShot()
+        self.shots[RifleGrenade] = audioSourceFactory.makeRifleGrenade()
+        self.shots[RifleGrenade].setGain(0.8)
+        self.shots[PlasmaBullet] = audioSourceFactory.makePlasmaShot()
+        self.shots[LauncherBullet] = audioSourceFactory.makeLauncherShot()
+        self.shots[RailgunBullet] = audioSourceFactory.makeRailgunShot()
+        self.shots[SniperBullet] = audioSourceFactory.makeSniperShot()
+        self.shots[SniperBullet].setGain(0.8)
 
         self.reloads = {}
         self.reloads[Sniper] = audioSourceFactory.makeSniperReload()

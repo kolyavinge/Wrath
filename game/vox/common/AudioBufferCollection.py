@@ -23,6 +23,7 @@ class AudioBufferCollection:
         self.sniperRaise = self.audioBufferLoader.load(path + "sniperRaise.wav")
         self.pistolShot = self.audioBufferLoader.load(path + "pistolShot.wav")
         self.rifleShot = self.audioBufferLoader.load(path + "rifleShot.wav")
+        self.rifleGrenade = self.audioBufferLoader.load(path + "rifleGrenade.wav")
         self.plasmaShot = self.audioBufferLoader.load(path + "plasmaShot.wav")
         self.launcherShot = self.audioBufferLoader.load(path + "launcherShot.wav")
         self.railgunShot = self.audioBufferLoader.load(path + "railgunShot.wav")
