@@ -5,6 +5,8 @@ from game.calc.Vector3 import Vector3
 from game.lib.Math import Math
 
 
+# прямоугольник в пространстве
+# (плоскость ограниченная 4мя другими плоскостями)
 class RectPlane(Plane):
 
     def __init__(self, normal, downLeft, downRight, upLeft, upRight):

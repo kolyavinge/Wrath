@@ -2,6 +2,7 @@ from game.calc.Vector3 import Vector3
 from game.lib.Numeric import Numeric
 
 
+# математическая плоскость
 class Plane:
 
     def __init__(self, normal, point):

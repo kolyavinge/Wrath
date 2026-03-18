@@ -20,7 +20,9 @@ class PlaneCollisionDetector:
 
         # для работы алгоритма startPoint должна находится перед лицевой стороной плоскости (dotProduct > 0)
         if startPointDotProduct < 0:
+            # такая ситуация возможна, если мы находим пересечение с обьектом, представленным в виде пересекающихся плоскостей
             # поворачивам плоскость на 180 градусов
+            # (лучше повернуть плоскость, а не менять местами startPoint и endPoint)
             frontNormal = frontNormal.copy()
             frontNormal.mul(-1)
 

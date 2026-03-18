@@ -67,7 +67,7 @@ class PersonCollisionDetector:
         if person.lifeCycle != LifeCycle.alive:
             return None
 
-        # check body (two cross planes)
+        # соударение с телом (2 пересекающиеся плоскости)
         border = person.nextBodyBorder
         plane = RectPlane(self.xNormal, border.bottom.middleBottom, border.bottom.middleTop, border.top.middleBottom, border.top.middleTop)
         collisionPoint = self.planeCollisionDetector.getRectPlaneCollisionPointOrNone(startPoint, endPoint, plane, 0.1)
@@ -76,7 +76,7 @@ class PersonCollisionDetector:
             plane = RectPlane(self.yNormal, border.bottom.middleRight, border.bottom.middleLeft, border.top.middleRight, border.top.middleLeft)
             collisionPoint = self.planeCollisionDetector.getRectPlaneCollisionPointOrNone(startPoint, endPoint, plane, 0.1)
 
-        # check head (sphere)
+        # соударение с головой (сфера)
         if collisionPoint is None:
             collisionPoint = self.sphereCollisionDetector.getCollisionPointOrNone(
                 startPoint, endPoint, person.headCenterPoint, PersonConstants.headSize, 0.1
