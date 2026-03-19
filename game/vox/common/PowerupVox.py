@@ -10,7 +10,6 @@ class PowerupVox:
         audioSourceFactory: AudioSourceFactory,
         audioPlayer: AudioPlayer,
     ):
-        self.sources = {}
         self.audioSourceFactory = audioSourceFactory
         self.audioPlayer = audioPlayer
 

@@ -27,7 +27,7 @@ class AudioBufferCollection:
         self.sniperRaise = loadWav("sniperRaise")
         self.pistolShot = loadWav("pistolShot")
         self.rifleShot = loadWav("rifleShot")
-        self.rifleGrenade = loadWav("rifleGrenade")
+        self.rifleGrenadeShot = loadWav("rifleGrenadeShot")
         self.plasmaShot = loadWav("plasmaShot")
         self.launcherShot = loadWav("launcherShot")
         self.railgunShot = loadWav("railgunShot")
