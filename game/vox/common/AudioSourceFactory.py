@@ -57,11 +57,20 @@ class AudioSourceFactory:
     def makeRifleGrenadeShot(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.rifleGrenadeShot)
 
+    def makeRifleGrenadeExplosion(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.rifleGrenadeExplosion)
+
     def makePlasmaShot(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.plasmaShot)
 
+    def makePlasmaExplosion(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.plasmaExplosion)
+
     def makeLauncherShot(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.launcherShot)
+
+    def makeLauncherExplosion(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.launcherExplosion)
 
     def makeRailgunShot(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.railgunShot)

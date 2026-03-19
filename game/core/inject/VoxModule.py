@@ -3,6 +3,7 @@ from game.audio.AudioPlayer import *
 from game.audio.AudioSourceLoader import *
 from game.vox.common.AudioBufferCollection import *
 from game.vox.common.AudioSourceFactory import *
+from game.vox.common.ExplosionVox import *
 from game.vox.common.PersonVox import *
 from game.vox.common.PlayerItemsVox import *
 from game.vox.common.PowerupVox import *
@@ -19,6 +20,7 @@ class VoxModule:
         binder.bindSingleton(AudioSourceLoader)
         binder.bindSingleton(AudioBufferCollection)
         binder.bindSingleton(AudioSourceFactory)
+        binder.bindSingleton(ExplosionVox)
         binder.bindSingleton(PersonVox)
         binder.bindSingleton(PlayerItemsVox)
         binder.bindSingleton(PowerupVox)

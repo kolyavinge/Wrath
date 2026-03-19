@@ -1,4 +1,5 @@
 from game.audio.AudioPlayer import AudioPlayer
+from game.vox.common.ExplosionVox import ExplosionVox
 from game.vox.common.PersonVox import PersonVox
 from game.vox.common.PlayerItemsVox import PlayerItemsVox
 from game.vox.common.PowerupVox import PowerupVox
@@ -13,6 +14,7 @@ class GameScreenVox:
         personVox: PersonVox,
         playerItemsVox: PlayerItemsVox,
         weaponVox: WeaponVox,
+        explosionVox: ExplosionVox,
         powerupVox: PowerupVox,
     ):
         self.allSources = []
@@ -20,6 +22,7 @@ class GameScreenVox:
         self.personVox = personVox
         self.playerItemsVox = playerItemsVox
         self.weaponVox = weaponVox
+        self.explosionVox = explosionVox
         self.powerupVox = powerupVox
 
     def init(self, gameState):
@@ -30,6 +33,7 @@ class GameScreenVox:
         self.personVox.init(gameState, self.allSources)
         self.playerItemsVox.init(gameState, self.allSources)
         self.weaponVox.init(gameState, self.allSources)
+        self.explosionVox.init(self.allSources)
         self.powerupVox.init(gameState, self.allSources)
 
     def update(self, gameState):
@@ -39,4 +43,5 @@ class GameScreenVox:
         self.personVox.vox(gameState.updateStatistic)
         self.playerItemsVox.vox(gameState.updateStatistic)
         self.weaponVox.vox(gameState.updateStatistic)
+        self.explosionVox.vox(gameState.updateStatistic)
         self.powerupVox.vox(gameState.updateStatistic)
