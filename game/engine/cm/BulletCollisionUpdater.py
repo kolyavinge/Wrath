@@ -70,9 +70,9 @@ class BulletCollisionUpdater:
         collisionPoint, person, target = collisionResult
         bullet.damagedObject = person
         if bullet.goThroughPerson:
-            if person not in bullet.damagedPersonSet:
+            if person not in bullet.alreadyDamagedPersonSet:
                 self.personDamageLogic.damageByBullet(person, gameState.allPersonItems[person], bullet, gameState.collisionData)
-                bullet.damagedPersonSet.add(person)  # one person damaged only once
+                bullet.alreadyDamagedPersonSet.add(person)
         else:
             self.bulletLogic.setNotAlive(bullet)
             self.moveBulletToCollisionPoint(bullet, collisionPoint, gameState.collisionTree)

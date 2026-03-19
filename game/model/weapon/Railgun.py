@@ -23,7 +23,7 @@ class RailgunBullet(Bullet):
         self.chargedVelocityFactor = 10
         self.damagePercent = 0.8
         self.goThroughPerson = True
-        self.damagedPersonSet = set()
+        self.alreadyDamagedPersonSet = set()
         self.paralyze = True
         self.paralyzeTime = 100
         self.isCharged = False
