@@ -21,9 +21,9 @@ class PowerupCollisionUpdater:
     def updateForPlayer(self, gameState):
         self.updateForPerson(gameState, gameState.player)
 
-    def updateForBots(self, gameState):
-        for bot in gameState.bots:
-            self.updateForPerson(gameState, bot)
+    def updateForAllPerson(self, gameState):
+        for person in gameState.allPerson:
+            self.updateForPerson(gameState, person)
 
     def updateForPerson(self, gameState, person):
         powerup = self.powerupCollisionDetector.getCollisionResultOrNone(person)

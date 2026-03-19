@@ -11,7 +11,6 @@ class ClientSnapshot:
         empty.person = SnapshotPerson.makeWithDefaultValues()
         empty.bullets = {}
         empty.rays = {}
-        empty.notPickedupPowerupIds = {}
 
         return empty
 
@@ -22,4 +21,3 @@ class ClientSnapshot:
         self.person = None
         self.bullets = None
         self.rays = None
-        self.notPickedupPowerupIds = None

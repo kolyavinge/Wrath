@@ -11,11 +11,10 @@ class SnapshotDiffFields:
     removedRayIds = 1 << 8
     addedPowerups = 1 << 9
     removedPowerupIds = 1 << 10
-    pickedupPowerupIds = 1 << 11
-    addedPersonBulletCollisions = 1 << 12
-    addedPersonRayCollisions = 1 << 13
-    addedPersonFrags = 1 << 14
-    addedPersonDeaths = 1 << 15
+    addedPersonBulletCollisions = 1 << 11
+    addedPersonRayCollisions = 1 << 12
+    addedPersonFrags = 1 << 13
+    addedPersonDeaths = 1 << 14
 
     @staticmethod
     def toBitMask(diff):

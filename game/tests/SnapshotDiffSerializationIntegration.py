@@ -52,7 +52,6 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
         diff.removedRayIds = [1, 2, 3]
         diff.addedPowerups = [SnapshotPowerup.make(2, 4, Vector3(float32(3.2), float32(-6.9), 0.15487157943974397845))]
         diff.removedPowerupIds = [4, 5, 6]
-        diff.pickedupPowerupIds = [7, 8, 9]
         diff.addedPersonBulletCollisions = [SnapshotBulletCollision.make(2, 4, Vector3(float32(3.2), float32(-6.9), float32(44.2)))]
         diff.addedPersonRayCollisions = [SnapshotRayCollision.make(4, 2, Vector3(float32(3.2), float32(-6.9), float32(44.2)))]
         diff.addedPersonFrags = [SnapshotFragStatistic.make(4, 9)]
@@ -80,7 +79,6 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
         self.assertEqual(diffDeser.removedRayIds, diff.removedRayIds)
         self.assertEqual(diffDeser.addedPowerups, diff.addedPowerups)
         self.assertEqual(diffDeser.removedPowerupIds, diff.removedPowerupIds)
-        self.assertEqual(diffDeser.pickedupPowerupIds, diff.pickedupPowerupIds)
         self.assertEqual(diffDeser.addedPersonBulletCollisions, diff.addedPersonBulletCollisions)
         self.assertEqual(diffDeser.addedPersonRayCollisions, diff.addedPersonRayCollisions)
         self.assertEqual(diffDeser.addedPersonFrags, diff.addedPersonFrags)

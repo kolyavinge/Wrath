@@ -71,11 +71,6 @@ class SnapshotDiff:
             for removedPowerupId in self.removedPowerupIds:
                 writer.write("i", removedPowerupId)
 
-        if hasattr(self, "pickedupPowerupIds"):
-            writer.write("b", len(self.pickedupPowerupIds))
-            for pickedupPowerupId in self.pickedupPowerupIds:
-                writer.write("i", pickedupPowerupId)
-
         if hasattr(self, "addedPersonBulletCollisions"):
             writer.write("b", len(self.addedPersonBulletCollisions))
             for collision in self.addedPersonBulletCollisions:
@@ -142,10 +137,6 @@ class SnapshotDiff:
         if fieldsBitMask & SnapshotDiffFields.removedPowerupIds > 0:
             count = reader.read("b")
             diff.removedPowerupIds = [reader.read("i") for _ in range(0, count)]
-
-        if fieldsBitMask & SnapshotDiffFields.pickedupPowerupIds > 0:
-            count = reader.read("b")
-            diff.pickedupPowerupIds = [reader.read("i") for _ in range(0, count)]
 
         if fieldsBitMask & SnapshotDiffFields.addedPersonBulletCollisions > 0:
             count = reader.read("b")

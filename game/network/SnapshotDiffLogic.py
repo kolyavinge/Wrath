@@ -98,11 +98,6 @@ class SnapshotDiffLogic:
             if len(removedPowerups) > 0:
                 diff.removedPowerupIds = [p.id for p in removedPowerups]
 
-        if hasattr(snapshotNew, "notPickedupPowerupIds"):
-            pickedupPowerupIds = Set.getRemovedItems(snapshotOld.notPickedupPowerupIds, snapshotNew.notPickedupPowerupIds)
-            if len(pickedupPowerupIds) > 0:
-                diff.pickedupPowerupIds = pickedupPowerupIds
-
         if hasattr(snapshotNew, "personBulletCollisions"):
             addedPersonBulletCollisions = Dictionary.getAddedItems(snapshotOld.personBulletCollisions, snapshotNew.personBulletCollisions)
             if len(addedPersonBulletCollisions) > 0:

@@ -24,7 +24,6 @@ class SnapshotFactory:
             if bullet.weapon is not None and type(bullet.ownerPerson) == Player
         }
         snapshot.rays = {ray.id: self.makeSnapshotRay(ray) for ray in clientGameState.rays if type(ray.ownerPerson) == Player}
-        snapshot.notPickedupPowerupIds = set([powerup.id for powerup in clientGameState.powerups])
 
         return snapshot
 

@@ -79,10 +79,6 @@ class GameStateSynchronizer:
             for powerupId in diff.removedPowerupIds:
                 self.synchRemovedPowerup(gameState, powerupId)
 
-        if hasattr(diff, "pickedupPowerupIds"):
-            for powerupId in diff.pickedupPowerupIds:
-                self.synchRemovedPowerup(gameState, powerupId)
-
         if hasattr(diff, "addedPersonBulletCollisions"):
             for bulletCollision in diff.addedPersonBulletCollisions:
                 self.synchAddedPersonBulletCollision(gameState, bulletCollision)
@@ -147,8 +143,10 @@ class GameStateSynchronizer:
             personItems.currentWeapon.isCharged = True
         if not isAltBullet:
             newBullet = self.bulletLogic.makeBullet(gameState, person, personItems.currentWeapon, diffBullet.id, diffBullet.randomSeed)
+            personItems.currentWeapon.bulletsCount -= 1
         else:
             newBullet = self.bulletLogic.makeAltBullet(gameState, person, personItems.currentWeapon, diffBullet.id, diffBullet.randomSeed)
+            personItems.currentWeapon.altBulletsCount -= 1
         newBullet.direction = diffBullet.direction.copy()
         self.bulletPositionUpdater.moveBulletNextPositionTo(gameState, newBullet, diffBullet.position)
         self.bulletPositionUpdater.commitBulletNextPosition(newBullet, gameState.visibilityTree)
@@ -165,6 +163,7 @@ class GameStateSynchronizer:
             self.weaponSelector.setWeaponByType(personItems, type(weapon))
             self.personWeaponPositionUpdater.updateForPerson(person, personItems)
         self.rayLogic.makeRay(gameState, person, weapon, diffRay.id)
+        personItems.currentWeapon.bulletsCount -= 1
 
     def synchRemovedRay(self, gameState, diffRayId):
         ray = gameState.rays.getByIdOrNone(diffRayId)

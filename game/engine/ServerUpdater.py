@@ -93,7 +93,7 @@ class ServerUpdater:
         self.bulletPositionUpdater.commitNextPosition(gameState)
         self.rayPositionUpdater.update(gameState)
         self.rayCollisionUpdater.update(gameState)
-        self.powerupCollisionUpdater.updateForBots(gameState)
+        self.powerupCollisionUpdater.updateForAllPerson(gameState)
         self.bulletUpdater.updateGrenadesDetonationTimeout(gameState)
         self.explosionCollisionUpdater.update(gameState)
         self.explosionUpdater.update(gameState)
