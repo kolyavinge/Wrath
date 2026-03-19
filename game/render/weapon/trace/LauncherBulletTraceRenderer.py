@@ -2,7 +2,7 @@ from game.anx.CommonConstants import CommonConstants
 from game.gl.FeedbackParticleRenderer import FeedbackParticleRenderer
 from game.render.anx.BlurRenderer import BlurRenderer
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
-from game.render.anx.ParticleBufferCollection import ParticleBufferCollection
+from game.render.anx.ParticleBufferPool import ParticleBufferPool
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 
@@ -17,7 +17,7 @@ class LauncherBulletTraceRenderer:
     ):
         self.particleRenderer = particleRenderer
         self.blurRenderer = blurRenderer
-        self.bufferCollection = ParticleBufferCollection(bufferInitializer)
+        self.bufferPool = ParticleBufferPool(bufferInitializer)
         self.shaderProgramCollection = shaderProgramCollection
 
     def renderTraces(self, traces, camera):
@@ -49,7 +49,7 @@ class LauncherBulletTraceRenderer:
         shader.setIsBulletAlive(trace.bullet.isAlive)
         shader.setParticleLifeTime(trace.particleLifeTimeMsec)
         shader.setParticleSize(trace.particleSize)
-        particleBuffer = self.bufferCollection.getBufferFor(trace)
+        particleBuffer = self.bufferPool.getBufferFor(trace)
         self.particleRenderer.update(particleBuffer, shader)
         self.particleRenderer.render(particleBuffer, shader, 24)
         particleBuffer.swapBuffers()

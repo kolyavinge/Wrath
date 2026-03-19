@@ -1,4 +1,4 @@
-class ParticleBufferCollection:
+class ParticleBufferPool:
 
     def __init__(self, bufferInitializer, extraInitData=None):
         self.bufferInitializer = bufferInitializer
