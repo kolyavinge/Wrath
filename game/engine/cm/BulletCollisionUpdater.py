@@ -51,8 +51,7 @@ class BulletCollisionUpdater:
 
     def processConstructionCollision(self, gameState, bullet, collisionResult):
         collisionPoint, construction = collisionResult
-        bullet.currentPosition = collisionPoint
-        bullet.nextPosition = collisionPoint
+        self.moveBulletToCollisionPoint(bullet, collisionPoint, gameState.collisionTree)
         if bullet.ricochetPossibility > 0 and Random.getFloat(0.0, 1.0) <= bullet.ricochetPossibility:
             bullet.direction.reflectBy(construction.frontNormal)
             bullet.velocityValue *= bullet.ricochetVelocityCoeff
@@ -76,8 +75,7 @@ class BulletCollisionUpdater:
                 bullet.damagedPersonSet.add(person)  # one person damaged only once
         else:
             self.bulletLogic.setNotAlive(bullet)
-            bullet.currentPosition = collisionPoint
-            bullet.nextPosition = collisionPoint
+            self.moveBulletToCollisionPoint(bullet, collisionPoint, gameState.collisionTree)
             if bullet.isHeadshotEnabled and target == PersonCollisionTarget.head:
                 self.personDamageLogic.damageByHeadshot(person, bullet, gameState.collisionData)
             else:
@@ -85,3 +83,10 @@ class BulletCollisionUpdater:
         if bullet.paralyze and person.health > 0:
             person.paralyzeDelay.set(bullet.paralyzeTime)
         self.explosionLogic.makeExplosion(gameState, bullet)
+
+    def moveBulletToCollisionPoint(self, bullet, collisionPoint, collisionTree):
+        bullet.currentPosition = collisionPoint
+        bullet.nextPosition = collisionPoint
+        levelSegment = self.traversal.findLevelSegment(collisionTree, collisionPoint)
+        bullet.currentLevelSegment = levelSegment
+        bullet.nextLevelSegment = levelSegment
