@@ -1,5 +1,5 @@
 from game.engine.ai.common.RouteCollisionDetector import RouteCollisionDetector
-from game.lib.List import List
+from game.lib.collections.List import List
 
 
 class RouteOptimizer:

@@ -8,7 +8,6 @@ class DashboardUpdater:
         playerItems = gameState.playerItems
         dashboard = gameState.dashboard
 
-        # set current values
         dashboard.health = player.health
         dashboard.vest = playerItems.vest
         dashboard.bulletsCount = playerItems.getLeftRightWeaponBulletsCount()
@@ -19,7 +18,6 @@ class DashboardUpdater:
         dashboard.weaponTypesSet = playerItems.getNonemptyWeaponTypesSet()
         dashboard.fragStatisticSet = set(gameState.personFragStatistic.values())
 
-        # check for changes
         dashboard.hasChanged = (
             dashboard.lastHealth != dashboard.health
             or dashboard.lastVest != dashboard.vest

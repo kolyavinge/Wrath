@@ -1,4 +1,4 @@
-from game.lib.TimeLimitedCollection import TimeLimitedCollection
+from game.lib.collections.TimeLimitedCollection import TimeLimitedCollection
 
 
 class ReservedCollisionData:

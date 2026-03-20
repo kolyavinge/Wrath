@@ -1,5 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
-from game.lib.Query import Query
+from game.lib.collections.Query import Query
 
 
 class Level:

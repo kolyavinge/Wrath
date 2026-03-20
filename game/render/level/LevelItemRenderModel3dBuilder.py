@@ -1,6 +1,6 @@
 from game.gl.model3d.RenderModel3d import RenderMesh, RenderModel3d
 from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
-from game.lib.Query import Query
+from game.lib.collections.Query import Query
 from game.model.level.Construction import Construction
 from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall

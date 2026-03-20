@@ -1,5 +1,5 @@
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
-from game.lib.Query import Query
+from game.lib.collections.Query import Query
 from game.model.level.NullFloor import NullFloor
 
 

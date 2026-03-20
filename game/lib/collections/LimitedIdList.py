@@ -1,4 +1,4 @@
-from game.lib.IdList import IdList
+from game.lib.collections.IdList import IdList
 
 
 class LimitedIdList(IdList):

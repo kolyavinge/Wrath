@@ -1,6 +1,6 @@
 from game.anx.PersonConstants import PersonConstants
+from game.lib.collections.Query import Query
 from game.lib.Math import Math
-from game.lib.Query import Query
 from game.model.light.Torch import Torch
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol

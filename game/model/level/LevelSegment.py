@@ -1,4 +1,4 @@
-from game.lib.Query import Query
+from game.lib.collections.Query import Query
 from game.model.level.VisibleLevelItem import VisibleLevelItem
 from game.model.Orientation import Orientation
 

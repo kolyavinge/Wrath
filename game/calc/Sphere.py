@@ -4,9 +4,9 @@ from game.calc.Point2 import Point2
 from game.calc.SphereElementHorizontalIterator import SphereElementHorizontalIterator
 from game.calc.SphereElementVerticalIterator import SphereElementVerticalIterator
 from game.calc.Vector3 import Vector3
+from game.lib.collections.Query import Query
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
-from game.lib.Query import Query
 
 
 class SpherePoint:

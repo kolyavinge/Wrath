@@ -1,5 +1,5 @@
 from game.engine.ai.common.RouteFinder import RouteFinder
-from game.lib.Query import Query
+from game.lib.collections.Query import Query
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
 from game.model.powerup.VestPowerup import VestPowerup

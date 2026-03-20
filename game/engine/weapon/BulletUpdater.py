@@ -4,7 +4,7 @@ from game.engine.cm.ConstructionCollisionDetector import ConstructionCollisionDe
 from game.engine.weapon.BulletHoleLogic import BulletHoleLogic
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
-from game.lib.IdList import IdList
+from game.lib.collections.IdList import IdList
 from game.model.weapon.Grenade import Grenade
 
 

@@ -8,7 +8,7 @@ from game.gl.TexturedFramebuffer import TexturedFramebuffer
 from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
-from game.lib.Query import Query
+from game.lib.collections.Query import Query
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 

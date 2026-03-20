@@ -1,6 +1,6 @@
 from game.engine.weapon.RayLogic import RayLogic
 from game.engine.weapon.WeaponSelector import WeaponSelector
-from game.lib.Query import Query
+from game.lib.collections.Query import Query
 
 
 class RayFireLogic:

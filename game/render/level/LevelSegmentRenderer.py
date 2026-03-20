@@ -1,4 +1,4 @@
-from game.lib.Query import Query
+from game.lib.collections.Query import Query
 from game.render.level.LevelItemRenderer import LevelItemRenderer
 from game.render.level.ShadowCasterRenderer import ShadowCasterRenderer
 from game.render.person.EnemyRenderer import EnemyRenderer
