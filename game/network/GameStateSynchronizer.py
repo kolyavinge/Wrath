@@ -97,6 +97,7 @@ class GameStateSynchronizer:
 
     def synchPerson(self, gameState, diffPerson):
         sychedPerson = gameState.allPerson.getById(diffPerson.id)
+        personItems = gameState.allPersonItems[sychedPerson]
         if hasattr(diffPerson, "centerPoint"):
             sychedPerson.hasMoved = True
             sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
@@ -109,10 +110,11 @@ class GameStateSynchronizer:
             self.personTurnLogic.calculateDirectionVectors(sychedPerson)
         if hasattr(diffPerson, "health"):
             sychedPerson.health = diffPerson.health
+        if hasattr(diffPerson, "vest"):
+            personItems.vest = diffPerson.vest
         if hasattr(diffPerson, "jumpingValue"):
             sychedPerson.jumpingValue = diffPerson.jumpingValue
         if hasattr(diffPerson, "selectedWeaponNumber"):
-            personItems = gameState.allPersonItems[sychedPerson]
             weaponType = WeaponCollection.getWeaponTypeByNumber(diffPerson.selectedWeaponNumber)
             if personItems.hasWeaponByType(weaponType):
                 self.weaponSelector.selectWeaponByType(sychedPerson, personItems, weaponType)

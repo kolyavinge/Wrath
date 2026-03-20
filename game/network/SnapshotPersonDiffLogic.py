@@ -19,6 +19,9 @@ class SnapshotPersonDiffLogic:
         if newSnapshotPerson.health is not None and oldSnapshotPerson.health != newSnapshotPerson.health:
             diff.health = newSnapshotPerson.health
 
+        if newSnapshotPerson.vest is not None and oldSnapshotPerson.vest != newSnapshotPerson.vest:
+            diff.vest = newSnapshotPerson.vest
+
         if newSnapshotPerson.jumpingValue is not None and oldSnapshotPerson.jumpingValue != newSnapshotPerson.jumpingValue:
             diff.jumpingValue = newSnapshotPerson.jumpingValue
 
@@ -42,6 +45,9 @@ class SnapshotPersonDiffLogic:
 
         if person.health is not None:
             diff.health = person.health
+
+        if person.vest is not None:
+            diff.vest = person.vest
 
         if person.jumpingValue is not None:
             diff.jumpingValue = person.jumpingValue

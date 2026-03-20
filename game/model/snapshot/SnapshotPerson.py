@@ -11,6 +11,7 @@ class SnapshotPerson:
         person.yawRadians = 0
         person.pitchRadians = 0
         person.health = 0
+        person.vest = 0
         person.jumpingValue = 0
         person.selectedWeaponNumber = 0
 
@@ -22,5 +23,6 @@ class SnapshotPerson:
         self.yawRadians = None
         self.pitchRadians = None
         self.health = None
+        self.vest = None
         self.jumpingValue = None
         self.selectedWeaponNumber = None

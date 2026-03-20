@@ -29,7 +29,9 @@ class SnapshotFactory:
 
     def makeServerSnapshot(self, serverGameState):
         snapshot = ServerSnapshot()
-        snapshot.players = {player.id: self.makeSnapshotServerPlayer(player) for player in serverGameState.players}
+        snapshot.players = {
+            player.id: self.makeSnapshotServerPlayer(player, playerItems) for player, playerItems in serverGameState.playersItems.items()
+        }
         snapshot.allPerson = {
             person.id: self.makeSnapshotPerson(person, personItems) for person, personItems in serverGameState.allPersonItems.items()
         }
@@ -75,15 +77,17 @@ class SnapshotFactory:
         snapshotPerson.yawRadians = person.yawRadians
         snapshotPerson.pitchRadians = person.pitchRadians
         snapshotPerson.health = person.health
+        snapshotPerson.vest = personItems.vest
         if personItems.selectedCurrentWeapon is not None:
             snapshotPerson.selectedWeaponNumber = WeaponCollection.getWeaponNumberByType(type(personItems.selectedCurrentWeapon))
 
         return snapshotPerson
 
-    def makeSnapshotServerPlayer(self, player):
+    def makeSnapshotServerPlayer(self, player, playerItems):
         snapshotPerson = SnapshotPerson()
         snapshotPerson.id = player.id
         snapshotPerson.health = player.health
+        snapshotPerson.vest = playerItems.vest
 
         return snapshotPerson
 
