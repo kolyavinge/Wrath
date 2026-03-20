@@ -1,6 +1,6 @@
 import mouse
 
-from game.input.InputDevice import InputDevice
+from game.lib.input.InputDevice import InputDevice
 
 
 class MouseButtons:

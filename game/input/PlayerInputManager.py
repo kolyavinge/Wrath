@@ -1,6 +1,6 @@
 from game.input.InputManager import InputManager
-from game.input.Keyboard import KeyboardButtons
-from game.input.Mouse import MouseButtons
+from game.lib.input.Keyboard import KeyboardButtons
+from game.lib.input.Mouse import MouseButtons
 from game.lib.EventManager import EventManager, Events
 from game.lib.Math import Math
 from game.model.person.AimState import DefaultAimState, SniperAimState

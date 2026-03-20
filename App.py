@@ -10,7 +10,7 @@ from OpenGL.GLUT import *
 from game.anx.CommonConstants import CommonConstants
 from game.core.GameFactory import GameFactory
 from game.core.GameStartMode import GameStartMode
-from game.input.Keyboard import KeyboardButtons
+from game.lib.input.Keyboard import KeyboardButtons
 from game.lib.Environment import Environment
 from game.lib.EventManager import Events
 from game.lib.Screen import Screen

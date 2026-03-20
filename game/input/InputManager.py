@@ -1,5 +1,5 @@
-from game.input.Keyboard import Keyboard
-from game.input.Mouse import Mouse
+from game.lib.input.Keyboard import Keyboard
+from game.lib.input.Mouse import Mouse
 from game.lib.Screen import Screen
 
 
