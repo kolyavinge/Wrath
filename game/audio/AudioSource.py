@@ -1,8 +1,6 @@
 import numpy
 from openal.al import *
 
-from game.lib.Numeric import Numeric
-
 
 class AudioSource:
 
@@ -19,9 +17,6 @@ class AudioSource:
         alSource3f(self.id, AL_POSITION, numpy.float32(position.x), numpy.float32(position.y), numpy.float32(position.z))
 
     def setGain(self, gainValue):
-        if not Numeric.between(gainValue, 0.0, 1.0):
-            raise Exception("Gain must be from 0.0 to 1.0.")
-
         alSourcef(self.id, AL_GAIN, numpy.float32(gainValue))
 
     def setPitch(self, pitchValue):

@@ -21,4 +21,5 @@ class ExplosionVox:
         for explosion in updateStatistic.newExplosions:
             source = self.source.explosionsPool[type(explosion)].getAudioSource()
             source.setPosition(explosion.position)
+            source.setGain(10.0)
             self.audioPlayer.play(source)
