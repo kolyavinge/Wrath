@@ -24,7 +24,9 @@ class SnapshotDiffSerializationIntegration(unittest.TestCase):
         diff.removedEnemyIds = [10, 20, 30, 40]
         diff.person = SnapshotPersonDiff.makeFull(1, Vector3(float32(3.2), float32(-6.9), 4345434.87532), 1.5, -1.5, 10, 50, 1.0, 2)
         diff.player = SnapshotPersonDiff.makeWithHealth(12, 85)
-        diff.respawnedPerson = [SnapshotRespawnedPerson.make(10, Vector3(float32(3.2), float32(-6.9), 34.435345345))]
+        diff.respawnedPerson = [
+            SnapshotRespawnedPerson.make(10, Vector3(float32(3.2), float32(-6.9), 34.435345345), Vector3(float32(1.0), float32(0), float32(0)))
+        ]
         diff.enemies = [
             SnapshotPersonDiff.makeFull(10, Vector3(float32(3.2), float32(-6.9), float32(44.2)), 2.5, -2.5, 50, 90, 0.5, 1),
             SnapshotPersonDiff.makeFull(20, Vector3(float32(3.2), float32(-6.9), float32(44.2)), 2.0, -2.0, 60, 70, 0.5, 4),

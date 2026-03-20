@@ -95,6 +95,7 @@ class SnapshotFactory:
         snapshotRespawnedPerson = SnapshotRespawnedPerson()
         snapshotRespawnedPerson.id = person.id
         snapshotRespawnedPerson.centerPoint = person.currentCenterPoint.copy()
+        snapshotRespawnedPerson.frontNormal = person.frontNormal.copy()
 
         return snapshotRespawnedPerson
 

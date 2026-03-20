@@ -122,7 +122,9 @@ class GameStateSynchronizer:
     def synchRespawnedPerson(self, gameState, diffPerson):
         sychedPerson = gameState.allPerson.getById(diffPerson.id)
         sychedPerson.moveNextPositionTo(diffPerson.centerPoint)
+        self.personTurnLogic.orientToFrontNormal(sychedPerson, diffPerson.frontNormal)
         sychedPerson.commitNextPosition()
+        gameState.bloodStains.clear()
 
     def synchAddedBullet(self, gameState, diffBullet):
         # TODO подумать как при рассинхроне обработать на клиенте тот путь
