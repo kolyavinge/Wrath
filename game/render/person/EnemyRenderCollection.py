@@ -1,6 +1,6 @@
 from game.anx.DebugSettings import DebugSettings
 from game.model.Material import Material
-from game.render.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
+from game.render.lib.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.render.person.EnemyModel3dFactory import EnemyModel3dFactory
 
 

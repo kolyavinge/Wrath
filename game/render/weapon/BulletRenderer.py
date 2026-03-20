@@ -1,4 +1,4 @@
-from game.render.gl.model3d.Model3dRenderer import Model3dRenderer
+from game.render.lib.model3d.Model3dRenderer import Model3dRenderer
 from game.render.weapon.BulletRenderCollection import BulletRenderCollection
 
 

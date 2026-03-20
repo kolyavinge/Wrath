@@ -1,6 +1,6 @@
 from game.lib.collections.Query import Query
 from game.render.anx.PlaneRayRenderer import RayParams
-from game.render.gl.ColorVector3 import ColorVector3
+from game.render.lib.ColorVector3 import ColorVector3
 from game.render.weapon.trace.RayBulletTraceRenderer import RayBulletTraceRenderer
 
 

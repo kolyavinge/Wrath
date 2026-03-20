@@ -1,7 +1,7 @@
 from game.lib.Math import Math
 from game.lib.Random import Random
-from game.render.gl.FeedbackParticleBufferFactory import *
-from game.render.gl.ParticleBuffer import ExtraParticleDataBuffers
+from game.render.lib.FeedbackParticleBufferFactory import *
+from game.render.lib.ParticleBuffer import ExtraParticleDataBuffers
 
 
 class LauncherBulletTraceParticleBufferInitializer:

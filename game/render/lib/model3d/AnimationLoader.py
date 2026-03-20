@@ -4,8 +4,8 @@ import numpy
 
 from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.lib.collections.Tree import Tree
-from game.render.gl.model3d.FrameLoader import FrameLoader
-from game.render.gl.model3d.Model3d import Animation, Bone, Channel, Node
+from game.render.lib.model3d.FrameLoader import FrameLoader
+from game.render.lib.model3d.Model3d import Animation, Bone, Channel, Node
 
 
 class AnimationLoader:

@@ -5,8 +5,8 @@ from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.lib.calc.Vector3 import Vector3
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.common.TextureCollection import TextureCollection
-from game.render.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
-from game.render.gl.vbo.VBORenderer import VBORenderer
+from game.render.lib.vbo.VBOBuilderFactory import VBOBuilderFactory
+from game.render.lib.vbo.VBORenderer import VBORenderer
 
 
 class SniperCrosshairRenderer:

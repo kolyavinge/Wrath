@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
-from game.render.gl.vbo.VBORenderer import VBORenderer
+from game.render.lib.vbo.VBORenderer import VBORenderer
 from game.render.weapon.WeaponFlashRenderCollection import WeaponFlashRenderCollection
 
 

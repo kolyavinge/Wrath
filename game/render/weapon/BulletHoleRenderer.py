@@ -2,7 +2,7 @@ from OpenGL.GL import *
 
 from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
-from game.render.gl.vbo.VBORenderer import VBORenderer
+from game.render.lib.vbo.VBORenderer import VBORenderer
 from game.render.weapon.BulletHoleRenderCollection import BulletHoleRenderCollection
 
 

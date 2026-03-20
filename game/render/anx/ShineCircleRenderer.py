@@ -6,8 +6,8 @@ from OpenGL.GL import *
 from game.anx.CommonConstants import CommonConstants
 from game.lib.calc.Vector3 import Vector3
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
-from game.render.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
-from game.render.gl.vbo.VBORenderer import VBORenderer
+from game.render.lib.vbo.VBOBuilderFactory import VBOBuilderFactory
+from game.render.lib.vbo.VBORenderer import VBORenderer
 
 
 class ShineCircleParams:

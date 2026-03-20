@@ -4,7 +4,7 @@ from game.lib.calc.Plane import Plane
 from game.lib.Math import Math
 from game.lib.Random import Random
 from game.model.person.Person import Person
-from game.render.gl.FeedbackParticleBufferFactory import FeedbackParticleBufferFactory
+from game.render.lib.FeedbackParticleBufferFactory import FeedbackParticleBufferFactory
 
 
 class PlasmaExplosionParticleBufferInitializer:

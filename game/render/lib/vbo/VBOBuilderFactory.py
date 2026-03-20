@@ -1,6 +1,6 @@
-from game.render.gl.AdjacencyFormatConverter import AdjacencyFormatConverter
-from game.render.gl.model3d.Model3dVBOBuilder import Model3dVBOBuilder
-from game.render.gl.vbo.VBOBuilder import VBOBuilder
+from game.render.lib.AdjacencyFormatConverter import AdjacencyFormatConverter
+from game.render.lib.model3d.Model3dVBOBuilder import Model3dVBOBuilder
+from game.render.lib.vbo.VBOBuilder import VBOBuilder
 
 
 class VBOBuilderFactory:

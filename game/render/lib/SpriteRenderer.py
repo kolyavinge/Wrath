@@ -1,10 +1,10 @@
 from OpenGL.GL import GL_TEXTURE0
 
 from game.lib.calc.Vector3 import Vector3
-from game.render.gl.BufferIndices import BufferIndices
-from game.render.gl.ColorVector4 import ColorVector4
-from game.render.gl.vbo.VBORenderer import VBORenderer
-from game.render.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
+from game.render.lib.BufferIndices import BufferIndices
+from game.render.lib.ColorVector4 import ColorVector4
+from game.render.lib.vbo.VBORenderer import VBORenderer
+from game.render.lib.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 
 
 class SpriteRenderer:

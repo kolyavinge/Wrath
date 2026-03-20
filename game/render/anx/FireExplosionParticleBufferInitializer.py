@@ -4,8 +4,8 @@ from game.lib.calc.Vector3 import Vector3
 from game.lib.calc.Vector4 import Vector4
 from game.lib.Math import Math
 from game.lib.Random import Random
-from game.render.gl.ParticleBuffer import ExtraParticleDataBuffers
-from game.render.gl.ParticleBufferFactory import ParticleBufferFactory
+from game.render.lib.ParticleBuffer import ExtraParticleDataBuffers
+from game.render.lib.ParticleBufferFactory import ParticleBufferFactory
 
 
 class FireExplosionParticleBufferInitializer:

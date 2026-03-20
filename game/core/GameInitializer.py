@@ -25,7 +25,7 @@ from game.render.common.MaterialTextureCollection import MaterialTextureCollecti
 from game.render.common.ShaderCollection import ShaderCollection
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.common.TextureCollection import TextureCollection
-from game.render.gl.TextRenderer import TextRenderer
+from game.render.lib.TextRenderer import TextRenderer
 from game.vox.common.AudioBufferCollection import AudioBufferCollection
 from game.vox.lib.AudioPlayer import AudioPlayer
 

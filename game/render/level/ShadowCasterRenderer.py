@@ -1,6 +1,6 @@
 from game.lib.calc.TransformMatrix4 import TransformMatrix4
-from game.render.gl.vbo.VBORenderer import VBORenderer
 from game.render.level.ShadowCasterRenderCollection import *
+from game.render.lib.vbo.VBORenderer import VBORenderer
 
 
 class ShadowCasterRenderer:

@@ -2,7 +2,7 @@ from OpenGL.GL import *
 
 from game.lib.io.FileSystem import FileSystem
 from game.lib.sys import warn
-from game.render.gl.Shader import Shader
+from game.render.lib.Shader import Shader
 
 
 class ShaderCompiler:

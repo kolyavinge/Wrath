@@ -1,5 +1,5 @@
 from game.model.powerup.WeaponPowerup import WeaponPowerup
-from game.render.gl.model3d.Model3dRenderer import Model3dRenderer
+from game.render.lib.model3d.Model3dRenderer import Model3dRenderer
 from game.render.powerup.PowerupRenderCollection import PowerupRenderCollection
 from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection
 

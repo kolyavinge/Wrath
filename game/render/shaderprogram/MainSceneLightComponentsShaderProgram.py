@@ -1,5 +1,5 @@
 from game.model.light.Spot import Spot
-from game.render.gl.ShaderProgram import ShaderProgram
+from game.render.lib.ShaderProgram import ShaderProgram
 
 
 class MainSceneLightComponentsShaderProgram(ShaderProgram):

@@ -1,6 +1,6 @@
-from game.render.gl.SpriteRenderer import SpriteRenderer
-from game.render.gl.vbo.VBORenderer import VBORenderer
-from game.render.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
+from game.render.lib.SpriteRenderer import SpriteRenderer
+from game.render.lib.vbo.VBORenderer import VBORenderer
+from game.render.lib.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 
 
 class SpriteRendererFactory:

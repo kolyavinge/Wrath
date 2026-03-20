@@ -1,6 +1,6 @@
 from OpenGL.GL import GL_TRIANGLES
 
-from game.render.gl.vbo.VBO import VBO
+from game.render.lib.vbo.VBO import VBO
 
 
 class UpdatableVBO:

@@ -3,7 +3,7 @@ from PIL import Image
 
 from game.lib.Numeric import Numeric
 from game.lib.sys import warn
-from game.render.gl.Texture import Texture
+from game.render.lib.Texture import Texture
 
 
 class TextureLoader:

@@ -4,12 +4,12 @@ from game.model.level.Stair import Stair
 from game.model.level.Wall import Wall
 from game.model.light.Lamp import Lamp
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
-from game.render.gl.model3d.RenderModel3d import RenderMesh, RenderModel3d
-from game.render.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 from game.render.level.ConstructionVBOBuilder import ConstructionVBOBuilder
 from game.render.level.LampVBOBuilder import LampVBOBuilder
 from game.render.level.StairVBOBuilder import StairVBOBuilder
 from game.render.level.WallVBOBuilder import WallVBOBuilder
+from game.render.lib.model3d.RenderModel3d import RenderMesh, RenderModel3d
+from game.render.lib.vbo.VBOBuilderFactory import VBOBuilderFactory
 
 
 class LevelItemRenderModel3dBuilder:

@@ -1,8 +1,8 @@
 from OpenGL.GL import *
 
 from game.lib.Math import Math
-from game.render.gl.BufferIndices import BufferIndices
-from game.render.gl.vbo.UpdatableVBO import UpdatableVBO
+from game.render.lib.BufferIndices import BufferIndices
+from game.render.lib.vbo.UpdatableVBO import UpdatableVBO
 
 
 class VBOUpdater:

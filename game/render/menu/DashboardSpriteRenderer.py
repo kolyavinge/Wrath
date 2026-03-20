@@ -7,7 +7,7 @@ from game.model.weapon.Rifle import Rifle
 from game.model.weapon.Sniper import Sniper
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.common.TextureCollection import TextureCollection
-from game.render.gl.SpriteRendererFactory import SpriteRendererFactory
+from game.render.lib.SpriteRendererFactory import SpriteRendererFactory
 
 
 class DashboardSpriteRenderer:

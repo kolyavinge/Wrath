@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.render.gl.Shader import ShaderConstants
+from game.render.lib.Shader import ShaderConstants
 
 
 class FeedbackParticleRenderer:
