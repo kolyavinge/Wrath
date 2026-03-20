@@ -1,5 +1,5 @@
 from game.anx.ConfigManager import ConfigManager
-from game.lib.TcpService import TcpService
+from game.lib.net.TcpService import TcpService
 from game.network.contracts import ConnectToServerResponse
 from game.network.Message import Message, MessageType
 from game.network.MessageSerializer import MessageSerializer

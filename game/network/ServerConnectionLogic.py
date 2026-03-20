@@ -4,7 +4,7 @@ from game.anx.PersonIdLogic import PersonIdLogic
 from game.core.Server import ConnectedClient
 from game.engine.person.PersonInitializer import PersonInitializer
 from game.lib.collections.Query import Query
-from game.lib.NetPortManager import NetPortManager
+from game.lib.net.NetPortManager import NetPortManager
 from game.network.EmptyMessageChannel import EmptyMessageChannel
 from game.network.LocalMessageChannel import LocalMessageChannel, MessageHolder
 from game.network.NetMessageChannel import NetMessageChannel

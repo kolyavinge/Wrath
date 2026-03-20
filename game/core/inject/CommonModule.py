@@ -4,7 +4,7 @@ from game.anx.PersonIdLogic import *
 from game.anx.PowerupIdLogic import *
 from game.lib.EventManager import *
 from game.lib.io.FileSystem import *
-from game.lib.NetPortManager import *
+from game.lib.net.NetPortManager import *
 
 
 class CommonModule:
