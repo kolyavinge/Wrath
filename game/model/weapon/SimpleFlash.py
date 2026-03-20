@@ -1,5 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
+from game.lib.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.lib.Random import Random
 from game.model.weapon.WeaponFlash import WeaponFlash
 

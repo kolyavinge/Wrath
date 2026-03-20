@@ -1,4 +1,4 @@
-from game.calc.Rect2d import Rect2d
+from game.lib.calc.Rect2d import Rect2d
 
 
 class Box3d:

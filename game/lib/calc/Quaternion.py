@@ -1,5 +1,5 @@
-from game.calc.TransformMatrix4 import TransformMatrix4
-from game.calc.Vector3 import Vector3
+from game.lib.calc.TransformMatrix4 import TransformMatrix4
+from game.lib.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 

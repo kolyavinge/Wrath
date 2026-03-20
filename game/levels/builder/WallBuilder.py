@@ -1,6 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Vector3 import Vector3
 from game.levels.builder.DoorwayBorderBuilder import DoorwayBorderBuilder
+from game.lib.calc.Vector3 import Vector3
 from game.model.level.Construction import Construction
 from game.model.level.Wall import Wall
 

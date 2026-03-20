@@ -1,7 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Geometry import Geometry
-from game.calc.Vector3 import Vector3
 from game.engine.ai.common.CollisionDetector import CollisionDetector
+from game.lib.calc.Geometry import Geometry
+from game.lib.calc.Vector3 import Vector3
 from game.lib.Random import Random
 
 

@@ -1,10 +1,10 @@
 from OpenGL.GL import *
 
 from game.anx.PersonConstants import PersonConstants
-from game.calc.Vector3 import Vector3
 from game.gl.ColorVector3 import ColorVector3
 from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 from game.gl.vbo.VBORenderer import VBORenderer
+from game.lib.calc.Vector3 import Vector3
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 

@@ -1,5 +1,5 @@
-from game.calc.Quaternion import Quaternion
-from game.calc.Vector3 import Vector3
+from game.lib.calc.Quaternion import Quaternion
+from game.lib.calc.Vector3 import Vector3
 
 
 class FrameInterpolator:

@@ -1,9 +1,9 @@
 from game.anx.CommonConstants import CommonConstants
 from game.anx.PersonConstants import PersonConstants
-from game.calc.RectPlane import RectPlane
-from game.calc.Vector3 import Vector3
 from game.engine.cm.PlaneCollisionDetector import PlaneCollisionDetector
 from game.engine.cm.SphereCollisionDetector import SphereCollisionDetector
+from game.lib.calc.RectPlane import RectPlane
+from game.lib.calc.Vector3 import Vector3
 from game.model.person.PersonStates import LifeCycle
 
 

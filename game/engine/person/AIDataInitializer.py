@@ -1,4 +1,4 @@
-from game.calc.Geometry import Geometry
+from game.lib.calc.Geometry import Geometry
 from game.lib.Random import Random
 
 

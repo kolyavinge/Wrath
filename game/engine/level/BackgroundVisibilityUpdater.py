@@ -1,5 +1,5 @@
-from game.calc.Vector3 import Vector3
 from game.engine.person.CameraScopeChecker import CameraScopeChecker
+from game.lib.calc.Vector3 import Vector3
 from game.lib.Math import Math
 
 

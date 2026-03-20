@@ -1,4 +1,5 @@
-from game.calc.PlaneOrientationLogic import *
+from game.core.InputManager import *
+from game.core.PlayerInputManager import *
 from game.engine.bsp.BSPTreeBuilder import *
 from game.engine.bsp.BSPTreeTraversal import *
 from game.engine.ClientUpdater import *
@@ -95,8 +96,7 @@ from game.engine.weapon.WeaponFireLogic import *
 from game.engine.weapon.WeaponFireUpdater import *
 from game.engine.weapon.WeaponFlashUpdater import *
 from game.engine.weapon.WeaponSelector import *
-from game.core.InputManager import *
-from game.core.PlayerInputManager import *
+from game.lib.calc.PlaneOrientationLogic import *
 
 
 class EngineModule:

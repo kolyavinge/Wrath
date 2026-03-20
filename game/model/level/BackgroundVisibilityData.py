@@ -1,7 +1,7 @@
+from game.lib.calc.BSPTree import BSPTree, SplitPlane
+from game.lib.calc.Sphere import Sphere
 from game.anx.CommonConstants import CommonConstants
-from game.calc.BSPTree import BSPTree, SplitPlane
-from game.calc.Sphere import Sphere
-from game.calc.Vector3 import Vector3
+from game.lib.calc.Vector3 import Vector3
 from game.lib.Math import Math
 
 

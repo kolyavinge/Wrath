@@ -1,8 +1,8 @@
-from game.calc.Vector3 import Vector3
 from game.engine.ai.common.RouteCollisionDetector import RouteCollisionDetector
 from game.engine.ai.common.RouteGraph import RouteGraph, Vertex
 from game.engine.ai.common.RouteOptimizer import RouteOptimizer
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.lib.calc.Vector3 import Vector3
 from game.lib.collections.Query import Query
 from game.model.ai.Route import NullRoute, Route
 

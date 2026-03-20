@@ -1,9 +1,9 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Geometry import Geometry
-from game.calc.Vector3 import Vector3
-from game.calc.Vector4 import Vector4
 from game.gl.ParticleBuffer import ExtraParticleDataBuffers
 from game.gl.ParticleBufferFactory import ParticleBufferFactory
+from game.lib.calc.Geometry import Geometry
+from game.lib.calc.Vector3 import Vector3
+from game.lib.calc.Vector4 import Vector4
 from game.lib.Math import Math
 from game.lib.Random import Random
 

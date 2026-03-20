@@ -1,7 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Geometry import Geometry
-from game.lib.Math import Math
+from game.lib.calc.Geometry import Geometry
 from game.lib.collections.mirrorRange import mirrorRange
+from game.lib.Math import Math
 from game.model.person.PersonStates import PersonZState
 
 

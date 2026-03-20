@@ -1,9 +1,9 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Vector3 import Vector3
 from game.engine.cm.ConstructionCollisionDetector import ConstructionCollisionDetector
 from game.engine.weapon.BulletHoleLogic import BulletHoleLogic
 from game.engine.weapon.BulletLogic import BulletLogic
 from game.engine.weapon.ExplosionLogic import ExplosionLogic
+from game.lib.calc.Vector3 import Vector3
 from game.lib.collections.IdList import IdList
 from game.model.weapon.Grenade import Grenade
 

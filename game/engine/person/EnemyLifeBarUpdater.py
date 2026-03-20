@@ -1,6 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.anx.PersonConstants import PersonConstants
-from game.calc.TransformMatrix4Builder import TransformMatrix4Builder
+from game.lib.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.lib.Math import Math
 from game.lib.Numeric import Numeric
 from game.model.person.PersonStates import LifeCycle

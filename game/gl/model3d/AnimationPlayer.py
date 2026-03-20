@@ -1,5 +1,5 @@
-from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.model3d.FrameInterpolator import FrameInterpolator
+from game.lib.calc.TransformMatrix4 import TransformMatrix4
 
 
 class PlayableAnimation:

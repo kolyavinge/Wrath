@@ -1,7 +1,7 @@
-from game.calc.Vector3 import Vector3
 from game.engine.ai.common.FireLogic import FireLogic
 from game.engine.ai.common.MovingLogic import MovingLogic
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
+from game.lib.calc.Vector3 import Vector3
 from game.lib.Random import Random
 from game.model.ai.AIData import BotState
 

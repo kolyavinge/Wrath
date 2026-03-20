@@ -1,6 +1,6 @@
 from game.anx.PersonConstants import PersonConstants
-from game.calc.Geometry import Geometry
 from game.engine.person.PersonTurnLogic import PersonTurnLogic
+from game.lib.calc.Geometry import Geometry
 
 
 class PersonTurnUpdater:

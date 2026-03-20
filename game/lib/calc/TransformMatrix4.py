@@ -1,5 +1,5 @@
-from game.calc.Matrix3 import Matrix3
-from game.calc.Vector4 import Vector4
+from game.lib.calc.Matrix3 import Matrix3
+from game.lib.calc.Vector4 import Vector4
 from game.lib.Math import Math
 
 # https://registry.khronos.org/OpenGL-Refpages/gl2.1/xhtml/glTranslate.xml

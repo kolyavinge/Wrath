@@ -1,5 +1,5 @@
-from game.calc.Geometry import Geometry
-from game.calc.Vector3 import Vector3
+from game.lib.calc.Geometry import Geometry
+from game.lib.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.lib.Random import Random
 from game.model.weapon.Bullet import Bullet

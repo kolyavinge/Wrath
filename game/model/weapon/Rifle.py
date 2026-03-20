@@ -1,5 +1,5 @@
-from game.calc.Geometry import Geometry
-from game.calc.Vector3 import Vector3
+from game.lib.calc.Geometry import Geometry
+from game.lib.calc.Vector3 import Vector3
 from game.lib.DecrementCounter import DecrementCounter
 from game.model.Material import Material
 from game.model.weapon.Bullet import Bullet

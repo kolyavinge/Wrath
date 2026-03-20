@@ -1,4 +1,4 @@
-from game.calc.Vector3 import Vector3
+from game.lib.calc.Vector3 import Vector3
 from game.model.level.Ceiling import Ceiling
 from game.model.level.Construction import Construction
 from game.model.level.Floor import Floor

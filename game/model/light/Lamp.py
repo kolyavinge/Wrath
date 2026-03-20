@@ -1,4 +1,4 @@
-from game.calc.Vector3 import Vector3
+from game.lib.calc.Vector3 import Vector3
 from game.model.level.VisibleLevelItem import VisibleLevelItem
 from game.model.light.Light import Light
 

@@ -1,9 +1,9 @@
 from OpenGL.GL import *
 
-from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.BufferIndices import BufferIndices
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
+from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.common.TextureCollection import TextureCollection
 

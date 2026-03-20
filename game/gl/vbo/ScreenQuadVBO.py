@@ -1,5 +1,5 @@
-from game.calc.Vector3 import Vector3
 from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
+from game.lib.calc.Vector3 import Vector3
 
 
 class ScreenQuadVBO:

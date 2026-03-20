@@ -1,5 +1,5 @@
-from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.SpriteRendererFactory import SpriteRendererFactory
+from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
 from game.model.weapon.Plasma import Plasma

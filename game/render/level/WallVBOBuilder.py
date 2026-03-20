@@ -1,4 +1,4 @@
-from game.calc.Vector3 import Vector3
+from game.lib.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.model.Orientation import Orientation
 from game.render.level.ConstructionVBOBuilder import ConstructionVBOBuilder

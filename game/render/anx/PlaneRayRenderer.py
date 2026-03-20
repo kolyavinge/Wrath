@@ -1,12 +1,12 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.calc.PlaneOrientationLogic import PlaneOrientationLogic
-from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.BufferIndices import BufferIndices
 from game.gl.ColorVector3 import ColorVector3
 from game.gl.vbo.VBORenderer import VBORenderer
 from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
+from game.lib.calc.PlaneOrientationLogic import PlaneOrientationLogic
+from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 
 

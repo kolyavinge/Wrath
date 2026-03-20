@@ -1,6 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.RectPlane import RectPlane
-from game.calc.Vector3 import Vector3
+from game.lib.calc.RectPlane import RectPlane
+from game.lib.calc.Vector3 import Vector3
 from game.model.FaceDirection import FaceDirection
 from game.model.level.VisibleLevelItem import VisibleLevelItem
 

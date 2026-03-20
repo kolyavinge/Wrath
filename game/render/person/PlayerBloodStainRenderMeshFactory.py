@@ -1,6 +1,6 @@
-from game.calc.Vector3 import Vector3
 from game.gl.model3d.RenderModel3d import RenderMesh
 from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
+from game.lib.calc.Vector3 import Vector3
 from game.render.common.TextureCollection import TextureCollection
 
 

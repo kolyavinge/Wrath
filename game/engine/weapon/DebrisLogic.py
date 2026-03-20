@@ -1,9 +1,9 @@
 from game.anx.BulletIdLogic import BulletIdLogic
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Geometry import Geometry
-from game.calc.Plane import Plane
-from game.calc.Vector3 import Vector3
 from game.engine.bsp.BSPTreeTraversal import BSPTreeTraversal
+from game.lib.calc.Geometry import Geometry
+from game.lib.calc.Plane import Plane
+from game.lib.calc.Vector3 import Vector3
 from game.lib.LinearRandomGenerator import LinearRandomGenerator
 from game.lib.Math import Math
 

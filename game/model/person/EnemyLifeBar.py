@@ -1,4 +1,4 @@
-from game.calc.TransformMatrix4 import TransformMatrix4
+from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.lib.DecrementCounter import DecrementCounter
 
 

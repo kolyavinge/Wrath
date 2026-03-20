@@ -1,5 +1,5 @@
-from game.calc.TransformMatrix4 import TransformMatrix4
 from game.gl.vbo.VBORenderer import VBORenderer
+from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.render.level.ShadowCasterRenderCollection import *
 
 

@@ -1,5 +1,5 @@
 from game.anx.PersonConstants import PersonConstants
-from game.calc.Geometry import Geometry
+from game.lib.calc.Geometry import Geometry
 from game.lib.collections.CircularIterator import CircularIterator
 from game.lib.Numeric import Numeric
 from game.lib.Random import Random

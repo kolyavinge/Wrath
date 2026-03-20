@@ -1,5 +1,5 @@
 from game.anx.CommonConstants import CommonConstants
-from game.calc.Vector3 import Vector3
+from game.lib.calc.Vector3 import Vector3
 from game.lib.Math import Math
 from game.lib.Random import Random
 from game.model.person.BloodStain import BloodStain
