@@ -95,8 +95,8 @@ from game.engine.weapon.WeaponFireLogic import *
 from game.engine.weapon.WeaponFireUpdater import *
 from game.engine.weapon.WeaponFlashUpdater import *
 from game.engine.weapon.WeaponSelector import *
-from game.input.InputManager import *
-from game.input.PlayerInputManager import *
+from game.core.InputManager import *
+from game.core.PlayerInputManager import *
 
 
 class EngineModule:

@@ -1,4 +1,4 @@
-from game.input.InputManager import InputManager
+from game.core.InputManager import InputManager
 from game.lib.input.Keyboard import KeyboardButtons
 from game.lib.input.Mouse import MouseButtons
 from game.lib.EventManager import EventManager, Events

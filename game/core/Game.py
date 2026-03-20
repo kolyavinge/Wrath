@@ -4,7 +4,7 @@ from game.core.GameInitializer import GameInitializer
 from game.core.GameStartMode import GameStartMode
 from game.core.ScreenManager import ScreenManager
 from game.core.Server import Server
-from game.input.InputManager import InputManager
+from game.core.InputManager import InputManager
 from game.lib.EventManager import EventManager
 
 
