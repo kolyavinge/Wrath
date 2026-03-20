@@ -1,6 +1,3 @@
-from game.vox.audio.AudioBufferLoader import *
-from game.vox.audio.AudioPlayer import *
-from game.vox.audio.AudioSourceLoader import *
 from game.vox.common.AudioBufferCollection import *
 from game.vox.common.AudioSourceFactory import *
 from game.vox.common.ExplosionVox import *
@@ -9,6 +6,9 @@ from game.vox.common.PlayerItemsVox import *
 from game.vox.common.PowerupVox import *
 from game.vox.common.VoxManager import *
 from game.vox.common.WeaponVox import *
+from game.vox.lib.AudioBufferLoader import *
+from game.vox.lib.AudioPlayer import *
+from game.vox.lib.AudioSourceLoader import *
 from game.vox.ui.GameScreenVox import *
 
 

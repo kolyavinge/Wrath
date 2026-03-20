@@ -1,5 +1,5 @@
-from game.vox.audio.AudioPlayer import AudioPlayer
 from game.vox.common.AudioSourceFactory import AudioSourceFactory
+from game.vox.lib.AudioPlayer import AudioPlayer
 from game.vox.sources.ExplosionAudioSources import ExplosionAudioSources
 
 
