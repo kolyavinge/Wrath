@@ -2,6 +2,7 @@ import numpy
 from openal.al import *
 from openal.alc import *
 
+from game.anx.CommonConstants import CommonConstants
 from game.lib.EventManager import EventManager, Events
 
 
@@ -23,8 +24,21 @@ class AudioPlayer:
     def play(self, audioSource):
         alSourcePlay(audioSource.id)
 
-    def setListenerPosition(self, position):
+    def setListenerPosition(self, position, lookDirection):
         alListener3f(AL_POSITION, numpy.float32(position.x), numpy.float32(position.y), numpy.float32(position.z))
+
+        orientation = numpy.array(
+            [
+                lookDirection.x,
+                lookDirection.y,
+                lookDirection.z,
+                CommonConstants.zAxis.x,
+                CommonConstants.zAxis.y,
+                CommonConstants.zAxis.z,
+            ],
+            dtype=numpy.float32,
+        )
+        alListenerfv(AL_ORIENTATION, orientation.ctypes.data_as(ctypes.POINTER(ctypes.c_float)))
 
     def release(self, _):
         alcDestroyContext(self.context)

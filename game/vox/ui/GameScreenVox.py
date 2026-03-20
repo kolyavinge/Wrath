@@ -37,9 +37,11 @@ class GameScreenVox:
         self.powerupVox.init(gameState, self.allSources)
 
     def update(self, gameState):
-        self.audioPlayer.setListenerPosition(gameState.player.currentCenterPoint)
+        self.audioPlayer.setListenerPosition(gameState.player.currentCenterPoint, gameState.player.lookDirection)
+
         for source in self.allSources:
             source.updatePosition()
+
         self.personVox.vox(gameState.updateStatistic)
         self.playerItemsVox.vox(gameState.updateStatistic)
         self.weaponVox.vox(gameState.updateStatistic)
