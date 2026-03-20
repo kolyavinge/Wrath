@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
+from game.render.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
 
 
 class ShadowedObjectFramebuffer:

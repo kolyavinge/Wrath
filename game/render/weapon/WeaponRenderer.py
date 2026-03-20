@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
-from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.model.person.PersonStates import LifeCycle
+from game.render.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.render.weapon.WeaponRenderCollection import WeaponRenderCollection
 
 

@@ -1,7 +1,7 @@
-from game.gl.model3d.RenderModel3d import RenderMesh
-from game.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 from game.lib.calc.Vector3 import Vector3
 from game.render.common.TextureCollection import TextureCollection
+from game.render.gl.model3d.RenderModel3d import RenderMesh
+from game.render.gl.vbo.VBOBuilderFactory import VBOBuilderFactory
 
 
 class PlayerBloodStainRenderMeshFactory:

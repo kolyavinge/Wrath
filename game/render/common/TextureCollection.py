@@ -1,5 +1,5 @@
-from game.gl.TextureLoader import TextureLoader
 from game.lib.Environment import Environment
+from game.render.gl.TextureLoader import TextureLoader
 
 
 class TextureCollection:

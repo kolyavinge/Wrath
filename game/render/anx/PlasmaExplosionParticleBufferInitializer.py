@@ -1,10 +1,10 @@
 from game.anx.CommonConstants import CommonConstants
-from game.gl.FeedbackParticleBufferFactory import FeedbackParticleBufferFactory
 from game.lib.calc.Geometry import Geometry
 from game.lib.calc.Plane import Plane
 from game.lib.Math import Math
 from game.lib.Random import Random
 from game.model.person.Person import Person
+from game.render.gl.FeedbackParticleBufferFactory import FeedbackParticleBufferFactory
 
 
 class PlasmaExplosionParticleBufferInitializer:

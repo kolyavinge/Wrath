@@ -1,7 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
-from game.gl.ColorVector3 import ColorVector3
 from game.lib.calc.TransformMatrix4Builder import TransformMatrix4Builder
 from game.render.anx.ShineCircleRenderer import ShineCircleParams, ShineCircleRenderer
+from game.render.gl.ColorVector3 import ColorVector3
 
 
 class PlasmaShineBulletRenderer:

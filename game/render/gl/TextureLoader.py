@@ -1,9 +1,9 @@
 from OpenGL.GL import *
 from PIL import Image
 
-from game.gl.Texture import Texture
 from game.lib.Numeric import Numeric
 from game.lib.sys import warn
+from game.render.gl.Texture import Texture
 
 
 class TextureLoader:

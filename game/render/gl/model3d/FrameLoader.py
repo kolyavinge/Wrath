@@ -1,8 +1,8 @@
-from game.gl.model3d.Model3d import Frame
 from game.lib.calc.Quaternion import Quaternion
 from game.lib.calc.Vector3 import Vector3
 from game.lib.collections.List import List
 from game.lib.collections.Tree import Tree
+from game.render.gl.model3d.Model3d import Frame
 
 
 class FrameLoader:

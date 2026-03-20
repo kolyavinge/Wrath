@@ -1,9 +1,9 @@
 from game.anx.DebugSettings import DebugSettings
-from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.powerup.LargeHealthPowerup import LargeHealthPowerup
 from game.model.powerup.SmallHealthPowerup import SmallHealthPowerup
 from game.model.powerup.VestPowerup import VestPowerup
+from game.render.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.render.powerup.PowerupModel3dFactory import PowerupModel3dFactory
 
 

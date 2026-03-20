@@ -1,13 +1,13 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.gl.BufferIndices import BufferIndices
-from game.gl.ColorVector3 import ColorVector3
-from game.gl.vbo.VBORenderer import VBORenderer
-from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 from game.lib.calc.PlaneOrientationLogic import PlaneOrientationLogic
 from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.gl.BufferIndices import BufferIndices
+from game.render.gl.ColorVector3 import ColorVector3
+from game.render.gl.vbo.VBORenderer import VBORenderer
+from game.render.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 
 
 class RayParams:

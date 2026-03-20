@@ -1,9 +1,9 @@
 from OpenGL.GL import *
 
-from game.gl.vbo.VBORenderer import VBORenderer
 from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.lib.EventManager import EventManager, Events
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.gl.vbo.VBORenderer import VBORenderer
 from game.render.person.PlayerBloodStainRenderCollection import *
 
 

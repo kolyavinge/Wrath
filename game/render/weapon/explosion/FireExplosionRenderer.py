@@ -1,9 +1,9 @@
 from OpenGL.GL import GL_TEXTURE0
 
-from game.gl.ParticleRenderer import ParticleRenderer
 from game.render.anx.FireExplosionParticleBufferInitializer import *
 from game.render.anx.ParticleBufferPool import ParticleBufferPool
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.gl.ParticleRenderer import ParticleRenderer
 
 
 class FireExplosionRenderer:

@@ -1,6 +1,6 @@
-from game.gl.TextRenderer import TextRenderer
 from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.gl.TextRenderer import TextRenderer
 
 
 class DashboardTextRenderer:

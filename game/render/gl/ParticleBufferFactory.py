@@ -1,6 +1,6 @@
 from OpenGL.GL import *
 
-from game.gl.ParticleBuffer import ExtraParticleDataBuffers, ParticleBuffer
+from game.render.gl.ParticleBuffer import ExtraParticleDataBuffers, ParticleBuffer
 
 
 class ParticleBufferFactory:

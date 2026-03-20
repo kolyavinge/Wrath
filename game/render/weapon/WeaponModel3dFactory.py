@@ -1,5 +1,5 @@
-from game.gl.model3d.Model3dLoader import Model3dLoader
 from game.render.common.Model3dDirectory import Model3dDirectory
+from game.render.gl.model3d.Model3dLoader import Model3dLoader
 
 
 class WeaponModel3dFactory:

@@ -1,4 +1,4 @@
-from game.gl.ShaderProgram import ShaderProgram
+from game.render.gl.ShaderProgram import ShaderProgram
 
 
 class CrossshairShaderProgram(ShaderProgram):

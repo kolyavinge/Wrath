@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
-from game.gl.FeedbackParticleBuffer import FeedbackParticleBuffer
-from game.gl.ParticleBufferFactory import ParticleBufferFactory
+from game.render.gl.FeedbackParticleBuffer import FeedbackParticleBuffer
+from game.render.gl.ParticleBufferFactory import ParticleBufferFactory
 
 
 class FeedbackParticleBufferFactory:

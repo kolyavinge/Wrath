@@ -1,10 +1,10 @@
 from OpenGL.GL import GL_TEXTURE0
 
-from game.gl.BufferIndices import BufferIndices
-from game.gl.vbo.VBORenderer import VBORenderer
-from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 from game.lib.calc.Vector3 import Vector3
 from game.render.common.TextureCollection import TextureCollection
+from game.render.gl.BufferIndices import BufferIndices
+from game.render.gl.vbo.VBORenderer import VBORenderer
+from game.render.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 
 
 class TextRenderer:

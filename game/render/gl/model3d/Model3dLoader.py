@@ -2,13 +2,13 @@ import numpy
 import pyassimp
 from pyassimp import postprocess
 
-from game.gl.model3d.AnimationLoader import AnimationLoader
-from game.gl.model3d.Model3d import Mesh, Model3d
-from game.gl.TextureLoader import TextureLoader
 from game.lib.collections.Query import Query
 from game.lib.io.FileSystem import FileSystem
 from game.lib.Stopwatch import Stopwatch
 from game.render.common.TextureCollection import TextureCollection
+from game.render.gl.model3d.AnimationLoader import AnimationLoader
+from game.render.gl.model3d.Model3d import Mesh, Model3d
+from game.render.gl.TextureLoader import TextureLoader
 
 
 class Model3dLoader:

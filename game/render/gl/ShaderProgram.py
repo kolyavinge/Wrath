@@ -1,8 +1,8 @@
 from OpenGL.GL import *
 
-from game.gl.ShaderProgramUniformLocations import ShaderProgramUniformLocations
-from game.gl.ShaderProgramUniformSetter import ShaderProgramUniformSetter
 from game.lib.sys import convertListToLPLPChar
+from game.render.gl.ShaderProgramUniformLocations import ShaderProgramUniformLocations
+from game.render.gl.ShaderProgramUniformSetter import ShaderProgramUniformSetter
 
 
 class ShaderProgram:

@@ -1,5 +1,4 @@
 from game.anx.DebugSettings import DebugSettings
-from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.NullWeapon import NullWeapon
@@ -8,6 +7,7 @@ from game.model.weapon.Plasma import Plasma
 from game.model.weapon.Railgun import Railgun
 from game.model.weapon.Rifle import Rifle
 from game.model.weapon.Sniper import Sniper
+from game.render.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.render.weapon.WeaponModel3dFactory import WeaponModel3dFactory
 
 

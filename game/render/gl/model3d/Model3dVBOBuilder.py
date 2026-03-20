@@ -1,8 +1,8 @@
 from OpenGL.GL import *
 
-from game.gl.BufferIndices import BufferIndices
-from game.gl.model3d.Model3d import Bone
-from game.gl.vbo.VBO import VBO
+from game.render.gl.BufferIndices import BufferIndices
+from game.render.gl.model3d.Model3d import Bone
+from game.render.gl.vbo.VBO import VBO
 
 
 class Model3dVBOBuilder:

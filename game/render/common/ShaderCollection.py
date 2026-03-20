@@ -1,6 +1,6 @@
-from game.gl.Shader import ShaderType
-from game.gl.ShaderCompiler import ShaderCompiler
 from game.lib.Environment import Environment
+from game.render.gl.Shader import ShaderType
+from game.render.gl.ShaderCompiler import ShaderCompiler
 
 
 class ShaderCollection:

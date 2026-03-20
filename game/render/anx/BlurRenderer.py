@@ -1,11 +1,11 @@
 from OpenGL.GL import *
 
-from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleBlitFramebuffer
-from game.gl.TexturedFramebuffer import TexturedFramebuffer
-from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
-from game.gl.vbo.VBORenderer import VBORenderer
 from game.lib.EventManager import EventManager, Events
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID, gleBlitFramebuffer
+from game.render.gl.TexturedFramebuffer import TexturedFramebuffer
+from game.render.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
+from game.render.gl.vbo.VBORenderer import VBORenderer
 
 
 class BlurRenderer:

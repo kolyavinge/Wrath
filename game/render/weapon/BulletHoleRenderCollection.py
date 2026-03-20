@@ -1,9 +1,9 @@
 from game.anx.CommonConstants import CommonConstants
-from game.gl.BufferIndices import BufferIndices
-from game.gl.model3d.RenderModel3d import RenderMesh
-from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
+from game.render.gl.BufferIndices import BufferIndices
+from game.render.gl.model3d.RenderModel3d import RenderMesh
+from game.render.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 
 
 class BulletHoleRenderCollection:

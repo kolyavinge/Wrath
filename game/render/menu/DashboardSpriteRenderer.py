@@ -1,4 +1,3 @@
-from game.gl.SpriteRendererFactory import SpriteRendererFactory
 from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.model.weapon.Launcher import Launcher
 from game.model.weapon.Pistol import Pistol
@@ -8,6 +7,7 @@ from game.model.weapon.Rifle import Rifle
 from game.model.weapon.Sniper import Sniper
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.common.TextureCollection import TextureCollection
+from game.render.gl.SpriteRendererFactory import SpriteRendererFactory
 
 
 class DashboardSpriteRenderer:

@@ -1,9 +1,9 @@
 from OpenGL.GL import *
 
-from game.gl.ext import gleGetViewportSize
-from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
-from game.gl.vbo.VBORenderer import VBORenderer
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.gl.ext import gleGetViewportSize
+from game.render.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
+from game.render.gl.vbo.VBORenderer import VBORenderer
 
 
 class VignetteRenderer:

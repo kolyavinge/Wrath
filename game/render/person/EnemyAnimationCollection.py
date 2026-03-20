@@ -1,5 +1,5 @@
-from game.gl.model3d.AnimationPlayer import PlayableAnimation
 from game.model.person.PersonStates import PersonZState
+from game.render.gl.model3d.AnimationPlayer import PlayableAnimation
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 
 

@@ -1,15 +1,15 @@
 from OpenGL.GL import *
 
-from game.gl.BufferIndices import BufferIndices
-from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
-from game.gl.TexturedFramebuffer import TexturedFramebuffer
-from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
-from game.gl.vbo.VBORenderer import VBORenderer
-from game.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 from game.lib.calc.PlaneOrientationLogic import PlaneOrientationLogic
 from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.lib.collections.Query import Query
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.gl.BufferIndices import BufferIndices
+from game.render.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
+from game.render.gl.TexturedFramebuffer import TexturedFramebuffer
+from game.render.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
+from game.render.gl.vbo.VBORenderer import VBORenderer
+from game.render.gl.vbo.VBOUpdaterFactory import VBOUpdaterFactory
 
 
 class PlasmaRayRenderer:

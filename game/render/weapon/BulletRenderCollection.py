@@ -1,9 +1,9 @@
 from game.anx.DebugSettings import DebugSettings
-from game.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.model.Material import Material
 from game.model.weapon.Launcher import LauncherBullet
 from game.model.weapon.Plasma import PlasmaBullet
 from game.model.weapon.Rifle import RifleGrenade
+from game.render.gl.model3d.RenderModel3dLoader import RenderModel3dLoader
 from game.render.weapon.BulletModel3dFactory import BulletModel3dFactory
 
 

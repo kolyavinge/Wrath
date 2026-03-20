@@ -16,7 +16,6 @@ from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonInitializer import PersonInitializer
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
-from game.gl.TextRenderer import TextRenderer
 from game.network.ClientConnectionLogic import ClientConnectionLogic
 from game.network.ClientMultiplayerSynchronizer import ClientMultiplayerSynchronizer
 from game.network.GameService import GameService
@@ -26,6 +25,7 @@ from game.render.common.MaterialTextureCollection import MaterialTextureCollecti
 from game.render.common.ShaderCollection import ShaderCollection
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.common.TextureCollection import TextureCollection
+from game.render.gl.TextRenderer import TextRenderer
 from game.vox.common.AudioBufferCollection import AudioBufferCollection
 from game.vox.lib.AudioPlayer import AudioPlayer
 

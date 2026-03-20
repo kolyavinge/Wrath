@@ -1,23 +1,3 @@
-from game.gl.AdjacencyFormatConverter import *
-from game.gl.FeedbackParticleBufferFactory import *
-from game.gl.FeedbackParticleRenderer import *
-from game.gl.model3d.AnimationLoader import *
-from game.gl.model3d.AnimationPlayer import *
-from game.gl.model3d.FrameInterpolator import *
-from game.gl.model3d.FrameLoader import *
-from game.gl.model3d.Model3dLoader import *
-from game.gl.model3d.Model3dRenderer import *
-from game.gl.model3d.RenderModel3dLoader import *
-from game.gl.ParticleBufferFactory import *
-from game.gl.ParticleRenderer import *
-from game.gl.ShaderCompiler import *
-from game.gl.SpriteRendererFactory import *
-from game.gl.TextRenderer import *
-from game.gl.TextureLoader import *
-from game.gl.vbo.ScreenQuadVBO import *
-from game.gl.vbo.VBOBuilderFactory import *
-from game.gl.vbo.VBORenderer import *
-from game.gl.vbo.VBOUpdaterFactory import *
 from game.render.anx.BlurRenderer import *
 from game.render.anx.FireExplosionParticleBufferInitializer import *
 from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
@@ -31,6 +11,26 @@ from game.render.common.ShaderCollection import *
 from game.render.common.ShaderProgramCollection import *
 from game.render.common.TextureCollection import *
 from game.render.debug.PlayerSegmentItemsRenderer import *
+from game.render.gl.AdjacencyFormatConverter import *
+from game.render.gl.FeedbackParticleBufferFactory import *
+from game.render.gl.FeedbackParticleRenderer import *
+from game.render.gl.model3d.AnimationLoader import *
+from game.render.gl.model3d.AnimationPlayer import *
+from game.render.gl.model3d.FrameInterpolator import *
+from game.render.gl.model3d.FrameLoader import *
+from game.render.gl.model3d.Model3dLoader import *
+from game.render.gl.model3d.Model3dRenderer import *
+from game.render.gl.model3d.RenderModel3dLoader import *
+from game.render.gl.ParticleBufferFactory import *
+from game.render.gl.ParticleRenderer import *
+from game.render.gl.ShaderCompiler import *
+from game.render.gl.SpriteRendererFactory import *
+from game.render.gl.TextRenderer import *
+from game.render.gl.TextureLoader import *
+from game.render.gl.vbo.ScreenQuadVBO import *
+from game.render.gl.vbo.VBOBuilderFactory import *
+from game.render.gl.vbo.VBORenderer import *
+from game.render.gl.vbo.VBOUpdaterFactory import *
 from game.render.level.BackgroundRenderer import *
 from game.render.level.ConstructionVBOBuilder import *
 from game.render.level.LampVBOBuilder import *
@@ -98,6 +98,19 @@ from game.render.weapon.WeaponRenderer import *
 class RenderModule:
 
     def init(self, binder):
+        binder.bindSingleton(BlurRenderer)
+        binder.bindSingleton(FireExplosionParticleBufferInitializer)
+        binder.bindSingleton(LauncherBulletTraceParticleBufferInitializer)
+        binder.bindSingleton(PlaneRayRenderer)
+        binder.bindSingleton(PlasmaExplosionParticleBufferInitializer)
+        binder.bindSingleton(ShineCircleRenderer)
+        binder.bindSingleton(VignetteRenderer)
+        binder.bindSingleton(MaterialTextureCollection)
+        binder.bindSingleton(Model3dDirectory)
+        binder.bindSingleton(ShaderCollection)
+        binder.bindSingleton(ShaderProgramCollection)
+        binder.bindSingleton(TextureCollection)
+        binder.bindSingleton(PlayerSegmentItemsRenderer)
         binder.bindSingleton(AdjacencyFormatConverter)
         binder.bindSingleton(FeedbackParticleBufferFactory)
         binder.bindSingleton(FeedbackParticleRenderer)
@@ -118,19 +131,6 @@ class RenderModule:
         binder.bindSingleton(VBOBuilderFactory)
         binder.bindSingleton(VBORenderer)
         binder.bindSingleton(VBOUpdaterFactory)
-        binder.bindSingleton(BlurRenderer)
-        binder.bindSingleton(FireExplosionParticleBufferInitializer)
-        binder.bindSingleton(LauncherBulletTraceParticleBufferInitializer)
-        binder.bindSingleton(PlaneRayRenderer)
-        binder.bindSingleton(PlasmaExplosionParticleBufferInitializer)
-        binder.bindSingleton(ShineCircleRenderer)
-        binder.bindSingleton(VignetteRenderer)
-        binder.bindSingleton(MaterialTextureCollection)
-        binder.bindSingleton(Model3dDirectory)
-        binder.bindSingleton(ShaderCollection)
-        binder.bindSingleton(ShaderProgramCollection)
-        binder.bindSingleton(TextureCollection)
-        binder.bindSingleton(PlayerSegmentItemsRenderer)
         binder.bindSingleton(BackgroundRenderer)
         binder.bindSingleton(ConstructionVBOBuilder)
         binder.bindSingleton(LampVBOBuilder)

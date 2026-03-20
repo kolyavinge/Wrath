@@ -1,6 +1,6 @@
 from OpenGL.GL import GL_TEXTURE0
 
-from game.gl.vbo.VBORenderer import VBORenderer
+from game.render.gl.vbo.VBORenderer import VBORenderer
 
 
 class Model3dRenderer:

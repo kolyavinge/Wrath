@@ -1,9 +1,9 @@
 from OpenGL.GL import *
 
-from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.lib.calc.Vector3 import Vector3
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.render.level.LevelItemRenderCollection import *
 
 

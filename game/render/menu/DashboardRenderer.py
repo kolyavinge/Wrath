@@ -1,13 +1,13 @@
 from OpenGL.GL import *
 
 from game.engine.person.DashboardUpdater import DashboardUpdater
-from game.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
-from game.gl.TexturedFramebuffer import TexturedFramebuffer
-from game.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
-from game.gl.vbo.VBORenderer import VBORenderer
 from game.lib.calc.TransformMatrix4 import TransformMatrix4
 from game.lib.EventManager import EventManager, Events
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
+from game.render.gl.ext import GL_DEFAULT_FRAMEBUFFER_ID
+from game.render.gl.TexturedFramebuffer import TexturedFramebuffer
+from game.render.gl.vbo.ScreenQuadVBO import ScreenQuadVBO
+from game.render.gl.vbo.VBORenderer import VBORenderer
 from game.render.menu.DashboardSpriteRenderer import DashboardSpriteRenderer
 from game.render.menu.DashboardTextRenderer import DashboardTextRenderer
 

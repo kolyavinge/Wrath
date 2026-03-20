@@ -1,10 +1,10 @@
 from OpenGL.GL import *
 
 from game.anx.CommonConstants import CommonConstants
-from game.gl.model3d.AnimationPlayer import AnimationPlayer
-from game.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.model.person.AimState import SniperAimState
 from game.model.person.PersonStates import LifeCycle
+from game.render.gl.model3d.AnimationPlayer import AnimationPlayer
+from game.render.gl.model3d.Model3dRenderer import Model3dRenderer
 from game.render.person.EnemyAnimationCollection import EnemyAnimationCollection
 from game.render.person.EnemyRenderCollection import EnemyRenderCollection
 
