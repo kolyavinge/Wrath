@@ -1,5 +1,4 @@
 from game.anx.PersonIdLogic import PersonIdLogic
-from game.audio.AudioPlayer import AudioPlayer
 from game.core.GameStartMode import GameStartMode
 from game.engine.ai.BotAIUpdater import BotAIUpdater
 from game.engine.bsp.BSPTreeBuilder import BSPTreeBuilder
@@ -27,6 +26,7 @@ from game.render.common.MaterialTextureCollection import MaterialTextureCollecti
 from game.render.common.ShaderCollection import ShaderCollection
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.common.TextureCollection import TextureCollection
+from game.vox.audio.AudioPlayer import AudioPlayer
 from game.vox.common.AudioBufferCollection import AudioBufferCollection
 
 

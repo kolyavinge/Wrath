@@ -1,4 +1,4 @@
-from game.audio.AudioSourceLoader import AudioSourceLoader
+from game.vox.audio.AudioSourceLoader import AudioSourceLoader
 from game.vox.common.AudioBufferCollection import AudioBufferCollection
 
 

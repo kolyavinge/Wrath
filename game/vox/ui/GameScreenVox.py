@@ -1,4 +1,4 @@
-from game.audio.AudioPlayer import AudioPlayer
+from game.vox.audio.AudioPlayer import AudioPlayer
 from game.vox.common.ExplosionVox import ExplosionVox
 from game.vox.common.PersonVox import PersonVox
 from game.vox.common.PlayerItemsVox import PlayerItemsVox

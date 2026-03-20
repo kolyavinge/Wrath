@@ -1,7 +1,7 @@
-from openal.al import *
 import numpy
+from openal.al import *
 
-from game.audio.AudioSource import AudioSource
+from game.vox.audio.AudioSource import AudioSource
 
 
 class AudioSourceLoader:

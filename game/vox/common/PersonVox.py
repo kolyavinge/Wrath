@@ -1,4 +1,4 @@
-from game.audio.AudioPlayer import AudioPlayer
+from game.vox.audio.AudioPlayer import AudioPlayer
 from game.model.Material import MaterialKind
 from game.vox.common.AudioSourceFactory import AudioSourceFactory
 from game.vox.sources.PersonAudioSources import PersonAudioSources

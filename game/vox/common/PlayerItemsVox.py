@@ -1,4 +1,4 @@
-from game.audio.AudioPlayer import AudioPlayer
+from game.vox.audio.AudioPlayer import AudioPlayer
 from game.lib.EventManager import EventManager, Events
 from game.vox.common.AudioSourceFactory import AudioSourceFactory
 from game.vox.sources.PlayertemsAudioSources import PlayertemsAudioSources

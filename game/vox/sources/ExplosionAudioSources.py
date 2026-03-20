@@ -1,4 +1,4 @@
-from game.audio.AudioSourcePool import AudioSourcePool
+from game.vox.audio.AudioSourcePool import AudioSourcePool
 from game.model.weapon.Launcher import LauncherExplosion
 from game.model.weapon.Plasma import PlasmaExplosion
 from game.model.weapon.Rifle import RifleGrenadeExplosion

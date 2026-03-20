@@ -1,7 +1,7 @@
 from openal.al import *
 
-from game.audio.AudioBuffer import AudioBuffer
-from game.audio.AudioFile import AudioFile
+from game.vox.audio.AudioBuffer import AudioBuffer
+from game.vox.audio.AudioFile import AudioFile
 
 
 class AudioBufferLoader:
