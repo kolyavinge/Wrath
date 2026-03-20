@@ -1,5 +1,5 @@
 from game.lib.Environment import Environment
-from game.lib.FileSystem import FileSystem
+from game.lib.io.FileSystem import FileSystem
 from game.lib.sys import warn
 
 

@@ -1,7 +1,7 @@
 import unittest
 
-from game.lib.BinaryReader import BinaryReader
-from game.lib.BinaryWriter import BinaryWriter
+from game.lib.io.BinaryReader import BinaryReader
+from game.lib.io.BinaryWriter import BinaryWriter
 
 
 class BinaryReaderWriterIntegration(unittest.TestCase):

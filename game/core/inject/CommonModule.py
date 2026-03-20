@@ -3,7 +3,7 @@ from game.anx.ConfigManager import *
 from game.anx.PersonIdLogic import *
 from game.anx.PowerupIdLogic import *
 from game.lib.EventManager import *
-from game.lib.FileSystem import *
+from game.lib.io.FileSystem import *
 from game.lib.NetPortManager import *
 
 

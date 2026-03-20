@@ -1,7 +1,7 @@
 from OpenGL.GL import *
 
 from game.gl.Shader import Shader
-from game.lib.FileSystem import FileSystem
+from game.lib.io.FileSystem import FileSystem
 from game.lib.sys import warn
 
 

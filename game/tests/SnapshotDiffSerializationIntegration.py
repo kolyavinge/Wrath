@@ -3,8 +3,8 @@ import unittest
 from numpy import float32
 
 from game.calc.Vector3 import Vector3
-from game.lib.BinaryReader import BinaryReader
-from game.lib.BinaryWriter import BinaryWriter
+from game.lib.io.BinaryReader import BinaryReader
+from game.lib.io.BinaryWriter import BinaryWriter
 from game.model.snapshot.SnapshotBullet import SnapshotBullet, WeaponInfoExtraBit
 from game.model.snapshot.SnapshotBulletCollision import SnapshotBulletCollision
 from game.model.snapshot.SnapshotDiff import SnapshotDiff
