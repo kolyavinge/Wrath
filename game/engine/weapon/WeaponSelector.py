@@ -1,8 +1,8 @@
 from game.engine.person.AimStateSwitcher import AimStateSwitcher
 from game.model.person.PersonStates import WeaponSelectState
 from game.model.person.Player import Player
-from game.model.weapon.NullWeapon import NullWeapon
 from game.model.weapon.FireState import FireState
+from game.model.weapon.NullWeapon import NullWeapon
 from game.model.weapon.WeaponCollection import WeaponCollection
 
 
@@ -84,7 +84,7 @@ class WeaponSelector:
             return
 
         if (
-            personItems.currentWeapon.bulletsCount > 0
+            not personItems.currentWeapon.isEmpty()
             and personItems.currentWeapon.cannotBeChangedWhileAltFire
             and personItems.currentWeapon.altFireState != FireState.deactive
         ):
