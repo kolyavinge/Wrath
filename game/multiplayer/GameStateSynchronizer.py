@@ -195,6 +195,7 @@ class GameStateSynchronizer:
         aliveOrRemovedBullet.nextPosition = aliveOrRemovedBullet.currentPosition
         if aliveOrRemovedBullet.isAlive:
             gameState.bullets.remove(aliveOrRemovedBullet)
+            self.bulletLogic.setNotAlive(aliveOrRemovedBullet)
             self.bulletLogic.removeFromVisibilityLevelSegment(aliveOrRemovedBullet)
         else:
             gameState.removedBullets.remove(aliveOrRemovedBullet)
