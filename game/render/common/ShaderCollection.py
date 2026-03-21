@@ -22,8 +22,8 @@ class ShaderCollection:
         self.fireExplosionVertex = self.shaderCompiler.compile(path + "fireExplosion.vert", ShaderType.vertex)
         self.fireExplosionFragment = self.shaderCompiler.compile(path + "fireExplosion.frag", ShaderType.fragment)
 
-        self.launcherBulletTraceVertex = self.shaderCompiler.compile(path + "launcherBulletTrace.vert", ShaderType.vertex)
-        self.launcherBulletTraceFragment = self.shaderCompiler.compile(path + "launcherBulletTrace.frag", ShaderType.fragment)
+        self.particleBulletTraceVertex = self.shaderCompiler.compile(path + "particleBulletTrace.vert", ShaderType.vertex)
+        self.particleBulletTraceFragment = self.shaderCompiler.compile(path + "particleBulletTrace.frag", ShaderType.fragment)
 
         self.mainSceneComposeVertex = self.shaderCompiler.compile(path + "mainSceneCompose.vert", ShaderType.vertex)
         self.mainSceneComposeFragment = self.shaderCompiler.compile(path + "mainSceneCompose.frag", ShaderType.fragment)

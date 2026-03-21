@@ -1,7 +1,7 @@
 from game.render.lib.ShaderProgram import ShaderProgram
 
 
-class LauncherBulletTraceShaderProgram(ShaderProgram):
+class ParticleBulletTraceShaderProgram(ShaderProgram):
 
     def __init__(self, shaders):
         super().__init__(shaders)

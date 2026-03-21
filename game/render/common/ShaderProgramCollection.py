@@ -2,13 +2,13 @@ from game.render.common.ShaderCollection import ShaderCollection
 from game.render.shaderprogram.BlurShaderProgram import BlurShaderProgram
 from game.render.shaderprogram.CrossshairShaderProgram import CrossshairShaderProgram
 from game.render.shaderprogram.FireExplosionShaderProgram import *
-from game.render.shaderprogram.LauncherBulletTraceShaderProgram import *
 from game.render.shaderprogram.MainSceneComposeShaderProgram import *
 from game.render.shaderprogram.MainSceneLightComponentsShaderProgram import *
 from game.render.shaderprogram.MainSceneShadowVolumesShaderProgram import *
 from game.render.shaderprogram.MainSceneStencilMaskShaderProgram import *
 from game.render.shaderprogram.MeshExtShaderProgram import MeshExtShaderProgram
 from game.render.shaderprogram.MeshShaderProgram import MeshShaderProgram
+from game.render.shaderprogram.ParticleBulletTraceShaderProgram import *
 from game.render.shaderprogram.PlainColorShaderProgram import PlainColorShaderProgram
 from game.render.shaderprogram.PlasmaExplosionShaderProgram import *
 from game.render.shaderprogram.PlasmaRayShaderProgram import PlasmaRayShaderProgram
@@ -44,11 +44,11 @@ class ShaderProgramCollection:
             ]
         )
 
-        self.launcherBulletTrace = LauncherBulletTraceShaderProgram(
+        self.particleBulletTrace = ParticleBulletTraceShaderProgram(
             [
                 self.shaderCollection.common,
-                self.shaderCollection.launcherBulletTraceVertex,
-                self.shaderCollection.launcherBulletTraceFragment,
+                self.shaderCollection.particleBulletTraceVertex,
+                self.shaderCollection.particleBulletTraceFragment,
             ]
         )
 

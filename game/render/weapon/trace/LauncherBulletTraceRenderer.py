@@ -27,7 +27,7 @@ class LauncherBulletTraceRenderer:
         self.blurRenderer.blur(32)
 
     def prepareShader(self, camera):
-        shader = self.shaderProgramCollection.launcherBulletTrace
+        shader = self.shaderProgramCollection.particleBulletTrace
         shader.use()
         shader.setViewMatrix(camera.viewMatrix)
         shader.setProjectionMatrix(camera.projectionMatrix)
@@ -35,7 +35,7 @@ class LauncherBulletTraceRenderer:
         shader.unuse()
 
     def updateAndRenderTraces(self, traces):
-        shader = self.shaderProgramCollection.launcherBulletTrace
+        shader = self.shaderProgramCollection.particleBulletTrace
         shader.use()
         for trace in traces:
             self.updateAndRenderTrace(trace, shader)
