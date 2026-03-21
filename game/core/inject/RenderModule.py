@@ -81,7 +81,7 @@ from game.render.weapon.RayRenderer import *
 from game.render.weapon.ShineBulletRenderer import *
 from game.render.weapon.SniperCrosshairRenderer import *
 from game.render.weapon.trace.DebrisTraceRenderer import *
-from game.render.weapon.trace.LauncherBulletTraceRenderer import *
+from game.render.weapon.trace.ParticleBulletTraceRenderer import *
 from game.render.weapon.trace.RailgunBulletTraceRenderer import *
 from game.render.weapon.trace.RayBulletTraceRenderer import *
 from game.render.weapon.trace.RifleBulletTraceRenderer import *
@@ -181,7 +181,7 @@ class RenderModule:
         binder.bindSingleton(ShineBulletRenderer)
         binder.bindSingleton(SniperCrosshairRenderer)
         binder.bindSingleton(DebrisTraceRenderer)
-        binder.bindSingleton(LauncherBulletTraceRenderer)
+        binder.bindSingleton(ParticleBulletTraceRenderer)
         binder.bindSingleton(RailgunBulletTraceRenderer)
         binder.bindSingleton(RayBulletTraceRenderer)
         binder.bindSingleton(RifleBulletTraceRenderer)

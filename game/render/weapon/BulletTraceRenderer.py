@@ -5,7 +5,7 @@ from game.model.weapon.Railgun import RailgunBulletTrace
 from game.model.weapon.Rifle import RifleBulletTrace
 from game.model.weapon.Sniper import SniperBulletTrace
 from game.render.weapon.trace.DebrisTraceRenderer import DebrisTraceRenderer
-from game.render.weapon.trace.LauncherBulletTraceRenderer import *
+from game.render.weapon.trace.ParticleBulletTraceRenderer import *
 from game.render.weapon.trace.RailgunBulletTraceRenderer import *
 from game.render.weapon.trace.RifleBulletTraceRenderer import *
 from game.render.weapon.trace.SniperBulletTraceRenderer import *
@@ -16,7 +16,7 @@ class BulletTraceRenderer:
     def __init__(
         self,
         rifleBulletTraceRenderer: RifleBulletTraceRenderer,
-        launcherBulletTraceRenderer: LauncherBulletTraceRenderer,
+        launcherBulletTraceRenderer: ParticleBulletTraceRenderer,
         railgunBulletTraceRenderer: RailgunBulletTraceRenderer,
         sniperBulletTraceRenderer: SniperBulletTraceRenderer,
         debrisTraceRenderer: DebrisTraceRenderer,

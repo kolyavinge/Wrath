@@ -1,12 +1,12 @@
 from game.anx.CommonConstants import CommonConstants
 from game.render.anx.BlurRenderer import BlurRenderer
-from game.render.anx.ParticleBufferPool import ParticleBufferPool
 from game.render.anx.BulletTraceParticleBufferInitializer import *
+from game.render.anx.ParticleBufferPool import ParticleBufferPool
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.lib.FeedbackParticleRenderer import FeedbackParticleRenderer
 
 
-class LauncherBulletTraceRenderer:
+class ParticleBulletTraceRenderer:
 
     def __init__(
         self,
