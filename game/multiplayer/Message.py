@@ -1,5 +1,5 @@
 from game.model.snapshot.SnapshotDiff import SnapshotDiff
-from game.network.contracts import *
+from game.multiplayer.contracts import *
 
 
 class MessageType:

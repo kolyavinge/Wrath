@@ -1,8 +1,8 @@
-from game.network.GameStateSynchronizer import GameStateSynchronizer
-from game.network.Message import Message, MessageType
-from game.network.SendMessageResult import SendMessageResult
-from game.network.SnapshotDiffLogic import SnapshotDiffLogic
-from game.network.SnapshotFactory import SnapshotFactory
+from game.multiplayer.GameStateSynchronizer import GameStateSynchronizer
+from game.multiplayer.Message import Message, MessageType
+from game.multiplayer.SendMessageResult import SendMessageResult
+from game.multiplayer.SnapshotDiffLogic import SnapshotDiffLogic
+from game.multiplayer.SnapshotFactory import SnapshotFactory
 
 
 class ClientMultiplayerSynchronizer:

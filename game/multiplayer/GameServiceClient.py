@@ -1,9 +1,9 @@
 from socket import AF_INET, SOCK_STREAM, socket
 
 from game.anx.ConfigManager import ConfigManager
-from game.network.contracts import EmptyRequest
-from game.network.Message import Message, MessageType
-from game.network.MessageSerializer import MessageSerializer
+from game.multiplayer.contracts import EmptyRequest
+from game.multiplayer.Message import Message, MessageType
+from game.multiplayer.MessageSerializer import MessageSerializer
 
 
 class GameServiceClient:

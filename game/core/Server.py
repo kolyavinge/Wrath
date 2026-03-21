@@ -1,7 +1,7 @@
 from game.anx.CommonConstants import CommonConstants
 from game.lib.Time import Time
 from game.model.snapshot.ServerSnapshot import ServerSnapshot
-from game.network.EmptyMessageChannel import EmptyMessageChannel
+from game.multiplayer.EmptyMessageChannel import EmptyMessageChannel
 
 
 class ConnectedClient:

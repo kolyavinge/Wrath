@@ -2,9 +2,9 @@ from queue import Queue
 from socket import AF_INET, SOCK_DGRAM, socket
 from threading import Thread
 
-from game.network.Message import Message
-from game.network.MessageSerializer import MessageSerializer
-from game.network.SendMessageResult import SendMessageResult
+from game.multiplayer.Message import Message
+from game.multiplayer.MessageSerializer import MessageSerializer
+from game.multiplayer.SendMessageResult import SendMessageResult
 
 
 class NetMessageChannel:

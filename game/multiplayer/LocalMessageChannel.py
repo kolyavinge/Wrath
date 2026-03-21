@@ -1,4 +1,4 @@
-from game.network.SendMessageResult import SendMessageResult
+from game.multiplayer.SendMessageResult import SendMessageResult
 
 
 class MessageHolder:

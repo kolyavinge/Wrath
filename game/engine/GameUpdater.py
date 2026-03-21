@@ -1,8 +1,8 @@
 from game.anx.CommonConstants import CommonConstants
 from game.engine.ClientUpdater import ClientUpdater
 from game.engine.ServerUpdater import ServerUpdater
-from game.network.ClientMultiplayerSynchronizer import ClientMultiplayerSynchronizer
-from game.network.ServerMultiplayerSynchronizer import ServerMultiplayerSynchronizer
+from game.multiplayer.ClientMultiplayerSynchronizer import ClientMultiplayerSynchronizer
+from game.multiplayer.ServerMultiplayerSynchronizer import ServerMultiplayerSynchronizer
 from game.tools.CpuProfiler import cpuProfile
 from game.tools.timeProfile import timeProfile
 

@@ -1,5 +1,5 @@
 from game.model.snapshot.ClientSnapshot import ClientSnapshot
-from game.network.EmptyMessageChannel import EmptyMessageChannel
+from game.multiplayer.EmptyMessageChannel import EmptyMessageChannel
 
 
 class Client:

@@ -1,7 +1,7 @@
 from game.lib.collections.Dictionary import Dictionary
 from game.lib.collections.Set import Set
 from game.model.snapshot.SnapshotDiff import SnapshotDiff
-from game.network.SnapshotPersonDiffLogic import SnapshotPersonDiffLogic
+from game.multiplayer.SnapshotPersonDiffLogic import SnapshotPersonDiffLogic
 
 
 class SnapshotDiffLogic:

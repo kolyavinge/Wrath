@@ -1,6 +1,6 @@
 from game.lib.io.BinaryReader import BinaryReader
 from game.lib.io.BinaryWriter import BinaryWriter
-from game.network.Message import Message
+from game.multiplayer.Message import Message
 
 
 class MessageSerializer:

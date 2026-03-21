@@ -1,7 +1,7 @@
 from game.anx.ConfigManager import ConfigManager
-from game.network.EmptyMessageChannel import EmptyMessageChannel
-from game.network.GameServiceClient import GameServiceClient
-from game.network.NetMessageChannel import NetMessageChannel
+from game.multiplayer.EmptyMessageChannel import EmptyMessageChannel
+from game.multiplayer.GameServiceClient import GameServiceClient
+from game.multiplayer.NetMessageChannel import NetMessageChannel
 
 
 class ClientConnectionLogic:

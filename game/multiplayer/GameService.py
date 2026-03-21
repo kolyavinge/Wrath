@@ -1,9 +1,9 @@
 from game.anx.ConfigManager import ConfigManager
 from game.lib.net.TcpService import TcpService
-from game.network.contracts import ConnectToServerResponse
-from game.network.Message import Message, MessageType
-from game.network.MessageSerializer import MessageSerializer
-from game.network.ServerConnectionLogic import ServerConnectionLogic
+from game.multiplayer.contracts import ConnectToServerResponse
+from game.multiplayer.Message import Message, MessageType
+from game.multiplayer.MessageSerializer import MessageSerializer
+from game.multiplayer.ServerConnectionLogic import ServerConnectionLogic
 
 
 class GameService:

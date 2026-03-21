@@ -16,11 +16,11 @@ from game.engine.person.LevelSegmentVisibilityUpdater import *
 from game.engine.person.PersonInitializer import PersonInitializer
 from game.engine.person.PersonWeaponPositionUpdater import PersonWeaponPositionUpdater
 from game.engine.weapon.WeaponFlashUpdater import WeaponFlashUpdater
-from game.network.ClientConnectionLogic import ClientConnectionLogic
-from game.network.ClientMultiplayerSynchronizer import ClientMultiplayerSynchronizer
-from game.network.GameService import GameService
-from game.network.ServerConnectionLogic import ServerConnectionLogic
-from game.network.ServerMultiplayerSynchronizer import ServerMultiplayerSynchronizer
+from game.multiplayer.ClientConnectionLogic import ClientConnectionLogic
+from game.multiplayer.ClientMultiplayerSynchronizer import ClientMultiplayerSynchronizer
+from game.multiplayer.GameService import GameService
+from game.multiplayer.ServerConnectionLogic import ServerConnectionLogic
+from game.multiplayer.ServerMultiplayerSynchronizer import ServerMultiplayerSynchronizer
 from game.render.common.MaterialTextureCollection import MaterialTextureCollection
 from game.render.common.ShaderCollection import ShaderCollection
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
