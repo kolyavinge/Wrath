@@ -80,6 +80,7 @@ class ClientUpdater:
     bulletTraceUpdater: BulletTraceUpdater
     bulletUpdater: BulletUpdater
     explosionUpdater: ExplosionUpdater
+    nonStandardBulletMovingUpdater: NonStandardBulletMovingUpdater
     sniperAimFloatingUpdater: SniperAimFloatingUpdater
     rayPositionUpdater: RayPositionUpdater
     weaponAltFireUpdater: WeaponAltFireUpdater
@@ -112,6 +113,7 @@ class ClientUpdater:
         self.weaponDelayUpdater.updateForPlayer(gameState)
         self.weaponFireUpdater.updateForPlayer(gameState)
         self.weaponAltFireUpdater.updateForPlayer(gameState)
+        self.nonStandardBulletMovingUpdater.update(gameState)
         self.bulletPositionUpdater.moveNextPosition(gameState)
         self.bulletCollisionUpdater.updateForConstructions(gameState)
         self.bulletPositionUpdater.commitNextPosition(gameState)

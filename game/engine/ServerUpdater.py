@@ -27,7 +27,6 @@ from game.engine.weapon.BulletUpdater import BulletUpdater
 from game.engine.weapon.ExplosionUpdater import ExplosionUpdater
 from game.engine.weapon.NonStandardBulletMovingUpdater import *
 from game.engine.weapon.RayPositionUpdater import RayPositionUpdater
-from game.engine.weapon.SelectWeaponRequestListener import SelectWeaponRequestListener
 from game.engine.weapon.WeaponAltFireUpdater import WeaponAltFireUpdater
 from game.engine.weapon.WeaponDelayUpdater import WeaponDelayUpdater
 from game.engine.weapon.WeaponFireUpdater import WeaponFireUpdater
@@ -50,6 +49,7 @@ class ServerUpdater:
     personLifeCycleUpdater: PersonLifeCycleUpdater
     personMovingTimeUpdater: PersonMovingTimeUpdater
     personPositionUpdater: PersonPositionUpdater
+    personSelectedWeaponPositionUpdater: PersonSelectedWeaponPositionUpdater
     personRespawnUpdater: PersonRespawnUpdater
     personTurnUpdater: PersonTurnUpdater
     personUpdater: PersonUpdater
@@ -65,8 +65,6 @@ class ServerUpdater:
     weaponAltFireUpdater: WeaponAltFireUpdater
     weaponDelayUpdater: WeaponDelayUpdater
     weaponFireUpdater: WeaponFireUpdater
-    # event listeners
-    selectWeaponRequestListener: SelectWeaponRequestListener
 
     def update(self, gameState):
         self.personTurnUpdater.updateForBots(gameState)
@@ -84,6 +82,7 @@ class ServerUpdater:
         self.personFloorUpdater.commitAllPersonNextFloor(gameState)
         self.personLevelSegmentsUpdater.updateForAllPerson(gameState)
         self.personWeaponPositionUpdater.update(gameState)
+        self.personSelectedWeaponPositionUpdater.update(gameState)
         self.weaponDelayUpdater.updateForBots(gameState)
         self.weaponFireUpdater.updateForEnemies(gameState)
         self.weaponAltFireUpdater.updateForBots(gameState)
