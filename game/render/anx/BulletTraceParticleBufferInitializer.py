@@ -4,7 +4,7 @@ from game.render.lib.FeedbackParticleBufferFactory import *
 from game.render.lib.ParticleBuffer import ExtraParticleDataBuffers
 
 
-class LauncherBulletTraceParticleBufferInitializer:
+class BulletTraceParticleBufferInitializer:
 
     def __init__(self, particleBufferFactory: FeedbackParticleBufferFactory):
         self.particleBufferFactory = particleBufferFactory

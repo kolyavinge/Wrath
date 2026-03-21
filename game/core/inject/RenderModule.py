@@ -1,6 +1,6 @@
 from game.render.anx.BlurRenderer import *
+from game.render.anx.BulletTraceParticleBufferInitializer import *
 from game.render.anx.FireExplosionParticleBufferInitializer import *
-from game.render.anx.LauncherBulletTraceParticleBufferInitializer import *
 from game.render.anx.PlaneRayRenderer import *
 from game.render.anx.PlasmaExplosionParticleBufferInitializer import *
 from game.render.anx.ShineCircleRenderer import *
@@ -99,8 +99,8 @@ class RenderModule:
 
     def init(self, binder):
         binder.bindSingleton(BlurRenderer)
+        binder.bindSingleton(BulletTraceParticleBufferInitializer)
         binder.bindSingleton(FireExplosionParticleBufferInitializer)
-        binder.bindSingleton(LauncherBulletTraceParticleBufferInitializer)
         binder.bindSingleton(PlaneRayRenderer)
         binder.bindSingleton(PlasmaExplosionParticleBufferInitializer)
         binder.bindSingleton(ShineCircleRenderer)
