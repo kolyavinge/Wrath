@@ -81,10 +81,12 @@ from game.render.weapon.RayRenderer import *
 from game.render.weapon.ShineBulletRenderer import *
 from game.render.weapon.SniperCrosshairRenderer import *
 from game.render.weapon.trace.DebrisTraceRenderer import *
+from game.render.weapon.trace.LauncherBulletTraceRenderer import *
 from game.render.weapon.trace.ParticleBulletTraceRenderer import *
 from game.render.weapon.trace.RailgunBulletTraceRenderer import *
 from game.render.weapon.trace.RayBulletTraceRenderer import *
 from game.render.weapon.trace.RifleBulletTraceRenderer import *
+from game.render.weapon.trace.RifleGrenadeTraceRenderer import *
 from game.render.weapon.trace.SniperBulletTraceRenderer import *
 from game.render.weapon.WeaponAltRenderer import *
 from game.render.weapon.WeaponFlashRenderCollection import *
@@ -181,10 +183,12 @@ class RenderModule:
         binder.bindSingleton(ShineBulletRenderer)
         binder.bindSingleton(SniperCrosshairRenderer)
         binder.bindSingleton(DebrisTraceRenderer)
+        binder.bindSingleton(LauncherBulletTraceRenderer)
         binder.bindSingleton(ParticleBulletTraceRenderer)
         binder.bindSingleton(RailgunBulletTraceRenderer)
         binder.bindSingleton(RayBulletTraceRenderer)
         binder.bindSingleton(RifleBulletTraceRenderer)
+        binder.bindSingleton(RifleGrenadeTraceRenderer)
         binder.bindSingleton(SniperBulletTraceRenderer)
         binder.bindSingleton(WeaponAltRenderer)
         binder.bindSingleton(WeaponFlashRenderCollection)

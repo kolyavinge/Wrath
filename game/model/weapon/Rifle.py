@@ -4,7 +4,7 @@ from game.lib.DecrementCounter import DecrementCounter
 from game.model.Material import Material
 from game.model.weapon.Bullet import Bullet
 from game.model.weapon.BulletHoleInfo import BulletHoleInfo
-from game.model.weapon.BulletTrace import RayBulletTrace
+from game.model.weapon.BulletTrace import BulletTrace, RayBulletTrace
 from game.model.weapon.Debris import Debris
 from game.model.weapon.Explosion import Explosion
 from game.model.weapon.Grenade import Grenade
@@ -36,6 +36,19 @@ class RifleBullet(Bullet):
         self.holeInfo = BulletHoleInfo.smallHole
 
 
+class RifleGrenadeTrace(BulletTrace):
+
+    def __init__(self):
+        super().__init__()
+        self.particlesInGroup = 100
+        self.particleGroupsCount = 10
+        self.initDelayMsec = 50
+        self.particleAppearanceDelayMsec = 40
+        self.particleLifeTimeMsec = self.particleAppearanceDelayMsec * (self.particleGroupsCount - 1)
+        self.particleSize = 0.01
+        self.aliveRemainCounter.set(50)
+
+
 class RifleGrenadeExplosion(Explosion):
 
     def __init__(self):
@@ -50,12 +63,13 @@ class RifleGrenadeExplosion(Explosion):
 class RifleGrenade(Grenade):
 
     def __init__(self):
-        super().__init__(None, RifleGrenadeExplosion)
+        super().__init__(RifleGrenadeTrace, RifleGrenadeExplosion)
         self.velocityValue = 0.5
         self.accelValue = 0.05
         self.gravityValue = 0.01
         self.damagePercent = 0
         self.ricochetVelocityCoeff = 0.2
+        self.nozzleRadius = 0.05
         self.holeInfo = BulletHoleInfo.explosionHole
         self.detonationTimeout = DecrementCounter(50)
 

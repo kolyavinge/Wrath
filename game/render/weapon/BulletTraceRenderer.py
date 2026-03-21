@@ -2,12 +2,13 @@ from game.model.weapon.Debris import DebrisBulletTrace
 from game.model.weapon.Launcher import LauncherBulletTrace
 from game.model.weapon.Pistol import PistolBulletTrace
 from game.model.weapon.Railgun import RailgunBulletTrace
-from game.model.weapon.Rifle import RifleBulletTrace
+from game.model.weapon.Rifle import RifleBulletTrace, RifleGrenadeTrace
 from game.model.weapon.Sniper import SniperBulletTrace
 from game.render.weapon.trace.DebrisTraceRenderer import DebrisTraceRenderer
-from game.render.weapon.trace.ParticleBulletTraceRenderer import *
+from game.render.weapon.trace.LauncherBulletTraceRenderer import *
 from game.render.weapon.trace.RailgunBulletTraceRenderer import *
 from game.render.weapon.trace.RifleBulletTraceRenderer import *
+from game.render.weapon.trace.RifleGrenadeTraceRenderer import RifleGrenadeTraceRenderer
 from game.render.weapon.trace.SniperBulletTraceRenderer import *
 
 
@@ -16,7 +17,8 @@ class BulletTraceRenderer:
     def __init__(
         self,
         rifleBulletTraceRenderer: RifleBulletTraceRenderer,
-        launcherBulletTraceRenderer: ParticleBulletTraceRenderer,
+        rifleGrenadeTraceRenderer: RifleGrenadeTraceRenderer,
+        launcherBulletTraceRenderer: LauncherBulletTraceRenderer,
         railgunBulletTraceRenderer: RailgunBulletTraceRenderer,
         sniperBulletTraceRenderer: SniperBulletTraceRenderer,
         debrisTraceRenderer: DebrisTraceRenderer,
@@ -24,6 +26,7 @@ class BulletTraceRenderer:
         self.renderers = {}
         self.renderers[PistolBulletTrace] = rifleBulletTraceRenderer
         self.renderers[RifleBulletTrace] = rifleBulletTraceRenderer
+        self.renderers[RifleGrenadeTrace] = rifleGrenadeTraceRenderer
         self.renderers[LauncherBulletTrace] = launcherBulletTraceRenderer
         self.renderers[RailgunBulletTrace] = railgunBulletTraceRenderer
         self.renderers[SniperBulletTrace] = sniperBulletTraceRenderer

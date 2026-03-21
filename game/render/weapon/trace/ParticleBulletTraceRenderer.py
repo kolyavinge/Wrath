@@ -1,7 +1,6 @@
 from game.anx.CommonConstants import CommonConstants
 from game.render.anx.BlurRenderer import BlurRenderer
 from game.render.anx.BulletTraceParticleBufferInitializer import *
-from game.render.anx.ParticleBufferPool import ParticleBufferPool
 from game.render.common.ShaderProgramCollection import ShaderProgramCollection
 from game.render.lib.FeedbackParticleRenderer import FeedbackParticleRenderer
 
@@ -12,18 +11,16 @@ class ParticleBulletTraceRenderer:
         self,
         particleRenderer: FeedbackParticleRenderer,
         blurRenderer: BlurRenderer,
-        bufferInitializer: BulletTraceParticleBufferInitializer,
         shaderProgramCollection: ShaderProgramCollection,
     ):
         self.particleRenderer = particleRenderer
         self.blurRenderer = blurRenderer
-        self.bufferPool = ParticleBufferPool(bufferInitializer)
         self.shaderProgramCollection = shaderProgramCollection
 
-    def renderTraces(self, traces, camera):
+    def renderTraces(self, traces, camera, bufferPool):
         self.blurRenderer.prepare()
         self.prepareShader(camera)
-        self.updateAndRenderTraces(traces)
+        self.updateAndRenderTraces(traces, bufferPool)
         self.blurRenderer.blur(32)
 
     def prepareShader(self, camera):
@@ -34,14 +31,14 @@ class ParticleBulletTraceRenderer:
         shader.setDeltaTime(CommonConstants.mainTimerMsec)
         shader.unuse()
 
-    def updateAndRenderTraces(self, traces):
+    def updateAndRenderTraces(self, traces, bufferPool):
         shader = self.shaderProgramCollection.particleBulletTrace
         shader.use()
         for trace in traces:
-            self.updateAndRenderTrace(trace, shader)
+            self.updateAndRenderTrace(trace, shader, bufferPool)
         shader.unuse()
 
-    def updateAndRenderTrace(self, trace, shader):
+    def updateAndRenderTrace(self, trace, shader, bufferPool):
         shader.setTracePosition(trace.currentPosition)
         shader.setBulletDirection(trace.bullet.direction)
         shader.setBulletDirectionTopNormal(trace.bullet.weapon.directionTopNormal)
@@ -49,7 +46,7 @@ class ParticleBulletTraceRenderer:
         shader.setIsBulletAlive(trace.bullet.isAlive)
         shader.setParticleLifeTime(trace.particleLifeTimeMsec)
         shader.setParticleSize(trace.particleSize)
-        particleBuffer = self.bufferPool.getBufferFor(trace)
+        particleBuffer = bufferPool.getBufferFor(trace)
         self.particleRenderer.update(particleBuffer, shader)
         self.particleRenderer.render(particleBuffer, shader, 24)
         particleBuffer.swapBuffers()
