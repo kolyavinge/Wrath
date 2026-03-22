@@ -14,6 +14,7 @@ class UpdateStatistic:
         self.pickedUpPowerups = []
         self.newExplosions = []
         self.newBulletHoles = []
+        self.bulletRicochets = []
         self.activatedRays = []
         self.deactivatedRays = []
         self.activatedRailgunCharging = []

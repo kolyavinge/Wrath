@@ -59,6 +59,7 @@ class BulletCollisionUpdater:
             bullet.velocity.setLength(bullet.velocityValue)
             bullet.accelValue = 0
             bullet.totalDistance = 0
+            gameState.updateStatistic.bulletRicochets.append(bullet)
         else:
             self.bulletLogic.setNotAlive(bullet)
             bullet.damagedObject = construction
