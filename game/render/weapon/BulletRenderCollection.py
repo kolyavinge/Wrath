@@ -31,8 +31,8 @@ class BulletRenderCollection:
         self.makeLauncherBullet()
 
     def makeRifleGrenade(self):
-        model = self.bulletModel3dFactory.makeLauncherBullet()
-        self.models[RifleGrenade] = self.renderModel3dLoader.make(model, Material.launcherBullet)
+        model = self.bulletModel3dFactory.makeRifleGrenade()
+        self.models[RifleGrenade] = self.renderModel3dLoader.make(model, Material.rifleGrenade)
 
     def makePlasmaBullet(self):
         model = self.bulletModel3dFactory.makePlasmaBullet()

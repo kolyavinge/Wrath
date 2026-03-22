@@ -1,4 +1,5 @@
-from game.lib.calc.Geometry import Geometry
+from game.lib.Math import Math
+from game.lib.Random import Random
 from game.lib.calc.Vector3 import Vector3
 from game.lib.DecrementCounter import DecrementCounter
 from game.model.Material import Material
@@ -71,10 +72,13 @@ class RifleGrenade(Grenade):
         self.ricochetVelocityCoeff = 0.2
         self.nozzleRadius = 0.05
         self.holeInfo = BulletHoleInfo.explosionHole
+        self.pitchRadiansDelta = Random.getFloat(-0.5, 0.5)
+        self.yawRadiansDelta = Random.getFloat(-0.5, 0.5)
         self.detonationTimeout = DecrementCounter(50)
 
     def update(self):
-        self.rollRadians = Geometry.normalizeRadians(self.pitchRadians + 0.1)
+        self.pitchRadians += self.pitchRadiansDelta * self.velocityValue
+        self.yawRadians += self.yawRadiansDelta * self.velocityValue
 
 
 class Rifle(Weapon):

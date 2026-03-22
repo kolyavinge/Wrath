@@ -39,8 +39,8 @@ class PlasmaBullet(Bullet):
         self.homingRadians = Geometry.degreesToRadians(0.5)
 
     def update(self):
-        self.pitchRadians = Geometry.normalizeRadians(self.pitchRadians + 0.1)
-        self.yawRadians = Geometry.normalizeRadians(self.yawRadians + 0.1)
+        self.pitchRadians += 0.1
+        self.yawRadians += 0.1
 
 
 class PlasmaRay(Ray):

@@ -12,6 +12,12 @@ class BulletModel3dFactory:
         self.model3dLoader = model3dLoader
         self.model3dDirectory = model3dDirectory
 
+    def makeRifleGrenade(self):
+        model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("rifleGrenade"))
+        model.setScale(12)
+
+        return model
+
     def makePlasmaBullet(self):
         model = self.model3dLoader.load(self.model3dDirectory.getModelFileFromDirectory("plasmaBullet"))
         model.setScale(0.05)

@@ -43,6 +43,7 @@ Material.edgeMetal3 = Material(MaterialKind.metal, 0.2, 1.0, 0.5, 8.0)
 
 Material.weapon = Material(MaterialKind.metal, 0.2, 0.2, 0.2, 8.0)
 
+Material.rifleGrenade = Material(MaterialKind.none, 1.0, 0.0, 0.0, 1.0)
 Material.plasmaBullet = Material(MaterialKind.none, 1.0, 0.0, 0.0, 1.0)
 Material.launcherBullet = Material(MaterialKind.none, 0.2, 0.5, 0.5, 8.0)
 
