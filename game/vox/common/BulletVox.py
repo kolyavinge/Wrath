@@ -20,6 +20,7 @@ class BulletVox:
 
     def vox(self, updateStatistic):
         for bullet in updateStatistic.bulletRicochets:
-            source = self.source.bulletRicochetsPool[type(bullet)].getAudioSource()
-            source.setPosition(bullet.currentPosition)
-            self.audioPlayer.play(source)
+            if type(bullet) in self.source.bulletRicochetsPool:
+                source = self.source.bulletRicochetsPool[type(bullet)].getAudioSource()
+                source.setPosition(bullet.currentPosition)
+                self.audioPlayer.play(source)
