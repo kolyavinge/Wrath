@@ -24,6 +24,9 @@ class AudioPlayer:
     def play(self, audioSource):
         alSourcePlay(audioSource.id)
 
+    def stop(self, audioSource):
+        alSourceStop(audioSource.id)
+
     def setListenerPosition(self, position, lookDirection):
         alListener3f(AL_POSITION, numpy.float32(position.x), numpy.float32(position.y), numpy.float32(position.z))
 

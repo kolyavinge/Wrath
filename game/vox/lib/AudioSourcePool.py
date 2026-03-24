@@ -4,11 +4,13 @@ class AudioSourcePool:
         self.makeAudioSourceFunc = makeAudioSourceFunc
         self.sources = []
 
-    def getAudioSource(self):
+    def getAudioSource(self, object=None):
         source = self.findFreeSourceOrNone()
         if source is None:
             source = self.makeAudioSourceFunc()
             self.sources.append(source)
+
+        source.object = object
 
         return source
 
