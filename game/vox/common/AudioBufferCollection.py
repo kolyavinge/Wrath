@@ -32,6 +32,7 @@ class AudioBufferCollection:
         self.plasmaShot = loadWav("plasmaShot")
         self.plasmaExplosion = loadWav("plasmaExplosion")
         self.launcherShot = loadWav("launcherShot")
+        self.launcherBullet = loadWav("launcherBullet")
         self.launcherExplosion = loadWav("launcherExplosion")
         self.railgunShot = loadWav("railgunShot")
         self.sniperShot = loadWav("sniperShot")

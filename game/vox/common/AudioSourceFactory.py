@@ -69,6 +69,9 @@ class AudioSourceFactory:
     def makeLauncherShot(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.launcherShot)
 
+    def makeLauncherBullet(self):
+        return self.audioSourceLoader.load(self.audioBufferCollection.launcherBullet)
+
     def makeLauncherExplosion(self):
         return self.audioSourceLoader.load(self.audioBufferCollection.launcherExplosion)
 

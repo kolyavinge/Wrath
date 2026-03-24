@@ -19,6 +19,19 @@ class BulletVox:
         allSources.append(self.source)
 
     def vox(self, updateStatistic):
+        for person, weapon, bullet in updateStatistic.firedWeapons:
+            if type(bullet) in self.source.bulletsPool:
+                source = self.source.bulletsPool[type(bullet)].getAudioSource(bullet)
+                source.setPosition(bullet.currentPosition)
+                self.audioPlayer.play(source)
+
+        for pool in self.source.bulletsPool.values():
+            for source in pool.sources:
+                if source.isPlaying():
+                    bullet = source.object
+                    if not bullet.isAlive:
+                        self.audioPlayer.stop(source)
+
         for bullet in updateStatistic.bulletRicochets:
             if type(bullet) in self.source.bulletRicochetsPool:
                 source = self.source.bulletRicochetsPool[type(bullet)].getAudioSource()
