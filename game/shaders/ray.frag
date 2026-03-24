@@ -5,7 +5,7 @@ out vec4 FragColor;
 in vec3 Position;
 in flat int RayIndex;
 
-const int maxRaysCount = 100;
+const int maxRaysCount = 20;
 
 uniform vec3 origins[maxRaysCount];
 uniform vec3 mainAxes[maxRaysCount];
