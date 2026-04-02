@@ -25,8 +25,8 @@ class LauncherExplosion(Explosion):
 
     def __init__(self):
         super().__init__(Debris)
-        self.maxRadius = 4
-        self.velocityValue = 0.1
+        self.maxRadius = 5
+        self.velocityValue = 1.0
         self.damagePercent = 0.02
         self.debrisCount = 10
         self.aliveRemainCounter.set(150)

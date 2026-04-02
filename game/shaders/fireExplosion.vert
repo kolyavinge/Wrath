@@ -67,7 +67,7 @@ vec3 getFireDistance(float age)
 
 float getFireSize(float age)
 {
-    return 1.5 * clamp(age / 0.1, 0.0, 1.0);
+    return 2.5 * clamp(age / 0.1, 0.0, 1.0);
 }
 
 vec4 getFireColor(float age)
@@ -108,7 +108,7 @@ vec3 getSmokeDistance(float age)
 
 float getSmokeSize(float age)
 {
-    return getParticleAgePercent(age);
+    return 2.0 * getParticleAgePercent(age);
 }
 
 vec4 getSmokeColor(float age)
